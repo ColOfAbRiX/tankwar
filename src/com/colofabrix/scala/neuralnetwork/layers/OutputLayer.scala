@@ -1,6 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.layers
 
-import com.colofabrix.scala.neuralnetwork.abstracts.NeuronLayer
+import com.colofabrix.scala.neuralnetwork.abstracts.{ActivationFunction, NeuronLayer}
 
 /**
  * It represents the output layer of a NN
@@ -15,7 +15,7 @@ import com.colofabrix.scala.neuralnetwork.abstracts.NeuronLayer
  * @param weights The set of input weights. Every neuron has n_inputs weights.
  */
 class OutputLayer (
-  activation: Double => Double,
+  activation: ActivationFunction,
   n_inputs: Int, n_outputs: Int,
   biases: Seq[Double], weights: Seq[Seq[Double]] )
 extends NeuronLayer(

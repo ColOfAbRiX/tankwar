@@ -88,6 +88,9 @@ extends NeuralNetwork
     // Calculate the output of one layer and use it to feed the next layer
     all_layers.foldLeft( inputs )( (input, layer) => layer.output(input) )
   }
+
+  override def toString =
+    "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
 }
 
 object GenericNeuralNetwork {
@@ -103,7 +106,7 @@ object GenericNeuralNetwork {
    * @param af Selected activation function
    * @return A `GenericNeuralNetwork` represented by the input data
    */
-  def apply(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: Double => Double): GenericNeuralNetwork = {
+  def apply(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: ActivationFunction): GenericNeuralNetwork = {
     val combined = biases zip weights
 
     // These checks are done because we need a reliable set of data to extract information like the number of inputs
@@ -118,7 +121,8 @@ object GenericNeuralNetwork {
     // Input layer creation from the first index of the collections
     val input_layer = {
       val (b, w) = combined.head
-      new ExtendedInputLayer(af, w(0).length, w.length, b, w)
+      //new ExtendedInputLayer(af, w(0).length, w.length, b, w)
+      new InputLayer(w(0).length)
     }
     if( biases.length == 1 )
       return new GenericNeuralNetwork(input_layer)

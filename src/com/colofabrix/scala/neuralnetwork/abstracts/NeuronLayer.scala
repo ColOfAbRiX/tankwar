@@ -15,7 +15,7 @@ package com.colofabrix.scala.neuralnetwork.abstracts
  * @param weights The set of input weights. Every neuron has n_inputs weights.
  */
 abstract class NeuronLayer (
-  val activation: Double => Double,
+  val activation: ActivationFunction,
   override val n_inputs: Int,
   override val n_outputs: Int,
   override val biases: Seq[Double],
@@ -39,19 +39,21 @@ extends Weighted[Double] with Biased[Double]
     case that: NeuronLayer =>
       this.canEqual(that) &&
       this.biases == that.biases &&
-      this.weights == that.weights
+      this.weights == that.weights &&
+      this.activation == that.activation
     case _ => false
   }
 
-  override def hashCode: Int = {
+  override def hashCode: Int =
     41 * (
       41 * (
-        41 + this.activation.hashCode
-      ) + this.biases.hashCode
-    ) + this.weights.hashCode
-  }
+        41 * (
+          41 + this.activation.hashCode
+        ) + this.biases.hashCode
+      ) + this.weights.hashCode
+    ) + this.activation.hashCode
 
-  def canEqual( other: Any ): Boolean =
+  protected def canEqual( other: Any ): Boolean =
     other.isInstanceOf[NeuronLayer]
 
   /**
@@ -67,6 +69,10 @@ extends Weighted[Double] with Biased[Double]
     require( inputs.length == n_inputs, "The actual inputs must match the number of set inputs for the layer" )
 
     for( o <- 0 until n_outputs ) yield
-      (inputs zip weights(o) map { case (i, w) => i * w } sum ) + biases(o)
+      activation( (inputs zip weights(o) map { case (i, w) => i * w } sum ) + biases(o) )
+  }
+
+  override def toString = {
+    "(" + activation.toString + ", " + biases.toString + ", " + weights.toString + ")"
   }
 }

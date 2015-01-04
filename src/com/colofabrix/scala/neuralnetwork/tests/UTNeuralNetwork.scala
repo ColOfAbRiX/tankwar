@@ -1,8 +1,11 @@
 package com.colofabrix.scala.neuralnetwork.tests
 
-import com.colofabrix.scala.neuralnetwork.GenericNeuralNetwork
+import com.colofabrix.scala.neuralnetwork._
+import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 import com.colofabrix.scala.neuralnetwork.layers._
 import org.scalatest._
+
+import scala.util.Random
 
 /**
  * Unit test for `GenericNeuralNetwork`
@@ -12,15 +15,15 @@ import org.scalatest._
 class UTNeuralNetwork extends WordSpec with Matchers {
 
   // Range of test values
-  private def linear( x: Double ) = x
-  private val inputs_range = -1.1 to (1.1, 0.2)
+  private val inputs_range: List[Double] = (-2.0 to (2.0, 0.1)).toList ::: List.fill(20)(Random.nextDouble * 10 - 5)
   private val tolerance = 1E-05
 
   // Various test layers
+  private val activation = ActivationFunction("sigmoid")
   private val input_layer = new InputLayer(1)
-  private val hidden_layer_1 = new HiddenLayer( linear, 1, 2, Seq(-1.0, 2.0), Seq(Seq(-3.0), Seq(4.0)) )
-  private val hidden_layer_2 =  new HiddenLayer( linear, 2, 3, Seq(-1.0, 0.0, 2.0), Seq(Seq(-3.0, -4.0), Seq(0.0, 0.0), Seq(5.0, 6.0)) )
-  private val output_layer = new OutputLayer( linear, 3, 1, Seq(0.0), Seq(Seq(-1.0, 0.0, 2.0)) )
+  private val hidden_layer_1 = new HiddenLayer( activation, 1, 2, Seq(-1.0, 2.0), Seq(Seq(-3.0), Seq(4.0)) )
+  private val hidden_layer_2 =  new HiddenLayer( activation, 2, 3, Seq(-1.0, 0.0, 2.0), Seq(Seq(-3.0, -4.0), Seq(0.0, 0.0), Seq(5.0, 6.0)) )
+  private val output_layer = new OutputLayer( activation, 3, 1, Seq(0.0), Seq(Seq(-1.0, 0.0, 2.0)) )
   private val eq_biases = Seq(
     Seq(0.0),
     Seq(-1.0, 2.0),
@@ -35,21 +38,24 @@ class UTNeuralNetwork extends WordSpec with Matchers {
   )
 
   // Tests a NN with the default values
-  private def test_with_default(nn: GenericNeuralNetwork) = {
+  private def test_with_default(nn: GenericNeuralNetwork, activation: ActivationFunction = activation) = {
 
     inputs_range foreach { i =>
+      val in = i
       val hd1 = (
-        -3.0 * i - 1.0,
-        4.0 * i + 2.0)
+        activation(-3.0 * in - 1.0),
+        activation(4.0 * in + 2.0) )
       val hd2 = (
-        -3.0 * hd1._1 - 4.0 * hd1._2 - 1.0,
-        0.0 * hd1._1 + 0.0 * hd1._2 + 0.0,
-        5.0 * hd1._1 + 6.0 * hd1._2 + 2.0)
-      val out = -1.0 * hd2._1 + 0.0 * hd2._2 + 2.0 * hd2._3 + 0.0
+        activation(-3.0 * hd1._1 - 4.0 * hd1._2 - 1.0),
+        activation( 0.0 * hd1._1 + 0.0 * hd1._2 + 0.0),
+        activation( 5.0 * hd1._1 + 6.0 * hd1._2 + 2.0) )
+      val expected = activation(-1.0 * hd2._1 + 0.0 * hd2._2 + 2.0 * hd2._3 + 0.0)
+      val output = nn.output(i)
 
-      nn.output(i)(0) should equal(out +- tolerance)
+      withClue( s"While i=$i, ") {
+        output(0) should equal(expected +- tolerance)
+      }
     }
-
   }
 
   "Initialization" should {
@@ -82,7 +88,9 @@ class UTNeuralNetwork extends WordSpec with Matchers {
   "Output" must {
 
     "Be valid for a complete NeuralNetwork" in {
-      test_with_default(new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer ))
+      test_with_default(
+        new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      )
     }
 
   }
@@ -113,8 +121,10 @@ class UTNeuralNetwork extends WordSpec with Matchers {
         val nn = new GenericNeuralNetwork(2)
 
         inputs_range foreach { i =>
-          nn.output(Seq(i, i))(0) should equal(i)
-          nn.output(Seq(i, i))(1) should equal(i)
+          withClue( s"While i=$i, ") {
+            nn.output(Seq(i, i))(0) should equal(i)
+            nn.output(Seq(i, i))(1) should equal(i)
+          }
         }
       }
 
@@ -123,12 +133,12 @@ class UTNeuralNetwork extends WordSpec with Matchers {
     "Used with collections" must {
 
       "Produce valid outputs" in {
-        test_with_default( GenericNeuralNetwork(eq_biases, eq_weights, x => x) )
+        test_with_default( GenericNeuralNetwork(eq_biases, eq_weights, activation) )
       }
 
       "Create a NN equivalent to a manual created one" in {
         val manual = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-        val built = GenericNeuralNetwork(eq_biases, eq_weights, x => x)
+        val built = GenericNeuralNetwork(eq_biases, eq_weights, activation)
 
         built should equal (manual)
       }

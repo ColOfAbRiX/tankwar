@@ -1,6 +1,9 @@
 package com.colofabrix.scala.neuralnetwork.tests
 
-import com.colofabrix.scala.neuralnetwork.abstracts.NeuronLayer
+import java.io.{File, PrintWriter}
+
+import com.colofabrix.scala.neuralnetwork.abstracts.{ActivationFunction, NeuronLayer}
+import com.colofabrix.scala.neuralnetwork.activationfunctions.{Linear, Sigmoid}
 import org.scalatest._
 
 /**
@@ -16,19 +19,19 @@ class UTLayer extends WordSpec with Matchers {
   private[UTLayer] class ConcreteNeuronLayer (
     n_inputs: Int = 1, n_outputs: Int = 1,
     bias: Seq[Double] = Seq(0.0),
-    weights: Seq[Seq[Double]] = Seq(Seq(1.0))
+    weights: Seq[Seq[Double]] = Seq(Seq(1.0)),
+    af: ActivationFunction = new Linear
   )
   extends NeuronLayer(
-    linear,
+    af,
     n_inputs, n_outputs,
     bias, weights
   )
 
   // Range of test values
-  private def linear( x: Double ) = x
   private val inputs_count = 1 to 3
   private val outputs_count = 1 to 3
-  private val inputs_range = -1.1 to (1.1, 0.2)
+  private val inputs_range = -2.0 to (2.0, 0.1)
   private val weights_range = -2.1 to (2.1, 0.5)
   private val bias_range = weights_range
   private val tolerance = 1E-05
@@ -106,6 +109,29 @@ class UTLayer extends WordSpec with Matchers {
 
   }
 
+  "Neuron" should {
+
+    "Be tested graphically" in {
+
+      val writer = new PrintWriter(new File("""out/activation-function.csv"""))
+
+      List(1, 5, 25) foreach { b =>
+        List(1, 5, 25) foreach { w =>
+          writer.write(s"b=$b, w=$w\n")
+          inputs_range foreach { i =>
+            writer.write(s"$i;".replace(".", ","))
+            val layer = new ConcreteNeuronLayer(1, 1, Seq(b), Seq(Seq(w)), ActivationFunction("sigmoid"))
+            writer.write(layer.output(i)(0).toString.replace(".", ",") + ";\n")
+          }
+        }
+      }
+
+      writer.close()
+
+    }
+
+  }
+
   "Outputs" must {
 
     "Match the Layer setup" in {
@@ -122,13 +148,12 @@ class UTLayer extends WordSpec with Matchers {
     }
 
     "Be a linear composition of inputs" in {
+
       for( w1 <- weights_range; w2 <- weights_range )
         for( b <- bias_range ) {
-
           val layer = new ConcreteNeuronLayer(2, 1, Seq(b), List(List(w1, w2)))
 
           for (i1 <- inputs_range; i2 <- inputs_range) {
-
             withClue(s"While checking with b=$b, w=($w1, $w2), i=($i1, $i2),") {
               layer.output(Seq(i1, i2))(0) should equal((w1 * i1 + w2 * i2 + b) +- tolerance)
             }
@@ -137,6 +162,7 @@ class UTLayer extends WordSpec with Matchers {
     }
 
     "Be valid for each output" in {
+
       for (w1 <- weights_range; w2 <- weights_range)
         for (b1 <- bias_range; b2 <- bias_range) {
 
@@ -147,6 +173,21 @@ class UTLayer extends WordSpec with Matchers {
             withClue(s"While checking with b=$b1, w=($w1, $w2), i=$i, ") {
               layer.output(i)(0) should equal((w1 * i + b1) +- tolerance)
               layer.output(i)(1) should equal((w2 * i + b2) +- tolerance)
+            }
+          }
+        }
+    }
+
+    "Be valid for any ActivationFunction" in {
+
+      for( w1 <- weights_range; w2 <- weights_range )
+        for( b <- bias_range ) {
+          val activation = new Sigmoid
+          val layer = new ConcreteNeuronLayer(2, 1, Seq(b), List(List(w1, w2)), activation)
+
+          for (i1 <- inputs_range; i2 <- inputs_range) {
+            withClue(s"While checking with b=$b, w=($w1, $w2), i=($i1, $i2),") {
+              layer.output(Seq(i1, i2))(0) should equal(activation(w1 * i1 + w2 * i2 + b) +- tolerance)
             }
           }
         }

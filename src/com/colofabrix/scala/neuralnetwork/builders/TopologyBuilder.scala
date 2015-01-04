@@ -1,6 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.builders
 
 import com.colofabrix.scala.neuralnetwork._
+import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 import com.colofabrix.scala.neuralnetwork.layers._
 
 import scala.util.Random
@@ -23,7 +24,7 @@ extends TopologyBuilder {
     val inputLayer = new InputLayer(n_inputs)
 
     val hiddenLayer = new HiddenLayer(
-      ActivationFunctions.tanh,
+      ActivationFunction("tanh"),
       n_inputs,
       n_hidden,
       Seq.fill(n_hidden)(getRandom),
@@ -31,7 +32,7 @@ extends TopologyBuilder {
     )
 
     val outputLayer = new OutputLayer(
-      ActivationFunctions.tanh,
+      ActivationFunction("tanh"),
       n_hidden,
       n_output,
       Seq.fill(n_output)(getRandom),
@@ -40,4 +41,12 @@ extends TopologyBuilder {
 
     new GenericNeuralNetwork(inputLayer, Seq(hiddenLayer), outputLayer)
   }
+}
+
+abstract class CollectionReader {
+  def getNextLayer: CollectionReader
+  def getNextNeuron: CollectionReader
+  def getNextInputWeight: Double
+  def getNextNeuronBias: Double
+  def getNextActivationFunction: ActivationFunction
 }
