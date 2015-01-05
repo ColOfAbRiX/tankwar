@@ -14,7 +14,8 @@ class Random3LNetwork (
   n_inputs: Int,
   n_hidden: Int,
   n_output: Int,
-  scaling: Double = 1.0
+  scaling: Double = 1.0,
+  activation: String = "tanh"
 )
 extends TopologyBuilder {
 
@@ -24,7 +25,7 @@ extends TopologyBuilder {
     val inputLayer = new InputLayer(n_inputs)
 
     val hiddenLayer = new HiddenLayer(
-      ActivationFunction("tanh"),
+      ActivationFunction(activation),
       n_inputs,
       n_hidden,
       Seq.fill(n_hidden)(getRandom),
@@ -32,7 +33,7 @@ extends TopologyBuilder {
     )
 
     val outputLayer = new OutputLayer(
-      ActivationFunction("tanh"),
+      ActivationFunction(activation),
       n_hidden,
       n_output,
       Seq.fill(n_output)(getRandom),

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="watchmaker-framework">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/watchmaker-framework.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

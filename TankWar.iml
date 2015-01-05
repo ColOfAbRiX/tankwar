@@ -11,5 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="scala-sdk-2.11.4" level="application" />
     <orderEntry type="library" name="scalatest" level="project" />
+    <orderEntry type="library" name="watchmaker-framework" level="project" />
   </component>
 </module>

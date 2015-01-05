@@ -51,6 +51,7 @@ object ActivationFunction {
     case "tanh" => new Tanh
     case "softplus" => new Softplus
     case "rectifier" => new Rectifier
+    case "sin" => new Sin
     case _ => throw new IllegalArgumentException
   }
 
