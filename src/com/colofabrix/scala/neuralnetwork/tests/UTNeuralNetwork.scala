@@ -113,11 +113,11 @@ class UTNeuralNetwork extends WordSpec with Matchers {
 
   }
 
-  "Builder" when {
+  "Builder" must {
 
-    "Used with only the number of inputs" must {
+    "Produce valid outputs" when {
 
-      "Produce valid outputs" in {
+      "Used with only the number of inputs" in {
         val nn = new GenericNeuralNetwork(2)
 
         inputs_range foreach { i =>
@@ -128,21 +128,17 @@ class UTNeuralNetwork extends WordSpec with Matchers {
         }
       }
 
-    }
-
-    "Used with collections" must {
-
-      "Produce valid outputs" in {
+      "Used with collections" in {
         test_with_default( GenericNeuralNetwork(eq_biases, eq_weights, activation) )
       }
 
-      "Create a NN equivalent to a manual created one" in {
-        val manual = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-        val built = GenericNeuralNetwork(eq_biases, eq_weights, activation)
+    }
 
-        built should equal (manual)
-      }
+    "Create a NN equivalent to a manual created one" in {
+      val manual = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      val built = GenericNeuralNetwork(eq_biases, eq_weights, activation)
 
+      built should equal (manual)
     }
 
   }

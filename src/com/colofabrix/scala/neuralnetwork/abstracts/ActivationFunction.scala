@@ -46,6 +46,7 @@ object ActivationFunction {
 
   def apply(name: String) = name.toLowerCase match {
     case "linear" => new Linear
+    case "clipped" => new LinearClipped
     case "step" => new Step
     case "sigmoid" => new Sigmoid
     case "tanh" => new Tanh

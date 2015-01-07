@@ -2,6 +2,8 @@ package com.colofabrix.scala.tankwar
 
 import java.io.{File, PrintWriter}
 
+import com.colofabrix.scala.tankwar.geometry._
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -15,7 +17,7 @@ import scala.collection.mutable.ListBuffer
  * @param tanks_count The number of tanks to create
  */
 class World(
-  val arena: Rectangle = Rectangle( Point(0, 0), Point(1000, 1000) ),
+  val arena: Rectangle = Rectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(1000, 1000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
   val tanks_count: Int = 1 )
@@ -27,12 +29,14 @@ class World(
   /**
    * List of tanks present in the world
    */
-  var tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
+  def tanks = _tanks
+  private var _tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
 
   /**
    * List of bullets running through the world
    */
-  var bullets: ListBuffer[Bullet] = ListBuffer()
+  def bullets = _bullets
+  private var _bullets: ListBuffer[Bullet] = ListBuffer()
 
   /**
    * Global execution time
@@ -50,27 +54,27 @@ class World(
     _time += 1
 
     // Moving all tanks forward
-    tanks foreach { t =>
+    _tanks foreach { t =>
       writer.write(
-        s"T;${_time};${t.position.x};${t.position.y};${t.rotation};${t.speed.x};${t.speed.y};${t.isShooting}\n".replace(".", ",")
+        s"${t.toString.replace("com.colofabrix.scala.tankwar.","")}};${_time};${t.position.x};${t.position.y};${t.rotation};${t.speed.x};${t.speed.y};${t.isShooting}\n".replace(".", ",")
       )
       t.stepForward()
     }
 
     // Moving all bullets forward
-    bullets foreach { b =>
-      print()
+    _bullets foreach { b =>
       writer.write(
-        s"B;${_time};${b.position.x};${b.position.y};;${b.speed.x};${b.speed.y}\n".replace(".", ",")
+        s"${b.toString.replace("com.colofabrix.scala.tankwar.","")}};${_time};${b.position.x};${b.position.y};;${b.speed.x};${b.speed.y}\n".replace(".", ",")
       )
 
       b.stepForward()
 
       // Check if the bullet is still in the arena
-      if( !b.isInside(arena.topRight) ) bullets -= b
+      if( !arena.isInside(b.position) )
+        _bullets -= b
 
       // Collision management
-      tanks foreach { t => if( b.isInside(t) ) this.hit(t, b) }
+      _tanks foreach { t => if( b.touches(t) && b.tank != t  ) this.hit(t, b) }
     }
 }
 
@@ -80,9 +84,7 @@ class World(
    * @param tank The tank that requested to shot
    */
   def shot(tank: Tank): Unit = {
-    // FIXME: Remove after testing
-    if( bullets.length >= 1 ) return
-    bullets += new Bullet(this, tank, 20.0)
+    _bullets += new Bullet(this, tank, bullet_speed)
   }
 
   /**
@@ -92,8 +94,15 @@ class World(
    * @param bullet The bullet that hits the tank
    */
   def hit(tank: Tank, bullet: Bullet): Unit = {
-    bullets -= bullet
-    tank.hit(bullet)
-    tanks -= tank
+    // Inform the hit tank
+    tank.on_isHit(bullet)
+    // Inform the bullet that hits
+    bullet.hit(tank)
+    // Inform the tank that shot the bullet
+    bullet.tank.on_hits(bullet, tank)
+
+    // Remove the bullet and the hit tank
+    _bullets -= bullet
+    _tanks -= tank
   }
 }
