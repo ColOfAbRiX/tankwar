@@ -52,18 +52,65 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   /**
    * Apply a transformation to the point
    *
-   * @param t A function that transform a coordinate of the point
-   * @return A new point which is a transformation of the current one
-   */
-  def transform( t: Double => Double ): Vector2D = Vector2D.fromXY( t(this.x), t(this.y) )
-
-  /**
-   * Apply a transformation to the point
+   * To each component (x, y) is applied the transformation T
    *
    * @param t A function that transform a coordinate of the point
    * @return A new point which is a transformation of the current one
    */
-  def transform( t: (Double, Int) => Double ): Vector2D = Vector2D.fromXY( t(this.x, 0), t(this.y, 1) )
+  def :=( t: Double => Double ): Vector2D = Vector2D.fromXY( t(this.x), t(this.y) )
+
+
+  /**
+   * Apply a transformation to the point
+   *
+   * To each component (x, y) is applied the transformation T. The current component
+   * is given through the Int parameter of T
+   *
+   * @param t A function that transform a coordinate of the point
+   * @return A new point which is a transformation of the current one
+   */
+  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.fromXY( t(this.x, 0), t(this.y, 1) )
+
+  /**
+   * Map a point through another one
+   *
+   * Each cartesian component is multiplied by each cartesian component of the other vector
+   *
+   * @param that The point to use as a map
+   * @return A new point which is a point-to-point multiplication with `that`
+   */
+  def :=( that: Vector2D ): Vector2D = this := { _ * that(_) }
+
+  /**
+   * Apply a transformation to the point
+   *
+   * To each component (r, t) is applied the transformation T.
+   *
+   * @param t A function that transform a coordinate of the point
+   * @return A new point which is a transformation of the current one
+   */
+  def @=( t: Double => Double ): Vector2D = Vector2D.fromRT( t(this.r), t(this.t) )
+
+  /**
+   * Apply a transformation to the point
+   *
+   * To each component (r, t) is applied the transformation T. The current component
+   * is given through the Int parameter of T
+   *
+   * @param t A function that transform a coordinate of the point
+   * @return A new point which is a transformation of the current one
+   */
+  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.fromRT( t(this.r, 2), t(this.t, 3) )
+
+  /**
+   * Map a point through another one
+   *
+   * Each cartesian component is multiplied by each cartesian component of the other vector
+   *
+   * @param that The point to use as a map
+   * @return A new point which is a point-to-point multiplication with `that`
+   */
+  def @=( that: Vector2D ): Vector2D = this @= { _ * that(_) }
 
   /**
    * Projects a vector onto another
@@ -85,7 +132,7 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   def -| = Vector2D.fromRT(this.r, this.t + Math.PI / 2)
 
   /**
-   * Finds the cw perpendicular vector, rotated counter-clockwise
+   * Finds the cw perpendicular vector, rotated clockwise
    */
   def |- = Vector2D.fromRT(this.r, this.t - Math.PI / 2)
 
@@ -102,14 +149,6 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
    * @return A unit vector with the same direction as the current vector
    */
   def v = Vector2D.fromRT( 1, this.t )
-
-  /**
-   * Map a point through another one
-   *
-   * @param that The point to use as a map
-   * @return A new point which is a point-to-point multiplication with `that`
-   */
-  def :=( that: Vector2D ) = Vector2D.fromXY( this.x * that.x, this.y * that.y )
 
   /**
    * Adds a scalar to both the cartesian coordinates of the vector
@@ -144,10 +183,10 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   def -(that: Vector2D) = Vector2D.fromXY(this.x - that.x, this.y - that.y)
 
   /**
-   * By-Scalar multiplication (scaling)
+   * Scalar product (scaling)
    *
    * @param alpha Scalar value to multiply by
-   * @return A new vector following the by-scalar multiplication rules
+   * @return A new vector following the scalar multiplication rules
    */
   def *(alpha: Double): Vector2D = Vector2D.fromXY(this.x * alpha, this.y * alpha)
   def *(alpha: Vector2D): Vector2D = {
@@ -156,18 +195,18 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   }
 
   /**
-   * Scalar multiplication (inner or dot product)
+   * Inner or Dot product
    *
    * @param that Vector to multiply by
-   * @return A new vector following the scalar multiplication rules
+   * @return A new vector following the inner product rules
    */
   def x(that: Vector2D): Double = this.x * that.x + this.y * that.y
 
   /**
-   * Vector multiplication (cross product)
+   * Vector or Cross product
    *
    * @param that Vector to multiply by
-   * @return A new vector following the vector multiplication rules
+   * @return A new vector following the vector product rules
    */
   def ^(that: Vector2D): Vector2D =
     Vector2D.fromXY(
@@ -223,6 +262,9 @@ object Vector2D {
   def fromXY( x: Double, y: Double ) = Vector2D(new CartesianCoord(x, y))
 }
 
+/**
+ * Implicits for Vector2D
+ */
 object Vector2DImplicits {
 
   implicit def double2Vector2D( x: Double ): Vector2D = Vector2D.fromXY(x, x)

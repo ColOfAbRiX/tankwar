@@ -17,7 +17,7 @@ import scala.collection.mutable.ListBuffer
  * @param tanks_count The number of tanks to create
  */
 class World(
-  val arena: Rectangle = Rectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(1000, 1000) ),
+  val arena: OrtoRectangle = OrtoRectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(1000, 1000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
   val tanks_count: Int = 1 )
@@ -31,6 +31,8 @@ class World(
    */
   def tanks = _tanks
   private var _tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
+
+  _tanks foreach { t => println(t.brain_net) }
 
   /**
    * List of bullets running through the world
@@ -53,24 +55,26 @@ class World(
   def step() {
     _time += 1
 
+    println( s"Time ${_time}: ${_tanks.length} tanks and ${_bullets.length} bullets")
+
     // Moving all tanks forward
     _tanks foreach { t =>
-      writer.write(
-        s"${t.toString.replace("com.colofabrix.scala.tankwar.","")}};${_time};${t.position.x};${t.position.y};${t.rotation};${t.speed.x};${t.speed.y};${t.isShooting}\n".replace(".", ",")
-      )
+      writer.write(t.record + "\n")
+      print(t.record)
+
       t.stepForward()
     }
 
     // Moving all bullets forward
     _bullets foreach { b =>
-      writer.write(
-        s"${b.toString.replace("com.colofabrix.scala.tankwar.","")}};${_time};${b.position.x};${b.position.y};;${b.speed.x};${b.speed.y}\n".replace(".", ",")
-      )
+      val text = s"${b.id};${_time};${b.position.x};${b.position.y};;${b.speed.x};${b.speed.y}\n".replace(".", ",")
+      writer.write(text + "\n")
+      print( text )
 
       b.stepForward()
 
       // Check if the bullet is still in the arena
-      if( !arena.isInside(b.position) )
+      if( !arena.overlaps(b.position) )
         _bullets -= b
 
       // Collision management
@@ -84,6 +88,7 @@ class World(
    * @param tank The tank that requested to shot
    */
   def shot(tank: Tank): Unit = {
+    println( s"Tank ${tank.id} has shot")
     _bullets += new Bullet(this, tank, bullet_speed)
   }
 
@@ -94,10 +99,12 @@ class World(
    * @param bullet The bullet that hits the tank
    */
   def hit(tank: Tank, bullet: Bullet): Unit = {
+    println( s"Tank ${tank.id} has been hit by ${bullet.id}")
+
     // Inform the hit tank
     tank.on_isHit(bullet)
     // Inform the bullet that hits
-    bullet.hit(tank)
+    bullet.on_hits(tank)
     // Inform the tank that shot the bullet
     bullet.tank.on_hits(bullet, tank)
 

@@ -1,6 +1,7 @@
 package com.colofabrix.scala.tankwar.geometry
 
-trait Coordinates
+import com.colofabrix.scala.tankwar.geometry.abstracts.Coordinates
+
 
 /**
  * Cartesian Coordinate representation
@@ -28,7 +29,7 @@ object CartesianCoord {
  * @param t Length of the vector, modulus
  * @param r Rotation relative to the X-Axis, in radians
  */
-case class PolarCoord(r: Double, t: Double) extends Coordinates
+case class PolarCoord(r: Double, t: Double) extends Coordinates { require(r >= 0) }
 
 object PolarCoord {
   import com.colofabrix.scala.tankwar.geometry.CoordinatesImplicits._

@@ -1,6 +1,7 @@
-package com.colofabrix.scala.tankwar.geometry
+package com.colofabrix.scala.tankwar.geometry.abstracts
 
 import com.colofabrix.scala.tankwar.World
+import com.colofabrix.scala.tankwar.geometry.Vector2D
 
 /**
  * Represents a physical objects with some physical details
@@ -16,7 +17,7 @@ trait PhysicalObject {
   /**
    * Physical boundary of the PhysicalObject.
    */
-  val boundaries: Shape
+  def boundaries: Shape
 
   /**
    * Position of the center of the PhysicalObject
@@ -45,7 +46,7 @@ trait PhysicalObject {
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def isInside(that: Vector2D): Boolean = boundaries.isInside(that)
+  def isInside(that: Vector2D): Boolean = boundaries.overlaps(that)
 
   /**
    * Determines if a shape touches this one
@@ -55,5 +56,17 @@ trait PhysicalObject {
    * @param that The shape to check
    * @return true if the two shapes overlap
    */
-  def touches(that: PhysicalObject): Boolean = this.boundaries.touches(that.boundaries)
+  def touches(that: PhysicalObject): Boolean = this.boundaries.overlaps(that.boundaries)
+
+  /**
+   * Random PhysicalObject identifier
+   */
+  val id = this.getClass.toString.replace("class ", "").replace("com.colofabrix.scala.tankwar.", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
+
+  /**
+   * Record identifying the step of the PhysicalObject
+   *
+   * @return A string in the format of a CSV
+   */
+  def record = s"$id;${world.time};${position.x};${position.y};${speed.x};${speed.y}".replace(".", ",")
 }

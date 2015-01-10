@@ -43,6 +43,19 @@ trait NeuralNetwork {
    * @return A sequence of T representing the output
    */
   def output( input: T ): Seq[T] = output( Seq(input) )
+
+  /**
+   * Calculate the output of the Neural Network
+   *
+   * Given an input value it calculates the set of output values
+   *
+   * @param inputHelper A sequence of T to feed the NN
+   * @return A sequence of T representing the output
+   */
+  def output( inputHelper: InputHelper[T] ): Seq[T] = {
+    output( inputHelper.getValues )
+  }
+
 }
 
 /**

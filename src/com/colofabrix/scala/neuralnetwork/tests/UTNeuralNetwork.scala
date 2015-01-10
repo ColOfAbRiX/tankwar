@@ -38,7 +38,7 @@ class UTNeuralNetwork extends WordSpec with Matchers {
   )
 
   // Tests a NN with the default values
-  private def test_with_default(nn: GenericNeuralNetwork, activation: ActivationFunction = activation) = {
+  private def test_with_default(nn: FeedforwardNeuralNetwork, activation: ActivationFunction = activation) = {
 
     inputs_range foreach { i =>
       val in = i
@@ -64,22 +64,22 @@ class UTNeuralNetwork extends WordSpec with Matchers {
 
       // When an input layer is not provided
       intercept[IllegalArgumentException] {
-        new GenericNeuralNetwork( null )
+        new FeedforwardNeuralNetwork( null )
       }
 
       // When a hidden sequence is not provided
       intercept[IllegalArgumentException] {
-        new GenericNeuralNetwork( input_layer, null, output_layer )
+        new FeedforwardNeuralNetwork( input_layer, null, output_layer )
       }
 
       // Checking input-output matching
       intercept[IllegalArgumentException] {
-        new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1), output_layer )
+        new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1), output_layer )
       }
     }
 
     "Be correct with only an input layer" in {
-      val nn = new GenericNeuralNetwork( input_layer )
+      val nn = new FeedforwardNeuralNetwork( input_layer )
       inputs_range foreach { i => nn.output(i)(0) should equal (i) }
     }
 
@@ -89,7 +89,7 @@ class UTNeuralNetwork extends WordSpec with Matchers {
 
     "Be valid for a complete NeuralNetwork" in {
       test_with_default(
-        new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+        new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
       )
     }
 
@@ -98,15 +98,15 @@ class UTNeuralNetwork extends WordSpec with Matchers {
   "Equals method" must {
 
     "Return true if two objects represent the same NN" in {
-      val nn1 = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-      val nn2 = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      val nn1 = new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      val nn2 = new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
 
       nn1 should equal (nn2)
     }
 
     "Return false if two objects do not represent the same NN" in {
-      val nn1 = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-      val nn2 = new GenericNeuralNetwork( input_layer )
+      val nn1 = new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      val nn2 = new FeedforwardNeuralNetwork( input_layer )
 
       nn1 shouldNot equal (nn2)
     }
@@ -118,7 +118,7 @@ class UTNeuralNetwork extends WordSpec with Matchers {
     "Produce valid outputs" when {
 
       "Used with only the number of inputs" in {
-        val nn = new GenericNeuralNetwork(2)
+        val nn = new FeedforwardNeuralNetwork(2)
 
         inputs_range foreach { i =>
           withClue( s"While i=$i, ") {
@@ -129,14 +129,14 @@ class UTNeuralNetwork extends WordSpec with Matchers {
       }
 
       "Used with collections" in {
-        test_with_default( GenericNeuralNetwork(eq_biases, eq_weights, activation) )
+        test_with_default( FeedforwardNeuralNetwork(eq_biases, eq_weights, activation) )
       }
 
     }
 
     "Create a NN equivalent to a manual created one" in {
-      val manual = new GenericNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-      val built = GenericNeuralNetwork(eq_biases, eq_weights, activation)
+      val manual = new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
+      val built = FeedforwardNeuralNetwork(eq_biases, eq_weights, activation)
 
       built should equal (manual)
     }

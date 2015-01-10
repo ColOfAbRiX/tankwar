@@ -7,7 +7,7 @@ import com.colofabrix.scala.neuralnetwork.layers._
 import scala.util.Random
 
 abstract class TopologyBuilder {
-  def build: GenericNeuralNetwork
+  def build: FeedforwardNeuralNetwork
 }
 
 class Random3LNetwork (
@@ -21,7 +21,7 @@ extends TopologyBuilder {
 
   private def getRandom = Random.nextDouble * 2 * scaling - scaling
 
-  override def build: GenericNeuralNetwork = {
+  override def build: FeedforwardNeuralNetwork = {
     val inputLayer = new InputLayer(n_inputs)
 
     val hiddenLayer = new HiddenLayer(
@@ -40,7 +40,7 @@ extends TopologyBuilder {
       Seq.fill(n_output, n_hidden)(getRandom)
     )
 
-    new GenericNeuralNetwork(inputLayer, Seq(hiddenLayer), outputLayer)
+    new FeedforwardNeuralNetwork(inputLayer, Seq(hiddenLayer), outputLayer)
   }
 }
 

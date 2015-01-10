@@ -13,7 +13,7 @@ import com.colofabrix.scala.neuralnetwork.layers._
  * @param hidden_layers Zero or more hidden layers. If no output layer the output matches exactly the inputs
  * @param output_layer One output layer to collect the results
  */
-class GenericNeuralNetwork(
+class FeedforwardNeuralNetwork(
   val input_layer: InputLayer,
   val hidden_layers: Seq[HiddenLayer] = Seq(),
   val output_layer: OutputLayer = null)
@@ -29,14 +29,20 @@ extends NeuralNetwork
    * @param output_layer One output layer to collect the results
    */
   def this(n_inputs: Int, hidden_layers: Seq[HiddenLayer], output_layer: OutputLayer) = this( new InputLayer(n_inputs), hidden_layers, output_layer )
+
   def this(n_inputs: Int, hidden_layers: Seq[HiddenLayer]) = this( new InputLayer(n_inputs), hidden_layers, null )
+
   def this(n_inputs: Int) = this( new InputLayer(n_inputs), Seq(), null )
 
   // Input and Output layers are required. Also the HiddenLayer sequence is required, but can be empty
   require( input_layer != null, "The input layer must not be null" )
   require( hidden_layers != null, "You must specify at least an empty set of hidden layers" )
 
-  // Internally there is no distinction between input/hidden/output layers to allow uniformity
+  /**
+   * Single variable containing all the layer as a sequence of `NeuronLayer`
+   *
+   * Internally there is no distinction between input/hidden/output layers to allow uniformity
+   */
   protected val all_layers: Seq[NeuronLayer] = {
     if( output_layer == null )
       input_layer :: hidden_layers.toList ::: Nil
@@ -55,7 +61,7 @@ extends NeuralNetwork
   override type T = Double
 
   override def equals( other: Any ) = other match {
-    case that: GenericNeuralNetwork =>
+    case that: FeedforwardNeuralNetwork =>
       this.canEqual(that) &&
       this.all_layers == that.all_layers
     case _ => false
@@ -66,7 +72,7 @@ extends NeuralNetwork
   }
 
   def canEqual( other: Any ): Boolean =
-    other.isInstanceOf[GenericNeuralNetwork]
+    other.isInstanceOf[FeedforwardNeuralNetwork]
 
   // It checks that the number of inputs of the layer N + 1 equals the number of neurons of the layer N
   require(
@@ -89,11 +95,13 @@ extends NeuralNetwork
     all_layers.foldLeft( inputs )( (input, layer) => layer.output(input) )
   }
 
-  override def toString =
-    "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
+  override def toString = {
+    val text = "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
+    text.replace("List", "").replace("com.colofabrix.scala.neuralnetwork.", "")
+  }
 }
 
-object GenericNeuralNetwork {
+object FeedforwardNeuralNetwork {
   /**
    * Creates a `GenericNeuralNetwork` starting from its matrices of biases and weights
    *
@@ -106,7 +114,7 @@ object GenericNeuralNetwork {
    * @param af Selected activation function
    * @return A `GenericNeuralNetwork` represented by the input data
    */
-  def apply(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: ActivationFunction): GenericNeuralNetwork = {
+  def apply(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: ActivationFunction): FeedforwardNeuralNetwork = {
     val combined = biases zip weights
 
     // These checks are done because we need a reliable set of data to extract information like the number of inputs
@@ -125,7 +133,7 @@ object GenericNeuralNetwork {
       new InputLayer(w(0).length)
     }
     if( biases.length == 1 )
-      return new GenericNeuralNetwork(input_layer)
+      return new FeedforwardNeuralNetwork(input_layer)
 
     // Output layer from the last index of the collections
     val output_layer = {
@@ -133,13 +141,13 @@ object GenericNeuralNetwork {
       new OutputLayer(af, w(0).length, w.length, b, w)
     }
     if( biases.length == 2 )
-      return new GenericNeuralNetwork(input_layer, Seq(), output_layer)
+      return new FeedforwardNeuralNetwork(input_layer, Seq(), output_layer)
 
     // This only if there are hidden layers
     val hidden_layers =
       for ((b, w) <- combined.tail.init) yield
         new HiddenLayer(af, w(0).length, w.length, b, w)
 
-    new GenericNeuralNetwork(input_layer, hidden_layers, output_layer)
+    new FeedforwardNeuralNetwork(input_layer, hidden_layers, output_layer)
   }
 }
