@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar.geometry.abstracts
+package com.colofabrix.scala.geometry.abstracts
 
 /**
  * Generic coordinate system for geometrical objects

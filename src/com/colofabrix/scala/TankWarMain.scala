@@ -10,7 +10,7 @@ import com.colofabrix.scala.tankwar.World
 object TankWarMain {
   def main( args: Array[String] ): Unit = {
 
-    val world = new World( tanks_count = 5 )
+    val world = new World( tanks_count = 2 )
     (1 to 500) foreach { _ => world.step() }
 
   }

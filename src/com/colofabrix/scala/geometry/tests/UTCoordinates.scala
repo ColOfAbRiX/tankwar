@@ -1,9 +1,11 @@
-package com.colofabrix.scala.tankwar.tests
+package com.colofabrix.scala.geometry.tests
 
-import com.colofabrix.scala.tankwar.geometry.{CartesianCoord, PolarCoord}
+import com.colofabrix.scala.geometry.{CartesianCoord, PolarCoord}
 import org.scalatest.{Matchers, WordSpec}
 
 /**
+ * Unit testing for coordinate systems
+ *
  * Created by Fabrizio on 06/01/2015.
  */
 class UTCoordinates extends WordSpec with Matchers {

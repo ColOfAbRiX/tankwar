@@ -2,7 +2,8 @@ package com.colofabrix.scala.tankwar
 
 import java.io.{File, PrintWriter}
 
-import com.colofabrix.scala.tankwar.geometry._
+import com.colofabrix.scala.geometry._
+import com.colofabrix.scala.geometry.shapes.OrtoRectangle
 
 import scala.collection.mutable.ListBuffer
 
@@ -30,9 +31,9 @@ class World(
    * List of tanks present in the world
    */
   def tanks = _tanks
-  private var _tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
+  private val _tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
 
-  _tanks foreach { t => println(t.brain_net) }
+  _tanks foreach { t => println(t.brainNet) }
 
   /**
    * List of bullets running through the world
@@ -55,21 +56,20 @@ class World(
   def step() {
     _time += 1
 
-    println( s"Time ${_time}: ${_tanks.length} tanks and ${_bullets.length} bullets")
+    println( s"Time ${_time}: ${_tanks.count(!_.isDead)} alive tanks,  ${_tanks.count(_.isDead)} dead tanks and ${_bullets.length} bullets" )
 
     // Moving all tanks forward
-    _tanks foreach { t =>
+    _tanks.filter( !_.isDead ) foreach { t =>
       writer.write(t.record + "\n")
-      print(t.record)
+      println(t.record)
 
       t.stepForward()
     }
 
     // Moving all bullets forward
     _bullets foreach { b =>
-      val text = s"${b.id};${_time};${b.position.x};${b.position.y};;${b.speed.x};${b.speed.y}\n".replace(".", ",")
-      writer.write(text + "\n")
-      print( text )
+      writer.write(b.record + "\n")
+      println( b.record )
 
       b.stepForward()
 
@@ -110,6 +110,6 @@ class World(
 
     // Remove the bullet and the hit tank
     _bullets -= bullet
-    _tanks -= tank
+    tank.isDead = true
   }
 }

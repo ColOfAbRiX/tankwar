@@ -1,6 +1,6 @@
-package com.colofabrix.scala.tankwar.geometry
+package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.tankwar.geometry.abstracts.Coordinates
+import com.colofabrix.scala.geometry.abstracts.Coordinates
 
 
 /**
@@ -12,7 +12,7 @@ import com.colofabrix.scala.tankwar.geometry.abstracts.Coordinates
 case class CartesianCoord(x: Double, y: Double) extends Coordinates
 
 object CartesianCoord {
-  import com.colofabrix.scala.tankwar.geometry.CoordinatesImplicits._
+  import com.colofabrix.scala.geometry.CoordinatesImplicits._
 
   /**
    * Cartesian Coordinate representation
@@ -32,7 +32,7 @@ object CartesianCoord {
 case class PolarCoord(r: Double, t: Double) extends Coordinates { require(r >= 0) }
 
 object PolarCoord {
-  import com.colofabrix.scala.tankwar.geometry.CoordinatesImplicits._
+  import com.colofabrix.scala.geometry.CoordinatesImplicits._
 
   /**
    * Polar Coordinate representation

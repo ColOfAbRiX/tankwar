@@ -1,7 +1,7 @@
-package com.colofabrix.scala.tankwar.geometry.abstracts
+package com.colofabrix.scala.geometry.abstracts
 
+import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.tankwar.World
-import com.colofabrix.scala.tankwar.geometry.Vector2D
 
 /**
  * Represents a physical objects with some physical details

@@ -1,13 +1,15 @@
-package com.colofabrix.scala.tankwar.tests
+package com.colofabrix.scala.geometry.tests
 
-import com.colofabrix.scala.tankwar.geometry._
+import com.colofabrix.scala.geometry._
 import org.scalatest.{Matchers, WordSpec}
 
 /**
+ * Unit testing for Vector2D
+ *
  * Created by Fabrizio on 06/01/2015.
  */
 class UTVector2D extends WordSpec with Matchers {
-  import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
+  import com.colofabrix.scala.geometry.Vector2DImplicits._
 
   val tolerance = 1E-5
 
@@ -91,10 +93,10 @@ class UTVector2D extends WordSpec with Matchers {
       val vector1 = Vector2D.fromXY(15, 25)
       val vector2 = Vector2D.fromXY(30, 35)
 
-      val result1 = vector1 ^ vector2
+      val result = vector1 ^ vector2
 
-      result1.x should equal (15 * 30 + 15 * 35)
-      result1.y should equal (25 * 30 + 25 * 35)
+      //this.x * that.y - this.y * that.x
+      result should equal (15.0 * 35.0 - 25.0 * 30.0 +- tolerance)
 
     }
 

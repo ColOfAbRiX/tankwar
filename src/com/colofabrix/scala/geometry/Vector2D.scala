@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar.geometry
+package com.colofabrix.scala.geometry
 
 
 /**
@@ -9,7 +9,7 @@ package com.colofabrix.scala.tankwar.geometry
 case class Vector2D( cartesian: CartesianCoord ) {
   import java.lang.Math._
 
-import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
+import com.colofabrix.scala.geometry.Vector2DImplicits._
 
   /**
    * @param polar The ending point of a origin centered vector in polar coordinates
@@ -59,6 +59,7 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
    */
   def :=( t: Double => Double ): Vector2D = Vector2D.fromXY( t(this.x), t(this.y) )
 
+  //def := (that: Vector2D)(t: (Double, Double) => Double): Vector2D = Vector2D.fromXY( t(this.x, v.x), t(this.y, that.y) )
 
   /**
    * Apply a transformation to the point
@@ -127,12 +128,12 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   def ¬(angle: Double): Vector2D = Vector2D.fromRT(this.r, this.t + angle)//+ (angle % 2 * PI) % -2 * PI)
 
   /**
-   * Finds the ccw perpendicular vector, rotated counter-clockwise
+   * Finds the ccw perpendicular vector, rotated CCW
    */
   def -| = Vector2D.fromRT(this.r, this.t + Math.PI / 2)
 
   /**
-   * Finds the cw perpendicular vector, rotated clockwise
+   * Finds the cw perpendicular vector, rotated CW
    */
   def |- = Vector2D.fromRT(this.r, this.t - Math.PI / 2)
 
@@ -205,13 +206,14 @@ import com.colofabrix.scala.tankwar.geometry.Vector2DImplicits._
   /**
    * Vector or Cross product
    *
+   * As we are treating a special case where our input vectors are always lying
+   * in the XY plane, the resultant vector will always be parallel to the Z axis
+   * and in this case there's no need of a vector as output
+   *
    * @param that Vector to multiply by
-   * @return A new vector following the vector product rules
+   * @return A number over the Z axis
    */
-  def ^(that: Vector2D): Vector2D =
-    Vector2D.fromXY(
-      this.x * that.x + this.x * that.y,
-      this.y * that.x + this.y * that.y)
+  def ^(that: Vector2D): Double = this.x * that.y - this.y * that.x
 
   /**
    * By-Scalar division

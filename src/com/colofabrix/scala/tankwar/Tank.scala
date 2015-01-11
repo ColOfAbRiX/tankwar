@@ -1,9 +1,10 @@
 package com.colofabrix.scala.tankwar
 
+import com.colofabrix.scala.geometry._
+import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
+import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, OutputHelper}
 import com.colofabrix.scala.neuralnetwork.builders._
-import com.colofabrix.scala.tankwar.geometry._
-import com.colofabrix.scala.tankwar.geometry.abstracts.{PhysicalObject, Shape}
 
 import scala.util.Random
 
@@ -53,17 +54,22 @@ class Tank( override val world: World ) extends PhysicalObject {
   override def boundaries: Shape = Circle(_position, 20)
 
   /**
+   * Indicates if the tank is dead
+   */
+  var isDead = false
+
+  /**
    * Brain of the tank, a feed-forward 3-layer neural network
    */
-  val brain_net = new Random3LNetwork(BrainInputHelper.count, 10, BrainOutputHelper.count, pow(2, -4)).build
+  val brainNet = new Random3LNetwork(BrainInputHelper.count, 10, BrainOutputHelper.count, pow(2, -4)).build
 
   /**
    * Feedback network, a feed-forward 3-layer neural network for T - 1 memory
    */
-  val feedback_net = new Random3LNetwork(brain_net.n_outputs, 4, brain_net.n_inputs - 1, 0.5, "clipped").build
+  val feedbackNet = new Random3LNetwork(brainNet.n_outputs, 4, brainNet.n_inputs - 1, 1.0).build
 
   // Feedback values of T - 1 time
-  private var _feedback: Seq[Double] = Seq.fill(brain_net.n_inputs)(0.0)
+  private var _feedback: Seq[Double] = Seq.fill(brainNet.n_inputs)(0.0)
 
   // Tracks last shoot output
   private var _shoot = 0.0
@@ -94,13 +100,13 @@ class Tank( override val world: World ) extends PhysicalObject {
   override def stepForward() {
     // Calculating outputs
     val output = new BrainOutputHelper(
-      brain_net.output(
+      brainNet.output(
         new BrainInputHelper( _position, _speed, _rotation, world.time, _feedback )
       )
     )
 
     // Updating feedback
-    _feedback = feedback_net.output(output.raw)
+    _feedback = feedbackNet.output(output.raw)
 
     // Update spatial values
     _speed = _speed + output.acceleration
@@ -111,7 +117,7 @@ class Tank( override val world: World ) extends PhysicalObject {
       _speed = _speed := { (x, i) =>
         if( _position(i) < 0 || _position(i) > world.arena.topRight(i) ) -1.0 * x else x
       }
-      _position = world.arena trimInside _position
+      _position = _position := ( (x, i) => min(world.arena.topRight(i), x) )
     }
 
     // Check speed boundary

@@ -1,7 +1,8 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.tankwar.geometry._
-import com.colofabrix.scala.tankwar.geometry.abstracts.{PhysicalObject, Shape}
+import com.colofabrix.scala.geometry._
+import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
+import com.colofabrix.scala.geometry.shapes.Circle
 
 /**
  * Represents a bullet shot by a Tank
