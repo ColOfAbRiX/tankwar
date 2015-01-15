@@ -30,7 +30,7 @@ trait PhysicalObject {
   /**
    * Speed of the object relative to the arena
    *
-   * @return
+   * @return The current step speed
    */
   final def speed: Vector2D = _speed
   protected var _speed: Vector2D

@@ -4,7 +4,7 @@ import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.NeuralNetworkBuilder
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.BehaviourBuilder
 
 import scala.util.Random
 
@@ -13,7 +13,7 @@ import scala.util.Random
  *
  * Created by Fabrizio on 02/01/2015.
  */
-class Tank(override val world: World, brainBuilder: NeuralNetworkBuilder) extends PhysicalObject {
+class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends PhysicalObject {
 
   import java.lang.Math._
 
@@ -46,6 +46,9 @@ class Tank(override val world: World, brainBuilder: NeuralNetworkBuilder) extend
     )
   }
 
+  /**
+   * Physical boundary of the PhysicalObject.
+   */
   override def boundaries: Shape = Circle(_position, 50)
 
   /**
@@ -64,10 +67,20 @@ class Tank(override val world: World, brainBuilder: NeuralNetworkBuilder) extend
   // Number of kills
   private var _killsCount: Int = 0
 
+  /**
+   * Position of the center of the PhysicalObject
+   *
+   * @return The point on the world where is the center of the PhysicalObject
+   */
   override var _position: Vector2D = world.arena.topRight := {
     _ * Random.nextDouble()
   }
 
+  /**
+   * Speed of the object relative to the arena
+   *
+   * @return The current step speed
+   */
   override var _speed = Vector2D.fromXY(0.0, 0.0)
 
   /**
@@ -88,6 +101,9 @@ class Tank(override val world: World, brainBuilder: NeuralNetworkBuilder) extend
 
   private var _isShooting: Boolean = false
 
+  /**
+   * Moves the PhysicalObject one step into the future
+   */
   override def stepForward(): Unit = {
     // Calculating outputs
     val output = new BrainOutputHelper(

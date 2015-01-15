@@ -1,36 +1,36 @@
 package com.colofabrix.scala.neuralnetwork.builders
 
 import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.{NeuralNetworkBuilder, TopologyBuilder}
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.{BehaviourBuilder, StructureBuilder}
 import com.colofabrix.scala.neuralnetwork.layers.ElmanFeedbackLayer
 import com.colofabrix.scala.neuralnetwork.{ElmanNeuralNetwork, FeedforwardNeuralNetwork}
 
-class FeedforwardBuilder(topologyBuilder: TopologyBuilder) extends NeuralNetworkBuilder(topologyBuilder) {
+class FeedforwardBuilder(structure: StructureBuilder) extends BehaviourBuilder {
 
   override def build(nInputs: Int, nOutputs: Int): NeuralNetwork =
     new FeedforwardNeuralNetwork(
-      topologyBuilder.inputLayer(nInputs),
-      topologyBuilder.hiddenLayers(nInputs),
-      topologyBuilder.outputLayer(nOutputs)
+      structure.inputLayer(nInputs),
+      structure.hiddenLayers(nInputs),
+      structure.outputLayer(nOutputs)
     )
 
 }
 
-class ElmanBuilder(topologyBuilder: TopologyBuilder) extends NeuralNetworkBuilder(topologyBuilder) {
+class ElmanBuilder(structure: StructureBuilder) extends BehaviourBuilder {
 
   override def build(nInputs: Int, nOutputs: Int): NeuralNetwork = {
-    val hiddens = topologyBuilder.hiddenLayers(nInputs)
-    require(hiddens.length == 1)
+    val hidden = structure.hiddenLayers(nInputs)
+    require(hidden.length == 1)
 
-    val elmanHidden: ElmanFeedbackLayer = hiddens(0) match {
+    val elmanHidden: ElmanFeedbackLayer = hidden(0) match {
       case efl: ElmanFeedbackLayer => efl
       case _ => throw new IllegalArgumentException
     }
 
     new ElmanNeuralNetwork(
-      topologyBuilder.inputLayer(nInputs),
+      structure.inputLayer(nInputs),
       Seq(elmanHidden),
-      topologyBuilder.outputLayer(nOutputs)
+      structure.outputLayer(nOutputs)
     )
   }
 

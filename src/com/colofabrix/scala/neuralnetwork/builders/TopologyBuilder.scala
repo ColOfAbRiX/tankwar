@@ -1,6 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.builders
 
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.{DataReader, TopologyBuilder}
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.{DataReader, StructureBuilder}
 import com.colofabrix.scala.neuralnetwork.layers._
 
 import scala.util.Random
@@ -10,25 +10,22 @@ class ThreeLayerNetwork(
   n_hidden: Int,
   activation: String = "tanh"
 )
-extends TopologyBuilder {
-  private val _layerReaders = (1 to 3) map { _ => data.nextLayerReader }
-
-  override def inputLayer(nInputs: Int) = new InputLayer(nInputs)
+extends StructureBuilder {
 
   override def hiddenLayers(nInitialInputs: Int) = List(new HiddenLayer(
-    _layerReaders(1).activationFunction,
+    data.layerReaders(1).activationFunction,
     nInitialInputs,
     n_hidden,
-    _layerReaders(1).neuronBiases(n_hidden),
-    _layerReaders(1).inputWeights(n_hidden, nInitialInputs)
+    data.layerReaders(1).neuronBiases(n_hidden),
+    data.layerReaders(1).inputWeights(n_hidden, nInitialInputs)
   ))
 
   override def outputLayer(nOutputs: Int) = new OutputLayer(
-    _layerReaders(2).activationFunction,
+    data.layerReaders(2).activationFunction,
     n_hidden,
     nOutputs,
-    _layerReaders(2).neuronBiases(nOutputs),
-    _layerReaders(2).inputWeights(nOutputs, n_hidden)
+    data.layerReaders(2).neuronBiases(nOutputs),
+    data.layerReaders(2).inputWeights(nOutputs, n_hidden)
   )
 }
 
@@ -38,7 +35,7 @@ class RandomThreeLayerNetwork (
   activation: String = "tanh",
   rng: Random = new Random )
 extends ThreeLayerNetwork(
-  new RandomReader(scaling, rng),
+  new RandomReader(scaling, 3, rng),
   n_hidden,
   activation
 )

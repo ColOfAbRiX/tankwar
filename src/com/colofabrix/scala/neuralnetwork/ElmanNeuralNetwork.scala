@@ -6,8 +6,6 @@ import com.colofabrix.scala.neuralnetwork.layers.{ElmanFeedbackLayer, InputLayer
  * Elman Neural Network
  *
  * A type of Recurrent Neural Network
- *
- * Created by Fabrizio on 09/01/2015.
  */
 class ElmanNeuralNetwork(
   override val input_layer: InputLayer,
@@ -15,13 +13,14 @@ class ElmanNeuralNetwork(
   override val output_layer: OutputLayer,
   private var _rememberPast: Boolean = true)
 extends FeedforwardNeuralNetwork(
-    input_layer,
-    hidden_layers,
-    output_layer) {
-  def rememberPast = _rememberPast
+  input_layer,
+  hidden_layers,
+  output_layer) {
 
+  def rememberPast = _rememberPast
   def rememberPast_=(value: Boolean) {
     _rememberPast = value
     hidden_layers.foreach(_.remember = value)
   }
+
 }
