@@ -41,12 +41,14 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero
     val direction = Math.signum( this.edges(1) ^ this.edges(0) )
 
-    this.edgesIterator forall {
+    this.edgesIterator.tail forall {
       case u :: v :: Nil =>
         val r = v ^ u
         Math.signum( r ) == direction || r == 0
     }
   }
+
+  lazy val isSimple = { false }
 
   /**
    * Compute the distance between a point and the boundary polygon
@@ -115,12 +117,12 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
       case v0 :: v1 :: Nil =>
         if (v0.y <= p.y) {
           if (v1.y > p.y) {
-            if (isLeft(v0, v1, p) > 0.0) wn += 1
+            if (checkTurn(v0, v1, p) > 0.0) wn += 1
           }
         }
         else {
           if (v1.y <= p.y) {
-            if (isLeft(v0, v1, p) < 0.0) wn -= 1
+            if (checkTurn(v0, v1, p) < 0.0) wn -= 1
           }
         }
     }
@@ -131,12 +133,16 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   /**
    * Tests if a point is Left|On|Right of an infinite line.
    *
+   * This is a faster version (less calculations) of the vector product of two vectors
+   * defined by three points.
+   * Reference: http://algs4.cs.princeton.edu/91primitives/
+   *
    * @param v0 First segment point
    * @param v1 Second segment point
    * @param p Point to check
    * @return >0 for P2 left of the line through P0 and P1, =0 for P2  on the line, <0 for P2  right of the line
    */
-  private def isLeft(v0: Vector2D, v1: Vector2D, p: Vector2D): Double =
+  private def checkTurn(v0: Vector2D, v1: Vector2D, p: Vector2D): Double =
     (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**

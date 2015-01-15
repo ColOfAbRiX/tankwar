@@ -38,7 +38,7 @@ class UTNeuralNetwork extends WordSpec with Matchers {
   )
 
   // Tests a NN with the default values
-  private def test_with_default(nn: FeedforwardNeuralNetwork, activation: ActivationFunction = activation) = {
+  private def test_with_default(nn: FeedforwardNeuralNetwork, activation: ActivationFunction = activation) {
 
     inputs_range foreach { i =>
       val in = i

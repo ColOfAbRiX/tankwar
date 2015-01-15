@@ -4,6 +4,7 @@ import java.io.{File, PrintWriter}
 
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.shapes.OrtoRectangle
+import com.colofabrix.scala.neuralnetwork.builders.{FeedforwardBuilder, RandomThreeLayerNetwork}
 
 import scala.collection.mutable.ListBuffer
 
@@ -18,7 +19,7 @@ import scala.collection.mutable.ListBuffer
  * @param tanks_count The number of tanks to create
  */
 class World(
-  val arena: OrtoRectangle = OrtoRectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(1000, 1000) ),
+  val arena: OrtoRectangle = OrtoRectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(5000, 5000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
   val tanks_count: Int = 1 )
@@ -31,9 +32,12 @@ class World(
    * List of tanks present in the world
    */
   def tanks = _tanks
-  private val _tanks: ListBuffer[Tank] = ListBuffer.fill(tanks_count)(new Tank(this))
+  private val _tanks: ListBuffer[Tank] = {
+    val brainBuilder = new FeedforwardBuilder(new RandomThreeLayerNetwork(10))
+    ListBuffer.fill(tanks_count)(new Tank(this, brainBuilder))
+  }
 
-  _tanks foreach { t => println(t.brainNet) }
+  _tanks foreach { t => println(t.brain) }
 
   /**
    * List of bullets running through the world
@@ -53,7 +57,7 @@ class World(
   /**
    * Moves the world one step forward
    */
-  def step() {
+  def step(): Unit = {
     _time += 1
 
     println( s"Time ${_time}: ${_tanks.count(!_.isDead)} alive tanks,  ${_tanks.count(_.isDead)} dead tanks and ${_bullets.length} bullets" )
@@ -87,7 +91,7 @@ class World(
    *
    * @param tank The tank that requested to shot
    */
-  def shot(tank: Tank): Unit = {
+  def shot(tank: Tank) {
     println( s"Tank ${tank.id} has shot")
     _bullets += new Bullet(this, tank, bullet_speed)
   }
@@ -98,7 +102,7 @@ class World(
    * @param tank The tank hit by the bullet
    * @param bullet The bullet that hits the tank
    */
-  def hit(tank: Tank, bullet: Bullet): Unit = {
+  def hit(tank: Tank, bullet: Bullet) {
     println( s"Tank ${tank.id} has been hit by ${bullet.id}")
 
     // Inform the hit tank

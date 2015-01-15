@@ -3,8 +3,8 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders._
+import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.NeuralNetworkBuilder
 
 import scala.util.Random
 
@@ -13,45 +13,40 @@ import scala.util.Random
  *
  * Created by Fabrizio on 02/01/2015.
  */
-class Tank( override val world: World ) extends PhysicalObject {
+class Tank(override val world: World, brainBuilder: NeuralNetworkBuilder) extends PhysicalObject {
+
   import java.lang.Math._
 
-  object BrainOutputHelper { val count = 4 }
+  /**
+   * Support class used as an interface between the output of the NN and the `Tank`
+   */
+  object BrainOutputHelper {
+    val count = 4
+  }
 
-  class BrainOutputHelper(outputs: Seq[Double])
-    extends OutputHelper[Double]( outputs ) {
-
+  class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outputs) {
     val acceleration = Vector2D.fromXY(outputs(0), outputs(1))
-
     val rotation = outputs(2)
-
     val shoot = outputs(3)
-
   }
 
-  object BrainInputHelper { val count = 6 }
-
-  class BrainInputHelper( pos: Vector2D, speed: Vector2D, rot: Double, time: Long, feedback: Seq[Double] )
-    extends InputHelper[Double] {
-    import java.lang.Math._
-
-    override protected val _values = {
-      val out_seq = Seq(
-        pos.x,   pos.y,
-        speed.x, speed.y,
-        rot,
-        time.toDouble
-      )
-
-      // Apply feedback
-      (out_seq zip (feedback :+ 0.0)) map {
-        case (o, f) =>
-          o - signum(o) * abs(o) * abs(f)
-      }
-    }
+  /**
+   * Support class used as an interface between the `Tank` and the input of the NN
+   */
+  object BrainInputHelper {
+    val count = 6
   }
 
-  override def boundaries: Shape = Circle(_position, 20)
+  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Double, time: Long) extends InputHelper[Double] {
+    override protected val _values = Seq(
+      pos.x, pos.y,
+      speed.x, speed.y,
+      rot,
+      time.toDouble
+    )
+  }
+
+  override def boundaries: Shape = Circle(_position, 50)
 
   /**
    * Indicates if the tank is dead
@@ -59,17 +54,9 @@ class Tank( override val world: World ) extends PhysicalObject {
   var isDead = false
 
   /**
-   * Brain of the tank, a feed-forward 3-layer neural network
+   * Brain of the tank
    */
-  val brainNet = new Random3LNetwork(BrainInputHelper.count, 10, BrainOutputHelper.count, pow(2, -4)).build
-
-  /**
-   * Feedback network, a feed-forward 3-layer neural network for T - 1 memory
-   */
-  val feedbackNet = new Random3LNetwork(brainNet.n_outputs, 4, brainNet.n_inputs - 1, 1.0).build
-
-  // Feedback values of T - 1 time
-  private var _feedback: Seq[Double] = Seq.fill(brainNet.n_inputs)(0.0)
+  val brain: NeuralNetwork = brainBuilder.build(BrainInputHelper.count, BrainOutputHelper.count)
 
   // Tracks last shoot output
   private var _shoot = 0.0
@@ -77,7 +64,9 @@ class Tank( override val world: World ) extends PhysicalObject {
   // Number of kills
   private var _killsCount: Int = 0
 
-  override var _position: Vector2D = world.arena.topRight := { _ * Random.nextDouble() }
+  override var _position: Vector2D = world.arena.topRight := {
+    _ * Random.nextDouble()
+  }
 
   override var _speed = Vector2D.fromXY(0.0, 0.0)
 
@@ -87,6 +76,7 @@ class Tank( override val world: World ) extends PhysicalObject {
    * @return The angle formed by the Tank's main axis and the X axis
    */
   def rotation = _rotation
+
   private var _rotation: Double = 0.0
 
   /**
@@ -95,40 +85,38 @@ class Tank( override val world: World ) extends PhysicalObject {
    * @return true if the tank is shooting a bullet
    */
   def isShooting = _isShooting
+
   private var _isShooting: Boolean = false
 
-  override def stepForward() {
+  override def stepForward(): Unit = {
     // Calculating outputs
     val output = new BrainOutputHelper(
-      brainNet.output(
-        new BrainInputHelper( _position, _speed, _rotation, world.time, _feedback )
+      brain.output(
+        new BrainInputHelper(_position, _speed, _rotation, world.time)
       )
     )
-
-    // Updating feedback
-    _feedback = feedbackNet.output(output.raw)
 
     // Update spatial values
     _speed = _speed + output.acceleration
     _position = _position + _speed
 
     // Check arena boundary
-    if( !world.arena.overlaps(_position) ) {
+    if (!world.arena.overlaps(_position)) {
       _speed = _speed := { (x, i) =>
-        if( _position(i) < 0 || _position(i) > world.arena.topRight(i) ) -1.0 * x else x
+        if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
       }
-      _position = _position := ( (x, i) => min(world.arena.topRight(i), x) )
+      _position = _position := ((x, i) => min(world.arena.topRight(i), x))
     }
 
     // Check speed boundary
-    _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed) }
+    _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed)}
 
     // Update rotation
     _rotation += output.rotation % PI
 
     // It shoots when the function changes tone
     _isShooting = output.shoot - _shoot > 0
-    if( _isShooting ) world.shot(this)
+    if (_isShooting) world.shot(this)
     _shoot = output.shoot
   }
 
@@ -137,7 +125,7 @@ class Tank( override val world: World ) extends PhysicalObject {
    *
    * @param bullet The bullet that hits the tank
    */
-  def on_isHit(bullet: Bullet): Unit = {
+  def on_isHit(bullet: Bullet) {
     _killsCount += 1
   }
 
@@ -147,7 +135,7 @@ class Tank( override val world: World ) extends PhysicalObject {
    * @param bullet The bullet that has hit a tank
    * @param tank The tank that is hit
    */
-  def on_hits(bullet: Bullet, tank: Tank): Unit = {
+  def on_hits(bullet: Bullet, tank: Tank) {
   }
 
   /**
@@ -155,7 +143,7 @@ class Tank( override val world: World ) extends PhysicalObject {
    *
    * @return A string in the format of a CSV
    */
-  override def record = super.record +  s";$rotation;${_shoot};$isShooting".replace(".", ",")
+  override def record = super.record + s";$rotation;${_shoot};$isShooting".replace(".", ",")
 
   override def toString = id
 }

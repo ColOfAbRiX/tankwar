@@ -16,6 +16,7 @@ class ConvexPolygon(private val v: Seq[Vector2D]) extends Polygon (v) {
     *
     * Implementation of the Separating Axes Theorem
     * Ref: http://www.sevenson.com.au/actionscript/sat/
+    * This is faster than the `Polygon` implementation
     *
     * @param that The shape to be checked
     * @return True if the shape touches the current shape

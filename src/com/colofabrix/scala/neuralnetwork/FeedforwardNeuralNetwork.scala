@@ -6,7 +6,7 @@ import com.colofabrix.scala.neuralnetwork.layers._
 /**
  * A generic neural network model
  *
- * This class is used to model any NN. It consistys of layer of neurons `Layer`
+ * This class is used to model any NN. It consists of layer of neurons `Layer`
  * connected between each other, an input and an output layer.
  *
  * @param input_layer One input layer of the NN
@@ -57,8 +57,6 @@ extends NeuralNetwork
   override val n_inputs = all_layers.head.n_inputs
 
   override val n_outputs = all_layers.last.n_outputs
-
-  override type T = Double
 
   override def equals( other: Any ) = other match {
     case that: FeedforwardNeuralNetwork =>

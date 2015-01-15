@@ -47,13 +47,13 @@ class UTVector2D extends WordSpec with Matchers {
         val vec2 = Vector2D.fromXY(30, 40)
 
         val addition = vec1 + vec2
-        val subration = vec1 - vec2
+        val subtraction = vec1 - vec2
 
         addition.x should equal (10 + 30)
         addition.y should equal (20 + 40)
 
-        subration.x should equal (10 - 30)
-        subration.y should equal (20 - 40)
+        subtraction.x should equal (10 - 30)
+        subtraction.y should equal (20 - 40)
 
     }
 
@@ -129,7 +129,9 @@ class UTVector2D extends WordSpec with Matchers {
     "Rotation" must {
 
       val vector = Vector2D.fromXY(10, 10)
+      // Rotation half a turn
       val rotation1 = vector ¬ Math.PI
+      // Rotation of 3 turns
       val rotation2 = vector ¬ (6 * Math.PI)
 
       rotation1.x should equal (-10.0 +- tolerance)

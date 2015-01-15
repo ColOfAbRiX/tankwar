@@ -38,7 +38,7 @@ trait PhysicalObject {
   /**
    * Moves the PhysicalObject one step into the future
    */
-  def stepForward()
+  def stepForward(): Unit
 
   /**
    * Determines if a point lies inside the Shape

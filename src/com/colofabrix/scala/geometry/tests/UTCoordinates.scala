@@ -18,11 +18,11 @@ class UTCoordinates extends WordSpec with Matchers {
 
       "Is transformed to valid cartesian coordinates" in {
         // Test vector 1: t=10u r=90° -> x=0, y=10
-        val test_polar_1 = new PolarCoord(10, Math.PI / 2)
+        val test_polar_1 = PolarCoord(10, Math.PI / 2)
         // Test vector 1: t=10u r=180° -> x=-10, y=0
-        val test_polar_2 = new PolarCoord(10, Math.PI)
+        val test_polar_2 = PolarCoord(10, Math.PI)
         // Test vector 2: t=10u r=-45° -> x=7.0710678, y=-7.0710678
-        val test_polar_3 = new PolarCoord(10, -Math.PI / 4)
+        val test_polar_3 = PolarCoord(10, -Math.PI / 4)
 
         // Conversions
         val test_cartesian_1 = CartesianCoord(test_polar_1)
@@ -41,6 +41,18 @@ class UTCoordinates extends WordSpec with Matchers {
         test_cartesian_3.x should equal (7.0710678 +- tolerance)
         test_cartesian_3.y should equal (-7.0710678 +- tolerance)
       }
+
+    }
+
+    "Check for equality" in {
+
+      val polar_1 = PolarCoord(10, Math.PI)
+      val polar_2 = PolarCoord(10, Math.PI)
+      val cartesian = CartesianCoord(-10, 0)
+
+      polar_1 should equal (polar_2)
+      polar_1 should equal (cartesian)
+      polar_2 should equal (cartesian)
 
     }
 
@@ -73,7 +85,7 @@ class UTCoordinates extends WordSpec with Matchers {
 
         // Test vector 3
         polar_3.r should equal (10.0 +- tolerance)
-        polar_3.t should equal (-Math.PI / 4 +- tolerance)
+        polar_3.t should equal (7.0 / 4.0 * Math.PI +- tolerance)
       }
 
     }

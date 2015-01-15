@@ -12,7 +12,7 @@ trait NeuralNetwork {
   /**
    * The data type of the Neural Network
    */
-  type T <: AnyVal
+  type T = Double
 
   /**
    * Number of inputs of this Neural Network
@@ -61,21 +61,21 @@ trait NeuralNetwork {
 /**
  * Any Neural Network that implements weights for its neurons
  */
-trait Weighted[B] extends NeuralNetwork {
+trait Weighted[U] extends NeuralNetwork {
   /**
    * Weights for the inputs of the neurons.
    * The first dimension represents the neuron, the second dimension represents an input for that neuron
    * It must be sized as (n_outputs, n_inputs)
    */
-  val weights: Seq[Seq[B]]
+  val weights: Seq[Seq[U]]
 }
 
 /**
  * Any Neural Network that implements bias for its neurons
  */
-trait Biased[B] extends NeuralNetwork {
+trait Biased[U] extends NeuralNetwork {
   /**
    * Bias for the neurons. Every item is the bias for the corresponding neuron
    */
-  val biases: Seq[B]
+  val biases: Seq[U]
 }

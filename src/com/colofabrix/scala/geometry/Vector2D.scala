@@ -125,7 +125,7 @@ import com.colofabrix.scala.geometry.Vector2DImplicits._
    *
    * @param angle The angle of rotation, in radians
    */
-  def ¬(angle: Double): Vector2D = Vector2D.fromRT(this.r, this.t + angle)//+ (angle % 2 * PI) % -2 * PI)
+  def ¬(angle: Double): Vector2D = Vector2D.fromRT(this.r, this.t + angle)
 
   /**
    * Finds the ccw perpendicular vector, rotated CCW
@@ -252,7 +252,7 @@ object Vector2D {
    * @param r Rotation relative to the X-Axis, in radians
    * @return A new vector
    */
-  def fromRT( r: Double, t: Double ) = Vector2D(new PolarCoord(r, t))
+  def fromRT( r: Double, t: Double ) = Vector2D(PolarCoord(r, t))
 
   /**
    * Creates a vector starting from cartesian coordinates
@@ -261,7 +261,7 @@ object Vector2D {
    * @param y Distance on the Y-Axis
    * @return A new vector
    */
-  def fromXY( x: Double, y: Double ) = Vector2D(new CartesianCoord(x, y))
+  def fromXY( x: Double, y: Double ) = Vector2D(CartesianCoord(x, y))
 }
 
 /**

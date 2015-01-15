@@ -15,9 +15,9 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
 
   override var _speed = Vector2D.fromRT( proper_speed, tank.rotation ) + tank.speed
 
-  override def boundaries: Shape = Circle(_position, 3)
+  override def boundaries: Shape = Circle(_position, 2)
 
-  override def stepForward(): Unit = {
+  override def stepForward() {
     _position = _position + _speed
   }
 
@@ -26,7 +26,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @param tank The tank that is hit
    */
-  def on_hits(tank: Tank): Unit = {
+  def on_hits(tank: Tank) {
   }
 
   override def toString = id
