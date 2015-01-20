@@ -94,8 +94,8 @@ extends NeuralNetwork
   }
 
   override def toString = {
-    val text = "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
-    text.replace("List", "").replace("com.colofabrix.scala.neuralnetwork.", "")
+    val text = this.getClass + "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
+    text.replace("class ", "").replace("List", "").replace("com.colofabrix.scala.neuralnetwork.", "")
   }
 }
 

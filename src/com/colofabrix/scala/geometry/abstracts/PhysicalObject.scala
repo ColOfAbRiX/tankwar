@@ -36,6 +36,14 @@ trait PhysicalObject {
   protected var _speed: Vector2D
 
   /**
+   * Mass of the PhysicalObject
+   *
+   * @return The mass of the object
+   */
+  final def mass: Double = _mass
+  protected var _mass: Double
+
+  /**
    * Moves the PhysicalObject one step into the future
    */
   def stepForward(): Unit
@@ -46,12 +54,10 @@ trait PhysicalObject {
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def isInside(that: Vector2D): Boolean = boundaries.overlaps(that)
+  def overlaps(that: Vector2D): Boolean = boundaries.overlaps(that)
 
   /**
    * Determines if a shape touches this one
-   *
-   * TODO: Unit test this function
    *
    * @param that The shape to check
    * @return true if the two shapes overlap
@@ -69,4 +75,14 @@ trait PhysicalObject {
    * @return A string in the format of a CSV
    */
   def record = s"$id;${world.time};${position.x};${position.y};${speed.x};${speed.y}".replace(".", ",")
+
+  /**
+   * Called when the objects goes outside the arena
+   */
+  def on_hitsWalls: Unit
+
+  /**
+   * Called when the objects is moving faster than the allowed speed
+   */
+  def on_maxSpeedReached: Unit
 }

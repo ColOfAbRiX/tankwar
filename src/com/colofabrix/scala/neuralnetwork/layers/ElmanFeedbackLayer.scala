@@ -55,6 +55,14 @@ extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
 
   private def mixInputs(inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]]) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
 
+  /**
+   * Calculate the output of the layer
+   *
+   * Given a set of input values it calculates the set of output values
+   *
+   * @param inputs A sequence of double to feed the layer
+   * @return A sequence of double representing the output
+   */
   override def output(inputs: Seq[T]): Seq[T] = {
     val outputs = internalLayer.output(inputs ++ _memory)
 

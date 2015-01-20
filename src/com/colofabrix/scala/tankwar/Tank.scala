@@ -46,6 +46,8 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     )
   }
 
+  override protected var _mass: Double = 1
+
   /**
    * Physical boundary of the PhysicalObject.
    */
@@ -54,7 +56,8 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   /**
    * Indicates if the tank is dead
    */
-  var isDead = false
+  def isDead = _isDead
+  private var _isDead = false
 
   /**
    * Brain of the tank
@@ -64,8 +67,17 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   // Tracks last shoot output
   private var _shoot = 0.0
 
-  // Number of kills
+  /**
+   * Number of other tanks killed by the current one
+   */
+  def kills: Int = _killsCount
   private var _killsCount: Int = 0
+
+  /**
+   * Time when the tank has died
+   */
+  def surviveTime = _surviveTime
+  private var _surviveTime: Long = 0
 
   /**
    * Position of the center of the PhysicalObject
@@ -116,17 +128,6 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     _speed = _speed + output.acceleration
     _position = _position + _speed
 
-    // Check arena boundary
-    if (!world.arena.overlaps(_position)) {
-      _speed = _speed := { (x, i) =>
-        if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
-      }
-      _position = _position := ((x, i) => min(world.arena.topRight(i), x))
-    }
-
-    // Check speed boundary
-    _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed)}
-
     // Update rotation
     _rotation += output.rotation % PI
 
@@ -134,6 +135,8 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     _isShooting = output.shoot - _shoot > 0
     if (_isShooting) world.shot(this)
     _shoot = output.shoot
+
+    _surviveTime = world.time
   }
 
   /**
@@ -141,8 +144,8 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    *
    * @param bullet The bullet that hits the tank
    */
-  def on_isHit(bullet: Bullet) {
-    _killsCount += 1
+  def on_isHit(bullet: Bullet): Unit = {
+    _isDead = true
   }
 
   /**
@@ -152,6 +155,7 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    * @param tank The tank that is hit
    */
   def on_hits(bullet: Bullet, tank: Tank) {
+    _killsCount += 1
   }
 
   /**
@@ -162,4 +166,22 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   override def record = super.record + s";$rotation;${_shoot};$isShooting".replace(".", ",")
 
   override def toString = id
+
+  /**
+   * If the tank hit a wall (or it goes beyond it), it is bounced back
+   */
+  override def on_hitsWalls: Unit = {
+    _speed = _speed := { (x, i) =>
+      if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
+    }
+
+    _position = _position := ((x, i) => min(world.arena.topRight(i), x))
+  }
+
+  /**
+   * Called when the objects is moving faster than the allowed speed
+   */
+  override def on_maxSpeedReached: Unit = {
+    _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed)}
+  }
 }
