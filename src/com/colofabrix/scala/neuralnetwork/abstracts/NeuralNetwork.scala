@@ -10,9 +10,16 @@ package com.colofabrix.scala.neuralnetwork.abstracts
 trait NeuralNetwork {
 
   /**
-   * The data type of the Neural Network
+   * Type of data evaluated by the neurons
    */
-  type T = Double
+  @specialized(Double)
+  type T
+
+  /**
+   * Type of data used to expose externally biases and weights
+   */
+  @specialized(Double)
+  type U
 
   /**
    * Number of inputs of this Neural Network
@@ -56,24 +63,13 @@ trait NeuralNetwork {
     output( inputHelper.getValues )
   }
 
-}
-
-/**
- * Any Neural Network that implements weights for its neurons
- */
-trait Weighted[U] extends NeuralNetwork {
   /**
    * Weights for the inputs of the neurons.
    * The first dimension represents the neuron, the second dimension represents an input for that neuron
    * It must be sized as (n_outputs, n_inputs)
    */
   val weights: Seq[Seq[U]]
-}
 
-/**
- * Any Neural Network that implements bias for its neurons
- */
-trait Biased[U] extends NeuralNetwork {
   /**
    * Bias for the neurons. Every item is the bias for the corresponding neuron
    */

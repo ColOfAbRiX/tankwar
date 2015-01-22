@@ -58,7 +58,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   def distance(p: Vector2D): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
-    if( this.overlaps(p) ) return (Vector2D.fromXY(0, 0), Vector2D.fromXY(0, 0))
+    if( this.overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     verticesIterator.map({
       case v0 :: v1 :: Nil =>

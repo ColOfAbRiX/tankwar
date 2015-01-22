@@ -113,34 +113,4 @@ class UTNeuralNetwork extends WordSpec with Matchers {
 
   }
 
-  "Builder" must {
-
-    "Produce valid outputs" when {
-
-      "Used with only the number of inputs" in {
-        val nn = new FeedforwardNeuralNetwork(2)
-
-        inputs_range foreach { i =>
-          withClue( s"While i=$i, ") {
-            nn.output(Seq(i, i))(0) should equal(i)
-            nn.output(Seq(i, i))(1) should equal(i)
-          }
-        }
-      }
-
-      "Used with collections" in {
-        test_with_default( FeedforwardNeuralNetwork(eq_biases, eq_weights, activation) )
-      }
-
-    }
-
-    "Create a NN equivalent to a manual created one" in {
-      val manual = new FeedforwardNeuralNetwork( input_layer, Seq(hidden_layer_1, hidden_layer_2), output_layer )
-      val built = FeedforwardNeuralNetwork(eq_biases, eq_weights, activation)
-
-      built should equal (manual)
-    }
-
-  }
-
 }

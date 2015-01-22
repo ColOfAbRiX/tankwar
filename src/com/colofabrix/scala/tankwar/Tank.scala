@@ -24,10 +24,10 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     val count = 4
   }
 
-  class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outputs) {
-    val acceleration = Vector2D.fromXY(outputs(0), outputs(1))
-    val rotation = outputs(2)
-    val shoot = outputs(3)
+  class BrainOutputHelper(outputs: Seq[brain.T]) extends OutputHelper[brain.T](outputs) {
+    val acceleration = Vector2D.new_xy(outputs(0).asInstanceOf[Double], outputs(1).asInstanceOf[Double])
+    val rotation = outputs(2).asInstanceOf[Double]
+    val shoot = outputs(3).asInstanceOf[Double]
   }
 
   /**
@@ -37,13 +37,13 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     val count = 6
   }
 
-  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Double, time: Long) extends InputHelper[Double] {
+  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Double, time: Long) extends InputHelper[brain.T] {
     override protected val _values = Seq(
       pos.x, pos.y,
       speed.x, speed.y,
       rot,
       time.toDouble
-    )
+    ).asInstanceOf[Seq[brain.T]]
   }
 
   override protected var _mass: Double = 1
@@ -93,7 +93,7 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    *
    * @return The current step speed
    */
-  override var _speed = Vector2D.fromXY(0.0, 0.0)
+  override var _speed = Vector2D.new_xy(0.0, 0.0)
 
   /**
    * Rotation of the Tank's main axis
@@ -159,15 +159,6 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   }
 
   /**
-   * Record identifying the step of the Tank
-   *
-   * @return A string in the format of a CSV
-   */
-  override def record = super.record + s";$rotation;${_shoot};$isShooting".replace(".", ",")
-
-  override def toString = id
-
-  /**
    * If the tank hit a wall (or it goes beyond it), it is bounced back
    */
   override def on_hitsWalls: Unit = {
@@ -184,4 +175,14 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   override def on_maxSpeedReached: Unit = {
     _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed)}
   }
+
+  /**
+   * Record identifying the step of the Tank
+   *
+   * @return A string in the format of a CSV
+   */
+  override def record = super.record + s";$rotation;${_shoot};$isShooting".replace(".", ",")
+
+  override def toString = id
+
 }

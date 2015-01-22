@@ -68,6 +68,8 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
         for( EvaluatedCandidate<T> candidate : population )
             work.add( candidate.getCandidate() );
 
+        work = runCompetition(work);
+
         return this.evaluatePopulation(work);
     }
 

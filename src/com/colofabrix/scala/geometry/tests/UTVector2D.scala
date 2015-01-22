@@ -16,7 +16,7 @@ class UTVector2D extends WordSpec with Matchers {
   "Apply method" must {
 
     "Return the correct sequence of coordinates" in {
-      val test = Vector2D.fromXY(10, -10)
+      val test = Vector2D.new_xy(10, -10)
 
       test(0) should equal (10.0)
       test(1) should equal (-10.0)
@@ -30,10 +30,10 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Equality" must {
 
-      val cartesian1 = Vector2D.fromXY(10.000000000000002, 10)
-      val cartesian2 = Vector2D.fromXY(10.000000000000002, 10)
-      val polar1 = Vector2D.fromRT(14.142135623730951, Math.PI / 4)
-      val polar2 = Vector2D.fromRT(14.142135623730951, Math.PI / 4)
+      val cartesian1 = Vector2D.new_xy(10.000000000000002, 10)
+      val cartesian2 = Vector2D.new_xy(10.000000000000002, 10)
+      val polar1 = Vector2D.new_rt(14.142135623730951, Math.PI / 4)
+      val polar2 = Vector2D.new_rt(14.142135623730951, Math.PI / 4)
 
       assert( cartesian1 == cartesian2 )
       assert( polar1 == polar2 )
@@ -43,8 +43,8 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Are addition/subtraction" must {
 
-        val vec1 = Vector2D.fromXY(10, 20)
-        val vec2 = Vector2D.fromXY(30, 40)
+        val vec1 = Vector2D.new_xy(10, 20)
+        val vec2 = Vector2D.new_xy(30, 40)
 
         val addition = vec1 + vec2
         val subtraction = vec1 - vec2
@@ -59,7 +59,7 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Is scalar product" must {
 
-      val vector = Vector2D.fromXY(15, 25)
+      val vector = Vector2D.new_xy(15, 25)
       val scalar: Double = 12.345
 
       val result1 = vector * scalar
@@ -79,8 +79,8 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Is inner product" must {
 
-      val vector1 = Vector2D.fromXY(5, 10)
-      val vector2 = Vector2D.fromXY(15, 20)
+      val vector1 = Vector2D.new_xy(5, 10)
+      val vector2 = Vector2D.new_xy(15, 20)
 
       val result = vector1 x vector2
 
@@ -90,8 +90,8 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Is vector product" must {
 
-      val vector1 = Vector2D.fromXY(15, 25)
-      val vector2 = Vector2D.fromXY(30, 35)
+      val vector1 = Vector2D.new_xy(15, 25)
+      val vector2 = Vector2D.new_xy(30, 35)
 
       val result = vector1 ^ vector2
 
@@ -106,8 +106,8 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Map" must {
 
-      val vector = Vector2D.fromXY(12, 34)
-      val map = Vector2D.fromXY(56, 78)
+      val vector = Vector2D.new_xy(12, 34)
+      val map = Vector2D.new_xy(56, 78)
       val projection = vector := map
 
       projection.x should equal (12 * 56)
@@ -117,8 +117,8 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Projection" must {
 
-      val vector = Vector2D.fromXY(100, 100)
-      val axis = Vector2D.fromXY(10, 0)
+      val vector = Vector2D.new_xy(100, 100)
+      val axis = Vector2D.new_xy(10, 0)
       val projection = vector -> axis
 
       projection.x should equal (100.0 +- tolerance)
@@ -128,7 +128,7 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Rotation" must {
 
-      val vector = Vector2D.fromXY(10, 10)
+      val vector = Vector2D.new_xy(10, 10)
       // Rotation half a turn
       val rotation1 = vector ¬ Math.PI
       // Rotation of 3 turns
@@ -144,7 +144,7 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Perpendicular" must {
 
-      val vector = Vector2D.fromXY(10, 10)
+      val vector = Vector2D.new_xy(10, 10)
 
       val ccw_perpendicular = vector -|
       val cw_perpendicular = vector |-
@@ -159,7 +159,7 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Normal" must {
 
-      val vector = Vector2D.fromXY(25, 25)
+      val vector = Vector2D.new_xy(25, 25)
       val result = vector n
 
       result.r should equal (1.0)
@@ -169,7 +169,7 @@ class UTVector2D extends WordSpec with Matchers {
 
     "Unit vector" must {
 
-      val vector = Vector2D.fromXY(78, 78)
+      val vector = Vector2D.new_xy(78, 78)
       val result = vector v
 
       result.r should equal (1.0)

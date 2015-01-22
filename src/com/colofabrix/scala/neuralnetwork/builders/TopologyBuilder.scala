@@ -18,6 +18,9 @@ class ThreeLayerNetwork(
   activation: String = "tanh"
 )
 extends StructureBuilder {
+  // It's a three layer network !!!
+  require(data.layerReaders.length == 3, "The DataReader must contain data for 3 layers")
+
   /**
    * Returns a sequence with one Hidden Layer
    *

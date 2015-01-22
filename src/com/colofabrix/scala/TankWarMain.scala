@@ -2,7 +2,7 @@ package com.colofabrix.scala
 
 import com.colofabrix.scala.tankwar.integration._
 import com.colofabrix.scala.tankwar.{Tank, World}
-import org.uncommons.maths.random.MersenneTwisterRNG
+import org.uncommons.maths.random.{MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection
 import org.uncommons.watchmaker.framework.termination.GenerationCount
@@ -22,7 +22,10 @@ object TankWarMain {
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
-      List(new TankMutation(), new TankCrossover(1, null) )
+      List(
+        new TankMutation(0.1, null, null),
+        new TankCrossover(1, new Probability(0.1))
+      )
     )
 
     // Evolutionary engine
@@ -35,7 +38,7 @@ object TankWarMain {
     )
 
     // Run the simulation
-    engine.evolve(10, 0, new GenerationCount(1))
+    engine.evolve(10, 0, new GenerationCount(3))
   }
 }
 

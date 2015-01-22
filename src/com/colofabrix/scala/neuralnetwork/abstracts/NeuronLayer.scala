@@ -20,7 +20,7 @@ abstract class NeuronLayer (
   override val n_outputs: Int,
   override val biases: Seq[Double],
   override val weights: Seq[Seq[Double]] )
-extends Weighted[Double] with Biased[Double]
+extends NeuralNetwork
 {
   // An activation function must be provided
   require( activation != null )
@@ -35,6 +35,14 @@ extends Weighted[Double] with Biased[Double]
 
   override type T = Double
 
+  override type U = Double
+
+  /**
+   * Check if two objects represents the same layer of neuron
+   *
+   * @param other The other object to compare
+   * @return true if two objects represents the same layer
+   */
   override def equals( other: Any ) = other match {
     case that: NeuronLayer =>
       this.canEqual(that) &&
@@ -72,6 +80,11 @@ extends Weighted[Double] with Biased[Double]
       activation( (inputs zip weights(o) map { case (i, w) => i * w } sum ) + biases(o) )
   }
 
+  /**
+   * Gets a string representation of the layer
+   *
+   * @return A string containing the representation of weights and biases of the layer
+   */
   override def toString = {
     "(" + activation.toString + ", " + biases.toString + ", " + weights.toString + ")"
   }

@@ -11,9 +11,9 @@ import com.colofabrix.scala.geometry.Vector2D
 case class OrtoRectangle(bottomLeft: Vector2D, topRight: Vector2D )
   extends ConvexPolygon(
      Seq(bottomLeft,
-       Vector2D.fromXY(bottomLeft.x, topRight.y),
+       Vector2D.new_xy(bottomLeft.x, topRight.y),
        topRight,
-       Vector2D.fromXY(topRight.x, bottomLeft.y)
+       Vector2D.new_xy(topRight.x, bottomLeft.y)
      ) ) {
      require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect an order" )
 

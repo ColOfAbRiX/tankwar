@@ -1,0 +1,79 @@
+package com.colofabrix.scala.neuralnetwork.builders
+
+import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.{DataReader, LayerReader}
+
+
+/**
+ * Sequence Data Reader
+ *
+ * It reads the data of a NN Layer from a Sequence
+ *
+ * @param biases Biases of the NN
+ * @param weights Weights of the NN
+ */
+class SeqDataReader(af: String, biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]]) extends DataReader {
+  val combined = biases zip weights
+
+  // These checks are done because we need a reliable set of data to extract information like the number of inputs
+  require(biases.length == weights.length, "Biases and weights must represent the same number of layers")
+  require(biases.length > 0, "At least one layer must be specified")
+  for ((b, w) <- biases zip weights) {
+    require(b.length > 0 && b.length == w.length, "Bias and weights count must match the same number of neurons")
+    require(w.forall(w(0).length == _.length), "All the weights must be for the same number of inputs")
+  }
+
+  override def layerReaders = combined map { case (b, w) =>
+    new SeqLayerReader(af, b, w)
+  }
+}
+
+
+/**
+ * Sequence Data Reader for a single Layer
+ *
+ * It reads the data of a Layer from a Sequence
+ *
+ * @param af Activation Function
+ * @param biases Biases of the layer
+ * @param weights Weights of the layer
+ */
+class SeqLayerReader(af: String, biases: Seq[Double], weights: Seq[Seq[Double]]) extends LayerReader {
+  require(af != null, "An activation function must be specified")
+
+  /**
+   * Returns the biases of the neurons
+   *
+   * @param neurons Number of neurons in the layer
+   * @return The sequence of biases, one for each neuron
+   */
+  override def neuronBiases(neurons: Int): Seq[Double] = {
+    require(neurons > 0, "The number of neurons must be a positive integer")
+    require(biases.length == neurons, "The number of biases don't match the number of neurons")
+
+    biases
+  }
+
+  /**
+   * Return the weights, for each neuron, associated with the inputs
+   *
+   * @param neurons Number of neurons in the layer
+   * @param inputs Number of inputs for each neuron
+   * @return The weights, for each neuron, associated with the inputs
+   */
+  override def inputWeights(neurons: Int, inputs: Int): Seq[Seq[Double]] = {
+    require(neurons > 0)
+    require(inputs > 0)
+    require(weights.length == neurons)
+    require(weights(0).length == inputs)
+
+    weights
+  }
+
+  /**
+   * Returns the ActivationFunction associated with the layer
+   *
+   * @return The ActivationFunction associated with the layer
+   */
+  override def activationFunction: ActivationFunction = ActivationFunction(af)
+}

@@ -58,16 +58,3 @@ class RandomReader(scale: Double, nLayers: Int, rng: Random = new Random) extend
    */
   override def activationFunction = ActivationFunction("tanh")
 }
-
-
-/**
- * Sequence Data Reader
- *
- * It reads the data of a NN Layer from a Sequence
- *
- * @param biases Biases of the layer
- * @param weights Weights of the layer
- */
-class SeqReader(biases: Seq[Double], weights: Seq[Seq[Double]]) extends DataReader {
-  override def layerReaders = ???
-}

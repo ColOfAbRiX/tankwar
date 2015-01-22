@@ -19,7 +19,7 @@ import scala.collection.mutable.ListBuffer
  * @param _tanks The tanks present in the world
  */
 class World(
-  val arena: OrtoRectangle = OrtoRectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(5000, 5000) ),
+  val arena: OrtoRectangle = OrtoRectangle( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
   val max_rounds: Int = 500,
@@ -63,9 +63,9 @@ class World(
    * @param action The action to take if check equals false for a second time
    */
   private def check_limit(check: () => Boolean, notify: () => Unit, action: () => Unit) {
-    if( !check() ) {
+    if( check() != true ) {
       notify()
-      if( !check() ) action
+      if( check() != true ) action
     }
   }
 

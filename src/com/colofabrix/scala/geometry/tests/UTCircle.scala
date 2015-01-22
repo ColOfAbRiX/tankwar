@@ -17,9 +17,9 @@ class UTCircle extends WordSpec with Matchers {
 
       "Matched with another circle" in {
 
-        val circle1 = Circle(Vector2D.fromXY(10, 10), 50)
-        val circle2 = Circle(Vector2D.fromXY(-60, 80), 20)
-        val circle3 = Circle(Vector2D.fromXY(20, 20), 20)
+        val circle1 = Circle(Vector2D.new_xy(10, 10), 50)
+        val circle2 = Circle(Vector2D.new_xy(-60, 80), 20)
+        val circle3 = Circle(Vector2D.new_xy(20, 20), 20)
 
         // Check circle1
         circle1.overlaps(circle1) should equal(true)
@@ -37,10 +37,10 @@ class UTCircle extends WordSpec with Matchers {
 
       "Matched with a point" must {
 
-        val insidePoint = Vector2D.fromRT(50, Math.PI / 4)
-        val outsidePoint = Vector2D.fromRT(100, -Math.PI)
-        val centered = Circle(Vector2D.fromXY(0, 0), 50)
-        val offCenter = Circle(Vector2D.fromXY(50, 50), 50)
+        val insidePoint = Vector2D.new_rt(50, Math.PI / 4)
+        val outsidePoint = Vector2D.new_rt(100, -Math.PI)
+        val centered = Circle(Vector2D.new_xy(0, 0), 50)
+        val offCenter = Circle(Vector2D.new_xy(50, 50), 50)
 
         // The point is on the circumference
         centered.overlaps(insidePoint) should equal(true)

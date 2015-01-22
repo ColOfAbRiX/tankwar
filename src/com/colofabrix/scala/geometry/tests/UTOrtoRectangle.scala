@@ -19,9 +19,9 @@ class UTOrtoRectangle extends WordSpec with Matchers {
 
       "Matched with a point" must {
 
-        val insidePoint = Vector2D.fromXY(5, 5)
-        val outsidePoint = Vector2D.fromXY(20, 20)
-        val rect = OrtoRectangle( Vector2D.fromXY(0,0), Vector2D.fromXY(10,10) )
+        val insidePoint = Vector2D.new_xy(5, 5)
+        val outsidePoint = Vector2D.new_xy(20, 20)
+        val rect = OrtoRectangle( Vector2D.new_xy(0,0), Vector2D.new_xy(10,10) )
 
         // The point is outside the rectangle
         rect.overlaps(insidePoint) should equal (true)
@@ -32,9 +32,9 @@ class UTOrtoRectangle extends WordSpec with Matchers {
 
       "Is a OrtoRectangle" must {
 
-        val touchRect1 = OrtoRectangle( Vector2D.fromXY(0, 0), Vector2D.fromXY(10, 15) )
-        val touchRect2 = OrtoRectangle( Vector2D.fromXY(5, 10), Vector2D.fromXY(15, 20) )
-        val separateRect = OrtoRectangle( Vector2D.fromXY(30, 35), Vector2D.fromXY(40, 45) )
+        val touchRect1 = OrtoRectangle( Vector2D.new_xy(0, 0), Vector2D.new_xy(10, 15) )
+        val touchRect2 = OrtoRectangle( Vector2D.new_xy(5, 10), Vector2D.new_xy(15, 20) )
+        val separateRect = OrtoRectangle( Vector2D.new_xy(30, 35), Vector2D.new_xy(40, 45) )
 
         touchRect1.overlaps(touchRect1) should equal (true)
         touchRect1.overlaps(touchRect2) should equal (true)
