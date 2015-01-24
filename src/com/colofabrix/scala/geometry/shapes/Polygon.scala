@@ -27,6 +27,8 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   val edgesIterator = (edges :+ edges.head).sliding(2).toSeq
 
+  lazy val isSimple = false
+
   /**
    * Checks if a polygon is convex
    *
@@ -39,7 +41,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   lazy val isConvex = {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero
-    val direction = Math.signum( this.edges(1) ^ this.edges(0) )
+    val direction = Math.signum( edges(1) ^ edges(0) )
 
     this.edgesIterator.tail forall {
       case u :: v :: Nil =>
@@ -48,17 +50,15 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     }
   }
 
-  lazy val isSimple = { false }
-
   /**
-   * Compute the distance between a point and the boundary polygon
+   * Compute the distance between a point and the edges of the polygon
    *
    * @param p Point to check
    * @return A distance vector from the point to polygon and the edge from which the distance is calculated
    */
   def distance(p: Vector2D): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
-    if( this.overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
+    if( overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     verticesIterator.map({
       case v0 :: v1 :: Nil =>
@@ -67,28 +67,19 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   }
 
   /**
-   * Compute the distance between a point and a line segment
+   * Compute the distance between a line and the edges of the polygon
    *
-   * Implementation of the algorithm: http://geomalgorithms.com/a02-_lines.html
-   *
-   * @param v0 First end of the segment
-   * @param v1 Second end of the segment
-   * @param p Point to check
-   * @return A distance vector from the point to the segment or one of its ends
+   * @param p0 The first point that defines the line
+   * @param p1 The second point that defines the line
+   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
    */
-  def distance(v0: Vector2D, v1: Vector2D, p: Vector2D): Vector2D = {
-    val v = v1 - v0
-    val w = p - v0
-    val c1 = v x w
-    val c2 = v x v
+  override def distance(p0: Vector2D, p1: Vector2D): (Vector2D, Vector2D) = {
+    // If the point is inside the polygon....
+    if( overlaps(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
-    if( c1 <= 0.0 )
-      return v0 - p
-    else if( c2 <= c1 )
-      return v1 - p
-
-    val pb = v0 + v * (c1 / c2)
-    pb - p
+    vertices.map({
+      v => (distance(p0, p1, v), v)
+    }).toList.minBy( _._1.r )
   }
 
   /**
@@ -131,6 +122,32 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   }
 
   /**
+   * Determines if a shape is inside or on the boundary this shape
+   *
+   * I use the simple assumption that if one of the vertices is inside the other polygon
+   * (for both the polygons) then the two polygon overlaps. There is absolutely no proof
+   * of this and it probably the complexity is not optimal
+   * UPDATE: Proved to be not true for every polygon
+   *
+   * @param that The point to be checked
+   * @return True if the point is inside the shape
+   */
+  def overlaps(that: Polygon): Boolean = {
+    val thisInThat = vertices.foldLeft(false) { (r, v) => r || that.overlaps(v) }
+    val thatInThis = that.vertices.foldLeft(false) { (r, v) => r || overlaps(v) }
+    thisInThat || thatInThis
+  }
+
+  /**
+   * Determines if a line touches in any way this shape
+   *
+   * @param p0 The first point that defines the line
+   * @param p1 The second point that defines the line
+   * @return True if the point is inside the shape
+   */
+  override def overlaps(p0: Vector2D, p1: Vector2D): Boolean = distance(p0, p1)._1.r == 0.0
+
+  /**
    * Tests if a point is Left|On|Right of an infinite line.
    *
    * This is a faster version (less calculations) of the vector product of two vectors
@@ -146,18 +163,49 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**
-   * Determines if a shape is inside or on the boundary this shape
+   * Moves a polygon
    *
-   * I use the simple assumption that if one of the vertices is inside the other polygon
-   * (for both the polygons) then the two polygon overlaps. There is absolutely no proof
-   * of this and it probably the complexity is not optimal
-   *
-   * @param that The point to be checked
-   * @return True if the point is inside the shape
+   * @param where The vector specifying how to move the polygon
+   * @return A new polygon moved of `where`
    */
-  def overlaps(that: Polygon): Boolean = {
-    val thisInThat = this.vertices.foldLeft(false) { (r, v) => r || that.overlaps(v) }
-    val thatInThis = that.vertices.foldLeft(false) { (r, v) => r || this.overlaps(v) }
-    thisInThat || thatInThis
+  override def move(where: Vector2D) = {
+    new Polygon( vertices.map(v => v + where) )
+  }
+
+  /**
+   * Find a containing box for the current shape.
+   *
+   * It returns the smallest area between a box or a circle that fully contain
+   * the current shape.
+   * Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.html
+   *
+   * @return A shape that fully contains this shape
+   */
+  override lazy val container: Shape = {
+    // Finds the minimum and maximum coordinates for the points
+    var (minX, minY) = (Double.MaxValue, Double.MaxValue)
+    var (maxX, maxY) = (Double.MinValue, Double.MinValue)
+
+    for (v <- vertices) {
+      minX = if(minX > v.x) v.x else minX
+      minY = if(minY > v.y) v.y else minY
+      maxX = if(maxX < v.x) v.x else maxX
+      maxY = if(maxY < v.y) v.y else maxY
+    }
+
+    // Creates the Box
+    val bottomLeft = Vector2D.new_xy(minX, minY)
+    val topRight = Vector2D.new_xy(maxX, maxY)
+    val box = new Box(bottomLeft, topRight)
+
+    // Creates the Circle
+    val distance = (topRight - bottomLeft) / 2
+    val circle = new Circle(distance + bottomLeft, distance.r)
+
+    // Returns whichever has got the smallest area
+    if(box.width * box.height < 2.0 * circle.radius * Math.PI)
+      box
+    else
+      circle
   }
 }

@@ -12,4 +12,6 @@ class LinearClipped extends ActivationFunction {
 
   override def apply(input: Double): Double = Math.max(Math.min(input, 1.0), -1.0)
 
+  override def toString = "LinearClipped"
+
 }

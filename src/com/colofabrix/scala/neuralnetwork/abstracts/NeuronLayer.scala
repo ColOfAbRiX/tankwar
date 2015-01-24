@@ -37,6 +37,10 @@ extends NeuralNetwork
 
   override type U = Double
 
+  override type V = String
+
+  override val activationFunction = activation.toString
+
   /**
    * Check if two objects represents the same layer of neuron
    *

@@ -15,7 +15,7 @@ import scala.util.Random
  * @param nLayers The number of layers of the network
  * @param rng Random Number Generator
  */
-class RandomReader(scale: Double, nLayers: Int, rng: Random = new Random) extends DataReader with LayerReader {
+class RandomReader(nLayers: Int, rng: Random = new Random, scale: Double = 1.0, af: String = "tanh") extends DataReader with LayerReader {
 
   // Function to retrieve the number
   private def _nextDouble = rng.nextDouble() * 2 * scale - scale
@@ -56,5 +56,5 @@ class RandomReader(scale: Double, nLayers: Int, rng: Random = new Random) extend
    *
    * @return The ActivationFunction associated with the layer
    */
-  override def activationFunction = ActivationFunction("tanh")
+  override def activationFunction = ActivationFunction(af)
 }

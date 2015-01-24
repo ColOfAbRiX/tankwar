@@ -22,6 +22,11 @@ trait NeuralNetwork {
   type U
 
   /**
+   * Type of data used to expose externally the activation function
+   */
+  type V
+
+  /**
    * Number of inputs of this Neural Network
    */
   val n_inputs: Int
@@ -74,4 +79,9 @@ trait NeuralNetwork {
    * Bias for the neurons. Every item is the bias for the corresponding neuron
    */
   val biases: Seq[U]
+
+  /**
+   * Activation function of the NeuralNetwork
+   */
+  val activationFunction: V
 }

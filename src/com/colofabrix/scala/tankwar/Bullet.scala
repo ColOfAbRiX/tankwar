@@ -23,7 +23,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The current step speed
    */
-  override var _speed = Vector2D.new_rt( proper_speed, tank.rotation ) + tank.speed
+  override var _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
 
   /**
    * Physical boundary of the bullet.

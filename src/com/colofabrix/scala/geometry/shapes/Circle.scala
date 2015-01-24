@@ -35,4 +35,61 @@ case class Circle(center: Vector2D, radius: Double) extends Shape {
         p.distance(center)._1 <= radius
     }
   }
+
+  /**
+   * Determines if a line touches in any way this shape
+   *
+   * @param p0 The first point that defines the line
+   * @param p1 The second point that defines the line
+   * @return True if the point is inside the shape
+   */
+  override def overlaps(p0: Vector2D, p1: Vector2D): Boolean = distance(p0, p1, center) <= radius
+
+  /**
+   * Compute the distance between a point and the circle
+   *
+   * @param p Point to check
+   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
+   */
+  override def distance(p: Vector2D): (Vector2D, Vector2D) = {
+    val distanceFromCenter = p - center
+    val radiusTowardsPoint = distanceFromCenter.v * radius
+
+    val distance = distanceFromCenter - radiusTowardsPoint
+    val touchPoint = center + radiusTowardsPoint
+
+    (distance, touchPoint)
+  }
+
+  /**
+   * Compute the distance between a line and the edges of the polygon
+   *
+   * @param p0 The first point that defines the line
+   * @param p1 The second point that defines the line
+   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
+   */
+  override def distance(p0: Vector2D, p1: Vector2D): (Vector2D, Vector2D) = {
+    val distanceToCenter = distance(p0, p1, center)
+    distance(distanceToCenter)
+  }
+
+  /**
+   * Moves a shape
+   *
+   * @param where The vector specifying how to move the shape
+   * @return A new shape moved of `where`
+   */
+  override def move(where: Vector2D): Shape = {
+    new Circle(center + where, radius)
+  }
+
+  /**
+   * Find a containing box for the current shape.
+   *
+   * Implementation of the rotating caliper algorithm
+   * Ref: http://geomalgorithms.com/a08-_containers.html
+   *
+   * @return A polygon that fully contains this shape
+   */
+  override lazy val container: Shape = this.clone.asInstanceOf
 }

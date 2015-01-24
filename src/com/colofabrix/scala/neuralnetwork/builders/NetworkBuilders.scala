@@ -1,7 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.builders
 
 import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.{BehaviourBuilder, StructureBuilder}
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.{BehaviourBuilder, DataReader, StructureBuilder}
 import com.colofabrix.scala.neuralnetwork.layers.ElmanFeedbackLayer
 import com.colofabrix.scala.neuralnetwork.{ElmanNeuralNetwork, FeedforwardNeuralNetwork}
 
@@ -19,11 +19,11 @@ class FeedforwardBuilder(structure: StructureBuilder) extends BehaviourBuilder {
    * @param nOutputs The number of outputs the NN returns
    * @return A new instance of a Neural Network
    */
-  override def build(nInputs: Int, nOutputs: Int): NeuralNetwork =
+  override def build(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork =
     new FeedforwardNeuralNetwork(
-      structure.inputLayer(nInputs),
-      structure.hiddenLayers(nInputs),
-      structure.outputLayer(nOutputs)
+      structure.inputLayer(nInputs, dataReader),
+      structure.hiddenLayers(nInputs, dataReader),
+      structure.outputLayer(nOutputs, dataReader)
     )
 
 }
@@ -45,9 +45,9 @@ class ElmanBuilder(structure: StructureBuilder) extends BehaviourBuilder {
    * @param nOutputs The number of outputs the NN returns
    * @return A new instance of a Neural Network
    */
-  override def build(nInputs: Int, nOutputs: Int): NeuralNetwork = {
+  override def build(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork = {
     // Checks that only one hidden layer is provided
-    val hidden = structure.hiddenLayers(nInputs)
+    val hidden = structure.hiddenLayers(nInputs, dataReader)
     require(hidden.length == 1)
 
     // Check the type of the hidden layer. It must be an ElmanFeedbackLayer
@@ -58,9 +58,9 @@ class ElmanBuilder(structure: StructureBuilder) extends BehaviourBuilder {
 
     // Build the object
     new ElmanNeuralNetwork(
-      structure.inputLayer(nInputs),
+      structure.inputLayer(nInputs, dataReader),
       Seq(elmanHidden),
-      structure.outputLayer(nOutputs)
+      structure.outputLayer(nOutputs, dataReader)
     )
   }
 

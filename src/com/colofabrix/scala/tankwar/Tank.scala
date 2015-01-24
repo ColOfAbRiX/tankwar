@@ -4,7 +4,7 @@ import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.BehaviourBuilder
+import com.colofabrix.scala.neuralnetwork.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
 
 import scala.util.Random
 
@@ -13,7 +13,7 @@ import scala.util.Random
  *
  * Created by Fabrizio on 02/01/2015.
  */
-class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends PhysicalObject {
+class Tank(override val world: World, initialData: TankCreationData) extends PhysicalObject {
 
   import java.lang.Math._
 
@@ -25,7 +25,7 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   }
 
   class BrainOutputHelper(outputs: Seq[brain.T]) extends OutputHelper[brain.T](outputs) {
-    val acceleration = Vector2D.new_xy(outputs(0).asInstanceOf[Double], outputs(1).asInstanceOf[Double])
+    val force = Vector2D.new_xy(outputs(0).asInstanceOf[Double], outputs(1).asInstanceOf[Double])
     val rotation = outputs(2).asInstanceOf[Double]
     val shoot = outputs(3).asInstanceOf[Double]
   }
@@ -37,19 +37,19 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     val count = 6
   }
 
-  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Double, time: Long) extends InputHelper[brain.T] {
+  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, time: Long) extends InputHelper[brain.T] {
     override protected val _values = Seq(
       pos.x, pos.y,
       speed.x, speed.y,
-      rot,
+      rot.t,
       time.toDouble
     ).asInstanceOf[Seq[brain.T]]
   }
 
-  override protected var _mass: Double = 1
+  override protected var _mass: Double = initialData.mass
 
   /**
-   * Physical boundary of the PhysicalObject.
+   * Physical boundary of the PhysicalObject located in the space
    */
   override def boundaries: Shape = Circle(_position, 50)
 
@@ -62,7 +62,11 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
   /**
    * Brain of the tank
    */
-  val brain: NeuralNetwork = brainBuilder.build(BrainInputHelper.count, BrainOutputHelper.count)
+  val brain: NeuralNetwork =
+    initialData.brainBuilder.build(
+      BrainInputHelper.count,
+      BrainOutputHelper.count,
+      initialData.dataReader)
 
   // Tracks last shoot output
   private var _shoot = 0.0
@@ -101,8 +105,7 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    * @return The angle formed by the Tank's main axis and the X axis
    */
   def rotation = _rotation
-
-  private var _rotation: Double = 0.0
+  private var _rotation: Vector2D = Vector2D.new_rt(1, 0)
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -113,6 +116,18 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
 
   private var _isShooting: Boolean = false
 
+  /**
+   * The chromosome contains all the data needed to identify uniquely this Tank
+   */
+  val chromosome = new TankChromosome(
+    brain.biases.asInstanceOf[Seq[Seq[Double]]],
+    brain.weights.asInstanceOf[Seq[Seq[Seq[Double]]]],
+    brain.activationFunction.asInstanceOf[Seq[String]],
+    initialData.valueRange,
+    initialData.brainBuilder,
+    _mass
+  )
+  
   /**
    * Moves the PhysicalObject one step into the future
    */
@@ -125,11 +140,9 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
     )
 
     // Update spatial values
-    _speed = _speed + output.acceleration
+    _speed = _speed + (output.force / _mass)
     _position = _position + _speed
-
-    // Update rotation
-    _rotation += output.rotation % PI
+    _rotation = _rotation ¬ output.rotation
 
     // It shoots when the function changes tone
     _isShooting = output.shoot - _shoot > 0
@@ -162,6 +175,7 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    * If the tank hit a wall (or it goes beyond it), it is bounced back
    */
   override def on_hitsWalls: Unit = {
+    // Invert the speed on the axis of impact
     _speed = _speed := { (x, i) =>
       if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
     }
@@ -181,8 +195,48 @@ class Tank(override val world: World, brainBuilder: BehaviourBuilder) extends Ph
    *
    * @return A string in the format of a CSV
    */
-  override def record = super.record + s";$rotation;${_shoot};$isShooting".replace(".", ",")
+  override def record = super.record + s",$rotation,${_shoot},$isShooting"
 
   override def toString = id
+
+}
+
+object Tank {
+
+  val defaultMass = 1.0
+
+  val defaultRange = 1.0
+
+  val defaultActivationFunction = "tanh"
+
+  val defaultBrainBuilder =
+    new FeedforwardBuilder(new ThreeLayerNetwork(10, defaultActivationFunction))
+
+  def defaultRandomReader(rng: Random) = new RandomReader(3, rng, defaultRange)
+
+  def apply(world: World, chromosome: TankChromosome): Tank = {
+
+    val reader = new SeqDataReader(
+      chromosome.biases,
+      chromosome.weights,
+      chromosome.af
+    )
+
+    val data = new TankCreationData(
+      chromosome.brainBuilder,
+      reader,
+      chromosome.valueRange,
+      chromosome.mass
+    )
+
+    new Tank(world, data)
+
+  }
+
+  def apply(world: World, data: TankCreationData): Tank = {
+
+    new Tank(world, data)
+
+  }
 
 }

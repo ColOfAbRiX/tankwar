@@ -104,6 +104,10 @@ class UTPolygon extends WordSpec with Matchers {
 
     }
 
+    "Must find an enclosing Box" in {
+
+    }
+
   }
 
 }

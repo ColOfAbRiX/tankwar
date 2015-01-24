@@ -12,4 +12,6 @@ class Linear extends ActivationFunction {
 
   override def apply(input: Double): Double = input
 
+  override def toString = "Linear"
+
 }

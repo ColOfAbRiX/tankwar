@@ -17,5 +17,6 @@ class Softplus extends ActivationFunction {
 
   override def apply(input: Double): Double = Math.log( 1 + Math.exp(input) )
 
-}
+  override def toString = "Softplus"
 
+}

@@ -15,12 +15,12 @@ import com.colofabrix.scala.neuralnetwork.layers.{HiddenLayer, InputLayer, Outpu
  */
 trait StructureBuilder {
   /**
-   * Returns the input layer, usually the default pass-through
+   * Returns the input layer, usually the default is pass-through
    *
    * @param nInputs The number of inputs of the NN
    * @return A new InputLayer for the NN. It defaults to `InputLayer`
    */
-  def inputLayer(nInputs: Int): InputLayer = new InputLayer(nInputs)
+  def inputLayer(nInputs: Int, dataReader: DataReader): InputLayer = new InputLayer(nInputs)
 
   /**
    * Returns the list of hidden layers
@@ -28,7 +28,7 @@ trait StructureBuilder {
    * @param nInitialInputs The number of inputs of the NN
    * @return A sequence of HiddenLayer
    */
-  def hiddenLayers(nInitialInputs: Int): Seq[HiddenLayer]
+  def hiddenLayers(nInitialInputs: Int, dataReader: DataReader): Seq[HiddenLayer]
 
   /**
    * Returns the output layer
@@ -36,5 +36,5 @@ trait StructureBuilder {
    * @param nOutputs The number of outputs of the NN
    * @return A new OutputLayer
    */
-  def outputLayer(nOutputs: Int): OutputLayer
+  def outputLayer(nOutputs: Int, dataReader: DataReader): OutputLayer
 }

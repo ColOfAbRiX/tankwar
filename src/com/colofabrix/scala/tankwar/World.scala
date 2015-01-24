@@ -3,8 +3,8 @@ package com.colofabrix.scala.tankwar
 import java.io.{File, PrintWriter}
 
 import com.colofabrix.scala.geometry._
-import com.colofabrix.scala.geometry.shapes.OrtoRectangle
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.BehaviourBuilder
+import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
 
 import scala.collection.mutable.ListBuffer
 
@@ -19,7 +19,7 @@ import scala.collection.mutable.ListBuffer
  * @param _tanks The tanks present in the world
  */
 class World(
-  val arena: OrtoRectangle = OrtoRectangle( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
+  val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
   val max_rounds: Int = 500,
@@ -63,9 +63,9 @@ class World(
    * @param action The action to take if check equals false for a second time
    */
   private def check_limit(check: () => Boolean, notify: () => Unit, action: () => Unit) {
-    if( check() != true ) {
+    if( !check() ) {
       notify()
-      if( check() != true ) action
+      if( !check() ) action()
     }
   }
 
@@ -81,9 +81,8 @@ class World(
     println( s"Time ${_time}: ${tanks.count(!_.isDead)} alive tanks, ${tanks.count(_.isDead)} dead tanks and ${bullets.size} bullets flying" )
 
     // Moving all tanks forward
-    tanks.filter( !_.isDead ).par foreach { t =>
+    tanks.filter( !_.isDead ) foreach { t =>
       writer.write(t.record + "\n")
-      //println(t.record)
 
       t.stepForward()
 
@@ -96,7 +95,7 @@ class World(
 
       // Speed limit check
       check_limit(
-        () => t.speed <= max_speed,
+        () => t.speed.x <= max_speed || t.speed.y <= max_speed,
         () => t.on_maxSpeedReached,
         () => tanks -= t
       )
@@ -105,9 +104,8 @@ class World(
     }
 
     // Moving all bullets forward
-    bullets.par foreach { b =>
+    bullets foreach { b =>
       writer.write(b.record + "\n")
-      //println( b.record )
 
       b.stepForward()
 
@@ -117,15 +115,10 @@ class World(
         () => b.on_hitsWalls,
         () => bullets -= b
       )
+    }
 
-      // Speed limit check
-      check_limit(
-        () => b.speed <= bullet_speed,
-        () => b.on_maxSpeedReached,
-        () => bullets -= b
-      )
-
-      // Bullet/Tank collision management
+    // Bullet/Tank collision management
+    bullets foreach { b =>
       // TODO: space partitioning for collision detection
       tanks.filter( !_.isDead ).par foreach { t =>
         if( b.touches(t) && b.tank != t ) this.hit(t, b)
@@ -136,11 +129,38 @@ class World(
   /**
    * Creates and add a new Tank to the world
    *
-   * @param builder The builder used to construct a Tank's brain
    * @return The newly created Tank
    */
-  def createTank(builder: BehaviourBuilder): Tank = {
-    val tank = new Tank(this, builder)
+  def createAndAddDefaultTank(reader: DataReader): Tank = {
+    val tank = new Tank(this, new TankCreationData(
+      Tank.defaultBrainBuilder,
+      reader,
+      Tank.defaultRange,
+      Tank.defaultMass
+    ))
+
+    tanks += tank
+    tank
+  }
+
+  /**
+   * Creates and add a new Tank to the world
+   *
+   * @return The newly created Tank
+   */
+  def createAndAddTank(creationData: TankCreationData): Tank = {
+    val tank = new Tank(this, creationData)
+    tanks += tank
+    tank
+  }
+
+  /**
+   * Creates and add a new Tank to the world
+   *
+   * @return The newly created Tank
+   */
+  def createAndAddTank(chromosome: TankChromosome): Tank = {
+    val tank = Tank(this, chromosome)
     tanks += tank
     tank
   }

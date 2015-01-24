@@ -12,4 +12,6 @@ class Rectifier extends ActivationFunction {
 
    override def apply(input: Double): Double = Math.max( 0, input )
 
+  override def toString = "Rectifier"
+
  }

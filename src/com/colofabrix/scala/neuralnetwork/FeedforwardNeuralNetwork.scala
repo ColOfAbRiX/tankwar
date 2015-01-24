@@ -23,6 +23,8 @@ extends NeuralNetwork {
 
   override type U = Seq[Double]
 
+  override type V = Seq[String]
+
   // Input and Output layers are required. Also the HiddenLayer sequence is required, but can be empty
   require( input_layer != null, "The input layer must not be null" )
   require( hidden_layers != null, "You must specify at least an empty set of hidden layers" )
@@ -42,6 +44,8 @@ extends NeuralNetwork {
   override val biases = for( layer <- all_layers ) yield layer.biases
 
   override val weights = for (layer <- all_layers ) yield layer.weights
+
+  override val activationFunction = for (layer <- all_layers ) yield layer.toString
 
   override val n_inputs = all_layers.head.n_inputs
 

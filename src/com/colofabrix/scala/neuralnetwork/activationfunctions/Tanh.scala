@@ -8,8 +8,10 @@ import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
   */
 class Tanh extends ActivationFunction {
 
-   override val UFID = "183302bf-811f-4c31-bac0-860738251023"
+  override val UFID = "183302bf-811f-4c31-bac0-860738251023"
 
-   override def apply(input: Double): Double = math.tanh( input )
+  override def apply(input: Double): Double = math.tanh( input )
 
- }
+  override def toString = "Tanh"
+
+}

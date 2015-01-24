@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.tests
 
 import com.colofabrix.scala.geometry.Vector2D
-import com.colofabrix.scala.geometry.shapes.OrtoRectangle
+import com.colofabrix.scala.geometry.shapes.Box
 import org.scalatest.{Matchers, WordSpec}
 
 /**
@@ -21,7 +21,7 @@ class UTOrtoRectangle extends WordSpec with Matchers {
 
         val insidePoint = Vector2D.new_xy(5, 5)
         val outsidePoint = Vector2D.new_xy(20, 20)
-        val rect = OrtoRectangle( Vector2D.new_xy(0,0), Vector2D.new_xy(10,10) )
+        val rect = Box( Vector2D.new_xy(0,0), Vector2D.new_xy(10,10) )
 
         // The point is outside the rectangle
         rect.overlaps(insidePoint) should equal (true)
@@ -32,9 +32,9 @@ class UTOrtoRectangle extends WordSpec with Matchers {
 
       "Is a OrtoRectangle" must {
 
-        val touchRect1 = OrtoRectangle( Vector2D.new_xy(0, 0), Vector2D.new_xy(10, 15) )
-        val touchRect2 = OrtoRectangle( Vector2D.new_xy(5, 10), Vector2D.new_xy(15, 20) )
-        val separateRect = OrtoRectangle( Vector2D.new_xy(30, 35), Vector2D.new_xy(40, 45) )
+        val touchRect1 = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(10, 15) )
+        val touchRect2 = Box( Vector2D.new_xy(5, 10), Vector2D.new_xy(15, 20) )
+        val separateRect = Box( Vector2D.new_xy(30, 35), Vector2D.new_xy(40, 45) )
 
         touchRect1.overlaps(touchRect1) should equal (true)
         touchRect1.overlaps(touchRect2) should equal (true)

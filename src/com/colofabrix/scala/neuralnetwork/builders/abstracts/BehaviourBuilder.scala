@@ -23,5 +23,5 @@ trait BehaviourBuilder {
    * @param nOutputs The number of outputs the NN returns
    * @return A new instance of a Neural Network
    */
-  def build(nInputs: Int, nOutputs: Int): NeuralNetwork
+  def build(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork
 }

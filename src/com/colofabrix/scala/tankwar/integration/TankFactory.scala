@@ -3,7 +3,6 @@ package com.colofabrix.scala.tankwar.integration
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.neuralnetwork.builders.{FeedforwardBuilder, RandomThreeLayerNetwork}
 import com.colofabrix.scala.tankwar.{Tank, World}
 import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory
 
@@ -24,10 +23,7 @@ class TankFactory(world: World) extends AbstractCandidateFactory[Tank] {
   }
 
   override def generateRandomCandidate(random: Random): Tank = {
-    val brainBuilder = new RandomThreeLayerNetwork(10, rng = random)
-    val tankBuilder = new FeedforwardBuilder(brainBuilder)
-
-    world.createTank(tankBuilder)
+    world.createAndAddDefaultTank(Tank.defaultRandomReader(random))
   }
 
 }

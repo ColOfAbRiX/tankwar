@@ -23,8 +23,8 @@ object TankWarMain {
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
-        new TankMutation(0.1, null, null),
-        new TankCrossover(1, new Probability(0.1))
+        new TankFullMutation(new Probability(0.2))//,
+        //new TankCrossover(1, new Probability(0.1))
       )
     )
 
@@ -38,7 +38,7 @@ object TankWarMain {
     )
 
     // Run the simulation
-    engine.evolve(10, 0, new GenerationCount(3))
+    engine.evolve(10, 0, new GenerationCount(2))
   }
 }
 

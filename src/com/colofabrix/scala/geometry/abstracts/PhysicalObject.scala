@@ -74,7 +74,7 @@ trait PhysicalObject {
    *
    * @return A string in the format of a CSV
    */
-  def record = s"$id;${world.time};${position.x};${position.y};${speed.x};${speed.y}".replace(".", ",")
+  def record = s"$id,${world.time},${position.x},${position.y},${speed.x},${speed.y}"
 
   /**
    * Called when the objects goes outside the arena
