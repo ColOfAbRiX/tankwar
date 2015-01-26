@@ -16,7 +16,7 @@ class TankDriftMutation(probability: Probability, generator: NumberGenerator[jav
     for( outer <- seq ) yield {
       for( value <- outer ) yield {
         if( rnd.nextDouble <= probability.doubleValue )
-          value + generator.nextValue * 2.0 + scale - scale
+          value + generator.nextValue
         else
           value
       }

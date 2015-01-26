@@ -25,17 +25,11 @@ extends GameEvolutionEngine[Tank] (candidateFactory, evolutionScheme, fitnessEva
 
     // Safest way to reference the world is using one of the Tanks
     val world = population.head.world
+
     // Clean the world for a new start
     world.resetWorld(population.to)
 
-    println( "Current population: " )
-    world.tanks.foreach { t => println(t.brain) }
-
-    val t0 = System.nanoTime()
     world.rounds foreach { _ => world.step() }
-    val t1 = System.nanoTime()
-
-    println("Elapsed time: " + (t1 - t0) / 1000000 + "ms")
 
     world.tanks
 

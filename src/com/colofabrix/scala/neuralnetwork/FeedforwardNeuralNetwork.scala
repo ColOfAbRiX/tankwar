@@ -45,7 +45,7 @@ extends NeuralNetwork {
 
   override val weights = for (layer <- all_layers ) yield layer.weights
 
-  override val activationFunction = for (layer <- all_layers ) yield layer.toString
+  override val activationFunction = for (layer <- all_layers ) yield layer.activationFunction
 
   override val n_inputs = all_layers.head.n_inputs
 

@@ -11,13 +11,17 @@ import org.uncommons.watchmaker.framework.FitnessEvaluator
 class TankEvaluator() extends FitnessEvaluator[Tank] {
 
   override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double = {
-    // By convention, every entity must contribute with a
-    // modifier in the range [1.0, -1.0]
-    val sum =
-      if (t.isDead) -1.0 else 0.0 +
-      1.0 * t.kills / (t.world.tanks.size - 1) +
-      1.0 * (t.surviveTime / t.world.max_rounds)
+    /*
+    val sum: Double =
+      10.0 * (if (t.isDead) -1.0 else 0.0) +
+      30.0 * t.kills / (t.world.tanks.size - 1) +
+      10.0 * (t.surviveTime / t.world.max_rounds)
+    */
 
+    val sum: Double =
+      1.0 * t.kills / (t.world.tanks.size - 1)
+
+    //if( t.isDead ) return 0.0
     Math.max(0.0, sum)
   }
 

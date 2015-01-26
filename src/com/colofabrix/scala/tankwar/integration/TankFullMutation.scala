@@ -24,7 +24,7 @@ class TankFullMutation(probability: Probability) extends EvolutionaryOperator[Ta
     val newBiases = mutateBiases( c, random )
     val newWeights = mutateWeights( c, random )
 
-    val reader = new SeqDataReader(newBiases, newWeights, c.af)
+    val reader = new SeqDataReader(newBiases, newWeights, c.activationFunction)
 
     world.createAndAddDefaultTank(reader)
   }
@@ -39,7 +39,7 @@ class TankFullMutation(probability: Probability) extends EvolutionaryOperator[Ta
     for( outer <- seq ) yield {
       for( value <- outer ) yield {
         if( rnd.nextDouble <= probability.doubleValue )
-          rnd.nextDouble * 2.0 + scale - scale
+          rnd.nextDouble * 2.0 * scale - scale
         else
           value
       }

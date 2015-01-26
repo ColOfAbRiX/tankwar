@@ -10,7 +10,7 @@ import com.colofabrix.scala.neuralnetwork.builders.abstracts.{BehaviourBuilder, 
 case class TankChromosome(
   biases: Seq[Seq[Double]],
   weights: Seq[Seq[Seq[Double]]],
-  af: Seq[String],
+  activationFunction: Seq[String],
   valueRange: Double,
   brainBuilder: BehaviourBuilder,
   mass: Double

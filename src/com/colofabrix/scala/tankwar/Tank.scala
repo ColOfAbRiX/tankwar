@@ -4,7 +4,7 @@ import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
+import com.colofabrix.scala.neuralnetwork.builders._
 
 import scala.util.Random
 
@@ -37,12 +37,13 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
     val count = 6
   }
 
-  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, time: Long) extends InputHelper[brain.T] {
+  //class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, tankOnSight: Double, time: Long) extends InputHelper[brain.T] {
+  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, tankOnSight: Double) extends InputHelper[brain.T] {
     override protected val _values = Seq(
       pos.x, pos.y,
       speed.x, speed.y,
       rot.t,
-      time.toDouble
+      tankOnSight
     ).asInstanceOf[Seq[brain.T]]
   }
 
@@ -116,6 +117,8 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
 
   private var _isShooting: Boolean = false
 
+  private var _tankOnSight = 0.0
+
   /**
    * The chromosome contains all the data needed to identify uniquely this Tank
    */
@@ -135,7 +138,8 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(_position, _speed, _rotation, world.time)
+        //new BrainInputHelper(_position, _speed, _rotation, _tankOnSight, world.time)
+        new BrainInputHelper(_position, _speed, _rotation, _tankOnSight)
       )
     )
 
@@ -146,10 +150,12 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
 
     // It shoots when the function changes tone
     _isShooting = output.shoot - _shoot > 0
-    if (_isShooting) world.shot(this)
+    if (_isShooting) world.on_tankShot(this)
     _shoot = output.shoot
 
     _surviveTime = world.time
+
+    _tankOnSight = 0.0
   }
 
   /**
@@ -180,7 +186,7 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
       if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
     }
 
-    _position = _position := ((x, i) => min(world.arena.topRight(i), x))
+    _position = _position := ((x, i) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
   }
 
   /**
@@ -188,6 +194,10 @@ class Tank(override val world: World, initialData: TankCreationData) extends Phy
    */
   override def on_maxSpeedReached: Unit = {
     _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed)}
+  }
+
+  def on_tankOnSight(t: Tank): Unit = {
+    _tankOnSight = (t.position - position).r
   }
 
   /**
@@ -209,17 +219,19 @@ object Tank {
 
   val defaultActivationFunction = "tanh"
 
-  val defaultBrainBuilder =
-    new FeedforwardBuilder(new ThreeLayerNetwork(10, defaultActivationFunction))
+  val defaultHiddenNeurons = 5
 
-  def defaultRandomReader(rng: Random) = new RandomReader(3, rng, defaultRange)
+  val defaultBrainBuilder =
+    new FeedforwardBuilder(new ThreeLayerNetwork(defaultHiddenNeurons, defaultActivationFunction))
+
+  def defaultRandomReader(rng: Random) = new RandomReader(3, rng, defaultRange, defaultActivationFunction)
 
   def apply(world: World, chromosome: TankChromosome): Tank = {
 
     val reader = new SeqDataReader(
       chromosome.biases,
       chromosome.weights,
-      chromosome.af
+      chromosome.activationFunction
     )
 
     val data = new TankCreationData(

@@ -1,7 +1,5 @@
 package com.colofabrix.scala.tankwar
 
-import java.io.{File, PrintWriter}
-
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
@@ -46,9 +44,6 @@ class World(
   def time = _time
   private var _time: Long = 0
 
-  // FIXME: Remove when done
-  val writer = new PrintWriter(new File("""out/tank.csv"""))
-
   /**
    * Sequence of all rounds in the world
    */
@@ -78,11 +73,11 @@ class World(
   def step(): Unit = {
     _time += 1
 
-    println( s"Time ${_time}: ${tanks.count(!_.isDead)} alive tanks, ${tanks.count(_.isDead)} dead tanks and ${bullets.size} bullets flying" )
+    //println( s"Time ${_time}: ${tanks.count(!_.isDead)} alive tanks, ${tanks.count(_.isDead)} dead tanks and ${bullets.size} bullets flying" )
 
     // Moving all tanks forward
     tanks.filter( !_.isDead ) foreach { t =>
-      writer.write(t.record + "\n")
+      //writer.write(t.record + "\n")
 
       t.stepForward()
 
@@ -100,12 +95,20 @@ class World(
         () => tanks -= t
       )
 
-      // TODO: tank-tank collision avoidance
+      tanks.filter( that => !that.isDead && !(t == that) ).foreach { that ⇒
+        val lineOfSightP0 = t.position
+        val lineOfSightP1 = lineOfSightP0 + Vector2D.new_rt(250, t.rotation.t)
+
+        if(that.boundaries.overlaps(lineOfSightP0, lineOfSightP1)) {
+          t.on_tankOnSight(that)
+        }
+      }
+
     }
 
     // Moving all bullets forward
-    bullets foreach { b =>
-      writer.write(b.record + "\n")
+    bullets.par foreach { b =>
+      //writer.write(b.record + "\n")
 
       b.stepForward()
 
@@ -118,10 +121,10 @@ class World(
     }
 
     // Bullet/Tank collision management
-    bullets foreach { b =>
+    bullets.par foreach { b =>
       // TODO: space partitioning for collision detection
       tanks.filter( !_.isDead ).par foreach { t =>
-        if( b.touches(t) && b.tank != t ) this.hit(t, b)
+        if( b.touches(t) && b.tank != t ) this.on_tankHit(t, b)
       }
     }
   }
@@ -182,9 +185,13 @@ class World(
    *
    * @param tank The tank that requested to shot
    */
-  def shot(tank: Tank) {
-    println( s"Tank ${tank.id} has shot")
-    _bullets += new Bullet(this, tank, bullet_speed)
+  def on_tankShot(tank: Tank) {
+    try {
+      _bullets += new Bullet(this, tank, bullet_speed)
+    }
+    catch {
+      case _ ⇒
+    }
   }
 
   /**
@@ -193,9 +200,7 @@ class World(
    * @param tank The tank hit by the bullet
    * @param bullet The bullet that hits the tank
    */
-  def hit(tank: Tank, bullet: Bullet) {
-    println( s"Tank ${tank.id} has been hit by ${bullet.id}")
-
+  def on_tankHit(tank: Tank, bullet: Bullet) {
     // Inform the hit tank
     tank.on_isHit(bullet)
     // Inform the bullet that hits
@@ -204,6 +209,11 @@ class World(
     bullet.tank.on_hits(bullet, tank)
 
     // Remove the bullet and the hit tank
-    _bullets -= bullet
+    try {
+      _bullets -= bullet
+    }
+    catch {
+      case _ ⇒
+    }
   }
 }
