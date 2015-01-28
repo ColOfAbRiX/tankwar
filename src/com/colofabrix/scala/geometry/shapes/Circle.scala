@@ -1,18 +1,27 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.Vector2D
-import com.colofabrix.scala.geometry.abstracts.Shape
+import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
 
 /**
  * Circle shape
  *
+ * A Circle is a very convenient shape to check for geometrical properties as
+ * it is, generally speaking, very fast to compute them.
+ *
  * @param center Center of the circle
  * @param radius Radius of the circle. Must be non-negative
  */
-case class Circle(center: Vector2D, radius: Double) extends Shape {
+case class Circle(center: Vector2D, radius: Double) extends Shape with Container {
   // If the radius is 0... it's a point!
-  require( radius > 0, "The circle must have a non-zero radius" )
+  require(radius > 0, "The circle must have a non-zero radius")
 
+  /**
+   * Determines if a point is inside or on the boundary the shape
+   *
+   * @param p The point to be checked
+   * @return True if the point is inside the shape
+   */
   override def overlaps(p: Vector2D): Boolean = p - center <= radius
 
   /**
@@ -24,14 +33,12 @@ case class Circle(center: Vector2D, radius: Double) extends Shape {
    * @param that The shape to be checked
    * @return True if the shape touches the current shape
    */
-  override def overlaps( that: Shape ): Boolean = {
+  override def overlaps(that: Shape): Boolean = {
     that match {
-
       case c: Circle =>
         // For circles is enough to check the distance from the centers
         center - c.center < radius + c.radius
-
-      case p: Polygon =>
+      case p: Shape =>
         p.distance(center)._1 <= radius
     }
   }
@@ -56,13 +63,13 @@ case class Circle(center: Vector2D, radius: Double) extends Shape {
     val radiusTowardsPoint = distanceFromCenter.v * radius
 
     val distance = distanceFromCenter - radiusTowardsPoint
-    val touchPoint = center + radiusTowardsPoint
+    val touchingPoint = center + radiusTowardsPoint
 
-    (distance, touchPoint)
+    (distance, touchingPoint)
   }
 
   /**
-   * Compute the distance between a line and the edges of the polygon
+   * Compute the distance between a line and the cicle
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
@@ -86,10 +93,18 @@ case class Circle(center: Vector2D, radius: Double) extends Shape {
   /**
    * Find a containing box for the current shape.
    *
-   * Implementation of the rotating caliper algorithm
-   * Ref: http://geomalgorithms.com/a08-_containers.html
-   *
-   * @return A polygon that fully contains this shape
+   * @return A Box that fully contains this shape
    */
-  override lazy val container: Shape = this.clone.asInstanceOf
+  override lazy val container: Container = {
+    val bottomLeft = Vector2D.new_xy(center.x - radius, center.y - radius)
+    val topRight = Vector2D.new_xy(center.x + radius, center.y + radius)
+
+    new Box(bottomLeft, topRight)
+  }
+
+  /**
+   * Area of the circle
+   */
+  override val area: Double = 2.0 * radius * Math.PI
+
 }

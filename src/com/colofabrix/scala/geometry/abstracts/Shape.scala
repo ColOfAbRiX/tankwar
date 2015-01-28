@@ -14,7 +14,7 @@ trait Shape {
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
-  def overlaps( p: Vector2D ): Boolean
+  def overlaps(p: Vector2D): Boolean
 
   /**
    * Determines if a line touches in any way this shape
@@ -23,7 +23,7 @@ trait Shape {
    * @param p1 The second point that defines the line
    * @return True if the point is inside the shape
    */
-  def overlaps( p0: Vector2D, p1: Vector2D ): Boolean
+  def overlaps(p0: Vector2D, p1: Vector2D): Boolean
 
   /**
    * Determines if a shape touches in any way this shape
@@ -31,13 +31,13 @@ trait Shape {
    * @param that The shape to be checked
    * @return True if the point is inside the shape
    */
-  def overlaps( that: Shape ): Boolean
+  def overlaps(that: Shape): Boolean
 
   /**
-   * Compute the distance between a point and the edges of the polygon
+   * Compute the distance between a point and the boundary of the shape
    *
-   * @param p Point to check
-   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
+   * @param p THe point to check
+   * @return A tuple containing the distance vector from the point to the boundary and the edge or the point from which the distance is calculated
    */
   def distance(p: Vector2D): (Vector2D, Vector2D)
 
@@ -46,7 +46,7 @@ trait Shape {
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
-   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
+   * @return A tuple containing the distance vector from the point to the boundary and the edge or the point from which the distance is calculated
    */
   def distance(p0: Vector2D, p1: Vector2D): (Vector2D, Vector2D)
 
@@ -88,5 +88,10 @@ trait Shape {
    *
    * @return A new shape that contains all the current shape
    */
-  val container: Shape
+  val container: Container
+
+  /**
+   * The area of the Shape
+   */
+  val area: Double
 }

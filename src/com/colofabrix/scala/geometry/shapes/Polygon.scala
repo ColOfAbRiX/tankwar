@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.Vector2D
-import com.colofabrix.scala.geometry.abstracts.Shape
+import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
 
 /**
  * A generic 2D polygon
@@ -44,7 +44,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     val direction = Math.signum( edges(1) ^ edges(0) )
 
     this.edgesIterator.tail forall {
-      case u :: v :: Nil =>
+      case u :: v :: Nil ⇒
         val r = v ^ u
         Math.signum( r ) == direction || r == 0
     }
@@ -90,6 +90,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   override def overlaps(that: Shape): Boolean = that match {
     case c: Circle => c.overlaps(this)
+    case p: Polygon ⇒ overlaps(p)
     case _ => false
   }
 
@@ -181,7 +182,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    *
    * @return A shape that fully contains this shape
    */
-  override lazy val container: Shape = {
+  override lazy val container: Container = {
     // Finds the minimum and maximum coordinates for the points
     var (minX, minY) = (Double.MaxValue, Double.MaxValue)
     var (maxX, maxY) = (Double.MinValue, Double.MinValue)
@@ -196,16 +197,19 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     // Creates the Box
     val bottomLeft = Vector2D.new_xy(minX, minY)
     val topRight = Vector2D.new_xy(maxX, maxY)
-    val box = new Box(bottomLeft, topRight)
 
-    // Creates the Circle
-    val distance = (topRight - bottomLeft) / 2
-    val circle = new Circle(distance + bottomLeft, distance.r)
+    new Box(bottomLeft, topRight)
+  }
 
-    // Returns whichever has got the smallest area
-    if(box.width * box.height < 2.0 * circle.radius * Math.PI)
-      box
-    else
-      circle
+  /**
+   * Area of the polygon
+   *
+   * Implementation of the polygon area algorithm
+   * Ref: http://geomalgorithms.com/a01-_area.html
+   */
+  lazy val area = {
+    (vertices :+ vertices.head).sliding(3).map {
+      case v0 :: v1 :: v2 :: Nil ⇒ v1.x * (v2.y - v0.y)
+    }.sum / 2.0
   }
 }

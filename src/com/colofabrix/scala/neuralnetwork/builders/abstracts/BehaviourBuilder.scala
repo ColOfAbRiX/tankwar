@@ -24,4 +24,12 @@ trait BehaviourBuilder {
    * @return A new instance of a Neural Network
    */
   def build(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork
+
+  /**
+   * Returns the associated `StructureBuilder` used to build the a
+   * new NN
+   *
+   * @return The instance of a StructureBuilder used to build the NN
+   */
+  def structureBuilder: StructureBuilder
 }

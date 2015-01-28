@@ -1,16 +1,27 @@
 package com.colofabrix.scala.geometry
 
+import com.colofabrix.scala.geometry.shapes.{Box, ConvexPolygon}
+
 /**
- * Created by Fabrizio on 21/01/2015.
+ * Quadtree implementation
+ *
+ * A quadtree is a try of tree with 4 children nodes per parent used
+ * to partition a cartesian plane and speed up object-object interactions
+ * in graphical environments
  */
-class Quadtree[T] {
+class Quadtree[T <: ConvexPolygon](val dimensions: Box, val I: Quadtree[T], val II: Quadtree[T], val III: Quadtree[T], val IV: Quadtree[T], val elements: Seq[T] = Seq()) {
 
-  def insert(o: T): Quadtree[T] = new Quadtree()
+  def insert(o: T): Quadtree[T] = ???
 
-  def delete(o: T): Quadtree[T] = new Quadtree()
+  def delete(o: T): Quadtree[T] = ???
 
-  def update(o: T): Quadtree[T] = new Quadtree()
+  def update(o: T): Quadtree[T] = ???
 
-  def collision(o: T): Boolean = false
+  def build(objects: Seq[T]): Quadtree[T] = ???
+
+  def notFullyContained(o: T): Boolean =
+    o.vertices.foldLeft(false){ (r, v) ⇒ r || !dimensions.overlaps(v) }
+
+  def collision(o: T): Option[T] = Option.empty
 
 }

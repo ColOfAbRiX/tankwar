@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.tests
 
 import com.colofabrix.scala.geometry.Vector2D
-import com.colofabrix.scala.geometry.shapes.Polygon
+import com.colofabrix.scala.geometry.shapes.{ConvexPolygon, Polygon}
 import org.scalatest.{Matchers, WordSpec}
 
 /**
@@ -106,6 +106,12 @@ class UTPolygon extends WordSpec with Matchers {
 
     "Must find an enclosing Box" in {
 
+    }
+
+    "Must have a valida area" in {
+      val polygon = new ConvexPolygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(20, 0), Vector2D.new_xy(20, 20), Vector2D.new_xy(0, 20)))
+
+      polygon.area should equal (400.0)
     }
 
   }

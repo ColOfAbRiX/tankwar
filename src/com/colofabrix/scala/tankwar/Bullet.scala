@@ -16,19 +16,19 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The point on the world where is the center of the PhysicalObject
    */
-  override var _position: Vector2D = tank.position
+   _position = tank.position
 
   /**
    * Speed of the object relative to the arena
    *
    * @return The current step speed
    */
-  override var _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
+   _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
 
   /**
    * Physical boundary of the bullet.
    */
-  override def boundaries: Shape = Circle(_position, 2)
+  override def boundary: Shape = Circle(_position, 2)
 
   /**
    * Moves the bullet one step into the future
@@ -52,16 +52,16 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The mass of the object
    */
-  override protected var _mass: Double = 1.0
+  _mass = 1.0
 
   /**
-   * When the bullet reached the walls of the arena nothing happens, so
+   * When the bullet reaches the walls of the arena nothing happens, so
    * the bullet flies outside and it is removed from the game
    */
-  override def on_hitsWalls: Unit = {}
+  override def on_hitsWalls(): Unit = {}
 
   /**
    * Called when the objects is moving faster than the allowed speed
    */
-  override def on_maxSpeedReached: Unit = {}
+  override def on_maxSpeedReached(): Unit = {}
 }

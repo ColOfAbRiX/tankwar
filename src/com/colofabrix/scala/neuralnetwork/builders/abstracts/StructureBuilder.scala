@@ -37,4 +37,11 @@ trait StructureBuilder {
    * @return A new OutputLayer
    */
   def outputLayer(nOutputs: Int, dataReader: DataReader): OutputLayer
+
+  /**
+   * The number of hidden layers
+   *
+   * @return An integer indicating how many hidden layer this `StructureBuilder` will create
+   */
+  def hiddenLayersCount: Int
 }

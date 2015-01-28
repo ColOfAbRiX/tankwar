@@ -26,6 +26,13 @@ class FeedforwardBuilder(structure: StructureBuilder) extends BehaviourBuilder {
       structure.outputLayer(nOutputs, dataReader)
     )
 
+  /**
+   * Returns the associated `StructureBuilder` used to build the a
+   * new NN
+   *
+   * @return The instance of a StructureBuilder used to build the NN
+   */
+  override def structureBuilder: StructureBuilder = structure
 }
 
 
@@ -64,4 +71,11 @@ class ElmanBuilder(structure: StructureBuilder) extends BehaviourBuilder {
     )
   }
 
+  /**
+   * Returns the associated `StructureBuilder` used to build the a
+   * new NN
+   *
+   * @return The instance of a StructureBuilder used to build the NN
+   */
+  override def structureBuilder: StructureBuilder = structure
 }

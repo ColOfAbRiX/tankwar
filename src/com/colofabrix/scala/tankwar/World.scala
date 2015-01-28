@@ -20,7 +20,7 @@ class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
   val max_speed: Double = 20,
   val bullet_speed: Double = 15,
-  val max_rounds: Int = 500,
+  val max_rounds: Int = 1000,
   private val _tanks: List[Tank] = List() )
 {
   require( arena.width > 0 && arena.height > 0, "The arena must not be a point" )
@@ -84,14 +84,14 @@ class World(
       // Arena boundary check
       check_limit(
         () => arena.overlaps(t.position),
-        () => t.on_hitsWalls,
+        () => t.on_hitsWalls(),
         () => tanks -= t
       )
 
       // Speed limit check
       check_limit(
         () => t.speed.x <= max_speed || t.speed.y <= max_speed,
-        () => t.on_maxSpeedReached,
+        () => t.on_maxSpeedReached(),
         () => tanks -= t
       )
 
@@ -99,8 +99,9 @@ class World(
         val lineOfSightP0 = t.position
         val lineOfSightP1 = lineOfSightP0 + Vector2D.new_rt(250, t.rotation.t)
 
-        if(that.boundaries.overlaps(lineOfSightP0, lineOfSightP1)) {
-          t.on_tankOnSight(that)
+        if(that.boundary.overlaps(lineOfSightP0, lineOfSightP1)) {
+          // TODO: Implement the Tank's sight
+          t.on_tankOnSight(that, null)
         }
       }
 
@@ -115,7 +116,7 @@ class World(
       // Arena boundary check
       check_limit(
         () => arena.overlaps(b.position),
-        () => b.on_hitsWalls,
+        () => b.on_hitsWalls(),
         () => bullets -= b
       )
     }
@@ -190,7 +191,7 @@ class World(
       _bullets += new Bullet(this, tank, bullet_speed)
     }
     catch {
-      case _ ⇒
+      case _: Exception ⇒
     }
   }
 
@@ -213,7 +214,7 @@ class World(
       _bullets -= bullet
     }
     catch {
-      case _ ⇒
+      case _: Exception ⇒
     }
   }
 }

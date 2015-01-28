@@ -3,6 +3,7 @@ package com.colofabrix.scala
 import java.io.{File, PrintWriter}
 
 import com.colofabrix.scala.tankwar.integration._
+import com.colofabrix.scala.tankwar.integration.operators.{TankCrossover, TankDriftMutation, TankFullMutation}
 import com.colofabrix.scala.tankwar.{Tank, World}
 import org.uncommons.maths.random.{GaussianGenerator, MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
@@ -26,8 +27,8 @@ object TankWarMain {
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
-        new TankFullMutation(new Probability(0.05)),
-        new TankDriftMutation(new Probability(0.4), new GaussianGenerator(0, 0.05, new MersenneTwisterRNG())),
+        new TankFullMutation(new Probability(0.1)),
+        new TankDriftMutation(new Probability(0.4), new GaussianGenerator(0, 0.1, new MersenneTwisterRNG())),
         new TankCrossover(2, new Probability(0.3))
       )
     )
@@ -57,9 +58,9 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
   override def populationUpdate(populationData: PopulationData[_ <: T]): Unit = {
     println( s"Generation ${populationData.getGenerationNumber}: ${populationData.getBestCandidateFitness}, ${populationData.getMeanFitness}" )
-    println( "Best candidate: " + populationData.getBestCandidate.brain.toString )
+    println( "Best candidate: " + populationData.getBestCandidate.id + " = " + populationData.getBestCandidate.brain.toString )
 
-    writer.println(s"${populationData.getMeanFitness},${populationData.getBestCandidateFitness}")
-    writer.flush
+    writer.println(s"${populationData.getGenerationNumber},${populationData.getMeanFitness},${populationData.getBestCandidateFitness}")
+    //writer.flush
   }
 }

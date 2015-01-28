@@ -9,7 +9,9 @@ import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory
 import scala.collection.JavaConversions._
 
 /**
- * Created by Fabrizio on 18/01/2015.
+ * Factory to generate the initial Tank population.
+ *
+ * Required by Watchmaker library
  */
 class TankFactory(world: World) extends AbstractCandidateFactory[Tank] {
 

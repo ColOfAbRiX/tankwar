@@ -7,6 +7,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Subclassing of one Watchmaker's class to add the capability to run a game
+ * before applying evolution rules and population change.
+ *
+ * @param <T> Type of object to evolve
+ */
 public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvolutionEngine<T> {
 
     public GameEvolutionEngine(CandidateFactory<T> candidateFactory, EvolutionaryOperator<T> evolutionScheme, FitnessEvaluator<? super T> fitnessEvaluator, SelectionStrategy<? super T> selectionStrategy, Random rng) {
@@ -73,5 +79,11 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
         return this.evaluatePopulation(work);
     }
 
+    /**
+     * This method runs the competition between the individuals of the population
+     *
+     * @param population The population of individuals
+     * @return The population of individuals after the competition
+     */
     protected abstract List<T> runCompetition(List<T> population);
 }

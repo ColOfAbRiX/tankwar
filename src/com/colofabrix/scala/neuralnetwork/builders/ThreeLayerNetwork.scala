@@ -48,4 +48,11 @@ class ThreeLayerNetwork(nHidden: Int, activation: String) extends StructureBuild
       data.layerReaders(2).inputWeights(nOutputs, nHidden)
     )
   }
+
+  /**
+   * The number of hidden layers
+   *
+   * @return An integer indicating how many hidden layer this `StructureBuilder` will create
+   */
+  override def hiddenLayersCount: Int = 3
 }

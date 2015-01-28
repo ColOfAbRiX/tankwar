@@ -1,9 +1,13 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.Vector2D
+import com.colofabrix.scala.geometry.abstracts.Container
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis
+  *
+  * This kind of shape is particularly useful in checking overlaps and collisions
+  * as it is done in constant time O(k) and without mathematical operations
   *
   * @param bottomLeft Rectangle left-bottom-most point
   * @param topRight Rectangle right-top point
@@ -15,9 +19,16 @@ extends ConvexPolygon(
      topRight,
      Vector2D.new_xy(topRight.x, bottomLeft.y)
    ) )
+with Container
 {
   require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect an order" )
 
+  /**
+   * Determines if a point is inside or on the boundary the shape
+   *
+   * @param p The point to be checked
+   * @return True if the point is inside the shape
+   */
   override def overlaps( p: Vector2D ) = {
     p.x >= bottomLeft.x && p.x <= topRight.x &&
     p.y >= bottomLeft.y && p.y <= topRight.y

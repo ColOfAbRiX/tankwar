@@ -6,23 +6,23 @@ import com.colofabrix.scala.tankwar.Tank
 import org.uncommons.watchmaker.framework.FitnessEvaluator
 
 /**
- * Created by Fabrizio on 18/01/2015.
+ * Evaluates the fitness of a Tank
  */
 class TankEvaluator() extends FitnessEvaluator[Tank] {
 
+  /**
+   * Given a Tank returns its fitness
+   *
+   * @param t The tank to evaluate
+   * @param list The list of all Tanks. It may be useful for comparison purposes
+   * @return A number representing the fitness of the Tank
+   */
   override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double = {
-    /*
-    val sum: Double =
-      10.0 * (if (t.isDead) -1.0 else 0.0) +
-      30.0 * t.kills / (t.world.tanks.size - 1) +
-      10.0 * (t.surviveTime / t.world.max_rounds)
-    */
-
-    val sum: Double =
-      1.0 * t.kills / (t.world.tanks.size - 1)
-
-    //if( t.isDead ) return 0.0
-    Math.max(0.0, sum)
+    // This value if meant to optimize:
+    //   - Kills: the more a Tank kills the more it is fit
+    //   - Survival: A tank that doesn't kill a lot but survives a lot is equally valued
+    1.0 * t.kills / (t.world.tanks.size - 1) +
+    1.0 * (t.surviveTime / t.world.max_rounds)
   }
 
   override def isNatural: Boolean = true
