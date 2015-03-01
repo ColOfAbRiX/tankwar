@@ -50,7 +50,7 @@ class SeqLayerReader(biases: Seq[Double], weights: Seq[Seq[Double]], af: String)
    */
   override def neuronBiases(neurons: Int): Seq[Double] = {
     require(neurons > 0, "The number of neurons must be a positive integer")
-    require(biases.length == neurons, "The number of biases don't match the number of neurons")
+    //require(biases.length == neurons, "The number of biases don't match the number of neurons")
 
     biases
   }

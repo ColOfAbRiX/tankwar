@@ -78,7 +78,7 @@ extends NeuralNetwork
    */
   def output( inputs: Seq[T] ): Seq[T] = {
     // The given input values must match the NN configuration
-    require( inputs.length == n_inputs, "The actual inputs must match the number of set inputs for the layer" )
+    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
 
     for( o <- 0 until n_outputs ) yield
       activation( (inputs zip weights(o) map { case (i, w) => i * w } sum ) + biases(o) )

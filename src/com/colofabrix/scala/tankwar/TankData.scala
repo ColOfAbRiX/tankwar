@@ -2,7 +2,7 @@ package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.shapes.Polygon
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.{BehaviourBuilder, DataReader}
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.StructureBuilder
 
 /**
  * A TankChromosome contains all the data needed to uniquely identify
@@ -16,7 +16,7 @@ case class TankChromosome(
   mass: Double,
   valueRange: Double,
   activationFunction: Seq[String],
-  brainBuilder: BehaviourBuilder
+  brainBuilder: StructureBuilder
 ) {
 
   /**
@@ -38,24 +38,10 @@ object TankChromosome {
       s(3).asInstanceOf[Double],
       s(4).asInstanceOf[Double],
       s(5).asInstanceOf[Seq[String]],
-      s(6).asInstanceOf[BehaviourBuilder]
+      s(6).asInstanceOf[StructureBuilder]
     )
   }
 }
-
-/**
- * Data used to initialise a new Tank
- *
- * @param brainBuilder Builder for the brain of the tank
- * @param dataReader Data to build the brain of the tank
- * @param valueRange The range of the weights in the brain
- */
-case class TankCreationData(
-  brainBuilder: BehaviourBuilder,
-  dataReader: DataReader,
-  valueRange: Double,
-  mass: Double
-)
 
 /**
  * Object used to define the sight of the Tank

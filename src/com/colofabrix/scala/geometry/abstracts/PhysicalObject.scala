@@ -67,8 +67,7 @@ trait PhysicalObject {
   /**
    * Random PhysicalObject identifier
    */
-  //val id = this.getClass.toString.replace("class ", "").replace("com.colofabrix.scala.tankwar.", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
-  val id = getClass.getName + "@" + Integer.toHexString(hashCode)
+  val id = this.getClass.toString.replace("class ", "").replace("com.colofabrix.scala.tankwar.", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
 
   /**
    * Record identifying the step of the PhysicalObject

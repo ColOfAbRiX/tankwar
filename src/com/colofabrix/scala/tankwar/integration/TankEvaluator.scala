@@ -21,8 +21,8 @@ class TankEvaluator() extends FitnessEvaluator[Tank] {
     // This value if meant to optimize:
     //   - Kills: the more a Tank kills the more it is fit
     //   - Survival: A tank that doesn't kill a lot but survives a lot is equally valued
-    1.0 * t.kills / (t.world.tanks.size - 1) +
-    1.0 * (t.surviveTime / t.world.max_rounds)
+    1.0 * t.kills / (t.world.tanks.size - 1)
+    //+ 1.0 * (t.surviveTime / t.world.max_rounds)
   }
 
   override def isNatural: Boolean = true

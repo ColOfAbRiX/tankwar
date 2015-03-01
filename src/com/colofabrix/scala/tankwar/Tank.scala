@@ -3,18 +3,21 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.{Circle, Polygon}
+import com.colofabrix.scala.neuralnetwork.NNTester
 import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
 import com.colofabrix.scala.neuralnetwork.builders._
+import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
 
 import scala.util.Random
 
 /**
- * A Tank in the Game
+ * A Tank that plays the game
  *
- * Created by Fabrizio on 02/01/2015.
+ * @param world Reference to the World. It is uses to calculate parameters, maximums,timings, ...
+ * @param initialData The defining data of the Tank in the form of a Chromosome
+ * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
-class Tank private (override val world: World, initialData: TankCreationData) extends PhysicalObject {
-//class Tank private (override val world: World, initialData: TankChromosome) extends PhysicalObject {
+class Tank private (override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty) extends PhysicalObject {
 
   import java.lang.Math._
 
@@ -35,18 +38,20 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * Support class used as an interface between the `Tank` and the input of the NN
    */
   object BrainInputHelper {
-    val count = 6
+    val count = 7
   }
 
 
-  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, tankOnSight: Double) extends InputHelper[brain.T] {
+  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, sightCrossed: Vector2D) extends InputHelper[brain.T] {
     override protected val _values = Seq(
       pos.x, pos.y,
       speed.x, speed.y,
       rot.t,
-      tankOnSight
+      sightCrossed.x, sightCrossed.y
     ).asInstanceOf[Seq[brain.T]]
   }
+
+  def tester: NNTester = new NNTester(brain, BrainInputHelper.count, id)
 
   private var _isDead = false
   private var _shoot = 0.0
@@ -54,7 +59,7 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
   private var _surviveTime: Long = 0
   private var _rotation: Vector2D = Vector2D.new_rt(1, 0)
   private var _isShooting: Boolean = false
-  private var _tankOnSight = 0.0
+  private var _sightCrossed : Vector2D = Vector2D.new_rt(0, 0)
 
   _mass = initialData.mass
 
@@ -72,10 +77,14 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * Brain of the tank
    */
   val brain: NeuralNetwork =
-    initialData.brainBuilder.build(
+    initialData.brainBuilder.buildNetwork(
       BrainInputHelper.count,
       BrainOutputHelper.count,
-      initialData.dataReader)
+      if( dataReader == Option.empty )
+        new SeqDataReader(initialData.biases, initialData.weights, initialData.activationFunction)
+      else
+        dataReader.get
+    )
 
   /**
    * Number of other tanks killed by the current one
@@ -119,13 +128,13 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * Shape that defines the sight of the Tank.
    */
   // TODO: Remove this code and put the default value externally. To do this Tank must be construted only with a Chromosome
-  val sightShape: TankSight = TankSight(
-    new Polygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(5, 250), Vector2D.new_xy(-5, 250))),
-    Vector2D.new_xy(0, 0)
-  )
+  val sightShape: TankSight = initialData.sight
 
   /**
-   * The chromosome contains all the data needed to identify uniquely this Tank
+   * The chromosome contains all the data needed to identify uniquely this Tank.
+   *
+   * It is created collecting the main information of the tank in one single place. So, the information
+   * can be obtained in other ways too
    */
   val chromosome = new TankChromosome(
     brain.biases.asInstanceOf[Seq[Seq[Double]]],
@@ -144,7 +153,7 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(_position, _speed, _rotation, _tankOnSight)
+        new BrainInputHelper(_position, _speed, _rotation, _sightCrossed)
       )
     )
 
@@ -160,7 +169,7 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
 
     _surviveTime = world.time
 
-    _tankOnSight = 0.0
+    _sightCrossed = Vector2D.new_xy(0, 0)
   }
 
   /**
@@ -198,7 +207,7 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * Called when the objects is moving faster than the allowed speed
    */
   override def on_maxSpeedReached(): Unit = {
-    _speed = _speed := { x => min(max(x, -world.max_speed), world.max_speed) }
+    _speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
   }
 
   /**
@@ -208,7 +217,7 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * @param direction Direction where the tank is seen, relative to `Tank.position`
    */
   def on_tankOnSight(t: Tank, direction: Vector2D): Unit = {
-    _tankOnSight = (t.position - position).r
+    _sightCrossed = direction
   }
 
   /**
@@ -217,6 +226,8 @@ class Tank private (override val world: World, initialData: TankCreationData) ex
    * @return A string in the format of a CSV
    */
   override def record = super.record + s",${rotation.t },${_shoot },$isShooting"
+
+  def definition = id + ": " + chromosome
 
   override def toString = id
 }
@@ -228,39 +239,28 @@ object Tank {
 
   val defaultRange = 1.0
 
-  val defaultActivationFunction = "tanh"
+  val defaultActivationFunction = Seq.fill(3)("tanh")
 
-  val defaultHiddenNeurons = 5
+  val defaultHiddenNeurons = 7
 
   val defaultBrainBuilder =
-    new FeedforwardBuilder(new ThreeLayerNoBiasesNetwork(defaultHiddenNeurons, defaultActivationFunction))
+    //new ThreeLayerNetwork(new ElmanBuilder, defaultHiddenNeurons)
+    new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
 
-  def defaultRandomReader(rng: Random) = new RandomReader(defaultBrainBuilder.structureBuilder.hiddenLayersCount, rng, defaultRange, defaultActivationFunction)
+  val defaultSight = TankSight(
+    new Polygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(5, 250), Vector2D.new_xy(-5, 250))),
+    Vector2D.new_xy(0, 0)
+  )
 
-  def apply(world: World, chromosome: TankChromosome): Tank = {
+  def defaultRandomReader(rng: Random) =
+    new RandomReader(
+      defaultBrainBuilder.hiddenLayersCount,
+      rng,
+      defaultRange,
+      defaultActivationFunction(0))
 
-    val reader = new SeqDataReader(
-      chromosome.biases,
-      chromosome.weights,
-      chromosome.activationFunction
-    )
+  def apply(world: World, chromosome: TankChromosome): Tank = new Tank(world, chromosome)
 
-    val data = new TankCreationData(
-      chromosome.brainBuilder,
-      reader,
-      chromosome.valueRange,
-      chromosome.mass
-    )
-
-    new Tank(world, data)
-
-  }
-
-  @deprecated
-  def apply(world: World, data: TankCreationData): Tank = {
-
-    new Tank(world, data)
-
-  }
+  def apply(world: World, chromosome: TankChromosome, reader: DataReader) = new Tank(world, chromosome, Option(reader))
 
 }

@@ -23,4 +23,5 @@ extends FeedforwardNeuralNetwork(
     hidden_layers.foreach(_.remember = value)
   }
 
+  override val weights = for (layer <- all_layers ) yield layer.weights
 }

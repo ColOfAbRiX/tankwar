@@ -1,5 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.builders.abstracts
 
+import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.layers.{HiddenLayer, InputLayer, OutputLayer}
 
 /**
@@ -15,12 +16,22 @@ import com.colofabrix.scala.neuralnetwork.layers.{HiddenLayer, InputLayer, Outpu
  */
 trait StructureBuilder {
   /**
+   * Build a Neural Network
+   *
+   * @param nInputs Number of inputs of the network
+   * @param nOutputs Number of outputs of the network
+   * @param dataReader Data reader used to create the network
+   * @return A new Neural Network
+   */
+  def buildNetwork(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork
+
+  /**
    * Returns the input layer, usually the default is pass-through
    *
    * @param nInputs The number of inputs of the NN
    * @return A new InputLayer for the NN. It defaults to `InputLayer`
    */
-  def inputLayer(nInputs: Int, dataReader: DataReader): InputLayer = new InputLayer(nInputs)
+  protected def inputLayer(nInputs: Int, dataReader: DataReader): InputLayer
 
   /**
    * Returns the list of hidden layers
@@ -28,7 +39,7 @@ trait StructureBuilder {
    * @param nInitialInputs The number of inputs of the NN
    * @return A sequence of HiddenLayer
    */
-  def hiddenLayers(nInitialInputs: Int, dataReader: DataReader): Seq[HiddenLayer]
+  protected def hiddenLayers(nInitialInputs: Int, dataReader: DataReader): Seq[HiddenLayer]
 
   /**
    * Returns the output layer
@@ -36,7 +47,7 @@ trait StructureBuilder {
    * @param nOutputs The number of outputs of the NN
    * @return A new OutputLayer
    */
-  def outputLayer(nOutputs: Int, dataReader: DataReader): OutputLayer
+  protected def outputLayer(nOutputs: Int, dataReader: DataReader): OutputLayer
 
   /**
    * The number of hidden layers
@@ -44,4 +55,11 @@ trait StructureBuilder {
    * @return An integer indicating how many hidden layer this `StructureBuilder` will create
    */
   def hiddenLayersCount: Int
+
+  /**
+   * Builder for the behaviours of the single elements that can be built
+   *
+   * @return The BehaviourBuilder used to generated the elements of the structure
+   */
+  def behaviourBuilder: BehaviourBuilder
 }

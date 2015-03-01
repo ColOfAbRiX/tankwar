@@ -1,6 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.builders.abstracts
 
 import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
+import com.colofabrix.scala.neuralnetwork.layers.{HiddenLayer, InputLayer, OutputLayer}
 
 /**
  * Neural Network Behaviour Builder
@@ -15,21 +16,39 @@ import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
  * output it needs
  */
 trait BehaviourBuilder {
-
   /**
    * Builds a Neural Network
    *
-   * @param nInputs The number of input provided to the NN
-   * @param nOutputs The number of outputs the NN returns
+   * @param inputLayer Input layer of the new Neural Network
+   * @param hiddenLayers Hidden layers of the new Neural Network
+   * @param outputLayer Output layer of the new Neural Network
    * @return A new instance of a Neural Network
    */
-  def build(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork
+  def buildNetwork(inputLayer: InputLayer, hiddenLayers: Seq[HiddenLayer], outputLayer: OutputLayer): NeuralNetwork
 
   /**
-   * Returns the associated `StructureBuilder` used to build the a
-   * new NN
+   * Returns a new InputLayer for the specific BehaviourBuilder
    *
-   * @return The instance of a StructureBuilder used to build the NN
+   * @param nInputs The number of inputs of the NN
+   * @return A new InputLayer for the NN
    */
-  def structureBuilder: StructureBuilder
+  def buildInputLayer(nInputs: Int, dataReader: LayerReader): InputLayer
+
+  /**
+   * Returns a new HiddenLayer for the specific BehaviourBuilder
+   *
+   * @param nInputs The number of inputs of the NN
+   * @param nNeurons The number of neurons in the HiddenLayer
+   * @return A single HiddenLayer
+   */
+  def buildHiddenLayer(nInputs: Int, nNeurons: Int, dataReader: LayerReader): HiddenLayer
+
+  /**
+   * Returns a new OutputLayer for the specific BehaviourBuilder
+   *
+   * @param nInputs The number of inputs of the NN
+   * @param nNeurons The number of neurons in the HiddenLayer
+   * @return A single OutputLayer
+   */
+  def buildOutputLayer(nInputs: Int, nNeurons: Int, dataReader: LayerReader): OutputLayer
 }

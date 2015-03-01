@@ -12,19 +12,19 @@ import scala.collection.mutable.ListBuffer
  * Created by Fabrizio on 04/01/2015.
  *
  * @param arena The arena where the tanks play
- * @param max_speed The maximum tank speed
- * @param bullet_speed The proper speed of a bullet
+ * @param max_tank_speed The maximum tank speed
+ * @param max_bullet_speed The proper speed of a bullet
  * @param _tanks The tanks present in the world
  */
 class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
-  val max_speed: Double = 20,
-  val bullet_speed: Double = 15,
-  val max_rounds: Int = 1000,
+  val max_tank_speed: Double = 20,
+  val max_bullet_speed: Double = 15,
+  val max_rounds: Int = 5000,
   private val _tanks: List[Tank] = List() )
 {
   require( arena.width > 0 && arena.height > 0, "The arena must not be a point" )
-  require( max_speed > 0, "Speed must be positive" )
+  require( max_tank_speed > 0, "Speed must be positive" )
 
   /**
    * List of tanks present in the world
@@ -73,12 +73,8 @@ class World(
   def step(): Unit = {
     _time += 1
 
-    //println( s"Time ${_time}: ${tanks.count(!_.isDead)} alive tanks, ${tanks.count(_.isDead)} dead tanks and ${bullets.size} bullets flying" )
-
     // Moving all tanks forward
-    tanks.filter( !_.isDead ) foreach { t =>
-      //writer.write(t.record + "\n")
-
+    tanks.filter( !_.isDead ).par.foreach { t =>
       t.stepForward()
 
       // Arena boundary check
@@ -90,7 +86,7 @@ class World(
 
       // Speed limit check
       check_limit(
-        () => t.speed.x <= max_speed || t.speed.y <= max_speed,
+        () => t.speed.x <= max_tank_speed || t.speed.y <= max_tank_speed,
         () => t.on_maxSpeedReached(),
         () => tanks -= t
       )
@@ -101,16 +97,14 @@ class World(
 
         if(that.boundary.overlaps(lineOfSightP0, lineOfSightP1)) {
           // TODO: Implement the Tank's sight
-          t.on_tankOnSight(that, null)
+          t.on_tankOnSight(that, that.position - t.position)
         }
       }
 
     }
 
     // Moving all bullets forward
-    bullets.par foreach { b =>
-      //writer.write(b.record + "\n")
-
+    bullets foreach { b =>
       b.stepForward()
 
       // Arena boundary check
@@ -122,7 +116,7 @@ class World(
     }
 
     // Bullet/Tank collision management
-    bullets.par foreach { b =>
+    bullets.par.foreach { b =>
       // TODO: space partitioning for collision detection
       tanks.filter( !_.isDead ).par foreach { t =>
         if( b.touches(t) && b.tank != t ) this.on_tankHit(t, b)
@@ -136,35 +130,21 @@ class World(
    * @return The newly created Tank
    */
   def createAndAddDefaultTank(reader: DataReader): Tank = {
-    val tank = new Tank(this, new TankCreationData(
-      Tank.defaultBrainBuilder,
-      reader,
-      Tank.defaultRange,
-      Tank.defaultMass
-    ))
+    val chromosome = new TankChromosome(
+      Seq(), Seq(), Tank.defaultSight, Tank.defaultMass, Tank.defaultRange, Tank.defaultActivationFunction, Tank.defaultBrainBuilder )
 
-    tanks += tank
-    tank
+    createAndAddTank(chromosome, reader)
   }
 
   /**
    * Creates and add a new Tank to the world
    *
-   * @return The newly created Tank
+   * @param chromosome The chromosome defining the Tank
+   * @param reader
+   * @return
    */
-  def createAndAddTank(creationData: TankCreationData): Tank = {
-    val tank = new Tank(this, creationData)
-    tanks += tank
-    tank
-  }
-
-  /**
-   * Creates and add a new Tank to the world
-   *
-   * @return The newly created Tank
-   */
-  def createAndAddTank(chromosome: TankChromosome): Tank = {
-    val tank = Tank(this, chromosome)
+  def createAndAddTank(chromosome: TankChromosome, reader: DataReader = null): Tank = {
+    val tank = Tank(this, chromosome, reader)
     tanks += tank
     tank
   }
@@ -188,7 +168,7 @@ class World(
    */
   def on_tankShot(tank: Tank) {
     try {
-      _bullets += new Bullet(this, tank, bullet_speed)
+      _bullets += new Bullet(this, tank, max_bullet_speed)
     }
     catch {
       case _: Exception ⇒

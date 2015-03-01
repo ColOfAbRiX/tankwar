@@ -27,9 +27,12 @@ object TankWarMain {
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
-        new TankFullMutation(new Probability(0.1)),
-        new TankDriftMutation(new Probability(0.4), new GaussianGenerator(0, 0.1, new MersenneTwisterRNG())),
-        new TankCrossover(2, new Probability(0.3))
+        //new TankFullMutation(new Probability(0.2)),
+        //new TankDriftMutation(new Probability(0.5), new GaussianGenerator(0, 0.1, new MersenneTwisterRNG())),
+        //new TankCrossover(2, new Probability(0.5))
+        new TankFullMutation(new Probability(0.2)),
+        new TankDriftMutation(new Probability(0.4), new GaussianGenerator(0, 0.01, new MersenneTwisterRNG())),
+        new TankCrossover(2, new Probability(0.2))
       )
     )
 
@@ -45,7 +48,7 @@ object TankWarMain {
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation
-    engine.evolve(50, 2, new GenerationCount(2000))
+    engine.evolve(50, 5, new GenerationCount(3000))
   }
 }
 
@@ -58,9 +61,10 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
   override def populationUpdate(populationData: PopulationData[_ <: T]): Unit = {
     println( s"Generation ${populationData.getGenerationNumber}: ${populationData.getBestCandidateFitness}, ${populationData.getMeanFitness}" )
-    println( "Best candidate: " + populationData.getBestCandidate.id + " = " + populationData.getBestCandidate.brain.toString )
+    println( "Best candidate: " + populationData.getBestCandidate.definition + " = " + populationData.getBestCandidate.brain.toString )
 
     writer.println(s"${populationData.getGenerationNumber},${populationData.getMeanFitness},${populationData.getBestCandidateFitness}")
-    //writer.flush
+
+    populationData.getBestCandidate.tester.runTests()
   }
 }

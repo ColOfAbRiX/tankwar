@@ -13,8 +13,8 @@ import scala.collection.mutable.ListBuffer
  * @param activation The activation function used by the neurons
  * @param n_inputs The number of inputs for each neuron
  * @param n_outputs The number of outputs, which equals the number of neurons
- * @param biases The set of bias values, one for each neuron
- * @param weights The set of input weights. Every neuron has n_inputs weights.
+ * @param _biases The set of bias values, one for each neuron
+ * @param _weights The set of input weights. Every neuron has n_inputs weights.
  * @param remember Determines if the layer has to remember the output of every call
  * @param contextWeights The weights for the feedback. It is structured as `weights` and the inputs are as `n_output`
  */
@@ -22,14 +22,18 @@ class ElmanFeedbackLayer (
   activation: ActivationFunction,
   n_inputs: Int,
   n_outputs: Int,
-  biases: Seq[Double],
-  weights: Seq[Seq[Double]],
-  contextWeights: Seq[Seq[Double]],
+  private val _biases: Seq[Double],
+  private val _weights: Seq[Seq[Double]],
+  protected val contextWeights: Seq[Seq[Double]],
   var remember: Boolean = true)
-extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
+extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
 
   // Check that every sequence of feedback weights associated with each neuron is the same size of the inputs of that neuron
   require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
+
+  // To provide a uniform access to the data, the context weights are included in normal weights and the biases adjusted
+  override val biases = _biases ++ Seq.fill(contextWeights.length)(0.0)
+  override val weights = _weights ++ contextWeights
 
   /**
    * Contains the values used as inputs for the last feedback
@@ -49,11 +53,22 @@ extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
     activation,
     n_inputs + n_outputs,
     n_outputs,
-    biases,
-    mixInputs(weights, contextWeights)
+    _biases,
+    mixInputs(_weights, contextWeights)
   )
 
-  private def mixInputs(inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]]) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
+  /**
+   * It mixes two input sequences
+   *
+   * A sequence represents the inputs for all the neurons. As that, to mix inputs, it is
+   * necessary to add together the second level of the sequence
+   *
+   * @param inputs1 First input sequence, structured as the weight variable
+   * @param inputs2 Second input sequence, structured as the weight variable
+   * @return A new `Seq[Seq[Double]]` containing, for each neuron, the inputs of the first lists and the inputs of the second list
+   */
+  private def mixInputs(inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]]) =
+    (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
 
   /**
    * Calculate the output of the layer
