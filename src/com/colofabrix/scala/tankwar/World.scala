@@ -3,6 +3,7 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
+import com.vogon101.java.Renderer
 
 import scala.collection.mutable.ListBuffer
 
@@ -49,6 +50,8 @@ class World(
    * Sequence of all rounds in the world
    */
   val rounds = 1 to Math.abs(max_rounds)
+
+  val renderer = new Renderer(this);
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -123,6 +126,9 @@ class World(
         if( b.touches(t) && b.tank != t ) this.on_tankHit(t, b)
       }
     }
+
+    if( tanks.count(!_.isDead) > 1 )
+      renderer.update();
   }
 
   /**

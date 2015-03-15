@@ -2,6 +2,8 @@ package com.colofabrix.scala
 
 import java.io.PrintWriter
 
+import com.colofabrix.scala.geometry.Vector2D
+import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.tankwar.integration._
 import com.colofabrix.scala.tankwar.integration.operators.{TankDriftMutation, TankFullMutation}
 import com.colofabrix.scala.tankwar.{BrainInputHelper, Tank, TankBrainTester, World}
@@ -22,7 +24,7 @@ object TankWarMain {
   def main( args: Array[String] ) {
 
     // Create a new world where to run the Tanks
-    val world = new World(max_rounds = 10000)
+    val world = new World(max_rounds = 1000, arena = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(2000, 1000) ))
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
