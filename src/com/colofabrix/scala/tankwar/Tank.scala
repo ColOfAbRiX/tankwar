@@ -33,7 +33,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
   /**
    * Physical boundary of the PhysicalObject located in the space
    */
-  override def boundary: Shape = Circle(_position, 50)
+  override def boundary: Shape = Circle(_position, 20)
 
   /**
    * Indicates if the tank is dead
