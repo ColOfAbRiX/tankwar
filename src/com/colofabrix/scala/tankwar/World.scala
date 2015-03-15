@@ -20,6 +20,7 @@ class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
   val max_tank_speed: Double = 20,
   val max_bullet_speed: Double = 15,
+  val max_sight: Double = 500,
   val max_rounds: Int = 5000,
   private val _tanks: List[Tank] = List() )
 {
@@ -93,7 +94,7 @@ class World(
 
       tanks.filter( that => !that.isDead && !(t == that) ).foreach { that ⇒
         val lineOfSightP0 = t.position
-        val lineOfSightP1 = lineOfSightP0 + Vector2D.new_rt(250, t.rotation.t)
+        val lineOfSightP1 = lineOfSightP0 + Vector2D.new_rt(max_sight, t.rotation.t)
 
         if(that.boundary.overlaps(lineOfSightP0, lineOfSightP1)) {
           // TODO: Implement the Tank's sight
@@ -151,7 +152,7 @@ class World(
 
   def resetWorld(tankList: List[Tank]): Unit = {
     // Reset time
-    _time =0
+    _time = 0
 
     // Reinitialize the Tanks
     tanks.clear()

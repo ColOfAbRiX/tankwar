@@ -3,8 +3,7 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.{Circle, Polygon}
-import com.colofabrix.scala.neuralnetwork.NNTester
-import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, NeuralNetwork, OutputHelper}
+import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.builders._
 import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
 
@@ -20,38 +19,6 @@ import scala.util.Random
 class Tank private (override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty) extends PhysicalObject {
 
   import java.lang.Math._
-
-  /**
-   * Support class used as an interface between the output of the NN and the `Tank`
-   */
-  object BrainOutputHelper {
-    val count = 4
-  }
-
-  class BrainOutputHelper(outputs: Seq[brain.T]) extends OutputHelper[brain.T](outputs) {
-    val force = Vector2D.new_xy(outputs(0).asInstanceOf[Double], outputs(1).asInstanceOf[Double])
-    val rotation = outputs(2).asInstanceOf[Double]
-    val shoot = outputs(3).asInstanceOf[Double]
-  }
-
-  /**
-   * Support class used as an interface between the `Tank` and the input of the NN
-   */
-  object BrainInputHelper {
-    val count = 7
-  }
-
-
-  class BrainInputHelper(pos: Vector2D, speed: Vector2D, rot: Vector2D, sightCrossed: Vector2D) extends InputHelper[brain.T] {
-    override protected val _values = Seq(
-      pos.x, pos.y,
-      speed.x, speed.y,
-      rot.t,
-      sightCrossed.x, sightCrossed.y
-    ).asInstanceOf[Seq[brain.T]]
-  }
-
-  def tester: NNTester = new NNTester(brain, BrainInputHelper.count, id)
 
   private var _isDead = false
   private var _shoot = 0.0
@@ -92,19 +59,24 @@ class Tank private (override val world: World, initialData: TankChromosome, data
   def kills: Int = _killsCount
 
   /**
-   * Time when the tank has died
+   * Number of cycles the Tank has survived
    */
   def surviveTime = _surviveTime
 
   /**
    * Position of the center of the PhysicalObject
    *
+   * At creation time it is initialized as a random value inside the arena
+   *
    * @return The point on the world where is the center of the PhysicalObject
    */
+  //_position = Vector2D.new_xy(2500, 2500) + Vector2D.new_rt(200, Random.nextDouble * 2 * Math.PI)
   _position = world.arena.topRight := { _ * Random.nextDouble() }
 
   /**
    * Speed of the object relative to the arena
+   *
+   * At creation time it is always zero
    *
    * @return The current step speed
    */
@@ -113,7 +85,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
   /**
    * Rotation of the Tank's main axis
    *
-   * @return The angle formed by the Tank's main axis and the X axis
+   * @return A versor indicating the angle formed by the Tank's main axis and the X axis in radians
    */
   def rotation = _rotation
 
@@ -134,7 +106,8 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * The chromosome contains all the data needed to identify uniquely this Tank.
    *
    * It is created collecting the main information of the tank in one single place. So, the information
-   * can be obtained in other ways too
+   * can be obtained in other ways too.
+   * Note that it doesn't contain any status information like the current position or speed
    */
   val chromosome = new TankChromosome(
     brain.biases.asInstanceOf[Seq[Seq[Double]]],
@@ -153,7 +126,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(_position, _speed, _rotation, _sightCrossed)
+        new BrainInputHelper(world, _position, _speed, _rotation, _sightCrossed)
       )
     )
 
@@ -241,14 +214,14 @@ object Tank {
 
   val defaultActivationFunction = Seq.fill(3)("tanh")
 
-  val defaultHiddenNeurons = 7
+  val defaultHiddenNeurons = 5
 
   val defaultBrainBuilder =
     //new ThreeLayerNetwork(new ElmanBuilder, defaultHiddenNeurons)
     new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
 
   val defaultSight = TankSight(
-    new Polygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(5, 250), Vector2D.new_xy(-5, 250))),
+    new Polygon(Seq(Vector2D.new_xy(0, 5), Vector2D.new_xy(250, 0), Vector2D.new_xy(0, -5))),
     Vector2D.new_xy(0, 0)
   )
 

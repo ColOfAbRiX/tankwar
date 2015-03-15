@@ -17,13 +17,8 @@ class TankEvaluator() extends FitnessEvaluator[Tank] {
    * @param list The list of all Tanks. It may be useful for comparison purposes
    * @return A number representing the fitness of the Tank
    */
-  override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double = {
-    // This value if meant to optimize:
-    //   - Kills: the more a Tank kills the more it is fit
-    //   - Survival: A tank that doesn't kill a lot but survives a lot is equally valued
-    1.0 * t.kills / (t.world.tanks.size - 1)
-    //+ 1.0 * (t.surviveTime / t.world.max_rounds)
-  }
+  override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double =
+    t.kills * (1.0 + t.surviveTime.toDouble / t.world.max_rounds)
 
   override def isNatural: Boolean = true
 

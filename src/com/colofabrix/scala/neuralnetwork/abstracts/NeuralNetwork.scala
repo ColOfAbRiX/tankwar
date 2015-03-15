@@ -8,13 +8,6 @@ package com.colofabrix.scala.neuralnetwork.abstracts
  * Created by Fabrizio on 17/12/2014.
  */
 trait NeuralNetwork {
-
-  /**
-   * Type of data evaluated by the neurons
-   */
-  @specialized(Double)
-  type T
-
   /**
    * Type of data used to expose externally biases and weights
    */
@@ -44,7 +37,7 @@ trait NeuralNetwork {
    * @param inputs A sequence of T to feed the NN
    * @return A sequence of T representing the output
    */
-  def output( inputs: Seq[T] ): Seq[T]
+  def output( inputs: Seq[Double] ): Seq[Double]
 
   /**
    * Calculate the output of the Neural Network
@@ -54,7 +47,7 @@ trait NeuralNetwork {
    * @param input A sequence of T to feed the NN
    * @return A sequence of T representing the output
    */
-  def output( input: T ): Seq[T] = output( Seq(input) )
+  def output( input: Double ): Seq[Double] = output( Seq(input) )
 
   /**
    * Calculate the output of the Neural Network
@@ -64,7 +57,7 @@ trait NeuralNetwork {
    * @param inputHelper A sequence of T to feed the NN
    * @return A sequence of T representing the output
    */
-  def output( inputHelper: InputHelper[T] ): Seq[T] = {
+  def output( inputHelper: InputHelper[Double] ): Seq[Double] = {
     output( inputHelper.getValues )
   }
 

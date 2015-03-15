@@ -1,14 +1,14 @@
 package com.colofabrix.scala
 
-import java.io.{File, PrintWriter}
+import java.io.PrintWriter
 
 import com.colofabrix.scala.tankwar.integration._
-import com.colofabrix.scala.tankwar.integration.operators.{TankCrossover, TankDriftMutation, TankFullMutation}
-import com.colofabrix.scala.tankwar.{Tank, World}
+import com.colofabrix.scala.tankwar.integration.operators.{TankDriftMutation, TankFullMutation}
+import com.colofabrix.scala.tankwar.{BrainInputHelper, Tank, TankBrainTester, World}
 import org.uncommons.maths.random.{GaussianGenerator, MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
-import org.uncommons.watchmaker.framework.selection.SigmaScaling
-import org.uncommons.watchmaker.framework.termination.GenerationCount
+import org.uncommons.watchmaker.framework.selection.TournamentSelection
+import org.uncommons.watchmaker.framework.termination.TargetFitness
 import org.uncommons.watchmaker.framework.{EvolutionObserver, PopulationData}
 
 import scala.collection.JavaConversions._
@@ -22,17 +22,19 @@ object TankWarMain {
   def main( args: Array[String] ) {
 
     // Create a new world where to run the Tanks
-    val world = new World()
+    val world = new World(max_rounds = 10000)
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
-        //new TankFullMutation(new Probability(0.2)),
-        //new TankDriftMutation(new Probability(0.5), new GaussianGenerator(0, 0.1, new MersenneTwisterRNG())),
-        //new TankCrossover(2, new Probability(0.5))
-        new TankFullMutation(new Probability(0.2)),
-        new TankDriftMutation(new Probability(0.4), new GaussianGenerator(0, 0.01, new MersenneTwisterRNG())),
-        new TankCrossover(2, new Probability(0.2))
+        // A very small mutation from the current values is applied frequently
+        new TankDriftMutation(new Probability(0.99), new GaussianGenerator(0, 1.0 / (2.96 * 10), new MersenneTwisterRNG())),
+        // A less small drift is applied less frequently
+        new TankDriftMutation(new Probability(0.5), new GaussianGenerator(0, 1.0 / 2.96, new MersenneTwisterRNG())),
+        // Every so and then a value is changed completely
+        new TankFullMutation(new Probability(0.5))
+        // Crossover between tanks
+        //new TankCrossover(1, new Probability(0.3))
       )
     )
 
@@ -41,14 +43,16 @@ object TankWarMain {
       new TankFactory(world),
       pipeline,
       new TankEvaluator(),
-      new SigmaScaling(),
+      new TournamentSelection(new Probability(0.75)),
       new MersenneTwisterRNG()
     )
 
     engine.addEvolutionObserver(new EvolutionLogger)
 
-    // Run the simulation
-    engine.evolve(50, 5, new GenerationCount(3000))
+    // Run the simulation and stop for stagnation
+    //engine.evolve(101, 25, new Stagnation(1000, true, true))
+    engine.evolve(51, 10, new TargetFitness(25, true))
+    //engine.evolve(101, 25, new GenerationCount(3000))
   }
 }
 
@@ -57,14 +61,17 @@ object TankWarMain {
  * of each generation.
  */
 class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
-  val writer = new PrintWriter(new File("""out/population.csv"""))
+  val writer = new PrintWriter("population.csv")
 
   override def populationUpdate(populationData: PopulationData[_ <: T]): Unit = {
-    println( s"Generation ${populationData.getGenerationNumber}: ${populationData.getBestCandidateFitness}, ${populationData.getMeanFitness}" )
-    println( "Best candidate: " + populationData.getBestCandidate.definition + " = " + populationData.getBestCandidate.brain.toString )
+    val best = populationData.getBestCandidate
 
-    writer.println(s"${populationData.getGenerationNumber},${populationData.getMeanFitness},${populationData.getBestCandidateFitness}")
+    println( s"Generation ${populationData.getGenerationNumber}: ${populationData.getBestCandidateFitness}(${best.kills}+${best.surviveTime}), ${populationData.getMeanFitness}" )
+    println( "Best candidate: " + best.definition + " = " + best.brain.toString )
 
-    populationData.getBestCandidate.tester.runTests()
+    writer.println(s"${populationData.getGenerationNumber};${populationData.getMeanFitness};${populationData.getBestCandidateFitness};${best.kills};${best.surviveTime}".replace(".", ","))
+    writer.flush()
+
+    new TankBrainTester(best, BrainInputHelper.count).runTests()
   }
 }

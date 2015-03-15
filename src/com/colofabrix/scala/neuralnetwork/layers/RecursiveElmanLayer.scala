@@ -39,7 +39,7 @@ extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
   def lastFeedback =_memory.toList
 
   // This memory contains the outputs of the previous call of output
-  private val _memory: ListBuffer[T] = ListBuffer.fill(n_outputs)(0.0)
+  private val _memory: ListBuffer[Double] = ListBuffer.fill(n_outputs)(0.0)
 
   // This is actually done because want to trick the HiddenLayer and give it modified parameters instead of create
   // a new type of layer from scratch. I just inherit from HiddenLayer to have an external interface.
@@ -54,7 +54,7 @@ extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
 
   private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
 
-  override def output( inputs: Seq[T] ): Seq[T] = {
+  override def output( inputs: Seq[Double] ): Seq[Double] = {
     val outputs = internalLayer.output(inputs ++ _memory)
 
     if( remember ) {

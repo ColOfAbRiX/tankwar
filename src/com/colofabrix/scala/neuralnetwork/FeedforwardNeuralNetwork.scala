@@ -19,8 +19,6 @@ class FeedforwardNeuralNetwork(
   val output_layer: OutputLayer = null)
 extends NeuralNetwork {
 
-  override type T = Double
-
   override type U = Seq[Double]
 
   override type V = Seq[String]
@@ -81,7 +79,7 @@ extends NeuralNetwork {
    * @param inputs A sequence of double to feed the NN
    * @return A sequence of double representing the output
    */
-  override def output( inputs: Seq[T] ): Seq[T] = {
+  override def output( inputs: Seq[Double] ): Seq[Double] = {
     // Calculate the output of one layer and use it to feed the next layer
     all_layers.foldLeft( inputs )( (input, layer) => layer.output(input) )
   }

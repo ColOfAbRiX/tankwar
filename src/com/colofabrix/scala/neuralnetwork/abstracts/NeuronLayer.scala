@@ -33,11 +33,9 @@ extends NeuralNetwork
   // Check that every sequence of weights associated with each neuron is the same size of the inputs of that neuron
   require( weights.length == n_outputs && weights.forall( _.length == n_inputs ), "The size of weights must match the input/output numbers" )
 
-  override type T = Double
+  override type V = String
 
   override type U = Double
-
-  override type V = String
 
   override val activationFunction = activation.toString
 
@@ -76,7 +74,7 @@ extends NeuralNetwork
    * @param inputs A sequence of double to feed the layer
    * @return A sequence of double representing the output
    */
-  def output( inputs: Seq[T] ): Seq[T] = {
+  def output( inputs: Seq[Double] ): Seq[Double] = {
     // The given input values must match the NN configuration
     require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
 
