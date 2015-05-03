@@ -33,18 +33,16 @@ case class Circle(center: Vector2D, radius: Double) extends Shape with Container
    * @param that The shape to be checked
    * @return True if the shape touches the current shape
    */
-  override def overlaps(that: Shape): Boolean = {
-    that match {
-      case c: Circle =>
-        // For circles is enough to check the distance from the centers
-        center - c.center < radius + c.radius
-      case p: Shape =>
-        p.distance(center)._1 <= radius
-    }
+  override def overlaps(that: Shape): Boolean = that match {
+    // For circles is enough to check the distance from the centers
+    case c: Circle => center - c.center < radius + c.radius
+    // For polygons I check the distance from the nearest edge
+    case p: Polygon ⇒ p.distance(center)._1 <= radius
+    case _ => false
   }
 
   /**
-   * Determines if a line touches in any way this shape
+   * Determines if a line segment touches in any way the circle
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
@@ -105,6 +103,6 @@ case class Circle(center: Vector2D, radius: Double) extends Shape with Container
   /**
    * Area of the circle
    */
-  override val area: Double = 2.0 * radius * Math.PI
+  override def area: Double = 2.0 * radius * Math.PI
 
 }

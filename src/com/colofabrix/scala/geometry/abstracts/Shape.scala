@@ -3,9 +3,7 @@ package com.colofabrix.scala.geometry.abstracts
 import com.colofabrix.scala.geometry.Vector2D
 
 /**
- * Represents a graphical shape
- *
- * TODO: Unit test this class
+ * Represents a geometric closed shape
  */
 trait Shape {
   /**
@@ -17,7 +15,7 @@ trait Shape {
   def overlaps(p: Vector2D): Boolean
 
   /**
-   * Determines if a line touches in any way this shape
+   * Determines if a line segment touches in any way this shape
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
@@ -42,11 +40,11 @@ trait Shape {
   def distance(p: Vector2D): (Vector2D, Vector2D)
 
   /**
-   * Compute the distance between a line and the edges of the polygon
+   * Compute the distance between a line segment and the nearest edge of the shape.
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
-   * @return A tuple containing the distance vector from the point to the boundary and the edge or the point from which the distance is calculated
+   * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
    */
   def distance(p0: Vector2D, p1: Vector2D): (Vector2D, Vector2D)
 
@@ -88,10 +86,10 @@ trait Shape {
    *
    * @return A new shape that contains all the current shape
    */
-  val container: Container
+  def container: Container
 
   /**
    * The area of the Shape
    */
-  val area: Double
+  def area: Double
 }

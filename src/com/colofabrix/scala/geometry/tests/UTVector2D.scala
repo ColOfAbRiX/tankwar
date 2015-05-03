@@ -21,7 +21,7 @@ class UTVector2D extends WordSpec with Matchers {
       test(0) should equal (10.0)
       test(1) should equal (-10.0)
       test(2) should equal (14.14213 +- tolerance)
-      test(3) should equal (-Math.PI / 4 +- tolerance)
+      test(3) should equal (Math.PI * 7.0 / 4.0 +- tolerance)
     }
 
   }
@@ -163,7 +163,7 @@ class UTVector2D extends WordSpec with Matchers {
       val result = vector n
 
       result.r should equal (1.0)
-      result.t should equal (Math.PI / 4 + Math.PI / 2)
+      result.t should equal (Math.PI / 4 + Math.PI / 2 +- tolerance)
 
     }
 

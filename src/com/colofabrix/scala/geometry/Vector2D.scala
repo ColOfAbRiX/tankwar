@@ -289,6 +289,15 @@ object Vector2D {
    * @return A new vector
    */
   def new_xy( x: Double, y: Double ) = Vector2D(CartesianCoord(x, y))
+
+  /**
+   * Vector Origin
+   *
+   * It's a null vector
+   *
+   * @return A vector with both coordinates equals to zero
+   */
+  def origin: Vector2D = Vector2D.new_xy(0, 0)
 }
 
 /**

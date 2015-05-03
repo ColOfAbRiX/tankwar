@@ -1,7 +1,6 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.Vector2D
-import com.colofabrix.scala.geometry.abstracts._
 
 /**
  * A convex polygon
@@ -29,13 +28,6 @@ class ConvexPolygon(private val v: Seq[Vector2D]) extends Polygon (v) {
 
         if (prVxThis.min < prVxThat.min) prVxThis.max >= prVxThat.min
         else prVxThat.max >= prVxThis.min
-    }
-  }
-
-  override def overlaps( that: Shape ): Boolean = {
-    that match {
-      case p: Polygon => p.overlaps(this)
-      case c: Circle => c.overlaps(this)
     }
   }
 }

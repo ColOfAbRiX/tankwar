@@ -62,8 +62,16 @@ object PolarCoord {
   def apply(r: Double, t: Double): PolarCoord =
     new PolarCoord(r, {
       if( t >= 0) t % (2 * Math.PI)
-      else t% (-2 * Math.PI) + 2 * Math.PI
+      else trimAngles(t)
     })
+
+  /**
+   * Trim an angle making sure that the resulting angle is always non-negative and less than 2 * PI
+   *
+   * @param t The angle to trim
+   * @return An equivalent angle that is always non-negative and less than 2 * PI
+   */
+  def trimAngles( t: Double ): Double = t % (-2 * Math.PI) + 2 * Math.PI
 }
 
 /**
@@ -85,6 +93,6 @@ object CoordinatesImplicits {
   implicit def Cartesian2Polar( c: CartesianCoord ): PolarCoord =
     PolarCoord(
       sqrt(pow(c.x, 2) + pow(c.y, 2)),
-      atan2(c.y, c.x)
+      PolarCoord.trimAngles(atan2(c.y, c.x))
     )
 }

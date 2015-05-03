@@ -7,7 +7,7 @@ import com.colofabrix.scala.geometry.abstracts.Container
   * Rectangle shape with edges parallel to the cartesian axis
   *
   * This kind of shape is particularly useful in checking overlaps and collisions
-  * as it is done in constant time O(k) and without mathematical operations
+  * as it is done in constant time O(k) and without complex mathematical operations
   *
   * @param bottomLeft Rectangle left-bottom-most point
   * @param topRight Rectangle right-top point

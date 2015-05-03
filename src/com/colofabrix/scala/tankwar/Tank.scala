@@ -26,14 +26,19 @@ class Tank private (override val world: World, initialData: TankChromosome, data
   private var _surviveTime: Long = 0
   private var _rotation: Vector2D = Vector2D.new_rt(1, 0)
   private var _isShooting: Boolean = false
-  private var _sightCrossed : Vector2D = Vector2D.new_rt(0, 0)
+  private var _seenTank: Vector2D = Vector2D.origin
+  private var _seenBullet = Vector2D.origin
+  private var _direction = Vector2D.new_xy(1, 1)
 
   _mass = initialData.mass
+
+  def seenTank = _seenTank
+  def seenBullet = _seenBullet
 
   /**
    * Physical boundary of the PhysicalObject located in the space
    */
-  override def boundary: Shape = Circle(_position, 20)
+  override def boundary: Shape = Circle(_position, 10)
 
   /**
    * Indicates if the tank is dead
@@ -70,7 +75,6 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    *
    * @return The point on the world where is the center of the PhysicalObject
    */
-  //_position = Vector2D.new_xy(2500, 2500) + Vector2D.new_rt(200, Random.nextDouble * 2 * Math.PI)
   _position = world.arena.topRight := { _ * Random.nextDouble() }
 
   /**
@@ -126,23 +130,50 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(world, _position, _speed, _rotation, _sightCrossed)
+        new BrainInputHelper(world, _position, _speed, _rotation, _seenTank, _seenBullet)
       )
     )
 
-    // Update spatial values
-    _speed = _speed + (output.force / _mass)
+    // SPEED SECTION
+    {
+      // The output is considered to be a force that changes the speed
+      //_speed = _speed + (output.force / _mass)
+
+      // The output of the NN is the speed (mapped to the max allowed speed) but limited to a certain amount of change over time
+      //_speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
+
+      // The output of the NN is the speed (mapped to the max allowed speed)
+      _speed = (output.force * world.max_tank_speed) := _direction
+    }
+
     _position = _position + _speed
-    _rotation = _rotation ¬ output.rotation
 
-    // It shoots when the function changes tone
-    _isShooting = output.shoot - _shoot > 0
-    if (_isShooting) world.on_tankShot(this)
-    _shoot = output.shoot
+    // ROTATION SECTION
+    {
+      // The rotation is found changing the previous angle with the output of the NN but limited to a certain amount of change over time
+      _rotation = _rotation ¬ min(max(output.rotation, 10.0 * Math.PI / 180.0), 10.0 * Math.PI / 180.0)
 
+      // The rotation is found changing the previous angle with the output of the NN
+      //_rotation = _rotation ¬ output.rotation
+
+      // The rotation is found using directly the output of the NN (mapped to a circle)
+      //_rotation = Vector2D.new_rt(1, output.rotation * Math.PI * 2.0)
+    }
+
+    // SHOOTING SECTION
+    {
+      // It shoots when the function changes tone
+      _isShooting = output.shoot - _shoot > 0
+      if (_isShooting) world.on_tankShot(this)
+      _shoot = output.shoot
+    }
+
+    // Update the survive time at each tick
     _surviveTime = world.time
 
-    _sightCrossed = Vector2D.new_xy(0, 0)
+    // Reset the vision every tick
+    _seenTank = Vector2D.origin
+    _seenBullet = Vector2D.origin
   }
 
   /**
@@ -151,7 +182,8 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * @param bullet The bullet that hits the tank
    */
   def on_isHit(bullet: Bullet): Unit = {
-    _isDead = true
+     _isDead = true
+    //_killsCount /= 2
   }
 
   /**
@@ -168,11 +200,17 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * If the tank hit a wall (or it goes beyond it), it is bounced back
    */
   override def on_hitsWalls(): Unit = {
-    // Invert the speed on the axis of impact
-    _speed = _speed := { (x, i) =>
+    // Invert the speed on the axis of impact (used when the output is considered to be a force
+    //_speed = _speed := { (x, i) =>
+    //  if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
+    //}
+
+    // Invert the speed on the axis of impact (used when the output is considered to be the speed
+    _direction = _direction := { (x, i) =>
       if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
     }
 
+    // Trim the position to the boundary of the arena if the tank is outside
     _position = _position := ((x, i) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
   }
 
@@ -190,7 +228,19 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * @param direction Direction where the tank is seen, relative to `Tank.position`
    */
   def on_tankOnSight(t: Tank, direction: Vector2D): Unit = {
-    _sightCrossed = direction
+    // Memorize the direction of the target
+    _seenTank = direction
+  }
+
+  /**
+   * Called when a bullet is on the sight of the tank
+   *
+   * @param b Bullet which has been seen
+   * @param direction Direction where the tank is seen, relative to `Tank.position`
+   */
+  def on_bulletOnSight(b: Bullet, direction: Vector2D): Unit = {
+    // Memorize the direction of the threat
+    _seenBullet = direction
   }
 
   /**
@@ -206,22 +256,31 @@ class Tank private (override val world: World, initialData: TankChromosome, data
 }
 
 
+/**
+ * Structural configuration of a tank (usually used at first-time creation)
+ */
 object Tank {
 
+  // Mass of the tank
   val defaultMass = 1.0
 
-  val defaultRange = 1.0
+  // Range of the inputs (the purpose is to utilize all the range of the activation function)
+  val defaultRange = 4.0
 
   val defaultActivationFunction = Seq.fill(3)("tanh")
 
-  val defaultHiddenNeurons = 5
+  val defaultHiddenNeurons = BrainInputHelper.count
 
   val defaultBrainBuilder =
     //new ThreeLayerNetwork(new ElmanBuilder, defaultHiddenNeurons)
     new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
 
   val defaultSight = TankSight(
-    new Polygon(Seq(Vector2D.new_xy(0, 5), Vector2D.new_xy(250, 0), Vector2D.new_xy(0, -5))),
+    new Polygon(Seq(
+      Vector2D.new_xy(0, 5),
+      Vector2D.new_xy(100, 0),
+      Vector2D.new_xy(0, -5)
+    )),
     Vector2D.new_xy(0, 0)
   )
 

@@ -27,7 +27,7 @@ extends NeuralNetworkTester(tank.brain, nInputs) {
   )
 
   override val testDefinitions: List[(PrintWriter ⇒ Unit)] = List(
-    fullAnalysis(Seq(2500, 2500, 0, 0, 0, 0, 0), 5, 6)(_)
+    //fullAnalysis(Seq(2500, 2500, 0, 0, 0, 0, 0), 5, 6)(_)
   )
 
   override protected def evaluateNetwork(): Unit = ???
