@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.abstracts.Container
+import com.colofabrix.scala.math.Vector2D
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis

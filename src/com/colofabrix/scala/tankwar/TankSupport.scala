@@ -1,9 +1,9 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.shapes.Polygon
-import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.StructureBuilder
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.neuralnetworkOld.abstracts.{InputHelper, OutputHelper}
+import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.StructureBuilder
 
 /**
  * A TankChromosome contains all the data needed to uniquely identify

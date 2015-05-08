@@ -1,11 +1,11 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.{Circle, Polygon}
-import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.builders._
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.neuralnetworkOld.abstracts.NeuralNetwork
+import com.colofabrix.scala.neuralnetworkOld.builders._
+import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
 
 import scala.util.Random
 

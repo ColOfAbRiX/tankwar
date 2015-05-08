@@ -1,8 +1,8 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.shapes.{Box, Circle}
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
 import com.vogon101.java.Renderer
 
 import scala.collection.mutable.ListBuffer

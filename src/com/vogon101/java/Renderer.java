@@ -1,7 +1,7 @@
 package com.vogon101.java;
 
-import com.colofabrix.scala.geometry.Vector2D;
 import com.colofabrix.scala.geometry.shapes.Circle;
+import com.colofabrix.scala.math.Vector2D;
 import com.colofabrix.scala.tankwar.Bullet;
 import com.colofabrix.scala.tankwar.Tank;
 import com.colofabrix.scala.tankwar.World;
@@ -71,11 +71,6 @@ public class Renderer {
             GL11.glEnd();
         }
         GL11.glPopMatrix();
-    }
-
-    private void cleanUp() {
-        Display.destroy();
-        System.exit(0);
     }
 
     private void setCamera() {

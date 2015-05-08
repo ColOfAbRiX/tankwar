@@ -1,6 +1,6 @@
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.geometry.Vector2D
+import com.colofabrix.scala.math.Vector2D
 
 /**
  * Represents a geometric closed shape

@@ -2,8 +2,8 @@ package com.colofabrix.scala
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.tankwar.integration._
 import com.colofabrix.scala.tankwar.integration.operators.TankFullMutation
 import com.colofabrix.scala.tankwar.{BrainInputHelper, Tank, TankBrainTester, World}

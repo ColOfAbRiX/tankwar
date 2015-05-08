@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.tests
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.math.Vector2D
 import org.scalatest.{Matchers, WordSpec}
 
 /**

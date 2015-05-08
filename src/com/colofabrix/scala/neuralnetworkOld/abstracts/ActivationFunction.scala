@@ -1,6 +1,6 @@
-package com.colofabrix.scala.neuralnetwork.abstracts
+package com.colofabrix.scala.neuralnetworkOld.abstracts
 
-import com.colofabrix.scala.neuralnetwork.activationfunctions._
+import com.colofabrix.scala.neuralnetworkOld.activationfunctions._
 
 /**
  * Abstract definition of a Neural Network Activation Function
@@ -41,7 +41,6 @@ abstract class ActivationFunction {
    */
   final override def hashCode: Int = this.UFID.hashCode
 }
-
 
 object ActivationFunction {
 

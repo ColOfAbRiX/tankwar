@@ -2,7 +2,7 @@ package com.colofabrix.scala.tankwar
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.neuralnetwork.NeuralNetworkTester
+import com.colofabrix.scala.neuralnetworkOld.NeuralNetworkTester
 
 /**
  * Provides a way to visualize the behaviour of a NN
