@@ -1,4 +1,4 @@
-package com.colofabrix.scala.neuralnetworkOld.abstracts
+package com.colofabrix.scala.neuralnetwork.abstracts
 
 /**
  * Provides a way do test a Neural Network
@@ -8,7 +8,7 @@ package com.colofabrix.scala.neuralnetworkOld.abstracts
  *
  * Created by Fabrizio on 05/03/2015.
  */
-trait NNTester {
+trait NetworkAnalyser {
 
   def runTests(): Unit
 

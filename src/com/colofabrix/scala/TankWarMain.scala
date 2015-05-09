@@ -74,7 +74,7 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
     writer.println(s"${populationData.getGenerationNumber};${populationData.getMeanFitness};${populationData.getBestCandidateFitness};${bestTank.kills};${bestTank.surviveTime}".replace(".", ","))
     writer.flush()
 
-    new TankBrainTester(bestTank, BrainInputHelper.count).runTests()
+    new TankBrainTester(bestTank).runTests()
   }
 
 }

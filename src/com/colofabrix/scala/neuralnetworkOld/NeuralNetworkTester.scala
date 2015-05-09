@@ -2,7 +2,7 @@ package com.colofabrix.scala.neuralnetworkOld
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.neuralnetworkOld.abstracts.{NNTester, NeuralNetwork}
+import com.colofabrix.scala.neuralnetworkOld.abstracts.{Tester, NeuralNetwork}
 
 /**
   * Provides a way to visualize the behaviour of a NN
@@ -12,7 +12,7 @@ import com.colofabrix.scala.neuralnetworkOld.abstracts.{NNTester, NeuralNetwork}
   *
   * Created by Fabrizio on 15/02/2015.
   */
-abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) extends NNTester {
+abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) extends Tester {
 
    // Range of the values and number of points (input#, start_value, end_value, points_count)
    def plotDefinitions: List[(Int, Double, Double, Double)]

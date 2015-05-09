@@ -66,7 +66,7 @@ extends NeuralNetwork {
     val outputs = Array.fill(matrix.rows - 1)(Double.NaN)
 
     // Calculate the sum of the weighted inputs using the output vector
-    for( i ← 0 until matrix.rows; j ← (0 until matrix.cols).par ) {
+    for( i ← (0 until matrix.rows).par; j ← (0 until matrix.cols).par ) {
       // The inputs are multiplied by the weight of the neuron they feed
       val weightedInput = inputs(i) * matrix(i, j)
 
