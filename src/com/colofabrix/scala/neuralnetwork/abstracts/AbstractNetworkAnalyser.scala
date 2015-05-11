@@ -1,10 +1,8 @@
-package com.colofabrix.scala.neuralnetwork
+package com.colofabrix.scala.neuralnetwork.abstracts
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.neuralnetwork.abstracts.{NetworkAnalyser, NeuralNetwork}
-import com.colofabrix.scala.neuralnetworkOld.abstracts.InputHelper
-import com.colofabrix.scala.tankwar.{World, BrainInputHelper}
+import com.colofabrix.scala.tankwar.{BrainInputHelper, World}
 
 /**
  * Provides a way to visualize the behaviour of a NN
@@ -14,7 +12,7 @@ import com.colofabrix.scala.tankwar.{World, BrainInputHelper}
  *
  * Created by Fabrizio on 15/02/2015.
  */
-abstract class AbstractAnalyser(val world: World, val network: com.colofabrix.scala.neuralnetworkOld.abstracts.NeuralNetwork) extends NetworkAnalyser {
+abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofabrix.scala.neuralnetworkOld.abstracts.NeuralNetwork) extends NetworkAnalyser {
 
   /**
    * First line that will be written to the output stream

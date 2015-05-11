@@ -16,7 +16,7 @@ import com.colofabrix.scala.math.Matrix
  * @param matrix Defining adjacency matrix
  * @param af Activation function used by the network
  */
-abstract class StatelessNetwork(
+abstract class AbstractStatelessNetwork(
   override val inputCount: Int,
   override val outputCount: Int,
   override val matrix: Matrix[Double],

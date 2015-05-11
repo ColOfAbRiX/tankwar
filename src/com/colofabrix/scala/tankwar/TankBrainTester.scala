@@ -2,7 +2,7 @@ package com.colofabrix.scala.tankwar
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.neuralnetwork.AbstractAnalyser
+import com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser
 
 /**
  * Provides a way to visualize the behaviour of a NN
@@ -12,7 +12,7 @@ import com.colofabrix.scala.neuralnetwork.AbstractAnalyser
  *
  * Created by Fabrizio on 15/02/2015.
  */
-final class TankBrainTester(val tank: Tank) extends AbstractAnalyser(tank.world, tank.brain) {   // FIXME: The null value (DANGER!) is temporary until I integrate the new changes
+final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank.world, tank.brain) {   // FIXME: The null value (DANGER!) is temporary until I integrate the new changes
 
   /**
    * First line that will be written to the output stream

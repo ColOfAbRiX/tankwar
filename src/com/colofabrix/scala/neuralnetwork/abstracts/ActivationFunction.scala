@@ -5,7 +5,7 @@ import com.colofabrix.scala.neuralnetwork.activationfunctions._
 /**
  * Abstract definition of a Neural Network Activation Function
  */
-abstract class ActivationFunction {
+abstract trait ActivationFunction {
   /**
    * Calculates a function over a number
    *
@@ -22,7 +22,7 @@ abstract class ActivationFunction {
    *
    * @return
    */
-  val UFID: String
+  def UFID: String
 
   /**
    * Check that two ActivationFunctions are the same function

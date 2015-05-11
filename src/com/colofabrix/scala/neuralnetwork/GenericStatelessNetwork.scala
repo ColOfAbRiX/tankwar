@@ -1,7 +1,7 @@
 package com.colofabrix.scala.neuralnetwork
 
 import com.colofabrix.scala.math.Matrix
-import com.colofabrix.scala.neuralnetwork.abstracts.{ActivationFunction, StatelessNetwork}
+import com.colofabrix.scala.neuralnetwork.abstracts.{AbstractStatelessNetwork, ActivationFunction}
 
 /**
  * A direct implementation of {StatelessNetwork}
@@ -12,4 +12,4 @@ import com.colofabrix.scala.neuralnetwork.abstracts.{ActivationFunction, Statele
  * @param af Activation function used by the network
  */
 class GenericStatelessNetwork(inputCount: Int, outputCount: Int, matrix: Matrix[Double], af: ActivationFunction)
-  extends StatelessNetwork(inputCount, outputCount, matrix, af)
+  extends AbstractStatelessNetwork(inputCount, outputCount, matrix, af)
