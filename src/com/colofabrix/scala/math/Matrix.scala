@@ -1,11 +1,30 @@
 package com.colofabrix.scala.math
 
+import scala.collection.mutable
 import scala.reflect.ClassTag
 
+/**
+ * Represents an immutanle Matrix and the possible operations on it
+ *
+ * @param matrix A sequence of sequence, the initializer of the matrix
+ * @param n
+ * @param m
+ * @tparam T Data type of the matrix elements
+ */
 class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[T] )
 {
+  /**
+   * Mutable constructor
+   *
+   * @param matrix A mutable sequence of mutable sequence, the initializer of the matrix
+   */
+  def this(matrix: mutable.Seq[mutable.Seq[T]])( implicit n: Numeric[T], m: ClassTag[T] ) {
+    this(matrix.toSeq)
+  }
+
   import n._
 
+  // Constraint for the construction: minimum size greater than zero and that all the rows are of the same length
   require( matrix.length > 0 )
   require( matrix(0).length > 0 )
   require( matrix.forall(_.length == matrix(0).length) )
@@ -61,6 +80,15 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   )
 
   /**
+   * Inserts a row in the matrix
+   *
+   * @param i The zero-base position of where to insert the row
+   * @param row The row to insert. Its length must match the number of columns of the matrix
+   * @return A new matrix with the added row in the i-th position
+   */
+  def rowInsert(i: Int, row: Seq[T]) = ???
+
+  /**
    * Gets a column of the matrix
    *
    * @param i The number of the column to return
@@ -91,13 +119,22 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   )
 
   /**
+   * Inserts a col in the matrix
+   *
+   * @param i The zero-base position of where to insert the col
+   * @param row The col to insert. Its length must match the number of rows of the matrix
+   * @return A new matrix with the added col in the i-th position
+   */
+  def colInsert(i: Int, row: Seq[T]) = ???
+
+  /**
    * Maps each element of the matrix in a new element of
    * a new matrix
    *
    * @param f The mapping function
    * @return A new matrix where each element is a mapping from the original matrix
    */
-  def map[U](f: (T, Int, Int) ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]) = {
+  def map[U](f: (T, Int, Int) ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]): Matrix[U] = {
     new Matrix[U](
       Seq.tabulate(rows, cols){ (i, j) ⇒
         f(matrix(i)(j), i, j)
@@ -112,6 +149,25 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @return The element at position (i, j)
    */
   def apply(i: (Int, Int)) = matrix(i._1)(i._2)
+
+  /**
+   * Updates an element of the matrix
+   *
+   * @param k A tuple that specify the i and j index of the element to return
+   * @param value The new value to set
+   * @return The element at position (i, j)
+   */
+  def update(k: (Int, Int), value: T) = {
+    // FIXME
+    val newSeq =
+      matrix.take(k._1)
+
+        matrix(k._1).take(k._2) :: value :: matrix(k._1).takeRight(this.cols - k._2) :: Nil
+
+      matrix.takeRight(this.rows - k._1)
+
+    new Matrix(newSeq)
+  }
 
   /**
    * Clones the matrix in a new one
@@ -209,7 +265,14 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return An identity matrix of the same size of the current matrix
    */
-  def toIdentity = Matrix.identity[T](Math.min(rows, cols))
+  def toIdentity: Matrix[T] = Matrix.identity[T](Math.min(rows, cols))
+
+  /**
+   * Returns a zero matrix of the same size of the current matrix
+   *
+   * @return An zero matrix of the same size of the current matrix
+   */
+  def toZero: Matrix[T] = this map { (_, _, _) ⇒ n.zero }
 
   /**
    * String representation of the matrix

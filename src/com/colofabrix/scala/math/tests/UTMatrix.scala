@@ -10,7 +10,7 @@ import org.scalatest.{Matchers, WordSpec}
  */
 class UTMatrix extends WordSpec with Matchers {
 
-  val test = new Matrix(Seq.tabulate(3, 5)(_ * _))
+  val test = new Matrix[Int](Seq.tabulate(3, 5)(_ * _))
 
   "Attributes" when {
 
@@ -117,6 +117,16 @@ class UTMatrix extends WordSpec with Matchers {
 
       map1 should equal(expected)
       map2 should equal(expected)
+    }
+
+    "update" must {
+      val expected = new Matrix[Int](Seq(
+        Seq(0, 0, 0, 0, 0),
+        Seq(0, 123, 2, 3, 4),
+        Seq(0, 2, 4, 6, 8)
+      ))
+
+      test.update((1, 1), 123) should equal(expected)
     }
 
     "addition" must {}
