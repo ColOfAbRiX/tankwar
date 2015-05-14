@@ -13,6 +13,8 @@ import scala.reflect.ClassTag
  */
 class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[T] )
 {
+  import n._
+
   /**
    * Mutable constructor
    *
@@ -21,8 +23,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   def this(matrix: mutable.Seq[mutable.Seq[T]])( implicit n: Numeric[T], m: ClassTag[T] ) {
     this(matrix.toSeq)
   }
-
-  import n._
 
   // Constraint for the construction: minimum size greater than zero and that all the rows are of the same length
   require( matrix.length > 0 )
@@ -131,7 +131,37 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * Maps each element of the matrix in a new element of
    * a new matrix
    *
-   * @param f The mapping function
+   * @param f The mapping function that returns a value for the new cells
+   * @return A new matrix where each element is a mapping from the original matrix
+   */
+  def map[U](f: () ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]): Matrix[U] =
+    this.map( (_, _, _) ⇒ f() )
+
+  /**
+   * Maps each element of the matrix in a new element of
+   * a new matrix
+   *
+   * @param f The mapping function that provides the value of the cell and returns the value for the new cell
+   * @return A new matrix where each element is a mapping from the original matrix
+   */
+  def map[U](f: T ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]): Matrix[U] =
+    this.map( (x, _, _) ⇒ f(x) )
+
+  /**
+   * Maps each element of the matrix in a new element of
+   * a new matrix
+   *
+   * @param f The mapping function that provides the i and j indexes and returns the value for the new cell
+   * @return A new matrix where each element is a mapping from the original matrix
+   */
+  def map[U](f: (Int, Int) ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]): Matrix[U] =
+    this.map( (_, i, j) ⇒ f(i, j) )
+
+  /**
+   * Maps each element of the matrix in a new element of
+   * a new matrix
+   *
+   * @param f The mapping function that provides the value of the cell and the i and j indexes and returns the value for the new cell
    * @return A new matrix where each element is a mapping from the original matrix
    */
   def map[U](f: (T, Int, Int) ⇒ U)(implicit n: Numeric[U], m: ClassTag[U]): Matrix[U] = {
@@ -250,7 +280,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param other The scalar to multiply with the matrix
    * @return A new matrix that is the original matrix multiplied by the supplied scalar
    */
-  def *( other: T ) = this map { (x, _, _) ⇒ x * other }
+  def *( other: T ) = this map { x: T ⇒ x * other }
 
   def +( other: Matrix[T] ): Matrix[T] = ???
 
@@ -272,7 +302,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return An zero matrix of the same size of the current matrix
    */
-  def toZero: Matrix[T] = this map { (_, _, _) ⇒ n.zero }
+  def toZero: Matrix[T] = this map { _ ⇒ n.zero }
 
   /**
    * String representation of the matrix

@@ -2,6 +2,9 @@ package com.colofabrix.scala.neuralnetwork.abstracts
 
 import com.colofabrix.scala.math.Matrix
 
+import scala.annotation.tailrec
+import scala.collection.mutable.ArrayBuffer
+
 /**
  * Abstract implementation of a Stateless Neural Network
  *
@@ -61,12 +64,13 @@ extends NeuralNetwork {
    * @param inputs A sequence of Double that represents the inputs of the adjacency matrix. The length must match the number of neurons plus one
    * @return A sequence of Double representing all the outputs of the matrix for the given input
    */
-  protected def solveNetwork( inputs: Seq[Double] ): Seq[Double] = {
+  @tailrec
+  protected final def solveNetwork( inputs: Seq[Double] ): Seq[Double] = {
     // Outputs of each neurons. By default it's NaN, as a neuron might not have an output value yet
-    val outputs = Array.fill(matrix.rows - 1)(Double.NaN)
+    val outputs = ArrayBuffer.fill(matrix.rows - 1)(Double.NaN)
 
     // Calculate the sum of the weighted inputs using the output vector
-    for( i ← (0 until matrix.rows).par; j ← (0 until matrix.cols).par ) {
+    for( i ← 0 until matrix.rows; j ← 0 until matrix.cols ) {
       // The inputs are multiplied by the weight of the neuron they feed
       val weightedInput = inputs(i) * matrix(i, j)
 

@@ -33,76 +33,6 @@ class UTStatelessNetwork extends WordSpec with Matchers {
     }
   }
 
-  /*
-  "Acyclicity performance test" in {
-    // Warm up
-    NeuralNetwork.isAcyclic( new Matrix[Double](Seq.fill(200, 200)(0.0)) )
-
-    for( i ← (10.to(1001, 10)) ) {
-      // Huge matrix using the worst-case with all zeroes
-      val matrixToCheck1 = new Matrix[Double](Seq.fill(i, i)(Double.NaN))
-      val matrixToCheck2 = new Matrix[Double](Seq.fill(i, i)(1.0))
-
-      val start1 = System.nanoTime()
-      NeuralNetwork.isAcyclic(matrixToCheck2) == true
-      val end1 = System.nanoTime()
-
-      val start2 = System.nanoTime()
-      NeuralNetwork.analiseNetwork(Seq(), matrixToCheck1)._2 == matrixToCheck2.map((_, _, _) ⇒ Double.NaN)
-      val end2 = System.nanoTime()
-
-      println(s"$i\t${((end1 - start1) / 1000000)}\t${((end2 - start2) / 1000000)}")
-    }
-  }
-  */
-
-  "temp" in {
-
-    // Matrix with forward edges
-    val matrix1 = new Matrix[Double](Seq(
-      Seq(NaN, NaN, 1.2, -1.0),
-      Seq(NaN, NaN, -0.5, 0.5),
-      Seq(NaN, NaN, NaN, NaN),
-      Seq(NaN, NaN, NaN, NaN)
-    ))
-
-    // Matrix with forward+back edges
-    val matrix2 = new Matrix[Double](Seq(
-      Seq(NaN, NaN, 1.2, -1.0),
-      Seq(NaN, NaN, -0.5, 0.5),
-      Seq(NaN, NaN, NaN, NaN),
-      Seq(3.2, NaN, NaN, NaN)
-    ))
-
-    // Matrix with forward+cross edges
-    val matrix3 = new Matrix[Double](Seq(
-      Seq(NaN, NaN, 1.2, -1.0),
-      Seq(NaN, NaN, -0.5, 0.5),
-      Seq(NaN, NaN, NaN, 1.0),
-      Seq(NaN, NaN, NaN, NaN)
-    ))
-
-    // Matrix with forward+back+cross edges
-    val matrix4 = new Matrix[Double](Seq(
-      Seq(NaN, NaN, 1.2, -1.0),
-      Seq(NaN, NaN, -0.5, 0.5),
-      Seq(NaN, NaN, NaN, 1.0),
-      Seq(3.2, NaN, NaN, 0.0)
-    ))
-
-    println("Matrix with forward edges")
-    println(NeuralNetwork.analiseNetwork(matrix1))
-
-    println("\nMatrix with forward+back edges")
-    println(NeuralNetwork.analiseNetwork(matrix2))
-
-    println("\nMatrix with forward+cross edges")
-    println(NeuralNetwork.analiseNetwork(matrix3))
-
-    println("\nMatrix with forward+back+cross edges")
-    println(NeuralNetwork.analiseNetwork(matrix4))
-  }
-
   "Constraints" must {
 
     "on creation must interrupt" when {
@@ -252,7 +182,7 @@ class UTStatelessNetwork extends WordSpec with Matchers {
       val inputs = Seq(2.0)
       val expected = Seq(activation(2.0 * 1.0))  // Seq(.9640275800758169)
 
-      executeTest( inputs, expected, matrix)
+      executeTest( inputs, expected, matrix )
     }
 
     "there are multiple inputs and multiple outputs, no hidden neurons" in {
@@ -270,7 +200,7 @@ class UTStatelessNetwork extends WordSpec with Matchers {
       val inputs = Seq(0.5, -0.5)
       val expected = Seq(activation(0.5 * 1.0 + (-0.5) * (-0.5)), activation(0.5 * (-1.0) + (-0.5) * 0.5))  // Seq(0.6351489523872873, -0.6351489523872873
 
-      executeTest( inputs, expected, matrix)
+      executeTest( inputs, expected, matrix )
     }
 
     "there is an hidden layer" in {
@@ -307,7 +237,7 @@ class UTStatelessNetwork extends WordSpec with Matchers {
       val inputs = Seq(2.0, 3.0)
       val expected = Seq(-0.26019424076983344, 0.350765812191313)
 
-      executeTest( inputs, expected, matrix)
+      executeTest( inputs, expected, matrix )
     }
 
     "there are interactions between neurons of the same layer" in {

@@ -106,61 +106,27 @@ trait NeuralNetwork {
   /**
    * Tells if the Neural Network is stateless
    */
-  lazy val isStateless: Boolean =
-    NeuralNetwork.isAcyclic(matrix.rowSet(matrix.rows - 1))
+  lazy val isStateless: Boolean = {
+    val (_, back, _) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1))
+    back.map( x ⇒ if (x.isNaN) 0.0 else 1.0 ) == back.toZero
+  }
 }
 
 object NeuralNetwork {
-
-  /**
-   * Determines if an adjacency matrix represents an acyclic graph
-   *
-   * An element (a-ij) in the power matrix An represents if there is a path of length n between node i and node j
-   * Non-zero elements on the diagonal represent cyclic path as they mean there is a path between the same node
-   * The algorithm checks powers from from 1 to N to see if there are no non-zero elements on the diagonals of those
-   * matrices.
-   *
-   * The implementation is taken from the following references:
-   *  - https://math.stackexchange.com/questions/513288/test-for-acyclic-graph-property-based-on-adjacency-matrix
-   *
-   * The algorithm runs in O(n^3), n = number of nodes (empirical check)
-   *
-   * @deprecated Use {analiseNetwork} as it's more efficient in both worse-case and average-case scenario
-   * @param a The adjacency matrix that represents the desired. It must be a square matrix
-   * @return True if and only if the graph is acyclic
-   */
-  def isAcyclic(a: Matrix[Double]): Boolean = {
-    require( a.rows == a.cols )
-
-    // Transforms the weights matrix into a pure adjacency matrix (only zeroes and ones)
-    val wm = a map { (x, _, _) ⇒ if (x.isNaN) 0 else 1 }
-
-    val check = Seq.fill(wm.cols)(0)
-    var pow = a map { (_, i, j) ⇒ if (i == j) 1 else 0 }
-
-    // Actual algorithm. Check the documentation to understand it
-    for( i ← 1 until wm.cols ) {
-      pow = pow * wm
-      if (pow.diagonal != check)
-        return false
-    }
-
-    true
-  }
-
   /**
    * Analyse a network and returns its subset of edges as adjacency matrices
    *
    * The method returns a tuple containing 3 adjacency matrices:
-   *  -
-   *
-   * The algorithm runs in worse-case scenario as O(n^5), n = number of nodes (empirical check)
+   *  - Forward edges
+   *  - Back edges
+   *  - Cross edges
    *
    * @param matrix Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
   def analiseNetwork(matrix: Matrix[Double], inputs: Seq[Int] = Seq(0)): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
-    require( matrix.cols == matrix.rows, "The input matrix must be square" )
+    require( matrix.rows == matrix.cols, "The input matrix must be square" )
+    require( matrix.rows > 0, "The adjacency matrix must be non empty" )
 
     // NOTE: for speed, this function uses mutable ArrayLists and not the Matrix class
 
@@ -171,11 +137,12 @@ object NeuralNetwork {
 
     // Tree search stack
     val searchStack = new Stack[Int]()
-    // List of already discovered nodes
-    val visited = ArrayBuffer.fill(matrix.rows)(false)
+    // List of already discovered nodes.
+    val visited = ArrayBuffer.fill(matrix.rows)(ArrayBuffer.fill(matrix.rows)(false))
     // List of the ancestors of the currently explored node
     val ancestors = ArrayBuffer.fill(matrix.rows)(new ArrayBuffer[Int]())
 
+    // Every input of the network is a different root that must be explored
     for( start ← inputs ) {
 
       // Initial node
@@ -188,9 +155,9 @@ object NeuralNetwork {
         val current = searchStack.pop()
 
         // Process a node that hasn't been visited yet
-        if (!visited(current)) {
+        if (!visited(start)(current)) {
           // Mark the node as visited
-          visited(current) = true
+          visited(start)(current) = true
 
           // Get the list of nodes that are directly connected to this one by a forward edge, including a self reference
           val adjacentForwardNodes = matrix.row(current)
@@ -201,14 +168,18 @@ object NeuralNetwork {
           for ((value, child) ← adjacentForwardNodes) {
             ancestors(child) += current
 
-            if (!visited(child)) {
-              // Child not been seen before. Add it as a new node to explore and update the forward matrix
-              forward(current)(child) = value
-              searchStack.push(child)
+            if (!visited(start)(child)) {
+              // This check is because it can start from multiple roots but the multiple roots shuould not change the
+              // existing structures, only add forward edges
+              if (cross(current)(child).isNaN && back(current)(child).isNaN) {
+                // Child not been seen before. Add it as a new node to explore and update the forward matrix
+                forward(current)(child) = value
+                searchStack.push(child)
+              }
             }
             else {
-              if (!ancestors(current).contains(child) && !inputs.contains(current))
-              // The child has been seen before, but it's not an ancestor. Just update the cross matrix
+              if (!ancestors(current).contains(child))
+                // The child has been seen before, but it's not an ancestor. Just update the cross matrix
                 cross(current)(child) = value
 
               else
