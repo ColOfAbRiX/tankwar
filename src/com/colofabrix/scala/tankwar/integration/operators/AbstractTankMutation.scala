@@ -11,6 +11,9 @@ import scala.collection.JavaConversions._
 /**
  * Abstract operator to mutate a Tank
  *
+ * It provides a series of methods that work on the data of a tank and allow the
+ * developer to focus on the implementation of the operator logic
+ *
  * Created by Fabrizio on 27/01/2015.
  */
 abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {

@@ -1,10 +1,10 @@
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.geometry.Vector2D
+import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.tankwar.World
 
 /**
- * Represents a physical objects with some physical details
+ * Represents a physical objects in the physical space with some physical details
  *
  * Created by Fabrizio on 04/01/2015.
  */
@@ -12,7 +12,7 @@ trait PhysicalObject {
   /**
    * Reference to the world
    */
-  val world: World
+  def world: World
 
   /**
    * Physical boundary of the PhysicalObject.

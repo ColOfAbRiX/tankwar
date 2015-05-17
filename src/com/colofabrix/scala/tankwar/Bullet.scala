@@ -1,8 +1,8 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry._
 import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.math.Vector2D
 
 /**
  * Represents a bullet shot by a Tank
@@ -10,6 +10,15 @@ import com.colofabrix.scala.geometry.shapes.Circle
  * Created by Fabrizio on 02/01/2015.
  */
 class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends  PhysicalObject {
+
+  private var _life = 0
+
+  /**
+   * Life of the bullet
+   *
+   * @return The number of ticks the bullet has been alive for
+   */
+  def life = _life
 
   /**
    * Position of the center of the PhysicalObject
@@ -34,6 +43,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    * Moves the bullet one step into the future
    */
   override def stepForward() {
+    _life += 1
     _position = _position + _speed
   }
 

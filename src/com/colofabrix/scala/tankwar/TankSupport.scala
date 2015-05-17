@@ -1,9 +1,9 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.shapes.Polygon
-import com.colofabrix.scala.neuralnetwork.abstracts.{InputHelper, OutputHelper}
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.StructureBuilder
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.neuralnetworkOld.abstracts.{InputHelper, OutputHelper}
+import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.StructureBuilder
 
 /**
  * A TankChromosome contains all the data needed to uniquely identify
@@ -59,6 +59,9 @@ object BrainOutputHelper {
   val count = 4
 }
 
+/**
+ * Support class used as an interface between the output of the NN and the `Tank`
+ */
 class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outputs) {
   val force = Vector2D.new_xy(outputs(0), outputs(1))
   val rotation = outputs(2)
@@ -69,23 +72,28 @@ class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outpu
  * Support class used as an interface between the `Tank` and the input of the NN
  */
 object BrainInputHelper {
-  val count = 7
+  val count = 9
 }
 
-class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, sightCrossed: Vector2D) extends InputHelper[Double] {
+/**
+ * Support class used as an interface between the `Tank` and the input of the NN
+ */
+class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTank: Vector2D, seenBullet: Vector2D) extends InputHelper[Double] {
 
   def this(world: World, rawSequence: Seq[Double]) = this(
     world,
     Vector2D.new_xy(rawSequence(0), rawSequence(1)),
     Vector2D.new_xy(rawSequence(2), rawSequence(3)),
     Vector2D.new_rt(1, rawSequence(4)),
-    Vector2D.new_xy(rawSequence(5), rawSequence(6))
+    Vector2D.new_xy(rawSequence(5), rawSequence(6)),
+    Vector2D.new_xy(rawSequence(7), rawSequence(8))
   )
 
   override protected val _values = Seq(
-    5 * pos.x / world.arena.topRight.x, 5 * pos.y / world.arena.topRight.y,
-    5 * speed.x / world.max_tank_speed, 5 * speed.y / world.max_tank_speed,
-    rot.t,
-    5 * sightCrossed.r / world.max_sight, 5 * sightCrossed.t / (2 * Math.PI)
+    pos.x / world.arena.topRight.x, pos.y / world.arena.topRight.y,
+    speed.x / world.max_tank_speed, speed.y / world.max_tank_speed,
+    rot.t / (2.0 * Math.PI),
+    seenTank.r / world.max_sight, seenTank.t / (2.0 * Math.PI),
+    seenBullet.r / world.max_sight, seenBullet.t / (2.0 * Math.PI)
   )
 }

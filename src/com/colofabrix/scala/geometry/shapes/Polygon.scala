@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.Vector2D
 import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
+import com.colofabrix.scala.math.Vector2D
 
 /**
  * A generic 2D polygon
@@ -27,8 +27,6 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   val edgesIterator = (edges :+ edges.head).sliding(2).toSeq
 
-  lazy val isSimple = false
-
   /**
    * Checks if a polygon is convex
    *
@@ -53,6 +51,8 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   /**
    * Compute the distance between a point and the edges of the polygon
    *
+   * Checks the distances from all the edges and returns the nearest one
+   *
    * @param p Point to check
    * @return A distance vector from the point to polygon and the edge from which the distance is calculated
    */
@@ -67,7 +67,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   }
 
   /**
-   * Compute the distance between a line and the edges of the polygon
+   * Compute the distance between a line segment and the edges of the polygon
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
@@ -89,7 +89,8 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @return True if the point is inside the shape
    */
   override def overlaps(that: Shape): Boolean = that match {
-    case c: Circle => c.overlaps(this)
+    // With circles I check the distance from the nearest edge
+    case c: Circle => distance(c.center)._1 <= c.radius
     case p: Polygon ⇒ overlaps(p)
     case _ => false
   }
@@ -140,7 +141,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   }
 
   /**
-   * Determines if a line touches in any way this shape
+   * Determines if a line segment touches in any way this shape
    *
    * @param p0 The first point that defines the line
    * @param p1 The second point that defines the line
@@ -207,7 +208,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * Implementation of the polygon area algorithm
    * Ref: http://geomalgorithms.com/a01-_area.html
    */
-  lazy val area = {
+  override def area = {
     (vertices :+ vertices.head).sliding(3).map {
       case v0 :: v1 :: v2 :: Nil ⇒ v1.x * (v2.y - v0.y)
     }.sum / 2.0

@@ -1,8 +1,8 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry._
-import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.neuralnetwork.builders.abstracts.DataReader
+import com.colofabrix.scala.geometry.shapes.{Box, Circle}
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
 import com.vogon101.java.Renderer
 
 import scala.collection.mutable.ListBuffer
@@ -19,9 +19,10 @@ import scala.collection.mutable.ListBuffer
  */
 class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
-  val max_tank_speed: Double = 20,
-  val max_bullet_speed: Double = 15,
-  val max_sight: Double = 500,
+  val max_tank_speed: Double = 10,
+  val max_bullet_speed: Double = 20,
+  val bullet_life: Int = 15,
+  val max_sight: Double = 100,
   val max_rounds: Int = 5000,
   private val _tanks: List[Tank] = List() )
 {
@@ -51,7 +52,7 @@ class World(
    */
   val rounds = 1 to Math.abs(max_rounds)
 
-  val renderer = new Renderer(this);
+  val renderer = new Renderer(this)
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -77,7 +78,23 @@ class World(
   def step(): Unit = {
     _time += 1
 
-    // Moving all tanks forward
+    // Handling bullets
+    bullets foreach { b =>
+      b.stepForward()
+
+      // Arena boundary check
+      check_limit(
+        () => arena.overlaps(b.position),
+        () => b.on_hitsWalls(),
+        () => bullets -= b
+      )
+
+      // Check the lifespan of a bullet
+      if( b.life >= bullet_life )
+        bullets -= b
+    }
+
+    // Handling tanks
     tanks.filter( !_.isDead ).par.foreach { t =>
       t.stepForward()
 
@@ -95,40 +112,31 @@ class World(
         () => tanks -= t
       )
 
-      tanks.filter( that => !that.isDead && !(t == that) ).foreach { that ⇒
-        val lineOfSightP0 = t.position
-        val lineOfSightP1 = lineOfSightP0 + Vector2D.new_rt(max_sight, t.rotation.t)
+      // Tank/Tank sight (when a tank crosses the vision area of the current tank)
+      tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that ⇒
+        val sight = new Circle(t.position,  max_sight)
 
-        if(that.boundary.overlaps(lineOfSightP0, lineOfSightP1)) {
+        if( sight.overlaps(sight) && t.seenTank == Vector2D.origin )
           // TODO: Implement the Tank's sight
           t.on_tankOnSight(that, that.position - t.position)
-        }
       }
 
-    }
+      // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
+      bullets.par.foreach { bullet =>
+        val sight = new Circle(t.position, max_sight)
 
-    // Moving all bullets forward
-    bullets foreach { b =>
-      b.stepForward()
+        if( sight.overlaps(bullet.boundary) && bullet.tank != t && t.seenBullet == Vector2D.origin )
+        // TODO: Implement the Tank's sight
+          t.on_bulletOnSight(bullet, bullet.position - t.position)
 
-      // Arena boundary check
-      check_limit(
-        () => arena.overlaps(b.position),
-        () => b.on_hitsWalls(),
-        () => bullets -= b
-      )
-    }
-
-    // Bullet/Tank collision management
-    bullets.par.foreach { b =>
-      // TODO: space partitioning for collision detection
-      tanks.filter( !_.isDead ).par foreach { t =>
-        if( b.touches(t) && b.tank != t ) this.on_tankHit(t, b)
+        // TODO: space partitioning for collision detection
+        if( bullet.touches(t) && bullet.tank != t ) this.on_tankHit(t, bullet)
       }
     }
 
+    // Update the graphic
     if( tanks.count(!_.isDead) > 1 )
-      renderer.update();
+      renderer.update()
   }
 
   /**

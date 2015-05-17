@@ -42,6 +42,7 @@ abstract class ActivationFunction {
   final override def hashCode: Int = this.UFID.hashCode
 }
 
+
 object ActivationFunction {
 
   def apply(name: String) = name.toLowerCase match {
