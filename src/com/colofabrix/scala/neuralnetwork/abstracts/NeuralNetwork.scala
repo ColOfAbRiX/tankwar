@@ -113,6 +113,7 @@ trait NeuralNetwork {
 }
 
 object NeuralNetwork {
+
   /**
    * Analyse a network and returns its subset of edges as adjacency matrices
    *
@@ -124,7 +125,7 @@ object NeuralNetwork {
    * @param matrix Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
-  def analiseNetwork(matrix: Matrix[Double], inputs: Seq[Int] = Seq(0)): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
+   def innerAnaliseNetwork(matrix: Matrix[Double], rootIndex: Int): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
     require( matrix.rows == matrix.cols, "The input matrix must be square" )
     require( matrix.rows > 0, "The adjacency matrix must be non empty" )
 
@@ -142,55 +143,100 @@ object NeuralNetwork {
     // List of the ancestors of the currently explored node
     val ancestors = ArrayBuffer.fill(matrix.rows)(new ArrayBuffer[Int]())
 
-    // Every input of the network is a different root that must be explored
-    for( start ← inputs ) {
+    // Initial node
+    searchStack.push(rootIndex)
 
-      // Initial node
-      searchStack.push(start)
+    // Loop until there are nodes to visit
+    while (searchStack.length > 0) {
 
-      // Loop until there are nodes to visit
-      while (searchStack.length > 0) {
+      // Get the node to explore
+      val current = searchStack.pop()
 
-        // Get the node to explore
-        val current = searchStack.pop()
+      // Process a node that hasn't been visited yet
+      if (!visited(rootIndex)(current)) {
+        // Mark the node as visited
+        visited(rootIndex)(current) = true
 
-        // Process a node that hasn't been visited yet
-        if (!visited(start)(current)) {
-          // Mark the node as visited
-          visited(start)(current) = true
+        // Get the list of nodes that are directly connected to this one by a forward edge, including a self reference
+        val adjacentForwardNodes = matrix.row(current)
+          .zipWithIndex
+          .filter(!_._1.isNaN)
 
-          // Get the list of nodes that are directly connected to this one by a forward edge, including a self reference
-          val adjacentForwardNodes = matrix.row(current)
-            .zipWithIndex
-            .filter(!_._1.isNaN)
+        // Go through the children
+        for ((value, child) ← adjacentForwardNodes) {
+          ancestors(child) += current
 
-          // Go through the children
-          for ((value, child) ← adjacentForwardNodes) {
-            ancestors(child) += current
+          if (!visited(rootIndex)(child)) {
+            // Child not been seen before. Add it as a new node to explore and update the forward matrix
+            forward(current)(child) = value
+            searchStack.push(child)
+          }
+          else {
+            if (!ancestors(current).contains(child))
+            // The child has been seen before, but it's not an ancestor. Just update the cross matrix
+              cross(current)(child) = value
 
-            if (!visited(start)(child)) {
-              // This check is because it can start from multiple roots but the multiple roots shuould not change the
-              // existing structures, only add forward edges
-              if (cross(current)(child).isNaN && back(current)(child).isNaN) {
-                // Child not been seen before. Add it as a new node to explore and update the forward matrix
-                forward(current)(child) = value
-                searchStack.push(child)
-              }
-            }
-            else {
-              if (!ancestors(current).contains(child))
-                // The child has been seen before, but it's not an ancestor. Just update the cross matrix
-                cross(current)(child) = value
-
-              else
-              // The child has been seen before as an ancestor of the current node. Update the back matrix
-                back(current)(child) = value
-            }
+            else
+            // The child has been seen before as an ancestor of the current node. Update the back matrix
+              back(current)(child) = value
           }
         }
       }
     }
 
     (new Matrix(forward), new Matrix(back), new Matrix(cross))
+  }
+
+  /**
+   * Analyse a network and returns its subset of edges as adjacency matrices with multiple roots
+   *
+   * The method returns a tuple containing 3 adjacency matrices:
+   *  - Forward edges
+   *  - Back edges
+   *  - Cross edges
+   *
+   * This method takes care of multiple roots (the graph is not strongly connected) and thus must be used with
+   * caution. It's imperative che the inputs specified corresponds to all and only inputs of the network or
+   * the method will end up with a wrong result or with missing elements
+   *
+   * @param matrix Adjacency matrix that represents the network
+   * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
+   */
+  def analiseNetwork(matrix: Matrix[Double], inputs: Seq[Int] = Seq(0)): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
+    require(inputs.length > 0)
+    require(matrix.rows == matrix.cols, "The input matrix must be square")
+    require(matrix.rows > 0, "The adjacency matrix must be non empty")
+
+    // If there is only one input I speed up things
+    if (inputs.length == 1)
+      return innerAnaliseNetwork(matrix, inputs(0))
+
+    // Every input of the network is a different root that must be explored
+    val results = inputs map { start ⇒
+      val tmp = innerAnaliseNetwork(matrix, start)
+      Seq(tmp._1, tmp._2, tmp._3)
+    }
+
+    // The forward matrix represents the forward spanning tree created from overlapping all the possible spanning tree
+    // A single not-NaN value is enough to be mapped to the result
+    val fwd = results.foldLeft(matrix.toNaN) { (r, m) ⇒ r
+      /*m match {
+        case fwd :: bk :: cr ⇒
+          // r = output matrix (forward)
+          r.map { (x, i, j) ⇒ x
+            if (x.isNaN) {
+              fwd(i, j)
+            }
+            else {
+              if (!fwd(i, j).isNaN && bk(i, j).isNaN)
+                fwd(i, j)
+              else if (!fwd(i, j).isNaN && !bk(i, j).isNaN)
+                Double.NaN
+            }
+          }
+      }*/
+    }
+
+    ???
   }
 }

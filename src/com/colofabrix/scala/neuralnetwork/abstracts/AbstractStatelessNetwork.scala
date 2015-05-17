@@ -14,6 +14,7 @@ import scala.collection.mutable.ArrayBuffer
  *  - The graph is acyclic
  *  - Only the feedforward area of the adjacency matrix can be a numeric value
  *
+ *
  * @param inputCount Number of inputs of the Neural Network
  * @param outputCount Number of inputs of the Neural Network
  * @param matrix Defining adjacency matrix

@@ -188,15 +188,10 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @return The element at position (i, j)
    */
   def update(k: (Int, Int), value: T) = {
-    // FIXME
-    val newSeq =
-      matrix.take(k._1)
-
-        matrix(k._1).take(k._2) :: value :: matrix(k._1).takeRight(this.cols - k._2) :: Nil
-
-      matrix.takeRight(this.rows - k._1)
-
-    new Matrix(newSeq)
+    val before: Seq[Seq[T]] = matrix.take(k._1)
+    val row: Seq[T] = matrix(k._1).updated(k._2, value)
+    val after: Seq[Seq[T]] = matrix.takeRight(this.rows - k._1 - 1)
+    new Matrix(before ++ Seq(row) ++ after)
   }
 
   /**
@@ -300,9 +295,16 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * Returns a zero matrix of the same size of the current matrix
    *
-   * @return An zero matrix of the same size of the current matrix
+   * @return A zero matrix of the same size of the current matrix
    */
   def toZero: Matrix[T] = this map { _ ⇒ n.zero }
+
+  /**
+   * Retruns a Double.NaN matrix of the same size of the current matrix
+   *
+   * @return A Double.NaN matrix of the same size of the current matrix
+   */
+  def toNaN: Matrix[Double] = this map { _ ⇒ Double.NaN }
 
   /**
    * String representation of the matrix
