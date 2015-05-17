@@ -17,13 +17,14 @@ import scala.collection.mutable.ListBuffer;
  *
  * Created by Freddie on 15/03/2015.
  */
-public class Renderer {
+@Deprecated
+public class OldRenderer {
 
     private double width = 0d, height = 0d;
 
     private World world;
 
-    public Renderer(World world) {
+    public OldRenderer(World world) {
         this.world = world;
 
         this.width = world.arena().width();
