@@ -3,7 +3,7 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry.shapes.{Box, Circle}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
-import com.vogon101.java.Renderer
+import com.vogon101.Graphics.Renderer
 
 import scala.collection.mutable.ListBuffer
 

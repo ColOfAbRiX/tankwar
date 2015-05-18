@@ -1,4 +1,4 @@
-package com.vogon101.java;
+package com.vogon101.Graphics;
 
 import com.colofabrix.scala.geometry.shapes.Circle;
 import com.colofabrix.scala.math.Vector2D;

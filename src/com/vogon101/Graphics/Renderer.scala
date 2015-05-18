@@ -1,4 +1,4 @@
-package com.vogon101.java
+package com.vogon101.Graphics
 
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vector2D
@@ -13,39 +13,58 @@ import org.lwjgl.opengl.GL11
 import scala.collection.mutable.ListBuffer
 
 /**
+ *
  * Created by Freddie on 17/05/2015.
+ *
+ * This class is used to render the game world, it has only one
+ * public method which is to run the entire render process
+ *
+ *@param _world - The world object that the class should work from to get the tanks/bullets to render
+ *
  */
 class Renderer (private var _world: World){
 
+  /*
+  This class is being refactored into a new system of graphics that aren't all in one file.
+   */
+
+
+  /**
+   * Return the current world type
+   * @return - The world object
+   */
   def world = _world
-  val width = world.arena width
-  val height = world.arena height
+
+  private val width = world.arena.width
+  private val height = world.arena.height
 
   init()
 
-
-
-  def init () {
+  private def init () {
     try {
       initGL()
     }
     catch  {
-      case lwjgle : LWJGLException => {println("Could not start Graphics"); System exit 1}
+      case e : LWJGLException => {println("Could not start Graphics"); System exit 1}
     }
 
     setCamera()
   }
 
+  /**
+   * Main update function calls the entire render process
+   * Should be called once per tick
+   */
   def update() {
     setCamera()
-    drawBG
+    drawBG()
     drawTanks()
     drawBullets()
     Display.sync(25)
     Display.update()
 
-    if (Display.isCloseRequested())
-      System.exit(0);
+    if (Display.isCloseRequested)
+      System.exit(0)
   }
 
   @throws(classOf[LWJGLException])
