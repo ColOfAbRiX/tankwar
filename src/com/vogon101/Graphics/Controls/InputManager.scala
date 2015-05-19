@@ -12,27 +12,39 @@ import scala.collection.mutable.ArrayBuffer
 /**
  * Created by Freddie on 19/05/2015.
  *
- *
+ * This class contains all the buttons for controlling the game
+ * Has an ArrayBuffer of ButtonControl to contain the buttons, the
+ * update() method should be called once per step to check for any
+ * clicks. If any clicks are found within a button, that button's
+ * action will be called
  */
 class InputManager {
 
   private val _buttons: ArrayBuffer[ButtonControl] = new ArrayBuffer[ButtonControl]()
+
+  /**
+   * @return The ArrayBuffer of ButtonControls
+   */
   def buttons = _buttons
   init()
 
-  def init (): Unit = {
+  private def init (): Unit = {
     buttons.append(new ButtonControl( new Box( new Vector2D( new CartesianCoord(100, 100) ) , new Vector2D(new CartesianCoord(130, 130)) ) , (mb: Int) => {println("hi")} ))
   }
 
+  /**
+   * Check for mouse clicks in any button an run the appropriate action if found
+   */
   def update() {
-    if (!Mouse.isButtonDown(0))
-      return
+
 
     val mouseX:Int = Mouse.getX
     val mouseY:Int = Mouse.getY
 
     for (button: ButtonControl <- buttons){
-      button.runClick(mouseX, mouseY, 0)
+      button.clickTimerInc()
+      if (Mouse.isButtonDown(0))
+        button.runClick(mouseX, mouseY, 0)
     }
   }
 

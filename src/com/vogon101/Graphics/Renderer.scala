@@ -75,7 +75,7 @@ class Renderer (private var _world: World){
       System.exit(0)
   }
 
-  def drawGUI (): Unit = {
+  private def drawGUI (): Unit = {
 
     for (button: ButtonControl <- world.inputManager.buttons)
       button.render()
