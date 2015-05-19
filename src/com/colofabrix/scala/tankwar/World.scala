@@ -3,6 +3,7 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry.shapes.{Box, Circle}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
+import com.vogon101.Graphics.Controls.InputManager
 import com.vogon101.Graphics.Renderer
 
 import scala.collection.mutable.ListBuffer
@@ -53,6 +54,9 @@ class World(
   val rounds = 1 to Math.abs(max_rounds)
 
   val renderer = new Renderer(this)
+  private val _inputManager = new InputManager
+
+  def inputManager = _inputManager
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -135,8 +139,10 @@ class World(
     }
 
     // Update the graphic
-    if( tanks.count(!_.isDead) > 1 )
+    if( tanks.count(!_.isDead) > 1 ) {
       renderer.update()
+      inputManager.update()
+    }
   }
 
   /**

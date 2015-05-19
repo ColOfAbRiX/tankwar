@@ -1,11 +1,12 @@
 package com.vogon101.Graphics
 
-import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.geometry.shapes.{Box, Circle}
+import com.colofabrix.scala.math.{CartesianCoord, Vector2D}
 import com.colofabrix.scala.tankwar.Bullet
 import com.colofabrix.scala.tankwar.Tank
 import com.colofabrix.scala.tankwar.World
 import com.colofabrix.scala.tankwar.integration.TankEvaluator
+import com.vogon101.Graphics.Controls.ButtonControl
 import org.lwjgl.LWJGLException
 import org.lwjgl.opengl.Display
 import org.lwjgl.opengl.DisplayMode
@@ -38,6 +39,8 @@ class Renderer (private var _world: World){
   private val width = world.arena.width
   private val height = world.arena.height
 
+  private val testButton = new ButtonControl(new Box(new Vector2D(new CartesianCoord(100,100)), new Vector2D(new CartesianCoord(200,200))), (mouse: Int) => {println(mouse)})
+
   init()
 
   private def init () {
@@ -47,6 +50,8 @@ class Renderer (private var _world: World){
     catch  {
       case e : LWJGLException => {println("Could not start Graphics"); System exit 1}
     }
+
+
 
     setCamera()
   }
@@ -60,12 +65,23 @@ class Renderer (private var _world: World){
     drawBG()
     drawTanks()
     drawBullets()
+    drawGUI();
     Display.sync(25)
     Display.update()
+
+
 
     if (Display.isCloseRequested)
       System.exit(0)
   }
+
+  def drawGUI (): Unit = {
+
+    for (button: ButtonControl <- world.inputManager.buttons)
+      button.render()
+
+  }
+
 
   @throws(classOf[LWJGLException])
   private def initGL() {
@@ -86,7 +102,7 @@ class Renderer (private var _world: World){
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glMatrixMode(GL11.GL_PROJECTION)
     GL11.glLoadIdentity()
-    GL11.glOrtho(0, Display.getWidth, Display.getHeight, 0, 1, -1)
+    GL11.glOrtho(0, Display.getWidth, 0, Display.getHeight, 1, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
   }
