@@ -104,12 +104,42 @@ trait NeuralNetwork {
   }
 
   /**
-   * Tells if the Neural Network is stateless
+   * Tells if the Neural Network is stateless (and the graph acyclic)
    */
-  lazy val isStateless: Boolean = {
-    val (_, back, _) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1))
-    back.map( x ⇒ if (x.isNaN) 0.0 else 1.0 ) == back.toZero
+  lazy val isAcyclic: Boolean = {
+    // Test the network for all possible starting points (the inputs)
+    val result = (0 until inputCount) map { i ⇒
+      val (_, back, _) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), i)
+      // Check that there are no back edges
+      back.map( x ⇒ if (x.isNaN) 0.0 else 1.0 ) == back.toZero
+    }
+
+    // The condition must be true for all the starting points
+    result.forall( _ == true )
   }
+
+  /**
+   * Tells if the Neural Network is forward only (this implies the network is also stateless)
+   */
+  lazy val isForwardOnly: Boolean = {
+
+    if( !isAcyclic )
+      // Shortcut, if acyclic is never forward-only
+      false
+
+    else {
+      // Test the network for all possible starting points (the inputs)
+      val result = (0 until inputCount) map { i ⇒
+        val (_, _, cross) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), i)
+        // Check that there are no cross edges (that there are no back edges is ensured by the outer condition
+        cross.map(x ⇒ if (x.isNaN) 0.0 else 1.0) == cross.toZero
+      }
+
+      // The condition must be true for all the starting points
+      result.forall(_ == true)
+    }
+  }
+
 }
 
 object NeuralNetwork {
@@ -117,24 +147,28 @@ object NeuralNetwork {
   /**
    * Analyse a network and returns its subset of edges as adjacency matrices
    *
+   * This method works only with one starting point. Thus, if the network is multi-rooted (more than one
+   * input), this function must be called for every input.
+   *
    * The method returns a tuple containing 3 adjacency matrices:
    *  - Forward edges
    *  - Back edges
    *  - Cross edges
    *
+   * @param rootIndex The index of the matrix that contain the root of the graph.
    * @param matrix Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
-   def innerAnaliseNetwork(matrix: Matrix[Double], rootIndex: Int): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
+   def analiseNetwork(matrix: Matrix[Double], rootIndex: Int): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
     require( matrix.rows == matrix.cols, "The input matrix must be square" )
     require( matrix.rows > 0, "The adjacency matrix must be non empty" )
 
     // NOTE: for speed, this function uses mutable ArrayLists and not the Matrix class
 
     // Output matrices, all set to Double.NaN at the beginning
-    val forward = ArrayBuffer.tabulate(matrix.rows, matrix.rows) { (i, j) ⇒ Double.NaN }
-    val back = ArrayBuffer.tabulate(matrix.rows, matrix.rows) { (i, j) ⇒ Double.NaN }
-    val cross = ArrayBuffer.tabulate(matrix.rows, matrix.rows) { (i, j) ⇒ Double.NaN }
+    val forward = matrix.toNaN.toBuffer
+    val back = matrix.toNaN.toBuffer
+    val cross = matrix.toNaN.toBuffer
 
     // Tree search stack
     val searchStack = new Stack[Int]()
@@ -166,7 +200,7 @@ object NeuralNetwork {
         for ((value, child) ← adjacentForwardNodes) {
           ancestors(child) += current
 
-          if (!visited(rootIndex)(child)) {
+          if (!visited(rootIndex)(child) && !searchStack.contains(child)) {
             // Child not been seen before. Add it as a new node to explore and update the forward matrix
             forward(current)(child) = value
             searchStack.push(child)
@@ -185,58 +219,5 @@ object NeuralNetwork {
     }
 
     (new Matrix(forward), new Matrix(back), new Matrix(cross))
-  }
-
-  /**
-   * Analyse a network and returns its subset of edges as adjacency matrices with multiple roots
-   *
-   * The method returns a tuple containing 3 adjacency matrices:
-   *  - Forward edges
-   *  - Back edges
-   *  - Cross edges
-   *
-   * This method takes care of multiple roots (the graph is not strongly connected) and thus must be used with
-   * caution. It's imperative che the inputs specified corresponds to all and only inputs of the network or
-   * the method will end up with a wrong result or with missing elements
-   *
-   * @param matrix Adjacency matrix that represents the network
-   * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
-   */
-  def analiseNetwork(matrix: Matrix[Double], inputs: Seq[Int] = Seq(0)): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
-    require(inputs.length > 0)
-    require(matrix.rows == matrix.cols, "The input matrix must be square")
-    require(matrix.rows > 0, "The adjacency matrix must be non empty")
-
-    // If there is only one input I speed up things
-    if (inputs.length == 1)
-      return innerAnaliseNetwork(matrix, inputs(0))
-
-    // Every input of the network is a different root that must be explored
-    val results = inputs map { start ⇒
-      val tmp = innerAnaliseNetwork(matrix, start)
-      Seq(tmp._1, tmp._2, tmp._3)
-    }
-
-    // The forward matrix represents the forward spanning tree created from overlapping all the possible spanning tree
-    // A single not-NaN value is enough to be mapped to the result
-    val fwd = results.foldLeft(matrix.toNaN) { (r, m) ⇒ r
-      /*m match {
-        case fwd :: bk :: cr ⇒
-          // r = output matrix (forward)
-          r.map { (x, i, j) ⇒ x
-            if (x.isNaN) {
-              fwd(i, j)
-            }
-            else {
-              if (!fwd(i, j).isNaN && bk(i, j).isNaN)
-                fwd(i, j)
-              else if (!fwd(i, j).isNaN && !bk(i, j).isNaN)
-                Double.NaN
-            }
-          }
-      }*/
-    }
-
-    ???
   }
 }

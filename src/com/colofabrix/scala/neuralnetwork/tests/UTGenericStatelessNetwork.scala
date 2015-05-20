@@ -194,6 +194,58 @@ class UTGenericStatelessNetwork extends WordSpec with Matchers {
 
   }
 
+  "Check graph properties" when {
+
+    // Class to test the property of the network
+    class TestImplementation( override val inputCount: Int, override val outputCount: Int, override val matrix: Matrix[Double], override val af: ActivationFunction )
+      extends NeuralNetwork { override def output(inputs: Seq[Double]): Seq[Double] = inputs }
+
+    "The graph is forward only" in {
+      val matrix = new Matrix[Double](Seq(
+        Seq(NaN, NaN, 1.0, -1.0),
+        Seq(NaN, NaN, -0.5, 0.5),
+        Seq(NaN, NaN, NaN, NaN),
+        Seq(NaN, NaN, NaN, NaN),
+        Seq(NaN, NaN, NaN, NaN)
+      ))
+
+      val test = new TestImplementation(2, 2, matrix, activation)
+
+      test.isForwardOnly should equal(true)
+      test.isAcyclic should equal(true)
+    }
+
+    "The graph is acyclic" in {
+      val matrix = new Matrix[Double](Seq(
+        Seq(NaN, NaN, 1.0, -1.0),
+        Seq(NaN, NaN, -0.5, 0.5),
+        Seq(NaN, NaN, NaN, 0.3),
+        Seq(NaN, NaN, NaN, NaN),
+        Seq(NaN, NaN, NaN, NaN)
+      ))
+
+      val test = new TestImplementation(2, 2, matrix, activation)
+
+      test.isForwardOnly should equal(false)
+      test.isAcyclic should equal(true)
+    }
+
+    "The graph is generic" in {
+      val matrix = new Matrix[Double](Seq(
+        Seq(NaN, NaN, 1.0, -1.0),
+        Seq(NaN, NaN, -0.5, 0.5),
+        Seq(NaN, -0.2, NaN, 0.3),
+        Seq(NaN, NaN, NaN, NaN),
+        Seq(NaN, NaN, NaN, NaN)
+      ))
+
+      val test = new TestImplementation(2, 2, matrix, activation)
+
+      test.isForwardOnly should equal(false)
+      test.isAcyclic should equal(false)
+    }
+  }
+
   "Outputs" when {
 
     "there is only one input and one output, no hidden neurons" in {
@@ -258,6 +310,9 @@ class UTGenericStatelessNetwork extends WordSpec with Matchers {
         )
         Seq(hdLayerOutputs(0), hdLayerOutputs(1))
       }
+
+      println( NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), 0) )
+      println( NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), 1) )
 
       executeTest( 2, 2, matrix, expected )
     }

@@ -20,7 +20,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @param matrix A mutable sequence of mutable sequence, the initializer of the matrix
    */
-  def this(matrix: mutable.Seq[mutable.Seq[T]])( implicit n: Numeric[T], m: ClassTag[T] ) {
+  def this( matrix: mutable.Seq[mutable.Seq[T]] )( implicit n: Numeric[T], m: ClassTag[T] ) {
     this(matrix.toSeq)
   }
 
@@ -229,7 +229,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * Ref: http://rosettacode.org/wiki/Matrix_multiplication#Scala
    */
   def *( other: Matrix[T] ): Matrix[T] = new Matrix( {
-    val c = other.transpose.toList
+    val c = other.transpose.toSeq
     for (row <- matrix)
       yield for (col <- c)
         yield row.zip(col) map { Function.tupled(_ * _) } reduceLeft (_ + _)
@@ -288,21 +288,21 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * function will return an identity matrix as large as the smallest size of
    * the matrix
    *
-   * @return An identity matrix of the same size of the current matrix
+   * @return An new, identity matrix of the same size of the current matrix
    */
   def toIdentity: Matrix[T] = Matrix.identity[T](Math.min(rows, cols))
 
   /**
    * Returns a zero matrix of the same size of the current matrix
    *
-   * @return A zero matrix of the same size of the current matrix
+   * @return A new, zero matrix of the same size of the current matrix
    */
   def toZero: Matrix[T] = this map { _ ⇒ n.zero }
 
   /**
    * Retruns a Double.NaN matrix of the same size of the current matrix
    *
-   * @return A Double.NaN matrix of the same size of the current matrix
+   * @return A new, Double.NaN matrix of the same size of the current matrix
    */
   def toNaN: Matrix[Double] = this map { _ ⇒ Double.NaN }
 
@@ -316,13 +316,31 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * The current matrix as Seq[Seq[T]]
    *
-   * @return The current matrix as a sequence
+   * @return The current matrix as a Sequence
    */
-  def toList = this.matrix
+  def toSeq = this.matrix
+
+  /**
+   * The current matrix as Buffer[Buffer[T]]
+   *
+   * @return The current matrix as a Buffer
+   */
+  def toBuffer = this.matrix map { _.toBuffer } toBuffer
 }
 
 object Matrix {
 
+  /**
+   *  Creates an Identity Matrix of the specified size
+   *
+   *  Remember that identity matrices are always square
+   *
+   * @param size The size of the matrix
+   * @param n
+   * @param m
+   * @tparam T The type of the matrix
+   * @return A new identity matrix, with ones on the main diagonal an zeroes elsewhere
+   */
   def identity[T]( size: Int )( implicit n: Numeric[T], m: ClassTag[T] ) =
     new Matrix( Seq.tabulate(size, size) { (i, j) => if (i == j) n.one else n.zero } )
 
