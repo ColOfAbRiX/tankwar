@@ -1,60 +1,32 @@
-package com.vogon101.Graphics
+package com.colofabrix.scala.gfx
 
-import com.colofabrix.scala.geometry.shapes.{Box, Circle}
-import com.colofabrix.scala.math.{CartesianCoord, Vector2D}
-import com.colofabrix.scala.tankwar.Bullet
-import com.colofabrix.scala.tankwar.Tank
-import com.colofabrix.scala.tankwar.World
+import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.tankwar.integration.TankEvaluator
-import com.vogon101.Graphics.Controls.ButtonControl
-import org.lwjgl.LWJGLException
-import org.lwjgl.opengl.Display
-import org.lwjgl.opengl.DisplayMode
-import org.lwjgl.opengl.GL11
-import scala.collection.mutable.ListBuffer
+import com.colofabrix.scala.tankwar.{Bullet, Tank, World}
+import org.lwjgl.opengl.{Display, DisplayMode, GL11}
 
 /**
- *
- * Created by Freddie on 17/05/2015.
- *
  * This class is used to render the game world, it has only one
  * public method which is to run the entire render process
  *
- *@param _world - The world object that the class should work from to get the tanks/bullets to render
+ * @param world - The world object that the class should work from to get the tanks/bullets to render
  *
+ * Created by Freddie on 17/05/2015.
  */
-class Renderer (private var _world: World){
-
-  /*
-  This class is being refactored into a new system of graphics that aren't all in one file.
-   */
-
-
-  /**
-   * Return the current world type
-   * @return - The world object
-   */
-  def world = _world
+class Renderer(val world: World, windowsTitle: String) {
+  require( world != null, "The World must be specified" )
 
   private val width = world.arena.width
   private val height = world.arena.height
 
-  private val testButton = new ButtonControl(new Box(new Vector2D(new CartesianCoord(100,100)), new Vector2D(new CartesianCoord(200,200))), (mouse: Int) => {println(mouse)})
+  // Initialize OpenGL
+  Display.setDisplayMode(new DisplayMode(width.toInt, height.toInt))
+  Display.create()
+  Display.setTitle( windowsTitle )
 
-  init()
-
-  private def init () {
-    try {
-      initGL()
-    }
-    catch  {
-      case e : LWJGLException => {println("Could not start Graphics"); System exit 1}
-    }
-
-
-
-    setCamera()
-  }
+  // Set the camera
+  setCamera()
 
   /**
    * Main update function calls the entire render process
@@ -62,32 +34,22 @@ class Renderer (private var _world: World){
    */
   def update() {
     setCamera()
-    drawBG()
+    drawBackground()
     drawTanks()
     drawBullets()
-    drawGUI();
+    drawGUI()
     Display.sync(25)
     Display.update()
 
-
-
+    // Deal with a close request
     if (Display.isCloseRequested)
       System.exit(0)
   }
 
-  private def drawGUI (): Unit = {
-
-    for (button: ButtonControl <- world.inputManager.buttons)
-      button.render()
-
-  }
-
-
-  @throws(classOf[LWJGLException])
-  private def initGL() {
-    Display.setDisplayMode(new DisplayMode(width.toInt, height.toInt))
-    Display.create()
-    Display setTitle "TankWar"
+  private def drawGUI(): Unit = {
+    world.inputManager.buttons.foreach{ btn ⇒
+      btn.render()
+    }
   }
 
   private def setCamera() {
@@ -108,68 +70,80 @@ class Renderer (private var _world: World){
   }
 
   private def drawTanks() {
-    val tanks: ListBuffer[Tank] = world.tanks
-    for ( tank: Tank <- tanks) {
-      if ( !tank.isDead )
-        drawTank(tank)
-    }
+    world.tanks.filter(!_.isDead).foreach { t ⇒ drawTank(t) }
   }
 
   private def drawTank(tank: Tank) {
     val size: Double = tank.boundary.asInstanceOf[Circle].radius
     val fitness: Double = new TankEvaluator().getFitness(tank, null)
+    val sight: Double = world.max_sight
+
     GL11.glPushMatrix()
+
+      // Rotation of the tank
       GL11.glTranslated(tank.position.x, tank.position.y, 0)
       GL11.glRotated(tank.rotation.t * 180 / Math.PI, 0, 0, 1)
-      GL11.glColor3d(1, 2 * fitness / TankEvaluator.higherFitness(world), 0)
-      GL11.glBegin(GL11.GL_TRIANGLES)
 
+      // The color of the tank depends on its fitness
+      GL11.glColor3d(1, 2 * fitness / TankEvaluator.higherFitness(world), 0)
+
+      // Draw the shape of a tank
+      GL11.glBegin(GL11.GL_TRIANGLES)
         GL11.glVertex2d(size, 0.0)
         GL11.glVertex2d(-0.866025 * size, 0.5 * size)
         GL11.glVertex2d(-0.866025 * size, -0.5 * size)
-
       GL11.glEnd()
       drawCircle(new Circle(Vector2D.origin, size))
+
+      // Draw the sight of a tank
       GL11.glColor3d(0.1, 0.1, 0.1)
-      val sight: Double = world.max_sight
       drawCircle(new Circle(Vector2D.origin, sight))
 
     GL11.glPopMatrix()
   }
 
   private def drawBullets() {
-    val bullets: ListBuffer[Bullet] = world.bullets.clone()
-    for (bullet: Bullet <- bullets)
-      drawBullet( bullet )
+    world.bullets.foreach { b ⇒ drawBullet(b) }
   }
 
   private def drawBullet(bullet: Bullet) {
     val size: Double = bullet.boundary.asInstanceOf[Circle].radius
+
     GL11.glPushMatrix()
+
       GL11.glTranslated(bullet.position.x, bullet.position.y, 0)
       GL11.glColor3d(0, 0, 1)
+
       GL11.glBegin(GL11.GL_QUADS)
+
         GL11.glVertex2d(-size, -size)
         GL11.glVertex2d(-size, size)
         GL11.glVertex2d(size, size)
         GL11.glVertex2d(size, -size)
+
       GL11.glEnd()
+
     GL11.glPopMatrix()
   }
 
-  private def drawBG() {
+  private def drawBackground() {
     GL11.glPushMatrix ()
+
       GL11.glTranslated(0, 0, 0)
       GL11.glColor3d(0, 0, 0)
+
       GL11.glBegin(GL11.GL_QUADS)
+
         GL11.glVertex2d(0, 0)
         GL11.glVertex2d(0, height)
         GL11.glVertex2d(width, height)
         GL11.glVertex2d(width, 0)
+
       GL11.glEnd()
+
     GL11.glPopMatrix()
   }
-  //
+
   /**
    * Draws an approximate Circle Circle
    *
@@ -180,15 +154,15 @@ class Renderer (private var _world: World){
    */
   private def drawCircle(circle: Circle) {
     val numSegments: Int = (circle.radius * 2.0 * Math.PI).toInt
+
     GL11.glBegin(GL11.GL_LINE_LOOP)
-      var i: Int = 0
-      while (i < numSegments) {
-          val theta: Double = 2.0 * Math.PI * i.toDouble / numSegments.toDouble
-          val x: Double = circle.radius * Math.cos(theta)
-          val y: Double = circle.radius * Math.sin(theta)
-          GL11.glVertex2f((x + circle.center.x).toFloat, (y + circle.center.y).toFloat)
-          i += 1; i - 1
+
+      for( i ← 0 until numSegments ) {
+        val tetha = 2.0 * Math.PI * i.toDouble / numSegments.toDouble
+        val point = Vector2D.new_rt(circle.radius, tetha) + circle.center
+        GL11.glVertex2f(point.x.toFloat, point.y.toFloat)
       }
+
     GL11.glEnd()
   }
 

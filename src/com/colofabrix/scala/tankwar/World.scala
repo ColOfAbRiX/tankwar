@@ -1,10 +1,10 @@
 package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.shapes.{Box, Circle}
+import com.colofabrix.scala.gfx.Controls.InputManager
+import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetworkOld.builders.abstracts.DataReader
-import com.vogon101.Graphics.Controls.InputManager
-import com.vogon101.Graphics.Renderer
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,8 +20,8 @@ import scala.collection.mutable.ListBuffer
  */
 class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
-  val max_tank_speed: Double = 10,
-  val max_bullet_speed: Double = 20,
+  val max_tank_speed: Double = 5,
+  val max_bullet_speed: Double = 8,
   val bullet_life: Int = 15,
   val max_sight: Double = 100,
   val max_rounds: Int = 5000,
@@ -29,7 +29,7 @@ class World(
 {
   require( arena.width > 0 && arena.height > 0, "The arena must not be a point" )
   require( max_tank_speed > 0, "Speed must be positive" )
-
+  
   /**
    * List of tanks present in the world
    */
@@ -53,7 +53,7 @@ class World(
    */
   val rounds = 1 to Math.abs(max_rounds)
 
-  val renderer = new Renderer(this)
+  private val renderer = new Renderer(this, "TankWar")
   private val _inputManager = new InputManager
 
   def inputManager = _inputManager
@@ -139,7 +139,7 @@ class World(
     }
 
     // Update the graphic
-    if( tanks.count(!_.isDead) > 1 ) {
+    if( renderer != null && tanks.count(!_.isDead) > 1 ) {
       renderer.update()
       inputManager.update()
     }

@@ -1,4 +1,4 @@
-package com.vogon101.GFX.Control
+package com.colofabrix.scala.gfx.Control
 
 /**
  * Created by Freddie on 17/05/2015.

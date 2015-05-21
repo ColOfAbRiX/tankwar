@@ -6,7 +6,7 @@ import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.tankwar.integration._
 import com.colofabrix.scala.tankwar.integration.operators.TankFullMutation
-import com.colofabrix.scala.tankwar.{BrainInputHelper, Tank, TankBrainTester, World}
+import com.colofabrix.scala.tankwar.{Tank, TankBrainTester, World}
 import org.uncommons.maths.random.{MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
 import org.uncommons.watchmaker.framework.selection.TournamentSelection
@@ -24,7 +24,7 @@ object TankWarMain {
   def main( args: Array[String] ) {
 
     // Create a new world where to run the Tanks
-    val world = new World(max_rounds = 1000, arena = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900) ))
+    val world = new World( max_rounds = 1000, arena = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900) ))
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
