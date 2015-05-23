@@ -9,7 +9,6 @@ import org.uncommons.watchmaker.framework.FitnessEvaluator
  * Evaluates the fitness of a Tank
  */
 class TankEvaluator() extends FitnessEvaluator[Tank] {
-  import java.lang.Math._
 
   /**
    * Given a Tank returns its fitness
@@ -19,7 +18,10 @@ class TankEvaluator() extends FitnessEvaluator[Tank] {
    * @return A number representing the fitness of the Tank
    */
   override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double = {
-    max(0.0, t.kills)
+    val (w, ts) = (t.world, t.world.tanks)
+    3.0 * t.kills.toDouble / (ts.length - 1).toDouble +
+      2.0 * t.surviveTime.toDouble / w.max_rounds.toDouble +
+      1.0 * ts.count(_.isDead).toDouble / (ts.length - 1).toDouble
   }
 
   override def isNatural: Boolean = true
@@ -28,6 +30,6 @@ class TankEvaluator() extends FitnessEvaluator[Tank] {
 
 object TankEvaluator {
   def higherFitness(world: World): Double = {
-    world.tanks.maxBy( t => t.kills ).kills
+    3.0 + 2.0 + 1.0
   }
 }

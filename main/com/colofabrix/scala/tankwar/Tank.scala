@@ -151,13 +151,13 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     // ROTATION SECTION
     {
       // The rotation is found changing the previous angle with the output of the NN but limited to a certain amount of change over time
-      _rotation = _rotation ¬ min(max(output.rotation, 10.0 * Math.PI / 180.0), 10.0 * Math.PI / 180.0)
+      //_rotation = _rotation ¬ min(max(output.rotation, 10.0 * Math.PI / 180.0), 10.0 * Math.PI / 180.0)
 
       // The rotation is found changing the previous angle with the output of the NN
       //_rotation = _rotation ¬ output.rotation
 
       // The rotation is found using directly the output of the NN (mapped to a circle)
-      //_rotation = Vector2D.new_rt(1, output.rotation * Math.PI * 2.0)
+      _rotation = Vector2D.new_rt(1, output.rotation * Math.PI * 2.0)
     }
 
     // SHOOTING SECTION
@@ -193,7 +193,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * @param tank The tank that is hit
    */
   def on_hits(bullet: Bullet, tank: Tank) {
-    _killsCount += 1
+    _killsCount += 1 + tank.kills
   }
 
   /**
@@ -288,7 +288,7 @@ object Tank {
     new RandomReader(
       defaultBrainBuilder.hiddenLayersCount,
       rng,
-      defaultRange,
+      defaultRange / 30,
       defaultActivationFunction(0))
 
   def apply(world: World, chromosome: TankChromosome): Tank = new Tank(world, chromosome)

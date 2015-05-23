@@ -37,8 +37,8 @@ abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) ext
 
        if (plotIndexes.length == 1) {
          // If there is only one value to plot, then plot it
-         //val outputs = network.output( new BrainInputHelper(tank.world, inputs))
-         //writer.write(s"${inputs.mkString(";") };${outputs.mkString(";") }\n".replace(".", ","))
+         val outputs = network.output( inputs )
+         writer.write(s"${inputs.mkString(";") };${outputs.mkString(";") }\n".replace(".", ","))
        }
        else
        // If there is more than one value to plot, recursively call this function over the remaining indexes

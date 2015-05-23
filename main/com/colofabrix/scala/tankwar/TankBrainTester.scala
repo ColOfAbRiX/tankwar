@@ -49,7 +49,7 @@ final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank
     testDefinitions.zipWithIndex.foreach { test ⇒
 
       // Different name of files for different networks and tests
-      val fileName = s"out/NN-${network.hashCode}_test-${test._2 }.csv"
+      val fileName = s"out/NN-${Math.abs(network.hashCode)}_test-${test._2 }.csv"
 
       // Don't do anything if the test has already run (speedup a lot)
       if (!new java.io.File(fileName).exists()) {

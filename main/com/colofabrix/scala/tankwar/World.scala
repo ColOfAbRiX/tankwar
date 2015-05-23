@@ -20,8 +20,8 @@ import scala.collection.mutable.ListBuffer
  */
 class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(5000, 5000) ),
-  val max_tank_speed: Double = 5,
-  val max_bullet_speed: Double = 8,
+  val max_tank_speed: Double = 10,
+  val max_bullet_speed: Double = 10,
   val bullet_life: Int = 15,
   val max_sight: Double = 100,
   val max_rounds: Int = 5000,
@@ -118,7 +118,7 @@ class World(
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
       tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that ⇒
-        val sight = new Circle(t.position,  max_sight)
+        val sight = new Circle(t.position,  max_sight * 2)
 
         if( sight.overlaps(sight) && t.seenTank == Vector2D.origin )
           // TODO: Implement the Tank's sight
@@ -203,6 +203,8 @@ class World(
    * @param bullet The bullet that hits the tank
    */
   def on_tankHit(tank: Tank, bullet: Bullet) {
+    if( bullet.tank.isDead ) return
+
     // Inform the hit tank
     tank.on_isHit(bullet)
     // Inform the bullet that hits
