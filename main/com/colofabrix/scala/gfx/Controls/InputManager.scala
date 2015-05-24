@@ -26,7 +26,7 @@ class InputManager {
   def update() {
     val mouse = Vector2D.new_xy(Mouse.getX, Mouse.getY)
 
-    buttons.foreach { btn ⇒
+    buttons.foreach { btn =>
       btn.clickTimerInc()
       if (Mouse.isButtonDown(0))
         btn.runClick( mouse, 0 )

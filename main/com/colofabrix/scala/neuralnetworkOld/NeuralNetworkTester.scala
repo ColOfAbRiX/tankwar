@@ -17,7 +17,7 @@ abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) ext
    // Range of the values and number of points (input#, start_value, end_value, points_count)
    def plotDefinitions: List[(Int, Double, Double, Double)]
 
-   def testDefinitions: List[(PrintWriter ⇒ Unit)]
+   def testDefinitions: List[(PrintWriter => Unit)]
 
   protected def evaluateNetwork()
 
@@ -31,7 +31,7 @@ abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) ext
      val range = start.to(end, (end - start) / points)
 
      // For every X value
-     range.map { x ⇒
+     range.map { x =>
        // Modify the value of the current input
        val inputs = inputBase.patch(input, Seq(x), 1)
 
@@ -51,7 +51,7 @@ abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) ext
 
    def runTests(): Unit = {
 
-     testDefinitions.zipWithIndex.foreach { test ⇒
+     testDefinitions.zipWithIndex.foreach { test =>
        val fileName = s"${network.hashCode}test${test._2 }.csv"
 
        // Don't do anything if the test has already run

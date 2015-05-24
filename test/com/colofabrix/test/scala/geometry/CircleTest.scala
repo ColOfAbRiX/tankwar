@@ -9,7 +9,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 11/01/2015.
  */
-class UTCircle extends WordSpec with Matchers {
+class CircleTest extends WordSpec with Matchers {
 
   "A Circle" must {
 

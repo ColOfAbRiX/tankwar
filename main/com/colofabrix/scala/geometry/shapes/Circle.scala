@@ -37,7 +37,7 @@ case class Circle(center: Vector2D, radius: Double) extends Shape with Container
     // For circles is enough to check the distance from the centers
     case c: Circle => center - c.center < radius + c.radius
     // For polygons I check the distance from the nearest edge
-    case p: Polygon ⇒ p.distance(center)._1 <= radius
+    case p: Polygon => p.distance(center)._1 <= radius
     case _ => false
   }
 

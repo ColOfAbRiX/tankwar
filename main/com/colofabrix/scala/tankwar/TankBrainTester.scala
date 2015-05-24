@@ -40,13 +40,13 @@ final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank
    *
    * @return A list of functions that run the test, each of which are called once
    */
-  override val testDefinitions: List[(PrintWriter ⇒ Unit)] = List(
+  override val testDefinitions: List[(PrintWriter => Unit)] = List(
     fullAnalysis(Seq(0, 0, 0, 0, 0, 0, 0, 0, 0), 5, 6)(_)
   )
 
   def runTests(): Unit = {
     // Run through all the tests
-    testDefinitions.zipWithIndex.foreach { test ⇒
+    testDefinitions.zipWithIndex.foreach { test =>
 
       // Different name of files for different networks and tests
       val fileName = s"out/NN-${Math.abs(network.hashCode)}_test-${test._2 }.csv"

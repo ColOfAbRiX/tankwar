@@ -8,7 +8,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 06/01/2015.
  */
-class UTCoordinates extends WordSpec with Matchers {
+class CoordinatesTest extends WordSpec with Matchers {
 
   val tolerance = 1E-5
 

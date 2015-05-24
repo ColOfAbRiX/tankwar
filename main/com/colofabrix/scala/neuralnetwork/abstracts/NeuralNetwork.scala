@@ -1,7 +1,8 @@
 package com.colofabrix.scala.neuralnetwork.abstracts
 
-import com.colofabrix.scala.math.Matrix
+import com.colofabrix.scala.math.{NetworkMatrix, Matrix}
 
+import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, Stack}
 
 /**
@@ -21,7 +22,7 @@ trait NeuralNetwork {
    *
    * @return The adjacency matrix that defines the Neural Network
    */
-  def matrix: Matrix[Double]
+  def matrix: NetworkMatrix
 
   /**
    * Number of inputs of the Neural Network
@@ -71,19 +72,8 @@ trait NeuralNetwork {
    * @param other The other object to check
    */
   override final def equals( other: Any ): Boolean = other match {
-    case that: NeuralNetwork ⇒
-      // Speed check with the number of inputs
-      if( inputCount != that.inputCount || outputCount != that.outputCount ) return false
-
-      // Checking every element
-      for( i ← (0 to matrix.rows).par;
-           j ← (0 to matrix.cols).par ) {
-        if( matrix(i, j) != that.matrix(i, j)) return false
-      }
-
-      true
-
-    case _ ⇒ false
+    case that: NeuralNetwork => matrix equals that.matrix
+    case _ => false
   }
 
   /**
@@ -108,10 +98,10 @@ trait NeuralNetwork {
    */
   lazy val isAcyclic: Boolean = {
     // Test the network for all possible starting points (the inputs)
-    val result = (0 until inputCount) map { i ⇒
-      val (_, back, _) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), i)
+    val result = (0 until inputCount) map { i =>
+      val (_, back, _) = NeuralNetwork.analiseNetwork(matrix, i)
       // Check that there are no back edges
-      back.map( x ⇒ if (x.isNaN) 0.0 else 1.0 ) == back.toZero
+      back.map( x => if (x.isNaN) 0.0 else 1.0 ) == back.toZero
     }
 
     // The condition must be true for all the starting points
@@ -129,10 +119,10 @@ trait NeuralNetwork {
 
     else {
       // Test the network for all possible starting points (the inputs)
-      val result = (0 until inputCount) map { i ⇒
-        val (_, _, cross) = NeuralNetwork.analiseNetwork(matrix.rowSet(matrix.rows - 1), i)
+      val result = (0 until inputCount) map { i =>
+        val (_, _, cross) = NeuralNetwork.analiseNetwork(matrix, i)
         // Check that there are no cross edges (that there are no back edges is ensured by the outer condition
-        cross.map(x ⇒ if (x.isNaN) 0.0 else 1.0) == cross.toZero
+        cross.map(x => if (x.isNaN) 0.0 else 1.0) == cross.toZero
       }
 
       // The condition must be true for all the starting points
@@ -156,22 +146,25 @@ object NeuralNetwork {
    *  - Cross edges
    *
    * @param rootIndex The index of the matrix that contain the root of the graph.
-   * @param matrix Adjacency matrix that represents the network
+   * @param network Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
-   def analiseNetwork(matrix: Matrix[Double], rootIndex: Int): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
+   def analiseNetwork(network: NetworkMatrix, rootIndex: Int): (NetworkMatrix, NetworkMatrix, NetworkMatrix) = {
+    val matrix = network.adjacencyOnly
+
+    require( network.inputRoots.contains(rootIndex), "The specified input is not within the input matrix" )
     require( matrix.rows == matrix.cols, "The input matrix must be square" )
     require( matrix.rows > 0, "The adjacency matrix must be non empty" )
 
     // NOTE: for speed, this function uses mutable ArrayLists and not the Matrix class
 
     // Output matrices, all set to Double.NaN at the beginning
-    val forward = matrix.toNaN.toBuffer
-    val back = matrix.toNaN.toBuffer
-    val cross = matrix.toNaN.toBuffer
+    val forward = NetworkMatrix.toNaN(matrix).toBuffer
+    val back = NetworkMatrix.toNaN(matrix).toBuffer
+    val cross = NetworkMatrix.toNaN(matrix).toBuffer
 
     // Tree search stack
-    val searchStack = new Stack[Int]()
+    val searchStack = new mutable.Stack[Int]()
     // List of already discovered nodes.
     val visited = ArrayBuffer.fill(matrix.rows)(ArrayBuffer.fill(matrix.rows)(false))
     // List of the ancestors of the currently explored node
@@ -181,7 +174,7 @@ object NeuralNetwork {
     searchStack.push(rootIndex)
 
     // Loop until there are nodes to visit
-    while (searchStack.length > 0) {
+    while (searchStack.nonEmpty) {
 
       // Get the node to explore
       val current = searchStack.pop()
@@ -218,6 +211,10 @@ object NeuralNetwork {
       }
     }
 
-    (new Matrix(forward), new Matrix(back), new Matrix(cross))
+    (
+      new NetworkMatrix(forward, network.inputRoots, network.outputRoots),
+      new NetworkMatrix(back, network.inputRoots, network.outputRoots),
+      new NetworkMatrix(cross, network.inputRoots, network.outputRoots)
+    )
   }
 }

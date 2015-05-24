@@ -117,7 +117,7 @@ class World(
       )
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
-      tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that ⇒
+      tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that =>
         val sight = new Circle(t.position,  max_sight * 2)
 
         if( sight.overlaps(sight) && t.seenTank == Vector2D.origin )
@@ -192,7 +192,7 @@ class World(
       _bullets += new Bullet(this, tank, max_bullet_speed)
     }
     catch {
-      case _: Exception ⇒
+      case _: Exception =>
     }
   }
 
@@ -217,7 +217,7 @@ class World(
       _bullets -= bullet
     }
     catch {
-      case _: Exception ⇒
+      case _: Exception =>
     }
   }
 }

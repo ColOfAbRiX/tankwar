@@ -20,7 +20,7 @@ class Quadtree[T <: ConvexPolygon](val dimensions: Box, val I: Quadtree[T], val 
   def build(objects: Seq[T]): Quadtree[T] = ???
 
   def notFullyContained(o: T): Boolean =
-    o.vertices.foldLeft(false){ (r, v) ⇒ r || !dimensions.overlaps(v) }
+    o.vertices.foldLeft(false){ (r, v) => r || !dimensions.overlaps(v) }
 
   def collision(o: T): Option[T] = Option.empty
 

@@ -9,7 +9,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 06/01/2015.
  */
-class UTBox extends WordSpec with Matchers {
+class BoxTest extends WordSpec with Matchers {
 
   private val tolerance = 1E-5
 

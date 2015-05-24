@@ -47,7 +47,7 @@ class Renderer(val world: World, windowsTitle: String) {
   }
 
   private def drawGUI(): Unit = {
-    world.inputManager.buttons.foreach{ btn ⇒
+    world.inputManager.buttons.foreach{ btn =>
       btn.render()
     }
   }
@@ -70,7 +70,7 @@ class Renderer(val world: World, windowsTitle: String) {
   }
 
   private def drawTanks() {
-    world.tanks.filter(!_.isDead).foreach { t ⇒ drawTank(t) }
+    world.tanks.filter(!_.isDead).foreach { t => drawTank(t) }
   }
 
   private def drawTank(tank: Tank) {
@@ -103,7 +103,7 @@ class Renderer(val world: World, windowsTitle: String) {
   }
 
   private def drawBullets() {
-    world.bullets.foreach { b ⇒ drawBullet(b) }
+    world.bullets.foreach { b => drawBullet(b) }
   }
 
   private def drawBullet(bullet: Bullet) {

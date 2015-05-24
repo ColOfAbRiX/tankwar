@@ -8,7 +8,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 06/01/2015.
  */
-class UTVector2D extends WordSpec with Matchers {
+class Vector2DTest extends WordSpec with Matchers {
   import com.colofabrix.scala.math.Vector2DImplicits._
 
   val tolerance = 1E-5

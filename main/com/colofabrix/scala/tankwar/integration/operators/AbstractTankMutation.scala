@@ -46,7 +46,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random Number generator
    * @return A mutated sequences of numbers
    */
-  protected def mutate(f: (Double, Random) ⇒ Double, seq: Seq[Seq[Double]], random: Random): Seq[Seq[Double]] = {
+  protected def mutate(f: (Double, Random) => Double, seq: Seq[Seq[Double]], random: Random): Seq[Seq[Double]] = {
     for( outer <- seq ) yield {
       for( value <- outer ) yield f(value, random)
     }

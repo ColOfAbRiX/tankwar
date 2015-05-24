@@ -9,7 +9,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 11/01/2015.
  */
-class UTPolygon extends WordSpec with Matchers {
+class PolygonTest extends WordSpec with Matchers {
 
   "A generic polygon" when {
 

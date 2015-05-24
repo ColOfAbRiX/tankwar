@@ -12,7 +12,7 @@ import scala.util.Random
  *
  * Created by Fabrizio on 30/12/2014.
  */
-class UTNeuralNetwork extends WordSpec with Matchers {
+class NeuralNetworkTest extends WordSpec with Matchers {
 
   // Range of test values
   private val inputs_range: List[Double] = (-2.0 to (2.0, 0.1)).toList ::: List.fill(20)(Random.nextDouble * 10 - 5)

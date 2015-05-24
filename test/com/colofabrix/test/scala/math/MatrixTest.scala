@@ -8,7 +8,7 @@ import org.scalatest.{Matchers, WordSpec}
  *
  * Created by Fabrizio on 07/05/2015.
  */
-class UTMatrix extends WordSpec with Matchers {
+class MatrixTest extends WordSpec with Matchers {
 
   val test = new Matrix[Int](Seq.tabulate(3, 5)(_ * _))
 
@@ -86,7 +86,7 @@ class UTMatrix extends WordSpec with Matchers {
     }
 
     "to-identity" must {
-      val expected = new Matrix(Seq.tabulate(3, 3) { (i, j) ⇒
+      val expected = new Matrix(Seq.tabulate(3, 3) { (i, j) =>
         if (i == j) 1 else 0
       })
 
@@ -112,8 +112,8 @@ class UTMatrix extends WordSpec with Matchers {
     "mapping" must {
       val expected = new Matrix[Int](Seq.tabulate(3, 5)(2 * _ * _))
 
-      val map1 = test map { (x, _, _) ⇒ 2 * x }
-      val map2 = test map { (_, i, j) ⇒ 2 * i * j }
+      val map1 = test map { (x, _, _) => 2 * x }
+      val map2 = test map { (_, i, j) => 2 * i * j }
 
       map1 should equal(expected)
       map2 should equal(expected)

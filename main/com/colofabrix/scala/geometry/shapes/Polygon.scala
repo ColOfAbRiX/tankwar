@@ -42,7 +42,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     val direction = Math.signum( edges(1) ^ edges(0) )
 
     this.edgesIterator.tail forall {
-      case u :: v :: Nil ⇒
+      case u :: v :: Nil =>
         val r = v ^ u
         Math.signum( r ) == direction || r == 0
     }
@@ -91,7 +91,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   override def overlaps(that: Shape): Boolean = that match {
     // With circles I check the distance from the nearest edge
     case c: Circle => distance(c.center)._1 <= c.radius
-    case p: Polygon ⇒ overlaps(p)
+    case p: Polygon => overlaps(p)
     case _ => false
   }
 
@@ -210,7 +210,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    */
   override def area = {
     (vertices :+ vertices.head).sliding(3).map {
-      case v0 :: v1 :: v2 :: Nil ⇒ v1.x * (v2.y - v0.y)
+      case v0 :: v1 :: v2 :: Nil => v1.x * (v2.y - v0.y)
     }.sum / 2.0
   }
 }

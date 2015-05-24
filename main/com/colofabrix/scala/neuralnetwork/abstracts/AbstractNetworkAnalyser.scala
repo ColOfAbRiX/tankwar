@@ -34,7 +34,7 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
    *
    * @return A list of functions that run the test, each of which are called once
    */
-  def testDefinitions: List[(PrintWriter ⇒ Unit)]
+  def testDefinitions: List[(PrintWriter => Unit)]
 
   /**
    * Performs the numerical analysis of the network
@@ -56,7 +56,7 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
     val range = start.to(end, (end - start) / points)
 
     // For every X value
-    range.map { x ⇒
+    range.foreach { x =>
       // Modify the value of the current input
       val inputs = inputBase.patch(input, Seq(x), 1)
 

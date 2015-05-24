@@ -1,6 +1,6 @@
 package com.colofabrix.scala.neuralnetwork
 
-import com.colofabrix.scala.math.Matrix
+import com.colofabrix.scala.math.{NetworkMatrix, Matrix}
 import com.colofabrix.scala.neuralnetwork.abstracts.{AbstractStatelessNetwork, ActivationFunction}
 
 /**
@@ -11,5 +11,5 @@ import com.colofabrix.scala.neuralnetwork.abstracts.{AbstractStatelessNetwork, A
  * @param matrix Defining adjacency matrix
  * @param af Activation function used by the network
  */
-class GenericStatelessNetwork(inputCount: Int, outputCount: Int, matrix: Matrix[Double], af: ActivationFunction)
+class GenericStatelessNetwork(inputCount: Int, outputCount: Int, matrix: NetworkMatrix, af: ActivationFunction)
   extends AbstractStatelessNetwork(inputCount, outputCount, matrix, af)

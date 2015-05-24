@@ -11,12 +11,12 @@ import org.scalatest._
  *
  * Created by Fabrizio on 17/12/2014.
  */
-class UTLayer extends WordSpec with Matchers {
+class LayerTest extends WordSpec with Matchers {
 
   /**
    * Concrete Layer class to test Layer functionality
    */
-  private[UTLayer] class ConcreteNeuronLayer (
+  private[LayerTest] class ConcreteNeuronLayer (
     n_inputs: Int = 1, n_outputs: Int = 1,
     bias: Seq[Double] = Seq(0.0),
     weights: Seq[Seq[Double]] = Seq(Seq(1.0)),
