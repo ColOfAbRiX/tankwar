@@ -1,9 +1,8 @@
 package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{StructureBuilder, BehaviourBuilder, DataReader}
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{BehaviourBuilder, DataReader, StructureBuilder}
 import com.colofabrix.scala.neuralnetwork.old.layers.InputLayer
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
 /**
  * Creates a Three-Layer topology for a Neural Network

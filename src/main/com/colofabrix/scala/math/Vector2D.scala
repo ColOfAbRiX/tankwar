@@ -297,6 +297,15 @@ object Vector2D {
    * @return A vector with both coordinates equals to zero
    */
   def origin: Vector2D = Vector2D.new_xy(0, 0)
+
+  /**
+   * Zero vector
+   *
+   * It's a null vector
+   *
+   * @return A vector with both coordinates equals to zero
+   */
+  def zero = origin
 }
 
 /**

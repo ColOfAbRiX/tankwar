@@ -2,10 +2,8 @@ package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.ElmanNeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{LayerReader, BehaviourBuilder}
-import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, ElmanFeedbackLayer, OutputLayer}
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.LayerReader
-import com.colofabrix.scala.neuralnetwork.old.layers.OutputLayer
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{BehaviourBuilder, LayerReader}
+import com.colofabrix.scala.neuralnetwork.old.layers.{ElmanFeedbackLayer, HiddenLayer, InputLayer, OutputLayer}
 
 /**
  * Builder to create the components of a simple Elman Recurrent Neural Network

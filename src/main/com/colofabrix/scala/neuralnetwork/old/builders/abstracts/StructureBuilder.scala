@@ -1,8 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.old.builders.abstracts
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.old.layers.{InputLayer, OutputLayer, HiddenLayer}
-import com.colofabrix.scala.neuralnetwork.old.layers.OutputLayer
+import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
 
 /**
  * Neural Network Structural Builder

@@ -103,6 +103,6 @@ case class Circle(center: Vector2D, radius: Double) extends Shape with Container
   /**
    * Area of the circle
    */
-  override def area: Double = 2.0 * radius * Math.PI
+  override lazy val area: Double = 2.0 * radius * Math.PI
 
 }

@@ -1,7 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.old
 
 import com.colofabrix.scala.neuralnetwork.old.layers.{ElmanFeedbackLayer, InputLayer, OutputLayer}
-import com.colofabrix.scala.neuralnetwork.old.layers.OutputLayer
 
 /**
  * Elman Neural Network

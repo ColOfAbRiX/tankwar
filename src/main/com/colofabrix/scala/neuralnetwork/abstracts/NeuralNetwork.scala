@@ -1,9 +1,9 @@
 package com.colofabrix.scala.neuralnetwork.abstracts
 
-import com.colofabrix.scala.math.{NetworkMatrix, Matrix}
+import com.colofabrix.scala.math.NetworkMatrix
 
 import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, Stack}
+import scala.collection.mutable.ArrayBuffer
 
 /**
  * Any Neural Network of any type.

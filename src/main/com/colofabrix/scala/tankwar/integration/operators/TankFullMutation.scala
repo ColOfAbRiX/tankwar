@@ -58,20 +58,20 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
         random)
 
   /**
-   * Mutate the sight of a Tank
-   *
-   * @param c The chromosome used to gather information from the Tank
-   * @param random Random number generator
-   * @return A new `TankSight` object with applied the mutation rules
-   */
-  override def mutateSight(c: TankChromosome, random: Random) = c.sight
-
-  /**
-   * Mutate the mass of a Tank
+   * Mutate the reference rotation zero of a Tank
    *
    * @param c The chromosome used to gather information from the Tank
    * @param random Random number generator
    * @return A new mass with applied the mutation rules
    */
-  override def mutateMass(c: TankChromosome, random: Random) = random.nextDouble * 5.0
+  override def mutateRotationReference(c: TankChromosome, random: Random) = mutationRule(c.valueRange)(c.rotationRef, random)
+
+  /**
+   * Mutate the sight ratio of a Tank
+   *
+   * @param c The chromosome used to gather information from the Tank
+   * @param random Random number generator
+   * @return A new sight ratio with applied the mutation rules
+   */
+  protected def mutateSightRatio(c: TankChromosome, random: Random) = Math.abs(mutationRule(0.998)(c.sightRatio, random)) + 0.001
 }

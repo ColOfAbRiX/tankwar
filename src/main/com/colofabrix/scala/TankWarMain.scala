@@ -1,17 +1,16 @@
 package com.colofabrix.scala
 
-import java.io.{File, PrintWriter}
+import java.io.File
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.tankwar.integration._
 import com.colofabrix.scala.tankwar.integration.operators.{TankCrossover, TankDriftMutation, TankFullMutation}
-import com.colofabrix.scala.tankwar.{Tank, TankBrainTester, World}
+import com.colofabrix.scala.tankwar.{Tank, World}
 import org.uncommons.maths.random.{GaussianGenerator, MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
-import org.uncommons.watchmaker.framework.selection.SigmaScaling
+import org.uncommons.watchmaker.framework.selection.TournamentSelection
 import org.uncommons.watchmaker.framework.termination._
-import org.uncommons.watchmaker.framework.{EvolutionObserver, PopulationData}
 
 import scala.collection.JavaConversions._
 
@@ -30,7 +29,7 @@ object TankWarMain {
     } file.delete()
 
     // Create a new world where to run the Tanks
-    val world = new World( max_rounds = 1000, arena = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900) ))
+    val world = new World( max_rounds = 1500, arena = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900) ))
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
@@ -51,38 +50,16 @@ object TankWarMain {
       new TankFactory(world),
       pipeline,
       new TankEvaluator(),
-      //new TournamentSelection(new Probability(0.85)),
+      new TournamentSelection(new Probability(0.75)),
       //new RouletteWheelSelection(),
-      new SigmaScaling(),
+      //new SigmaScaling(),
       new MersenneTwisterRNG()
     )
 
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation and stop for stagnation
-    engine.evolve(31, 0, new Stagnation(1000, true))
+    engine.evolve(11, 0, new Stagnation(500, true))
   }
 }
 
-/**
- * Trivial evolution observer to display information about the population at the end
- * of each generation.
- */
-class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
-
-  val writer = new PrintWriter("out/population.csv")
-
-  override def populationUpdate(pop: PopulationData[_ <: T]): Unit = {
-    val best = pop.getBestCandidate
-
-    println( s"Gen #${pop.getGenerationNumber}: ${pop.getBestCandidateFitness}/${pop.getMeanFitness} - ${best.kills}/${best.surviveTime}/${best.world.tanks.count(!_.isDead)}, " )
-    println( "Best candidate: " + best.definition + " = " + best.brain.toString )
-    println( "" )
-
-    writer.println(s"${pop.getGenerationNumber};${pop.getMeanFitness};${pop.getBestCandidateFitness};${best.kills};${best.surviveTime}".replace(".", ","))
-    writer.flush()
-
-    new TankBrainTester(best).runTests()
-  }
-
-}

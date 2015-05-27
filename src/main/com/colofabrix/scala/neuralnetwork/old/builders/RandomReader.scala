@@ -1,8 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{LayerReader, DataReader}
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.LayerReader
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{DataReader, LayerReader}
 
 import scala.util.Random
 

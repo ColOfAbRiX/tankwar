@@ -1,10 +1,8 @@
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.shapes.Polygon
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.neuralnetwork.old.abstracts.{OutputHelper, InputHelper}
+import com.colofabrix.scala.neuralnetwork.old.abstracts.{InputHelper, OutputHelper}
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilder
-import com.colofabrix.scala.neuralnetwork.old.abstracts.OutputHelper
 
 /**
  * A TankChromosome contains all the data needed to uniquely identify
@@ -14,8 +12,8 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.OutputHelper
 case class TankChromosome(
   biases: Seq[Seq[Double]],
   weights: Seq[Seq[Seq[Double]]],
-  sight: TankSight,
-  mass: Double,
+  rotationRef: Double,
+  sightRatio: Double,
   valueRange: Double,
   activationFunction: Seq[String],
   brainBuilder: StructureBuilder
@@ -27,7 +25,7 @@ case class TankChromosome(
    * @return A sequence containing all the fields
    */
   def toList: List[Any] = List(
-    biases, weights, sight, mass, valueRange, activationFunction, brainBuilder
+    biases, weights, rotationRef, sightRatio, valueRange, activationFunction, brainBuilder
   )
 }
 
@@ -36,7 +34,7 @@ object TankChromosome {
     new TankChromosome(
       s(0).asInstanceOf[Seq[Seq[Double]]],
       s(1).asInstanceOf[Seq[Seq[Seq[Double]]]],
-      s(2).asInstanceOf[TankSight],
+      s(2).asInstanceOf[Double],
       s(3).asInstanceOf[Double],
       s(4).asInstanceOf[Double],
       s(5).asInstanceOf[Seq[String]],
@@ -44,14 +42,6 @@ object TankChromosome {
     )
   }
 }
-
-/**
- * Object used to define the sight of the Tank
- *
- * @param shape The polygon itself, the tank can sense what crosses the edges
- * @param center Center of sight. The polygon will be moved of that vector
- */
-case class TankSight(shape: Polygon, center: Vector2D)
 
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
@@ -73,13 +63,13 @@ class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outpu
  * Support class used as an interface between the `Tank` and the input of the NN
  */
 object BrainInputHelper {
-  val count = 9
+  val count = 13
 }
 
 /**
  * Support class used as an interface between the `Tank` and the input of the NN
  */
-class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTank: Vector2D, seenBullet: Vector2D) extends InputHelper[Double] {
+class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D) extends InputHelper[Double] {
 
   def this(world: World, rawSequence: Seq[Double]) = this(
     world,
@@ -87,14 +77,18 @@ class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector
     Vector2D.new_xy(rawSequence(2), rawSequence(3)),
     Vector2D.new_rt(1, rawSequence(4)),
     Vector2D.new_xy(rawSequence(5), rawSequence(6)),
-    Vector2D.new_xy(rawSequence(7), rawSequence(8))
+    Vector2D.new_xy(rawSequence(7), rawSequence(8)),
+    Vector2D.new_xy(rawSequence(9), rawSequence(10)),
+    Vector2D.new_xy(rawSequence(11), rawSequence(12))
   )
 
   override protected val _values = Seq(
     pos.x / world.arena.topRight.x, pos.y / world.arena.topRight.y,
     speed.x / world.max_tank_speed, speed.y / world.max_tank_speed,
     rot.t / (2.0 * Math.PI),
-    seenTank.r / world.max_sight, seenTank.t / (2.0 * Math.PI),
-    seenBullet.r / world.max_sight, seenBullet.t / (2.0 * Math.PI)
+    seenTanksPos.r / world.max_sight, seenTanksPos.t / (2.0 * Math.PI),
+    seenTanksSpeed.r / world.max_tank_speed, seenTanksSpeed.t / (2.0 * Math.PI),
+    seenBulletsPos.r / world.max_sight, seenBulletsPos.t / (2.0 * Math.PI),
+    seenBulletsSpeed.r / world.max_bullet_speed, seenBulletsSpeed.t / (2.0 * Math.PI)
   )
 }

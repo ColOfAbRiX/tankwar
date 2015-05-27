@@ -3,9 +3,7 @@ package com.colofabrix.scala.neuralnetwork.old.builders
 import com.colofabrix.scala.neuralnetwork.old.FeedforwardNeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{BehaviourBuilder, LayerReader}
-import com.colofabrix.scala.neuralnetwork.old.layers.{InputLayer, OutputLayer, HiddenLayer}
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.LayerReader
-import com.colofabrix.scala.neuralnetwork.old.layers.OutputLayer
+import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
 
 /**
  * Builder to create the components of a simple FeedForward Neural Network

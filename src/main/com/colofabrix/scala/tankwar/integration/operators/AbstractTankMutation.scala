@@ -3,7 +3,7 @@ package com.colofabrix.scala.tankwar.integration.operators
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.tankwar.{Tank, TankChromosome, TankSight}
+import com.colofabrix.scala.tankwar.{Tank, TankChromosome}
 import org.uncommons.watchmaker.framework.EvolutionaryOperator
 
 import scala.collection.JavaConversions._
@@ -31,8 +31,8 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
     new TankChromosome(
       mutateBiases(c, random),
       mutateWeights(c, random),
-      mutateSight(c, random),
-      mutateMass(c, random),
+      mutateRotationReference(c, random),
+      mutateSightRatio(c, random),
       c.valueRange,
       c.activationFunction,
       c.brainBuilder)
@@ -71,21 +71,21 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
   protected def mutateWeights(c: TankChromosome, random: Random): Seq[Seq[Seq[Double]]]
 
   /**
-   * Mutate the sight of a Tank
+   * Mutate the reference rotation zero of a Tank
    *
    * @param c The chromosome used to gather information from the Tank
    * @param random Random number generator
-   * @return A new `TankSight` object with applied the mutation rules
+   * @return A new rotation zero reference with applied the mutation rules
    */
-  protected def mutateSight(c: TankChromosome, random: Random): TankSight
+  protected def mutateRotationReference(c: TankChromosome, random: Random): Double
 
   /**
-   * Mutate the mass of a Tank
+   * Mutate the sight ratio of a Tank
    *
    * @param c The chromosome used to gather information from the Tank
    * @param random Random number generator
-   * @return A new mass with applied the mutation rules
+   * @return A new sight ratio with applied the mutation rules
    */
-  protected def mutateMass(c: TankChromosome, random: Random): Double
+  protected def mutateSightRatio(c: TankChromosome, random: Random): Double
 
 }

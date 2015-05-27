@@ -41,7 +41,7 @@ final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank
    * @return A list of functions that run the test, each of which are called once
    */
   override val testDefinitions: List[(PrintWriter => Unit)] = List(
-    fullAnalysis(Seq(0, 0, 0, 0, 0, 0, 0, 0, 0), 5, 6)(_)
+    fullAnalysis(Seq.fill(BrainInputHelper.count)(0.0), 5, 6)(_)
   )
 
   def runTests(): Unit = {

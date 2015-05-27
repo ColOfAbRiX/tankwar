@@ -1,7 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.old.abstracts
 
 import com.colofabrix.scala.neuralnetwork.old.activationfunctions._
-import com.colofabrix.scala.neuralnetwork.old.activationfunctions._
 
 /**
  * Abstract definition of a Neural Network Activation Function

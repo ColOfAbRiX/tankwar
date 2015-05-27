@@ -1,6 +1,6 @@
 package com.colofabrix.test.scala.math
 
-import com.colofabrix.scala.math.{NetworkMatrix, Matrix}
+import com.colofabrix.scala.math.NetworkMatrix
 import org.scalatest.{Matchers, WordSpec}
 
 import scala.Double._

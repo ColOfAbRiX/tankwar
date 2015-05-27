@@ -1,9 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.old
 
-import com.colofabrix.scala.neuralnetwork.old.abstracts.{NeuronLayer, NeuralNetwork}
-import com.colofabrix.scala.neuralnetwork.old.layers.{InputLayer, OutputLayer, HiddenLayer}
-import com.colofabrix.scala.neuralnetwork.old.abstracts._
-import com.colofabrix.scala.neuralnetwork.old.layers._
+import com.colofabrix.scala.neuralnetwork.old.abstracts.{NeuralNetwork, NeuronLayer}
+import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
 
 /**
  * A generic neural network model

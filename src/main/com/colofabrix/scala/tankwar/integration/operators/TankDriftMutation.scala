@@ -2,6 +2,7 @@ package com.colofabrix.scala.tankwar.integration.operators
 
 import java.util.Random
 
+import com.colofabrix.scala.tankwar.TankChromosome
 import org.uncommons.maths.number.NumberGenerator
 import org.uncommons.maths.random.Probability
 
@@ -29,6 +30,17 @@ class TankDriftMutation(probability: Probability, generator: NumberGenerator[jav
     if( rng.nextDouble <= probability.doubleValue )
       x + generator.nextValue
     else x
+  }
+
+  /**
+   * Mutate the sight ratio of a Tank
+   *
+   * @param c The chromosome used to gather information from the Tank
+   * @param random Random number generator
+   * @return A new sight ratio with applied the mutation rules
+   */
+  override def mutateSightRatio(c: TankChromosome, random: Random) = {
+    Math.abs(mutationRule(0.998)(c.sightRatio, random)) + 0.001
   }
 
 }

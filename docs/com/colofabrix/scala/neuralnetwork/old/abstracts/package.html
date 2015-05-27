@@ -1,0 +1,237 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>abstracts - TankWar Documentation - com.colofabrix.scala.neuralnetwork.old.abstracts</title>
+          <meta name="description" content="abstracts - TankWar Documentation - com.colofabrix.scala.neuralnetwork.old.abstracts" />
+          <meta name="keywords" content="abstracts TankWar Documentation com.colofabrix.scala.neuralnetwork.old.abstracts" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../../index.html';
+            var hash = 'com.colofabrix.scala.neuralnetwork.old.abstracts.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../../package.html" class="extype" name="com">com</a>.<a href="../../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala.neuralnetwork">neuralnetwork</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old">old</a></p>
+        <h1>abstracts</h1> <span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">abstracts</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ActivationFunctionextendsAnyRef"></a>
+      <a id="ActivationFunction:ActivationFunction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ActivationFunction.html"><span class="name">ActivationFunction</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@ActivationFunctionextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Abstract definition of a Neural Network Activation Function
+</p>
+    </li><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.InputHelper" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="InputHelper[T]extendsAnyRef"></a>
+      <a id="InputHelper[T]:InputHelper[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="InputHelper.html"><span class="name">InputHelper</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@InputHelper[T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Input helper object</p><div class="fullcomment"><div class="comment cmt"><p>Input helper object</p><p>Is is used to provide a nice interface between the input of a <code>GenericNeuralNetwork</code>
+(s Seq[T]) and the client. Using a companion object with arguments will bring much
+cleaner code can create a tidy way to provide data to the <code>GenericNeuralNetwork</code></p><p>Created by Fabrizio on 07/01/2015.
+</p></div></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="NeuralNetworkextendsAnyRef"></a>
+      <a id="NeuralNetwork:NeuralNetwork"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="NeuralNetwork.html"><span class="name">NeuralNetwork</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@NeuralNetworkextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Any Neural Network of any type.</p><div class="fullcomment"><div class="comment cmt"><p>Any Neural Network of any type.</p><p>A Neural Network has always a set of outputs given a set of inputs</p><p>Created by Fabrizio on 17/12/2014.
+</p></div></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.NeuronLayer" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="NeuronLayerextendsNeuralNetwork"></a>
+      <a id="NeuronLayer:NeuronLayer"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="NeuronLayer.html"><span class="name">NeuronLayer</span></a><span class="result"> extends <a href="NeuralNetwork.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork">NeuralNetwork</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@NeuronLayerextendsNeuralNetwork" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A neural network layer</p><div class="fullcomment"><div class="comment cmt"><p>A neural network layer</p><p>A layer can be thought as a neural network itself as it has its own inputs
+and outputs the same was a NN does.
+A layer is defined by its neurons, their inputs and inputs weights, the
+activation function used and a bias for every neuron.
+</p></div></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.OutputHelper" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="OutputHelper[T]extendsAnyRef"></a>
+      <a id="OutputHelper[T]:OutputHelper[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="OutputHelper.html"><span class="name">OutputHelper</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@OutputHelper[T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Output helper object</p><div class="fullcomment"><div class="comment cmt"><p>Output helper object</p><p>Is is used to provide a nice interface between the input of a <code>GenericNeuralNetwork</code>
+(s Seq[T]) and the client. Specializing the class and adding field will bring much
+cleaner code can create a tidy way to fetch data from the <code>GenericNeuralNetwork</code></p><p>Created by Fabrizio on 07/01/2015.
+</p></div></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.Tester" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="TesterextendsAnyRef"></a>
+      <a id="Tester:Tester"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Tester.html"><span class="name">Tester</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@TesterextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Provides a way do test a Neural Network</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way do test a Neural Network</p><p>The test can be any kind of test, like a dump on CVS or
+performance tests</p><p>Created by Fabrizio on 05/03/2015.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ActivationFunction"></a>
+      <a id="ActivationFunction:ActivationFunction"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ActivationFunction$.html"><span class="name">ActivationFunction</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../../index.html#com.colofabrix.scala.neuralnetwork.old.abstracts.package@ActivationFunction" title="Permalink" target="_top">
+        <img src="../../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

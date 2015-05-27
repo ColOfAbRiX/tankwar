@@ -85,7 +85,7 @@ class Renderer(val world: World, windowsTitle: String) {
       GL11.glRotated(tank.rotation.t * 180 / Math.PI, 0, 0, 1)
 
       // The color of the tank depends on its fitness
-      GL11.glColor3d(1, 2 * fitness / TankEvaluator.higherFitness(world), 0)
+      GL11.glColor3d(1, fitness / TankEvaluator.higherFitness(world), 0)
 
       // Draw the shape of a tank
       GL11.glBegin(GL11.GL_TRIANGLES)
@@ -95,9 +95,12 @@ class Renderer(val world: World, windowsTitle: String) {
       GL11.glEnd()
       drawCircle(new Circle(Vector2D.origin, size))
 
-      // Draw the sight of a tank
-      GL11.glColor3d(0.1, 0.1, 0.1)
-      drawCircle(new Circle(Vector2D.origin, sight))
+      // Draw the sights of a tank
+      GL11.glColor3d(0.3, 0.1, 0.1)
+      drawCircle(tank.threatsSight)
+
+      GL11.glColor3d(0.1, 0.3, 0.1)
+      drawCircle(tank.targetsSight)
 
     GL11.glPopMatrix()
   }
@@ -153,13 +156,15 @@ class Renderer(val world: World, windowsTitle: String) {
    * @param circle The circle to draw
    */
   private def drawCircle(circle: Circle) {
-    val numSegments: Int = (circle.radius * 2.0 * Math.PI).toInt
+    val numSegments: Int = Math.max((circle.radius * 2.0 * Math.PI / 10).toInt, 10)
 
+    //GL11.glTranslated(circle.center.x, circle.center.x, 0)
+    GL11.glTranslated(0, 0, 0)
     GL11.glBegin(GL11.GL_LINE_LOOP)
 
       for( i ← 0 until numSegments ) {
         val tetha = 2.0 * Math.PI * i.toDouble / numSegments.toDouble
-        val point = Vector2D.new_rt(circle.radius, tetha) + circle.center
+        val point = Vector2D.new_rt(circle.radius, tetha)
         GL11.glVertex2f(point.x.toFloat, point.y.toFloat)
       }
 

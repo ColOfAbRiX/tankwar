@@ -2,9 +2,7 @@ package com.colofabrix.test.scala.neuralnetwork.old
 
 import com.colofabrix.scala.neuralnetwork.old.FeedforwardNeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
-import com.colofabrix.scala.neuralnetwork.old.layers.{OutputLayer, HiddenLayer, InputLayer}
-import com.colofabrix.scala.neuralnetwork.old._
-import com.colofabrix.scala.neuralnetwork.old.layers._
+import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
 import org.scalatest._
 
 import scala.util.Random

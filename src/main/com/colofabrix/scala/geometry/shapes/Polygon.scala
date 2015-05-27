@@ -208,7 +208,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * Implementation of the polygon area algorithm
    * Ref: http://geomalgorithms.com/a01-_area.html
    */
-  override def area = {
+  lazy val area = {
     (vertices :+ vertices.head).sliding(3).map {
       case v0 :: v1 :: v2 :: Nil => v1.x * (v2.y - v0.y)
     }.sum / 2.0

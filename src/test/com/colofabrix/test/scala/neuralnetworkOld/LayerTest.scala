@@ -3,9 +3,7 @@ package com.colofabrix.test.scala.neuralnetwork.old
 import java.io.{File, PrintWriter}
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.{ActivationFunction, NeuronLayer}
-import com.colofabrix.scala.neuralnetwork.old.activationfunctions.{Sigmoid, Linear}
-import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
-import com.colofabrix.scala.neuralnetwork.old.activationfunctions.Sigmoid
+import com.colofabrix.scala.neuralnetwork.old.activationfunctions.{Linear, Sigmoid}
 import org.scalatest._
 
 /**

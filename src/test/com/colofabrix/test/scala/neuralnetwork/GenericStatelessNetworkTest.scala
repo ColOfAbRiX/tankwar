@@ -1,6 +1,6 @@
 package com.colofabrix.test.scala.neuralnetwork
 
-import com.colofabrix.scala.math.{NetworkMatrix, Matrix}
+import com.colofabrix.scala.math.NetworkMatrix
 import com.colofabrix.scala.neuralnetwork.GenericStatelessNetwork
 import com.colofabrix.scala.neuralnetwork.abstracts._
 import org.scalatest.{Matchers, WordSpec}

@@ -43,4 +43,9 @@ with Container
   * Height of the rectangle
   */
   val height = topRight.y - bottomLeft.y
+
+  /**
+   * Area of the box
+   */
+  override lazy val area = width * height
 }

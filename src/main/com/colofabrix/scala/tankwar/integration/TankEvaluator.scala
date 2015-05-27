@@ -34,9 +34,8 @@ object TankEvaluator {
    */
   def fitness(t: Tank): Double = {
     val (w, ts) = (t.world, t.world.tanks)
-    3.0 * t.kills.toDouble / (ts.length - 1).toDouble +
-      3.0 * t.surviveTime.toDouble / w.max_rounds.toDouble +
-      1.0 * ts.count(_.isDead).toDouble / (ts.length - 1).toDouble
+    //3.0 * t.kills.toDouble / (ts.length - 1).toDouble + 2.0 * t.surviveTime.toDouble / w.max_rounds.toDouble + 1.0 * ts.count(_.isDead).toDouble / (ts.length - 1).toDouble
+    t.kills.toDouble / ts.length.toDouble
   }
 
   /**
@@ -46,7 +45,8 @@ object TankEvaluator {
    * @return The highest possible value
    */
   def higherFitness(world: World): Double = {
-    val fittest = world.tanks.maxBy(fitness)
-    fitness(fittest)
+    fitness(
+      world.tanks.maxBy(fitness)
+    )
   }
 }
