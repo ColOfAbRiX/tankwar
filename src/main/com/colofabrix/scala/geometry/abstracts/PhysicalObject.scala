@@ -36,6 +36,22 @@ trait PhysicalObject {
   protected var _speed: Vector2D = Vector2D.new_xy(0, 0)
 
   /**
+   * Rotation of the Tank's main axis
+   *
+   * @return A versor indicating the angle formed by the Tank's main axis and the X axis in radians
+   */
+  final def rotation: Vector2D = _rotation
+  protected var _rotation: Vector2D = Vector2D.new_rt(1, 0)
+
+  /**
+   * Angular speed of the object relative
+   *
+   * @return The current step angular speed
+   */
+  final def angularSpeed: Double = _angularSpeed
+  protected var _angularSpeed: Double = 0.0
+
+  /**
    * Mass of the PhysicalObject
    *
    * @return The mass of the object

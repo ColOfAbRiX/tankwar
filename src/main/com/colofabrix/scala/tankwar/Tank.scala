@@ -6,6 +6,7 @@ import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
+import com.colofabrix.scala.tankwar.integration.TankEvaluator
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -21,16 +22,18 @@ class Tank private (override val world: World, initialData: TankChromosome, data
 
   import java.lang.Math._
 
-  private var _isDead = false
-  private var _shoot = 0.0
-  private var _killsCount: Int = 0
-  private var _surviveTime: Long = 0
-  private var _rotation: Vector2D = Vector2D.new_rt(1, 0)
-  private var _isShooting: Boolean = false
+  private var _direction = Vector2D.new_xy(1, 1)
+  private val _rotReference = initialData.rotationRef
+
   private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer()
   private var _seenBullets: ArrayBuffer[(Bullet, Vector2D, Vector2D)] = ArrayBuffer()
-  private var _direction = Vector2D.new_xy(1, 1)
-  private val _zeroRotation = initialData.rotationRef
+
+  private var _isShooting: Boolean = false
+  private var _shoot = 0.0
+
+  private var _isDead = false
+  private var _killsCount: Int = 0
+  private var _surviveTime: Long = 0
 
   /**
    * The list of tanks in the sight of the current instance of tank
@@ -56,14 +59,18 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    *
    * The shape is a {Circle} with the area equal to a fraction of the allowed maximum sight area and complementary to {targetsSight}
    */
-  def threatsSight = new Circle(_position, Math.sqrt((world.max_sight * initialData.sightRatio) / Math.PI))
+  def threatsSight = new Circle(_position,
+    initialData.sightRatio * Math.sqrt(world.max_sight / Math.PI)
+  )
 
   /**
    * The sight distance of the Tank in relation to the targets
    *
    * The shape is a {Circle} with the area equal to a fraction of the allowed maximum sight area and complementary to {threatsSight}
    */
-  def targetsSight = new Circle(_position, Math.sqrt((world.max_sight * (1.0 - initialData.sightRatio)) / Math.PI))
+  def targetsSight = new Circle(_position,
+    (1.0 - initialData.sightRatio) * Math.sqrt(world.max_sight / Math.PI)
+  )
 
   /**
    * Indicates if the tank is dead
@@ -97,8 +104,6 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * Position of the center of the PhysicalObject
    *
    * At creation time it is initialized as a random value inside the arena
-   *
-   * @return The point on the world where is the center of the PhysicalObject
    */
    _position = world.arena.topRight := { _ * Random.nextDouble() }
 
@@ -106,17 +111,10 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * Speed of the object relative to the arena
    *
    * At creation time it is always zero
-   *
-   * @return The current step speed
    */
   _speed = Vector2D.new_xy(0.0, 0.0)
 
-  /**
-   * Rotation of the Tank's main axis
-   *
-   * @return A versor indicating the angle formed by the Tank's main axis and the X axis in radians
-   */
-  def rotation = _rotation ¬ _zeroRotation
+  _rotation = Vector2D.new_rt(1, _rotReference)
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -146,33 +144,20 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     if( _seenBullets.isEmpty )
       return (Vector2D.zero, Vector2D.zero)
 
-    // FIXME: Understand the reason of the exception
-    try {
-      val posVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._2)
-      val speedVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._3)
+    // FIXME: In the past here an exception appeared, multiple times
+    val posVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._2)
+    val speedVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._3)
 
-      (posVector, speedVector)
-    }
-    catch { case x: Exception =>
-      println( "_seenTanks:" + _seenTanks )
-      return (Vector2D.zero, Vector2D.zero)
-    }
+    (posVector, speedVector)
   }
 
   private def calculateTankVision: (Vector2D, Vector2D) = {
     if( _seenTanks.isEmpty )
       return (Vector2D.zero, Vector2D.zero)
 
-    // FIXME: Understand the reason of the exception
-    try {
-      val selectedTank = _seenTanks.sortBy( _._1.id ).head
-
-      (selectedTank._2, selectedTank._3)
-    }
-    catch { case x: Exception =>
-      println( "_seenTanks:" + _seenTanks )
-      return (Vector2D.zero, Vector2D.zero)
-    }
+    // FIXME: In the past here an exception appeared, multiple times
+    val selectedTank = _seenTanks.sortBy( t => TankEvaluator.fitness(t._1) ).head
+    (selectedTank._2, selectedTank._3)
   }
 
   /**
@@ -185,46 +170,25 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(world, _position, _speed, _rotation, seenTank._1, seenTank._2, seenBullet._1, seenBullet._2)
+        new BrainInputHelper(world, _position, _speed := _direction, _rotation, seenTank._1, seenTank._2, seenBullet._1, seenBullet._2)
       )
     )
 
-    // SPEED SECTION
-    {
-      // The output is considered to be a force that changes the speed
-      //_speed = _speed + (output.force / _mass)
-
-      // The output of the NN is the speed (mapped to the max allowed speed) but limited to a certain amount of change over time
-      //_speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
-
-      // The output of the NN is the speed (mapped to the max allowed speed)
-      _speed = (output.force * world.max_tank_speed) := _direction
-    }
-
+    // The output of the NN is the speed (mapped to the max allowed speed)
+    _speed = (output.force * world.max_tank_speed) := _direction
     _position = _position + _speed
 
-    // ROTATION SECTION
-    {
-      // The rotation is found changing the previous angle with the output of the NN but limited to a certain amount of change over time
-      //_rotation = _rotation ¬ min(max(output.rotation, 10.0 * Math.PI / 180.0), 10.0 * Math.PI / 180.0)
+    // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
+    val newAngle = output.rotation * Math.PI * 2.0 + _rotReference
+    _angularSpeed = Math.min(newAngle - _rotation.t, world.max_tank_rotation)
+    _rotation = Vector2D.new_rt(1, _rotation.t + _angularSpeed)
 
-      // The rotation is found changing the previous angle with the output of the NN
-      //_rotation = _rotation ¬ output.rotation
-
-      // The rotation is found using directly the output of the NN (mapped to a circle)
-      _rotation = Vector2D.new_rt(1, output.rotation * Math.PI * 2.0) ¬ _zeroRotation
-    }
-
-    // SHOOTING SECTION
-    {
-      // It shoots when the function changes tone
-      _isShooting = output.shoot - _shoot > 0.0
-      if (_isShooting) world.on_tankShot(this)
-      _shoot = output.shoot
-    }
+    // It shoots when the function is increasing
+    _isShooting = output.shoot - _shoot > 0.02
+    if (_isShooting) world.on_tankShot(this)
+    _shoot = output.shoot
 
     // Update the survive time at each tick
-    //_surviveTime = world.time
     _surviveTime += 1
 
     // Reset the vision every step
@@ -239,7 +203,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    */
   def on_isHit(bullet: Bullet): Unit = {
      _isDead = true
-    _killsCount /= 2
+    _killsCount = Math.max(_killsCount - 1, 0)
   }
 
   /**
@@ -256,11 +220,6 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
    */
   override def on_hitsWalls(): Unit = {
-    // Invert the speed on the axis of impact (used when the output is considered to be a force
-    //_speed = _speed := { (x, i) =>
-    //  if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
-    //}
-
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
     _direction = _direction := { (x, i) =>
       if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x

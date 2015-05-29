@@ -29,13 +29,16 @@ object TankEvaluator {
   /**
    * Returns the fitness of a tank
    *
+   * The current algorithm count the number of kills relative to the total number of Tanks
+   *
    * @param t The tank being evaluated
    * @return The score of the tank representing its fitness
    */
   def fitness(t: Tank): Double = {
     val (w, ts) = (t.world, t.world.tanks)
-    //3.0 * t.kills.toDouble / (ts.length - 1).toDouble + 2.0 * t.surviveTime.toDouble / w.max_rounds.toDouble + 1.0 * ts.count(_.isDead).toDouble / (ts.length - 1).toDouble
-    t.kills.toDouble / ts.length.toDouble
+
+    2.0 * t.kills.toDouble / ts.length.toDouble +
+      3.0 * t.surviveTime.toDouble / w.max_rounds.toDouble
   }
 
   /**
@@ -45,8 +48,8 @@ object TankEvaluator {
    * @return The highest possible value
    */
   def higherFitness(world: World): Double = {
-    fitness(
-      world.tanks.maxBy(fitness)
-    )
+    //fitness(world.tanks.maxBy(fitness))
+    5.0
   }
+
 }

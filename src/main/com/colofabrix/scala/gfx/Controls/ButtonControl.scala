@@ -15,8 +15,8 @@ import org.newdawn.slick.opengl.Texture
  */
 class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
 
-  //TODO: Make timing in seconds not steps
-  // ->TODO: Add a universal DeltaTime for the project
+  // NOTE: Make timing in seconds not steps
+  // NOTE: Add a universal DeltaTime for the project
 
   require(area != null, "Must have a screen area")
   require(action != null, "Must have an action")
@@ -77,6 +77,6 @@ class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
 
   }
 
-  // TODO: Textures for button
+  // NOTE: Textures for button
 
 }

@@ -20,6 +20,7 @@ import scala.collection.JavaConversions._
  * Created by Fabrizio on 29/09/2014.
  */
 object TankWarMain {
+
   def main( args: Array[String] ) {
 
     // Clean analysis files
@@ -59,7 +60,8 @@ object TankWarMain {
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation and stop for stagnation
-    engine.evolve(11, 0, new Stagnation(500, true))
+    engine.evolve(5, 0, new Stagnation(1000, true))
   }
+
 }
 

@@ -17,6 +17,10 @@ import scala.collection.JavaConversions._
  * Created by Fabrizio on 27/01/2015.
  */
 abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
+  /**
+   * Constant used for those ranges that don't include the extremities
+   */
+  val extremityDistance = 1E-6
 
   override def apply(list: util.List[Tank], random: Random): util.List[Tank] = {
     // Calls mutation rules for each Tank

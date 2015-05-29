@@ -27,7 +27,8 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
   protected def mutationRule(scale: Double)(x: Double, rng: Random) = {
     if( rng.nextDouble <= probability.doubleValue )
       rng.nextDouble * 2.0 * scale - scale
-    else x
+    else
+      x
   }
 
   /**
@@ -73,5 +74,11 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param random Random number generator
    * @return A new sight ratio with applied the mutation rules
    */
-  protected def mutateSightRatio(c: TankChromosome, random: Random) = Math.abs(mutationRule(0.998)(c.sightRatio, random)) + 0.001
+  protected def mutateSightRatio(c: TankChromosome, random: Random) = {
+    // The sight ration doesn't use {mutationRule} because its value is not centered in zero
+    if( random.nextDouble <= probability.doubleValue )
+      random.nextDouble * (1.0 - 2.0 * extremityDistance) + extremityDistance
+    else
+      c.sightRatio
+  }
 }

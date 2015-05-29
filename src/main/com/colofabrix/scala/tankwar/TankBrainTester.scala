@@ -12,7 +12,7 @@ import com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser
  *
  * Created by Fabrizio on 15/02/2015.
  */
-final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank.world, tank.brain) {   // FIXME: The null value (DANGER!) is temporary until I integrate the new changes
+final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank.world, tank.brain) {
 
   /**
    * First line that will be written to the output stream

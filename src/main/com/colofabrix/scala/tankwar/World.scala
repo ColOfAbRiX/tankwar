@@ -6,7 +6,7 @@ import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.util.Random
 
 /**
@@ -28,7 +28,7 @@ import scala.util.Random
 class World(
   val arena: Box = Box( Vector2D.new_xy(0, 0), Vector2D.new_xy(1280, 800) ),
   val max_tank_speed: Double = 8,
-  val max_tank_rotation: Double = 0.2,
+  val max_tank_rotation: Double = Math.PI / 8.0,
   val max_bullet_speed: Double = 8,
   val bullet_life: Int = 15,
   val max_sight: Double = 62831.853071795864,   // Area for a total radius of 100
@@ -51,6 +51,10 @@ class World(
    */
   val tanks: ListBuffer[Tank] = _tanks.to
 
+  /**
+   * Penalty applied to each tank by the rules of the world
+   */
+  val tanksPenalty = ArrayBuffer.fill(tanks.length)(0.0)
 
   /**
    * List of bullets running through the world
@@ -74,7 +78,7 @@ class World(
   val rounds = 1 to max_rounds
 
 
-  // TODO: Unknown
+  // NOTE: Freddie's integration of graphic. Temporary
   private val renderer = new Renderer(this, "TankWar")
   private val _inputManager = new InputManager
   def inputManager = _inputManager
@@ -103,9 +107,9 @@ class World(
   private val _counters = collection.mutable.HashMap(
     "hits" -> 0,
     "shots" -> 0,
-    "bannedTanksForPosition" -> 0,
-    "bannedTanksForSpeed" -> 0,
-    "bannedTanksForSight" -> 0,
+    "bannedForPosition" -> 0,
+    "bannedForSpeed" -> 0,
+    "bannedForSight" -> 0,
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
@@ -128,12 +132,16 @@ class World(
       check_limit(
         () => arena.overlaps(b.position),
         () => b.on_hitsWalls(),
-        () => bullets -= b
+        () => {
+          bullets -= b
+
+        }
       )
 
       // Check the lifespan of a bullet
-      if( b.life >= bullet_life )
+      if( b.life >= bullet_life ) {
         bullets -= b
+      }
     }
 
     // Handling tanks
@@ -144,21 +152,21 @@ class World(
       check_limit(
         () => arena.overlaps(t.position),
         () => t.on_hitsWalls(),
-        () => { tanks -= t; incCounter("bannedTanksForPosition") }
+        () => { tanks -= t; incCounter("bannedForPosition") }
       )
 
       // Speed limit check
       check_limit(
         () => t.speed.x <= max_tank_speed || t.speed.y <= max_tank_speed,
         () => t.on_maxSpeedReached(),
-        () => { tanks -= t; incCounter("bannedTanksForSpeed") }
+        () => { tanks -= t; incCounter("bannedForSpeed") }
       )
 
       // Maximum sight boundary
       check_limit(
         () => t.targetsSight.area + t.threatsSight.area <= max_sight,
         () => t.on_sightExceedingMax(),
-        () => { tanks -= t; incCounter("bannedTanksForSight") }
+        () => { tanks -= t; incCounter("bannedForSight") }
       )
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
@@ -173,7 +181,7 @@ class World(
       // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
       bullets.par.foreach { bullet =>
         // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
-        if( t.threatsSight.overlaps(bullet.boundary) && bullet.tank != t ) {
+        if( t.threatsSight.overlaps(bullet.boundary) && bullet.tank != t && !bullet.tank.isDead ) {
           t.on_bulletOnSight(bullet)
           incCounter("seenBullets")
         }
@@ -273,17 +281,13 @@ class World(
     // Inform the tank that shot the bullet
     bullet.tank.on_hits(bullet, tank)
 
-    // Remove the bullet and the hit tank
-    //try {
-      _bullets -= bullet
-    /*}
-    catch {
-      case _: Exception =>
-    }*/
+    // FIXME: In the past here an exception appeared, multiple times
+    _bullets -= bullet
 
     incCounter("hits")
   }
 
+  // TODO: Create a proper data type for this
   private def incCounter(counter: String): Unit = {
     _counters += (counter -> (_counters(counter) + 1))
   }

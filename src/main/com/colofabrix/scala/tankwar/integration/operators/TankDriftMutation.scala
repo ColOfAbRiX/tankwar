@@ -40,7 +40,7 @@ class TankDriftMutation(probability: Probability, generator: NumberGenerator[jav
    * @return A new sight ratio with applied the mutation rules
    */
   override def mutateSightRatio(c: TankChromosome, random: Random) = {
-    Math.abs(mutationRule(0.998)(c.sightRatio, random)) + 0.001
+    Math.max(Math.min(mutationRule(1.0)(c.sightRatio, random), 1.0 - extremityDistance), extremityDistance)
   }
 
 }
