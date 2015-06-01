@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
@@ -110,6 +110,7 @@ class World(
     "bannedForPosition" -> 0,
     "bannedForSpeed" -> 0,
     "bannedForSight" -> 0,
+    "bannedForAngularSpeed" -> 0,
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
@@ -132,10 +133,7 @@ class World(
       check_limit(
         () => arena.overlaps(b.position),
         () => b.on_hitsWalls(),
-        () => {
-          bullets -= b
-
-        }
+        () => { bullets -= b }
       )
 
       // Check the lifespan of a bullet
@@ -145,7 +143,7 @@ class World(
     }
 
     // Handling tanks
-    tanks.filter( !_.isDead ).par.foreach { t =>
+    tanks.filter( !_.isDead ).par.foreach { t: Tank =>
       t.stepForward()
 
       // Arena boundary check
@@ -158,36 +156,43 @@ class World(
       // Speed limit check
       check_limit(
         () => t.speed.x <= max_tank_speed || t.speed.y <= max_tank_speed,
-        () => t.on_maxSpeedReached(),
+        () => t.on_maxSpeedReached(max_tank_speed),
         () => { tanks -= t; incCounter("bannedForSpeed") }
+      )
+
+      // Angular speed limit check
+      check_limit(
+        () => t.angularSpeed <= max_tank_rotation,
+        () => t.on_maxAngularSpeedReached(max_tank_rotation),
+        () => { tanks -= t; incCounter("bannedForAngularSpeed") }
       )
 
       // Maximum sight boundary
       check_limit(
-        () => t.targetsSight.area + t.threatsSight.area <= max_sight,
-        () => t.on_sightExceedingMax(),
+        () => t.sight(classOf[Tank]).area + t.sight(classOf[Bullet]).area <= max_sight,
+        () => t.on_sightExceedingMax(max_sight),
         () => { tanks -= t; incCounter("bannedForSight") }
       )
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
       tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that =>
         // If a tank overlaps a Tank's sight then I inform the Tank
-        if( t.targetsSight.overlaps(that.boundary) ) {
-          t.on_tankOnSight(that)
+        if( t.sight(classOf[Tank]).overlaps(that.objectShape) ) {
+          t.on_objectOnSight(that)
           incCounter("seenTanks")
         }
       }
 
       // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
-      bullets.par.foreach { bullet =>
+      bullets.par.foreach { that =>
         // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
-        if( t.threatsSight.overlaps(bullet.boundary) && bullet.tank != t && !bullet.tank.isDead ) {
-          t.on_bulletOnSight(bullet)
+        if( t.sight(classOf[Bullet]).overlaps(that.objectShape) && that.tank != t && !that.tank.isDead ) {
+          t.on_objectOnSight(that)
           incCounter("seenBullets")
         }
 
         // TODO: space partitioning for collision detection
-        if( bullet.touches(t) && bullet.tank != t ) this.on_tankHit(t, bullet)
+        if( that.touches(t) && that.tank != t ) this.on_tankHit(t, that)
       }
     }
 
@@ -274,12 +279,10 @@ class World(
     // Prevent a dead tank to kill another tank
     if( bullet.tank.isDead ) return
 
-    // Inform the bullet that hits
-    bullet.on_hits(tank)
     // Inform the hit tank
     tank.on_isHit(bullet)
     // Inform the tank that shot the bullet
-    bullet.tank.on_hits(bullet, tank)
+    bullet.tank.on_hits(bullet)
 
     // FIXME: In the past here an exception appeared, multiple times
     _bullets -= bullet

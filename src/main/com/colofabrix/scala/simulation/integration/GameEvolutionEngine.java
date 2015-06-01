@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar.integration;
+package com.colofabrix.scala.simulation.integration;
 
 import org.uncommons.watchmaker.framework.*;
 

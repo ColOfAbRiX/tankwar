@@ -1,8 +1,8 @@
-package com.colofabrix.scala.tankwar.integration
+package com.colofabrix.scala.simulation.integration
 
 import java.util
 
-import com.colofabrix.scala.tankwar.{Tank, World}
+import com.colofabrix.scala.simulation.{Tank, World}
 import org.uncommons.watchmaker.framework.FitnessEvaluator
 
 /**

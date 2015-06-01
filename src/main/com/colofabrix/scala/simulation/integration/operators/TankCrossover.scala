@@ -1,9 +1,9 @@
-package com.colofabrix.scala.tankwar.integration.operators
+package com.colofabrix.scala.simulation.integration.operators
 
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.tankwar.{Tank, TankChromosome}
+import com.colofabrix.scala.simulation.{Tank, TankChromosome}
 import org.uncommons.maths.random.Probability
 import org.uncommons.watchmaker.framework.operators.AbstractCrossover
 

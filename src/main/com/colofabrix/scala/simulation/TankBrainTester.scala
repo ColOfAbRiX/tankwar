@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.simulation
 
 import java.io.PrintWriter
 

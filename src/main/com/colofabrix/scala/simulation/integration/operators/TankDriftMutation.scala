@@ -1,8 +1,8 @@
-package com.colofabrix.scala.tankwar.integration.operators
+package com.colofabrix.scala.simulation.integration.operators
 
 import java.util.Random
 
-import com.colofabrix.scala.tankwar.TankChromosome
+import com.colofabrix.scala.simulation.TankChromosome
 import org.uncommons.maths.number.NumberGenerator
 import org.uncommons.maths.random.Probability
 

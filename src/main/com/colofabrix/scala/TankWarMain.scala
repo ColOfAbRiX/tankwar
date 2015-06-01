@@ -4,9 +4,9 @@ import java.io.File
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.tankwar.integration._
-import com.colofabrix.scala.tankwar.integration.operators.{TankCrossover, TankDriftMutation, TankFullMutation}
-import com.colofabrix.scala.tankwar.{Tank, World}
+import com.colofabrix.scala.simulation.integration._
+import com.colofabrix.scala.simulation.integration.operators.{TankCrossover, TankDriftMutation, TankFullMutation}
+import com.colofabrix.scala.simulation.{Tank, World}
 import org.uncommons.maths.random.{GaussianGenerator, MersenneTwisterRNG, Probability}
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
 import org.uncommons.watchmaker.framework.selection.TournamentSelection
@@ -60,7 +60,7 @@ object TankWarMain {
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation and stop for stagnation
-    engine.evolve(5, 0, new Stagnation(1000, true))
+    engine.evolve(10, 0, new Stagnation(1000, true))
   }
 
 }

@@ -1,12 +1,12 @@
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
+import com.colofabrix.scala.geometry.abstracts.{InteractiveObject, PhysicalObject, Shape}
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
-import com.colofabrix.scala.tankwar.integration.TankEvaluator
+import com.colofabrix.scala.simulation.integration.TankEvaluator
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -18,7 +18,8 @@ import scala.util.Random
  * @param initialData The defining data of the Tank in the form of a Chromosome
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
-class Tank private (override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty) extends PhysicalObject {
+class Tank private (override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty)
+extends PhysicalObject with InteractiveObject {
 
   import java.lang.Math._
 
@@ -52,25 +53,7 @@ class Tank private (override val world: World, initialData: TankChromosome, data
   /**
    * Physical boundary of the PhysicalObject located in the space
    */
-  override def boundary: Shape = Circle(_position, 10)
-
-  /**
-   * The sight shape of the Tank in relation to the threats
-   *
-   * The shape is a {Circle} with the area equal to a fraction of the allowed maximum sight area and complementary to {targetsSight}
-   */
-  def threatsSight = new Circle(_position,
-    initialData.sightRatio * Math.sqrt(world.max_sight / Math.PI)
-  )
-
-  /**
-   * The sight distance of the Tank in relation to the targets
-   *
-   * The shape is a {Circle} with the area equal to a fraction of the allowed maximum sight area and complementary to {threatsSight}
-   */
-  def targetsSight = new Circle(_position,
-    (1.0 - initialData.sightRatio) * Math.sqrt(world.max_sight / Math.PI)
-  )
+  override def objectShape: Shape = Circle(_position, 10)
 
   /**
    * Indicates if the tank is dead
@@ -113,8 +96,6 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * At creation time it is always zero
    */
   _speed = Vector2D.new_xy(0.0, 0.0)
-
-  _rotation = Vector2D.new_rt(1, _rotReference)
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -179,8 +160,8 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     _position = _position + _speed
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
-    val newAngle = output.rotation * Math.PI * 2.0 + _rotReference
-    _angularSpeed = Math.min(newAngle - _rotation.t, world.max_tank_rotation)
+    val newAngle = output.rotation * PI * 2.0 + _rotReference
+    _angularSpeed = min(newAngle - _rotation.t, world.max_tank_rotation)
     _rotation = Vector2D.new_rt(1, _rotation.t + _angularSpeed)
 
     // It shoots when the function is increasing
@@ -194,87 +175,6 @@ class Tank private (override val world: World, initialData: TankChromosome, data
     // Reset the vision every step
     _seenTanks.clear()
     _seenBullets.clear()
-  }
-
-  /**
-   * Callback function used to signal the Tank that it has been hit by a bullet
-   *
-   * @param bullet The bullet that hits the tank
-   */
-  def on_isHit(bullet: Bullet): Unit = {
-     _isDead = true
-    _killsCount = Math.max(_killsCount - 1, 0)
-  }
-
-  /**
-   * Callback function used to signal the Tank that it has hit another tank with a bullet
-   *
-   * @param bullet The bullet that has hit a tank
-   * @param tank The tank that is hit
-   */
-  def on_hits(bullet: Bullet, tank: Tank) {
-    _killsCount += 1 + tank.kills
-  }
-
-  /**
-   * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
-   */
-  override def on_hitsWalls(): Unit = {
-    // Invert the speed on the axis of impact (used when the output is considered to be the speed
-    _direction = _direction := { (x, i) =>
-      if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
-    }
-
-    // Trim the position to the boundary of the arena if the tank is outside
-    _position = _position := ((x, i) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
-  }
-
-  /**
-   * Callback function used to signal the Tank that is moving faster than the maximum allowed speed
-   */
-  override def on_maxSpeedReached(): Unit = {
-    _speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
-  }
-
-  /**
-   * Callback function used to signal the Tank that a tank is on its sight
-   *
-   * @param t Tank which has been seen
-   */
-  def on_tankOnSight(t: Tank): Unit = {
-    val direction = t.position - this.position
-    val speed = _speed - t.speed
-
-    // Memorize the direction of all the targets (one at a time)
-    _seenTanks += ((t, direction, speed))
-  }
-
-  /**
-   * Callback function used to signal the Tank that a bullet is on its sight
-   *
-   * @param b Bullet which has been seen
-   */
-  def on_bulletOnSight(b: Bullet): Unit = {
-    val direction = b.position - this.position
-    val speed = _speed - b.speed
-
-    // Memorize the direction of all the threats (one at a time)
-    _seenBullets += ((b, direction, speed))
-  }
-
-  /**
-   * Callback function used to signal the Tank that it will be respawned in the next step
-   */
-  def on_respawn(): Unit = {
-    _speed = Vector2D.new_xy(0, 0)
-    _position = world.arena.topRight := { _ * Random.nextDouble() }
-    _isDead = false
-  }
-
-  /**
-   * Callback function used to signal the Tank that its sight is exceeding the world limits
-   */
-  def on_sightExceedingMax(): Unit = {
   }
 
   /**
@@ -299,6 +199,117 @@ class Tank private (override val world: World, initialData: TankChromosome, data
    * @return A string containing the
    */
   override def toString = id
+
+  /**
+   * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
+   */
+  override def on_hitsWalls(): Unit = {
+    // Invert the speed on the axis of impact (used when the output is considered to be the speed
+    _direction = _direction := { (x, i) =>
+      if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
+    }
+
+    // Trim the position to the boundary of the arena if the tank is outside
+    _position = _position := ((x, i) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
+  }
+
+  /**
+   * Callback function used to signal the Tank that is moving faster than the maximum allowed speed
+   */
+  override def on_maxSpeedReached(maxSpeed: Double): Unit = {
+    //_speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
+  }
+
+  /**
+   * Callback function used to signal the Tank that is revolving faster than the maximum allowed angular speed
+   */
+  override def on_maxAngularSpeedReached(maxAngularSpeed: Double): Unit = {}
+
+  /**
+   * Callback function used to signal the Tank that it will be respawned in the next step
+   */
+  override def on_respawn(): Unit = {
+    _speed = Vector2D.new_xy(0, 0)
+    _position = world.arena.topRight := { _ * Random.nextDouble() }
+    _isDead = false
+  }
+
+  /**
+   * The sight of the object in relation of a specific object
+   *
+   * It returns a shape that represents the sight that the current instance has towards object of another type
+   *
+   * @param that The class type of the object that we are interested in
+   * @tparam T N/A
+   * @return A {Shape} that represents the sight towards the object type of {that}
+   */
+  override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
+    if( that == classOf[Tank] )
+      return new Circle(_position,
+        (1.0 - initialData.sightRatio) * sqrt(world.max_sight / PI)
+      )
+
+    if( that == classOf[Bullet] )
+      return new Circle(_position,
+        initialData.sightRatio * sqrt(world.max_sight / PI)
+      )
+
+    return null
+  }
+
+  /**
+   * Callback function used to signal the Tank that a bullet is on its sight
+   *
+   * @param that The object that it's in the sight of the current one
+   */
+  override def on_objectOnSight(that: PhysicalObject): Unit = {
+    val direction = that.position - this.position
+    val speed = _speed - that.speed
+
+    that match {
+      case t: Tank =>
+        // Memorize the direction of all the targets (one at a time)
+        _seenTanks += ((t, direction, speed))
+
+      case b: Bullet =>
+        // Memorize the direction of all the threats (one at a time)
+        _seenBullets += ((b, direction, speed))
+    }
+  }
+
+  /**
+   * Callback function used to signal the Tank that it has been hit by a bullet
+   *
+   * @param that The object that hit the current instance
+   */
+  override def on_isHit(that: PhysicalObject): Unit = that match {
+    case t: Tank =>
+      // No actions for Tank-Tank collision
+
+    case b: Bullet =>
+      // Kill myself and lower my fitness
+      _isDead = true
+      _killsCount = max(_killsCount - 1, 0)
+  }
+
+  /**
+   * Callback function used to signal the object that it has hit another object
+   *
+   * @param that The object that is being hit
+   */
+  override def on_hits(that: PhysicalObject): Unit = that match {
+    case t: Tank =>
+      // No actions for Tank-Tank collision
+
+    case b: Bullet =>
+      // Making up points for the fitness
+      _killsCount += 1 + b.tank.kills
+  }
+
+  /**
+   * Callback function used to signal the object that its sight is exceeding the limits
+   */
+  override def on_sightExceedingMax( maxAllowedArea: Double ): Unit = {}
 }
 
 

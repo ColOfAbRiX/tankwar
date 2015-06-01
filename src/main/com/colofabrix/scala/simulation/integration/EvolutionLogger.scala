@@ -1,8 +1,8 @@
-package com.colofabrix.scala.tankwar.integration
+package com.colofabrix.scala.simulation.integration
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.tankwar.{Tank, TankBrainTester}
+import com.colofabrix.scala.simulation.{Tank, TankBrainTester}
 import org.uncommons.watchmaker.framework.{EvolutionObserver, PopulationData}
 
 /**

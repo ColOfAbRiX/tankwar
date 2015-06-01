@@ -1,9 +1,9 @@
-package com.colofabrix.scala.tankwar.integration
+package com.colofabrix.scala.simulation.integration
 
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.tankwar.Tank
+import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy}
 
 import scala.collection.JavaConversions._

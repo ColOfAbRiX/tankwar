@@ -1,4 +1,4 @@
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.{InputHelper, OutputHelper}

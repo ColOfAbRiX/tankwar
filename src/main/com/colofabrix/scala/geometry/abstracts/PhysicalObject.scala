@@ -1,7 +1,7 @@
 package com.colofabrix.scala.geometry.abstracts
 
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.tankwar.World
+import com.colofabrix.scala.simulation.World
 
 /**
  * Represents a physical objects in the physical space with some physical details
@@ -17,7 +17,7 @@ trait PhysicalObject {
   /**
    * Physical boundary of the PhysicalObject.
    */
-  def boundary: Shape
+  def objectShape: Shape
 
   /**
    * Position of the center of the PhysicalObject
@@ -70,7 +70,7 @@ trait PhysicalObject {
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def overlaps(that: Vector2D): Boolean = boundary.overlaps(that)
+  def overlaps(that: Vector2D): Boolean = objectShape.overlaps(that)
 
   /**
    * Determines if a shape touches this one
@@ -78,7 +78,7 @@ trait PhysicalObject {
    * @param that The shape to check
    * @return true if the two shapes overlap
    */
-  def touches(that: PhysicalObject): Boolean = this.boundary.overlaps(that.boundary)
+  def touches(that: PhysicalObject): Boolean = this.objectShape.overlaps(that.objectShape)
 
   /**
    * Random PhysicalObject identifier
@@ -93,12 +93,22 @@ trait PhysicalObject {
   def record = s"$id,${world.time},${position.x},${position.y},${speed.x},${speed.y}"
 
   /**
-   * Called when the objects goes outside the arena
+   * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
    */
   def on_hitsWalls(): Unit
 
   /**
-   * Called when the objects is moving faster than the allowed speed
+   * Callback function used to signal the {PhysicalObject} that is moving faster than the maximum allowed speed
    */
-  def on_maxSpeedReached(): Unit
+  def on_maxSpeedReached(maxSpeed: Double): Unit
+
+  /**
+   * Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
+   */
+  def on_maxAngularSpeedReached(maxAngularSpeed: Double): Unit
+
+  /**
+   * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
+   */
+  def on_respawn(): Unit
 }

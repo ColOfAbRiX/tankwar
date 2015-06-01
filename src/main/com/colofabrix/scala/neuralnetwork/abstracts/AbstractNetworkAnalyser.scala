@@ -2,7 +2,7 @@ package com.colofabrix.scala.neuralnetwork.abstracts
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.tankwar.{BrainInputHelper, World}
+import com.colofabrix.scala.simulation.{BrainInputHelper, World}
 
 /**
  * Provides a way to visualize the behaviour of a NN

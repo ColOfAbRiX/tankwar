@@ -2,8 +2,8 @@ package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.tankwar.integration.TankEvaluator
-import com.colofabrix.scala.tankwar.{Bullet, Tank, World}
+import com.colofabrix.scala.simulation.integration.TankEvaluator
+import com.colofabrix.scala.simulation.{Bullet, Tank, World}
 import org.lwjgl.opengl.{Display, DisplayMode, GL11}
 
 /**
@@ -74,7 +74,7 @@ class Renderer(val world: World, windowsTitle: String) {
   }
 
   private def drawTank(tank: Tank) {
-    val size: Double = tank.boundary.asInstanceOf[Circle].radius
+    val size: Double = tank.objectShape.asInstanceOf[Circle].radius
     val fitness: Double = new TankEvaluator().getFitness(tank, null)
     val sight: Double = world.max_sight
 
@@ -97,10 +97,10 @@ class Renderer(val world: World, windowsTitle: String) {
 
       // Draw the sights of a tank
       GL11.glColor3d(0.3, 0.1, 0.1)
-      drawCircle(tank.threatsSight)
+      drawCircle(tank.sight(classOf[Bullet]).asInstanceOf[Circle])
 
       GL11.glColor3d(0.1, 0.3, 0.1)
-      drawCircle(tank.targetsSight)
+      drawCircle(tank.sight(classOf[Tank]).asInstanceOf[Circle])
 
     GL11.glPopMatrix()
   }
@@ -110,7 +110,7 @@ class Renderer(val world: World, windowsTitle: String) {
   }
 
   private def drawBullet(bullet: Bullet) {
-    val size: Double = bullet.boundary.asInstanceOf[Circle].radius
+    val size: Double = bullet.objectShape.asInstanceOf[Circle].radius
 
     GL11.glPushMatrix()
 
