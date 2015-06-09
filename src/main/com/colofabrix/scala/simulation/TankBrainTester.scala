@@ -7,10 +7,7 @@ import com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser
 /**
  * Provides a way to visualize the behaviour of a NN
  *
- * This class allows to create CSV files to analyse the various outputs varying
- * specific inputs.
- *
- * Created by Fabrizio on 15/02/2015.
+ * This class allows to create CSV files to analyse the various outputs varying specific inputs.
  */
 final class TankBrainTester(val tank: Tank) extends AbstractNetworkAnalyser(tank.world, tank.brain) {
 

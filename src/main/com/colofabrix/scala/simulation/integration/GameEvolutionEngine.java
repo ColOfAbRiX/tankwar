@@ -36,7 +36,9 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
 
         List<T> population = candidateFactory.generateInitialPopulation(populationSize, seedCandidates, rng);
 
+        // The competition is first run here
         population = runCompetition(population);
+        // Check that there are still individuals after the population
         if( population.size() <=1 ) throw new IllegalArgumentException("The population after the competition is too small");
 
         // Calculate the fitness scores for each member of the initial population.
@@ -53,6 +55,7 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
 
             evaluatedPopulation = nextEvolutionStep(evaluatedPopulation, eliteCount, rng);
 
+            // Competition is run again
             evaluatedPopulation = runCompetitionInternal(evaluatedPopulation);
             if( population.size() <=1 ) throw new IllegalArgumentException("The population after the competition is too small");
 

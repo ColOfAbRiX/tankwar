@@ -47,8 +47,9 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Polar Coordinate representation
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Polar Coordinate representation</p><p>Polar coordinates are always made to comply to the rules where the length is never negative and the angle is always
+between 0 and 2.0 * PI
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>https://en.wikipedia.org/wiki/Polar_coordinate_system</p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="../geometry/abstracts/Coordinates.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Coordinates">Coordinates</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -203,7 +204,7 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.colofabrix.scala.math.PolarCoord#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(other:Any):Boolean"></a>
+      <a id="equals(that:Any):Boolean"></a>
       <a id="equals(Any):Boolean"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -211,14 +212,17 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="other">other: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="that">that: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.PolarCoord@equals(other:Any):Boolean" title="Permalink" target="_top">
+      <a href="../../../../index.html#com.colofabrix.scala.math.PolarCoord@equals(that:Any):Boolean" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.math.PolarCoord">PolarCoord</a> → AnyRef → Any</dd></dl></div>
+      <p class="shortcomment cmt">Equality check between coordinates
+</p><div class="fullcomment"><div class="comment cmt"><p>Equality check between coordinates
+</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The other object to compare</p></dd><dt>returns</dt><dd class="cmt"><p>true if {that} represents the same coordinate as the current instance
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.math.PolarCoord">PolarCoord</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>

@@ -67,24 +67,24 @@
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="com.colofabrix.scala.math.CartesianCoord" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CartesianCoordextendsCoordinateswithProductwithSerializable"></a>
+      <a id="CartesianCoordextendsCoordinates"></a>
       <a id="CartesianCoord:CartesianCoord"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="CartesianCoord.html"><span class="name">CartesianCoord</span></a><span class="params">(<span name="x">x: <span class="extype" name="scala.Double">Double</span></span>, <span name="y">y: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result"> extends <a href="../geometry/abstracts/Coordinates.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Coordinates">Coordinates</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="CartesianCoord.html"><span class="name">CartesianCoord</span></a><span class="result"> extends <a href="../geometry/abstracts/Coordinates.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Coordinates">Coordinates</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.package@CartesianCoordextendsCoordinateswithProductwithSerializable" title="Permalink" target="_top">
+      <a href="../../../../index.html#com.colofabrix.scala.math.package@CartesianCoordextendsCoordinates" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
       <p class="shortcomment cmt">Cartesian Coordinate representation
 </p><div class="fullcomment"><div class="comment cmt"><p>Cartesian Coordinate representation
-</p></div><dl class="paramcmts block"><dt class="param">x</dt><dd class="cmt"><p>Distance on the X-Axis</p></dd><dt class="param">y</dt><dd class="cmt"><p>Distance on the Y-Axis</p></dd></dl></div>
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>https://en.wikipedia.org/wiki/Cartesian_coordinate_system</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Matrix[T]extendsAnyRef"></a>
       <a id="Matrix[T]:Matrix[T]"></a>
@@ -101,8 +101,8 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Represents an immutanle Matrix and the possible operations on it
-</p><div class="fullcomment"><div class="comment cmt"><p>Represents an immutanle Matrix and the possible operations on it
+      <p class="shortcomment cmt">Represents an immutable Matrix and the possible operations on it
+</p><div class="fullcomment"><div class="comment cmt"><p>Represents an immutable Matrix and the possible operations on it
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Data type of the matrix elements
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.NetworkMatrix" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -121,9 +121,11 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">An adjacency matrix for Neural Networks</p><div class="fullcomment"><div class="comment cmt"><p>An adjacency matrix for Neural Networks</p><p>It is a weighted, asymmetric adjacency matrix with Double.NaN to indicate non-connected vertices
+      <p class="shortcomment cmt">An adjacency matrix for Neural Networks</p><div class="fullcomment"><div class="comment cmt"><p>An adjacency matrix for Neural Networks</p><p>It is a weighted, asymmetric adjacency matrix with Double.NaN to indicate non-connected vertices. The matrix is composed
+of two parts, a square matrix that contains the weights of the edges and the last row that contains the biases for
+each neuron
 </p></div></div>
-    </li><li name="com.colofabrix.scala.math.PolarCoord" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.colofabrix.scala.math.PolarCoord" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PolarCoordextendsCoordinates"></a>
       <a id="PolarCoord:PolarCoord"></a>
       <h4 class="signature">
@@ -139,8 +141,9 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Polar Coordinate representation
-</p>
+      <p class="shortcomment cmt">Polar Coordinate representation</p><div class="fullcomment"><div class="comment cmt"><p>Polar Coordinate representation</p><p>Polar coordinates are always made to comply to the rules where the length is never negative and the angle is always
+between 0 and 2.0 * PI
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>https://en.wikipedia.org/wiki/Polar_coordinate_system</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Vector2D" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Vector2DextendsProductwithSerializable"></a>
       <a id="Vector2D:Vector2D"></a>
@@ -157,8 +160,9 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">A generic Cartesian Vector
-</p><div class="fullcomment"><div class="comment cmt"><p>A generic Cartesian Vector
+      <p class="shortcomment cmt">A generic Cartesian Vector</p><div class="fullcomment"><div class="comment cmt"><p>A generic Cartesian Vector</p><p>The vectors represented here are generic, thus they are non applied vectors. This means that there isn't a convention
+to interpret them. It can either be that they are indicating a point related to the origin of the axes or they can
+represents a difference vector with origin not in the origin of axes.
 </p></div><dl class="paramcmts block"><dt class="param">cartesian</dt><dd class="cmt"><p>The ending point of a origin centered vector in cartesian coordinates
 </p></dd></dl></div>
     </li></ol>
@@ -177,7 +181,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="CartesianCoord$.html"><span class="name">CartesianCoord</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a href="CartesianCoord$.html"><span class="name">CartesianCoord</span></a>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.math.package@CartesianCoord" title="Permalink" target="_top">

@@ -8,7 +8,7 @@ import com.colofabrix.scala.math.Vector2D
   *
   * This kind of shape is particularly useful in checking overlaps and collisions
   * as it is done in constant time O(k) and without complex mathematical operations.
-  * For this reasone, more than being only a {ConvexPolygon} it is also a {Container}
+  * For this reasons, more than being only a {ConvexPolygon} it is also a {Container}
   *
   * @param bottomLeft Rectangle left-bottom-most point
   * @param topRight Rectangle right-top point

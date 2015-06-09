@@ -47,7 +47,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Any Neural Network of any type.</p><p>A Neural Network has always a set of outputs given a set of inputs</p><p>Created by Fabrizio on 03/05/2015.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Any Neural Network of any type.</p><p>A Neural Network is a system with a set of inputs used to calculate a set of outputs. Internally the data
+is processed using a network that is modeled using a graph and a modified adjacency matrix.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -115,24 +116,6 @@
 </p><div class="fullcomment"><div class="comment cmt"><p>Activation function associated with the Neural Network
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The activation function of the Neural Network
 </p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#inputCount" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="inputCount:Int"></a>
-      <a id="inputCount:Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">inputCount</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork@inputCount:Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Number of inputs of the Neural Network
-</p>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#matrix" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="matrix:com.colofabrix.scala.math.NetworkMatrix"></a>
       <a id="matrix:NetworkMatrix"></a>
@@ -172,24 +155,6 @@ and for the nomenclature and assumptions
       <p class="shortcomment cmt">Calculate the output of the Neural Network</p><div class="fullcomment"><div class="comment cmt"><p>Calculate the output of the Neural Network</p><p>Given a set of input values it calculates the set of output values
 </p></div><dl class="paramcmts block"><dt class="param">inputs</dt><dd class="cmt"><p>A sequence of T to feed the NN</p></dd><dt>returns</dt><dd class="cmt"><p>A sequence of T representing the output
 </p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#outputCount" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="outputCount:Int"></a>
-      <a id="outputCount:Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">outputCount</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork@outputCount:Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Number of outputs of the Neural Network
-</p>
     </li></ol>
             </div>
 
@@ -322,7 +287,7 @@ and for the nomenclature and assumptions
       <p class="shortcomment cmt">Determine if two Neural Network are the same</p><div class="fullcomment"><div class="comment cmt"><p>Determine if two Neural Network are the same</p><p>The quality of two neural network is and must be only determined by their respective
 adjacency matrices, regardless of their implementation.
 This is not completely true as there are many equivalent matrices that specifies the same
-neural network
+neural network but imposing this condition ensure a simpler algorithm
 </p></div><dl class="paramcmts block"><dt class="param">other</dt><dd class="cmt"><p>The other object to check
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork">NeuralNetwork</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -385,6 +350,24 @@ neural network
 </p><div class="fullcomment"><div class="comment cmt"><p>Hashcode of the Neural Network
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A number identifying the network
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork">NeuralNetwork</a> → AnyRef → Any</dd></dl></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#inputCount" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="inputCount:Int"></a>
+      <a id="inputCount:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">inputCount</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork@inputCount:Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Number of inputs of the Neural Network
+</p>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#isAcyclic" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="isAcyclic:Boolean"></a>
       <a id="isAcyclic:Boolean"></a>
@@ -506,8 +489,26 @@ neural network
       </a>
     </span>
       <p class="shortcomment cmt">Calculate the output of the Neural Network</p><div class="fullcomment"><div class="comment cmt"><p>Calculate the output of the Neural Network</p><p>Given an input value it calculates the set of output values
-</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>A sequence of T to feed the NN</p></dd><dt>returns</dt><dd class="cmt"><p>A sequence of T representing the output
+</p></div><dl class="paramcmts block"><dt class="param">input</dt><dd class="cmt"><p>A numerical value of type T to feed the NN</p></dd><dt>returns</dt><dd class="cmt"><p>A sequence of T representing the output
 </p></dd></dl></div>
+    </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork#outputCount" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="outputCount:Int"></a>
+      <a id="outputCount:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">outputCount</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork@outputCount:Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Number of outputs of the Neural Network
+</p>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

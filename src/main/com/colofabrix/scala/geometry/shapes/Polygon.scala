@@ -171,7 +171,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**
-   * Moves a polygon shifting all its vertices by a vectorial quantity
+   * Moves a polygon shifting all its vertices by a vector quantity
    *
    * @param where The vector specifying how to move the polygon
    * @return A new polygon moved of {where}

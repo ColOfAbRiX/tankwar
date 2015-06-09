@@ -47,7 +47,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a geometric closed shape
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a geometric closed shape on a geometric space</p><p>This train contains definitions of basic geometric operations like distance to a point of a check to see if
+a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -111,7 +112,7 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">The area of the Shape
+      <p class="shortcomment cmt">The surface area of the Shape
 </p>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#container" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="container:com.colofabrix.scala.geometry.abstracts.Container"></a>
@@ -129,8 +130,11 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new shape that contains all the current shape
+      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.</p><p>A container is used as a faster and simpler way to obtain information or do some
+actions on a Shape that would otherwise require more computation.
+Ideally the computation should take O(n) or less. This trait should be applied
+to shapes that guarantee this fast computation
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new Container where the current shape is completely inside its boundaries
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#distance" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="distance(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)"></a>
@@ -169,7 +173,7 @@
     </span>
       <p class="shortcomment cmt">Compute the distance between a point and the boundary of the shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and the boundary of the shape
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>THe point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing the distance vector from the point to the boundary and the edge or the point from which the distance is calculated
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#move" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="move(where:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.geometry.abstracts.Shape"></a>
@@ -187,9 +191,8 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Moves a shape
-</p><div class="fullcomment"><div class="comment cmt"><p>Moves a shape
-</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying how to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of <code>where</code>
+      <p class="shortcomment cmt">Shifts a shape on the space</p><div class="fullcomment"><div class="comment cmt"><p>Shifts a shape on the space</p><p>Provided a vector, every vertex or equivalent of the shape will be moved following that vector
+</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying where to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of a vector {where}
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#overlaps" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="overlaps(that:com.colofabrix.scala.geometry.abstracts.Shape):Boolean"></a>
@@ -229,7 +232,7 @@
     </span>
       <p class="shortcomment cmt">Determines if a line segment touches in any way this shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a line segment touches in any way this shape
-</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
+</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line segment</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line segment</p></dd><dt>returns</dt><dd class="cmt"><p>True if the line intersects the shape
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#overlaps" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="overlaps(p:com.colofabrix.scala.math.Vector2D):Boolean"></a>
@@ -249,7 +252,7 @@
     </span>
       <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape or on its boundary
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -363,9 +366,10 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>Implementation of the algorithm: http://geomalgorithms.com/a02-_lines.html
+      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
+other methods.
 </p></div><dl class="paramcmts block"><dt class="param">v0</dt><dd class="cmt"><p>First end of the segment</p></dd><dt class="param">v1</dt><dd class="cmt"><p>Second end of the segment</p></dd><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to the segment or one of its ends
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a02-_lines.html</p></span></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>

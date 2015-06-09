@@ -45,7 +45,6 @@ class World(
   require( max_rounds > 0, "The number of rounds must be positive" )
   require( dead_time >= 0 && dead_time <= 1.0, "The dead time percentage must be between 0 and 1" )
 
-
   /**
    * List of tanks present in the world
    */
@@ -100,6 +99,7 @@ class World(
   }
 
 
+  // TODO: Create a proper data type for these (TKWAR-30)
   /**
    * Counters for the statistics of the world
    */
@@ -114,6 +114,24 @@ class World(
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
+
+  /**
+   * Increments a specific counter by 1
+   *
+   * @param counter The counter to increment
+   */
+  private def incCounter(counter: String): Unit = {
+    _counters += (counter -> (_counters(counter) + 1))
+  }
+
+  /**
+   * Reset a specific counter
+   *
+   * @param counter The counter to reset
+   */
+  private def resCounter(counter: String): Unit = {
+    _counters += (counter -> 0)
+  }
 
 
   /**
@@ -191,7 +209,7 @@ class World(
           incCounter("seenBullets")
         }
 
-        // TODO: space partitioning for collision detection
+        // TODO: space partitioning for collision detection (there might be hundreds of bullets!)
         if( that.touches(t) && that.tank != t ) this.on_tankHit(t, that)
       }
     }
@@ -213,6 +231,8 @@ class World(
     /**
    * Creates and add a new Tank to the world
    *
+     * NOTE: To be refactored
+     *
    * @return The newly created Tank
    */
   def createAndAddDefaultTank(reader: DataReader): Tank = {
@@ -226,8 +246,10 @@ class World(
   /**
    * Creates and add a new Tank to the world
    *
+   * NOTE: To be refactored
+   *
    * @param chromosome The chromosome defining the Tank
-   * @param reader
+   * @param reader N/A
    * @return
    */
   def createAndAddTank(chromosome: TankChromosome, reader: DataReader = null): Tank = {
@@ -236,13 +258,20 @@ class World(
     tank
   }
 
-
+  /**
+   * Resets the world to a known, initial states
+   *
+   * NOTE: Might be refactored
+   *
+   * @param tankList Current population of the world
+   */
   def resetWorld(tankList: List[Tank]): Unit = {
     // Reset time
     _time = 0
 
     // Reinitialize the Tanks
     tanks.clear()
+    tankList.foreach( _.clear() )
     tanks ++= tankList
 
     // Clear all bullets
@@ -259,13 +288,9 @@ class World(
    * @param tank The tank that requested to shot
    */
   def on_tankShot(tank: Tank) {
-    try {
-      _bullets += new Bullet(this, tank, max_bullet_speed)
-      incCounter("shots")
-    }
-    catch {
-      case _: Exception =>
-    }
+    // FIXME: In the past here an exception appeared, multiple times
+    _bullets += new Bullet(this, tank, max_bullet_speed)
+    incCounter("shots")
   }
 
 
@@ -288,14 +313,5 @@ class World(
     _bullets -= bullet
 
     incCounter("hits")
-  }
-
-  // TODO: Create a proper data type for this
-  private def incCounter(counter: String): Unit = {
-    _counters += (counter -> (_counters(counter) + 1))
-  }
-
-  private def resCounter(counter: String): Unit = {
-    _counters += (counter -> 0)
   }
 }

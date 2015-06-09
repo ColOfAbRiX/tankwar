@@ -17,10 +17,10 @@ class SeqDataReader(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af
 
   // These checks are done because we need a reliable set of data to extract information like the number of inputs
   require(biases.length == weights.length, "Biases and weights must represent the same number of layers")
-  require(biases.length > 0, "At least one layer must be specified")
+  require(biases.nonEmpty, "At least one layer must be specified")
   require(af.length == biases.length, "The activation functions must be specified for every layer")
   for ((b, w) <- biases zip weights) {
-    require(b.length > 0 && b.length == w.length, "Bias and weights count must match the same number of neurons")
+    require(b.nonEmpty && b.length == w.length, "Bias and weights count must match the same number of neurons")
     require(w.forall(w(0).length == _.length), "All the weights must be for the same number of inputs")
   }
 

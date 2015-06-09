@@ -83,7 +83,8 @@
       </a>
     </span>
       <p class="shortcomment cmt">Rectangle shape with edges parallel to the cartesian axis</p><div class="fullcomment"><div class="comment cmt"><p>Rectangle shape with edges parallel to the cartesian axis</p><p>This kind of shape is particularly useful in checking overlaps and collisions
-as it is done in constant time O(k) and without complex mathematical operations
+as it is done in constant time O(k) and without complex mathematical operations.
+For this reasons, more than being only a {ConvexPolygon} it is also a {Container}
 </p></div><dl class="paramcmts block"><dt class="param">bottomLeft</dt><dd class="cmt"><p>Rectangle left-bottom-most point</p></dd><dt class="param">topRight</dt><dd class="cmt"><p>Rectangle right-top point
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -103,10 +104,10 @@ as it is done in constant time O(k) and without complex mathematical operations
       </a>
     </span>
       <p class="shortcomment cmt">Circle shape</p><div class="fullcomment"><div class="comment cmt"><p>Circle shape</p><p>A Circle is a very convenient shape to check for geometrical properties as
-it is, generally speaking, very fast to compute them.
+it is, generally speaking, very fast to compute them. For this reason it is also marked as a {Container}
 </p></div><dl class="paramcmts block"><dt class="param">center</dt><dd class="cmt"><p>Center of the circle</p></dd><dt class="param">radius</dt><dd class="cmt"><p>Radius of the circle. Must be non-negative
 </p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.geometry.shapes.ConvexPolygon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.colofabrix.scala.geometry.shapes.ConvexPolygon" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ConvexPolygonextendsPolygon"></a>
       <a id="ConvexPolygon:ConvexPolygon"></a>
       <h4 class="signature">
@@ -122,9 +123,9 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">A convex polygon</p><div class="fullcomment"><div class="comment cmt"><p>A convex polygon</p><p>Created by Fabrizio on 10/01/2015.
-</p></div></div>
-    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <p class="shortcomment cmt">A convex polygon
+</p>
+    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PolygonextendsShape"></a>
       <a id="Polygon:Polygon"></a>
       <h4 class="signature">
@@ -140,8 +141,9 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">A generic 2D polygon</p><div class="fullcomment"><div class="comment cmt"><p>A generic 2D polygon</p><p>Created by Fabrizio on 10/01/2015.
-</p></div></div>
+      <p class="shortcomment cmt">A generic two-dimensional polygon
+A generic two-dimensional polygon
+</p>
     </li></ol>
             </div>
 

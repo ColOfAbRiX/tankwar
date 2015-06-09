@@ -8,9 +8,11 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 /**
  * Represents a bullet shot by a Tank
  *
- * Created by Fabrizio on 02/01/2015.
+ * Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
+ * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
-class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends  PhysicalObject {
+class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends PhysicalObject {
+  import Math._
 
   private var _life = 0
 
@@ -26,7 +28,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The point on the world where is the center of the PhysicalObject
    */
-   _position = tank.position
+  _position = tank.position
 
   /**
    * Speed of the object relative to the arena
@@ -35,7 +37,8 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The current speed of a bullet
    */
-   _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
+  _speed = Vector2D.new_rt(proper_speed, tank.rotation.t) + tank.speed
+  _speed = _speed := { x => max(min(x, world.max_bullet_speed), -world.max_bullet_speed) }
 
   /**
    * Physical boundary of the bullet.
@@ -45,7 +48,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
   /**
    * Moves the bullet one step into the future.
    */
-  override def stepForward() {
+  override def stepForward( ) {
     _life += 1
     _position = _position + _speed
   }

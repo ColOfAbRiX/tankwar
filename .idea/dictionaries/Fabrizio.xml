@@ -6,6 +6,7 @@
       <w>coord</w>
       <w>elman</w>
       <w>feedforward</w>
+      <w>nonconvex</w>
       <w>orto</w>
       <w>quadtree</w>
       <w>renderable</w>
@@ -16,6 +17,7 @@
       <w>tuples</w>
       <w>ufid</w>
       <w>versor</w>
+      <w>workstream</w>
     </words>
   </dictionary>
 </component>

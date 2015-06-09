@@ -15,7 +15,7 @@ final class CartesianCoord private (val x: Double, val y: Double) extends Coordi
   /**
    * Equality check between coordinates
    *
-   * @param that Theo ther object to compare
+   * @param that The other object to compare
    * @return true if {that} represents the same coordinate as the current instance
    */
   override def equals(that: Any) = that match {
@@ -71,7 +71,7 @@ final class PolarCoord private(val r: Double, val t: Double) extends Coordinates
   /**
    * Equality check between coordinates
    *
-   * @param that Theo ther object to compare
+   * @param that The other object to compare
    * @return true if {that} represents the same coordinate as the current instance
    */
   override def equals(that: Any) = that match {

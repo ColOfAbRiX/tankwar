@@ -47,7 +47,7 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents an immutanle Matrix and the possible operations on it
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents an immutable Matrix and the possible operations on it
 </p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Data type of the matrix elements
 </p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
@@ -128,7 +128,7 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">matrix</dt><dd class="cmt"><p>A sequence of sequence, the initializer of the matrix</p></dd><dt class="param">n</dt><dd class="cmt"><p>N/A</p></dd><dt class="param">m</dt><dd class="cmt"><p>N/A</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">matrix</dt><dd class="cmt"><p>A sequence of sequence, the initializer of the matrix.</p></dd><dt class="param">n</dt><dd class="cmt"><p>N/A</p></dd><dt class="param">m</dt><dd class="cmt"><p>N/A</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -208,8 +208,10 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Matrix multiplication</p><div class="fullcomment"><div class="comment cmt"><p>Matrix multiplication</p><p>Ref: http://rosettacode.org/wiki/Matrix_multiplication#Scala
-</p></div></div>
+      <p class="shortcomment cmt">Matrix multiplication
+</p><div class="fullcomment"><div class="comment cmt"><p>Matrix multiplication
+</p></div><dl class="paramcmts block"><dt class="param">other</dt><dd class="cmt"><p>The second element of the multiplication</p></dd><dt>returns</dt><dd class="cmt"><p>A new matrix that is the result of a matrix multiplication between the current one and {that}
+</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://rosettacode.org/wiki/Matrix_multiplication#Scala</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#**" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="**(p:Int):com.colofabrix.scala.math.Matrix[T]"></a>
       <a id="**(Int):Matrix[T]"></a>
@@ -226,45 +228,10 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Exponentiation of the matrix</p><div class="fullcomment"><div class="comment cmt"><p>Exponentiation of the matrix</p><p>Valid only for non-negative powers and for square matrices</p><p>Implementation of the &quot;exponentiation by squaring&quot; algorithm
-Ref: http://www.programminglogic.com/fast-exponentiation-algorithms/
+      <p class="shortcomment cmt">Exponentiation of the matrix</p><div class="fullcomment"><div class="comment cmt"><p>Exponentiation of the matrix</p><p>Valid only for non-negative powers and for square matrices</p><p>Implementation of the &quot;exponentiation by squaring&quot; algorithm</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The exponent to raise the matrix, a non-negative integer</p></dd><dt>returns</dt><dd class="cmt"><p>The current matrix multiplied by itself p times
+</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://www.programminglogic.com/fast-exponentiation-algorithms/
 Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The exponent to raise the matrix, a non-negative integer</p></dd><dt>returns</dt><dd class="cmt"><p>The current matrix multiplied by itself p times
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.math.Matrix#+" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="+(other:com.colofabrix.scala.math.Matrix[T]):com.colofabrix.scala.math.Matrix[T]"></a>
-      <a id="+(Matrix[T]):Matrix[T]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $plus" class="name">+</span><span class="params">(<span name="other">other: <a href="" class="extype" name="com.colofabrix.scala.math.Matrix">Matrix</a>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>)</span><span class="result">: <a href="" class="extype" name="com.colofabrix.scala.math.Matrix">Matrix</a>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@+(other:com.colofabrix.scala.math.Matrix[T]):com.colofabrix.scala.math.Matrix[T]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      
-    </li><li name="com.colofabrix.scala.math.Matrix#-" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="-(other:com.colofabrix.scala.math.Matrix[T]):com.colofabrix.scala.math.Matrix[T]"></a>
-      <a id="-(Matrix[T]):Matrix[T]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span title="gt4s: $minus" class="name">-</span><span class="params">(<span name="other">other: <a href="" class="extype" name="com.colofabrix.scala.math.Matrix">Matrix</a>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>)</span><span class="result">: <a href="" class="extype" name="com.colofabrix.scala.math.Matrix">Matrix</a>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@-(other:com.colofabrix.scala.math.Matrix[T]):com.colofabrix.scala.math.Matrix[T]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      
+</p></span></dd></dl></div>
     </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a>
       <a id="==(Any):Boolean"></a>
@@ -359,26 +326,6 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a column of the matrix
 </p></div><dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The number of the column to return</p></dd><dt>returns</dt><dd class="cmt"><p>The i-th column of the matrix
 </p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.math.Matrix#colInsert" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="colInsert(i:Int,row:Seq[T]):Nothing"></a>
-      <a id="colInsert(Int,Seq[T]):Nothing"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">colInsert</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="row">row: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@colInsert(i:Int,row:Seq[T]):Nothing" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Inserts a col in the matrix
-</p><div class="fullcomment"><div class="comment cmt"><p>Inserts a col in the matrix
-</p></div><dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The zero-base position of where to insert the col</p></dd><dt class="param">row</dt><dd class="cmt"><p>The col to insert. Its length must match the number of rows of the matrix</p></dd><dt>returns</dt><dd class="cmt"><p>A new matrix with the added col in the i-th position
-</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#colSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="colSet(start:Int,count:Int):com.colofabrix.scala.math.Matrix[T]"></a>
       <a id="colSet(Int,Int):Matrix[T]"></a>
@@ -397,7 +344,7 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
     </span>
       <p class="shortcomment cmt">Gets a subset of the rows of the matrix
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a subset of the rows of the matrix
-</p></div><dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>The row from which to start</p></dd><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return</p></dd><dt>returns</dt><dd class="cmt"><p>The first {count} rows of the matrix
+</p></div><dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>The row from which to start</p></dd><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return</p></dd><dt>returns</dt><dd class="cmt"><p>{count} number of rows from the start-th row
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#colSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="colSet(count:Int):com.colofabrix.scala.math.Matrix[T]"></a>
@@ -425,7 +372,7 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
         <span class="name">cols</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
@@ -670,7 +617,7 @@ a new matrix
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">A sequence of sequence, the initializer of the matrix</p>
+      <p class="shortcomment cmt">A sequence of sequence, the initializer of the matrix.</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -742,26 +689,6 @@ a new matrix
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a row of the matrix
 </p></div><dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The number of the row to return</p></dd><dt>returns</dt><dd class="cmt"><p>The i-th row of the matrix
 </p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.math.Matrix#rowInsert" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="rowInsert(i:Int,row:Seq[T]):Nothing"></a>
-      <a id="rowInsert(Int,Seq[T]):Nothing"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">rowInsert</span><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>, <span name="row">row: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Nothing">Nothing</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@rowInsert(i:Int,row:Seq[T]):Nothing" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Inserts a row in the matrix
-</p><div class="fullcomment"><div class="comment cmt"><p>Inserts a row in the matrix
-</p></div><dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>The zero-base position of where to insert the row</p></dd><dt class="param">row</dt><dd class="cmt"><p>The row to insert. Its length must match the number of columns of the matrix</p></dd><dt>returns</dt><dd class="cmt"><p>A new matrix with the added row in the i-th position
-</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#rowSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rowSet(start:Int,count:Int):com.colofabrix.scala.math.Matrix[T]"></a>
       <a id="rowSet(Int,Int):Matrix[T]"></a>
@@ -780,7 +707,7 @@ a new matrix
     </span>
       <p class="shortcomment cmt">Gets a subset of the rows of the matrix
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a subset of the rows of the matrix
-</p></div><dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>The row from which to start</p></dd><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return</p></dd><dt>returns</dt><dd class="cmt"><p>The first {count} rows of the matrix
+</p></div><dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>The row from which to start</p></dd><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return</p></dd><dt>returns</dt><dd class="cmt"><p>{count} number of rows from the start-th row
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#rowSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rowSet(count:Int):com.colofabrix.scala.math.Matrix[T]"></a>
@@ -808,7 +735,7 @@ a new matrix
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
         <span class="name">rows</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
@@ -873,9 +800,8 @@ a new matrix
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Returns a square identity matrix of the same size of the current matrix</p><div class="fullcomment"><div class="comment cmt"><p>Returns a square identity matrix of the same size of the current matrix</p><p>Please note that an identity matrix can only be square and thus this
-function will return an identity matrix as large as the smallest size of
-the matrix
+      <p class="shortcomment cmt">Returns a square identity matrix of the same size of the current matrix</p><div class="fullcomment"><div class="comment cmt"><p>Returns a square identity matrix of the same size of the current matrix</p><p>Note that an identity matrix can only be square and thus this function will return an identity
+matrix as large as the smallest size of the matrix
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>An new, identity matrix of the same size of the current matrix
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#toSeq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -896,7 +822,7 @@ the matrix
     </span>
       <p class="shortcomment cmt">The current matrix as Seq[Seq[T]]
 </p><div class="fullcomment"><div class="comment cmt"><p>The current matrix as Seq[Seq[T]]
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current matrix as a Sequence
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current matrix as an immutable Seq
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
@@ -974,7 +900,7 @@ the matrix
     </span>
       <p class="shortcomment cmt">Updates an element of the matrix
 </p><div class="fullcomment"><div class="comment cmt"><p>Updates an element of the matrix
-</p></div><dl class="paramcmts block"><dt class="param">k</dt><dd class="cmt"><p>A tuple that specify the i and j index of the element to return</p></dd><dt class="param">value</dt><dd class="cmt"><p>The new value to set</p></dd><dt>returns</dt><dd class="cmt"><p>The element at position (i, j)
+</p></div><dl class="paramcmts block"><dt class="param">k</dt><dd class="cmt"><p>A tuple that specify the i and j index of the element to return</p></dd><dt class="param">value</dt><dd class="cmt"><p>The new value to set</p></dd><dt>returns</dt><dd class="cmt"><p>A new matrix with the changed value
 </p></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>

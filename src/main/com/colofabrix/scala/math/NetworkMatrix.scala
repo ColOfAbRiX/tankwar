@@ -8,7 +8,7 @@ import scala.collection.mutable
  * An adjacency matrix for Neural Networks
  *
  * It is a weighted, asymmetric adjacency matrix with Double.NaN to indicate non-connected vertices. The matrix is composed
- * of two parts, a square matrix that contains the weights of the edges and the last row that contains the biasies for
+ * of two parts, a square matrix that contains the weights of the edges and the last row that contains the biases for
  * each neuron
  *
  * @param matrix A sequence of sequence, the initializer of the matrix

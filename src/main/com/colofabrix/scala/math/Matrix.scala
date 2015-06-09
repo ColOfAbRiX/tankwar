@@ -72,7 +72,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param start The row from which to start
    * @param count The number of rows to return
    * @return {count} number of rows from the start-th row
-   * @return The first {count} rows of the matrix
    */
   def rowSet(start: Int, count: Int) = new Matrix(
     matrix.take(start + count).takeRight(count)
@@ -102,7 +101,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param start The row from which to start
    * @param count The number of rows to return
    * @return {count} number of rows from the start-th row
-   * @return The first {count} rows of the matrix
    */
   def colSet(start: Int, count: Int) = new Matrix(
     matrix.transpose.take(start + count).takeRight(count).transpose

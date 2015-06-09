@@ -13,7 +13,22 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /**
- * A Tank that plays the game
+ * A Tank that plays in the game
+ *
+ * A Tank is the main actor of the simulation. Like other objects in the {com.colofabrix.scala.simulation} package it is
+ * a stateful and time-depended object.
+ * It is made of a defining data part, the {TankChromosome}, a behavioural part which decides how the Tank responds
+ * to different situation using the defining data and a simulation part that calculates, step by step, the physical
+ * components or actions of the Tank. The behaviour is defined by both a neural network that calculates various outputs
+ * given the input values (e.g. where to go in relation of the current position) and by algorithms that take decisions
+ * about situation (e.g. if there are multiple targets which one to shoot).
+ * Tank's implementations have a certain degree of freedom on how they implement thing, but the {World} makes sure that
+ * many constraints are respected (e.g. the maximum allowed speed). Usually a Tank is first informed it is violating
+ * a constraint, so that it can take actions like trim its speed, and if the violation persists the Tank is removed from
+ * the simulation (check {World} for more information}.
+ *
+ * NOTE: This object and other in the {com.colofabrix.scala.simulation} package will be the subject of heavy refactoring,
+ * so don't rely on their current implementation but check the workstream.
  *
  * @param world Reference to the World. It is uses to calculate parameters, maximums,timings, ...
  * @param initialData The defining data of the Tank in the form of a Chromosome
@@ -23,6 +38,10 @@ class Tank private (override val world: World, initialData: TankChromosome, data
 extends PhysicalObject with InteractiveObject {
 
   import java.lang.Math._
+
+  //
+  // Private variables. Check public/protected counterparts for documentation
+  //
 
   private var _direction = Vector2D.new_xy(1, 1)
   private val _rotReference = initialData.rotationRef
@@ -122,6 +141,13 @@ extends PhysicalObject with InteractiveObject {
     initialData.brainBuilder
   )
 
+  /**
+   * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
+   *
+   * The current implementation is to do a vector-sum of all the threats and use that as combined threat
+   *
+   * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
+   */
   private def calculateBulletVision: (Vector2D, Vector2D) = {
     if( _seenBullets.isEmpty )
       return (Vector2D.zero, Vector2D.zero)
@@ -133,6 +159,13 @@ extends PhysicalObject with InteractiveObject {
     (posVector, speedVector)
   }
 
+  /**
+   * Calculates the data needed to feed the inputs of the {brain} in relation of the tank vision (a "target")
+   *
+   * The current implementation is to choose the strongest opponent (to gain more points)
+   *
+   * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target
+   */
   private def calculateTankVision: (Vector2D, Vector2D) = {
     if( _seenTanks.isEmpty )
       return (Vector2D.zero, Vector2D.zero)
@@ -143,9 +176,12 @@ extends PhysicalObject with InteractiveObject {
   }
 
   /**
-   * Moves the PhysicalObject one step into the future
+   * Moves the Tank one step into the future.
+   *
+   * In other words it calculates the position, speed and shooting condition for the current step
    */
   override def stepForward(): Unit = {
+    // Data related to the vision
     val seenTank = calculateTankVision
     val seenBullet = calculateBulletVision
 
@@ -157,7 +193,7 @@ extends PhysicalObject with InteractiveObject {
     )
 
     // The output of the NN is the speed (mapped to the max allowed speed)
-    _speed = (output.force * world.max_tank_speed) := _direction
+    _speed = (output.speed * world.max_tank_speed) := _direction
     _position = _position + _speed
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
@@ -173,9 +209,26 @@ extends PhysicalObject with InteractiveObject {
     // Update the survive time at each tick
     _surviveTime += 1
 
-    // Reset the vision every step
+    // Every step the sight buffers are reset and filled again by the world
     _seenTanks.clear()
     _seenBullets.clear()
+  }
+
+  /**
+   * Reset the status of a Tank to the initial values
+   */
+  def clear(): Unit = {
+    _direction = Vector2D.new_xy(1, 1)
+
+    _seenTanks = ArrayBuffer()
+    _seenBullets = ArrayBuffer()
+
+    _isShooting = false
+    _shoot = 0.0
+
+    _isDead = false
+    _killsCount = 0
+    _surviveTime = 0
   }
 
   /**
@@ -188,7 +241,7 @@ extends PhysicalObject with InteractiveObject {
   /**
    * A text of the definition of the Tank
    *
-   * A definition is the minimum set of data that uniquely identfy a Tank
+   * A definition is the minimum set of data that uniquely identify a Tank
    *
    * @return A string that identifies the Tank
    */
@@ -203,6 +256,8 @@ extends PhysicalObject with InteractiveObject {
 
   /**
    * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
+   *
+   * When a Tank hits a wall it is bounced back (using a direction vector)
    */
   override def on_hitsWalls(): Unit = {
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
@@ -216,9 +271,11 @@ extends PhysicalObject with InteractiveObject {
 
   /**
    * Callback function used to signal the Tank that is moving faster than the maximum allowed speed
+   *
+   * When maximum speed is reached, it is trimmed to the maximum
    */
   override def on_maxSpeedReached(maxSpeed: Double): Unit = {
-    //_speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
+    _speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
   }
 
   /**
@@ -230,8 +287,11 @@ extends PhysicalObject with InteractiveObject {
    * Callback function used to signal the Tank that it will be respawned in the next step
    */
   override def on_respawn(): Unit = {
+    // Set speed to zero
     _speed = Vector2D.new_xy(0, 0)
+    // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
     _position = world.arena.topRight := { _ * Random.nextDouble() }
+    // I'm not dead anymore!
     _isDead = false
   }
 
@@ -246,11 +306,13 @@ extends PhysicalObject with InteractiveObject {
    */
   override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
     if( that == classOf[Tank] )
+      // Tank->Tank sight.
       return new Circle(_position,
         (1.0 - initialData.sightRatio) * sqrt(world.max_sight / PI)
       )
 
     if( that == classOf[Bullet] )
+      // Tank->Bullet sight.
       return new Circle(_position,
         initialData.sightRatio * sqrt(world.max_sight / PI)
       )
@@ -267,13 +329,12 @@ extends PhysicalObject with InteractiveObject {
     val direction = that.position - this.position
     val speed = _speed - that.speed
 
+    // Memorize the direction of all the targets or threats (one at a time)
     that match {
       case t: Tank =>
-        // Memorize the direction of all the targets (one at a time)
         _seenTanks += ((t, direction, speed))
 
       case b: Bullet =>
-        // Memorize the direction of all the threats (one at a time)
         _seenBullets += ((b, direction, speed))
     }
   }
@@ -319,21 +380,38 @@ extends PhysicalObject with InteractiveObject {
  */
 object Tank {
 
-  // Mass of the tank
+  /**
+   * Default mass of the tank at initial creation
+   */
   val defaultMass = 1.0
 
-  // Range of the inputs (the purpose is to utilize all the range of the activation function)
+  /**
+   * Default range of the inputs (the purpose is to utilize all the range of the activation function) at initial creation
+   */
   val defaultRange = 4.0
 
-  val defaultActivationFunction = Seq.fill(3)("sin")
+  /**
+   * Default activation function
+   */
+  val defaultActivationFunction = Seq.fill(3)("tanh")
 
-  val defaultHiddenNeurons = (BrainInputHelper.count + BrainOutputHelper.count) / 2
+  /**
+   * Default number of hidden neurons. It is the average between input and output neurons
+   */
+  val defaultHiddenNeurons = Math.ceil((BrainInputHelper.count + BrainOutputHelper.count) / 2).toInt
 
+  /**
+   * Default sight ration.
+   */
   val defaultSightRatio = 0.5
 
+  /**
+   * Default type of neural network
+   */
   val defaultBrainBuilder =
-    //new ThreeLayerNetwork(new ElmanBuilder, defaultHiddenNeurons)
     new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
+
+  // Mess below here. Refactoring planned.
 
   def defaultRandomReader(rng: Random) =
     new RandomReader(

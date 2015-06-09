@@ -4,7 +4,8 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.simulation.World
 
 /**
- * An interactive object is an object that interacts, like it can see, it can hit and be hit, any kind of {PhysicalObject}.
+ * An interactive object is an object that actively interacts, like it can see, it can hit and be hit, any kind of
+ * {PhysicalObject}. From this point of view {PhysicalObject} can be thought as a passive interactive object
  *
  * This trait provides some callbacks that have to be implemented by the concrete class. These callback functions are
  * a common entry point and, usually, in the implementation, a specific match/case is used to distinguish the various

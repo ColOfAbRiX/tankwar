@@ -5,9 +5,8 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.{InputHelper, OutputHelp
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilder
 
 /**
- * A TankChromosome contains all the data needed to uniquely identify
- * a Tank from another. Tank with identical chromosomes behave in the
- * same way
+ * A TankChromosome contains all the data needed to uniquely identify a Tank from another.
+ * Tank with identical chromosomes behave in the same way
  */
 case class TankChromosome(
   biases: Seq[Seq[Double]],
@@ -20,16 +19,24 @@ case class TankChromosome(
 ) {
 
   /**
-   * Returns all the data as a sequence that can be used in loops and similar
+   * Returns all the data as a sequence that can be used in loops and similar constructs
    *
    * @return A sequence containing all the fields
    */
   def toList: List[Any] = List(
     biases, weights, rotationRef, sightRatio, valueRange, activationFunction, brainBuilder
   )
+
 }
 
 object TankChromosome {
+
+  /**
+   * Creates a chromosome starting from a list
+   *
+   * @param s A list containing the data for a chromosome
+   * @return A new chromosome object
+   */
   def apply(s: List[Any]) = {
     new TankChromosome(
       s(0).asInstanceOf[Seq[Seq[Double]]],
@@ -41,6 +48,7 @@ object TankChromosome {
       s(6).asInstanceOf[StructureBuilder]
     )
   }
+
 }
 
 /**
@@ -52,9 +60,14 @@ object BrainOutputHelper {
 
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
+ * 
+ * It provides a nicer access to the network outputs:
+ *  - Speed
+ *  - Rotation
+ *  - Shoot-or-not
  */
 class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outputs) {
-  val force = Vector2D.new_xy(outputs(0), outputs(1))
+  val speed = Vector2D.new_xy(outputs(0), outputs(1))
   val rotation = outputs(2)
   val shoot = outputs(3)
 }
@@ -66,11 +79,33 @@ object BrainInputHelper {
   val count = 13
 }
 
+
 /**
  * Support class used as an interface between the `Tank` and the input of the NN
+ *
+ * It provides a nicer access for the network inputs. It makes also sure that the data that is fed to the
+ * network is homogeneous between the different inputs or, in other words, that all inputs read data in
+ * the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks that can have higher values)
+ *
+ * @param world Reference to the world
+ * @param pos Position vector of the tank
+ * @param speed Speed vector of the tank
+ * @param rot Rotation versor of the tank
+ * @param seenTanksPos Position vector of a seen tank
+ * @param seenTanksSpeed Speed vector of a seen tank
+ * @param seenBulletsPos Position vector of a seen bullet
+ * @param seenBulletsSpeed Speed vector of a seen bullet
  */
-class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D) extends InputHelper[Double] {
+class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D)
+extends InputHelper[Double] {
 
+  /**
+   * Constructor that uses a Seq to initialize the instance
+   *
+   * @param world Reference to the world
+   * @param rawSequence A sequence containing the input data (see class' description for more information on the data)
+   * @return A new BrainInputHelper
+   */
   def this(world: World, rawSequence: Seq[Double]) = this(
     world,
     Vector2D.new_xy(rawSequence(0), rawSequence(1)),

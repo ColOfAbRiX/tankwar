@@ -43,13 +43,13 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">CartesianCoord</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">CartesianCoord</span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -67,7 +67,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.colofabrix.scala.math.CartesianCoord"><span>CartesianCoord</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.colofabrix.scala.math.CartesianCoord"><span>CartesianCoord</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -145,6 +145,26 @@
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="com.colofabrix.scala.math.CartesianCoord#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(x:Double,y:Double):com.colofabrix.scala.math.CartesianCoord"></a>
+      <a id="apply(Double,Double):CartesianCoord"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="x">x: <span class="extype" name="scala.Double">Double</span></span>, <span name="y">y: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result">: <a href="CartesianCoord.html" class="extype" name="com.colofabrix.scala.math.CartesianCoord">CartesianCoord</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.math.CartesianCoord$@apply(x:Double,y:Double):com.colofabrix.scala.math.CartesianCoord" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Cartesian Coordinate representation
+</p><div class="fullcomment"><div class="comment cmt"><p>Cartesian Coordinate representation
+</p></div><dl class="paramcmts block"><dt class="param">x</dt><dd class="cmt"><p>Distance on the X-Axis</p></dd><dt class="param">y</dt><dd class="cmt"><p>Distance on the Y-Axis</p></dd><dt>returns</dt><dd class="cmt"><p>An equivalent point in cartesian coordinates
+</p></dd></dl></div>
+    </li><li name="com.colofabrix.scala.math.CartesianCoord#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="apply(p:com.colofabrix.scala.math.PolarCoord):com.colofabrix.scala.math.CartesianCoord"></a>
       <a id="apply(PolarCoord):CartesianCoord"></a>
       <h4 class="signature">
@@ -160,9 +180,8 @@
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Cartesian Coordinate representation
-</p><div class="fullcomment"><div class="comment cmt"><p>Cartesian Coordinate representation
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>A reference in polar coordinates</p></dd><dt>returns</dt><dd class="cmt"><p>An equivalent point in cartesian coordinates
+      <p class="shortcomment cmt">Cartesian Coordinate representation</p><div class="fullcomment"><div class="comment cmt"><p>Cartesian Coordinate representation</p><p>Constructor from polar coordinates
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>Input coordinates in polar notation</p></dd><dt>returns</dt><dd class="cmt"><p>An equivalent point in cartesian coordinates
 </p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
@@ -475,11 +494,7 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="java.io.Serializable">
-              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

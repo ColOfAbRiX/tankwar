@@ -82,8 +82,9 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Provides a way to visualize the behaviour of a NN</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way to visualize the behaviour of a NN</p><p>This class allows to create CSV files to analyse the various outputs varying
-specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
+      <p class="shortcomment cmt">Provides a way to visualize the behaviour of a NN</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way to visualize the behaviour of a NN</p><p>This class allows the creation of CSV files to analyse the various outputs varying specific inputs. It feeds a network
+with input values and writes the outputs to a stream. It also provides a basic structure to define different types
+of tests (for different inputs and combinations of them) for different ranges of input values.
 </p></div></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractStatelessNetwork" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="AbstractStatelessNetworkextendsNeuralNetwork"></a>
@@ -136,8 +137,9 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Provides a way do test a Neural Network</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way do test a Neural Network</p><p>The test can be any kind of test, like a dump on CVS or
-performance tests</p><p>Created by Fabrizio on 05/03/2015.
+      <p class="shortcomment cmt">Provides a way do test a Neural Network</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way do test a Neural Network</p><p>Neural networks are complex systems and it's difficult to study or predict their behaviour. This trait aims at
+providing a way to study the network itself.
+The tests can be any kind of test, like a dump on CVS or performance tests.
 </p></div></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="NeuralNetworkextendsAnyRef"></a>
@@ -155,7 +157,8 @@ performance tests</p><p>Created by Fabrizio on 05/03/2015.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Any Neural Network of any type.</p><div class="fullcomment"><div class="comment cmt"><p>Any Neural Network of any type.</p><p>A Neural Network has always a set of outputs given a set of inputs</p><p>Created by Fabrizio on 03/05/2015.
+      <p class="shortcomment cmt">Any Neural Network of any type.</p><div class="fullcomment"><div class="comment cmt"><p>Any Neural Network of any type.</p><p>A Neural Network is a system with a set of inputs used to calculate a set of outputs. Internally the data
+is processed using a network that is modeled using a graph and a modified adjacency matrix.
 </p></div></div>
     </li></ol>
             </div>

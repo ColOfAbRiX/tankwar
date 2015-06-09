@@ -32,7 +32,7 @@ abstract class NeuralNetworkTester(val network: NeuralNetwork, nInputs: Int) ext
      val range = start.to(end, (end - start) / points)
 
      // For every X value
-     range.map { x =>
+     range.foreach { x =>
        // Modify the value of the current input
        val inputs = inputBase.patch(input, Seq(x), 1)
 

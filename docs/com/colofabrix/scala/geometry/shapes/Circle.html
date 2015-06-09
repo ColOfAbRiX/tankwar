@@ -48,7 +48,7 @@
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Circle shape</p><p>A Circle is a very convenient shape to check for geometrical properties as
-it is, generally speaking, very fast to compute them.
+it is, generally speaking, very fast to compute them. For this reason it is also marked as a {Container}
 </p></div><dl class="paramcmts block"><dt class="param">center</dt><dd class="cmt"><p>Center of the circle</p></dd><dt class="param">radius</dt><dd class="cmt"><p>Radius of the circle. Must be non-negative
 </p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
@@ -174,7 +174,7 @@ it is, generally speaking, very fast to compute them.
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
         <span class="name">area</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
@@ -260,7 +260,7 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.
+      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.</p><p>The currently chosen shape is a {Box}. Reason is simplicity
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A Box that fully contains this shape
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle#distance" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -279,8 +279,8 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Compute the distance between a line and the cicle
-</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a line and the cicle
+      <p class="shortcomment cmt">Compute the distance between a line and the circle
+</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a line and the circle
 </p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to polygon and the edge or point from which the distance is calculated
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle#distance" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -301,7 +301,7 @@ it is, generally speaking, very fast to compute them.
     </span>
       <p class="shortcomment cmt">Compute the distance between a point and the circle
 </p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and the circle
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to polygon and the edge or point from which the distance is calculated
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#distance" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="distance(v0:com.colofabrix.scala.math.Vector2D,v1:com.colofabrix.scala.math.Vector2D,p:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.math.Vector2D"></a>
@@ -319,9 +319,10 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>Implementation of the algorithm: http://geomalgorithms.com/a02-_lines.html
+      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
+other methods.
 </p></div><dl class="paramcmts block"><dt class="param">v0</dt><dd class="cmt"><p>First end of the segment</p></dd><dt class="param">v1</dt><dd class="cmt"><p>Second end of the segment</p></dd><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to the segment or one of its ends
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
+</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a02-_lines.html</p></span></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -412,9 +413,9 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Moves a shape
-</p><div class="fullcomment"><div class="comment cmt"><p>Moves a shape
-</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying how to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of <code>where</code>
+      <p class="shortcomment cmt">Moves the circle of the specified vector
+</p><div class="fullcomment"><div class="comment cmt"><p>Moves the circle of the specified vector
+</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying how to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of {where}
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
@@ -468,6 +469,26 @@ it is, generally speaking, very fast to compute them.
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle#overlaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="overlaps(p:com.colofabrix.scala.math.Vector2D):Boolean"></a>
+      <a id="overlaps(Vector2D):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">overlaps</span><span class="params">(<span name="p">p: <a href="../../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.Circle@overlaps(p:com.colofabrix.scala.math.Vector2D):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape
+</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape or on its boundary
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
+    </li><li name="com.colofabrix.scala.geometry.shapes.Circle#overlaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="overlaps(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):Boolean"></a>
       <a id="overlaps(Vector2D,Vector2D):Boolean"></a>
       <h4 class="signature">
@@ -483,9 +504,9 @@ it is, generally speaking, very fast to compute them.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Determines if a line segment touches in any way the circle
-</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a line segment touches in any way the circle
-</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
+      <p class="shortcomment cmt">Determines if a line segment touches in any way this shape
+</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a line segment touches in any way this shape
+</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line segment</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line segment</p></dd><dt>returns</dt><dd class="cmt"><p>True if the line intersects the shape
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle#overlaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="overlaps(that:com.colofabrix.scala.geometry.abstracts.Shape):Boolean"></a>
@@ -506,26 +527,6 @@ it is, generally speaking, very fast to compute them.
       <p class="shortcomment cmt">Determines if a shape touches this one</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a shape touches this one</p><p>Circle can't use the default STA implementation as it doesn't have vertices!
 Instead it uses two different comparisons, one circle-circle, the other circle-shape
 </p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The shape to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the shape touches the current shape
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
-    </li><li name="com.colofabrix.scala.geometry.shapes.Circle#overlaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="overlaps(p:com.colofabrix.scala.math.Vector2D):Boolean"></a>
-      <a id="overlaps(Vector2D):Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">overlaps</span><span class="params">(<span name="p">p: <a href="../../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.Circle@overlaps(p:com.colofabrix.scala.math.Vector2D):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape
-</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Circle">Circle</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle#radius" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="radius:Double"></a>

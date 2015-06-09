@@ -47,14 +47,15 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides a way to visualize the behaviour of a NN</p><p>This class allows to create CSV files to analyse the various outputs varying
-specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Provides a way to visualize the behaviour of a NN</p><p>This class allows the creation of CSV files to analyse the various outputs varying specific inputs. It feeds a network
+with input values and writes the outputs to a stream. It also provides a basic structure to define different types
+of tests (for different inputs and combinations of them) for different ranges of input values.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="NetworkAnalyser.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.NetworkAnalyser">NetworkAnalyser</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="../../tankwar/TankBrainTester.html" class="extype" name="com.colofabrix.scala.tankwar.TankBrainTester">TankBrainTester</a></div>
+            <div class="subClasses hiddenContent"><a href="../../simulation/TankBrainTester.html" class="extype" name="com.colofabrix.scala.simulation.TankBrainTester">TankBrainTester</a></div>
           </div></div>
         
 
@@ -92,8 +93,8 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(world:com.colofabrix.scala.tankwar.World,network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork):com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser"></a>
+              <ol><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(world:com.colofabrix.scala.simulation.World,network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork):com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser"></a>
       <a id="&lt;init&gt;:AbstractNetworkAnalyser"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -101,14 +102,15 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">AbstractNetworkAnalyser</span><span class="params">(<span name="world">world: <a href="../../tankwar/World.html" class="extype" name="com.colofabrix.scala.tankwar.World">World</a></span>, <span name="network">network: <a href="../old/abstracts/NeuralNetwork.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork">old.abstracts.NeuralNetwork</a></span>)</span>
+        <span class="name">AbstractNetworkAnalyser</span><span class="params">(<span name="world">world: <a href="../../simulation/World.html" class="extype" name="com.colofabrix.scala.simulation.World">World</a></span>, <span name="network">network: <a href="../old/abstracts/NeuralNetwork.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork">old.abstracts.NeuralNetwork</a></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@&lt;init&gt;(world:com.colofabrix.scala.tankwar.World,network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork):com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@&lt;init&gt;(world:com.colofabrix.scala.simulation.World,network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork):com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the World.</p></dd><dt class="param">network</dt><dd class="cmt"><p>The neural network that you want to analyse
+</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -116,7 +118,7 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
 
         <div id="values" class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#outputHeader" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#outputHeader" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="outputHeader:String"></a>
       <a id="outputHeader:String"></a>
       <h4 class="signature">
@@ -132,8 +134,10 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">First line that will be written to the output stream
-</p>
+      <p class="shortcomment cmt">First line that will be written to the output stream, usually the header of the CSV file
+</p><div class="fullcomment"><div class="comment cmt"><p>First line that will be written to the output stream, usually the header of the CSV file
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A text containing a comma-separated values as a header for the CSV file
+</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#plotDefinitions" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="plotDefinitions:List[(Int,Double,Double,Double)]"></a>
       <a id="plotDefinitions:List[(Int,Double,Double,Double)]"></a>
@@ -150,11 +154,11 @@ specific inputs.</p><p>Created by Fabrizio on 15/02/2015.
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Contains the definition of the plots for the network, like the definition of the
-input values for a specific input.</p><div class="fullcomment"><div class="comment cmt"><p>Contains the definition of the plots for the network, like the definition of the
-input values for a specific input. The list if filled by a concrete implementation
-of the class
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of tuples constructed like: (input#, start_value, end_value, points_count)
+      <p class="shortcomment cmt">Contains the definition of the plots for the network, like the definition of the input range for a
+specific input.</p><div class="fullcomment"><div class="comment cmt"><p>Contains the definition of the plots for the network, like the definition of the input range for a
+specific input. The list will be filled by a concrete implementation of the class. Every item of the list
+is a tuple containing:</p><p>(input#, start_value, end_value, points_count)</p><ul><li>input#: Reference to the ordinal number of the input to use</li><li>start_value: The initial value to start to feed</li><li>end_value: The final value to feed</li><li>points_count: How many intermediate values (between start_value and end_value) feed to the network
+</li></ul></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of tuples constructed like:
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NetworkAnalyser#runTests" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="runTests():Unit"></a>
@@ -172,7 +176,9 @@ of the class
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="NetworkAnalyser.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.NetworkAnalyser">NetworkAnalyser</a></dd></dl></div>
+      <p class="shortcomment cmt">Run the tests for the network
+</p><div class="fullcomment"><div class="comment cmt"><p>Run the tests for the network
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="NetworkAnalyser.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.NetworkAnalyser">NetworkAnalyser</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#testDefinitions" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="testDefinitions:List[java.io.PrintWriter=&gt;Unit]"></a>
       <a id="testDefinitions:List[(PrintWriter)⇒Unit]"></a>
@@ -189,9 +195,10 @@ of the class
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Contains the definition of the tests that will be performed during the run.</p><div class="fullcomment"><div class="comment cmt"><p>Contains the definition of the tests that will be performed during the run. The list
-if filled by a concrete implementation of the class
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of functions that run the test, each of which are called once
+      <p class="shortcomment cmt">Contains the definition of the tests that will be performed during the run.</p><div class="fullcomment"><div class="comment cmt"><p>Contains the definition of the tests that will be performed during the run. The list will be filled
+by a concrete implementation of the class. The list simply contains functions that will be called one
+after the other and that accept a writer. The writer is used to write the data to the output stream
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of functions that run the test, each of which are called in the sequence found in the list
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -470,7 +477,8 @@ network that then writes in an outputs stream
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">The neural network that you want to analyse
+</p>
     </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <a id="notify():Unit"></a>
@@ -609,7 +617,7 @@ network that then writes in an outputs stream
               
         </dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#world" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="world:com.colofabrix.scala.tankwar.World"></a>
+      <a id="world:com.colofabrix.scala.simulation.World"></a>
       <a id="world:World"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -617,14 +625,14 @@ network that then writes in an outputs stream
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">world</span><span class="result">: <a href="../../tankwar/World.html" class="extype" name="com.colofabrix.scala.tankwar.World">World</a></span>
+        <span class="name">world</span><span class="result">: <a href="../../simulation/World.html" class="extype" name="com.colofabrix.scala.simulation.World">World</a></span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@world:com.colofabrix.scala.tankwar.World" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@world:com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Reference to the World.</p>
     </li></ol>
             </div>
 

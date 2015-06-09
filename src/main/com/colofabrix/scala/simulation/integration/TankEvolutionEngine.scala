@@ -43,6 +43,7 @@ extends GameEvolutionEngine[Tank] (candidateFactory, evolutionScheme, fitnessEva
     // Runs the competition
     world.rounds foreach { _ => world.step() }
 
+    // Returns the population
     world.tanks
 
   }

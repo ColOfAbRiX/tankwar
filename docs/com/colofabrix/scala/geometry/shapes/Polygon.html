@@ -47,7 +47,8 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A generic 2D polygon</p><p>Created by Fabrizio on 10/01/2015.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A generic two-dimensional polygon
+A generic two-dimensional polygon
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -174,7 +175,7 @@
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">def</span>
+        <span class="kind">lazy val</span>
       </span>
       <span class="symbol">
         <span class="name">area</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
@@ -184,9 +185,10 @@
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Area of the polygon</p><div class="fullcomment"><div class="comment cmt"><p>Area of the polygon</p><p>Implementation of the polygon area algorithm
-Ref: http://geomalgorithms.com/a01-_area.html
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
+      <p class="shortcomment cmt">Area of the polygon
+</p><div class="fullcomment"><div class="comment cmt"><p>Area of the polygon
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a01-_area.html
+</p></span></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -243,11 +245,9 @@ Ref: http://geomalgorithms.com/a01-_area.html
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.</p><p>It returns the smallest area between a box or a circle that fully contain
-the current shape.
-Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.html
+      <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.</p><p>For simplicity the current implementation always returns a {Box}
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A shape that fully contains this shape
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#distance" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="distance(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)"></a>
       <a id="distance(Vector2D,Vector2D):(Vector2D,Vector2D)"></a>
@@ -285,7 +285,7 @@ Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.h
       </a>
     </span>
       <p class="shortcomment cmt">Compute the distance between a point and the edges of the polygon</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and the edges of the polygon</p><p>Checks the distances from all the edges and returns the nearest one
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to polygon and the edge from which the distance is calculated
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#distance" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="distance(v0:com.colofabrix.scala.math.Vector2D,v1:com.colofabrix.scala.math.Vector2D,p:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.math.Vector2D"></a>
@@ -303,10 +303,11 @@ Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.h
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>Implementation of the algorithm: http://geomalgorithms.com/a02-_lines.html
+      <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
+other methods.
 </p></div><dl class="paramcmts block"><dt class="param">v0</dt><dd class="cmt"><p>First end of the segment</p></dd><dt class="param">v1</dt><dd class="cmt"><p>Second end of the segment</p></dd><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to the segment or one of its ends
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
-    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#edges" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a02-_lines.html</p></span></dd></dl></div>
+    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#edges" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="edges:Seq[com.colofabrix.scala.math.Vector2D]"></a>
       <a id="edges:Seq[Vector2D]"></a>
       <h4 class="signature">
@@ -322,9 +323,9 @@ Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.h
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Edges of the shape, built from the vertices
-</p>
-    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#edgesIterator" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Edges of the shape, built from the vertices.</p><div class="fullcomment"><div class="comment cmt"><p>Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
+</p></div></div>
+    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#edgesIterator" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="edgesIterator:Seq[Seq[com.colofabrix.scala.math.Vector2D]]"></a>
       <a id="edgesIterator:Seq[Seq[Vector2D]]"></a>
       <h4 class="signature">
@@ -340,8 +341,8 @@ Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.h
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">List of all adjacent edges of the polygon
-</p>
+      <p class="shortcomment cmt">List of all adjacent edges of the polygon.</p><div class="fullcomment"><div class="comment cmt"><p>List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -452,9 +453,8 @@ Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.h
       <p class="shortcomment cmt">Checks if a polygon is convex</p><div class="fullcomment"><div class="comment cmt"><p>Checks if a polygon is convex</p><p>To be convex, the edges of a polygon must form between each others angles greater that 180. This is
 checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
 edge compared to the first.
-Ref: https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>true if the polygon is convex
-</p></dd></dl></div>
+</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex</p></span></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -488,9 +488,9 @@ Ref: https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Moves a polygon
-</p><div class="fullcomment"><div class="comment cmt"><p>Moves a polygon
-</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying how to move the polygon</p></dd><dt>returns</dt><dd class="cmt"><p>A new polygon moved of <code>where</code>
+      <p class="shortcomment cmt">Moves a polygon shifting all its vertices by a vector quantity
+</p><div class="fullcomment"><div class="comment cmt"><p>Moves a polygon shifting all its vertices by a vector quantity
+</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying how to move the polygon</p></dd><dt>returns</dt><dd class="cmt"><p>A new polygon moved of {where}
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
@@ -601,9 +601,10 @@ UPDATE: Proved to be not true for every polygon
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape</p><p>Implementation of the algorithm http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
+      <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape
+</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape
 </p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd></dl></div>
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.shapes.Polygon">Polygon</a> → <a href="../abstracts/Shape.html" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a></dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#overlaps" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="overlaps(that:com.colofabrix.scala.geometry.abstracts.Shape):Boolean"></a>
       <a id="overlaps(Shape):Boolean"></a>
@@ -675,7 +676,7 @@ UPDATE: Proved to be not true for every polygon
       </a>
     </span>
       
-    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#verticesIterator" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon#verticesIterator" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="verticesIterator:Seq[Seq[com.colofabrix.scala.math.Vector2D]]"></a>
       <a id="verticesIterator:Seq[Seq[Vector2D]]"></a>
       <h4 class="signature">
@@ -691,8 +692,8 @@ UPDATE: Proved to be not true for every polygon
         <img src="../../../../../lib/permalink.png" />
       </a>
     </span>
-      <p class="shortcomment cmt">List of all adjacent vertexes of the polygon
-</p>
+      <p class="shortcomment cmt">List of all adjacent vertexes of the polygon.</p><div class="fullcomment"><div class="comment cmt"><p>List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
+</p></div></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
