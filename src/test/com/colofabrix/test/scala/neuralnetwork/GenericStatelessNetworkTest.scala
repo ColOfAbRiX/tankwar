@@ -31,7 +31,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
    */
   private def executeTest( nI: Int, nO: Int, matrix: NetworkMatrix, expectedOutputs: Seq[Double] => Seq[Double] ): Unit = {
 
-    val testNetwork = new GenericStatelessNetwork(nI, nO, matrix, activation)
+    val testNetwork = new GenericStatelessNetwork(matrix, activation)
 
     def innerExecute( inputsBase: Seq[Double], index: Int ) {
       inputs_range.foreach { x =>
@@ -69,8 +69,17 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
             Seq(NaN, 1.0),
             Seq(NaN, NaN),
             Seq(0.0, 0.0)
-          ), Seq(0), Seq(1))
-          new GenericStatelessNetwork(0, 1, matrix, activation)
+          ), Seq(), Seq(1))
+          new GenericStatelessNetwork(matrix, activation)
+        }
+
+        intercept[IllegalArgumentException] {
+          val matrix = new NetworkMatrix( Seq(
+            Seq(NaN, 1.0),
+            Seq(NaN, NaN),
+            Seq(0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3))
+          new GenericStatelessNetwork(matrix, activation)
         }
 
       }
@@ -82,8 +91,8 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
             Seq(NaN, 1.0),
             Seq(NaN, NaN),
             Seq(0.0, 0.0)
-          ), Seq(0), Seq(1))
-          new GenericStatelessNetwork(1, 0, matrix, activation)
+          ), Seq(0), Seq())
+          new GenericStatelessNetwork(matrix, activation)
         }
 
       }
@@ -92,24 +101,9 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
 
         intercept[IllegalArgumentException] {
           val matrix = new NetworkMatrix( Seq(
-            Seq(NaN, 1.0),
-            Seq(NaN, NaN),
-            Seq(0.0, 0.0)
-          ), Seq(0), Seq(1))
-          new GenericStatelessNetwork(2, 2, matrix, activation)
-        }
-
-      }
-
-      "the biases are not numeric" in {
-
-        intercept[IllegalArgumentException] {
-          val matrix = new NetworkMatrix(Seq(
-            Seq(NaN, 1.0),
-            Seq(NaN, NaN),
-            Seq(NaN, NaN)
-          ), Seq(0), Seq(1))
-          new GenericStatelessNetwork(1, 1, matrix, activation)
+            Seq()
+          ), Seq(), Seq())
+          new GenericStatelessNetwork(matrix, activation)
         }
 
       }
@@ -125,7 +119,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq(0.0, 0.0, 0.0, 0.0)
         ), Seq(0, 1), Seq(2, 3))
 
-        new GenericStatelessNetwork(2, 2, matrix1, activation)
+        new GenericStatelessNetwork(matrix1, activation)
 
         // This has loops
         val matrix2 = new NetworkMatrix(Seq(
@@ -137,7 +131,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         ), Seq(0, 1), Seq(2, 3))
 
         intercept[IllegalArgumentException] {
-          new GenericStatelessNetwork(2, 2, matrix2, activation)
+          new GenericStatelessNetwork(matrix2, activation)
         }
 
         // This has self-loops
@@ -150,7 +144,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         ), Seq(0, 1), Seq(2, 3))
 
         intercept[IllegalArgumentException] {
-          new GenericStatelessNetwork(2, 2, matrix3, activation)
+          new GenericStatelessNetwork(matrix3, activation)
         }
       }
 
@@ -167,7 +161,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq(0.0, 0.0, 0.0,  0.0)
         ), Seq(0, 1), Seq(2, 3))
 
-        val network = new GenericStatelessNetwork(2, 2, matrix, activation)
+        val network = new GenericStatelessNetwork(matrix, activation)
 
         intercept[IllegalArgumentException] {
           network.output( Seq(1.0, 2.0, 3.0) )
@@ -183,7 +177,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq(0.0, 0.0, 0.0,  0.0)
         ), Seq(0, 1), Seq(2, 3))
 
-        val network = new GenericStatelessNetwork(2, 2, matrix, activation)
+        val network = new GenericStatelessNetwork(matrix, activation)
 
         intercept[IllegalArgumentException] {
           network.output( Seq(1.0, NaN) )
@@ -197,7 +191,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
   "Check graph properties" when {
 
     // Class to test the property of the network
-    class TestImplementation( override val inputCount: Int, override val outputCount: Int, override val matrix: NetworkMatrix, override val af: ActivationFunction )
+    class TestImplementation( override val matrix: NetworkMatrix, override val af: ActivationFunction )
       extends NeuralNetwork { override def output(inputs: Seq[Double]): Seq[Double] = inputs }
 
     "The graph is forward only" in {
@@ -209,7 +203,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         Seq(NaN, NaN, NaN, NaN)
       ), Seq(0, 1), Seq(2, 3))
 
-      val test = new TestImplementation(2, 2, matrix, activation)
+      val test = new TestImplementation(matrix, activation)
 
       test.isForwardOnly should equal(true)
       test.isAcyclic should equal(true)
@@ -224,7 +218,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         Seq(NaN, NaN, NaN, NaN)
       ), Seq(0, 1), Seq(2, 3))
 
-      val test = new TestImplementation(2, 2, matrix, activation)
+      val test = new TestImplementation(matrix, activation)
 
       test.isForwardOnly should equal(false)
       test.isAcyclic should equal(true)
@@ -239,7 +233,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         Seq(NaN, NaN, NaN, NaN)
       ), Seq(0, 1), Seq(2, 3))
 
-      val test = new TestImplementation(2, 2, matrix, activation)
+      val test = new TestImplementation(matrix, activation)
 
       test.isForwardOnly should equal(false)
       test.isAcyclic should equal(false)

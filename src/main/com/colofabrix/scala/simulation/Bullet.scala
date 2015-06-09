@@ -1,8 +1,9 @@
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.abstracts.{PhysicalObject, Shape}
+import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
  * Represents a bullet shot by a Tank

@@ -3,23 +3,26 @@ package com.colofabrix.scala.geometry.abstracts
 import com.colofabrix.scala.math.Vector2D
 
 /**
- * Represents a geometric closed shape
+ * Represents a geometric closed shape on a geometric space
+ *
+ * This train contains definitions of basic geometric operations like distance to a point of a check to see if
+ * a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
  */
 trait Shape {
   /**
    * Determines if a point is inside or on the boundary the shape
    *
    * @param p The point to be checked
-   * @return True if the point is inside the shape
+   * @return True if the point is inside the shape or on its boundary
    */
   def overlaps(p: Vector2D): Boolean
 
   /**
    * Determines if a line segment touches in any way this shape
    *
-   * @param p0 The first point that defines the line
-   * @param p1 The second point that defines the line
-   * @return True if the point is inside the shape
+   * @param p0 The first point that defines the line segment
+   * @param p1 The second point that defines the line segment
+   * @return True if the line intersects the shape
    */
   def overlaps(p0: Vector2D, p1: Vector2D): Boolean
 
@@ -34,8 +37,8 @@ trait Shape {
   /**
    * Compute the distance between a point and the boundary of the shape
    *
-   * @param p THe point to check
-   * @return A tuple containing the distance vector from the point to the boundary and the edge or the point from which the distance is calculated
+   * @param p The point to check
+   * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
    */
   def distance(p: Vector2D): (Vector2D, Vector2D)
 
@@ -51,8 +54,10 @@ trait Shape {
   /**
    * Compute the distance between a point and a line segment
    *
-   * Implementation of the algorithm: http://geomalgorithms.com/a02-_lines.html
+   * This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
+   * other methods.
    *
+   * @see http://geomalgorithms.com/a02-_lines.html
    * @param v0 First end of the segment
    * @param v1 Second end of the segment
    * @param p Point to check
@@ -74,22 +79,29 @@ trait Shape {
   }
 
   /**
-   * Moves a shape
+   * Shifts a shape on the space
    *
-   * @param where The vector specifying how to move the shape
-   * @return A new shape moved of `where`
+   * Provided a vector, every vertex or equivalent of the shape will be moved following that vector
+   *
+   * @param where The vector specifying where to move the shape
+   * @return A new shape moved of a vector {where}
    */
   def move(where: Vector2D): Shape
 
   /**
    * Find a containing box for the current shape.
    *
-   * @return A new shape that contains all the current shape
+   * A container is used as a faster and simpler way to obtain information or do some
+   * actions on a Shape that would otherwise require more computation.
+   * Ideally the computation should take O(n) or less. This trait should be applied
+   * to shapes that guarantee this fast computatio
+   *
+   * @return A new Container where the current shape is completely inside its boundaries
    */
   def container: Container
 
   /**
-   * The area of the Shape
+   * The surface area of the Shape
    */
   def area: Double
 }

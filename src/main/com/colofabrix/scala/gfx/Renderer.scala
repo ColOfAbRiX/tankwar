@@ -11,8 +11,6 @@ import org.lwjgl.opengl.{Display, DisplayMode, GL11}
  * public method which is to run the entire render process
  *
  * @param world - The world object that the class should work from to get the tanks/bullets to render
- *
- * Created by Freddie on 17/05/2015.
  */
 class Renderer(val world: World, windowsTitle: String) {
   require( world != null, "The World must be specified" )

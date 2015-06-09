@@ -4,9 +4,9 @@ import scala.collection.mutable
 import scala.reflect.ClassTag
 
 /**
- * Represents an immutanle Matrix and the possible operations on it
+ * Represents an immutable Matrix and the possible operations on it
  *
- * @param matrix A sequence of sequence, the initializer of the matrix
+ * @param matrix A sequence of sequence, the initializer of the matrix.
  * @param n N/A
  * @param m N/A
  * @tparam T Data type of the matrix elements
@@ -25,19 +25,18 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   }
 
   // Constraint for the construction: minimum size greater than zero and that all the rows are of the same length
-  require( matrix.length > 0 )
-  require( matrix(0).length > 0 )
-  require( matrix.forall(_.length == matrix(0).length) )
+  require( matrix.nonEmpty || matrix.head.nonEmpty, "The columns or the rows of the matrix must not be empty" )
+  require( matrix.forall(_.length == matrix.head.length), "The length of every row must match between each other" )
 
   /**
    * Number of rows of the matrix
    */
-  val rows = matrix.length
+  lazy val rows = matrix.length
 
   /**
    * Number of columns of the matrix
    */
-  val cols = matrix(0).length
+  lazy val cols = matrix.head.length
 
   /**
    * Main diagonal of the matrix
@@ -80,15 +79,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   )
 
   /**
-   * Inserts a row in the matrix
-   *
-   * @param i The zero-base position of where to insert the row
-   * @param row The row to insert. Its length must match the number of columns of the matrix
-   * @return A new matrix with the added row in the i-th position
-   */
-  def rowInsert(i: Int, row: Seq[T]) = ???
-
-  /**
    * Gets a column of the matrix
    *
    * @param i The number of the column to return
@@ -117,15 +107,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   def colSet(start: Int, count: Int) = new Matrix(
     matrix.transpose.take(start + count).takeRight(count).transpose
   )
-
-  /**
-   * Inserts a col in the matrix
-   *
-   * @param i The zero-base position of where to insert the col
-   * @param row The col to insert. Its length must match the number of rows of the matrix
-   * @return A new matrix with the added col in the i-th position
-   */
-  def colInsert(i: Int, row: Seq[T]) = ???
 
   /**
    * Maps each element of the matrix in a new element of
@@ -185,7 +166,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @param k A tuple that specify the i and j index of the element to return
    * @param value The new value to set
-   * @return The element at position (i, j)
+   * @return A new matrix with the changed value
    */
   def update(k: (Int, Int), value: T) = {
     val before: Seq[Seq[T]] = matrix.take(k._1)
@@ -213,8 +194,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
       if( rows != that.rows || cols != that.cols ) return false
 
       // Checking every element
-      for( i ← (0 until matrix.length).par;
-           j ← (0 until matrix(i).length).par ) {
+      for( i ← matrix.indices.par; j ← matrix(i).indices.par ) {
         if( matrix(i)(j) != that(i, j)) return false
       }
 
@@ -226,13 +206,15 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * Matrix multiplication
    *
-   * Ref: http://rosettacode.org/wiki/Matrix_multiplication#Scala
+   * @see http://rosettacode.org/wiki/Matrix_multiplication#Scala
+   * @param other The second element of the multiplication
+   * @return A new matrix that is the result of a matrix multiplication between the current one and {that}
    */
   def *( other: Matrix[T] ): Matrix[T] = new Matrix( {
     val c = other.transpose.toSeq
     for (row <- matrix)
       yield for (col <- c)
-        yield row.zip(col) map { Function.tupled(_ * _) } reduceLeft (_ + _)
+        yield (row.zip(col) map {Function.tupled(_ * _)}).sum
   } )
 
   /**
@@ -241,7 +223,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * Valid only for non-negative powers and for square matrices
    *
    * Implementation of the "exponentiation by squaring" algorithm
-   * Ref: http://www.programminglogic.com/fast-exponentiation-algorithms/
+   * @see http://www.programminglogic.com/fast-exponentiation-algorithms/
    * Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
    *
    * @param p The exponent to raise the matrix, a non-negative integer
@@ -277,16 +259,11 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    */
   def *( other: T ) = this map { x: T => x * other }
 
-  def +( other: Matrix[T] ): Matrix[T] = ???
-
-  def -( other: Matrix[T] ): Matrix[T] = ???
-
   /**
    * Returns a square identity matrix of the same size of the current matrix
    *
-   * Please note that an identity matrix can only be square and thus this
-   * function will return an identity matrix as large as the smallest size of
-   * the matrix
+   * Note that an identity matrix can only be square and thus this function will return an identity
+   * matrix as large as the smallest size of the matrix
    *
    * @return An new, identity matrix of the same size of the current matrix
    */
@@ -309,7 +286,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * The current matrix as Seq[Seq[T]]
    *
-   * @return The current matrix as a Sequence
+   * @return The current matrix as an immutable Seq
    */
   def toSeq = this.matrix
 
@@ -335,6 +312,10 @@ object Matrix {
    * @return A new identity matrix, with ones on the main diagonal an zeroes elsewhere
    */
   def identity[T]( size: Int )( implicit n: Numeric[T], m: ClassTag[T] ) =
-    new Matrix( Seq.tabulate(size, size) { (i, j) => if (i == j) n.one else n.zero } )
+    new Matrix(
+      Seq.tabulate(size, size) { (i, j) =>
+        if (i == j) n.one else n.zero
+      }
+    )
 
 }

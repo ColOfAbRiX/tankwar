@@ -15,13 +15,13 @@ import org.uncommons.watchmaker.framework.termination._
 import scala.collection.JavaConversions._
 
 /**
- * Main game class
- *
- * Created by Fabrizio on 29/09/2014.
+ * Simulation entry point
  */
 object TankWarMain {
 
   def main( args: Array[String] ) {
+
+    val a = "class com.colofabrix.DerivedTest"
 
     // Clean analysis files
     for {

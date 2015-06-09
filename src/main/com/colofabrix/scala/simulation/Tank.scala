@@ -1,11 +1,12 @@
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.abstracts.{InteractiveObject, PhysicalObject, Shape}
+import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
+import com.colofabrix.scala.simulation.abstracts.{InteractiveObject, PhysicalObject}
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 
 import scala.collection.mutable.ArrayBuffer
@@ -324,7 +325,7 @@ object Tank {
   // Range of the inputs (the purpose is to utilize all the range of the activation function)
   val defaultRange = 4.0
 
-  val defaultActivationFunction = Seq.fill(3)("tanh")
+  val defaultActivationFunction = Seq.fill(3)("sin")
 
   val defaultHiddenNeurons = (BrainInputHelper.count + BrainOutputHelper.count) / 2
 

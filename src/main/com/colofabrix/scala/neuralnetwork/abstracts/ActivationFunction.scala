@@ -5,7 +5,8 @@ import com.colofabrix.scala.neuralnetwork.activationfunctions._
 /**
  * Abstract definition of a Neural Network Activation Function
  */
-abstract trait ActivationFunction {
+trait ActivationFunction {
+
   /**
    * Calculates a function over a number
    *
@@ -20,7 +21,7 @@ abstract trait ActivationFunction {
    * This field is used to distinguish an Activation Function from another. It must be
    * unique between various activation functions. It is recommended to be a UUID
    *
-   * @return
+   * @return An identifier string unique between the activation functions
    */
   def UFID: String
 
@@ -42,9 +43,14 @@ abstract trait ActivationFunction {
   final override def hashCode: Int = this.UFID.hashCode
 }
 
-
 object ActivationFunction {
 
+  /**
+   * Activation function factory
+   *
+   * @param name The type of activation function
+   * @return A new activation function from the given string
+   */
   def apply(name: String) = name.toLowerCase match {
     case "linear" => new Linear
     case "clipped" => new LinearClipped

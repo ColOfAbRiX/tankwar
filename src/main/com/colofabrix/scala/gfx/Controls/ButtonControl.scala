@@ -11,7 +11,6 @@ import org.newdawn.slick.opengl.Texture
  * This class contains a Button. It has a render method, so is responsible for its own rendering
  * as well as a Unit that it is it's OnClick action. Requires a Box as a renderable/clickable area and
  * a Unit as an action
- *
  */
 class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
 

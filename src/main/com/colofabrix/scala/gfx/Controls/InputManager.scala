@@ -5,8 +5,6 @@ import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.input.Mouse
 
 /**
- * Created by Freddie on 19/05/2015.
- *
  * This class contains all the buttons for controlling the game
  * The update() method should be called once per step to check for any
  * clicks. If any clicks are found within a button, that button's

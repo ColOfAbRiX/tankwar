@@ -3,8 +3,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
- * Sin function
- * See https://en.wikipedia.org/wiki/Sin
+ * Sin activation function
+ *
+ * @see https://en.wikipedia.org/wiki/Sin
  */
 class Sin extends ActivationFunction {
 

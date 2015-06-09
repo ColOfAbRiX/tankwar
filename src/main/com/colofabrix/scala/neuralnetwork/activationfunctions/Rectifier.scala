@@ -3,8 +3,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
-  * Rectifier function
-  * See https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
+  * Rectifier activation function
+  *
+  * @see https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
   */
 class Rectifier extends ActivationFunction {
 

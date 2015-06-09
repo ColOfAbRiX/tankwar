@@ -7,7 +7,8 @@ import com.colofabrix.scala.math.Vector2D
   * Rectangle shape with edges parallel to the cartesian axis
   *
   * This kind of shape is particularly useful in checking overlaps and collisions
-  * as it is done in constant time O(k) and without complex mathematical operations
+  * as it is done in constant time O(k) and without complex mathematical operations.
+  * For this reasone, more than being only a {ConvexPolygon} it is also a {Container}
   *
   * @param bottomLeft Rectangle left-bottom-most point
   * @param topRight Rectangle right-top point
@@ -21,7 +22,7 @@ extends ConvexPolygon(
    ) )
 with Container
 {
-  require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect an order" )
+  require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect their spatial meaning" )
 
   /**
    * Determines if a point is inside or on the boundary the shape

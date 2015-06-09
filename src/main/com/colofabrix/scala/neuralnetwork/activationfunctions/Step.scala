@@ -3,8 +3,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
-  * Heaviside step function
-  * See https://en.wikipedia.org/wiki/Heaviside_step_function
+  * Heaviside activation function
+ *
+  * @see https://en.wikipedia.org/wiki/Heaviside_step_function
   */
 class Step extends ActivationFunction {
 

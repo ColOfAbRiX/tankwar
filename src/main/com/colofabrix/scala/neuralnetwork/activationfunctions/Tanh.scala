@@ -3,8 +3,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
-  * Hyperbolic tangent function
-  * See https://en.wikipedia.org/wiki/Hyperbolic_function
+  * Hyperbolic tangent activation function
+ *
+  * @see https://en.wikipedia.org/wiki/Hyperbolic_function
   */
 class Tanh extends ActivationFunction {
 

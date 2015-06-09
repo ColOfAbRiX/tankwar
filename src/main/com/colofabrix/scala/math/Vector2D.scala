@@ -3,6 +3,10 @@ package com.colofabrix.scala.math
 /**
  * A generic Cartesian Vector
  *
+ * The vectors represented here are generic, thus they are non applied vectors. This means that there isn't a convention
+ * to interpret them. It can either be that they are indicating a point related to the origin of the axes or they can
+ * represents a difference vector with origin not in the origin of axes.
+ *
  * @param cartesian The ending point of a origin centered vector in cartesian coordinates
  */
 case class Vector2D( cartesian: CartesianCoord ) {
@@ -241,23 +245,91 @@ case class Vector2D( cartesian: CartesianCoord ) {
   @inline
   def /(alpha: Double) = Vector2D.new_xy(this.x / alpha, this.y / alpha)
 
+  /**
+   * Compare the current vector with a given one and determine if it is less than the other
+   *
+   * The comparison is made between the length of the two vectors
+   *
+   * @param that The vector to compare
+   * @return true if the current instance is shorter than {that}, false otherwise
+   */
   @inline
   def <(that: Vector2D): Boolean = this.r < that.r
+
+  /**
+   * Compare the current vector with a number and determine if is less than it
+   *
+   * The comparison is made with the length of the vector and the number itself
+   *
+   * @param distance The number
+   * @return true if the current instance is shorter than the number {distance}, false otherwise
+   */
   @inline
   def <(distance: Double): Boolean = this.r < distance
 
+  /**
+   * Compare the current vector with a given one and determine if it is less or equal than the other
+   *
+   * The comparison is made between the length of the two vectors
+   *
+   * @param that The vector to compare
+   * @return true if the current instance is shorter or equal than {that}, false otherwise
+   */
   @inline
   def <=(that: Vector2D): Boolean = this.r <= that.r
+
+  /**
+   * Compare the current vector with a number and determine if is less or equal than it
+   *
+   * The comparison is made with the length of the vector and the number itself
+   *
+   * @param distance The number
+   * @return true if the current instance is shorter or equal than the number {distance}, false otherwise
+   */
   @inline
   def <=(distance: Double): Boolean = this.r <= distance
 
+  /**
+   * Compare the current vector with a given one and determine if it is greater or equal than the other
+   *
+   * The comparison is made between the length of the two vectors
+   *
+   * @param that The vector to compare
+   * @return true if the current instance is longer or equal than {that}, false otherwise
+   */
   @inline
   def >=(that: Vector2D): Boolean = this.r >= that.r
+
+  /**
+   * Compare the current vector with a number and determine if is less than it
+   *
+   * The comparison is made with the length of the vector and the number itself
+   *
+   * @param distance The number
+   * @return true if the current instance is longer or equal than the number {distance}, false otherwise
+   */
   @inline
   def >=(distance: Double): Boolean = this.r >= distance
 
+  /**
+   * Compare the current vector with a given one and determine if it is greater than the other
+   *
+   * The comparison is made between the length of the two vectors
+   *
+   * @param that The vector to compare
+   * @return true if the current instance is longer than {that}, false otherwise
+   */
   @inline
   def >(that: Vector2D): Boolean = this.r > that.r
+
+  /**
+   * Compare the current vector with a number and determine if is greater than it
+   *
+   * The comparison is made with the length of the vector and the number itself
+   *
+   * @param distance The number
+   * @return true if the current instance is longer than the number {distance}, false otherwise
+   */
   @inline
   def >(distance: Double): Boolean = this.r > distance
 }
@@ -265,7 +337,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
 object Vector2D {
 
   /**
-   * A generic Cartesian Vector
+   * Creates a generic Cartesian Vector
    *
    * @param polar The ending point of a origin centered vector in polar coordinates
    */
@@ -301,7 +373,7 @@ object Vector2D {
   /**
    * Zero vector
    *
-   * It's a null vector
+   * It's a null vector, alias for {origin}
    *
    * @return A vector with both coordinates equals to zero
    */

@@ -64,11 +64,11 @@ class CoordinatesTest extends WordSpec with Matchers {
 
       "Is transformed to valid polar coordinates" in {
         // Test vector 1: t=10u r=90° -> x=0, y=10
-        val cartesian_1 = new CartesianCoord(0, 10)
+        val cartesian_1 = CartesianCoord(0, 10)
         // Test vector 1: t=10u r=180° -> x=-10, y=0
-        val cartesian_2 = new CartesianCoord(-10, 0)
+        val cartesian_2 = CartesianCoord(-10, 0)
         // Test vector 2: t=10u r=-45° -> x=7.0710678, y=-7.0710678
-        val cartesian_3 = new CartesianCoord(7.0710678, -7.0710678)
+        val cartesian_3 = CartesianCoord(7.0710678, -7.0710678)
 
         // Conversions
         val polar_1 = PolarCoord(cartesian_1)

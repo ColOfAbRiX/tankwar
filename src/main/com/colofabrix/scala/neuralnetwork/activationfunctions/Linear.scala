@@ -3,7 +3,8 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**s
-  * Linear function
+  * Linear activation function
+  *
   * Maps the input directly to the output
   */
 class Linear extends ActivationFunction {

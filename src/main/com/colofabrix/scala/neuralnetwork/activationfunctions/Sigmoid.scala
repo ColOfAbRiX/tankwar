@@ -3,8 +3,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
-  * Sigmoid function
-  * See https://en.wikipedia.org/wiki/Sigmoid_function
+  * Sigmoid activation function
+ *
+  * @see https://en.wikipedia.org/wiki/Sigmoid_function
   */
 class Sigmoid extends ActivationFunction {
 

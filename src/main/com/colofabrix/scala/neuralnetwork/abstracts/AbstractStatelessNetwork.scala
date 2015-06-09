@@ -15,14 +15,10 @@ import scala.collection.mutable.ArrayBuffer
  *  - Only the feedforward area of the adjacency matrix can be a numeric value
  *
  *
- * @param inputCount Number of inputs of the Neural Network
- * @param outputCount Number of inputs of the Neural Network
  * @param matrix Defining adjacency matrix
  * @param af Activation function used by the network
  */
 abstract class AbstractStatelessNetwork(
-  override val inputCount: Int,
-  override val outputCount: Int,
   override val matrix: NetworkMatrix,
   override val af: ActivationFunction )
 extends NeuralNetwork {

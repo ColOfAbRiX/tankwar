@@ -4,26 +4,25 @@ import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
 import com.colofabrix.scala.math.Vector2D
 
 /**
- * A generic 2D polygon
- *
- * Created by Fabrizio on 10/01/2015.
+ * A generic two-dimensional polygon
+ * A generic two-dimensional polygon
  */
 class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
 
   /**
-   * Edges of the shape, built from the vertices
+   * Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
    */
   val edges: Seq[Vector2D] = (vertices :+ vertices.head).sliding(2) map { v => v(1) - v(0) } toList
 
   /**
-   * List of all adjacent vertexes of the polygon
+   * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
    */
   val verticesIterator = (vertices :+ vertices.head).sliding(2).toSeq
 
   /**
-   * List of all adjacent edges of the polygon
+   * List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
    */
   val edgesIterator = (edges :+ edges.head).sliding(2).toSeq
 
@@ -33,14 +32,16 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * To be convex, the edges of a polygon must form between each others angles greater that 180. This is
    * checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
    * edge compared to the first.
-   * Ref: https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
    *
+   * @see https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
    * @return true if the polygon is convex
    */
   lazy val isConvex = {
-    // The direction or rotation can be either CW or CCW as far as it is always the same or zero
+    // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
+    // direction of the first edge as a reference.
     val direction = Math.signum( edges(1) ^ edges(0) )
 
+    // Check the condition on all edges
     this.edgesIterator.tail forall {
       case u :: v :: Nil =>
         val r = v ^ u
@@ -54,12 +55,13 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * Checks the distances from all the edges and returns the nearest one
    *
    * @param p Point to check
-   * @return A distance vector from the point to polygon and the edge from which the distance is calculated
+   * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
    */
   def distance(p: Vector2D): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
     if( overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
+    // Check all the vertices and return the nearest one.
     verticesIterator.map({
       case v0 :: v1 :: Nil =>
         (distance(v0, v1, p), v1 - v0)
@@ -77,6 +79,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     // If the point is inside the polygon....
     if( overlaps(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
+    // Check all the vertices and return the nearest one.
     vertices.map({
       v => (distance(p0, p1, v), v)
     }).toList.minBy( _._1.r )
@@ -89,17 +92,20 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @return True if the point is inside the shape
    */
   override def overlaps(that: Shape): Boolean = that match {
-    // With circles I check the distance from the nearest edge
+    // With circles I find the nearest edge to the center and then I compare it to the radius to see if it's inside
     case c: Circle => distance(c.center)._1 <= c.radius
+
+    // For polygons I use the proper internal function
     case p: Polygon => overlaps(p)
+
+    // Other comparisons are not possible
     case _ => false
   }
 
   /**
    * Determines if a point is inside or on the boundary the shape
    *
-   * Implementation of the algorithm http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
-   *
+   * @see http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
@@ -154,8 +160,8 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    *
    * This is a faster version (less calculations) of the vector product of two vectors
    * defined by three points.
-   * Reference: http://algs4.cs.princeton.edu/91primitives/
    *
+   * @see http://algs4.cs.princeton.edu/91primitives/
    * @param v0 First segment point
    * @param v1 Second segment point
    * @param p Point to check
@@ -165,22 +171,19 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**
-   * Moves a polygon
+   * Moves a polygon shifting all its vertices by a vectorial quantity
    *
    * @param where The vector specifying how to move the polygon
-   * @return A new polygon moved of `where`
+   * @return A new polygon moved of {where}
    */
-  override def move(where: Vector2D) = {
-    new Polygon( vertices.map(v => v + where) )
-  }
+  override def move(where: Vector2D) = new Polygon( vertices.map(v => v + where) )
 
   /**
    * Find a containing box for the current shape.
    *
-   * It returns the smallest area between a box or a circle that fully contain
-   * the current shape.
-   * Implementation of the algorithm ref: http://geomalgorithms.com/a08-_containers.html
+   * For simplicity the current implementation always returns a {Box}
    *
+   * @see http://geomalgorithms.com/a08-_containers.html
    * @return A shape that fully contains this shape
    */
   override lazy val container: Container = {
@@ -205,8 +208,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   /**
    * Area of the polygon
    *
-   * Implementation of the polygon area algorithm
-   * Ref: http://geomalgorithms.com/a01-_area.html
+   * @see http://geomalgorithms.com/a01-_area.html
    */
   lazy val area = {
     (vertices :+ vertices.head).sliding(3).map {

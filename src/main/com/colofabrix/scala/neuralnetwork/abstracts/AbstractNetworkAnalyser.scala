@@ -7,32 +7,44 @@ import com.colofabrix.scala.simulation.{BrainInputHelper, World}
 /**
  * Provides a way to visualize the behaviour of a NN
  *
- * This class allows to create CSV files to analyse the various outputs varying
- * specific inputs.
+ * This class allows the creation of CSV files to analyse the various outputs varying specific inputs. It feeds a network
+ * with input values and writes the outputs to a stream. It also provides a basic structure to define different types
+ * of tests (for different inputs and combinations of them) for different ranges of input values.
  *
- * Created by Fabrizio on 15/02/2015.
+ * @param world Reference to the World.
+ * @param network The neural network that you want to analyse
  */
+// FIXME: Remove the usage of {world}. It is there only to provide data for a badly designed {BrainInputHelper}
 abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork) extends NetworkAnalyser {
 
   /**
-   * First line that will be written to the output stream
+   * First line that will be written to the output stream, usually the header of the CSV file
+   *
+   * @return A text containing a comma-separated values as a header for the CSV file
    */
   def outputHeader: String
 
   /**
-   * Contains the definition of the plots for the network, like the definition of the
-   * input values for a specific input. The list if filled by a concrete implementation
-   * of the class
+   * Contains the definition of the plots for the network, like the definition of the input range for a
+   * specific input. The list will be filled by a concrete implementation of the class. Every item of the list
+   * is a tuple containing:
    *
-   * @return A list of tuples constructed like: (input#, start_value, end_value, points_count)
+   * (input#, start_value, end_value, points_count)
+   *   - input#: Reference to the ordinal number of the input to use
+   *   - start_value: The initial value to start to feed
+   *   - end_value: The final value to feed
+   *   - points_count: How many intermediate values (between start_value and end_value) feed to the network
+   *
+   * @return A list of tuples constructed like:
    */
   def plotDefinitions: List[(Int, Double, Double, Double)]
 
   /**
-   * Contains the definition of the tests that will be performed during the run. The list
-   * if filled by a concrete implementation of the class
+   * Contains the definition of the tests that will be performed during the run. The list will be filled
+   * by a concrete implementation of the class. The list simply contains functions that will be called one
+   * after the other and that accept a writer. The writer is used to write the data to the output stream
    *
-   * @return A list of functions that run the test, each of which are called once
+   * @return A list of functions that run the test, each of which are called in the sequence found in the list
    */
   def testDefinitions: List[(PrintWriter => Unit)]
 
@@ -52,10 +64,9 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
     // Extracts the definition of the plot from the list
     val (input, start, end, points) = plotDefinitions(currentIndex)
 
-    // All the X-Values to plot
+    // The list of the input values to plot
     val range = start.to(end, (end - start) / points)
 
-    // For every X value
     range.foreach { x =>
       // Modify the value of the current input
       val inputs = inputBase.patch(input, Seq(x), 1)

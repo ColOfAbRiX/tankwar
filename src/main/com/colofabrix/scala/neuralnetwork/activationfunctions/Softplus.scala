@@ -8,8 +8,9 @@ package com.colofabrix.scala.neuralnetwork.activationfunctions
 import com.colofabrix.scala.neuralnetwork.abstracts.ActivationFunction
 
 /**
- * Softplus function
- * See https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
+ * Softplus activation function
+ *
+ * @see https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
  */
 class Softplus extends ActivationFunction {
 

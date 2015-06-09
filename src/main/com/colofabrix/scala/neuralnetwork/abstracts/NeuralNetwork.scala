@@ -1,6 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.abstracts
 
-import com.colofabrix.scala.math.NetworkMatrix
+import com.colofabrix.scala.math.{Matrix, NetworkMatrix}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -8,9 +8,8 @@ import scala.collection.mutable.ArrayBuffer
 /**
  * Any Neural Network of any type.
  *
- * A Neural Network has always a set of outputs given a set of inputs
- *
- * Created by Fabrizio on 03/05/2015.
+ * A Neural Network is a system with a set of inputs used to calculate a set of outputs. Internally the data
+ * is processed using a network that is modeled using a graph and a modified adjacency matrix.
  */
 trait NeuralNetwork {
 
@@ -27,12 +26,12 @@ trait NeuralNetwork {
   /**
    * Number of inputs of the Neural Network
    */
-  def inputCount: Int
+  def inputCount: Int = matrix.inputRoots.length
 
   /**
    * Number of outputs of the Neural Network
    */
-  def outputCount: Int
+  def outputCount: Int = matrix.outputRoots.length
 
   /**
    * Activation function associated with the Neural Network
@@ -56,7 +55,7 @@ trait NeuralNetwork {
    *
    * Given an input value it calculates the set of output values
    *
-   * @param input A sequence of T to feed the NN
+   * @param input A numerical value of type T to feed the NN
    * @return A sequence of T representing the output
    */
   def output( input: Double ): Seq[Double] = output( Seq(input) )
@@ -67,7 +66,7 @@ trait NeuralNetwork {
    * The quality of two neural network is and must be only determined by their respective
    * adjacency matrices, regardless of their implementation.
    * This is not completely true as there are many equivalent matrices that specifies the same
-   * neural network
+   * neural network but imposing this condition ensure a simpler algorithm
    *
    * @param other The other object to check
    */
@@ -90,7 +89,7 @@ trait NeuralNetwork {
    */
   override def toString = {
     val text = this.getClass + "(" + matrix.toString() + ")"
-    text.replace("class ", "").replace("List", "").replace("com.colofabrix.scala.neuralnetwork.", "")
+    text.replace("class ", "").replace("List", "").replaceFirst("""(\w+\.)*""", "")
   }
 
   /**
@@ -149,7 +148,7 @@ object NeuralNetwork {
    * @param network Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
-   def analiseNetwork(network: NetworkMatrix, rootIndex: Int): (NetworkMatrix, NetworkMatrix, NetworkMatrix) = {
+   def analiseNetwork(network: NetworkMatrix, rootIndex: Int): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
     val matrix = network.adjacencyOnly
 
     require( network.inputRoots.contains(rootIndex), "The specified input is not within the input matrix" )
@@ -211,10 +210,6 @@ object NeuralNetwork {
       }
     }
 
-    (
-      new NetworkMatrix(forward, network.inputRoots, network.outputRoots),
-      new NetworkMatrix(back, network.inputRoots, network.outputRoots),
-      new NetworkMatrix(cross, network.inputRoots, network.outputRoots)
-    )
+    ( new Matrix(forward), new Matrix(back), new Matrix(cross) )
   }
 }
