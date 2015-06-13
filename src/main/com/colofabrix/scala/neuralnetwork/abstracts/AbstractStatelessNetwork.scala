@@ -1,6 +1,6 @@
 package com.colofabrix.scala.neuralnetwork.abstracts
 
-import com.colofabrix.scala.math.NetworkMatrix
+import com.colofabrix.scala.neuralnetwork.NetworkMatrix
 
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer

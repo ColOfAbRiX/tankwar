@@ -1,6 +1,7 @@
 package com.colofabrix.scala.neuralnetwork.abstracts
 
-import com.colofabrix.scala.math.{Matrix, NetworkMatrix}
+import com.colofabrix.scala.math.Matrix
+import com.colofabrix.scala.neuralnetwork.NetworkMatrix
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -95,39 +96,12 @@ trait NeuralNetwork {
   /**
    * Tells if the Neural Network is stateless (and the graph acyclic)
    */
-  lazy val isAcyclic: Boolean = {
-    // Test the network for all possible starting points (the inputs)
-    val result = (0 until inputCount) map { i =>
-      val (_, back, _) = NeuralNetwork.analiseNetwork(matrix, i)
-      // Check that there are no back edges
-      back.map( x => if (x.isNaN) 0.0 else 1.0 ) == back.toZero
-    }
-
-    // The condition must be true for all the starting points
-    result.forall( _ == true )
-  }
+  lazy val isAcyclic: Boolean = matrix.isAcyclic
 
   /**
    * Tells if the Neural Network is forward only (this implies the network is also stateless)
    */
-  lazy val isForwardOnly: Boolean = {
-
-    if( !isAcyclic )
-      // Shortcut, if acyclic is never forward-only
-      false
-
-    else {
-      // Test the network for all possible starting points (the inputs)
-      val result = (0 until inputCount) map { i =>
-        val (_, _, cross) = NeuralNetwork.analiseNetwork(matrix, i)
-        // Check that there are no cross edges (that there are no back edges is ensured by the outer condition
-        cross.map(x => if (x.isNaN) 0.0 else 1.0) == cross.toZero
-      }
-
-      // The condition must be true for all the starting points
-      result.forall(_ == true)
-    }
-  }
+  lazy val isForwardOnly: Boolean = matrix.isForwardOnly
 
 }
 

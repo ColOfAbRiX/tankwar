@@ -1,8 +1,7 @@
 package com.colofabrix.test.scala.neuralnetwork
 
-import com.colofabrix.scala.math.NetworkMatrix
-import com.colofabrix.scala.neuralnetwork.GenericStatelessNetwork
 import com.colofabrix.scala.neuralnetwork.abstracts._
+import com.colofabrix.scala.neuralnetwork.{GenericStatelessNetwork, NetworkMatrix}
 import org.scalatest.{Matchers, WordSpec}
 
 import scala.util.Random
@@ -186,58 +185,6 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
 
     }
 
-  }
-
-  "Check graph properties" when {
-
-    // Class to test the property of the network
-    class TestImplementation( override val matrix: NetworkMatrix, override val af: ActivationFunction )
-      extends NeuralNetwork { override def output(inputs: Seq[Double]): Seq[Double] = inputs }
-
-    "The graph is forward only" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
-
-      val test = new TestImplementation(matrix, activation)
-
-      test.isForwardOnly should equal(true)
-      test.isAcyclic should equal(true)
-    }
-
-    "The graph is acyclic" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, NaN, NaN, 0.3),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
-
-      val test = new TestImplementation(matrix, activation)
-
-      test.isForwardOnly should equal(false)
-      test.isAcyclic should equal(true)
-    }
-
-    "The graph is generic" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, -0.2, NaN, 0.3),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
-
-      val test = new TestImplementation(matrix, activation)
-
-      test.isForwardOnly should equal(false)
-      test.isAcyclic should equal(false)
-    }
   }
 
   "Outputs" when {

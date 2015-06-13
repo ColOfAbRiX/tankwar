@@ -54,7 +54,7 @@
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="NetworkMatrix.html" class="extype" name="com.colofabrix.scala.math.NetworkMatrix">NetworkMatrix</a></div>
+            <div class="subClasses hiddenContent"><a href="../neuralnetwork/NetworkMatrix.html" class="extype" name="com.colofabrix.scala.neuralnetwork.NetworkMatrix">NetworkMatrix</a></div>
           </div></div>
         
 
@@ -286,6 +286,26 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.colofabrix.scala.math.Matrix#canEqual" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="canEqual(other:Any):Boolean"></a>
+      <a id="canEqual(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">canEqual</span><span class="params">(<span name="other">other: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@canEqual(other:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">It is called from equals to make sure that the objects are comparable both ways
+</p><div class="fullcomment"><div class="comment cmt"><p>It is called from equals to make sure that the objects are comparable both ways
+</p></div><dl class="paramcmts block"><dt class="param">other</dt><dd class="cmt"><p>The other object to check</p></dd><dt>returns</dt><dd class="cmt"><p>The method should return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>See also</dt><dd><span class="cmt"><p>http://www.artima.com/pins1ed/object-equality.html</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#clone" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():com.colofabrix.scala.math.Matrix[T]"></a>
       <a id="clone():Matrix[T]"></a>
@@ -366,6 +386,26 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a subset of the rows of the matrix
 </p></div><dl class="paramcmts block"><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return starting from row-0</p></dd><dt>returns</dt><dd class="cmt"><p>The first {count} rows of the matrix
 </p></dd></dl></div>
+    </li><li name="com.colofabrix.scala.math.Matrix#colSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="colSet:Seq[Seq[T]]"></a>
+      <a id="colSet:Seq[Seq[T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">colSet</span><span class="result">: <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@colSet:Seq[Seq[T]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Gets the matrix as a Seq of columns
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the matrix as a Seq of columns
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A Seq() containing the columns of the matrix
+</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#cols" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="cols:Int"></a>
       <a id="cols:Int"></a>
@@ -424,7 +464,7 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
       <a id="equals(Any):Boolean"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">final </span>
+        <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -479,7 +519,7 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.colofabrix.scala.math.Matrix#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <a id="hashCode():Int"></a>
       <h4 class="signature">
@@ -495,7 +535,7 @@ Ref: https://stackoverflow.com/questions/12311869/fast-matrix-exponentiation
         <img src="../../../../lib/permalink.png" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.math.Matrix">Matrix</a> → AnyRef → Any</dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -728,6 +768,26 @@ a new matrix
       <p class="shortcomment cmt">Gets a subset of the rows of the matrix
 </p><div class="fullcomment"><div class="comment cmt"><p>Gets a subset of the rows of the matrix
 </p></div><dl class="paramcmts block"><dt class="param">count</dt><dd class="cmt"><p>The number of rows to return starting from row-0</p></dd><dt>returns</dt><dd class="cmt"><p>The first {count} rows of the matrix
+</p></dd></dl></div>
+    </li><li name="com.colofabrix.scala.math.Matrix#rowSet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rowSet:Seq[Seq[T]]"></a>
+      <a id="rowSet:Seq[Seq[T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rowSet</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="com.colofabrix.scala.math.Matrix.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.math.Matrix@rowSet:Seq[Seq[T]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Gets the matrix as a Seq of rows
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the matrix as a Seq of rows
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A Seq() containing the rows of the matrix
 </p></dd></dl></div>
     </li><li name="com.colofabrix.scala.math.Matrix#rows" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="rows:Int"></a>

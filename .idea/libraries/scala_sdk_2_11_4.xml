@@ -24,6 +24,7 @@
       <root url="jar://C:/Program Files (x86)/scala/api/jars/scala-reflect-2.11.4-javadoc.jar!/" />
       <root url="jar://C:/Program Files (x86)/scala/api/jars/scala-swing_2.11-1.0.1-javadoc.jar!/" />
       <root url="jar://C:/Program Files (x86)/scala/api/jars/scala-xml_2.11-1.0.2-javadoc.jar!/" />
+      <root url="http://www.scala-lang.org/api/current/" />
     </JAVADOC>
     <SOURCES />
   </library>

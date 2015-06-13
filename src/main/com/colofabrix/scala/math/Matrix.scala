@@ -46,7 +46,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * Transpose of the matrix
    */
-  lazy val transpose = new Matrix(matrix.transpose)
+  lazy val transpose = new Matrix(this.colSet)
 
   /**
    * Gets a row of the matrix
@@ -55,6 +55,13 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @return The i-th row of the matrix
    */
   def row(i: Int) = matrix(i)
+
+  /**
+   * Gets the matrix as a Seq of rows
+   *
+   * @return A Seq() containing the rows of the matrix
+   */
+  def rowSet() = matrix
 
   /**
    * Gets a subset of the rows of the matrix
@@ -84,6 +91,13 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @return The i-th column of the matrix
    */
   def col(i: Int) = matrix map (_(i))
+
+  /**
+   * Gets the matrix as a Seq of columns
+   *
+   * @return A Seq() containing the columns of the matrix
+   */
+  def colSet() = matrix.transpose
 
   /**
    * Gets a subset of the rows of the matrix
@@ -186,19 +200,41 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param obj The other object to compare
    * @return true if the other object is a matrix identical to the current one
    */
-  override final def equals( obj: Any ): Boolean = obj match {
-    case that: Matrix[T] =>
-      // Speed check with the number of inputs
-      if( rows != that.rows || cols != that.cols ) return false
+  override def equals( obj: Any ): Boolean = {
+    // Check if the two objects can be compared
+    if (!(this canEqual obj)) return false
 
-      // Checking every element
-      for( i ← matrix.indices.par; j ← matrix(i).indices.par ) {
-        if( matrix(i)(j) != that(i, j)) return false
+    obj match {
+      case that: Matrix[T] =>
+
+        // Fast check with the number of inputs
+        if( rows != that.rows || cols != that.cols ) return false
+
+        // Checking every element
+        for( i ← matrix.indices.par; j ← matrix(i).indices.par ) {
+          if( matrix(i)(j) != that(i, j)) return false
+        }
+
+        true
+
+      case _ => false
+    }
+  }
+
+  /**
+   * It is called from equals to make sure that the objects are comparable both ways
+   *
+   * @see http://www.artima.com/pins1ed/object-equality.html
+   * @param other The other object to check
+   * @return The method should return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected def canEqual(other: Any): Boolean = other.isInstanceOf[Matrix[T]]
+
+  override def hashCode = matrix.foldLeft(0) { ( res, row ) =>
+    41 * res +
+      row.foldLeft(41) { ( res2, x ) =>
+        41 * res2 + x.hashCode()
       }
-
-      true
-
-    case _ => false
   }
 
   /**
