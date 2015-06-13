@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Fabrizio Colonna" pattern="file:src/*" />
+  <scope name="Sources + Tests" pattern="file:src/*" />
 </component>
