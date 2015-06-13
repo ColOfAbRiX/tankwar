@@ -30,10 +30,10 @@ import scala.collection.JavaConversions._
  *
  * Created by Fabrizio on 18/01/2015.
  */
-class TankCrossover(crossoverPoints: Int, crossoverProbability: Probability)
-extends AbstractCrossover[Tank](crossoverPoints, crossoverProbability) {
+class TankCrossover( crossoverPoints: Int, crossoverProbability: Probability )
+  extends AbstractCrossover[Tank](crossoverPoints, crossoverProbability) {
 
-  override def mate(t0: Tank, t1: Tank, i: Int, random: Random): util.List[Tank] = {
+  override def mate( t0: Tank, t1: Tank, i: Int, random: Random ): util.List[Tank] = {
     val ch0 = t0.chromosome.toList
     val ch1 = t1.chromosome.toList
 

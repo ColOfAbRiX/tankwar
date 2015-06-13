@@ -28,6 +28,6 @@ trait NetworkAnalyser {
   /**
    * Run the tests for the network
    */
-  def runTests(): Unit
+  def runTests( ): Unit
 
 }

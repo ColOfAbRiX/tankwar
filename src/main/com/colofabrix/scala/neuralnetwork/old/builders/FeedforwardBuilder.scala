@@ -33,7 +33,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
    * @param outputLayer Output layer of the new Neural Network
    * @return A new instance of a Neural Network of type Feedforward
    */
-  override def buildNetwork(inputLayer: InputLayer, hiddenLayers: Seq[HiddenLayer], outputLayer: OutputLayer): NeuralNetwork =
+  override def buildNetwork( inputLayer: InputLayer, hiddenLayers: Seq[HiddenLayer], outputLayer: OutputLayer ): NeuralNetwork =
     new FeedforwardNeuralNetwork(
       inputLayer,
       hiddenLayers,
@@ -46,7 +46,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
    * @param nInputs The number of inputs of the NN
    * @return A new InputLayer for the NN
    */
-  override def buildInputLayer(nInputs: Int, dataReader: LayerReader): InputLayer =
+  override def buildInputLayer( nInputs: Int, dataReader: LayerReader ): InputLayer =
     new InputLayer(nInputs)
 
   /**
@@ -56,7 +56,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
    * @param nNeurons The number of neurons in the HiddenLayer
    * @return A single HiddenLayer
    */
-  override def buildHiddenLayer(nInputs: Int, nNeurons: Int, dataReader: LayerReader): HiddenLayer =
+  override def buildHiddenLayer( nInputs: Int, nNeurons: Int, dataReader: LayerReader ): HiddenLayer =
     new HiddenLayer(
       dataReader.activationFunction,
       nInputs,
@@ -72,7 +72,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
    * @param nNeurons The number of neurons in the HiddenLayer
    * @return A single OutputLayer
    */
-  override def buildOutputLayer(nInputs: Int, nNeurons: Int, dataReader: LayerReader): OutputLayer =
+  override def buildOutputLayer( nInputs: Int, nNeurons: Int, dataReader: LayerReader ): OutputLayer =
     new OutputLayer(
       dataReader.activationFunction,
       nInputs,

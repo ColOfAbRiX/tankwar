@@ -30,12 +30,12 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.{ActivationFunction, Neu
  * @param biases The set of bias values, one for each neuron
  * @param weights The set of input weights. Every neuron has n_inputs weights.
  */
-class HiddenLayer (
+class HiddenLayer(
   activation: ActivationFunction,
   n_inputs: Int, n_outputs: Int,
   biases: Seq[Double], weights: Seq[Seq[Double]] )
-extends NeuronLayer(
-  activation,
-  n_inputs, n_outputs,
-  biases, weights
-)
+  extends NeuronLayer(
+    activation,
+    n_inputs, n_outputs,
+    biases, weights
+  )

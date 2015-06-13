@@ -34,18 +34,18 @@ import scala.collection.mutable.ListBuffer
  * @param remember Determines if the layer has to remember the output of every call
  * @param contextWeights The weights for the feedback. It is structured as `weights` and the inputs are as `n_output`
  */
-class ElmanFeedbackLayer (
+class ElmanFeedbackLayer(
   activation: ActivationFunction,
   n_inputs: Int,
   n_outputs: Int,
   private val _biases: Seq[Double],
   private val _weights: Seq[Seq[Double]],
   protected val contextWeights: Seq[Seq[Double]],
-  var remember: Boolean = true)
-extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
+  var remember: Boolean = true )
+  extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
 
   // Check that every sequence of feedback weights associated with each neuron is the same size of the inputs of that neuron
-  require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
+  require(contextWeights.length == n_outputs && contextWeights.forall(_.length == n_outputs), "The size of context weights must match n_output")
 
   // To provide a uniform access to the data, the context weights are included in normal weights and the biases adjusted
   override val biases = _biases ++ Seq.fill(contextWeights.length)(0.0)
@@ -56,7 +56,7 @@ extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
    *
    * @return
    */
-  def lastFeedback =_memory.toList
+  def lastFeedback = _memory.toList
 
   // This memory contains the outputs of the previous call of output
   private val _memory: ListBuffer[Double] = ListBuffer.fill(n_outputs)(0.0)
@@ -83,7 +83,7 @@ extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
    * @param inputs2 Second input sequence, structured as the weight variable
    * @return A new `Seq[Seq[Double]]` containing, for each neuron, the inputs of the first lists and the inputs of the second list
    */
-  private def mixInputs(inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]]) =
+  private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) =
     (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
 
   /**
@@ -94,7 +94,7 @@ extends HiddenLayer(activation, n_inputs, n_outputs, _biases, _weights) {
    * @param inputs A sequence of double to feed the layer
    * @return A sequence of double representing the output
    */
-  override def output(inputs: Seq[Double]): Seq[Double] = {
+  override def output( inputs: Seq[Double] ): Seq[Double] = {
     val outputs = internalLayer.output(inputs ++ _memory)
 
     if( remember ) {

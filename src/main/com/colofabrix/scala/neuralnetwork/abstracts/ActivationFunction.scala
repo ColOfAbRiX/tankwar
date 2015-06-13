@@ -59,6 +59,7 @@ trait ActivationFunction {
   final override def hashCode: Int = this.UFID.hashCode
 }
 
+
 object ActivationFunction {
 
   /**
@@ -67,7 +68,7 @@ object ActivationFunction {
    * @param name The type of activation function
    * @return A new activation function from the given string
    */
-  def apply(name: String) = name.toLowerCase match {
+  def apply( name: String ) = name.toLowerCase match {
     case "linear" => new Linear
     case "clipped" => new LinearClipped
     case "step" => new Step

@@ -26,6 +26,7 @@ package com.colofabrix.scala.math
  * @param cartesian The ending point of a origin centered vector in cartesian coordinates
  */
 case class Vector2D( cartesian: CartesianCoord ) {
+
   import java.lang.Math._
 
   import com.colofabrix.scala.math.Vector2DImplicits._
@@ -33,7 +34,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
   /**
    * @param polar The ending point of a origin centered vector in polar coordinates
    */
-  def this(polar: PolarCoord) = this(CartesianCoord(polar))
+  def this( polar: PolarCoord ) = this(CartesianCoord(polar))
 
   /**
    * Polar representation of this vectors
@@ -66,7 +67,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param i 0: x coordinate, 1: y coordinate, 2: Theta, 3: Rho
    * @return The specified coordinate
    */
-  def apply(i: Int): Double = Seq(x, y, r, t)(i)
+  def apply( i: Int ): Double = Seq(x, y, r, t)(i)
 
   /**
    * Apply a transformation to the point
@@ -77,7 +78,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: Double => Double ): Vector2D = Vector2D.new_xy( t(this.x), t(this.y) )
+  def :=( t: Double => Double ): Vector2D = Vector2D.new_xy(t(this.x), t(this.y))
 
   /**
    * Apply a transformation to the point
@@ -89,7 +90,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_xy( t(this.x, 0), t(this.y, 1) )
+  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_xy(t(this.x, 0), t(this.y, 1))
 
   /**
    * Map a point through another one
@@ -100,7 +101,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def :=( that: Vector2D ): Vector2D = this := { _ * that(_) }
+  def :=( that: Vector2D ): Vector2D = this := {_ * that(_)}
 
   /**
    * Apply a transformation to the point
@@ -111,7 +112,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: Double => Double ): Vector2D = Vector2D.new_rt( t(this.r), t(this.t) )
+  def @=( t: Double => Double ): Vector2D = Vector2D.new_rt(t(this.r), t(this.t))
 
   /**
    * Apply a transformation to the point
@@ -123,7 +124,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_rt( t(this.r, 2), t(this.t, 3) )
+  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_rt(t(this.r, 2), t(this.t, 3))
 
   /**
    * Map a point through another one
@@ -134,7 +135,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def @=( that: Vector2D ): Vector2D = this @= { _ * that(_) }
+  def @=( that: Vector2D ): Vector2D = this @= {_ * that(_)}
 
   /**
    * Projects a vector onto another
@@ -142,7 +143,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param that The vector identifying the projection axis
    */
   @inline
-  def ->(that: Vector2D): Vector2D = this.r * cos(this.t - that.t) * that.v
+  def ->( that: Vector2D ): Vector2D = this.r * cos(this.t - that.t) * that.v
 
   /**
    * Rotates the vector of a given angle
@@ -150,7 +151,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param angle The angle of rotation, in radians
    */
   @inline
-  def ¬(angle: Double): Vector2D = Vector2D.new_rt(this.r, this.t + angle)
+  def ¬( angle: Double ): Vector2D = Vector2D.new_rt(this.r, this.t + angle)
 
   /**
    * Finds the ccw perpendicular vector, rotated CCW
@@ -178,7 +179,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A unit vector with the same direction as the current vector
    */
   @inline
-  def v = Vector2D.new_rt( 1, this.t )
+  def v = Vector2D.new_rt(1, this.t)
 
   /**
    * Adds a scalar to both the cartesian coordinates of the vector
@@ -187,7 +188,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector moved of that quantity
    */
   @inline
-  def +(that: Double) = Vector2D.new_xy(this.x + that, this.y + that)
+  def +( that: Double ) = Vector2D.new_xy(this.x + that, this.y + that)
 
   /**
    * Adds two vectors
@@ -196,7 +197,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector which is the sum between the current and the given vectors
    */
   @inline
-  def +(that: Vector2D) = Vector2D.new_xy(this.x + that.x, this.y + that.y)
+  def +( that: Vector2D ) = Vector2D.new_xy(this.x + that.x, this.y + that.y)
 
   /**
    * Subtracts a scalar to both the cartesian coordinates of the vector
@@ -205,7 +206,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector moved of that quantity
    */
   @inline
-  def -(that: Double) = Vector2D.new_xy(this.x - that, this.y - that)
+  def -( that: Double ) = Vector2D.new_xy(this.x - that, this.y - that)
 
   /**
    * Subtracts two vectors
@@ -214,7 +215,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector which is the difference between the current and the given vectors
    */
   @inline
-  def -(that: Vector2D) = Vector2D.new_xy(this.x - that.x, this.y - that.y)
+  def -( that: Vector2D ) = Vector2D.new_xy(this.x - that.x, this.y - that.y)
 
   /**
    * Scalar product (scaling)
@@ -223,10 +224,11 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector following the scalar multiplication rules
    */
   @inline
-  def *(alpha: Double): Vector2D = Vector2D.new_xy(this.x * alpha, this.y * alpha)
+  def *( alpha: Double ): Vector2D = Vector2D.new_xy(this.x * alpha, this.y * alpha)
+
   @inline
-  def *(alpha: Vector2D): Vector2D = {
-    require( this.x == this.y )
+  def *( alpha: Vector2D ): Vector2D = {
+    require(this.x == this.y)
     this := alpha
   }
 
@@ -237,7 +239,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector following the inner product rules
    */
   @inline
-  def x(that: Vector2D): Double = this.x * that.x + this.y * that.y
+  def x( that: Vector2D ): Double = this.x * that.x + this.y * that.y
 
   /**
    * Vector or Cross product
@@ -250,7 +252,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A number over the Z axis
    */
   @inline
-  def ^(that: Vector2D): Double = this.x * that.y - this.y * that.x
+  def ^( that: Vector2D ): Double = this.x * that.y - this.y * that.x
 
   /**
    * By-Scalar division
@@ -259,7 +261,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector following the by-scalar multiplication rules
    */
   @inline
-  def /(alpha: Double) = Vector2D.new_xy(this.x / alpha, this.y / alpha)
+  def /( alpha: Double ) = Vector2D.new_xy(this.x / alpha, this.y / alpha)
 
   /**
    * Compare the current vector with a given one and determine if it is less than the other
@@ -270,7 +272,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is shorter than {that}, false otherwise
    */
   @inline
-  def <(that: Vector2D): Boolean = this.r < that.r
+  def <( that: Vector2D ): Boolean = this.r < that.r
 
   /**
    * Compare the current vector with a number and determine if is less than it
@@ -281,7 +283,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is shorter than the number {distance}, false otherwise
    */
   @inline
-  def <(distance: Double): Boolean = this.r < distance
+  def <( distance: Double ): Boolean = this.r < distance
 
   /**
    * Compare the current vector with a given one and determine if it is less or equal than the other
@@ -292,7 +294,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is shorter or equal than {that}, false otherwise
    */
   @inline
-  def <=(that: Vector2D): Boolean = this.r <= that.r
+  def <=( that: Vector2D ): Boolean = this.r <= that.r
 
   /**
    * Compare the current vector with a number and determine if is less or equal than it
@@ -303,7 +305,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is shorter or equal than the number {distance}, false otherwise
    */
   @inline
-  def <=(distance: Double): Boolean = this.r <= distance
+  def <=( distance: Double ): Boolean = this.r <= distance
 
   /**
    * Compare the current vector with a given one and determine if it is greater or equal than the other
@@ -314,7 +316,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is longer or equal than {that}, false otherwise
    */
   @inline
-  def >=(that: Vector2D): Boolean = this.r >= that.r
+  def >=( that: Vector2D ): Boolean = this.r >= that.r
 
   /**
    * Compare the current vector with a number and determine if is less than it
@@ -325,7 +327,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is longer or equal than the number {distance}, false otherwise
    */
   @inline
-  def >=(distance: Double): Boolean = this.r >= distance
+  def >=( distance: Double ): Boolean = this.r >= distance
 
   /**
    * Compare the current vector with a given one and determine if it is greater than the other
@@ -336,7 +338,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is longer than {that}, false otherwise
    */
   @inline
-  def >(that: Vector2D): Boolean = this.r > that.r
+  def >( that: Vector2D ): Boolean = this.r > that.r
 
   /**
    * Compare the current vector with a number and determine if is greater than it
@@ -347,8 +349,9 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return true if the current instance is longer than the number {distance}, false otherwise
    */
   @inline
-  def >(distance: Double): Boolean = this.r > distance
+  def >( distance: Double ): Boolean = this.r > distance
 }
+
 
 object Vector2D {
 
@@ -395,6 +398,7 @@ object Vector2D {
    */
   def zero = origin
 }
+
 
 /**
  * Implicits for Vector2D

@@ -46,16 +46,16 @@ class CoordinatesTest extends WordSpec with Matchers {
         val test_cartesian_3 = CartesianCoord(test_polar_3)
 
         // Test vector 1
-        test_cartesian_1.x should equal (0.0 +- tolerance)
-        test_cartesian_1.y should equal (10.0 +- tolerance)
+        test_cartesian_1.x should equal(0.0 +- tolerance)
+        test_cartesian_1.y should equal(10.0 +- tolerance)
 
         // Test vector 2
-        test_cartesian_2.x should equal (-10.0 +- tolerance)
-        test_cartesian_2.y should equal (0.0 +- tolerance)
+        test_cartesian_2.x should equal(-10.0 +- tolerance)
+        test_cartesian_2.y should equal(0.0 +- tolerance)
 
         // Test vector 3
-        test_cartesian_3.x should equal (7.0710678 +- tolerance)
-        test_cartesian_3.y should equal (-7.0710678 +- tolerance)
+        test_cartesian_3.x should equal(7.0710678 +- tolerance)
+        test_cartesian_3.y should equal(-7.0710678 +- tolerance)
       }
 
     }
@@ -66,9 +66,9 @@ class CoordinatesTest extends WordSpec with Matchers {
       val polar_2 = PolarCoord(10, Math.PI)
       val cartesian = CartesianCoord(-10, 0)
 
-      polar_1 should equal (polar_2)
-      polar_1 should equal (cartesian)
-      polar_2 should equal (cartesian)
+      polar_1 should equal(polar_2)
+      polar_1 should equal(cartesian)
+      polar_2 should equal(cartesian)
 
     }
 
@@ -92,16 +92,16 @@ class CoordinatesTest extends WordSpec with Matchers {
         val polar_3 = PolarCoord(cartesian_3)
 
         // Test vector 1
-        polar_1.r should equal (10.0 +- tolerance)
-        polar_1.t should equal (Math.PI / 2 +- tolerance)
+        polar_1.r should equal(10.0 +- tolerance)
+        polar_1.t should equal(Math.PI / 2 +- tolerance)
 
         // Test vector 2
-        polar_2.r should equal (10.0 +- tolerance)
-        polar_2.t should equal (Math.PI +- tolerance)
+        polar_2.r should equal(10.0 +- tolerance)
+        polar_2.t should equal(Math.PI +- tolerance)
 
         // Test vector 3
-        polar_3.r should equal (10.0 +- tolerance)
-        polar_3.t should equal (7.0 / 4.0 * Math.PI +- tolerance)
+        polar_3.r should equal(10.0 +- tolerance)
+        polar_3.t should equal(7.0 / 4.0 * Math.PI +- tolerance)
       }
 
     }

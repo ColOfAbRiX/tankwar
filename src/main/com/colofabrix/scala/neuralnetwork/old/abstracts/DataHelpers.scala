@@ -40,6 +40,7 @@ abstract class InputHelper[T] {
 
 }
 
+
 /**
  * Output helper object
  *
@@ -49,4 +50,4 @@ abstract class InputHelper[T] {
  *
  * Created by Fabrizio on 07/01/2015.
  */
-abstract class OutputHelper[T](val raw: Seq[T])
+abstract class OutputHelper[T]( val raw: Seq[T] )

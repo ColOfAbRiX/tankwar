@@ -34,25 +34,25 @@ import scala.collection.mutable.ListBuffer
  * @param remember Determines if the layer has to remember the output of every call
  * @param contextWeights The weights for the feedback. It is structured as `weights` and the inputs are as `n_output`
  */
-class RecursiveElmanLayer (
+class RecursiveElmanLayer(
   activation: ActivationFunction,
   n_inputs: Int,
   n_outputs: Int,
   biases: Seq[Double],
   weights: Seq[Seq[Double]],
   contextWeights: Seq[Seq[Double]],
-  var remember: Boolean = true)
-extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
+  var remember: Boolean = true )
+  extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
 
   // Check that every sequence of feedback weights associated with each neuron is the same size of the inputs of that neuron
-  require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
+  require(contextWeights.length == n_outputs && contextWeights.forall(_.length == n_outputs), "The size of context weights must match n_output")
 
   /**
    * Contains the values used as inputs for the last feedback
    *
    * @return
    */
-  def lastFeedback =_memory.toList
+  def lastFeedback = _memory.toList
 
   // This memory contains the outputs of the previous call of output
   private val _memory: ListBuffer[Double] = ListBuffer.fill(n_outputs)(0.0)

@@ -58,9 +58,10 @@ abstract class ActivationFunction {
   final override def hashCode: Int = this.UFID.hashCode
 }
 
+
 object ActivationFunction {
 
-  def apply(name: String) = name.toLowerCase match {
+  def apply( name: String ) = name.toLowerCase match {
     case "linear" => new Linear
     case "clipped" => new LinearClipped
     case "step" => new Step

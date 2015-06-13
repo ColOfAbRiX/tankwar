@@ -31,7 +31,7 @@ import scala.util.Random
  * @param nLayers The number of layers of the network
  * @param rng Random Number Generator
  */
-class RandomReader(nLayers: Int, rng: Random = new Random, scale: Double, af: String) extends DataReader with LayerReader {
+class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: String ) extends DataReader with LayerReader {
 
   // Function to retrieve the number
   private def _nextDouble = rng.nextDouble() * 2 * scale - scale
@@ -52,7 +52,7 @@ class RandomReader(nLayers: Int, rng: Random = new Random, scale: Double, af: St
    * @param neurons Number of neurons in the layer
    * @return The sequence of biases, one for each neuron
    */
-  override def neuronBiases(neurons: Int) = {
+  override def neuronBiases( neurons: Int ) = {
     Seq.fill(neurons)(_nextDouble)
   }
 
@@ -63,7 +63,7 @@ class RandomReader(nLayers: Int, rng: Random = new Random, scale: Double, af: St
    * @param inputs Number of inputs for each neuron
    * @return The weights, for each neuron, associated with the inputs
    */
-  override def inputWeights(neurons: Int, inputs: Int) = {
+  override def inputWeights( neurons: Int, inputs: Int ) = {
     Seq.fill(neurons, inputs)(_nextDouble)
   }
 

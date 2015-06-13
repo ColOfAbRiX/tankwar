@@ -26,7 +26,7 @@ import org.uncommons.maths.random.Probability
  * completely and it will not be related to the old value. The new value will
  * only be related to a Tank's scale
  */
-class TankFullMutation(probability: Probability) extends AbstractTankMutation {
+class TankFullMutation( probability: Probability ) extends AbstractTankMutation {
 
   /**
    * Rules that defines how to mutate
@@ -40,11 +40,13 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param rng Random number generator
    * @return The old value or a new mutated value
    */
-  protected def mutationRule(scale: Double)(x: Double, rng: Random) = {
-    if( rng.nextDouble <= probability.doubleValue )
+  protected def mutationRule( scale: Double )( x: Double, rng: Random ) = {
+    if( rng.nextDouble <= probability.doubleValue ) {
       rng.nextDouble * 2.0 * scale - scale
-    else
+    }
+    else {
       x
+    }
   }
 
   /**
@@ -54,11 +56,12 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param random Random number generator
    * @return A new set of biases with applied the mutation rules
    */
-  override def mutateBiases(c: TankChromosome, random: Random) =
+  override def mutateBiases( c: TankChromosome, random: Random ) =
     mutate(
       mutationRule(c.valueRange),
       c.biases,
-      random)
+      random
+    )
 
   /**
    * Mutate the weights of a Tank
@@ -67,12 +70,13 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param random Random number generator
    * @return A new set of weights with applied the mutation rules
    */
-  override def mutateWeights(c: TankChromosome, random: Random) =
+  override def mutateWeights( c: TankChromosome, random: Random ) =
     for( layer <- c.weights ) yield
-      mutate(
-        mutationRule(c.valueRange),
-        layer,
-        random)
+    mutate(
+      mutationRule(c.valueRange),
+      layer,
+      random
+    )
 
   /**
    * Mutate the reference rotation zero of a Tank
@@ -81,7 +85,7 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param random Random number generator
    * @return A new mass with applied the mutation rules
    */
-  override def mutateRotationReference(c: TankChromosome, random: Random) = mutationRule(c.valueRange)(c.rotationRef, random)
+  override def mutateRotationReference( c: TankChromosome, random: Random ) = mutationRule(c.valueRange)(c.rotationRef, random)
 
   /**
    * Mutate the sight ratio of a Tank
@@ -90,11 +94,13 @@ class TankFullMutation(probability: Probability) extends AbstractTankMutation {
    * @param random Random number generator
    * @return A new sight ratio with applied the mutation rules
    */
-  protected def mutateSightRatio(c: TankChromosome, random: Random) = {
+  protected def mutateSightRatio( c: TankChromosome, random: Random ) = {
     // The sight ration doesn't use {mutationRule} because its value is not centered in zero
-    if( random.nextDouble <= probability.doubleValue )
+    if( random.nextDouble <= probability.doubleValue ) {
       random.nextDouble * (1.0 - 2.0 * extremityDistance) + extremityDistance
-    else
+    }
+    else {
       c.sightRatio
+    }
   }
 }

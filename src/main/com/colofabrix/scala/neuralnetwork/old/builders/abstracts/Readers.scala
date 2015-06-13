@@ -37,6 +37,7 @@ trait DataReader {
   def layerReaders: Seq[LayerReader]
 }
 
+
 /**
  * It provides the data for a layer
  */
@@ -47,7 +48,7 @@ trait LayerReader {
    * @param neurons Number of neurons in the layer
    * @return The sequence of biases, one for each neuron
    */
-  def neuronBiases(neurons: Int): Seq[Double]
+  def neuronBiases( neurons: Int ): Seq[Double]
 
   /**
    * Return the weights, for each neuron, associated with the inputs
@@ -56,7 +57,7 @@ trait LayerReader {
    * @param inputs Number of inputs for each neuron
    * @return The weights, for each neuron, associated with the inputs
    */
-  def inputWeights(neurons: Int, inputs: Int): Seq[Seq[Double]]
+  def inputWeights( neurons: Int, inputs: Int ): Seq[Seq[Double]]
 
   /**
    * Returns the ActivationFunction associated with the layer

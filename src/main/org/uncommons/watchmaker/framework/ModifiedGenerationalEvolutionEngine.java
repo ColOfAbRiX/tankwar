@@ -13,6 +13,7 @@
  * express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 package org.uncommons.watchmaker.framework;
 
 import org.uncommons.watchmaker.framework.interactive.InteractiveSelection;
@@ -21,16 +22,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
 /**
  * <p>This class implements a general-purpose generational evolutionary algorithm.
  * It supports optional concurrent fitness evaluations to take full advantage of
  * multi-processor, multi-core and hyper-threaded machines.</p>
- *
+ * <p>
  * <p>If multi-threading is enabled, evolution (mutation, cross-over, etc.) occurs
  * on the request thread but fitness evaluations are delegated to a pool of worker
  * threads. All of the host's available processing units are used (i.e. on a quad-core
  * machine there will be four fitness evaluation worker threads).</p>
- *
+ * <p>
  * <p>If multi-threading is disabled, all work is performed synchronously on the
  * request thread. This strategy is suitable for restricted/managed environments where
  * it is not permitted for applications to manage their own threads. If there are no
@@ -38,78 +40,78 @@ import java.util.Random;
  * performance.</p>
  *
  * @param <T> The type of entity that is to be evolved.
+ * @author Daniel Dyer
  * @see SteadyStateEvolutionEngine
  * @see EvolutionStrategyEngine
- * @author Daniel Dyer
  */
 @SuppressWarnings("ALL")
-public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvolutionEngine<T>
-{
+public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvolutionEngine<T> {
     protected final EvolutionaryOperator<T> evolutionScheme;
     protected final FitnessEvaluator<? super T> fitnessEvaluator;
     protected final SelectionStrategy<? super T> selectionStrategy;
+
     /**
      * Creates a new evolution engine by specifying the various components required by
      * a generational evolutionary algorithm.
-     * @param candidateFactory Factory used to create the initial population that is
-     * iteratively evolved.
-     * @param evolutionScheme The combination of evolutionary operators used to evolve
-     * the population at each generation.
-     * @param fitnessEvaluator A function for assigning fitness scores to candidate
-     * solutions.
+     *
+     * @param candidateFactory  Factory used to create the initial population that is
+     *                          iteratively evolved.
+     * @param evolutionScheme   The combination of evolutionary operators used to evolve
+     *                          the population at each generation.
+     * @param fitnessEvaluator  A function for assigning fitness scores to candidate
+     *                          solutions.
      * @param selectionStrategy A strategy for selecting which candidates survive to
-     * be evolved.
-     * @param rng The source of randomness used by all stochastic processes (including
-     * evolutionary operators and selection strategies).
+     *                          be evolved.
+     * @param rng               The source of randomness used by all stochastic processes (including
+     *                          evolutionary operators and selection strategies).
      */
     public ModifiedGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
                                                EvolutionaryOperator<T> evolutionScheme,
                                                FitnessEvaluator<? super T> fitnessEvaluator,
                                                SelectionStrategy<? super T> selectionStrategy,
-                                               Random rng)
-    {
+                                               Random rng) {
         super(candidateFactory, fitnessEvaluator, rng);
         this.evolutionScheme = evolutionScheme;
         this.fitnessEvaluator = fitnessEvaluator;
         this.selectionStrategy = selectionStrategy;
     }
+
     /**
      * Creates a new evolution engine for an interactive evolutionary algorithm. It
      * is not necessary to specify a fitness evaluator for interactive evolution.
-     * @param candidateFactory Factory used to create the initial population that is
-     * iteratively evolved.
-     * @param evolutionScheme The combination of evolutionary operators used to evolve
-     * the population at each generation.
+     *
+     * @param candidateFactory  Factory used to create the initial population that is
+     *                          iteratively evolved.
+     * @param evolutionScheme   The combination of evolutionary operators used to evolve
+     *                          the population at each generation.
      * @param selectionStrategy Interactive selection strategy configured with appropriate
-     * console.
-     * @param rng The source of randomness used by all stochastic processes (including
-     * evolutionary operators and selection strategies).
+     *                          console.
+     * @param rng               The source of randomness used by all stochastic processes (including
+     *                          evolutionary operators and selection strategies).
      */
     public ModifiedGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
                                                EvolutionaryOperator<T> evolutionScheme,
                                                InteractiveSelection<T> selectionStrategy,
-                                               Random rng)
-    {
+                                               Random rng) {
         this(candidateFactory,
                 evolutionScheme,
                 new NullFitnessEvaluator(), // No fitness evaluations to perform.
                 selectionStrategy,
                 rng);
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     protected List<EvaluatedCandidate<T>> nextEvolutionStep(List<EvaluatedCandidate<T>> evaluatedPopulation,
                                                             int eliteCount,
-                                                            Random rng)
-    {
+                                                            Random rng) {
         List<T> population = new ArrayList<T>(evaluatedPopulation.size());
         // First perform any elitist selection.
         List<T> elite = new ArrayList<T>(eliteCount);
         Iterator<EvaluatedCandidate<T>> iterator = evaluatedPopulation.iterator();
-        while (elite.size() < eliteCount)
-        {
+        while (elite.size() < eliteCount) {
             elite.add(iterator.next().getCandidate());
         }
         // Then select candidates that will be operated on to create the evolved

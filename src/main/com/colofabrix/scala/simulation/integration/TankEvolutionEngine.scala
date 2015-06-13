@@ -28,13 +28,13 @@ import scala.collection.JavaConversions._
  * This `EvolutionEngine` takes care of run a competition between
  * all the Tanks after a new generation is created
  */
-class TankEvolutionEngine (
+class TankEvolutionEngine(
   candidateFactory: CandidateFactory[Tank],
   evolutionScheme: EvolutionaryOperator[Tank],
   fitnessEvaluator: FitnessEvaluator[_ >: Tank],
   selectionStrategy: SelectionStrategy[_ >: Tank],
-  rng: Random)
-extends GameEvolutionEngine[Tank] (candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng) {
+  rng: Random )
+  extends GameEvolutionEngine[Tank](candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng) {
 
   /**
    * This method runs the competition between the individuals of the population
@@ -45,10 +45,11 @@ extends GameEvolutionEngine[Tank] (candidateFactory, evolutionScheme, fitnessEva
    * @param population The population of individuals
    * @return The population of individuals after the competition
    */
-  override protected def runCompetition(population: util.List[Tank]): util.List[Tank] = {
+  override protected def runCompetition( population: util.List[Tank] ): util.List[Tank] = {
 
-    if(population.size == 0)
+    if( population.size == 0 ) {
       return List()
+    }
 
     // Safest way to reference the world is using one of the Tanks
     val world = population.head.world

@@ -31,19 +31,20 @@ class InputManager {
    * The buttons of the InputManager
    */
   val buttons = Seq(
-    new ButtonControl( Box(Vector2D.new_xy(100, 100), Vector2D.new_xy(130, 130) ), null, (mb: Int) => { println("hi") } )
+    new ButtonControl(Box(Vector2D.new_xy(100, 100), Vector2D.new_xy(130, 130)), null, ( mb: Int ) => {println("hi")})
   )
 
   /**
    * Check for mouse clicks in any button an run the appropriate action if found
    */
-  def update() {
+  def update( ) {
     val mouse = Vector2D.new_xy(Mouse.getX, Mouse.getY)
 
     buttons.foreach { btn =>
       btn.clickTimerInc()
-      if (Mouse.isButtonDown(0))
-        btn.runClick( mouse, 0 )
+      if( Mouse.isButtonDown(0) ) {
+        btn.runClick(mouse, 0)
+      }
     }
   }
 

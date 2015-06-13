@@ -28,14 +28,14 @@ import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{DataReader, La
  * @param biases Biases of the NN
  * @param weights Weights of the NN
  */
-class SeqDataReader(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: Seq[String]) extends DataReader {
+class SeqDataReader( biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: Seq[String] ) extends DataReader {
   val combined = (biases zip weights).zipWithIndex
 
   // These checks are done because we need a reliable set of data to extract information like the number of inputs
   require(biases.length == weights.length, "Biases and weights must represent the same number of layers")
   require(biases.nonEmpty, "At least one layer must be specified")
   require(af.length == biases.length, "The activation functions must be specified for every layer")
-  for ((b, w) <- biases zip weights) {
+  for( (b, w) <- biases zip weights ) {
     require(b.nonEmpty && b.length == w.length, "Bias and weights count must match the same number of neurons")
     require(w.forall(w(0).length == _.length), "All the weights must be for the same number of inputs")
   }
@@ -55,7 +55,7 @@ class SeqDataReader(biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af
  * @param biases Biases of the layer
  * @param weights Weights of the layer
  */
-class SeqLayerReader(biases: Seq[Double], weights: Seq[Seq[Double]], af: String) extends LayerReader {
+class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String ) extends LayerReader {
   require(af != null, "An activation function must be specified")
 
   /**
@@ -64,7 +64,7 @@ class SeqLayerReader(biases: Seq[Double], weights: Seq[Seq[Double]], af: String)
    * @param neurons Number of neurons in the layer
    * @return The sequence of biases, one for each neuron
    */
-  override def neuronBiases(neurons: Int): Seq[Double] = {
+  override def neuronBiases( neurons: Int ): Seq[Double] = {
     require(neurons > 0, "The number of neurons must be a positive integer")
     //require(biases.length == neurons, "The number of biases don't match the number of neurons")
 
@@ -78,7 +78,7 @@ class SeqLayerReader(biases: Seq[Double], weights: Seq[Seq[Double]], af: String)
    * @param inputs Number of inputs for each neuron
    * @return The weights, for each neuron, associated with the inputs
    */
-  override def inputWeights(neurons: Int, inputs: Int): Seq[Seq[Double]] = {
+  override def inputWeights( neurons: Int, inputs: Int ): Seq[Seq[Double]] = {
     require(neurons > 0)
     require(inputs > 0)
     require(weights.length == neurons)

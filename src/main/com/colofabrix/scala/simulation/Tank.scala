@@ -50,8 +50,8 @@ import scala.util.Random
  * @param initialData The defining data of the Tank in the form of a Chromosome
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
-class Tank private (override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty)
-extends PhysicalObject with InteractiveObject {
+class Tank private( override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty )
+  extends PhysicalObject with InteractiveObject {
 
   import java.lang.Math._
 
@@ -103,10 +103,12 @@ extends PhysicalObject with InteractiveObject {
     initialData.brainBuilder.buildNetwork(
       BrainInputHelper.count,
       BrainOutputHelper.count,
-      if( dataReader == Option.empty )
+      if( dataReader == Option.empty ) {
         new SeqDataReader(initialData.biases, initialData.weights, initialData.activationFunction)
-      else
+      }
+      else {
         dataReader.get
+      }
     )
 
   /**
@@ -124,7 +126,7 @@ extends PhysicalObject with InteractiveObject {
    *
    * At creation time it is initialized as a random value inside the arena
    */
-   _position = world.arena.topRight := { _ * Random.nextDouble() }
+  _position = world.arena.topRight := {_ * Random.nextDouble()}
 
   /**
    * Speed of the object relative to the arena
@@ -165,8 +167,9 @@ extends PhysicalObject with InteractiveObject {
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
   private def calculateBulletVision: (Vector2D, Vector2D) = {
-    if( _seenBullets.isEmpty )
+    if( _seenBullets.isEmpty ) {
       return (Vector2D.zero, Vector2D.zero)
+    }
 
     // FIXME: In the past here an exception appeared, multiple times
     val posVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._2)
@@ -183,11 +186,12 @@ extends PhysicalObject with InteractiveObject {
    * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target
    */
   private def calculateTankVision: (Vector2D, Vector2D) = {
-    if( _seenTanks.isEmpty )
+    if( _seenTanks.isEmpty ) {
       return (Vector2D.zero, Vector2D.zero)
+    }
 
     // FIXME: In the past here an exception appeared, multiple times
-    val selectedTank = _seenTanks.sortBy( t => TankEvaluator.fitness(t._1) ).head
+    val selectedTank = _seenTanks.sortBy(t => TankEvaluator.fitness(t._1)).head
     (selectedTank._2, selectedTank._3)
   }
 
@@ -196,7 +200,7 @@ extends PhysicalObject with InteractiveObject {
    *
    * In other words it calculates the position, speed and shooting condition for the current step
    */
-  override def stepForward(): Unit = {
+  override def stepForward( ): Unit = {
     // Data related to the vision
     val seenTank = calculateTankVision
     val seenBullet = calculateBulletVision
@@ -219,7 +223,7 @@ extends PhysicalObject with InteractiveObject {
 
     // It shoots when the function is increasing
     _isShooting = output.shoot - _shoot > 0.02
-    if (_isShooting) world.on_tankShot(this)
+    if( _isShooting ) world.on_tankShot(this)
     _shoot = output.shoot
 
     // Update the survive time at each tick
@@ -233,7 +237,7 @@ extends PhysicalObject with InteractiveObject {
   /**
    * Reset the status of a Tank to the initial values
    */
-  def clear(): Unit = {
+  def clear( ): Unit = {
     _direction = Vector2D.new_xy(1, 1)
 
     _seenTanks = ArrayBuffer()
@@ -252,7 +256,7 @@ extends PhysicalObject with InteractiveObject {
    *
    * @return A string in the format of a CSV
    */
-  override def record = super.record + s",${rotation.t },${_shoot },$isShooting"
+  override def record = super.record + s",${rotation.t},${_shoot},$isShooting"
 
   /**
    * A text of the definition of the Tank
@@ -275,14 +279,14 @@ extends PhysicalObject with InteractiveObject {
    *
    * When a Tank hits a wall it is bounced back (using a direction vector)
    */
-  override def on_hitsWalls(): Unit = {
+  override def on_hitsWalls( ): Unit = {
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
-    _direction = _direction := { (x, i) =>
-      if (_position(i) < 0 || _position(i) > world.arena.topRight(i)) -1.0 * x else x
+    _direction = _direction := { ( x, i ) =>
+      if( _position(i) < 0 || _position(i) > world.arena.topRight(i) ) -1.0 * x else x
     }
 
     // Trim the position to the boundary of the arena if the tank is outside
-    _position = _position := ((x, i) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
+    _position = _position := (( x, i ) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
   }
 
   /**
@@ -290,23 +294,23 @@ extends PhysicalObject with InteractiveObject {
    *
    * When maximum speed is reached, it is trimmed to the maximum
    */
-  override def on_maxSpeedReached(maxSpeed: Double): Unit = {
+  override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
     _speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
   }
 
   /**
    * Callback function used to signal the Tank that is revolving faster than the maximum allowed angular speed
    */
-  override def on_maxAngularSpeedReached(maxAngularSpeed: Double): Unit = {}
+  override def on_maxAngularSpeedReached( maxAngularSpeed: Double ): Unit = {}
 
   /**
    * Callback function used to signal the Tank that it will be respawned in the next step
    */
-  override def on_respawn(): Unit = {
+  override def on_respawn( ): Unit = {
     // Set speed to zero
     _speed = Vector2D.new_xy(0, 0)
     // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
-    _position = world.arena.topRight := { _ * Random.nextDouble() }
+    _position = world.arena.topRight := {_ * Random.nextDouble()}
     // I'm not dead anymore!
     _isDead = false
   }
@@ -321,17 +325,21 @@ extends PhysicalObject with InteractiveObject {
    * @return A {Shape} that represents the sight towards the object type of {that}
    */
   override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
-    if( that == classOf[Tank] )
-      // Tank->Tank sight.
-      return new Circle(_position,
+    if( that == classOf[Tank] ) {
+      // Tank->Tank sight. {
+      return new Circle(
+        _position,
         (1.0 - initialData.sightRatio) * sqrt(world.max_sight / PI)
       )
+    }
 
-    if( that == classOf[Bullet] )
-      // Tank->Bullet sight.
-      return new Circle(_position,
+    if( that == classOf[Bullet] ) {
+      // Tank->Bullet sight. {
+      return new Circle(
+        _position,
         initialData.sightRatio * sqrt(world.max_sight / PI)
       )
+    }
 
     return null
   }
@@ -341,7 +349,7 @@ extends PhysicalObject with InteractiveObject {
    *
    * @param that The object that it's in the sight of the current one
    */
-  override def on_objectOnSight(that: PhysicalObject): Unit = {
+  override def on_objectOnSight( that: PhysicalObject ): Unit = {
     val direction = that.position - this.position
     val speed = _speed - that.speed
 
@@ -360,9 +368,9 @@ extends PhysicalObject with InteractiveObject {
    *
    * @param that The object that hit the current instance
    */
-  override def on_isHit(that: PhysicalObject): Unit = that match {
+  override def on_isHit( that: PhysicalObject ): Unit = that match {
     case t: Tank =>
-      // No actions for Tank-Tank collision
+    // No actions for Tank-Tank collision
 
     case b: Bullet =>
       // Kill myself and lower my fitness
@@ -375,9 +383,9 @@ extends PhysicalObject with InteractiveObject {
    *
    * @param that The object that is being hit
    */
-  override def on_hits(that: PhysicalObject): Unit = that match {
+  override def on_hits( that: PhysicalObject ): Unit = that match {
     case t: Tank =>
-      // No actions for Tank-Tank collision
+    // No actions for Tank-Tank collision
 
     case b: Bullet =>
       // Making up points for the fitness
@@ -429,15 +437,16 @@ object Tank {
 
   // Mess below here. Refactoring planned.
 
-  def defaultRandomReader(rng: Random) =
+  def defaultRandomReader( rng: Random ) =
     new RandomReader(
       defaultBrainBuilder.hiddenLayersCount,
       rng,
       defaultRange / 30,
-      defaultActivationFunction(0))
+      defaultActivationFunction(0)
+    )
 
-  def apply(world: World, chromosome: TankChromosome): Tank = new Tank(world, chromosome)
+  def apply( world: World, chromosome: TankChromosome ): Tank = new Tank(world, chromosome)
 
-  def apply(world: World, chromosome: TankChromosome, reader: DataReader) = new Tank(world, chromosome, Option(reader))
+  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank(world, chromosome, Option(reader))
 
 }

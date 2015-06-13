@@ -28,6 +28,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
 class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends PhysicalObject {
+
   import Math._
 
   private var _life = 0

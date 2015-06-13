@@ -23,9 +23,9 @@ import com.colofabrix.scala.math.Vector2D
  * A generic two-dimensional polygon
  * A generic two-dimensional polygon
  */
-class Polygon(val vertices: Seq[Vector2D]) extends Shape {
+class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
   // The smallest polygon is a triangle!!
-  require( vertices.length > 2 )
+  require(vertices.length > 2)
 
   /**
    * Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
@@ -55,13 +55,13 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
   lazy val isConvex = {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
     // direction of the first edge as a reference.
-    val direction = Math.signum( edges(1) ^ edges(0) )
+    val direction = Math.signum(edges(1) ^ edges(0))
 
     // Check the condition on all edges
     this.edgesIterator.tail forall {
       case u :: v :: Nil =>
         val r = v ^ u
-        Math.signum( r ) == direction || r == 0
+        Math.signum(r) == direction || r == 0
     }
   }
 
@@ -73,15 +73,17 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param p Point to check
    * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
    */
-  def distance(p: Vector2D): (Vector2D, Vector2D) = {
+  def distance( p: Vector2D ): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
     if( overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     // Check all the vertices and return the nearest one.
-    verticesIterator.map({
+    verticesIterator.map(
+    {
       case v0 :: v1 :: Nil =>
         (distance(v0, v1, p), v1 - v0)
-    }).toList.minBy( _._1.r )
+    }
+    ).toList.minBy(_._1.r)
   }
 
   /**
@@ -91,14 +93,16 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param p1 The second point that defines the line
    * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
    */
-  override def distance(p0: Vector2D, p1: Vector2D): (Vector2D, Vector2D) = {
+  override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
     if( overlaps(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     // Check all the vertices and return the nearest one.
-    vertices.map({
+    vertices.map(
+    {
       v => (distance(p0, p1, v), v)
-    }).toList.minBy( _._1.r )
+    }
+    ).toList.minBy(_._1.r)
   }
 
   /**
@@ -107,7 +111,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param that The point to be checked
    * @return True if the point is inside the shape
    */
-  override def overlaps(that: Shape): Boolean = that match {
+  override def overlaps( that: Shape ): Boolean = that match {
     // With circles I find the nearest edge to the center and then I compare it to the radius to see if it's inside
     case c: Circle => distance(c.center)._1 <= c.radius
 
@@ -125,19 +129,19 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
-  override def overlaps(p: Vector2D): Boolean = {
+  override def overlaps( p: Vector2D ): Boolean = {
     var wn = 0
 
     verticesIterator foreach {
       case v0 :: v1 :: Nil =>
-        if (v0.y <= p.y) {
-          if (v1.y > p.y) {
-            if (checkTurn(v0, v1, p) > 0.0) wn += 1
+        if( v0.y <= p.y ) {
+          if( v1.y > p.y ) {
+            if( checkTurn(v0, v1, p) > 0.0 ) wn += 1
           }
         }
         else {
-          if (v1.y <= p.y) {
-            if (checkTurn(v0, v1, p) < 0.0) wn -= 1
+          if( v1.y <= p.y ) {
+            if( checkTurn(v0, v1, p) < 0.0 ) wn -= 1
           }
         }
     }
@@ -156,9 +160,9 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param that The point to be checked
    * @return True if the point is inside the shape
    */
-  def overlaps(that: Polygon): Boolean = {
-    val thisInThat = vertices.foldLeft(false) { (r, v) => r || that.overlaps(v) }
-    val thatInThis = that.vertices.foldLeft(false) { (r, v) => r || overlaps(v) }
+  def overlaps( that: Polygon ): Boolean = {
+    val thisInThat = vertices.foldLeft(false) { ( r, v ) => r || that.overlaps(v) }
+    val thatInThis = that.vertices.foldLeft(false) { ( r, v ) => r || overlaps(v) }
     thisInThat || thatInThis
   }
 
@@ -169,7 +173,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param p1 The second point that defines the line
    * @return True if the point is inside the shape
    */
-  override def overlaps(p0: Vector2D, p1: Vector2D): Boolean = distance(p0, p1)._1.r == 0.0
+  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance(p0, p1)._1.r == 0.0
 
   /**
    * Tests if a point is Left|On|Right of an infinite line.
@@ -183,7 +187,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param p Point to check
    * @return >0 for P2 left of the line through P0 and P1, =0 for P2  on the line, <0 for P2  right of the line
    */
-  private def checkTurn(v0: Vector2D, v1: Vector2D, p: Vector2D): Double =
+  private def checkTurn( v0: Vector2D, v1: Vector2D, p: Vector2D ): Double =
     (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**
@@ -192,7 +196,7 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
    * @param where The vector specifying how to move the polygon
    * @return A new polygon moved of {where}
    */
-  override def move(where: Vector2D) = new Polygon( vertices.map(v => v + where) )
+  override def move( where: Vector2D ) = new Polygon(vertices.map(v => v + where))
 
   /**
    * Find a containing box for the current shape.
@@ -207,11 +211,11 @@ class Polygon(val vertices: Seq[Vector2D]) extends Shape {
     var (minX, minY) = (Double.MaxValue, Double.MaxValue)
     var (maxX, maxY) = (Double.MinValue, Double.MinValue)
 
-    for (v <- vertices) {
-      minX = if(minX > v.x) v.x else minX
-      minY = if(minY > v.y) v.y else minY
-      maxX = if(maxX < v.x) v.x else maxX
-      maxY = if(maxY < v.y) v.y else maxY
+    for( v <- vertices ) {
+      minX = if( minX > v.x ) v.x else minX
+      minY = if( minY > v.y ) v.y else minY
+      maxX = if( maxX < v.x ) v.x else maxX
+      maxY = if( maxY < v.y ) v.y else maxY
     }
 
     // Creates the Box

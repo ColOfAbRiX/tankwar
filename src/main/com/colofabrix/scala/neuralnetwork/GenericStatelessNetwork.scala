@@ -24,5 +24,5 @@ import com.colofabrix.scala.neuralnetwork.abstracts.{AbstractStatelessNetwork, A
  * @param matrix Defining adjacency matrix
  * @param af Activation function used by the network
  */
-class GenericStatelessNetwork(matrix: NetworkMatrix, af: ActivationFunction)
+class GenericStatelessNetwork( matrix: NetworkMatrix, af: ActivationFunction )
   extends AbstractStatelessNetwork(matrix, af)

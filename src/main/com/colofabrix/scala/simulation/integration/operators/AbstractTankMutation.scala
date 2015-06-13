@@ -38,7 +38,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    */
   val extremityDistance = 1E-6
 
-  override def apply(list: util.List[Tank], random: Random): util.List[Tank] = {
+  override def apply( list: util.List[Tank], random: Random ): util.List[Tank] = {
     // Calls mutation rules for each Tank
     list.map { t =>
       val newChromosome = mutateTank(t.chromosome, random)
@@ -46,7 +46,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
     }
   }
 
-  private def mutateTank(c: TankChromosome, random: Random): TankChromosome = {
+  private def mutateTank( c: TankChromosome, random: Random ): TankChromosome = {
     // Spreads the mutation of a Tank in different small tasks
     new TankChromosome(
       mutateBiases(c, random),
@@ -55,7 +55,8 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
       mutateSightRatio(c, random),
       c.valueRange,
       c.activationFunction,
-      c.brainBuilder)
+      c.brainBuilder
+    )
   }
 
   /**
@@ -66,7 +67,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random Number generator
    * @return A mutated sequences of numbers
    */
-  protected def mutate(f: (Double, Random) => Double, seq: Seq[Seq[Double]], random: Random): Seq[Seq[Double]] = {
+  protected def mutate( f: (Double, Random) => Double, seq: Seq[Seq[Double]], random: Random ): Seq[Seq[Double]] = {
     for( outer <- seq ) yield {
       for( value <- outer ) yield f(value, random)
     }
@@ -79,7 +80,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random number generator
    * @return A new set of biases with applied the mutation rules
    */
-  protected def mutateBiases(c: TankChromosome, random: Random): Seq[Seq[Double]]
+  protected def mutateBiases( c: TankChromosome, random: Random ): Seq[Seq[Double]]
 
   /**
    * Mutate the weights of a Tank
@@ -88,7 +89,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random number generator
    * @return A new set of weights with applied the mutation rules
    */
-  protected def mutateWeights(c: TankChromosome, random: Random): Seq[Seq[Seq[Double]]]
+  protected def mutateWeights( c: TankChromosome, random: Random ): Seq[Seq[Seq[Double]]]
 
   /**
    * Mutate the reference rotation zero of a Tank
@@ -97,7 +98,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random number generator
    * @return A new rotation zero reference with applied the mutation rules
    */
-  protected def mutateRotationReference(c: TankChromosome, random: Random): Double
+  protected def mutateRotationReference( c: TankChromosome, random: Random ): Double
 
   /**
    * Mutate the sight ratio of a Tank
@@ -106,6 +107,6 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    * @param random Random number generator
    * @return A new sight ratio with applied the mutation rules
    */
-  protected def mutateSightRatio(c: TankChromosome, random: Random): Double
+  protected def mutateSightRatio( c: TankChromosome, random: Random ): Double
 
 }

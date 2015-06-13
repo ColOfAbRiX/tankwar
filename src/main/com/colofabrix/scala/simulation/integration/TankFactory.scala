@@ -29,18 +29,18 @@ import scala.collection.JavaConversions._
  *
  * Required by Watchmaker library
  */
-class TankFactory(world: World) extends AbstractCandidateFactory[Tank] {
+class TankFactory( world: World ) extends AbstractCandidateFactory[Tank] {
 
-  override def generateInitialPopulation(i: Int, random: Random): util.List[Tank] = {
-    (0 until i).foreach( _ => generateRandomCandidate(random) )
+  override def generateInitialPopulation( i: Int, random: Random ): util.List[Tank] = {
+    (0 until i).foreach(_ => generateRandomCandidate(random))
     world.tanks
   }
 
-  override def generateInitialPopulation(i: Int, collection: util.Collection[Tank], random: Random): util.List[Tank] = {
+  override def generateInitialPopulation( i: Int, collection: util.Collection[Tank], random: Random ): util.List[Tank] = {
     generateInitialPopulation(i, random)
   }
 
-  override def generateRandomCandidate(random: Random): Tank = {
+  override def generateRandomCandidate( random: Random ): Tank = {
     world.createAndAddDefaultTank(Tank.defaultRandomReader(random))
   }
 

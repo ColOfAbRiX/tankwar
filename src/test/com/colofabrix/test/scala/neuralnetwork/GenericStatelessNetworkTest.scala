@@ -28,10 +28,11 @@ import scala.util.Random
  * Created by Fabrizio on 06/05/2015.
  */
 class GenericStatelessNetworkTest extends WordSpec with Matchers {
+
   import scala.Double._
 
   // Range of test values
-  private val inputs_range: List[Double] = (-2.0 to (2.0, 0.2)).toList ::: List.fill(10)(Random.nextDouble * 10 - 5)
+  private val inputs_range: List[Double] = (-2.0 to(2.0, 0.2)).toList ::: List.fill(10)(Random.nextDouble * 10 - 5)
   private val activation = ActivationFunction("tanh")
 
   /**
@@ -54,7 +55,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         // Modify the value of the current input
         val inputs = inputsBase.patch(index, Seq(x), 1)
 
-        if (index == inputsBase.length - 1) {
+        if( index == inputsBase.length - 1 ) {
           // If there is only one value to check, then check it
           val outputs = testNetwork.output(inputs)
 
@@ -62,15 +63,16 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           outputs.length == testNetwork.outputCount
 
           // Check the values
-          outputs should equal( expectedOutputs(inputs) )
+          outputs should equal(expectedOutputs(inputs))
         }
-        else
-        // If there is more than one value to plot, recursively call this function over the remaining indexes { {
+        else {
+          // If there is more than one value to plot, recursively call this function over the remaining indexes { { {
           innerExecute(inputs, index + 1)
+        }
       }
     }
 
-    innerExecute( Seq.fill(testNetwork.inputCount)(inputs_range(0)), 0 )
+    innerExecute(Seq.fill(testNetwork.inputCount)(inputs_range(0)), 0)
   }
 
   "Constraints" must {
@@ -80,20 +82,24 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
       "the number of inputs is invalid" in {
 
         intercept[IllegalArgumentException] {
-          val matrix = new NetworkMatrix( Seq(
-            Seq(NaN, 1.0),
-            Seq(NaN, NaN),
-            Seq(0.0, 0.0)
-          ), Seq(), Seq(1))
+          val matrix = new NetworkMatrix(
+            Seq(
+              Seq(NaN, 1.0),
+              Seq(NaN, NaN),
+              Seq(0.0, 0.0)
+            ), Seq(), Seq(1)
+          )
           new GenericStatelessNetwork(matrix, activation)
         }
 
         intercept[IllegalArgumentException] {
-          val matrix = new NetworkMatrix( Seq(
-            Seq(NaN, 1.0),
-            Seq(NaN, NaN),
-            Seq(0.0, 0.0)
-          ), Seq(0, 1), Seq(2, 3))
+          val matrix = new NetworkMatrix(
+            Seq(
+              Seq(NaN, 1.0),
+              Seq(NaN, NaN),
+              Seq(0.0, 0.0)
+            ), Seq(0, 1), Seq(2, 3)
+          )
           new GenericStatelessNetwork(matrix, activation)
         }
 
@@ -102,11 +108,13 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
       "the number of outputs is invalid" in {
 
         intercept[IllegalArgumentException] {
-          val matrix = new NetworkMatrix( Seq(
-            Seq(NaN, 1.0),
-            Seq(NaN, NaN),
-            Seq(0.0, 0.0)
-          ), Seq(0), Seq())
+          val matrix = new NetworkMatrix(
+            Seq(
+              Seq(NaN, 1.0),
+              Seq(NaN, NaN),
+              Seq(0.0, 0.0)
+            ), Seq(0), Seq()
+          )
           new GenericStatelessNetwork(matrix, activation)
         }
 
@@ -115,9 +123,11 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
       "the adjacency matrix doesn't respect the minimum size" in {
 
         intercept[IllegalArgumentException] {
-          val matrix = new NetworkMatrix( Seq(
-            Seq()
-          ), Seq(), Seq())
+          val matrix = new NetworkMatrix(
+            Seq(
+              Seq()
+            ), Seq(), Seq()
+          )
           new GenericStatelessNetwork(matrix, activation)
         }
 
@@ -126,37 +136,43 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
       "the matrix is not for a stateless network" in {
 
         // This is valid
-        val matrix1 = new NetworkMatrix(Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, 0.0, 0.0, 0.0)
-        ), Seq(0, 1), Seq(2, 3))
+        val matrix1 = new NetworkMatrix(
+          Seq(
+            Seq(NaN, NaN, 1.0, -1.0),
+            Seq(NaN, NaN, -0.5, 0.5),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(0.0, 0.0, 0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3)
+        )
 
         new GenericStatelessNetwork(matrix1, activation)
 
         // This has loops
-        val matrix2 = new NetworkMatrix(Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, 1.0),
-          Seq(NaN, 1.0, NaN, NaN),
-          Seq(0.0, 0.0, 0.0, 0.0)
-        ), Seq(0, 1), Seq(2, 3))
+        val matrix2 = new NetworkMatrix(
+          Seq(
+            Seq(NaN, NaN, 1.0, -1.0),
+            Seq(NaN, NaN, -0.5, 0.5),
+            Seq(NaN, NaN, NaN, 1.0),
+            Seq(NaN, 1.0, NaN, NaN),
+            Seq(0.0, 0.0, 0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3)
+        )
 
         intercept[IllegalArgumentException] {
           new GenericStatelessNetwork(matrix2, activation)
         }
 
         // This has self-loops
-        val matrix3 = new NetworkMatrix(Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, 1.0, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, 0.0, 0.0, 0.0)
-        ), Seq(0, 1), Seq(2, 3))
+        val matrix3 = new NetworkMatrix(
+          Seq(
+            Seq(NaN, NaN, 1.0, -1.0),
+            Seq(NaN, NaN, -0.5, 0.5),
+            Seq(NaN, NaN, 1.0, NaN),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(0.0, 0.0, 0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3)
+        )
 
         intercept[IllegalArgumentException] {
           new GenericStatelessNetwork(matrix3, activation)
@@ -168,34 +184,38 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
     "on evaluation must interrupt" when {
 
       "the input vector doesn't match the input count" in {
-        val matrix = new NetworkMatrix(Seq(
-          Seq(NaN, NaN, 1.0,  -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN,  NaN),
-          Seq(NaN, NaN, NaN,  NaN),
-          Seq(0.0, 0.0, 0.0,  0.0)
-        ), Seq(0, 1), Seq(2, 3))
+        val matrix = new NetworkMatrix(
+          Seq(
+            Seq(NaN, NaN, 1.0, -1.0),
+            Seq(NaN, NaN, -0.5, 0.5),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(0.0, 0.0, 0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3)
+        )
 
         val network = new GenericStatelessNetwork(matrix, activation)
 
         intercept[IllegalArgumentException] {
-          network.output( Seq(1.0, 2.0, 3.0) )
+          network.output(Seq(1.0, 2.0, 3.0))
         }
       }
 
       "one or more inputs are not numeric" in {
-        val matrix = new NetworkMatrix(Seq(
-          Seq(NaN, NaN, 1.0,  -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN,  NaN),
-          Seq(NaN, NaN, NaN,  NaN),
-          Seq(0.0, 0.0, 0.0,  0.0)
-        ), Seq(0, 1), Seq(2, 3))
+        val matrix = new NetworkMatrix(
+          Seq(
+            Seq(NaN, NaN, 1.0, -1.0),
+            Seq(NaN, NaN, -0.5, 0.5),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(NaN, NaN, NaN, NaN),
+            Seq(0.0, 0.0, 0.0, 0.0)
+          ), Seq(0, 1), Seq(2, 3)
+        )
 
         val network = new GenericStatelessNetwork(matrix, activation)
 
         intercept[IllegalArgumentException] {
-          network.output( Seq(1.0, NaN) )
+          network.output(Seq(1.0, NaN))
         }
       }
 
@@ -207,55 +227,61 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
 
     "there is only one input and one output, no hidden neurons" in {
       // Adjacency matrix
-      val matrix = new NetworkMatrix( Seq(
-        //   1    2     //     Neuron #
-        Seq(NaN, 1.0),  // 1 - Input neuron 1
-        Seq(NaN, NaN),  // 2 - Output neuron 1
-        Seq(0.0, 0.0)   // 3 - Biases
-        //   1    2     //     Neuron #
-      ), Seq(0), Seq(1))
+      val matrix = new NetworkMatrix(
+        Seq(
+          //   1    2     //     Neuron #
+          Seq(NaN, 1.0), // 1 - Input neuron 1
+          Seq(NaN, NaN), // 2 - Output neuron 1
+          Seq(0.0, 0.0) // 3 - Biases
+          //   1    2     //     Neuron #
+        ), Seq(0), Seq(1)
+      )
 
-      def expected(inputs: Seq[Double]): Seq[Double] =
+      def expected( inputs: Seq[Double] ): Seq[Double] =
         Seq(activation(inputs(0) * 1.0))
 
-      executeTest( 1, 1, matrix, expected )
+      executeTest(1, 1, matrix, expected)
     }
 
     "there are multiple inputs and multiple outputs, no hidden neurons" in {
       // Adjacency matrix
-      val matrix = new NetworkMatrix( Seq(
-        //   1    2    3    4      //     Neuron #
-        Seq(NaN, NaN, 0.1, -0.2),  // 1 - Input neuron 1
-        Seq(NaN, NaN, 0.3, -0.4),  // 2 - Input neuron 2
-        Seq(NaN, NaN, NaN, NaN ),  // 3 - Output neuron 1
-        Seq(NaN, NaN, NaN, NaN ),  // 4 - Output neuron 2
-        Seq(0.0, 0.0, 0.0, 0.0 )   // 5 - Biases
-        //   1    2    3    4      //     Neuron #
-      ), Seq(0, 1), Seq(2, 3))
+      val matrix = new NetworkMatrix(
+        Seq(
+          //   1    2    3    4      //     Neuron #
+          Seq(NaN, NaN, 0.1, -0.2), // 1 - Input neuron 1
+          Seq(NaN, NaN, 0.3, -0.4), // 2 - Input neuron 2
+          Seq(NaN, NaN, NaN, NaN), // 3 - Output neuron 1
+          Seq(NaN, NaN, NaN, NaN), // 4 - Output neuron 2
+          Seq(0.0, 0.0, 0.0, 0.0) // 5 - Biases
+          //   1    2    3    4      //     Neuron #
+        ), Seq(0, 1), Seq(2, 3)
+      )
 
-      def expected(inputs: Seq[Double]): Seq[Double] =
+      def expected( inputs: Seq[Double] ): Seq[Double] =
         Seq(activation(inputs(0) * 0.1 + inputs(1) * 0.3), activation(inputs(0) * (-0.2) + inputs(1) * (-0.4)))
 
-      executeTest( 2, 2, matrix, expected )
+      executeTest(2, 2, matrix, expected)
     }
 
     "there is an hidden layer" in {
       // Adjacency matrix
-      val matrix = new NetworkMatrix( Seq(
-        //   1     2     3     4     5     6     7      //     Neuron #
-        Seq(NaN,  NaN,  0.1,  -0.1, 0.2,  NaN,  NaN ),  // 1 - Input neuron 1
-        Seq(NaN,  NaN,  -0.2, 0.3,  -0.3, NaN,  NaN ),  // 2 - Input neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.4,  -0.4),  // 3 - Hidden neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.5,  -0.5),  // 4 - Hidden neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.6,  -0.6),  // 5 - Hidden neuron 3
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 6 - Output neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 7 - Output neuron 1
-        Seq(0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0 )   // 8 - Biases
-        //   1     2     3     4     5     6     7      //     Neuron #
-      ), Seq(0, 1), Seq(5, 6))
+      val matrix = new NetworkMatrix(
+        Seq(
+          //   1     2     3     4     5     6     7      //     Neuron #
+          Seq(NaN, NaN, 0.1, -0.1, 0.2, NaN, NaN), // 1 - Input neuron 1
+          Seq(NaN, NaN, -0.2, 0.3, -0.3, NaN, NaN), // 2 - Input neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.4, -0.4), // 3 - Hidden neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.5, -0.5), // 4 - Hidden neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.6, -0.6), // 5 - Hidden neuron 3
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 6 - Output neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 7 - Output neuron 1
+          Seq(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) // 8 - Biases
+          //   1     2     3     4     5     6     7      //     Neuron #
+        ), Seq(0, 1), Seq(5, 6)
+      )
 
       // Calculates manually the outputs of the network
-      def expected(inputs: Seq[Double]): Seq[Double] = {
+      def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
           activation(inputs(0) * 0.1 + inputs(1) * (-0.2)),
           activation(inputs(0) * (-0.1) + inputs(1) * 0.3),
@@ -268,29 +294,31 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         Seq(hdLayerOutputs(0), hdLayerOutputs(1))
       }
 
-      println( NeuralNetwork.analiseNetwork(matrix, 0) )
-      println( NeuralNetwork.analiseNetwork(matrix, 1) )
+      println(NeuralNetwork.analiseNetwork(matrix, 0))
+      println(NeuralNetwork.analiseNetwork(matrix, 1))
 
-      executeTest( 2, 2, matrix, expected )
+      executeTest(2, 2, matrix, expected)
     }
 
     "the biases affect correctly a multi-neuron network" in {
       // Calculates manually the outputs of the network
-      val matrix = new NetworkMatrix( Seq(
-        //   1     2     3     4     5     6     7      //     Neuron #
-        Seq(NaN,  NaN,  0.1,  -0.1, 0.2,  NaN,  NaN ),  // 1 - Input neuron 1
-        Seq(NaN,  NaN,  -0.2, 0.3,  -0.3, NaN,  NaN ),  // 2 - Input neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.4,  -0.4),  // 3 - Hidden neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.5,  -0.5),  // 4 - Hidden neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.6,  -0.6),  // 5 - Hidden neuron 3
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 6 - Output neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 7 - Output neuron 1
-        Seq(0.1,  -0.1, 0.2,  -0.2, 0.3,  -0.3, 0.4 )   // 8 - Biases
-        //   1     2     3     4     5     6     7      //     Neuron #
-      ), Seq(0, 1), Seq(5, 6))
+      val matrix = new NetworkMatrix(
+        Seq(
+          //   1     2     3     4     5     6     7      //     Neuron #
+          Seq(NaN, NaN, 0.1, -0.1, 0.2, NaN, NaN), // 1 - Input neuron 1
+          Seq(NaN, NaN, -0.2, 0.3, -0.3, NaN, NaN), // 2 - Input neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.4, -0.4), // 3 - Hidden neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.5, -0.5), // 4 - Hidden neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.6, -0.6), // 5 - Hidden neuron 3
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 6 - Output neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 7 - Output neuron 1
+          Seq(0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4) // 8 - Biases
+          //   1     2     3     4     5     6     7      //     Neuron #
+        ), Seq(0, 1), Seq(5, 6)
+      )
 
       // Calculates manually the outputs of the network
-      def expected(inputs: Seq[Double]): Seq[Double] = {
+      def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
           activation(inputs(0) * 0.1 + inputs(1) * (-0.2) + 0.2),
           activation(inputs(0) * (-0.1) + inputs(1) * 0.3 - 0.2),
@@ -303,26 +331,28 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         Seq(hdLayerOutputs(0), hdLayerOutputs(1))
       }
 
-      executeTest( 2, 2, matrix, expected )
+      executeTest(2, 2, matrix, expected)
     }
 
     "there are interactions between neurons of the same layer" in {
       // Adjacency matrix
-      val matrix = new NetworkMatrix( Seq(
-        //   1     2     3     4     5     6     7      //     Neuron #
-        Seq(NaN,  1.0,  0.1,  -0.1, 0.2,  NaN,  NaN ),  // 1 - Input neuron 1
-        Seq(NaN,  NaN,  -0.2, 0.3,  -0.3, NaN,  NaN ),  // 2 - Input neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.4,  -0.4),  // 3 - Hidden neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.5,  -0.5),  // 4 - Hidden neuron 2
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  0.6,  -0.6),  // 5 - Hidden neuron 3
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 6 - Output neuron 1
-        Seq(NaN,  NaN,  NaN,  NaN,  NaN,  NaN,  NaN ),  // 7 - Output neuron 1
-        Seq(0.1,  -0.1, 0.2,  -0.2, 0.3,  -0.3, 0.4 )   // 8 - Biases
-        //   1     2     3     4     5     6     7      //     Neuron #
-      ), Seq(0, 1), Seq(5, 6))
+      val matrix = new NetworkMatrix(
+        Seq(
+          //   1     2     3     4     5     6     7      //     Neuron #
+          Seq(NaN, 1.0, 0.1, -0.1, 0.2, NaN, NaN), // 1 - Input neuron 1
+          Seq(NaN, NaN, -0.2, 0.3, -0.3, NaN, NaN), // 2 - Input neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.4, -0.4), // 3 - Hidden neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.5, -0.5), // 4 - Hidden neuron 2
+          Seq(NaN, NaN, NaN, NaN, NaN, 0.6, -0.6), // 5 - Hidden neuron 3
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 6 - Output neuron 1
+          Seq(NaN, NaN, NaN, NaN, NaN, NaN, NaN), // 7 - Output neuron 1
+          Seq(0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4) // 8 - Biases
+          //   1     2     3     4     5     6     7      //     Neuron #
+        ), Seq(0, 1), Seq(5, 6)
+      )
 
       // Calculates manually the outputs of the network
-      def expected(inputs: Seq[Double]): Seq[Double] = {
+      def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
           activation(inputs(0) * 0.1 + inputs(1) * (-0.2) + 0.2),
           activation(inputs(0) * 1.0 + inputs(0) * (-0.1) + inputs(1) * 0.3 - 0.2),

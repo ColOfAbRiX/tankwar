@@ -29,7 +29,7 @@ import com.colofabrix.scala.neuralnetwork.old.layers.InputLayer
  * @param behaviourBuilder Builder of the type of the Neural Network
  * @param nHidden The number of neurons in the hidden layer
  */
-class ThreeLayerNetwork(override val behaviourBuilder: BehaviourBuilder, nHidden: Int) extends StructureBuilder {
+class ThreeLayerNetwork( override val behaviourBuilder: BehaviourBuilder, nHidden: Int ) extends StructureBuilder {
   /**
    * Build a Neural Network
    *
@@ -38,7 +38,7 @@ class ThreeLayerNetwork(override val behaviourBuilder: BehaviourBuilder, nHidden
    * @param dataReader Data reader used to create the network
    * @return A new Neural Network
    */
-  override def buildNetwork(nInputs: Int, nOutputs: Int, dataReader: DataReader): NeuralNetwork = {
+  override def buildNetwork( nInputs: Int, nOutputs: Int, dataReader: DataReader ): NeuralNetwork = {
     behaviourBuilder.buildNetwork(
       inputLayer(nInputs, dataReader),
       hiddenLayers(nInputs, dataReader),
@@ -52,7 +52,7 @@ class ThreeLayerNetwork(override val behaviourBuilder: BehaviourBuilder, nHidden
    * @param nInputs The number of inputs of the NN
    * @return A new InputLayer for the NN. It defaults to `InputLayer`
    */
-  override def inputLayer(nInputs: Int, data: DataReader): InputLayer =
+  override def inputLayer( nInputs: Int, data: DataReader ): InputLayer =
     behaviourBuilder.buildInputLayer(nInputs, data.layerReaders(0))
 
   /**
@@ -61,7 +61,7 @@ class ThreeLayerNetwork(override val behaviourBuilder: BehaviourBuilder, nHidden
    * @param nInitialInputs The number of inputs of the NN
    * @return A sequence containing a single HiddenLayer
    */
-  override def hiddenLayers(nInitialInputs: Int, data: DataReader) = {
+  override def hiddenLayers( nInitialInputs: Int, data: DataReader ) = {
     require(data.layerReaders.length == 3, "The reader must be for a 3-layer network")
 
     List(
@@ -75,7 +75,7 @@ class ThreeLayerNetwork(override val behaviourBuilder: BehaviourBuilder, nHidden
    * @param nOutputs The number of outputs of the NN
    * @return A new OutputLayer
    */
-  override def outputLayer(nOutputs: Int, data: DataReader) = {
+  override def outputLayer( nOutputs: Int, data: DataReader ) = {
     require(data.layerReaders.length == 3, "The reader must be for a 3-layer network")
     behaviourBuilder.buildOutputLayer(nHidden, nOutputs, data.layerReaders(2))
   }

@@ -27,7 +27,7 @@ import org.uncommons.maths.random.Probability
  * a modification of the old one, a drift from it, by a random value generated
  * by a proper distribution generator
  */
-class TankDriftMutation(probability: Probability, generator: NumberGenerator[java.lang.Double]) extends TankFullMutation(probability) {
+class TankDriftMutation( probability: Probability, generator: NumberGenerator[java.lang.Double] ) extends TankFullMutation(probability) {
 
   /**
    * Rules that defines how to mutate
@@ -42,10 +42,13 @@ class TankDriftMutation(probability: Probability, generator: NumberGenerator[jav
    * @param rng Random number generator
    * @return The old value or a new mutated value
    */
-  override def mutationRule(scale: Double)(x: Double, rng: Random) = {
-    if( rng.nextDouble <= probability.doubleValue )
+  override def mutationRule( scale: Double )( x: Double, rng: Random ) = {
+    if( rng.nextDouble <= probability.doubleValue ) {
       x + generator.nextValue
-    else x
+    }
+    else {
+      x
+    }
   }
 
   /**
@@ -55,7 +58,7 @@ class TankDriftMutation(probability: Probability, generator: NumberGenerator[jav
    * @param random Random number generator
    * @return A new sight ratio with applied the mutation rules
    */
-  override def mutateSightRatio(c: TankChromosome, random: Random) = {
+  override def mutateSightRatio( c: TankChromosome, random: Random ) = {
     Math.max(Math.min(mutationRule(1.0)(c.sightRatio, random), 1.0 - extremityDistance), extremityDistance)
   }
 

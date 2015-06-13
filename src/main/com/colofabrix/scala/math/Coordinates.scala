@@ -25,8 +25,8 @@ import com.colofabrix.scala.geometry.abstracts.Coordinates
  * @see https://en.wikipedia.org/wiki/Cartesian_coordinate_system
  * @param x Distance on the X-Axis
  * @param y Distance on the Y-Axis
-*/
-final class CartesianCoord private (val x: Double, val y: Double) extends Coordinates {
+ */
+final class CartesianCoord private( val x: Double, val y: Double ) extends Coordinates {
 
   /**
    * Equality check between coordinates
@@ -34,7 +34,7 @@ final class CartesianCoord private (val x: Double, val y: Double) extends Coordi
    * @param that The other object to compare
    * @return true if {that} represents the same coordinate as the current instance
    */
-  override def equals(that: Any) = that match {
+  override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
     case cc: CartesianCoord => this.x == cc.x && this.y == cc.y
 
@@ -48,7 +48,9 @@ final class CartesianCoord private (val x: Double, val y: Double) extends Coordi
   override def hashCode: Int = 41 + this.x.hashCode + 41 * this.y.hashCode
 }
 
+
 object CartesianCoord {
+
   import com.colofabrix.scala.math.CoordinatesImplicits._
 
   /**
@@ -59,7 +61,7 @@ object CartesianCoord {
    * @param p Input coordinates in polar notation
    * @return An equivalent point in cartesian coordinates
    */
-  def apply(p: PolarCoord): CartesianCoord = p
+  def apply( p: PolarCoord ): CartesianCoord = p
 
   /**
    * Cartesian Coordinate representation
@@ -68,8 +70,9 @@ object CartesianCoord {
    * @param y Distance on the Y-Axis
    * @return An equivalent point in cartesian coordinates
    */
-  def apply(x: Double, y: Double): CartesianCoord = new CartesianCoord(x, y)
+  def apply( x: Double, y: Double ): CartesianCoord = new CartesianCoord(x, y)
 }
+
 
 /**
  * Polar Coordinate representation
@@ -81,7 +84,7 @@ object CartesianCoord {
  * @param t Length of the vector, modulus. Must not be negative
  * @param r Rotation relative to the X-Axis, in radians. It's always non-negative or converted in a non-negative angle
  */
-final class PolarCoord private(val r: Double, val t: Double) extends Coordinates {
+final class PolarCoord private( val r: Double, val t: Double ) extends Coordinates {
   require(r >= 0, "The length of the vector must not be negative")
 
   /**
@@ -90,7 +93,7 @@ final class PolarCoord private(val r: Double, val t: Double) extends Coordinates
    * @param that The other object to compare
    * @return true if {that} represents the same coordinate as the current instance
    */
-  override def equals(that: Any) = that match {
+  override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
     case pc: PolarCoord => this.r == pc.r && this.t == pc.t
 
@@ -104,7 +107,9 @@ final class PolarCoord private(val r: Double, val t: Double) extends Coordinates
   override def hashCode: Int = 41 + this.r.hashCode + 41 * this.t.hashCode
 }
 
+
 object PolarCoord {
+
   import com.colofabrix.scala.math.CoordinatesImplicits._
 
   /**
@@ -115,7 +120,7 @@ object PolarCoord {
    * @param c A reference in polar coordinates
    * @return An equivalent point in cartesian coordinates
    */
-  def apply(c: CartesianCoord): PolarCoord = c
+  def apply( c: CartesianCoord ): PolarCoord = c
 
   /**
    * Polar Coordinate representation
@@ -126,11 +131,17 @@ object PolarCoord {
    * @param r Rotation relative to the X-Axis, in radians. It's always non-negative or converted in a non-negative angle
    * @return An equivalent point in cartesian coordinates
    */
-  def apply(r: Double, t: Double): PolarCoord =
-    new PolarCoord(r, {
-      if( t >= 0) t % (2 * Math.PI)
-      else trimAngles(t)
-    })
+  def apply( r: Double, t: Double ): PolarCoord =
+    new PolarCoord(
+    r, {
+      if( t >= 0 ) {
+        t % (2 * Math.PI)
+      }
+      else {
+        trimAngles(t)
+      }
+    }
+    )
 
   /**
    * Trim an angle making sure that the resulting angle is always non-negative and less than 2 * PI
@@ -141,10 +152,12 @@ object PolarCoord {
   def trimAngles( t: Double ): Double = t % (-2 * Math.PI) + 2 * Math.PI
 }
 
+
 /**
  * Implicit conversions to work with coordinates
  */
 object CoordinatesImplicits {
+
   import java.lang.Math._
 
   /**
@@ -164,8 +177,8 @@ object CoordinatesImplicits {
    */
   implicit def Polar2Cartesian( p: PolarCoord ): CartesianCoord =
     CartesianCoord(
-      p.r * cos( p.t ),
-      p.r * sin( p.t )
+      p.r * cos(p.t),
+      p.r * sin(p.t)
     )
 
   /**

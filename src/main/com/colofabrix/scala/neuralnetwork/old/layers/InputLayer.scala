@@ -32,10 +32,10 @@ import com.colofabrix.scala.neuralnetwork.old.activationfunctions.Linear
  * @param n_inputs The number of inputs for the whole NN
  */
 class InputLayer( n_inputs: Int )
-extends NeuronLayer(
-  new Linear,
-  n_inputs,
-  n_inputs,
-  Seq.fill(n_inputs)(0.0),
-  Seq.tabulate(n_inputs, n_inputs)( (i, j) => if( i == j ) 1.0 else 0.0 )   // Kronecker delta
-)
+  extends NeuronLayer(
+    new Linear,
+    n_inputs,
+    n_inputs,
+    Seq.fill(n_inputs)(0.0),
+    Seq.tabulate(n_inputs, n_inputs)(( i, j ) => if( i == j ) 1.0 else 0.0) // Kronecker delta
+  )

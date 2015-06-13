@@ -25,6 +25,7 @@ import org.scalatest.{Matchers, WordSpec}
  * Created by Fabrizio on 06/01/2015.
  */
 class Vector2DTest extends WordSpec with Matchers {
+
   import com.colofabrix.scala.math.Vector2DImplicits._
 
   val tolerance = 1E-5
@@ -34,10 +35,10 @@ class Vector2DTest extends WordSpec with Matchers {
     "Return the correct sequence of coordinates" in {
       val test = Vector2D.new_xy(10, -10)
 
-      test(0) should equal (10.0)
-      test(1) should equal (-10.0)
-      test(2) should equal (14.14213 +- tolerance)
-      test(3) should equal (Math.PI * 7.0 / 4.0 +- tolerance)
+      test(0) should equal(10.0)
+      test(1) should equal(-10.0)
+      test(2) should equal(14.14213 +- tolerance)
+      test(3) should equal(Math.PI * 7.0 / 4.0 +- tolerance)
     }
 
   }
@@ -51,25 +52,25 @@ class Vector2DTest extends WordSpec with Matchers {
       val polar1 = Vector2D.new_rt(14.142135623730951, Math.PI / 4)
       val polar2 = Vector2D.new_rt(14.142135623730951, Math.PI / 4)
 
-      assert( cartesian1 == cartesian2 )
-      assert( polar1 == polar2 )
-      assert( cartesian1 == polar1 )
+      assert(cartesian1 == cartesian2)
+      assert(polar1 == polar2)
+      assert(cartesian1 == polar1)
 
     }
 
     "Are addition/subtraction" must {
 
-        val vec1 = Vector2D.new_xy(10, 20)
-        val vec2 = Vector2D.new_xy(30, 40)
+      val vec1 = Vector2D.new_xy(10, 20)
+      val vec2 = Vector2D.new_xy(30, 40)
 
-        val addition = vec1 + vec2
-        val subtraction = vec1 - vec2
+      val addition = vec1 + vec2
+      val subtraction = vec1 - vec2
 
-        addition.x should equal (10 + 30)
-        addition.y should equal (20 + 40)
+      addition.x should equal(10 + 30)
+      addition.y should equal(20 + 40)
 
-        subtraction.x should equal (10 - 30)
-        subtraction.y should equal (20 - 40)
+      subtraction.x should equal(10 - 30)
+      subtraction.y should equal(20 - 40)
 
     }
 
@@ -79,17 +80,17 @@ class Vector2DTest extends WordSpec with Matchers {
       val scalar: Double = 12.345
 
       val result1 = vector * scalar
-      val result2 = scalar * vector   // With implicit
+      val result2 = scalar * vector // With implicit
       val result3 = vector / scalar
 
-      result1.x should equal (15 * 12.345 +- tolerance)
-      result1.y should equal (25 * 12.345 +- tolerance)
+      result1.x should equal(15 * 12.345 +- tolerance)
+      result1.y should equal(25 * 12.345 +- tolerance)
 
-      result2.x should equal (15 * 12.345 +- tolerance)
-      result2.y should equal (25 * 12.345 +- tolerance)
+      result2.x should equal(15 * 12.345 +- tolerance)
+      result2.y should equal(25 * 12.345 +- tolerance)
 
-      result3.x should equal (15 / 12.345 +- tolerance)
-      result3.y should equal (25 / 12.345 +- tolerance)
+      result3.x should equal(15 / 12.345 +- tolerance)
+      result3.y should equal(25 / 12.345 +- tolerance)
 
     }
 
@@ -100,7 +101,7 @@ class Vector2DTest extends WordSpec with Matchers {
 
       val result = vector1 x vector2
 
-      result should equal ( 5 * 15 + 10 * 20 )
+      result should equal(5 * 15 + 10 * 20)
 
     }
 
@@ -112,7 +113,7 @@ class Vector2DTest extends WordSpec with Matchers {
       val result = vector1 ^ vector2
 
       //this.x * that.y - this.y * that.x
-      result should equal (15.0 * 35.0 - 25.0 * 30.0 +- tolerance)
+      result should equal(15.0 * 35.0 - 25.0 * 30.0 +- tolerance)
 
     }
 
@@ -126,8 +127,8 @@ class Vector2DTest extends WordSpec with Matchers {
       val map = Vector2D.new_xy(56, 78)
       val projection = vector := map
 
-      projection.x should equal (12 * 56)
-      projection.y should equal (34 * 78)
+      projection.x should equal(12 * 56)
+      projection.y should equal(34 * 78)
 
     }
 
@@ -137,8 +138,8 @@ class Vector2DTest extends WordSpec with Matchers {
       val axis = Vector2D.new_xy(10, 0)
       val projection = vector -> axis
 
-      projection.x should equal (100.0 +- tolerance)
-      projection.y should equal (0.0)
+      projection.x should equal(100.0 +- tolerance)
+      projection.y should equal(0.0)
 
     }
 
@@ -150,11 +151,11 @@ class Vector2DTest extends WordSpec with Matchers {
       // Rotation of 3 turns
       val rotation2 = vector ¬ (6 * Math.PI)
 
-      rotation1.x should equal (-10.0 +- tolerance)
-      rotation1.y should equal (-10.0 +- tolerance)
+      rotation1.x should equal(-10.0 +- tolerance)
+      rotation1.y should equal(-10.0 +- tolerance)
 
-      rotation2.x should equal (10.0 +- tolerance)
-      rotation2.y should equal (10.0 +- tolerance)
+      rotation2.x should equal(10.0 +- tolerance)
+      rotation2.y should equal(10.0 +- tolerance)
 
     }
 
@@ -165,11 +166,11 @@ class Vector2DTest extends WordSpec with Matchers {
       val ccw_perpendicular = vector -|
       val cw_perpendicular = vector |-
 
-      ccw_perpendicular.x should equal (-10.0 +- tolerance)
-      ccw_perpendicular.y should equal (10.0 +- tolerance)
+      ccw_perpendicular.x should equal(-10.0 +- tolerance)
+      ccw_perpendicular.y should equal(10.0 +- tolerance)
 
-      cw_perpendicular.x should equal (10.0 +- tolerance)
-      cw_perpendicular.y should equal (-10.0 +- tolerance)
+      cw_perpendicular.x should equal(10.0 +- tolerance)
+      cw_perpendicular.y should equal(-10.0 +- tolerance)
 
     }
 
@@ -178,8 +179,8 @@ class Vector2DTest extends WordSpec with Matchers {
       val vector = Vector2D.new_xy(25, 25)
       val result = vector n
 
-      result.r should equal (1.0)
-      result.t should equal (Math.PI / 4 + Math.PI / 2 +- tolerance)
+      result.r should equal(1.0)
+      result.t should equal(Math.PI / 4 + Math.PI / 2 +- tolerance)
 
     }
 
@@ -188,8 +189,8 @@ class Vector2DTest extends WordSpec with Matchers {
       val vector = Vector2D.new_xy(78, 78)
       val result = vector v
 
-      result.r should equal (1.0)
-      result.t should equal (Math.PI / 4)
+      result.r should equal(1.0)
+      result.t should equal(Math.PI / 4)
 
     }
 

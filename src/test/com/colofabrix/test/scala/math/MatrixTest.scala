@@ -75,13 +75,15 @@ class MatrixTest extends WordSpec with Matchers {
 
     "multiplication" must {
       val test2 = test.transpose
-      val multiplied = new Matrix(Seq(
-        Seq(0, 0,  0,  0,  0),
-        Seq(0, 5,  10, 15, 20),
-        Seq(0, 10, 20, 30, 40),
-        Seq(0, 15, 30, 45, 60),
-        Seq(0, 20, 40, 60, 80)
-      ))
+      val multiplied = new Matrix(
+        Seq(
+          Seq(0, 0, 0, 0, 0),
+          Seq(0, 5, 10, 15, 20),
+          Seq(0, 10, 20, 30, 40),
+          Seq(0, 15, 30, 45, 60),
+          Seq(0, 20, 40, 60, 80)
+        )
+      )
 
       // Test the multiplication
       test2 * test should equal(multiplied)
@@ -102,9 +104,11 @@ class MatrixTest extends WordSpec with Matchers {
     }
 
     "to-identity" must {
-      val expected = new Matrix(Seq.tabulate(3, 3) { (i, j) =>
-        if (i == j) 1 else 0
-      })
+      val expected = new Matrix(
+        Seq.tabulate(3, 3) { ( i, j ) =>
+          if( i == j ) 1 else 0
+        }
+      )
 
       // Test that I can get an identity matrix of the right dimensions
       test.toIdentity should equal(expected)
@@ -128,19 +132,21 @@ class MatrixTest extends WordSpec with Matchers {
     "mapping" must {
       val expected = new Matrix[Int](Seq.tabulate(3, 5)(2 * _ * _))
 
-      val map1 = test map { (x, _, _) => 2 * x }
-      val map2 = test map { (_, i, j) => 2 * i * j }
+      val map1 = test map { ( x, _, _ ) => 2 * x }
+      val map2 = test map { ( _, i, j ) => 2 * i * j }
 
       map1 should equal(expected)
       map2 should equal(expected)
     }
 
     "update" must {
-      val expected = new Matrix[Int](Seq(
-        Seq(0, 0, 0, 0, 0),
-        Seq(0, 123, 2, 3, 4),
-        Seq(0, 2, 4, 6, 8)
-      ))
+      val expected = new Matrix[Int](
+        Seq(
+          Seq(0, 0, 0, 0, 0),
+          Seq(0, 123, 2, 3, 4),
+          Seq(0, 2, 4, 6, 8)
+        )
+      )
 
       test.update((1, 1), 123) should equal(expected)
     }

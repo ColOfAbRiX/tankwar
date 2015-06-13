@@ -31,7 +31,7 @@ import com.colofabrix.scala.simulation.{BrainInputHelper, World}
  * @param network The neural network that you want to analyse
  */
 // FIXME: Remove the usage of {world}. It is there only to provide data for a badly designed {BrainInputHelper}
-abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork) extends NetworkAnalyser {
+abstract class AbstractNetworkAnalyser( val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork ) extends NetworkAnalyser {
 
   /**
    * First line that will be written to the output stream, usually the header of the CSV file
@@ -46,10 +46,10 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
    * is a tuple containing:
    *
    * (input#, start_value, end_value, points_count)
-   *   - input#: Reference to the ordinal number of the input to use
-   *   - start_value: The initial value to start to feed
-   *   - end_value: The final value to feed
-   *   - points_count: How many intermediate values (between start_value and end_value) feed to the network
+   * - input#: Reference to the ordinal number of the input to use
+   * - start_value: The initial value to start to feed
+   * - end_value: The final value to feed
+   * - points_count: How many intermediate values (between start_value and end_value) feed to the network
    *
    * @return A list of tuples constructed like:
    */
@@ -74,7 +74,7 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
    * @param plotIndexes Sequence containing the iIndexes of the input vector to scan through, applying the plot definition
    * @param writer Writer used to write the output
    */
-  protected def internalFullAnalysis(inputBase: Seq[Double], plotIndexes: Seq[Int])(writer: PrintWriter): Unit = {
+  protected def internalFullAnalysis( inputBase: Seq[Double], plotIndexes: Seq[Int] )( writer: PrintWriter ): Unit = {
     val currentIndex = plotIndexes.head
 
     // Extracts the definition of the plot from the list
@@ -87,10 +87,10 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
       // Modify the value of the current input
       val inputs = inputBase.patch(input, Seq(x), 1)
 
-      if (plotIndexes.length == 1) {
+      if( plotIndexes.length == 1 ) {
         // If there is only one value to plot, then plot it
-        val outputs = network.output( new BrainInputHelper(world, inputs))
-        writer.write(s"${inputs.mkString(";") };${outputs.mkString(";") }\n".replace(".", ","))
+        val outputs = network.output(new BrainInputHelper(world, inputs))
+        writer.write(s"${inputs.mkString(";")};${outputs.mkString(";")}\n".replace(".", ","))
       }
       else {
         // If there is more than one value to plot, recursively call this function over the remaining indexes { {
@@ -109,6 +109,6 @@ abstract class AbstractNetworkAnalyser(val world: World, val network: com.colofa
    * @param plotIndexes Indexes of the input vector to scan through, applying the plot definition
    * @param writer Writer used to write the output
    */
-  protected def fullAnalysis(inputBase: Seq[Double], plotIndexes: Int*)(writer: PrintWriter): Unit =
+  protected def fullAnalysis( inputBase: Seq[Double], plotIndexes: Int* )( writer: PrintWriter ): Unit =
     internalFullAnalysis(inputBase, plotIndexes)(writer)
 }

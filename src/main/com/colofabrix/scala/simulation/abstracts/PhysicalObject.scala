@@ -50,6 +50,7 @@ trait PhysicalObject {
    * @return The point on the world where is the center of the {PhysicalObject}
    */
   final def position: Vector2D = _position
+
   protected var _position: Vector2D = Vector2D.new_xy(0, 0)
 
   /**
@@ -62,6 +63,7 @@ trait PhysicalObject {
    * @return The current speed of the object
    */
   final def speed: Vector2D = _speed
+
   protected var _speed: Vector2D = Vector2D.new_xy(0, 0)
 
   /**
@@ -73,6 +75,7 @@ trait PhysicalObject {
    * @return A versor indicating the angle formed by the object's main axis and the X-axis, in radians
    */
   final def rotation: Vector2D = _rotation
+
   protected var _rotation: Vector2D = Vector2D.new_rt(1, 0)
 
   /**
@@ -83,6 +86,7 @@ trait PhysicalObject {
    * @return The current angular speed
    */
   final def angularSpeed: Double = _angularSpeed
+
   protected var _angularSpeed: Double = 0.0
 
   /**
@@ -91,6 +95,7 @@ trait PhysicalObject {
    * @return The mass of the object
    */
   final def mass: Double = _mass
+
   protected var _mass: Double = 1.0
 
   /**
@@ -99,7 +104,7 @@ trait PhysicalObject {
    * In other words, this method will perform the needed calculations to updated all the internal field of the objects
    * like the position in the next step, speed and so on.
    */
-  def stepForward(): Unit
+  def stepForward( ): Unit
 
   /**
    * Determines if a point lies inside the Shape
@@ -109,7 +114,7 @@ trait PhysicalObject {
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def overlaps(that: Vector2D): Boolean = objectShape.overlaps(that)
+  def overlaps( that: Vector2D ): Boolean = objectShape.overlaps(that)
 
   /**
    * Determines if a shape touches this one
@@ -119,14 +124,14 @@ trait PhysicalObject {
    * @param that The shape to check
    * @return true if the two shapes overlap
    */
-  def touches(that: PhysicalObject): Boolean = objectShape.overlaps(that.objectShape)
+  def touches( that: PhysicalObject ): Boolean = objectShape.overlaps(that.objectShape)
 
   /**
    * Identifier of the instance.
    *
    * The default implementation is to return the class name with an hash appended to it, like Object@14235
    */
-  val id = this.getClass.toString.replace("class ", "").replaceFirst("""(\w+\.)*""", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
+  val id = this.getClass.toString.replace("class ", "").replaceFirst( """(\w+\.)*""", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
 
   /**
    * Record identifying the step of the PhysicalObject
@@ -141,20 +146,20 @@ trait PhysicalObject {
   /**
    * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
    */
-  def on_hitsWalls(): Unit
+  def on_hitsWalls( ): Unit
 
   /**
    * Callback function used to signal the {PhysicalObject} that is moving faster than the maximum allowed speed
    */
-  def on_maxSpeedReached(maxSpeed: Double): Unit
+  def on_maxSpeedReached( maxSpeed: Double ): Unit
 
   /**
    * Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
    */
-  def on_maxAngularSpeedReached(maxAngularSpeed: Double): Unit
+  def on_maxAngularSpeedReached( maxAngularSpeed: Double ): Unit
 
   /**
    * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
    */
-  def on_respawn(): Unit
+  def on_respawn( ): Unit
 }

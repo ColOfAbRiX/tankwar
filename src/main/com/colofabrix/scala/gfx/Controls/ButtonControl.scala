@@ -28,7 +28,7 @@ import org.newdawn.slick.opengl.Texture
  * as well as a Unit that it is it's OnClick action. Requires a Box as a renderable/clickable area and
  * a Unit as an action
  */
-class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
+class ButtonControl( area: Box, texture: Texture, action: (Int) => Unit ) {
 
   // NOTE: Make timing in seconds not steps
   // NOTE: Add a universal DeltaTime for the project
@@ -45,7 +45,9 @@ class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
   /**
    * Increment the click timer by one
    */
-  def clickTimerInc() {clickTimer += 1}
+  def clickTimerInc( ) {
+    clickTimer += 1
+  }
 
   /**
    *
@@ -56,7 +58,7 @@ class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
    * @param mouseButton Int - The mouse button number, passed to the action
    */
   def runClick( mouse: Vector2D, mouseButton: Int ) {
-    if (clickTimer >= MIN_CLICK_TIMER) {
+    if( clickTimer >= MIN_CLICK_TIMER ) {
 
       if( area.overlaps(mouse) ) {
         action(mouseButton)
@@ -69,24 +71,25 @@ class ButtonControl( area: Box, texture: Texture, action : (Int) => Unit) {
   /**
    * Renders the button
    */
-  def render() {
+  def render( ) {
 
-    if (texture != null)
+    if( texture != null ) {
       throw new NotImplementedError("Not yet...")
+    }
 
     GL11.glPushMatrix()
 
-      GL11.glTranslated(area.bottomLeft.x, area.bottomLeft.y, 0)
-      GL11.glColor3d(1,0,0.5)
+    GL11.glTranslated(area.bottomLeft.x, area.bottomLeft.y, 0)
+    GL11.glColor3d(1, 0, 0.5)
 
-      GL11.glBegin(GL11.GL_QUADS)
+    GL11.glBegin(GL11.GL_QUADS)
 
-        GL11.glVertex2d(0, 0)
-        GL11.glVertex2d(0, area.height)
-        GL11.glVertex2d(area.width, area.height)
-        GL11.glVertex2d(area.width, 0)
+    GL11.glVertex2d(0, 0)
+    GL11.glVertex2d(0, area.height)
+    GL11.glVertex2d(area.width, area.height)
+    GL11.glVertex2d(area.width, 0)
 
-      GL11.glEnd()
+    GL11.glEnd()
 
     GL11.glPopMatrix()
 

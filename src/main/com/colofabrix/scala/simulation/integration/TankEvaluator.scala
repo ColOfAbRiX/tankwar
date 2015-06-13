@@ -24,7 +24,7 @@ import org.uncommons.watchmaker.framework.FitnessEvaluator
 /**
  * Evaluates the fitness of a Tank
  */
-class TankEvaluator() extends FitnessEvaluator[Tank] {
+class TankEvaluator( ) extends FitnessEvaluator[Tank] {
 
   /**
    * Given a Tank returns its fitness
@@ -33,12 +33,13 @@ class TankEvaluator() extends FitnessEvaluator[Tank] {
    * @param list The list of all Tanks. It may be useful for comparison purposes
    * @return A number representing the fitness of the Tank
    */
-  override def getFitness(t: Tank, list: util.List[_ <: Tank]): Double =
+  override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double =
     TankEvaluator.fitness(t)
 
   override def isNatural: Boolean = true
 
 }
+
 
 object TankEvaluator {
 
@@ -50,7 +51,7 @@ object TankEvaluator {
    * @param t The tank being evaluated
    * @return The score of the tank representing its fitness
    */
-  def fitness(t: Tank): Double = {
+  def fitness( t: Tank ): Double = {
     val (w, ts) = (t.world, t.world.tanks)
 
     2.0 * t.kills.toDouble / ts.length.toDouble +
@@ -63,7 +64,7 @@ object TankEvaluator {
    * @param world The world of the simulation
    * @return The highest possible value
    */
-  def higherFitness(world: World): Double = {
+  def higherFitness( world: World ): Double = {
     5.0
   }
 

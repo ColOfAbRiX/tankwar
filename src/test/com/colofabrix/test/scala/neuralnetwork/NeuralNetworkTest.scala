@@ -371,7 +371,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
 
       }
 
-      "Using INPUT-1" in { }
+      "Using INPUT-1" in {}
 
     }
   }

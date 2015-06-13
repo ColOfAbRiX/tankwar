@@ -251,39 +251,45 @@ class NetworkMatrixTest extends WordSpec with Matchers {
   "Check graph properties" when {
 
     "The graph is forward only" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
+      val matrix = new NetworkMatrix(
+        Seq(
+          Seq(NaN, NaN, 1.0, -1.0),
+          Seq(NaN, NaN, -0.5, 0.5),
+          Seq(NaN, NaN, NaN, NaN),
+          Seq(NaN, NaN, NaN, NaN),
+          Seq(NaN, NaN, NaN, NaN)
+        ), Seq(0, 1), Seq(2, 3)
+      )
 
       matrix.isForwardOnly should equal(true)
       matrix.isAcyclic should equal(true)
     }
 
     "The graph is acyclic" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, NaN, NaN, 0.3),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
+      val matrix = new NetworkMatrix(
+        Seq(
+          Seq(NaN, NaN, 1.0, -1.0),
+          Seq(NaN, NaN, -0.5, 0.5),
+          Seq(NaN, NaN, NaN, 0.3),
+          Seq(NaN, NaN, NaN, NaN),
+          Seq(NaN, NaN, NaN, NaN)
+        ), Seq(0, 1), Seq(2, 3)
+      )
 
       matrix.isForwardOnly should equal(false)
       matrix.isAcyclic should equal(true)
     }
 
     "The graph is generic" in {
-      val matrix = new NetworkMatrix(Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, -0.2, NaN, 0.3),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN)
-      ), Seq(0, 1), Seq(2, 3))
+      val matrix = new NetworkMatrix(
+        Seq(
+          Seq(NaN, NaN, 1.0, -1.0),
+          Seq(NaN, NaN, -0.5, 0.5),
+          Seq(NaN, -0.2, NaN, 0.3),
+          Seq(NaN, NaN, NaN, NaN),
+          Seq(NaN, NaN, NaN, NaN)
+        ), Seq(0, 1), Seq(2, 3)
+      )
 
       matrix.isForwardOnly should equal(false)
       matrix.isAcyclic should equal(false)

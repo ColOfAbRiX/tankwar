@@ -45,6 +45,7 @@ case class TankChromosome(
 
 }
 
+
 object TankChromosome {
 
   /**
@@ -53,7 +54,7 @@ object TankChromosome {
    * @param s A list containing the data for a chromosome
    * @return A new chromosome object
    */
-  def apply(s: List[Any]) = {
+  def apply( s: List[Any] ) = {
     new TankChromosome(
       s(0).asInstanceOf[Seq[Seq[Double]]],
       s(1).asInstanceOf[Seq[Seq[Seq[Double]]]],
@@ -67,6 +68,7 @@ object TankChromosome {
 
 }
 
+
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
  */
@@ -74,19 +76,21 @@ object BrainOutputHelper {
   val count = 4
 }
 
+
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
  *
  * It provides a nicer access to the network outputs:
- *  - Speed
- *  - Rotation
- *  - Shoot-or-not
+ * - Speed
+ * - Rotation
+ * - Shoot-or-not
  */
-class BrainOutputHelper(outputs: Seq[Double]) extends OutputHelper[Double](outputs) {
+class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double](outputs) {
   val speed = Vector2D.new_xy(outputs(0), outputs(1))
   val rotation = outputs(2)
   val shoot = outputs(3)
 }
+
 
 /**
  * Support class used as an interface between the `Tank` and the input of the NN
@@ -112,8 +116,8 @@ object BrainInputHelper {
  * @param seenBulletsPos Position vector of a seen bullet
  * @param seenBulletsSpeed Speed vector of a seen bullet
  */
-class BrainInputHelper(world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D)
-extends InputHelper[Double] {
+class BrainInputHelper( world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D )
+  extends InputHelper[Double] {
 
   /**
    * Constructor that uses a Seq to initialize the instance
@@ -122,7 +126,7 @@ extends InputHelper[Double] {
    * @param rawSequence A sequence containing the input data (see class' description for more information on the data)
    * @return A new BrainInputHelper
    */
-  def this(world: World, rawSequence: Seq[Double]) = this(
+  def this( world: World, rawSequence: Seq[Double] ) = this(
     world,
     Vector2D.new_xy(rawSequence(0), rawSequence(1)),
     Vector2D.new_xy(rawSequence(2), rawSequence(3)),
