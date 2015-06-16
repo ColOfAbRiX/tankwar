@@ -171,7 +171,9 @@ class Tank private( override val world: World, initialData: TankChromosome, data
       return (Vector2D.zero, Vector2D.zero)
     }
 
-    // FIXME: In the past here an exception appeared, multiple times
+    // For some (unknown) reasons it can happen that the array contains null values
+    _seenBullets = _seenBullets.filter(_ != null)
+
     val posVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._2)
     val speedVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._3)
 
@@ -190,7 +192,9 @@ class Tank private( override val world: World, initialData: TankChromosome, data
       return (Vector2D.zero, Vector2D.zero)
     }
 
-    // FIXME: In the past here an exception appeared, multiple times
+    // For some (unknown) reasons it can happen that the array contains null values
+    _seenTanks = _seenTanks.filter(_ != null)
+
     val selectedTank = _seenTanks.sortBy(t => TankEvaluator.fitness(t._1)).head
     (selectedTank._2, selectedTank._3)
   }
@@ -350,6 +354,8 @@ class Tank private( override val world: World, initialData: TankChromosome, data
    * @param that The object that it's in the sight of the current one
    */
   override def on_objectOnSight( that: PhysicalObject ): Unit = {
+    if( that == null ) return
+
     val direction = that.position - this.position
     val speed = _speed - that.speed
 

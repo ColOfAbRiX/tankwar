@@ -54,8 +54,11 @@ object TankEvaluator {
   def fitness( t: Tank ): Double = {
     val (w, ts) = (t.world, t.world.tanks)
 
-    2.0 * t.kills.toDouble / ts.length.toDouble +
-      3.0 * t.surviveTime.toDouble / w.max_rounds.toDouble
+    Math.max(
+      0,
+      2.0 * t.kills.toDouble / ts.length.toDouble +
+        3.0 * t.surviveTime.toDouble / w.max_rounds.toDouble
+    )
   }
 
   /**

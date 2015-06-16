@@ -42,7 +42,7 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
     // Print on screen
     println(s"Gen #${pop.getGenerationNumber}: Best: ${pop.getBestCandidateFitness}, Mean: $mean, Std Dev: $stddev")
-    println(s"Best - Kills: ${best.kills}, Survival: ${best.surviveTime}")
+    println(s"Best - Points: ${best.kills}, Survival: ${best.surviveTime}")
     println(s"Counters: ${best.world.counters}")
     println("")
 

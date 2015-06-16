@@ -43,14 +43,14 @@ import scala.util.Random
  */
 class World(
   val arena: Box = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1280, 800)),
-  val max_tank_speed: Double = 8,
-  val max_tank_rotation: Double = Math.PI / 8.0,
-  val max_bullet_speed: Double = 8,
-  val bullet_life: Int = 15,
+  val max_tank_speed: Double = 5,
+  val max_tank_rotation: Double = 10 * 2.0 * Math.PI / 360,
+  val max_bullet_speed: Double = 4,
+  val bullet_life: Int = 25,
   val max_sight: Double = 62831.853071795864, // Area for a total radius of 100
   val max_rounds: Int = 1000,
-  val dead_time: Double = 0.1,
-  private val _tanks: List[Tank] = List() ) {
+  val dead_time: Double = 0.2,
+  private var _tanks: List[Tank] = List() ) {
   require(arena.width > 0 && arena.height > 0, "The arena must not be a point")
   require(max_tank_rotation > 0, "The maximum angular speed must be positive")
   require(max_tank_speed > 0, "The maximum tank speed must be positive")
@@ -63,7 +63,7 @@ class World(
   /**
    * List of tanks present in the world
    */
-  val tanks: ListBuffer[Tank] = _tanks.to
+  def tanks = _tanks
 
   /**
    * Penalty applied to each tank by the rules of the world
@@ -75,7 +75,7 @@ class World(
    */
   def bullets = _bullets
 
-  private var _bullets: ListBuffer[Bullet] = ListBuffer()
+  private var _bullets: List[Bullet] = List()
 
 
   /**
@@ -163,65 +163,68 @@ class World(
     _time += 1
 
     // Handling bullets
-    bullets foreach { b =>
+    _bullets foreach { b =>
       b.stepForward()
 
       // Arena boundary check
       check_limit(
         ( ) => arena.overlaps(b.position),
         ( ) => b.on_hitsWalls(),
-        ( ) => {bullets -= b}
+        ( ) => _bullets = _bullets.filter(_ != b)
       )
 
       // Check the lifespan of a bullet
       if( b.life >= bullet_life ) {
-        bullets -= b
+        _bullets = _bullets.filter(_ != b)
       }
     }
 
     // Handling tanks
-    tanks.filter(!_.isDead).par.foreach { t: Tank =>
+    _tanks.filter(!_.isDead).par.foreach { t: Tank =>
       t.stepForward()
 
       // Arena boundary check
       check_limit(
         ( ) => arena.overlaps(t.position),
         ( ) => t.on_hitsWalls(),
-        ( ) => {tanks -= t; incCounter("bannedForPosition")}
+        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForPosition")}
       )
 
       // Speed limit check
       check_limit(
         ( ) => t.speed.x <= max_tank_speed || t.speed.y <= max_tank_speed,
         ( ) => t.on_maxSpeedReached(max_tank_speed),
-        ( ) => {tanks -= t; incCounter("bannedForSpeed")}
+        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForSpeed")}
       )
 
       // Angular speed limit check
       check_limit(
         ( ) => t.angularSpeed <= max_tank_rotation,
         ( ) => t.on_maxAngularSpeedReached(max_tank_rotation),
-        ( ) => {tanks -= t; incCounter("bannedForAngularSpeed")}
+        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForAngularSpeed")}
       )
 
       // Maximum sight boundary
       check_limit(
         ( ) => t.sight(classOf[Tank]).area + t.sight(classOf[Bullet]).area <= max_sight,
         ( ) => t.on_sightExceedingMax(max_sight),
-        ( ) => {tanks -= t; incCounter("bannedForSight")}
+        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForSight")}
       )
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
       tanks.filter(that => !that.isDead && !(t == that)).par.foreach { that =>
+
         // If a tank overlaps a Tank's sight then I inform the Tank
         if( t.sight(classOf[Tank]).overlaps(that.objectShape) ) {
           t.on_objectOnSight(that)
           incCounter("seenTanks")
         }
+
       }
 
       // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
       bullets.par.foreach { that =>
+
         // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
         if( t.sight(classOf[Bullet]).overlaps(that.objectShape) && that.tank != t && !that.tank.isDead ) {
           t.on_objectOnSight(that)
@@ -230,6 +233,7 @@ class World(
 
         // TODO: space partitioning for collision detection (there might be hundreds of bullets!)
         if( that.touches(t) && that.tank != t ) this.on_tankHit(t, that)
+
       }
     }
 
@@ -275,7 +279,7 @@ class World(
    */
   def createAndAddTank( chromosome: TankChromosome, reader: DataReader = null ): Tank = {
     val tank = Tank(this, chromosome, reader)
-    tanks += tank
+    _tanks = _tanks ::: tank :: Nil
     tank
   }
 
@@ -291,12 +295,11 @@ class World(
     _time = 0
 
     // Reinitialize the Tanks
-    tanks.clear()
     tankList.foreach(_.clear())
-    tanks ++= tankList
+    _tanks = tankList
 
     // Clear all bullets
-    _bullets.clear()
+    _bullets = List()
 
     // Reset dei counter
     _counters.foreach { case (k, v) => resCounter(k) }
@@ -309,11 +312,9 @@ class World(
    * @param tank The tank that requested to shot
    */
   def on_tankShot( tank: Tank ) {
-    // FIXME: In the past here an exception appeared, multiple times
-    _bullets += new Bullet(this, tank, max_bullet_speed)
+    _bullets = _bullets ::: new Bullet(this, tank, max_bullet_speed) :: Nil
     incCounter("shots")
   }
-
 
   /**
    * A tank its hit by a bullet
@@ -330,9 +331,9 @@ class World(
     // Inform the tank that shot the bullet
     bullet.tank.on_hits(bullet)
 
-    // FIXME: In the past here an exception appeared, multiple times
-    _bullets -= bullet
-
+    if( _bullets contains bullet ) {
+      _bullets = _bullets.filter(_ != bullet)
+    }
     incCounter("hits")
   }
 }

@@ -76,7 +76,7 @@ object TankWarMain {
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation and stop for stagnation
-    engine.evolve(10, 0, new Stagnation(1000, true))
+    engine.evolve(30, 0, new Stagnation(1000, true))
   }
 
 }
