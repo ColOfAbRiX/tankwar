@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TankWar:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
+    <root id="archive" name="TankWar.jar">
+      <element id="module-output" name="TankWar" />
+      <element id="directory" name="lib">
+        <element id="directory" name="windows">
+          <element id="dir-copy" path="$PROJECT_DIR$/lib/windows" />
+        </element>
+        <element id="dir-copy" path="$PROJECT_DIR$/lib" />
+      </element>
+    </root>
+  </artifact>
+</component>
