@@ -16,7 +16,8 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.{Box, ConvexPolygon}
+import com.colofabrix.scala.geometry.shapes.{ Box, ConvexPolygon }
+import com.colofabrix.scala.math.Vector2D
 
 /**
  * Quadtree implementation
@@ -25,12 +26,72 @@ import com.colofabrix.scala.geometry.shapes.{Box, ConvexPolygon}
  * to partition a cartesian plane and speed up object-object interactions
  * in graphical environments
  */
-class Quadtree[T <: ConvexPolygon]( val dimensions: Box, val bucketSize: Int = 1, val elements: Seq[T] ) {
+class Quadtree[T <: ConvexPolygon] private( val bounds: Box, val level: Int, private val nodes: Seq[Quadtree[T]], val bucketSize: Int, val maxObjects: Int ) {
 
-  def clear() = ???
-  protected def split() = ???
-  protected def getIndex() = ???
-  def insert() = ???
-  def retrieve() = ???
+  // Top-Right quadrant
+  private val I = new Box(
+    Vector2D.new_xy(bounds.bottomLeft.x + bounds.width / 2, bounds.bottomLeft.y + bounds.height / 2),
+    bounds.topRight
+  )
+
+  // Top-Left quadrant
+  private val II = new Box(
+    Vector2D.new_xy(bounds.bottomLeft.x, bounds.bottomLeft.y + bounds.height / 2),
+    Vector2D.new_xy(bounds.bottomLeft.x + bounds.width / 2, bounds.bottomLeft.y + bounds.height)
+  )
+
+  // Bottom-Left quadrant
+  private val III = new Box(
+    bounds.bottomLeft,
+    Vector2D.new_xy(bounds.bottomLeft.x + bounds.width / 2, bounds.bottomLeft.y + bounds.height / 2)
+  )
+
+  // Bottom-Right quadrant
+  private val IV = new Box(
+    Vector2D.new_xy(bounds.bottomLeft.x + bounds.width, bounds.bottomLeft.y + bounds.height / 2),
+    Vector2D.new_xy(bounds.bottomLeft.x + bounds.width / 2, bounds.bottomLeft.y)
+  )
+
+  /**
+   * Reset the status of the Quadtree
+   *
+   * @return A new quadtree, with the same parameters as the current one, but empty
+   */
+  def clear( ): Quadtree[T] = new Quadtree[T](bounds, level, Seq(), bucketSize, maxObjects)
+
+  /**
+   * Create 4 quadrants
+   *
+   * Split the node into four subnodes by dividing the node info four equal parts and initialising the four
+   * subnodes with the new bounds
+   *
+   * @return A new Quadtree with 4 new subnodes
+   */
+  protected def split( ): Quadtree[T] = {
+    // Create a Quadtree on each node
+    val quads = Seq(
+      new Quadtree[T](I, level + 1, Seq(), bucketSize, maxObjects),
+      new Quadtree[T](II, level + 1, Seq(), bucketSize, maxObjects),
+      new Quadtree[T](III, level + 1, Seq(), bucketSize, maxObjects),
+      new Quadtree[T](IV, level + 1, Seq(), bucketSize, maxObjects)
+    )
+
+    // And return a whole new Quadtree as a result of the split
+    new Quadtree[T](bounds, level + 1, quads, bucketSize, maxObjects)
+  }
+
+  protected def getIndex( ): Int = ???
+
+  def insert( ) = ???
+
+  def retrieve( ) = ???
+
+}
+
+
+object Quadtree {
+
+  def apply[T <: ConvexPolygon]( bounds: Box, bucketSize: Int = 1, maxObjects: Int = 1 ) =
+    new Quadtree[T](bounds, 0, Seq(), bucketSize, maxObjects)
 
 }

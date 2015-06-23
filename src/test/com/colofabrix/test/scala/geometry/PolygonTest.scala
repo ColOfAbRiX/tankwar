@@ -16,9 +16,9 @@
 
 package com.colofabrix.test.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.{ConvexPolygon, Polygon}
+import com.colofabrix.scala.geometry.shapes.{ ConvexPolygon, Polygon }
 import com.colofabrix.scala.math.Vector2D
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 /**
  * Unit testing for polygons
@@ -62,7 +62,7 @@ class PolygonTest extends WordSpec with Matchers {
 
       }
 
-      "Determine if they overlaps" in {
+      "Determine if they overlap" in {
 
         val triangle = new Polygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(20, 0), Vector2D.new_xy(10, 20)))
 
@@ -78,9 +78,19 @@ class PolygonTest extends WordSpec with Matchers {
 
     }
 
+    "Matched with a line segment" must {
+
+      "Find the correct distance" in {
+      }
+
+      "Determine if they overlap" in {
+      }
+
+    }
+
     "Matched with another polygon" must {
 
-      "Determine if they overlaps" in {
+      "Determine if they overlap" in {
 
         val convex = new Polygon(Seq(Vector2D.new_xy(0, 0), Vector2D.new_xy(20, 0), Vector2D.new_xy(10, 20)))
         val concaveNoOverlap = new Polygon(Seq(Vector2D.new_xy(40, 0), Vector2D.new_xy(60, 0), Vector2D.new_xy(55, 20), Vector2D.new_xy(45, -20)))
@@ -89,6 +99,17 @@ class PolygonTest extends WordSpec with Matchers {
         convex.overlaps(concaveNoOverlap) should equal(false)
         convex.overlaps(concaveOverlap) should equal(true)
         concaveNoOverlap.overlaps(concaveOverlap) should equal(false)
+
+      }
+
+    }
+
+    "Matched with another circle" must {
+
+      "Find the correct distance" in {
+      }
+
+      "Determine if they overlap" in {
 
       }
 

@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
+import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -94,15 +94,14 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
    */
   override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
+    // FIXME: The logic is correct, but there is a circular reference with `overlaps`
     // If the point is inside the polygon....
     if( overlaps(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     // Check all the vertices and return the nearest one.
     vertices.map(
-    {
       v => (distance(p0, p1, v), v)
-    }
-    ).toList.minBy(_._1.r)
+    ).minBy(_._1.r)
   }
 
   /**
@@ -206,24 +205,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @see http://geomalgorithms.com/a08-_containers.html
    * @return A shape that fully contains this shape
    */
-  override lazy val container: Container = {
-    // Finds the minimum and maximum coordinates for the points
-    var (minX, minY) = (Double.MaxValue, Double.MaxValue)
-    var (maxX, maxY) = (Double.MinValue, Double.MinValue)
-
-    for( v <- vertices ) {
-      minX = if( minX > v.x ) v.x else minX
-      minY = if( minY > v.y ) v.y else minY
-      maxX = if( maxX < v.x ) v.x else maxX
-      maxY = if( maxY < v.y ) v.y else maxY
-    }
-
-    // Creates the Box
-    val bottomLeft = Vector2D.new_xy(minX, minY)
-    val topRight = Vector2D.new_xy(maxX, maxY)
-
-    new Box(bottomLeft, topRight)
-  }
+  override lazy val container: Container = Container.bestFit(this)
 
   /**
    * Area of the polygon

@@ -350,6 +350,8 @@ case class Vector2D( cartesian: CartesianCoord ) {
    */
   @inline
   def >( distance: Double ): Boolean = this.r > distance
+
+  override def toString: String = s"Vector[C(${x}, $y), P($r, $t)]"
 }
 
 

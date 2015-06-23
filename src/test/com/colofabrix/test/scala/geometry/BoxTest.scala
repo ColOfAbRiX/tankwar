@@ -16,20 +16,18 @@
 
 package com.colofabrix.test.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math.Vector2D
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 /**
  * Unit testing for OrtoRectangles
- *
- * Created by Fabrizio on 06/01/2015.
  */
 class BoxTest extends WordSpec with Matchers {
 
   private val tolerance = 1E-5
 
-  "An OrtoRectangle" must {
+  "A Box" must {
 
     "Check overlapping" when {
 
@@ -46,7 +44,7 @@ class BoxTest extends WordSpec with Matchers {
 
       }
 
-      "Is a OrtoRectangle" must {
+      "Is a Box" must {
 
         val touchRect1 = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(10, 15))
         val touchRect2 = Box(Vector2D.new_xy(5, 10), Vector2D.new_xy(15, 20))
@@ -61,6 +59,48 @@ class BoxTest extends WordSpec with Matchers {
 
         separateRect.overlaps(separateRect) should equal(true)
 
+      }
+
+    }
+
+    "Check containment" when {
+
+      "Shape is a polygon" in {
+        val box = new Box(Vector2D.zero, Vector2D.new_xy(100, 100))
+
+        // Overlaps one border
+        val contained1 = new Box(Vector2D.new_xy(50, 50), Vector2D.new_xy(100, 100))
+        // Fully inside the box
+        val contained2 = new Box(Vector2D.new_xy(25, 25), Vector2D.new_xy(75, 75))
+        // Partially inside the box
+        val notContained1 = new Box(Vector2D.new_xy(-10, -10), Vector2D.new_xy(75, 75))
+        // Fully outside the box
+        val notContained2 = new Box(Vector2D.new_xy(-100, 0), Vector2D.new_xy(-50, 50))
+
+        box.contains(contained1) should equal(true)
+        box.contains(contained2) should equal(true)
+
+        box.contains(notContained1) should equal(false)
+        box.contains(notContained2) should equal(false)
+      }
+
+      "Shape is a circle" in {
+        val box = new Box(Vector2D.zero, Vector2D.new_xy(100, 100))
+
+        // Overlaps one border
+        val contained1 = new Circle(Vector2D.new_xy(50, 50), 10)
+        // Fully inside the box
+        val contained2 = new Circle(Vector2D.new_xy(50, 50), 50)
+        // Partially inside the box
+        val notContained1 = new Circle(Vector2D.new_xy(150, 50), 100)
+        // Fully outside the box
+        val notContained2 = new Circle(Vector2D.new_xy(150, 50), 10)
+
+        box.contains(contained1) should equal(true)
+        box.contains(contained2) should equal(true)
+
+        box.contains(notContained1) should equal(false)
+        box.contains(notContained2) should equal(false)
       }
 
     }

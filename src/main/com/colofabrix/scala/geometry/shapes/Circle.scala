@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
+import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -30,35 +30,56 @@ import com.colofabrix.scala.math.Vector2D
  */
 case class Circle( center: Vector2D, radius: Double ) extends Shape with Container {
   // If the radius is 0... it's a point!
-  require(radius > 0, "The circle must have a non-zero radius")
+  require( radius > 0, "The circle must have a non-zero radius" )
 
   /**
-   * Determines if a shape touches this one
-   *
-   * Circle can't use the default STA implementation as it doesn't have vertices!
-   * Instead it uses two different comparisons, one circle-circle, the other circle-shape
-   *
-   * @param that The shape to be checked
-   * @return True if the shape touches the current shape
+   * Area of the circle
    */
-  override def overlaps( that: Shape ): Boolean = that match {
-    // For circles is enough to check the distance from the two centers
-    case c: Circle => center - c.center < radius + c.radius
+  override lazy val area: Double = Math.PI * Math.pow( radius, 2.0 )
+  /**
+   * Find a containing box for the current shape.
+   *
+   * @return A Circle that is the same as the current one (as it's always the minimal container for this Shape)
+   */
+  override lazy val container: Container = this
 
-    // For polygons I check the distance from the nearest edge
-    case p: Polygon => p.distance(center)._1 <= radius
+  /**
+   * Determines if the container fully contain a Shape
+   *
+   * @param s The shape to check
+   * @return true if the container fully contain the other shape. Boundaries are included in the container
+   */
+  override def contains( s: Shape ): Boolean = s match {
 
+    // For the case Circle-Circle I check that the center and the points on the circumference are inside this one - O(1)
+    case c: Circle => (this.center - c.center).r + c.radius <= this.radius
+
+    // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
+    case p: Polygon => p.verticesIterator.forall( v => this.overlaps( v.head ) )
+
+    // Other cases are a false
     case _ => false
   }
 
   /**
-   * Determines if a line segment touches in any way this shape
+   * Determines if a point is inside or on the boundary the shape
    *
-   * @param p0 The first point that defines the line segment
-   * @param p1 The second point that defines the line segment
-   * @return True if the line intersects the shape
+   * @param p The point to be checked
+   * @return True if the point is inside the shape or on its boundary
    */
-  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance(p0, p1, center) <= radius
+  override def overlaps( p: Vector2D ): Boolean = (p - center).r <= radius
+
+  /**
+   * Compute the distance between a line and the circle
+   *
+   * @param p0 The first point that defines the line
+   * @param p1 The second point that defines the line
+   * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
+   */
+  override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
+    val nearestSegmentPoint = center + distance( p0, p1, center )
+    distance( nearestSegmentPoint )
+  }
 
   /**
    * Compute the distance between a point and the circle
@@ -83,49 +104,67 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
   }
 
   /**
-   * Compute the distance between a line and the circle
-   *
-   * @param p0 The first point that defines the line
-   * @param p1 The second point that defines the line
-   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
-   */
-  override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
-    val distanceToCenter = distance(p0, p1, center)
-    distance(distanceToCenter)
-  }
-
-  /**
    * Moves the circle of the specified vector
    *
    * @param where The vector specifying how to move the shape
    * @return A new shape moved of {where}
    */
-  override def move( where: Vector2D ): Shape = new Circle(center + where, radius)
+  override def move( where: Vector2D ): Shape = new Circle( center + where, radius )
 
   /**
-   * Find a containing box for the current shape.
+   * Determines if a line segment touches in any way this shape
    *
-   * The currently chosen shape is a {Box}. Reason is simplicity
-   *
-   * @return A Box that fully contains this shape
+   * @param p0 The first point that defines the line segment
+   * @param p1 The second point that defines the line segment
+   * @return True if the line intersects the shape
    */
-  override lazy val container: Container = {
-    val bottomLeft = Vector2D.new_xy(center.x - radius, center.y - radius)
-    val topRight = Vector2D.new_xy(center.x + radius, center.y + radius)
+  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1, center ) <= radius
 
-    new Box(bottomLeft, topRight)
+  /**
+   * Determines if a shape touches this one
+   *
+   * Circle can't use the default STA implementation as it doesn't have vertices!
+   * Instead it uses two different comparisons, one circle-circle, the other circle-shape
+   *
+   * @param that The shape to be checked
+   * @return True if the shape touches the current shape
+   */
+  override def overlaps( that: Shape ): Boolean = that match {
+    // For circles is enough to check the distance from the two centers
+    case c: Circle => center - c.center < radius + c.radius
+
+    // For polygons I check the distance from the nearest edge
+    case p: Polygon => p.distance( center )._1 <= radius
+
+    case _ => false
+  }
+}
+
+
+object Circle {
+
+  /**
+   * Finds the container that best contain a given Shape
+   *
+   * "Best" means the container that has the minimal area and that fully contains the shape
+   *
+   * @param s The shape that must be surrounded by a container
+   * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
+   */
+  def bestFit( s: Shape ): Container = s match {
+
+    // If the shape it's a circle I simply return it - O(1)
+    case c: Circle => c
+
+    // A Box is a very easy case, so I take advantage of this - O(1)
+    case b: Box => new Circle( b.center, b.width / 2.0 )
+
+    // Generic Polygon - O(n)
+    // TODO: See "A Fast Approximate Bounding Ball",  http://geomalgorithms.com/a08-_containers.html
+    case p: Polygon => ???
+
+    // All other cases, I throw an Exception
+    case _ => throw new IllegalArgumentException
   }
 
-  /**
-   * Area of the circle
-   */
-  override lazy val area: Double = 2.0 * radius * Math.PI
-
-  /**
-   * Determines if a point is inside or on the boundary the shape
-   *
-   * @param p The point to be checked
-   * @return True if the point is inside the shape or on its boundary
-   */
-  override def overlaps( p: Vector2D ): Boolean = (p - center).r <= radius
 }

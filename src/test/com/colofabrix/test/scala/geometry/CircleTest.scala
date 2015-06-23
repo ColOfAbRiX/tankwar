@@ -16,9 +16,9 @@
 
 package com.colofabrix.test.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.math.Vector2D
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 /**
  * Unit testing for Circle Shape
@@ -70,6 +70,88 @@ class CircleTest extends WordSpec with Matchers {
       }
     }
 
+    "Check containment" when {
+
+      "Shape is a polygon" in {
+        val circle = new Circle(Vector2D.new_xy(50, 50), 50)
+
+        // Overlaps the vertices
+        val contained1 = new Box(Vector2D.new_xy(50, 50), Math.sqrt(2) * circle.radius, Math.sqrt(2) * circle.radius)
+        // Fully inside the box
+        val contained2 = new Box(Vector2D.new_xy(50, 50), 10, 10)
+        // Partially inside the box
+        val notContained1 = new Box(Vector2D.new_xy(-10, -10), Vector2D.new_xy(75, 75))
+        // Fully outside the box
+        val notContained2 = new Box(Vector2D.new_xy(-100, 0), Vector2D.new_xy(-50, 50))
+
+        circle.contains(contained1) should equal(true)
+        circle.contains(contained2) should equal(true)
+
+        circle.contains(notContained1) should equal(false)
+        circle.contains(notContained2) should equal(false)
+      }
+
+      "Shape is a circle" in {
+        val circle = new Circle(Vector2D.new_xy(50, 50), 50)
+
+        // Overlaps one border
+        val contained1 = new Circle(Vector2D.new_xy(50, 50), 10)
+        // Fully inside the box
+        val contained2 = new Circle(Vector2D.new_xy(50, 50), 50)
+        // Partially inside the box
+        val notContained1 = new Circle(Vector2D.new_xy(75, 50), 50)
+        // Fully outside the box
+        val notContained2 = new Circle(Vector2D.new_xy(150, 150), 10)
+
+        circle.contains(contained1) should equal(true)
+        circle.contains(contained2) should equal(true)
+
+        circle.contains(notContained1) should equal(false)
+        circle.contains(notContained2) should equal(false)
+      }
+
+    }
+
   }
 
+  "A circle" when {
+
+    "Matched with a point" must {
+
+      "Find the correct distance" in {
+      }
+
+      "Determine if they overlaps" in {
+      }
+
+    }
+
+    "Matched with a line segment" must {
+
+      "Find the correct distance" in {
+      }
+
+      "Determine if they overlap" in {
+      }
+
+    }
+
+    "Matched with a generic polygon" must {
+
+      "Determine if they overlap" in {
+      }
+
+    }
+
+    "Matched with another circle" must {
+
+      "Find the correct distance" in {
+      }
+
+      "Determine if they overlap" in {
+      }
+
+    }
+
+  }
 }
