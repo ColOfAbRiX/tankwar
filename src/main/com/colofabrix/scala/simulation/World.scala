@@ -16,13 +16,14 @@
 
 package com.colofabrix.scala.simulation
 
+import com.colofabrix.scala.geometry.Quadtree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
 import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /**
@@ -152,6 +153,7 @@ class World(
     _counters += (counter -> 0)
   }
 
+  var quadtree = Quadtree[Bullet](arena, Seq(), 10, 20)
 
   /**
    * Moves the world one step forward.
@@ -162,7 +164,9 @@ class World(
   def step( ): Unit = {
     _time += 1
 
+    //
     // Handling bullets
+    //
     _bullets foreach { b =>
       b.stepForward()
 
@@ -179,7 +183,9 @@ class World(
       }
     }
 
+    //
     // Handling tanks
+    //
     _tanks.filter(!_.isDead).par.foreach { t: Tank =>
       t.stepForward()
 
@@ -211,8 +217,11 @@ class World(
         ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForSight")}
       )
 
+
+      //
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
-      tanks.filter(that => !that.isDead && !(t == that)).par.foreach { that =>
+      //
+      tanks.filter(that => !that.isDead && !(t == that)).foreach { that =>
 
         // If a tank overlaps a Tank's sight then I inform the Tank
         if( t.sight(classOf[Tank]).overlaps(that.objectShape) ) {
@@ -220,10 +229,20 @@ class World(
           incCounter("seenTanks")
         }
 
+        // TODO: space partitioning for collision detection (there might be hundreds of bullets!)
+        if( that.touches(t) ) {
+          that.on_isHit(t)
+          t.on_hits(that)
+        }
+
       }
 
+
+      //
       // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
-      bullets.par.foreach { that =>
+      //
+      //val bulletTree = Quadtree(arena, bullets.toSeq, 10, 20)
+      bullets.foreach { that =>
 
         // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
         if( t.sight(classOf[Bullet]).overlaps(that.objectShape) && that.tank != t && !that.tank.isDead ) {
@@ -237,6 +256,7 @@ class World(
       }
     }
 
+
     // Check which tank must be called to be respawned
     tanks.filter(_.isDead).par.foreach { t =>
       if( t.surviveTime + max_rounds * dead_time < _time ) {
@@ -246,8 +266,8 @@ class World(
 
     // Update the graphic
     if( renderer != null && tanks.count(!_.isDead) > 1 ) {
-      renderer.update()
-      inputManager.update()
+      //renderer.update()
+      //inputManager.update()
     }
   }
 
@@ -312,7 +332,9 @@ class World(
    * @param tank The tank that requested to shot
    */
   def on_tankShot( tank: Tank ) {
-    _bullets = _bullets ::: new Bullet(this, tank, max_bullet_speed) :: Nil
+    //_bullets = _bullets ::: new Bullet(this, tank, max_bullet_speed) :: Nil
+    _bullets = _bullets :+ new Bullet(this, tank, max_bullet_speed)
+    quadtree = quadtree.+(new Bullet(this, tank, max_bullet_speed))
     incCounter("shots")
   }
 

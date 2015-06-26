@@ -18,8 +18,8 @@ package com.colofabrix.scala.simulation.integration
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.simulation.{Tank, TankBrainTester}
-import org.uncommons.watchmaker.framework.{EvolutionObserver, PopulationData}
+import com.colofabrix.scala.simulation.Tank
+import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
 
 /**
  * Trivial evolution observer to display information about the population at the end
@@ -42,16 +42,16 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
     // Print on screen
     println(s"Gen #${pop.getGenerationNumber}: Best: ${pop.getBestCandidateFitness}, Mean: $mean, Std Dev: $stddev")
-    println(s"Best - Points: ${best.kills}, Survival: ${best.surviveTime}")
+    println(s"Best - Points: ${best.points}, Survival: ${best.surviveTime}")
     println(s"Counters: ${best.world.counters}")
     println("")
 
     // Print on file
-    writer.println(s"${pop.getGenerationNumber};${pop.getMeanFitness};${pop.getBestCandidateFitness};${best.kills};${best.surviveTime}".replace(".", ","))
+    writer.println(s"${pop.getGenerationNumber};${pop.getMeanFitness};${pop.getBestCandidateFitness};${best.points};${best.surviveTime}".replace(".", ","))
     writer.flush()
 
     // Run the network analysis of the fittest candidate
-    new TankBrainTester(best).runTests()
+    //new TankBrainTester(best).runTests()
   }
 
 }

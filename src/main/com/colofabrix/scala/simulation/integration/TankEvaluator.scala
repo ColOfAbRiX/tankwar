@@ -18,7 +18,7 @@ package com.colofabrix.scala.simulation.integration
 
 import java.util
 
-import com.colofabrix.scala.simulation.{Tank, World}
+import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.watchmaker.framework.FitnessEvaluator
 
 /**
@@ -33,8 +33,7 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
    * @param list The list of all Tanks. It may be useful for comparison purposes
    * @return A number representing the fitness of the Tank
    */
-  override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double =
-    TankEvaluator.fitness(t)
+  override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double = TankEvaluator.fitness(t)
 
   override def isNatural: Boolean = true
 
@@ -42,6 +41,7 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
 
 
 object TankEvaluator {
+  import math._
 
   /**
    * Returns the fitness of a tank
@@ -53,12 +53,7 @@ object TankEvaluator {
    */
   def fitness( t: Tank ): Double = {
     val (w, ts) = (t.world, t.world.tanks)
-
-    Math.max(
-      0,
-      2.0 * t.kills.toDouble / ts.length.toDouble +
-        3.0 * t.surviveTime.toDouble / w.max_rounds.toDouble
-    )
+    max(t.points, 0.0)
   }
 
   /**
@@ -68,7 +63,7 @@ object TankEvaluator {
    * @return The highest possible value
    */
   def higherFitness( world: World ): Double = {
-    5.0
+    world.tanks.maxBy(_.points).points
   }
 
 }

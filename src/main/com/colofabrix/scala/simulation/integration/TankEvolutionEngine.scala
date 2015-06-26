@@ -20,7 +20,7 @@ import java.util
 import java.util.Random
 
 import com.colofabrix.scala.simulation.Tank
-import org.uncommons.watchmaker.framework.{CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy}
+import org.uncommons.watchmaker.framework.{ CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy }
 
 import scala.collection.JavaConversions._
 
@@ -58,7 +58,10 @@ class TankEvolutionEngine(
     world.resetWorld(population.to)
 
     // Runs the competition
+    val start = java.lang.System.currentTimeMillis();
     world.rounds foreach { _ => world.step() }
+    val end = java.lang.System.currentTimeMillis();
+    println( s"Time for a round: ${end - start}ms")
 
     // Returns the population
     world.tanks
