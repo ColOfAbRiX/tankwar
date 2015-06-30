@@ -1,3 +1,6 @@
+Explanation of the structure of the GFX Backend
+----
+
 All renderable things have are a  **renderer** method which returns a *Renderer*. All rendering is done in a *Renderer* which has a **render** method. The world has a **getRenderers** method which returns an array of all the renderers
 of the world (ie the tanks and the bullets). This is called by the *GFXManager*.
 
