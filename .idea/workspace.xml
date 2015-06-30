@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/STRUCTURE.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TankWar.iws" />
@@ -144,8 +143,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14143094" vertical-offset="0" max-vertical-offset="601">
-              <caret line="5" column="118" selection-start-line="5" selection-start-column="118" selection-end-line="5" selection-end-column="118" />
+            <state vertical-scroll-proportion="0.22628951" vertical-offset="0" max-vertical-offset="601">
+              <caret line="8" column="114" selection-start-line="8" selection-start-column="114" selection-end-line="8" selection-end-column="115" />
               <folding />
             </state>
           </provider>
@@ -170,7 +169,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="TKWAR-4" />
+        <entry key="$PROJECT_DIR$" value="TKWAR-4-FTEST" />
       </map>
     </option>
   </component>
@@ -1215,7 +1214,19 @@
       <option name="project" value="LOCAL" />
       <updated>1435693242453</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added an explanation of the structure">
+      <created>1435694516103</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1435694516103</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update STRUCTURE.md">
+      <created>1435694596624</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1435694596624</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <option name="clearContext" value="false" />
     <option name="createChangelist" value="false" />
     <servers>
@@ -1346,7 +1357,9 @@
     <MESSAGE value="Completed TKWAR-34" />
     <MESSAGE value="Completed TKWAR-28" />
     <MESSAGE value="Created basic structure for new rendering backend&#10;&#10;GFXManager class will orchestrate all the of the rendering&#10;Anything that can be rendered must implement the trait Rendereable which means it has a renderer method which returns a renderer of class Renderer&#10;World has a getRenderers method which returns and Array of Renderers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created basic structure for new rendering backend&#10;&#10;GFXManager class will orchestrate all the of the rendering&#10;Anything that can be rendered must implement the trait Rendereable which means it has a renderer method which returns a renderer of class Renderer&#10;World has a getRenderers method which returns and Array of Renderers" />
+    <MESSAGE value="Added an explanation of the structure" />
+    <MESSAGE value="Update STRUCTURE.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update STRUCTURE.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1768,8 +1781,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14143094" vertical-offset="0" max-vertical-offset="601">
-          <caret line="5" column="118" selection-start-line="5" selection-start-column="118" selection-end-line="5" selection-end-column="118" />
+        <state vertical-scroll-proportion="0.22628951" vertical-offset="0" max-vertical-offset="601">
+          <caret line="8" column="114" selection-start-line="8" selection-start-column="114" selection-end-line="8" selection-end-column="115" />
           <folding />
         </state>
       </provider>
