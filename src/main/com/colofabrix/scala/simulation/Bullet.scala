@@ -18,6 +18,7 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.gfx.{Renderer, Renderable}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -27,7 +28,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
-class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends PhysicalObject {
+class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends PhysicalObject with Renderable{
 
   import Math._
 
@@ -100,4 +101,6 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    * of to let the world remove them. Empty implementation
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {}
+
+  def renderer: Renderer = ???
 }

@@ -18,9 +18,10 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
-import com.colofabrix.scala.gfx.Renderer
+import com.colofabrix.scala.gfx.{Renderable, Renderer_D}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
+import com.colofabrix.scala.gfx.Renderer;
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.util.Random
@@ -95,7 +96,7 @@ class World(
 
 
   // NOTE: Freddie's integration of graphic. Temporary
-  private val renderer = new Renderer(this, "TankWar")
+  private val renderer = new Renderer_D(this, "TankWar")
   private val _inputManager = new InputManager
 
   def inputManager = _inputManager
@@ -336,4 +337,20 @@ class World(
     }
     incCounter("hits")
   }
+
+  def getRenderers (): Array[Renderer] = {
+
+    var renderers: Array[Renderer] = null;
+    var renderers_working = new ArrayBuffer[Renderer]()
+
+    tanks.foreach(t =>  renderers_working.append(t.renderer))
+    bullets.foreach(b => renderers_working.append(b.renderer))
+
+    renderers = renderers_working.toArray
+
+    return renderers
+
+
+  }
 }
+

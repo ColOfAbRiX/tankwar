@@ -16,10 +16,15 @@
 
 package com.colofabrix.scala.gfx
 
+import com.colofabrix.scala.simulation.World
+
 /**
  */
-abstract class Renderer {
+class GFXManager (val world: World){
 
-  def render()
+  def renderAll(): Unit = {
+    val renderers = world.getRenderers()
+    renderers.foreach(r => r.render())
+  }
 
 }

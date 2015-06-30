@@ -18,6 +18,7 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.gfx.{Renderer, Renderable}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -51,7 +52,7 @@ import scala.util.Random
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
 class Tank private( override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty )
-  extends PhysicalObject with InteractiveObject {
+  extends PhysicalObject with InteractiveObject with Renderable {
 
   import java.lang.Math._
 
@@ -454,5 +455,7 @@ object Tank {
   def apply( world: World, chromosome: TankChromosome ): Tank = new Tank(world, chromosome)
 
   def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank(world, chromosome, Option(reader))
+
+  def renderer: Renderer = ???
 
 }
