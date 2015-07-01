@@ -34,7 +34,7 @@ class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon(v) {
    * @param that The shape to be checked
    * @return True if the shape touches the current shape
    */
-  def overlaps( that: ConvexPolygon ): Boolean = {
+  def intersects( that: ConvexPolygon ): Boolean = {
     this.edges.map(edge => edge.n).
       // Chosen an edge of this polygon...
       forall { edge_normal =>

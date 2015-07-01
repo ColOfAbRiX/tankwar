@@ -109,22 +109,22 @@ trait PhysicalObject {
   /**
    * Determines if a point lies inside the Shape
    *
-   * This is a shortcut to {objectShape.overlaps} with a {Vector2D} as argument
+   * This is a shortcut to {objectShape.intersects} with a {Vector2D} as argument
    *
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def overlaps( that: Vector2D ): Boolean = objectShape.overlaps(that)
+  def intersects( that: Vector2D ): Boolean = objectShape.contains(that)
 
   /**
    * Determines if a shape touches this one
    *
-   * This is a shortcut to {objectShape.overlaps} with a {Shape} as argument
+   * This is a shortcut to {objectShape.intersects} with a {Shape} as argument
    *
    * @param that The shape to check
    * @return true if the two shapes overlap
    */
-  def touches( that: PhysicalObject ): Boolean = objectShape.overlaps(that.objectShape)
+  def touches( that: PhysicalObject ): Boolean = objectShape.intersects(that.objectShape)
 
   /**
    * Identifier of the instance.

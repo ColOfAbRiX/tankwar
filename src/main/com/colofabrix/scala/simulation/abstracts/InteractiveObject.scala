@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.simulation.abstracts
 
-import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.simulation.World
+import com.colofabrix.scala.geometry.abstracts.Shape
 
 /**
  * An interactive object is an object that actively interacts, like it can see, it can hit and be hit, any kind of
@@ -52,7 +52,7 @@ trait InteractiveObject {
   /**
    * Callback function used to signal the object that it has hit another object
    *
-   * The meaning of "hit" is that one objects touches or overlaps the other.
+   * The meaning of "hit" is that one objects touches or intersects the other.
    * This callback function should be called on the object that hits after the complementary function {on_isHit} on the
    * target objects.
    *
@@ -63,7 +63,7 @@ trait InteractiveObject {
   /**
    * Callback function used to signal the Tank that it has been hit by a another object
    *
-   * The meaning of "hit" is that one objects touches or overlaps the other.
+   * The meaning of "hit" is that one objects touches or intersects the other.
    * This callback function should be called on the object that is hit after the complementary function {on_hits} on the
    * objects that does the action.
    *

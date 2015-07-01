@@ -55,7 +55,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     case c: Circle => (this.center - c.center).r + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
-    case p: Polygon => p.verticesIterator.forall( v => this.overlaps( v.head ) )
+    case p: Polygon => p.verticesIterator.forall( v => this.contains( v.head ) )
 
     // Other cases are a false
     case _ => false
@@ -67,7 +67,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p The point to be checked
    * @return True if the point is inside the shape or on its boundary
    */
-  override def overlaps( p: Vector2D ): Boolean = (p - center).r <= radius
+  override def contains( p: Vector2D ): Boolean = (p - center).r <= radius
 
   /**
    * Compute the distance between a line and the circle
@@ -118,7 +118,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p1 The second point that defines the line segment
    * @return True if the line intersects the shape
    */
-  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1, center ) <= radius
+  override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1, center ) <= radius
 
   /**
    * Determines if a shape touches this one
@@ -129,9 +129,17 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param that The shape to be checked
    * @return True if the shape touches the current shape
    */
-  override def overlaps( that: Shape ): Boolean = that match {
+  override def intersects( that: Shape ): Boolean = that match {
     // For circles is enough to check the distance from the two centers
     case c: Circle => center - c.center < radius + c.radius
+
+    // For Boxes I exploit its property to be parallel to the axis
+    case b: Box => b.contains( center ) || (
+      center.x + radius <= b.topRight.x &&
+      center.x - radius >= b.bottomLeft.y &&
+      center.y + radius <= b.topRight.y &&
+      center.y - radius >= b.topRight.y
+      )
 
     // For polygons I check the distance from the nearest edge
     case p: Polygon => p.distance( center )._1 <= radius

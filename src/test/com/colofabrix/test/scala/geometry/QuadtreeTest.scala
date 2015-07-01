@@ -31,7 +31,7 @@ class QuadtreeTest extends WordSpec with Matchers {
 
     "Addition" in {
       /*
-      var test = Quadtree[Circle]( new Box(Vector2D.zero, Vector2D.new_xy(100, 100)), 2, 3 )
+      var test = Quadtree[Circle]( new Box(Vector2D.zero, Vector2D.new_xy(100, 100)), List(), 2, 12 )
 
       val c1 = new Circle(Vector2D.new_xy(50, 50), 50)
       val c2 = new Circle(Vector2D.new_xy(10, 10), 1)
@@ -40,14 +40,16 @@ class QuadtreeTest extends WordSpec with Matchers {
       val c5 = new Circle(Vector2D.new_xy(8, 8), 1)
       val c6 = new Circle(Vector2D.new_xy(30, 30), 1)
 
-      test = test.insert(c1)
-      test = test.insert(c2)
-      test = test.insert(c3)
-      test = test.insert(c4)
-      test = test.insert(c5)
-      test = test.insert(c6)
+      test = test + c1
+      test = test + c2
+      test = test + c3
+      test = test + c4
+      test = test + c5
+      test = test + c6
 
       println( test )
+      val a = test lookAround c2
+      println( a )
       */
     }
 

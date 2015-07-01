@@ -171,7 +171,7 @@ class Renderer( val world: World, windowsTitle: String ) {
    * @param circle The circle to draw
    */
   private def drawCircle( circle: Circle ) {
-    val numSegments: Int = Math.max((circle.radius * 2.0 * Math.PI / 10).toInt, 10)
+    val numSegments: Int = Math.max((circle.radius * 2.0 * Math.PI / 8).toInt, 12)
 
     //GL11.glTranslated(circle.center.x, circle.center.x, 0)
     GL11.glTranslated(0, 0, 0)

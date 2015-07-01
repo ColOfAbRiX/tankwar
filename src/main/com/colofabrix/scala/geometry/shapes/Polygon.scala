@@ -75,7 +75,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    */
   def distance( p: Vector2D ): (Vector2D, Vector2D) = {
     // If the point is inside the polygon....
-    if( overlaps(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
+    if( contains(p) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     // Check all the vertices and return the nearest one.
     verticesIterator.map(
@@ -94,9 +94,9 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
    */
   override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
-    // FIXME: The logic is correct, but there is a circular reference with `overlaps`
+    // FIXME: The logic is correct, but there is a circular reference with `intersects`
     // If the point is inside the polygon....
-    if( overlaps(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
+    if( intersects(p0, p1) ) return (Vector2D.new_xy(0, 0), Vector2D.new_xy(0, 0))
 
     // Check all the vertices and return the nearest one.
     vertices.map(
@@ -110,12 +110,12 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @param that The point to be checked
    * @return True if the point is inside the shape
    */
-  override def overlaps( that: Shape ): Boolean = that match {
+  override def intersects( that: Shape ): Boolean = that match {
     // With circles I find the nearest edge to the center and then I compare it to the radius to see if it's inside
     case c: Circle => distance(c.center)._1 <= c.radius
 
     // For polygons I use the proper internal function
-    case p: Polygon => overlaps(p)
+    case p: Polygon => intersects(p)
 
     // Other comparisons are not possible
     case _ => false
@@ -128,7 +128,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
-  override def overlaps( p: Vector2D ): Boolean = {
+  override def contains( p: Vector2D ): Boolean = {
     var wn = 0
 
     verticesIterator foreach {
@@ -152,16 +152,16 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * Determines if a shape is inside or on the boundary this shape
    *
    * I use the simple assumption that if one of the vertices is inside the other polygon
-   * (for both the polygons) then the two polygon overlaps. There is absolutely no proof
+   * (for both the polygons) then the two polygon intersects. There is absolutely no proof
    * of this and it probably the complexity is not optimal
    * UPDATE: Proved to be not true for every polygon
    *
    * @param that The point to be checked
    * @return True if the point is inside the shape
    */
-  def overlaps( that: Polygon ): Boolean = {
-    val thisInThat = vertices.foldLeft(false) { ( r, v ) => r || that.overlaps(v) }
-    val thatInThis = that.vertices.foldLeft(false) { ( r, v ) => r || overlaps(v) }
+  def intersects( that: Polygon ): Boolean = {
+    val thisInThat = vertices.foldLeft(false) { ( r, v ) => r || that.contains(v) }
+    val thatInThis = that.vertices.foldLeft(false) { ( r, v ) => r || contains(v) }
     thisInThat || thatInThis
   }
 
@@ -172,7 +172,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @param p1 The second point that defines the line
    * @return True if the point is inside the shape
    */
-  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance(p0, p1)._1.r == 0.0
+  override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance(p0, p1)._1.r == 0.0
 
   /**
    * Tests if a point is Left|On|Right of an infinite line.

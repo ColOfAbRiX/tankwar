@@ -60,7 +60,7 @@ class ButtonControl( area: Box, texture: Texture, action: (Int) => Unit ) {
   def runClick( mouse: Vector2D, mouseButton: Int ) {
     if( clickTimer >= MIN_CLICK_TIMER ) {
 
-      if( area.overlaps(mouse) ) {
+      if( area.contains(mouse) ) {
         action(mouseButton)
         clickTimer = 0
       }

@@ -31,7 +31,7 @@ trait Shape {
    * @param p The point to be checked
    * @return True if the point is inside the shape or on its boundary
    */
-  def overlaps( p: Vector2D ): Boolean
+  def contains( p: Vector2D ): Boolean
 
   /**
    * Determines if a line segment touches in any way this shape
@@ -40,7 +40,7 @@ trait Shape {
    * @param p1 The second point that defines the line segment
    * @return True if the line intersects the shape
    */
-  def overlaps( p0: Vector2D, p1: Vector2D ): Boolean
+  def intersects( p0: Vector2D, p1: Vector2D ): Boolean
 
   /**
    * Determines if a shape touches in any way this shape
@@ -48,7 +48,7 @@ trait Shape {
    * @param that The shape to be checked
    * @return True if the point is inside the shape
    */
-  def overlaps( that: Shape ): Boolean
+  def intersects( that: Shape ): Boolean
 
   /**
    * Compute the distance between a point and the boundary of the shape

@@ -14,34 +14,36 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry
+package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
- * An immutable Quadtree implementation
+ * An immutable Quadtree implementation with a support List
  *
  * A quadtree is a try of tree with 4 children nodes per parent used to partition a cartesian plane and speed up
  * object-object interactions in graphical environments.
+ * This implementation includes a List to have fast access to the complete set of object contained in the Quadtree
+ * and perform common and useful operations on that
  *
  * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
  */
-class Quadtree[T <: Shape, U <: PhysicalObject] protected (
+class LinkedQuadtree[-T <: Shape, U <: PhysicalObject] protected(
   val bounds: Box,
   val level: Int,
-  val nodes: List[Quadtree[T, U]],
+  val nodes: List[LinkedQuadtree[T, U]],
   val shapes: List[U],
-  val bucketSize: Int,
-  val maxLevels: Int
+  val asList: List[U],
+  val splitSize: Int,
+  val depth: Int
 ) {
-  require( bounds != null, "A box must be specified to indicate the Quadtree area" )
+  require( bounds != null, "A box must be specified to indicate the LinkedQuadtree area" )
   require( nodes != null, "A node list must be specified, even empty" )
   require( shapes != null, "A shape list must be specified, even empty" )
-  require( bucketSize > 0, "The bucket size must be an integer greater than zero" )
-  require( maxLevels > 0, "The number of levels must be an integer greater than zero" )
+  require( splitSize > 0, "The bucket size must be an integer greater than zero" )
+  require( depth > 0, "The number of levels must be an integer greater than zero" )
 
   /**
    * Determines where an object belongs in the quadtree by determining which node the object can fit into.
@@ -54,11 +56,11 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
   /**
    * Remove the object from the quadtree.
    *
-   * Nothing bad happens if the Shape is not in the Quadtree
+   * Nothing bad happens if the Shape is not in the LinkedQuadtree
    *
    * @return A new quadtree without the specified Shape.
    */
-  def -( p: U ): Quadtree[T, U] = {
+  def -( p: U ): LinkedQuadtree[T, U] = {
     // If there are subnodes, try to add the new Shape there.
     if( nodes.nonEmpty ) {
       val where = findNode( p.objectShape )
@@ -68,14 +70,17 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
         val output = where.get - p
 
         if( output.areNodesEmpty ) {
-          return new Quadtree[T, U]( bounds, level, List( ), output.shapes, bucketSize, maxLevels )
+          return new LinkedQuadtree[T, U]( bounds, level, List( ), output.shapes, output.asList, splitSize, depth )
         }
 
         return output
       }
     }
 
-    return new Quadtree[T, U]( bounds, level, nodes, shapes.filter( _ != p ), bucketSize, maxLevels )
+    // This is a leaf node, so shapes == asList.
+    val remainingShapes = shapes.filter( _ != p )
+    // Return a new leaf without the Shape
+    return new LinkedQuadtree[T, U]( bounds, level, nodes, remainingShapes, remainingShapes, splitSize, depth )
   }
 
   /**
@@ -83,7 +88,7 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
    *
    * @return A new quadtree containing the new Shape in the appropriate position
    */
-  def +( p: U ): Quadtree[T, U] = {
+  def +( p: U ): LinkedQuadtree[T, U] = {
     // If there are subnodes, try to add the new Shape there.
     if( nodes.nonEmpty ) {
       val where = findNode( p.objectShape )
@@ -91,41 +96,41 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
       // Try to add the shape into one subnode
       if( where.isDefined ) {
         val newNodes = nodes.map { q => if( where.get == q ) where.get + p else q }
-        return new Quadtree[T, U]( bounds, level, newNodes, shapes, bucketSize, maxLevels )
+        return new LinkedQuadtree[T, U]( bounds, level, newNodes, shapes, p :: asList, splitSize, depth )
       }
 
       // The shape is not contained by any subnode. If there is space add it to the current node
-      return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, bucketSize, maxLevels )
+      return new LinkedQuadtree[T, U]( bounds, level, nodes, p :: shapes, p :: asList, splitSize, depth )
     }
 
     // There is not enough space into the current node and no defined subnodes. Split and add the shape
-    if( level < maxLevels && shapes.length >= bucketSize ) {
+    if( level < depth && shapes.length >= splitSize ) {
       return split( ) + p
     }
 
-    return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, bucketSize, maxLevels )
+    return new LinkedQuadtree[T, U]( bounds, level, nodes, p :: shapes, p :: asList, splitSize, depth )
   }
 
   /**
-   * Tells if the Quadtree is empty of Nodes
+   * Tells if the LinkedQuadtree is empty of Nodes
    *
    * @return true is the quadtree doesn't contain any subnode
    */
   def areNodesEmpty: Boolean = nodes.isEmpty && nodes.forall( _.areNodesEmpty )
 
   /**
-   * Tells if the Quadtree is empty of Shapes
+   * Tells if the LinkedQuadtree is empty of Shapes
    *
    * @return true is the quadtree doesn't contain any Shape
    */
   def areShapesEmpty: Boolean = shapes.isEmpty && nodes.forall( _.areShapesEmpty )
 
   /**
-   * Reset the status of the Quadtree
+   * Reset the status of the LinkedQuadtree
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  def clear( ) = new Quadtree[T, U]( bounds, level, List( ), List( ), bucketSize, maxLevels )
+  def clear( ): LinkedQuadtree[T, U] = new LinkedQuadtree[T, U]( bounds, level, List( ), List( ), List( ), splitSize, depth )
 
   /**
    * Return all Shapes that could collide with the given object
@@ -155,9 +160,10 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
    * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
    * the new bounds and inserts the contained shapes in the subnodes where they fit
    *
-   * @return A new Quadtree with 4 new subnodes
+   * @return A new LinkedQuadtree with 4 new subnodes
    */
-  def split( ) = {
+  def split( ): LinkedQuadtree[T, U] = {
+    // Lookup table to access the quadrants in a functional way
     val quadLookup = List(
       new Box(
         // Top-Right quadrant
@@ -181,28 +187,47 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
       )
     )
 
-    // Create a Quadtree on each quadrant and insert in each one of the the Shapes that it's able to contain
+    // Create a LinkedQuadtree on each quadrant and insert in each one of the the Shapes that it's able to contain
     val quads = quadLookup map { q =>
-      new
-          Quadtree[T, U]( q, level + 1, List( ), shapes.filter( s => q.contains( s.objectShape ) ), bucketSize, maxLevels )
+      // Shapes that belong to the "q" quadrant
+      val quadShapes = shapes.filter( s => q.contains( s.objectShape ) )
+      // Create a new Quadtree for the quadrant
+      new LinkedQuadtree[T, U]( q, level + 1, List( ), quadShapes, quadShapes, splitSize, depth )
     }
 
-    // And return a whole new Quadtree as a result of the split
-    new Quadtree[T, U]( bounds, level, quads, shapes.diff( quads.flatMap( _.shapes ) ), bucketSize, maxLevels )
+    // These are the shapes that don't fit any subnode
+    val upperShapes = shapes.diff( quads.flatMap( _.shapes ) )
+    // And return a whole new LinkedQuadtree as a result of the split
+    new LinkedQuadtree[T, U](
+      bounds, level,
+      quads, upperShapes, asList,
+      splitSize, depth
+    )
   }
 }
 
 
-object Quadtree {
+object LinkedQuadtree {
 
-  def apply[T <: Shape, U <: PhysicalObject]( bounds: Box, initialSet: List[U] = List( ), bucketSize: Int = 1, maxLevels: Int = 1 ) = {
+  /**
+   * Creates a new LinkedQuadtree
+   *
+   * @param bounds The area that the LinkedQuadtree will cover
+   * @param initialSet The initial data contained by the LinkedQuadtree
+   * @param splitSize Max size of each node before a split happens
+   * @param depth Depth of the LinkedQuadtree
+   * @tparam T Type of `Shape` that the LinkedQuadtree will use for spatial checking
+   * @tparam U Type of `PhysicalObject` that the LinkedQuadtree will contain
+   * @return A new instance of LinkedQuadtree
+   */
+  def apply[T <: Shape, U <: PhysicalObject]( bounds: Box, initialSet: List[U] = List( ), splitSize: Int = 1, depth: Int = 1 ): LinkedQuadtree[T, U] = {
     if( initialSet.isEmpty ) {
       // Fast initialization of an empty quadtree
-      new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels )
+      new LinkedQuadtree[T, U]( bounds, 0, List( ), List( ), List( ), splitSize, depth )
     }
     else {
-      // For quadtrees with initial shapes, I add them one by one
-      initialSet.foldLeft( new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels ) ) {_ + _}
+      // For quadtree with initial shapes, I add them one by one
+      initialSet.foldLeft( LinkedQuadtree( bounds, List[U]( ), splitSize, depth ) ) {_ + _}
     }
   }
 

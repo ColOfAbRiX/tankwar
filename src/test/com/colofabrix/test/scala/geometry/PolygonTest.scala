@@ -70,9 +70,9 @@ class PolygonTest extends WordSpec with Matchers {
         val outsidePoint1 = Vector2D.new_xy(20, 40)
         val outsidePoint2 = Vector2D.new_xy(40, 0)
 
-        triangle.overlaps(insidePoint) should equal(true)
-        triangle.overlaps(outsidePoint1) should equal(false)
-        triangle.overlaps(outsidePoint2) should equal(false)
+        triangle.contains(insidePoint) should equal(true)
+        triangle.contains(outsidePoint1) should equal(false)
+        triangle.contains(outsidePoint2) should equal(false)
 
       }
 
@@ -96,9 +96,9 @@ class PolygonTest extends WordSpec with Matchers {
         val concaveNoOverlap = new Polygon(Seq(Vector2D.new_xy(40, 0), Vector2D.new_xy(60, 0), Vector2D.new_xy(55, 20), Vector2D.new_xy(45, -20)))
         val concaveOverlap = new Polygon(Seq(Vector2D.new_xy(10, 10), Vector2D.new_xy(30, 10), Vector2D.new_xy(45, 30), Vector2D.new_xy(15, -10)))
 
-        convex.overlaps(concaveNoOverlap) should equal(false)
-        convex.overlaps(concaveOverlap) should equal(true)
-        concaveNoOverlap.overlaps(concaveOverlap) should equal(false)
+        convex.intersects(concaveNoOverlap) should equal(false)
+        convex.intersects(concaveOverlap) should equal(true)
+        concaveNoOverlap.intersects(concaveOverlap) should equal(false)
 
       }
 

@@ -38,9 +38,9 @@ class BoxTest extends WordSpec with Matchers {
         val rect = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(10, 10))
 
         // The point is outside the rectangle
-        rect.overlaps(insidePoint) should equal(true)
+        rect.contains(insidePoint) should equal(true)
         // The point is inside the rectangle
-        rect.overlaps(outsidePoint) should equal(false)
+        rect.contains(outsidePoint) should equal(false)
 
       }
 
@@ -50,14 +50,14 @@ class BoxTest extends WordSpec with Matchers {
         val touchRect2 = Box(Vector2D.new_xy(5, 10), Vector2D.new_xy(15, 20))
         val separateRect = Box(Vector2D.new_xy(30, 35), Vector2D.new_xy(40, 45))
 
-        touchRect1.overlaps(touchRect1) should equal(true)
-        touchRect1.overlaps(touchRect2) should equal(true)
-        touchRect1.overlaps(separateRect) should equal(false)
+        touchRect1.intersects(touchRect1) should equal(true)
+        touchRect1.intersects(touchRect2) should equal(true)
+        touchRect1.intersects(separateRect) should equal(false)
 
-        touchRect2.overlaps(touchRect2) should equal(true)
-        touchRect2.overlaps(separateRect) should equal(false)
+        touchRect2.intersects(touchRect2) should equal(true)
+        touchRect2.intersects(separateRect) should equal(false)
 
-        separateRect.overlaps(separateRect) should equal(true)
+        separateRect.intersects(separateRect) should equal(true)
 
       }
 

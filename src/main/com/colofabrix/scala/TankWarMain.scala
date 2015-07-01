@@ -46,7 +46,7 @@ object TankWarMain {
     } file.delete()
 
     // Create a new world where to run the Tanks
-    val world = new World(max_rounds = 1500, arena = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900)), dead_time = 0.25)
+    val world = new World(max_rounds = 2000, arena = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1900, 900)), dead_time = 0.25)
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
@@ -76,7 +76,7 @@ object TankWarMain {
     engine.addEvolutionObserver(new EvolutionLogger)
 
     // Run the simulation and stop for stagnation
-    engine.evolve(20, 0, new Stagnation(1000, true))
+    engine.evolve(40, 0, new Stagnation(1000, true))
   }
 
 }

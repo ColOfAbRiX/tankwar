@@ -1,3 +1,8 @@
 Manifest-Version: 1.0
+Class-Path: scalatest.jar scala-actors-2.11.0.jar scala-actors-migrati
+ on_2.11-1.1.0.jar scala-library.jar scala-parser-combinators_2.11-1.0
+ .2.jar scala-reflect.jar scala-swing_2.11-1.0.1.jar scala-xml_2.11-1.
+ 0.2.jar lwjgl_util.jar ibxm.jar lwjgl.jar slick-util.jar watchmaker-f
+ ramework.jar uncommons-maths.jar TankWar.jar
 Main-Class: com.colofabrix.scala.TankWarMain
 

@@ -92,7 +92,7 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
    */
   override def contains( s: Shape ): Boolean = s match {
     // For the case Box-Polygon I check that all its vertices are inside the box - O(n)
-    case p: Polygon => p.vertices.forall( v => this.overlaps( v ) )
+    case p: Polygon => p.vertices.forall( v => this.contains( v ) )
 
     // For the case Box-Circle I use the fact the an enclosing Box for the Circle has its borders parallel to the current one - O(n)
     case c: Circle => this.contains( Box.bestFit( c ) )
@@ -102,13 +102,25 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   }
 
   /**
+   * Determines if a shape is inside or on the boundary this shape
+   *
+   * @param that The point to be checked
+   * @return True if the point is inside the shape
+   */
+  def intersects( that: Circle ): Boolean = that.intersects( this )
+
+  /**
    * Determines if a point is inside or on the boundary the shape
    *
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
-  override def overlaps( p: Vector2D ) =
-    p.x >= bottomLeft.x && p.x <= topRight.x && p.y >= bottomLeft.y && p.y <= topRight.y
+  override def contains( p: Vector2D ) =
+    p.x >= bottomLeft.x &&
+      p.x <= topRight.x &&
+      p.y >= bottomLeft.y &&
+      p.y <= topRight.y
+
 }
 
 

@@ -38,16 +38,16 @@ class CircleTest extends WordSpec with Matchers {
         val circle3 = Circle(Vector2D.new_xy(20, 20), 20)
 
         // Check circle1
-        circle1.overlaps(circle1) should equal(true)
-        circle1.overlaps(circle2) should equal(false)
-        circle1.overlaps(circle3) should equal(true)
+        circle1.intersects(circle1) should equal(true)
+        circle1.intersects(circle2) should equal(false)
+        circle1.intersects(circle3) should equal(true)
 
         // Check circle2
-        circle2.overlaps(circle2) should equal(true)
-        circle2.overlaps(circle3) should equal(false)
+        circle2.intersects(circle2) should equal(true)
+        circle2.intersects(circle3) should equal(false)
 
         // Check circle3
-        circle1.overlaps(circle3) should equal(true)
+        circle1.intersects(circle3) should equal(true)
 
       }
 
@@ -59,13 +59,13 @@ class CircleTest extends WordSpec with Matchers {
         val offCenter = Circle(Vector2D.new_xy(50, 50), 50)
 
         // The point is on the circumference
-        centered.overlaps(insidePoint) should equal(true)
+        centered.contains(insidePoint) should equal(true)
         // The point is inside
-        offCenter.overlaps(insidePoint) should equal(true)
+        offCenter.contains(insidePoint) should equal(true)
 
         // The point is outside
-        centered.overlaps(outsidePoint) should equal(false)
-        offCenter.overlaps(outsidePoint) should equal(false)
+        centered.contains(outsidePoint) should equal(false)
+        offCenter.contains(outsidePoint) should equal(false)
 
       }
     }
