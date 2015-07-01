@@ -43,10 +43,13 @@ class GFXManager (val world: World, windowsTitle: String, val BGRenderer: Render
 
     BGRenderer.render()
 
-    val renderers = world.getRenderers()
-    renderers.foreach(r => r.render())
-
-    //TODO: GUI
+    try {
+      world.getRenderers().foreach(r => r.render())
+      world.UIManager.getRenderers().foreach(r => r.render())
+    }
+    catch  {
+      case np: NullPointerException =>
+    }
 
     //TODO: Get this from flag
     Display.sync(60)

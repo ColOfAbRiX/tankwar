@@ -19,6 +19,7 @@ package com.colofabrix.scala.simulation
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
 import com.colofabrix.scala.gfx.Renderers.BGRenderer
+import com.colofabrix.scala.gfx.UI.UIManager
 import com.colofabrix.scala.gfx.{GFXManager, Renderable, Renderer_D, Renderer}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -96,8 +97,8 @@ class World(
 
 
   // NOTE: Freddie's integration of graphic. Temporary
-  private val GFXManager = new GFXManager(this, "Tank War", new BGRenderer(arena.width.toInt, arena.height.toInt))
-
+  val GFXManager = new GFXManager(this, "Tank War", new BGRenderer(arena.width.toInt, arena.height.toInt))
+  val UIManager = new UIManager(this)
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -241,6 +242,8 @@ class World(
         t.on_respawn()
       }
     }
+
+    UIManager.UpdateUI()
 
     // Update the graphic
     if( GFXManager != null && tanks.count(!_.isDead) > 1 ) {
