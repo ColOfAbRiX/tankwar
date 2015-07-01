@@ -26,6 +26,7 @@ import org.lwjgl.input.Mouse
  * clicks. If any clicks are found within a button, that button's
  * action will be called
  */
+@Deprecated
 class InputManager {
   /**
    * The buttons of the InputManager

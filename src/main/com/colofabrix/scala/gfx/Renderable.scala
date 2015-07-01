@@ -18,8 +18,8 @@ package com.colofabrix.scala.gfx
 
 /**
  */
-abstract class Renderer {
+trait Renderable {
 
-  def render()
+  def renderer :  Renderer
 
 }

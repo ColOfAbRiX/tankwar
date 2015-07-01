@@ -18,7 +18,9 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
-import com.colofabrix.scala.gfx.Renderer
+import com.colofabrix.scala.gfx.Renderers.BGRenderer
+import com.colofabrix.scala.gfx.UI.UIManager
+import com.colofabrix.scala.gfx.{GFXManager, Renderable, Renderer_D, Renderer}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
@@ -95,11 +97,8 @@ class World(
 
 
   // NOTE: Freddie's integration of graphic. Temporary
-  private val renderer = new Renderer(this, "TankWar")
-  private val _inputManager = new InputManager
-
-  def inputManager = _inputManager
-
+  val GFXManager = new GFXManager(this, "Tank War", new BGRenderer(arena.width.toInt, arena.height.toInt))
+  val UIManager = new UIManager(this)
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -244,10 +243,11 @@ class World(
       }
     }
 
+    UIManager.UpdateUI()
+
     // Update the graphic
-    if( renderer != null && tanks.count(!_.isDead) > 1 ) {
-      renderer.update()
-      inputManager.update()
+    if( GFXManager != null && tanks.count(!_.isDead) > 1 ) {
+      GFXManager.renderAll()
     }
   }
 
@@ -336,4 +336,20 @@ class World(
     }
     incCounter("hits")
   }
+
+  def getRenderers (): Array[Renderer] = {
+
+    var renderers: Array[Renderer] = null;
+    var renderers_working = new ArrayBuffer[Renderer]()
+
+    tanks.foreach(t =>  renderers_working.append(t.renderer))
+    bullets.foreach(b => renderers_working.append(b.renderer))
+
+    renderers = renderers_working.toArray
+
+    return renderers
+
+
+  }
 }
+
