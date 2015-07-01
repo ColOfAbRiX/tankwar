@@ -62,10 +62,9 @@ class Renderer_D( val world: World, windowsTitle: String ) {
     }
   }
 
+  @deprecated
   private def drawGUI( ): Unit = {
-    world.inputManager.buttons.foreach { btn =>
-      btn.render()
-    }
+
   }
 
   private def setCamera( ) {
@@ -83,6 +82,8 @@ class Renderer_D( val world: World, windowsTitle: String ) {
     GL11.glOrtho(0, Display.getWidth, 0, Display.getHeight, 1, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
     GL11.glLoadIdentity()
+
+
   }
 
   private def drawTanks( ) {

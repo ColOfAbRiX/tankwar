@@ -17,8 +17,9 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.{Renderer, Renderable}
+import com.colofabrix.scala.geometry.shapes.{Box, Circle}
+import com.colofabrix.scala.gfx.Renderers.Primitives.{FilledCircleRenderer, CircleRenderer, BoxRenderer}
+import com.colofabrix.scala.gfx.{Color3d, Renderer, Renderable}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -33,6 +34,8 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
   import Math._
 
   private var _life = 0
+
+  def renderer = new FilledCircleRenderer(objectShape.asInstanceOf[Circle], Color3d.BLUE)
 
   /**
    * Life of the bullet
@@ -102,5 +105,4 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {}
 
-  def renderer: Renderer = ???
 }

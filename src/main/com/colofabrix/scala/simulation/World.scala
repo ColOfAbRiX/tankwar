@@ -18,10 +18,10 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
-import com.colofabrix.scala.gfx.{Renderable, Renderer_D}
+import com.colofabrix.scala.gfx.Renderers.BGRenderer
+import com.colofabrix.scala.gfx.{GFXManager, Renderable, Renderer_D, Renderer}
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
-import com.colofabrix.scala.gfx.Renderer;
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.util.Random
@@ -96,10 +96,7 @@ class World(
 
 
   // NOTE: Freddie's integration of graphic. Temporary
-  private val renderer = new Renderer_D(this, "TankWar")
-  private val _inputManager = new InputManager
-
-  def inputManager = _inputManager
+  private val GFXManager = new GFXManager(this, "Tank War", new BGRenderer(arena.width.toInt, arena.height.toInt))
 
 
   /**
@@ -246,9 +243,8 @@ class World(
     }
 
     // Update the graphic
-    if( renderer != null && tanks.count(!_.isDead) > 1 ) {
-      renderer.update()
-      inputManager.update()
+    if( GFXManager != null && tanks.count(!_.isDead) > 1 ) {
+      GFXManager.renderAll()
     }
   }
 

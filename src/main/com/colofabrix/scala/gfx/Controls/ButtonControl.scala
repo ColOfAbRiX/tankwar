@@ -28,6 +28,7 @@ import org.newdawn.slick.opengl.Texture
  * as well as a Unit that it is it's OnClick action. Requires a Box as a renderable/clickable area and
  * a Unit as an action
  */
+@Deprecated
 class ButtonControl( area: Box, texture: Texture, action: (Int) => Unit ) {
 
   // NOTE: Make timing in seconds not steps
