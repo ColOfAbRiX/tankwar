@@ -10,6 +10,7 @@
       <element id="library" level="project" name="watchmaker-framework" />
       <element id="library" level="project" name="uncommons-maths" />
       <element id="dir-copy" path="$PROJECT_DIR$/lib/windows" />
+      <element id="directory" name="out" />
     </root>
   </artifact>
 </component>

@@ -75,8 +75,12 @@ object TankWarMain {
 
     engine.addEvolutionObserver(new EvolutionLogger)
 
+    // Give time to start the profiler
+    Thread.sleep(15000)
+
     // Run the simulation and stop for stagnation
-    engine.evolve(40, 0, new Stagnation(1000, true))
+    //engine.evolve(40, 0, new Stagnation(1000, true))
+    engine.evolve(40, 0, new GenerationCount(2))
   }
 
 }

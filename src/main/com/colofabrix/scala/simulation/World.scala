@@ -128,8 +128,6 @@ class World(
     tank
   }
 
-  def inputManager = _inputManager
-
   /**
    * A tank requests to shot a bullet
    *
@@ -138,6 +136,15 @@ class World(
   def on_tankShot( tank: Tank ) {
     _bullets = _bullets + new Bullet( this, tank, max_bullet_speed )
     incCounter( "shots" )
+  }
+
+  /**
+   * Increments a specific counter by 1
+   *
+   * @param counter The counter to increment
+   */
+  private def incCounter( counter: String ): Unit = {
+    _counters += (counter -> (_counters( counter ) + 1))
   }
 
   /**
@@ -181,20 +188,22 @@ class World(
     _time += 1
 
     // Handling bullets
-    bullets.foreach( manageBullet )
+    bullets.par.foreach( manageBullet )
 
     // Handling alive tanks
-    tanks.filter( !_.isDead ).foreach( manageAliveTank )
+    tanks.filter( !_.isDead ).par.foreach( manageAliveTank )
 
     // Handling dead tanks
-    tanks.filter( _.isDead ).foreach( manageDeadTank )
+    tanks.filter( _.isDead ).par.foreach( manageDeadTank )
 
     // Update the graphic
     if( _renderer != null && tanks.count( !_.isDead ) > 1 ) {
-      _renderer.update()
-      inputManager.update()
+      _renderer.update( )
+      inputManager.update( )
     }
   }
+
+  def inputManager = _inputManager
 
   /**
    * List of tanks present in the world
@@ -231,7 +240,7 @@ class World(
    * @param tank The tank to manage
    */
   private def manageAliveTank( tank: Tank ): Unit = {
-    tank.stepForward( )
+    tank.step( )
 
     // Arena boundary check
     check_limit(
@@ -349,41 +358,6 @@ class World(
   }
 
   /**
-   * Increments a specific counter by 1
-   *
-   * @param counter The counter to increment
-   */
-  private def incCounter( counter: String ): Unit = {
-    _counters += (counter -> (_counters( counter ) + 1))
-  }
-
-  /**
-   * Handles any bullet in the world
-   *
-   * The method performs the following actions:
-   * - Moves the bullet on step forward
-   * - Checks that it respects the limits
-   * - Removes it when he has to die
-   *
-   * @param bullet The bullet to manage
-   */
-  private def manageBullet( bullet: Bullet ): Unit = {
-    bullet.stepForward( )
-
-    // Arena boundary check
-    check_limit(
-      ( ) => arena.contains( bullet.position ),
-      ( ) => bullet.on_hitsWalls( ),
-      ( ) => {_bullets = _bullets - bullet}
-    )
-
-    // Check the lifespan of a bullet
-    if( bullet.life >= bullet_life ) {
-      _bullets = _bullets - bullet
-    }
-  }
-
-  /**
    * Check if a limit is respected. If not it first notifies an entity and
    * if the check is still not respected it takes a different action
    *
@@ -397,6 +371,34 @@ class World(
       if( !check( ) ) {
         action( )
       }
+    }
+  }
+
+  /**
+   * Handles any bullet in the world
+   *
+   * The method performs the following actions:
+   * - Moves the bullet on step forward
+   * - Checks that it respects the limits
+   * - Removes it when he has to die
+   *
+   * @param bullet The bullet to manage
+   */
+  private def manageBullet( bullet: Bullet ): Unit = {
+    bullet.step( )
+
+    // Arena boundary check
+    check_limit(
+      ( ) => arena.contains( bullet.position ),
+      ( ) => bullet.on_hitsWalls( ),
+      ( ) => {
+        _bullets = _bullets - bullet
+      }
+    )
+
+    // Check the lifespan of a bullet
+    if( bullet.life >= bullet_life ) {
+      _bullets = _bullets - bullet
     }
   }
 

@@ -23,43 +23,45 @@ package com.colofabrix.scala.math
  * to interpret them. It can either be that they are indicating a point related to the origin of the axes or they can
  * represents a difference vector with origin not in the origin of axes.
  *
- * @param cartesian The ending point of a origin centered vector in cartesian coordinates
+ * @param _cartesian The ending point of a origin centered vector in cartesian coordinates
+ * @param _polar The ending point of a origin centered vector in polar coordinates
  */
-case class Vector2D( cartesian: CartesianCoord ) {
+case class Vector2D private ( _cartesian: CartesianCoord, _polar: PolarCoord ) {
+  require( _cartesian != null || _polar != null, "A set of coordinates must be specified" )
 
   import java.lang.Math._
 
   import com.colofabrix.scala.math.Vector2DImplicits._
 
   /**
-   * @param polar The ending point of a origin centered vector in polar coordinates
+   * Cartesian representation of this vectors
    */
-  def this( polar: PolarCoord ) = this(CartesianCoord(polar))
+  lazy val cartesian: CartesianCoord = if( _cartesian == null ) CoordinatesImplicits.Polar2Cartesian(polar) else _cartesian
 
   /**
    * Polar representation of this vectors
    */
-  val polar = PolarCoord(cartesian)
+  lazy val polar: PolarCoord = if( _polar == null ) CoordinatesImplicits.Cartesian2Polar(cartesian) else _polar
 
   /**
    * Distance on the X-Axis
    */
-  val x: Double = cartesian.x
+  lazy val x: Double = cartesian.x
 
   /**
    * Distance on the Y-Axis
    */
-  val y: Double = cartesian.y
+  lazy val y: Double = cartesian.y
 
   /**
    * Length of the vector, modulus
    */
-  val t: Double = polar.t
+  lazy val t: Double = polar.t
 
   /**
    * Rotation relative to the X-Axis, in radians
    */
-  val r: Double = polar.r
+  lazy val r: Double = polar.r
 
   /**
    * Gets one of the cartesian components of the point position
@@ -351,7 +353,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
   @inline
   def >( distance: Double ): Boolean = this.r > distance
 
-  override def toString: String = s"Vector[C(${x}, $y), P($r, $t)]"
+  override def toString: String = s"Vector[C($x, $y), P($r, $t)]"
 }
 
 
@@ -362,7 +364,14 @@ object Vector2D {
    *
    * @param polar The ending point of a origin centered vector in polar coordinates
    */
-  def apply( polar: PolarCoord ) = new Vector2D(polar)
+  def apply( polar: PolarCoord ): Vector2D = new Vector2D(null, polar)
+
+  /**
+   * Creates a generic Cartesian Vector
+   *
+   * @param cartesian The ending point of a origin centered vector in cartesian coordinates
+   */
+  def apply( cartesian: CartesianCoord ): Vector2D = new Vector2D(cartesian, null)
 
   /**
    * Creates a vector starting from polar coordinates
@@ -371,7 +380,7 @@ object Vector2D {
    * @param r Rotation relative to the X-Axis, in radians
    * @return A new vector
    */
-  def new_rt( r: Double, t: Double ) = Vector2D(PolarCoord(r, t))
+  def new_rt( r: Double, t: Double ): Vector2D = Vector2D(PolarCoord(r, t))
 
   /**
    * Creates a vector starting from cartesian coordinates
@@ -380,7 +389,7 @@ object Vector2D {
    * @param y Distance on the Y-Axis
    * @return A new vector
    */
-  def new_xy( x: Double, y: Double ) = Vector2D(CartesianCoord(x, y))
+  def new_xy( x: Double, y: Double ): Vector2D = Vector2D(CartesianCoord(x, y))
 
   /**
    * Vector Origin

@@ -284,7 +284,7 @@ class Tank private(
    *
    * In other words it calculates the position, speed and shooting condition for the current step
    */
-  override def stepForward( ): Unit = {
+  override def step( ): Unit = {
     // Data related to the vision
     val seenTank = calculateTankVision
     val seenBullet = calculateBulletVision

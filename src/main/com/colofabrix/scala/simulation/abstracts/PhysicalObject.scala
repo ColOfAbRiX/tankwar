@@ -104,7 +104,7 @@ trait PhysicalObject {
    * In other words, this method will perform the needed calculations to updated all the internal field of the objects
    * like the position in the next step, speed and so on.
    */
-  def stepForward( ): Unit
+  def step( ): Unit
 
   /**
    * Determines if a point lies inside the Shape
