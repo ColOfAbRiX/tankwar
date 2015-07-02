@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.geometry.abstracts._
+import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -29,27 +29,27 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  *
  * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
  */
-class Quadtree[T <: Shape, U <: PhysicalObject] protected (
+class Quadtree[T <: Shape, U <: PhysicalObject] protected(
   val bounds: Box,
   val level: Int,
   val nodes: List[Quadtree[T, U]],
   val shapes: List[U],
-  val bucketSize: Int,
-  val maxLevels: Int
-) {
+  val splitSize: Int,
+  val depth: Int
+) extends abstracts.Quadtree[T, U] {
   require( bounds != null, "A box must be specified to indicate the Quadtree area" )
   require( nodes != null, "A node list must be specified, even empty" )
   require( shapes != null, "A shape list must be specified, even empty" )
-  require( bucketSize > 0, "The bucket size must be an integer greater than zero" )
-  require( maxLevels > 0, "The number of levels must be an integer greater than zero" )
+  require( splitSize > 0, "The bucket size must be an integer greater than zero" )
+  require( depth > 0, "The number of levels must be an integer greater than zero" )
 
   /**
    * Determines where an object belongs in the quadtree by determining which node the object can fit into.
    *
    * @param s The shape to check
-   * @return The number of the quadrant that contains it or -1 if an object cannot completely fit within a child node and is part of the parent node
+   * @return An Option containing the Quadtree that contains the Shape or nothing
    */
-  protected def findNode( s: Shape ) = nodes.find( _.bounds.intersects( s ) )
+  def findNode( s: Shape ) = nodes.find( _.bounds.intersects( s ) )
 
   /**
    * Remove the object from the quadtree.
@@ -68,14 +68,14 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
         val output = where.get - p
 
         if( output.areNodesEmpty ) {
-          return new Quadtree[T, U]( bounds, level, List( ), output.shapes, bucketSize, maxLevels )
+          return new Quadtree[T, U]( bounds, level, List( ), output.shapes, splitSize, depth )
         }
 
         return output
       }
     }
 
-    return new Quadtree[T, U]( bounds, level, nodes, shapes.filter( _ != p ), bucketSize, maxLevels )
+    return new Quadtree[T, U]( bounds, level, nodes, shapes.filter( _ != p ), splitSize, depth )
   }
 
   /**
@@ -91,19 +91,19 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
       // Try to add the shape into one subnode
       if( where.isDefined ) {
         val newNodes = nodes.map { q => if( where.get == q ) where.get + p else q }
-        return new Quadtree[T, U]( bounds, level, newNodes, shapes, bucketSize, maxLevels )
+        return new Quadtree[T, U]( bounds, level, newNodes, shapes, splitSize, depth )
       }
 
       // The shape is not contained by any subnode. If there is space add it to the current node
-      return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, bucketSize, maxLevels )
+      return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, splitSize, depth )
     }
 
     // There is not enough space into the current node and no defined subnodes. Split and add the shape
-    if( level < maxLevels && shapes.length >= bucketSize ) {
+    if( level < depth && shapes.length >= splitSize ) {
       return split( ) + p
     }
 
-    return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, bucketSize, maxLevels )
+    return new Quadtree[T, U]( bounds, level, nodes, p :: shapes, splitSize, depth )
   }
 
   /**
@@ -125,7 +125,7 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  def clear( ) = new Quadtree[T, U]( bounds, level, List( ), List( ), bucketSize, maxLevels )
+  def clear( ) = new Quadtree[T, U]( bounds, level, List( ), List( ), splitSize, depth )
 
   /**
    * Return all Shapes that could collide with the given object
@@ -184,11 +184,11 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected (
     // Create a Quadtree on each quadrant and insert in each one of the the Shapes that it's able to contain
     val quads = quadLookup map { q =>
       new
-          Quadtree[T, U]( q, level + 1, List( ), shapes.filter( s => q.contains( s.objectShape ) ), bucketSize, maxLevels )
+          Quadtree[T, U]( q, level + 1, List( ), shapes.filter( s => q.contains( s.objectShape ) ), splitSize, depth )
     }
 
     // And return a whole new Quadtree as a result of the split
-    new Quadtree[T, U]( bounds, level, quads, shapes.diff( quads.flatMap( _.shapes ) ), bucketSize, maxLevels )
+    new Quadtree[T, U]( bounds, level, quads, shapes.diff( quads.flatMap( _.shapes ) ), splitSize, depth )
   }
 }
 

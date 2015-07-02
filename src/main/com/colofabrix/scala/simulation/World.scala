@@ -16,10 +16,10 @@
 
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.Quadtree
-import com.colofabrix.scala.geometry.shapes.{ LinkedQuadtree, Box }
-import com.colofabrix.scala.gfx.Controls.InputManager
+import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.geometry.abstracts._
+import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.gfx.Controls.InputManager
 import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -187,14 +187,19 @@ class World(
   def step( ): Unit = {
     _time += 1
 
-    // Handling bullets
+    // Managing tanks
+    tanks.par.foreach(
+      tank =>
+        if( !tank.isDead ) {
+          manageAliveTank( tank )
+        }
+        else {
+          manageDeadTank( tank )
+        }
+    )
+
+    // Managing bullets
     bullets.par.foreach( manageBullet )
-
-    // Handling alive tanks
-    tanks.filter( !_.isDead ).par.foreach( manageAliveTank )
-
-    // Handling dead tanks
-    tanks.filter( _.isDead ).par.foreach( manageDeadTank )
 
     // Update the graphic
     if( _renderer != null && tanks.count( !_.isDead ) > 1 ) {

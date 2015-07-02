@@ -224,6 +224,9 @@ class Tank private(
     val direction = that.position - this.position
     val speed = _speed - that.speed
 
+    // We don't like objects that precisely overlaps the tank... Infinities can happen
+    if( direction == Vector2D.zero ) return
+
     // Memorize the direction of all the targets or threats (one at a time)
     that match {
       case t: Tank =>
