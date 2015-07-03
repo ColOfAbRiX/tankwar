@@ -34,12 +34,12 @@ case class Vector2D( cartesian: CartesianCoord ) {
   /**
    * @param polar The ending point of a origin centered vector in polar coordinates
    */
-  def this( polar: PolarCoord ) = this(CartesianCoord(polar))
+  def this( polar: PolarCoord ) = this( CartesianCoord( polar ) )
 
   /**
    * Polar representation of this vectors
    */
-  val polar = PolarCoord(cartesian)
+  val polar = PolarCoord( cartesian )
 
   /**
    * Distance on the X-Axis
@@ -67,7 +67,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param i 0: x coordinate, 1: y coordinate, 2: Theta, 3: Rho
    * @return The specified coordinate
    */
-  def apply( i: Int ): Double = Seq(x, y, r, t)(i)
+  def apply( i: Int ): Double = Seq( x, y, r, t )( i )
 
   /**
    * Apply a transformation to the point
@@ -78,7 +78,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: Double => Double ): Vector2D = Vector2D.new_xy(t(this.x), t(this.y))
+  def :=( t: Double => Double ): Vector2D = Vector2D.new_xy( t( this.x ), t( this.y ) )
 
   /**
    * Apply a transformation to the point
@@ -90,7 +90,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_xy(t(this.x, 0), t(this.y, 1))
+  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_xy( t( this.x, 0 ), t( this.y, 1 ) )
 
   /**
    * Map a point through another one
@@ -101,7 +101,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def :=( that: Vector2D ): Vector2D = this := {_ * that(_)}
+  def :=( that: Vector2D ): Vector2D = this := {_ * that( _ )}
 
   /**
    * Apply a transformation to the point
@@ -112,7 +112,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: Double => Double ): Vector2D = Vector2D.new_rt(t(this.r), t(this.t))
+  def @=( t: Double => Double ): Vector2D = Vector2D.new_rt( t( this.r ), t( this.t ) )
 
   /**
    * Apply a transformation to the point
@@ -124,7 +124,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_rt(t(this.r, 2), t(this.t, 3))
+  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_rt( t( this.r, 2 ), t( this.t, 3 ) )
 
   /**
    * Map a point through another one
@@ -135,7 +135,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def @=( that: Vector2D ): Vector2D = this @= {_ * that(_)}
+  def @=( that: Vector2D ): Vector2D = this @= {_ * that( _ )}
 
   /**
    * Projects a vector onto another
@@ -143,7 +143,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param that The vector identifying the projection axis
    */
   @inline
-  def ->( that: Vector2D ): Vector2D = this.r * cos(this.t - that.t) * that.v
+  def ->( that: Vector2D ): Vector2D = this.r * cos( this.t - that.t ) * that.v
 
   /**
    * Rotates the vector of a given angle
@@ -151,19 +151,19 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @param angle The angle of rotation, in radians
    */
   @inline
-  def ¬( angle: Double ): Vector2D = Vector2D.new_rt(this.r, this.t + angle)
+  def ¬( angle: Double ): Vector2D = Vector2D.new_rt( this.r, this.t + angle )
 
   /**
    * Finds the ccw perpendicular vector, rotated CCW
    */
   @inline
-  def -| = Vector2D.new_rt(this.r, this.t + Math.PI / 2)
+  def -| = Vector2D.new_rt( this.r, this.t + Math.PI / 2 )
 
   /**
    * Finds the cw perpendicular vector, rotated CW
    */
   @inline
-  def |- = Vector2D.new_rt(this.r, this.t - Math.PI / 2)
+  def |- = Vector2D.new_rt( this.r, this.t - Math.PI / 2 )
 
   /**
    * Finds the normal to this vector
@@ -179,7 +179,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A unit vector with the same direction as the current vector
    */
   @inline
-  def v = Vector2D.new_rt(1, this.t)
+  def v = Vector2D.new_rt( 1, this.t )
 
   /**
    * Adds a scalar to both the cartesian coordinates of the vector
@@ -188,7 +188,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector moved of that quantity
    */
   @inline
-  def +( that: Double ) = Vector2D.new_xy(this.x + that, this.y + that)
+  def +( that: Double ) = Vector2D.new_xy( this.x + that, this.y + that )
 
   /**
    * Adds two vectors
@@ -197,7 +197,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector which is the sum between the current and the given vectors
    */
   @inline
-  def +( that: Vector2D ) = Vector2D.new_xy(this.x + that.x, this.y + that.y)
+  def +( that: Vector2D ) = Vector2D.new_xy( this.x + that.x, this.y + that.y )
 
   /**
    * Subtracts a scalar to both the cartesian coordinates of the vector
@@ -206,7 +206,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector moved of that quantity
    */
   @inline
-  def -( that: Double ) = Vector2D.new_xy(this.x - that, this.y - that)
+  def -( that: Double ) = Vector2D.new_xy( this.x - that, this.y - that )
 
   /**
    * Subtracts two vectors
@@ -215,7 +215,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector which is the difference between the current and the given vectors
    */
   @inline
-  def -( that: Vector2D ) = Vector2D.new_xy(this.x - that.x, this.y - that.y)
+  def -( that: Vector2D ) = Vector2D.new_xy( this.x - that.x, this.y - that.y )
 
   /**
    * Scalar product (scaling)
@@ -224,11 +224,11 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector following the scalar multiplication rules
    */
   @inline
-  def *( alpha: Double ): Vector2D = Vector2D.new_xy(this.x * alpha, this.y * alpha)
+  def *( alpha: Double ): Vector2D = Vector2D.new_xy( this.x * alpha, this.y * alpha )
 
   @inline
   def *( alpha: Vector2D ): Vector2D = {
-    require(this.x == this.y)
+    require( this.x == this.y )
     this := alpha
   }
 
@@ -261,7 +261,7 @@ case class Vector2D( cartesian: CartesianCoord ) {
    * @return A new vector following the by-scalar multiplication rules
    */
   @inline
-  def /( alpha: Double ) = Vector2D.new_xy(this.x / alpha, this.y / alpha)
+  def /( alpha: Double ) = Vector2D.new_xy( this.x / alpha, this.y / alpha )
 
   /**
    * Compare the current vector with a given one and determine if it is less than the other
@@ -360,7 +360,7 @@ object Vector2D {
    *
    * @param polar The ending point of a origin centered vector in polar coordinates
    */
-  def apply( polar: PolarCoord ) = new Vector2D(polar)
+  def apply( polar: PolarCoord ) = new Vector2D( polar )
 
   /**
    * Creates a vector starting from polar coordinates
@@ -369,7 +369,7 @@ object Vector2D {
    * @param r Rotation relative to the X-Axis, in radians
    * @return A new vector
    */
-  def new_rt( r: Double, t: Double ) = Vector2D(PolarCoord(r, t))
+  def new_rt( r: Double, t: Double ) = Vector2D( PolarCoord( r, t ) )
 
   /**
    * Creates a vector starting from cartesian coordinates
@@ -378,7 +378,7 @@ object Vector2D {
    * @param y Distance on the Y-Axis
    * @return A new vector
    */
-  def new_xy( x: Double, y: Double ) = Vector2D(CartesianCoord(x, y))
+  def new_xy( x: Double, y: Double ) = Vector2D( CartesianCoord( x, y ) )
 
   /**
    * Vector Origin
@@ -387,7 +387,7 @@ object Vector2D {
    *
    * @return A vector with both coordinates equals to zero
    */
-  def origin: Vector2D = Vector2D.new_xy(0, 0)
+  def origin: Vector2D = Vector2D.new_xy( 0, 0 )
 
   /**
    * Zero vector
@@ -405,6 +405,6 @@ object Vector2D {
  */
 object Vector2DImplicits {
 
-  implicit def double2Vector2D( x: Double ): Vector2D = Vector2D.new_xy(x, x)
+  implicit def double2Vector2D( x: Double ): Vector2D = Vector2D.new_xy( x, x )
 
 }

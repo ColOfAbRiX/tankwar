@@ -18,7 +18,7 @@ package com.colofabrix.test.scala.neuralnetwork
 
 import com.colofabrix.scala.math.Matrix
 import com.colofabrix.scala.neuralnetwork.NetworkMatrix
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 import scala.Double._
 import scala.collection.mutable
@@ -32,41 +32,41 @@ class NetworkMatrixTest extends WordSpec with Matchers {
 
     val reference = new NetworkMatrix(
       Seq(
-        Seq(NaN, NaN, 1.0, -1.0),
-        Seq(NaN, NaN, -0.5, 0.5),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(NaN, NaN, NaN, NaN),
-        Seq(0.0, NaN, NaN, 0.0)
-      ), Seq(0), Seq(1)
+        Seq( NaN, NaN, 1.0, -1.0 ),
+        Seq( NaN, NaN, -0.5, 0.5 ),
+        Seq( NaN, NaN, NaN, NaN ),
+        Seq( NaN, NaN, NaN, NaN ),
+        Seq( 0.0, NaN, NaN, 0.0 )
+      ), Seq( 0 ), Seq( 1 )
     )
 
     "From matrix" in {
       val matrix = new Matrix[Double](
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, NaN, NaN, 0.0)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( 0.0, NaN, NaN, 0.0 )
         )
       )
-      val test = new NetworkMatrix(matrix, Seq(0), Seq(1))
+      val test = new NetworkMatrix( matrix, Seq( 0 ), Seq( 1 ) )
 
-      test should equal(reference)
+      test should equal( reference )
     }
 
     "From mutable" in {
       val test = new NetworkMatrix(
         mutable.Buffer(
-          mutable.Buffer(NaN, NaN, 1.0, -1.0),
-          mutable.Buffer(NaN, NaN, -0.5, 0.5),
-          mutable.Buffer(NaN, NaN, NaN, NaN),
-          mutable.Buffer(NaN, NaN, NaN, NaN),
-          Seq(0.0, NaN, NaN, 0.0)
-        ), Seq(0), Seq(1)
+          mutable.Buffer( NaN, NaN, 1.0, -1.0 ),
+          mutable.Buffer( NaN, NaN, -0.5, 0.5 ),
+          mutable.Buffer( NaN, NaN, NaN, NaN ),
+          mutable.Buffer( NaN, NaN, NaN, NaN ),
+          Seq( 0.0, NaN, NaN, 0.0 )
+        ), Seq( 0 ), Seq( 1 )
       )
 
-      test should equal(reference)
+      test should equal( reference )
     }
 
   }
@@ -76,16 +76,16 @@ class NetworkMatrixTest extends WordSpec with Matchers {
     "Matrix is empty" in {
 
       intercept[IllegalArgumentException] {
-        new NetworkMatrix(Seq(Seq()), Seq(), Seq())
+        new NetworkMatrix( Seq( Seq( ) ), Seq( ), Seq( ) )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix(Seq(Seq()), Seq(0), Seq())
+        new NetworkMatrix( Seq( Seq( ) ), Seq( 0 ), Seq( ) )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix(Seq(Seq()), Seq(), Seq(1))
+        new NetworkMatrix( Seq( Seq( ) ), Seq( ), Seq( 1 ) )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix(Seq(Seq()), Seq(0), Seq(1))
+        new NetworkMatrix( Seq( Seq( ) ), Seq( 0 ), Seq( 1 ) )
       }
 
     }
@@ -97,12 +97,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN)
-            ), Seq(), Seq()
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN )
+            ), Seq( ), Seq( )
           )
         }
 
@@ -113,12 +113,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 1), Seq(2, 3, 4)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 1 ), Seq( 2, 3, 4 )
           )
         }
 
@@ -129,12 +129,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 1, 2), Seq(3, 4)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 1, 2 ), Seq( 3, 4 )
           )
         }
 
@@ -149,12 +149,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 5), Seq(2, 3)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 5 ), Seq( 2, 3 )
           )
         }
 
@@ -165,12 +165,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 1), Seq(2, 5)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 1 ), Seq( 2, 5 )
           )
         }
 
@@ -181,12 +181,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 0), Seq(2, 3)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 0 ), Seq( 2, 3 )
           )
         }
 
@@ -197,12 +197,12 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(0.0, 0.0, 0.0, 0.0)
-            ), Seq(0, 1), Seq(2, 2)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( 0.0, 0.0, 0.0, 0.0 )
+            ), Seq( 0, 1 ), Seq( 2, 2 )
           )
         }
 
@@ -217,11 +217,11 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN)
-            ), Seq(0, 1), Seq(2, 3)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN )
+            ), Seq( 0, 1 ), Seq( 2, 3 )
           )
         }
 
@@ -232,13 +232,13 @@ class NetworkMatrixTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           new NetworkMatrix(
             Seq(
-              Seq(NaN, NaN, 1.0, -1.0),
-              Seq(NaN, NaN, -0.5, 0.5),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN),
-              Seq(NaN, NaN, NaN, NaN)
-            ), Seq(0, 1), Seq(2, 3)
+              Seq( NaN, NaN, 1.0, -1.0 ),
+              Seq( NaN, NaN, -0.5, 0.5 ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN ),
+              Seq( NaN, NaN, NaN, NaN )
+            ), Seq( 0, 1 ), Seq( 2, 3 )
           )
         }
 
@@ -253,46 +253,46 @@ class NetworkMatrixTest extends WordSpec with Matchers {
     "The graph is forward only" in {
       val matrix = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
-      matrix.isForwardOnly should equal(true)
-      matrix.isAcyclic should equal(true)
+      matrix.isForwardOnly should equal( true )
+      matrix.isAcyclic should equal( true )
     }
 
     "The graph is acyclic" in {
       val matrix = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, 0.3),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, 0.3 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
-      matrix.isForwardOnly should equal(false)
-      matrix.isAcyclic should equal(true)
+      matrix.isForwardOnly should equal( false )
+      matrix.isAcyclic should equal( true )
     }
 
     "The graph is generic" in {
       val matrix = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, -0.2, NaN, 0.3),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, -0.2, NaN, 0.3 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
-      matrix.isForwardOnly should equal(false)
-      matrix.isAcyclic should equal(false)
+      matrix.isForwardOnly should equal( false )
+      matrix.isAcyclic should equal( false )
     }
   }
 
@@ -302,60 +302,60 @@ class NetworkMatrixTest extends WordSpec with Matchers {
 
       val test = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, NaN, NaN, 0.0)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( 0.0, NaN, NaN, 0.0 )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
       val isEqual = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, NaN, NaN, 0.0)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( 0.0, NaN, NaN, 0.0 )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
       val isNotEqual1 = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, 0.2, NaN, 0.5),
-          Seq(1.3, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(0.0, 0.0, NaN, NaN)
-        ), Seq(0, 1), Seq(2, 3)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, 0.2, NaN, 0.5 ),
+          Seq( 1.3, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( 0.0, 0.0, NaN, NaN )
+        ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
       val isNotEqual2 = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, NaN),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, -0.5, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, 0.0, 0.0, 0.0)
-        ), Seq(0, 1), Seq(1, 2)
+          Seq( NaN, NaN, 1.0, NaN ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, -0.5, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, 0.0, 0.0, 0.0 )
+        ), Seq( 0, 1 ), Seq( 1, 2 )
       )
 
       "compared with another NetworkMatrix" in {
-        (test equals isEqual) should equal(true)
-        (test equals isNotEqual1) should equal(false)
-        (test equals isNotEqual2) should equal(false)
+        (test equals isEqual) should equal( true )
+        (test equals isNotEqual1) should equal( false )
+        (test equals isNotEqual2) should equal( false )
       }
 
       "compared with an adjacency matrix" in {
-        (test equals isEqual.adjacencyOnly) should equal(true)
-        (test equals isNotEqual1.adjacencyOnly) should equal(false)
-        (test equals isNotEqual2.adjacencyOnly) should equal(false)
+        (test equals isEqual.adjacencyOnly) should equal( true )
+        (test equals isNotEqual1.adjacencyOnly) should equal( false )
+        (test equals isNotEqual2.adjacencyOnly) should equal( false )
       }
 
       "compared with a biases row" in {
-        (test equals isEqual.biases) should equal(true)
-        (test equals isNotEqual1.biases) should equal(false)
-        (test equals isNotEqual2.biases) should equal(false)
+        (test equals isEqual.biases) should equal( true )
+        (test equals isNotEqual1.biases) should equal( false )
+        (test equals isNotEqual2.biases) should equal( false )
       }
 
     }
@@ -364,27 +364,27 @@ class NetworkMatrixTest extends WordSpec with Matchers {
 
       val reference = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0), Seq(1)
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0 ), Seq( 1 )
       ).toNaN
 
       "Comparing a non-NaN matrix" in {
 
         val testNotNaN = new NetworkMatrix(
           Seq(
-            Seq(NaN, NaN, 1.0, -1.0),
-            Seq(NaN, NaN, -0.5, 0.5),
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(1.0, NaN, NaN, NaN)
-          ), Seq(0), Seq(1)
+            Seq( NaN, NaN, 1.0, -1.0 ),
+            Seq( NaN, NaN, -0.5, 0.5 ),
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( 1.0, NaN, NaN, NaN )
+          ), Seq( 0 ), Seq( 1 )
         )
 
-        (testNotNaN equals reference) should equal(false)
+        (testNotNaN equals reference) should equal( false )
 
       }
 
@@ -392,15 +392,15 @@ class NetworkMatrixTest extends WordSpec with Matchers {
 
         val testNaN = new NetworkMatrix(
           Seq(
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(NaN, NaN, NaN, NaN),
-            Seq(NaN, NaN, NaN, NaN)
-          ), Seq(0), Seq(1)
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( NaN, NaN, NaN, NaN ),
+            Seq( NaN, NaN, NaN, NaN )
+          ), Seq( 0 ), Seq( 1 )
         )
 
-        (testNaN equals reference) should equal(true)
+        (testNaN equals reference) should equal( true )
       }
     }
 
@@ -408,26 +408,26 @@ class NetworkMatrixTest extends WordSpec with Matchers {
 
       val testNotNaN = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, 1.0, -1.0),
-          Seq(NaN, NaN, -0.5, 0.5),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0), Seq(1)
+          Seq( NaN, NaN, 1.0, -1.0 ),
+          Seq( NaN, NaN, -0.5, 0.5 ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0 ), Seq( 1 )
       )
 
       val testNaN = new NetworkMatrix(
         Seq(
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN),
-          Seq(NaN, NaN, NaN, NaN)
-        ), Seq(0), Seq(1)
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN ),
+          Seq( NaN, NaN, NaN, NaN )
+        ), Seq( 0 ), Seq( 1 )
       )
 
-      testNotNaN.isAllNaN should equal(false)
-      testNaN.isAllNaN should equal(true)
+      testNotNaN.isAllNaN should equal( false )
+      testNaN.isAllNaN should equal( true )
     }
 
   }

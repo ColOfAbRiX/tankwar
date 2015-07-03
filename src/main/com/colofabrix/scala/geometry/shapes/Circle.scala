@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.abstracts.{Container, Shape}
+import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -30,7 +30,7 @@ import com.colofabrix.scala.math.Vector2D
  */
 case class Circle( center: Vector2D, radius: Double ) extends Shape with Container {
   // If the radius is 0... it's a point!
-  require(radius > 0, "The circle must have a non-zero radius")
+  require( radius > 0, "The circle must have a non-zero radius" )
 
   /**
    * Determines if a shape touches this one
@@ -46,7 +46,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     case c: Circle => center - c.center < radius + c.radius
 
     // For polygons I check the distance from the nearest edge
-    case p: Polygon => p.distance(center)._1 <= radius
+    case p: Polygon => p.distance( center )._1 <= radius
 
     case _ => false
   }
@@ -58,7 +58,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p1 The second point that defines the line segment
    * @return True if the line intersects the shape
    */
-  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance(p0, p1, center) <= radius
+  override def overlaps( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1, center ) <= radius
 
   /**
    * Compute the distance between a point and the circle
@@ -90,8 +90,8 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
    */
   override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
-    val distanceToCenter = distance(p0, p1, center)
-    distance(distanceToCenter)
+    val distanceToCenter = distance( p0, p1, center )
+    distance( distanceToCenter )
   }
 
   /**
@@ -100,7 +100,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param where The vector specifying how to move the shape
    * @return A new shape moved of {where}
    */
-  override def move( where: Vector2D ): Shape = new Circle(center + where, radius)
+  override def move( where: Vector2D ): Shape = new Circle( center + where, radius )
 
   /**
    * Find a containing box for the current shape.
@@ -110,10 +110,10 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @return A Box that fully contains this shape
    */
   override lazy val container: Container = {
-    val bottomLeft = Vector2D.new_xy(center.x - radius, center.y - radius)
-    val topRight = Vector2D.new_xy(center.x + radius, center.y + radius)
+    val bottomLeft = Vector2D.new_xy( center.x - radius, center.y - radius )
+    val topRight = Vector2D.new_xy( center.x + radius, center.y + radius )
 
-    new Box(bottomLeft, topRight)
+    new Box( bottomLeft, topRight )
   }
 
   /**

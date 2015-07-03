@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.neuralnetwork.old
 
-import com.colofabrix.scala.neuralnetwork.old.abstracts.{NeuralNetwork, NeuronLayer}
-import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
+import com.colofabrix.scala.neuralnetwork.old.abstracts.{ NeuralNetwork, NeuronLayer }
+import com.colofabrix.scala.neuralnetwork.old.layers.{ HiddenLayer, InputLayer, OutputLayer }
 
 /**
  * A generic neural network model
@@ -31,7 +31,7 @@ import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, O
  */
 class FeedforwardNeuralNetwork(
   val input_layer: InputLayer,
-  val hidden_layers: Seq[HiddenLayer] = Seq(),
+  val hidden_layers: Seq[HiddenLayer] = Seq( ),
   val output_layer: OutputLayer = null )
   extends NeuralNetwork {
 
@@ -40,8 +40,8 @@ class FeedforwardNeuralNetwork(
   override type V = Seq[String]
 
   // Input and Output layers are required. Also the HiddenLayer sequence is required, but can be empty
-  require(input_layer != null, "The input layer must not be null")
-  require(hidden_layers != null, "You must specify at least an empty set of hidden layers")
+  require( input_layer != null, "The input layer must not be null" )
+  require( hidden_layers != null, "You must specify at least an empty set of hidden layers" )
 
   /**
    * Single variable containing all the layer as a sequence of `NeuronLayer`
@@ -69,7 +69,7 @@ class FeedforwardNeuralNetwork(
 
   override def equals( other: Any ) = other match {
     case that: FeedforwardNeuralNetwork =>
-      this.canEqual(that) &&
+      this.canEqual( that ) &&
         this.all_layers == that.all_layers
     case _ => false
   }
@@ -84,8 +84,8 @@ class FeedforwardNeuralNetwork(
   // It checks that the number of inputs of the layer N + 1 equals the number of neurons of the layer N
   require(
     all_layers.size == 1 ||
-      all_layers.iterator.sliding(2).forall {
-        layer => layer(0).n_outputs == layer(1).n_inputs
+      all_layers.iterator.sliding( 2 ).forall {
+        layer => layer( 0 ).n_outputs == layer( 1 ).n_inputs
       }, "Input/outputs count didn't match between layers"
   )
 
@@ -99,7 +99,7 @@ class FeedforwardNeuralNetwork(
    */
   override def output( inputs: Seq[Double] ): Seq[Double] = {
     // Calculate the output of one layer and use it to feed the next layer
-    all_layers.foldLeft(inputs)(( input, layer ) => layer.output(input))
+    all_layers.foldLeft( inputs )( ( input, layer ) => layer.output( input ) )
   }
 
   /**
@@ -109,6 +109,6 @@ class FeedforwardNeuralNetwork(
    */
   override def toString = {
     val text = this.getClass + "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
-    text.replace("class ", "").replace("List", "").replace("com.colofabrix.scala.neuralnetwork.", "")
+    text.replace( "class ", "" ).replace( "List", "" ).replace( "com.colofabrix.scala.neuralnetwork.", "" )
   }
 }

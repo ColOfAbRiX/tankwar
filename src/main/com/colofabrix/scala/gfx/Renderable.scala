@@ -17,9 +17,13 @@
 package com.colofabrix.scala.gfx
 
 /**
+ * Designates an object that can be rendered
  */
 trait Renderable {
 
-  def renderer :  Renderer
+  /**
+   * @return This classes renderer
+   */
+  def renderer: Renderer
 
 }

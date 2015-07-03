@@ -58,7 +58,7 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    */
   override def mutateBiases( c: TankChromosome, random: Random ) =
     mutate(
-      mutationRule(c.valueRange),
+      mutationRule( c.valueRange ),
       c.biases,
       random
     )
@@ -72,11 +72,11 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    */
   override def mutateWeights( c: TankChromosome, random: Random ) =
     for( layer <- c.weights ) yield
-    mutate(
-      mutationRule(c.valueRange),
-      layer,
-      random
-    )
+      mutate(
+        mutationRule( c.valueRange ),
+        layer,
+        random
+      )
 
   /**
    * Mutate the reference rotation zero of a Tank
@@ -85,7 +85,7 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    * @param random Random number generator
    * @return A new mass with applied the mutation rules
    */
-  override def mutateRotationReference( c: TankChromosome, random: Random ) = mutationRule(c.valueRange)(c.rotationRef, random)
+  override def mutateRotationReference( c: TankChromosome, random: Random ) = mutationRule( c.valueRange )( c.rotationRef, random )
 
   /**
    * Mutate the sight ratio of a Tank

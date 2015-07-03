@@ -20,26 +20,26 @@ import com.colofabrix.scala.gfx.Renderer
 import org.lwjgl.opengl.GL11
 
 /**
- * Created by Freddie Poser on 01/07/2015.
+ * Renders the BackGround to the screen
  */
-class BGRenderer(width: Int, height: Int) extends Renderer{
+class BGRenderer( width: Int, height: Int ) extends Renderer {
 
-  def render(): Unit = {
-    GL11.glPushMatrix()
+  def render( ): Unit = {
+    GL11.glPushMatrix( )
 
-    GL11.glTranslated(0, 0, 0)
-    GL11.glColor3d(0, 0, 0)
+    GL11.glTranslated( 0, 0, 0 )
+    GL11.glColor3d( 0, 0, 0 )
 
-    GL11.glBegin(GL11.GL_QUADS)
+    GL11.glBegin( GL11.GL_QUADS )
 
-    GL11.glVertex2d(0, 0)
-    GL11.glVertex2d(0, height)
-    GL11.glVertex2d(width, height)
-    GL11.glVertex2d(width, 0)
+    GL11.glVertex2d( 0, 0 )
+    GL11.glVertex2d( 0, height )
+    GL11.glVertex2d( width, height )
+    GL11.glVertex2d( width, 0 )
 
-    GL11.glEnd()
+    GL11.glEnd( )
 
-    GL11.glPopMatrix()
+    GL11.glPopMatrix( )
   }
 
 }

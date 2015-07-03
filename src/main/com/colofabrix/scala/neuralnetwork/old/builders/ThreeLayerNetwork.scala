@@ -17,7 +17,7 @@
 package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{BehaviourBuilder, DataReader, StructureBuilder}
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{ BehaviourBuilder, DataReader, StructureBuilder }
 import com.colofabrix.scala.neuralnetwork.old.layers.InputLayer
 
 /**
@@ -40,9 +40,9 @@ class ThreeLayerNetwork( override val behaviourBuilder: BehaviourBuilder, nHidde
    */
   override def buildNetwork( nInputs: Int, nOutputs: Int, dataReader: DataReader ): NeuralNetwork = {
     behaviourBuilder.buildNetwork(
-      inputLayer(nInputs, dataReader),
-      hiddenLayers(nInputs, dataReader),
-      outputLayer(nOutputs, dataReader)
+      inputLayer( nInputs, dataReader ),
+      hiddenLayers( nInputs, dataReader ),
+      outputLayer( nOutputs, dataReader )
     )
   }
 
@@ -53,7 +53,7 @@ class ThreeLayerNetwork( override val behaviourBuilder: BehaviourBuilder, nHidde
    * @return A new InputLayer for the NN. It defaults to `InputLayer`
    */
   override def inputLayer( nInputs: Int, data: DataReader ): InputLayer =
-    behaviourBuilder.buildInputLayer(nInputs, data.layerReaders(0))
+    behaviourBuilder.buildInputLayer( nInputs, data.layerReaders( 0 ) )
 
   /**
    * Returns a sequence with one Hidden Layer
@@ -62,10 +62,10 @@ class ThreeLayerNetwork( override val behaviourBuilder: BehaviourBuilder, nHidde
    * @return A sequence containing a single HiddenLayer
    */
   override def hiddenLayers( nInitialInputs: Int, data: DataReader ) = {
-    require(data.layerReaders.length == 3, "The reader must be for a 3-layer network")
+    require( data.layerReaders.length == 3, "The reader must be for a 3-layer network" )
 
     List(
-      behaviourBuilder.buildHiddenLayer(nInitialInputs, nHidden, data.layerReaders(1))
+      behaviourBuilder.buildHiddenLayer( nInitialInputs, nHidden, data.layerReaders( 1 ) )
     )
   }
 
@@ -76,8 +76,8 @@ class ThreeLayerNetwork( override val behaviourBuilder: BehaviourBuilder, nHidde
    * @return A new OutputLayer
    */
   override def outputLayer( nOutputs: Int, data: DataReader ) = {
-    require(data.layerReaders.length == 3, "The reader must be for a 3-layer network")
-    behaviourBuilder.buildOutputLayer(nHidden, nOutputs, data.layerReaders(2))
+    require( data.layerReaders.length == 3, "The reader must be for a 3-layer network" )
+    behaviourBuilder.buildOutputLayer( nHidden, nOutputs, data.layerReaders( 2 ) )
   }
 
   /**

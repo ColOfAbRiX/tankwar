@@ -42,10 +42,10 @@ class RecursiveElmanLayer(
   weights: Seq[Seq[Double]],
   contextWeights: Seq[Seq[Double]],
   var remember: Boolean = true )
-  extends HiddenLayer(activation, n_inputs, n_outputs, biases, weights) {
+  extends HiddenLayer( activation, n_inputs, n_outputs, biases, weights ) {
 
   // Check that every sequence of feedback weights associated with each neuron is the same size of the inputs of that neuron
-  require(contextWeights.length == n_outputs && contextWeights.forall(_.length == n_outputs), "The size of context weights must match n_output")
+  require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
 
   /**
    * Contains the values used as inputs for the last feedback
@@ -55,7 +55,7 @@ class RecursiveElmanLayer(
   def lastFeedback = _memory.toList
 
   // This memory contains the outputs of the previous call of output
-  private val _memory: ListBuffer[Double] = ListBuffer.fill(n_outputs)(0.0)
+  private val _memory: ListBuffer[Double] = ListBuffer.fill( n_outputs )( 0.0 )
 
   // This is actually done because want to trick the HiddenLayer and give it modified parameters instead of create
   // a new type of layer from scratch. I just inherit from HiddenLayer to have an external interface.
@@ -65,16 +65,16 @@ class RecursiveElmanLayer(
     n_inputs + n_outputs,
     n_outputs,
     biases,
-    mixInputs(weights, contextWeights)
+    mixInputs( weights, contextWeights )
   )
 
-  private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
+  private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2}
 
   override def output( inputs: Seq[Double] ): Seq[Double] = {
-    val outputs = internalLayer.output(inputs ++ _memory)
+    val outputs = internalLayer.output( inputs ++ _memory )
 
     if( remember ) {
-      _memory.clear()
+      _memory.clear( )
       _memory ++= outputs
     }
 

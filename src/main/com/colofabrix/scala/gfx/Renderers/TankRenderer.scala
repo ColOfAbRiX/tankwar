@@ -19,54 +19,52 @@ package com.colofabrix.scala.gfx.Renderers
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.Renderers.Primitives.CircleRenderer
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.simulation.{Bullet, Tank}
+import com.colofabrix.scala.simulation.{ Bullet, Tank }
 
 import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 import org.lwjgl.opengl.GL11
 ;
 
+
 /**
- *
+ * Renders a tank to the screen
  */
-class TankRenderer (tank: Tank) extends Renderer{
+class TankRenderer( tank: Tank ) extends Renderer {
 
-  def render(): Unit = {
-
-    if (tank.isDead)
-      return
+  def render( ): Unit = {
 
     val world = tank.world
 
     val size: Double = tank.objectShape.asInstanceOf[Circle].radius
-    val fitness: Double = new TankEvaluator().getFitness(tank, null)
+    val fitness: Double = new TankEvaluator( ).getFitness( tank, null )
     val sight: Double = world.max_sight
 
-    GL11.glPushMatrix()
+    GL11.glPushMatrix( )
 
     // Rotation of the tank
-    GL11.glTranslated(tank.position.x, tank.position.y, 0)
-    GL11.glRotated(tank.rotation.t * 180 / Math.PI, 0, 0, 1)
+    GL11.glTranslated( tank.position.x, tank.position.y, 0 )
+    GL11.glRotated( tank.rotation.t * 180 / Math.PI, 0, 0, 1 )
 
     // The color of the tank depends on its fitness
-    GL11.glColor3d(1, fitness / TankEvaluator.higherFitness(world), 0)
+    GL11.glColor3d( 1, fitness / TankEvaluator.higherFitness( world ), 0 )
 
     // Draw the shape of a tank
-    GL11.glBegin(GL11.GL_TRIANGLES)
-    GL11.glVertex2d(size, 0.0)
-    GL11.glVertex2d(-0.866025 * size, 0.5 * size)
-    GL11.glVertex2d(-0.866025 * size, -0.5 * size)
-    GL11.glEnd()
-    new CircleRenderer(new Circle(Vector2D.origin, size)).render()
+    GL11.glBegin( GL11.GL_TRIANGLES )
+    GL11.glVertex2d( size, 0.0 )
+    GL11.glVertex2d( -0.866025 * size, 0.5 * size )
+    GL11.glVertex2d( -0.866025 * size, -0.5 * size )
+    GL11.glEnd( )
+    new CircleRenderer( new Circle( Vector2D.origin, size ) ).render( )
 
     // Draw the sights of a tank
-    GL11.glColor3d(0.3, 0.1, 0.1)
-    new CircleRenderer(tank.sight(classOf[Bullet]).asInstanceOf[Circle]).render()
+    GL11.glColor3d( 0.3, 0.1, 0.1 )
+    new CircleRenderer( tank.sight( classOf[Bullet] ).asInstanceOf[Circle] ).render( )
 
-    GL11.glColor3d(0.1, 0.3, 0.1)
-    new CircleRenderer(tank.sight(classOf[Tank]).asInstanceOf[Circle]).render()
+    GL11.glColor3d( 0.1, 0.3, 0.1 )
+    new CircleRenderer( tank.sight( classOf[Tank] ).asInstanceOf[Circle] ).render( )
 
-    GL11.glPopMatrix()
+    GL11.glPopMatrix( )
 
   }
 

@@ -17,7 +17,7 @@
 package com.colofabrix.scala.gfx.UI
 
 import com.colofabrix.scala.gfx.Renderer
-import com.colofabrix.scala.gfx.UI.Input.{KeyboardListener, KeyboardManager}
+import com.colofabrix.scala.gfx.UI.Input.{ KeyboardListener, KeyboardManager }
 import com.colofabrix.scala.simulation.World
 import org.lwjgl.input.Keyboard
 
@@ -25,52 +25,40 @@ import scala.collection.mutable.Map
 
 
 /**
+ * A class that manages all of the UserInterface such as Input and the GUI
  */
-class UIManager (val world: World){
+class UIManager( val world: World ) {
 
-  val KBM = new KeyboardManager()
+  /**
+   * The keyboard manager
+   */
+  val KBM = new KeyboardManager( )
+
+  //This is an example keyboard listener that toggles a variable in the flags Map
+  //KBM.addListener(new KeyboardListener( Keyboard.KEY_A, (world: World) => {world.UIManager.flags.toggleBoolFlag("A")}, world, true))
+
+  /**
+   * The flags [Wrapper for a Map]
+   */
+  val flags = new FlagManager( )
 
   //This is an example keyboard listener that toggles a variable in the Flags HashMap
-  //KBM.addListener(new KeyboardListener(Keyboard.KEY_A, () => {Flags.toggleBoolFlag("A")}, true))
 
   //TODO: UI RENDERERS
-  def getRenderers(): Array[Renderer] ={
+  /**
+   * Get the renderers for the GUI
+   * @return The Renderers
+   */
+  def getRenderers( ): Array[Renderer] = {
     return null
   }
 
-  def UpdateUI (): Unit = {
-    KBM.update()
-    println(Flags.getFlag("A"))
+  /**
+   * Update all of the UI including the KeyBoardManager
+   */
+  def UpdateUI( ): Unit = {
+    KBM.update( )
   }
 
 }
 
-object Flags {
-
-  private val flags:Map[String, Any] = Map()
-
-  def getFlag(name: String): Any = {
-    if (flags.contains(name)){
-      return flags.get(name).get
-    }
-    return null
-  }
-
-  def addFlag (name: String, item: Any): Unit = {
-    flags.put(name, item)
-  }
-
-  def updateFlag (name: String, item: Any): Unit = {
-    flags(name) = item
-  }
-
-  def toggleBoolFlag (name: String, default: Boolean = true): Unit = {
-    if (getFlag(name) != null) {
-      updateFlag(name, !getFlag(name).asInstanceOf[Boolean])
-    }
-    else {
-      addFlag(name, default)
-    }
-  }
-
-}

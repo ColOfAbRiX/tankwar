@@ -33,13 +33,13 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   extends ConvexPolygon(
     Seq(
       bottomLeft,
-      Vector2D.new_xy(bottomLeft.x, topRight.y),
+      Vector2D.new_xy( bottomLeft.x, topRight.y ),
       topRight,
-      Vector2D.new_xy(topRight.x, bottomLeft.y)
+      Vector2D.new_xy( topRight.x, bottomLeft.y )
     )
   )
   with Container {
-  require(bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect their spatial meaning")
+  require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect their spatial meaning" )
 
   /**
    * Determines if a point is inside or on the boundary the shape

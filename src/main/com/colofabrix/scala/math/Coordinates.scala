@@ -39,7 +39,7 @@ final class CartesianCoord private( val x: Double, val y: Double ) extends Coord
     case cc: CartesianCoord => this.x == cc.x && this.y == cc.y
 
     // For polar coordinates I first transform them in polar form
-    case pc: PolarCoord => CartesianCoord(pc) == this
+    case pc: PolarCoord => CartesianCoord( pc ) == this
 
     // Comparison not possible with other types
     case _ => false
@@ -70,7 +70,7 @@ object CartesianCoord {
    * @param y Distance on the Y-Axis
    * @return An equivalent point in cartesian coordinates
    */
-  def apply( x: Double, y: Double ): CartesianCoord = new CartesianCoord(x, y)
+  def apply( x: Double, y: Double ): CartesianCoord = new CartesianCoord( x, y )
 }
 
 
@@ -85,7 +85,7 @@ object CartesianCoord {
  * @param r Rotation relative to the X-Axis, in radians. It's always non-negative or converted in a non-negative angle
  */
 final class PolarCoord private( val r: Double, val t: Double ) extends Coordinates {
-  require(r >= 0, "The length of the vector must not be negative")
+  require( r >= 0, "The length of the vector must not be negative" )
 
   /**
    * Equality check between coordinates
@@ -98,7 +98,7 @@ final class PolarCoord private( val r: Double, val t: Double ) extends Coordinat
     case pc: PolarCoord => this.r == pc.r && this.t == pc.t
 
     // For cartesian coordinates I first transform them in polar form
-    case cc: CartesianCoord => PolarCoord(cc) == this
+    case cc: CartesianCoord => PolarCoord( cc ) == this
 
     // Comparison not possible with other types
     case _ => false
@@ -138,7 +138,7 @@ object PolarCoord {
         t % (2 * Math.PI)
       }
       else {
-        trimAngles(t)
+        trimAngles( t )
       }
     }
     )
@@ -166,7 +166,7 @@ object CoordinatesImplicits {
    * @param t A tuple where the first field is the length of the vector and the second is its angle
    * @return A new PolarCoord object created using the provided values
    */
-  implicit def Double2Polar( t: (Double, Double) ): PolarCoord = PolarCoord(t._1, t._2)
+  implicit def Double2Polar( t: (Double, Double) ): PolarCoord = PolarCoord( t._1, t._2 )
 
   /**
    * Convert the coordinates from polar to cartesian representation
@@ -177,8 +177,8 @@ object CoordinatesImplicits {
    */
   implicit def Polar2Cartesian( p: PolarCoord ): CartesianCoord =
     CartesianCoord(
-      p.r * cos(p.t),
-      p.r * sin(p.t)
+      p.r * cos( p.t ),
+      p.r * sin( p.t )
     )
 
   /**
@@ -187,7 +187,7 @@ object CoordinatesImplicits {
    * @param t A tuple where the first field is the length of the vector and the second is its angle
    * @return A new CartesianCoord object created using the provided values
    */
-  implicit def Double2Cartesian( t: (Double, Double) ): CartesianCoord = CartesianCoord(t._1, t._2)
+  implicit def Double2Cartesian( t: (Double, Double) ): CartesianCoord = CartesianCoord( t._1, t._2 )
 
   /**
    * Convert the coordinates from polar to cartesian representation
@@ -198,7 +198,7 @@ object CoordinatesImplicits {
    */
   implicit def Cartesian2Polar( c: CartesianCoord ): PolarCoord =
     PolarCoord(
-      sqrt(pow(c.x, 2) + pow(c.y, 2)),
-      PolarCoord.trimAngles(atan2(c.y, c.x))
+      sqrt( pow( c.x, 2 ) + pow( c.y, 2 ) ),
+      PolarCoord.trimAngles( atan2( c.y, c.x ) )
     )
 }

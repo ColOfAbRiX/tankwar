@@ -42,12 +42,12 @@ abstract class AbstractStatelessNetwork(
   //
   // INITIALIZATION CONSTRAINTS
   //
-  require(inputCount > 0, "The number of allowed input must be a positive integer")
-  require(outputCount > 0, "The number of allowed input must be a positive integer")
-  require(matrix.rows >= inputCount + outputCount + 1, "The adjacency matrix must be define for at least the inputs and the outputs plus biases")
-  require(matrix.cols >= inputCount + outputCount, "The size of weights must match the input/output numbers")
-  require(!matrix.isAllNaN, "The biases must always be numeric")
-  require(this.isAcyclic, "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)")
+  require( inputCount > 0, "The number of allowed input must be a positive integer" )
+  require( outputCount > 0, "The number of allowed input must be a positive integer" )
+  require( matrix.rows >= inputCount + outputCount + 1, "The adjacency matrix must be define for at least the inputs and the outputs plus biases" )
+  require( matrix.cols >= inputCount + outputCount, "The size of weights must match the input/output numbers" )
+  require( !matrix.isAllNaN, "The biases must always be numeric" )
+  require( this.isAcyclic, "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)" )
 
   /**
    * Calculate the output of the Neural Network
@@ -58,14 +58,14 @@ abstract class AbstractStatelessNetwork(
    * @return A sequence of T representing the output
    */
   override def output( inputs: Seq[Double] ): Seq[Double] = {
-    require(inputs.length == inputCount, "The number of supplied inputs must match the number of inputs defined in the network")
-    require(inputs.forall(!_.isNaN), "The inputs must be numeric values")
+    require( inputs.length == inputCount, "The number of supplied inputs must match the number of inputs defined in the network" )
+    require( inputs.forall( !_.isNaN ), "The inputs must be numeric values" )
 
     // This vector matches the size of the adjacency matrix and it's useful to generalize the algorithm. The last value, 1.0, is for the biases
-    val output = solveNetwork(inputs ++ Seq.fill(matrix.rows - inputCount - 1)(Double.NaN) ++ Seq(1.0))
+    val output = solveNetwork( inputs ++ Seq.fill( matrix.rows - inputCount - 1 )( Double.NaN ) ++ Seq( 1.0 ) )
 
     // Returns only the output of the last outputCount neurons
-    output.takeRight(outputCount + 1).take(outputCount).toList
+    output.takeRight( outputCount + 1 ).take( outputCount ).toList
   }
 
   /**
@@ -80,25 +80,25 @@ abstract class AbstractStatelessNetwork(
   @tailrec
   protected final def solveNetwork( inputs: Seq[Double] ): Seq[Double] = {
     // Outputs of each neurons. By default it's NaN, as a neuron might not have an output value yet
-    val outputs = ArrayBuffer.fill(matrix.rows - 1)(Double.NaN)
+    val outputs = ArrayBuffer.fill( matrix.rows - 1 )( Double.NaN )
 
     // Calculate the sum of the weighted inputs using the output vector
     for( i ← 0 until matrix.rows; j ← 0 until matrix.cols ) {
       // The inputs are multiplied by the weight of the neuron they feed
-      val weightedInput = inputs(i) * matrix(i, j)
+      val weightedInput = inputs( i ) * matrix( i, j )
 
       // I have to deal with the NaN values: I process the weightedInput only if it's not NaN
       if( !weightedInput.isNaN ) {
         // The output matrix too contains NaN values, that I have to revert if I have to make calculations.
         // Except with the bias weights, as they are always not NaN and would always been added, also for invalid outputs
-        if( outputs(j).isNaN && i < matrix.rows - 1 ) outputs(j) = 0.0
+        if( outputs( j ).isNaN && i < matrix.rows - 1 ) outputs( j ) = 0.0
         // Sum the weightedInputs here, to save a for-loop later. The AF is applied later, if needed
-        outputs(j) += weightedInput
+        outputs( j ) += weightedInput
       }
     }
 
     // If there's nothing more to process, return the result
-    if( outputs.forall(_.isNaN) ) {
+    if( outputs.forall( _.isNaN ) ) {
       return inputs
     }
 
@@ -106,7 +106,7 @@ abstract class AbstractStatelessNetwork(
     solveNetwork(
       // I apply the Activation Function only before the recursive call. It's cleaner and more efficient.
       // Don't forget the 1.0 value for the biases
-      outputs.map(af(_)) ++ Seq(1.0)
+      outputs.map( af( _ ) ) ++ Seq( 1.0 )
     )
   }
 }

@@ -17,7 +17,7 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.neuralnetwork.old.abstracts.{InputHelper, OutputHelper}
+import com.colofabrix.scala.neuralnetwork.old.abstracts.{ InputHelper, OutputHelper }
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilder
 
 /**
@@ -56,13 +56,13 @@ object TankChromosome {
    */
   def apply( s: List[Any] ) = {
     new TankChromosome(
-      s(0).asInstanceOf[Seq[Seq[Double]]],
-      s(1).asInstanceOf[Seq[Seq[Seq[Double]]]],
-      s(2).asInstanceOf[Double],
-      s(3).asInstanceOf[Double],
-      s(4).asInstanceOf[Double],
-      s(5).asInstanceOf[Seq[String]],
-      s(6).asInstanceOf[StructureBuilder]
+      s( 0 ).asInstanceOf[Seq[Seq[Double]]],
+      s( 1 ).asInstanceOf[Seq[Seq[Seq[Double]]]],
+      s( 2 ).asInstanceOf[Double],
+      s( 3 ).asInstanceOf[Double],
+      s( 4 ).asInstanceOf[Double],
+      s( 5 ).asInstanceOf[Seq[String]],
+      s( 6 ).asInstanceOf[StructureBuilder]
     )
   }
 
@@ -85,10 +85,10 @@ object BrainOutputHelper {
  * - Rotation
  * - Shoot-or-not
  */
-class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double](outputs) {
-  val speed = Vector2D.new_xy(outputs(0), outputs(1))
-  val rotation = outputs(2)
-  val shoot = outputs(3)
+class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double]( outputs ) {
+  val speed = Vector2D.new_xy( outputs( 0 ), outputs( 1 ) )
+  val rotation = outputs( 2 )
+  val shoot = outputs( 3 )
 }
 
 
@@ -128,13 +128,13 @@ class BrainInputHelper( world: World, pos: Vector2D, speed: Vector2D, rot: Vecto
    */
   def this( world: World, rawSequence: Seq[Double] ) = this(
     world,
-    Vector2D.new_xy(rawSequence(0), rawSequence(1)),
-    Vector2D.new_xy(rawSequence(2), rawSequence(3)),
-    Vector2D.new_rt(1, rawSequence(4)),
-    Vector2D.new_xy(rawSequence(5), rawSequence(6)),
-    Vector2D.new_xy(rawSequence(7), rawSequence(8)),
-    Vector2D.new_xy(rawSequence(9), rawSequence(10)),
-    Vector2D.new_xy(rawSequence(11), rawSequence(12))
+    Vector2D.new_xy( rawSequence( 0 ), rawSequence( 1 ) ),
+    Vector2D.new_xy( rawSequence( 2 ), rawSequence( 3 ) ),
+    Vector2D.new_rt( 1, rawSequence( 4 ) ),
+    Vector2D.new_xy( rawSequence( 5 ), rawSequence( 6 ) ),
+    Vector2D.new_xy( rawSequence( 7 ), rawSequence( 8 ) ),
+    Vector2D.new_xy( rawSequence( 9 ), rawSequence( 10 ) ),
+    Vector2D.new_xy( rawSequence( 11 ), rawSequence( 12 ) )
   )
 
   override protected val _values = Seq(

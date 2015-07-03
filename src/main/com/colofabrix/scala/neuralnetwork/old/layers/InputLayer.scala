@@ -36,6 +36,6 @@ class InputLayer( n_inputs: Int )
     new Linear,
     n_inputs,
     n_inputs,
-    Seq.fill(n_inputs)(0.0),
-    Seq.tabulate(n_inputs, n_inputs)(( i, j ) => if( i == j ) 1.0 else 0.0) // Kronecker delta
+    Seq.fill( n_inputs )( 0.0 ),
+    Seq.tabulate( n_inputs, n_inputs )( ( i, j ) => if( i == j ) 1.0 else 0.0 ) // Kronecker delta
   )

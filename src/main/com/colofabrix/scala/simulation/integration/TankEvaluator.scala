@@ -18,7 +18,7 @@ package com.colofabrix.scala.simulation.integration
 
 import java.util
 
-import com.colofabrix.scala.simulation.{Tank, World}
+import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.watchmaker.framework.FitnessEvaluator
 
 /**
@@ -34,7 +34,7 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
    * @return A number representing the fitness of the Tank
    */
   override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double =
-    TankEvaluator.fitness(t)
+    TankEvaluator.fitness( t )
 
   override def isNatural: Boolean = true
 

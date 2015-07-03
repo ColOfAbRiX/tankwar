@@ -17,14 +17,13 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.Controls.InputManager
 import com.colofabrix.scala.gfx.Renderers.BGRenderer
 import com.colofabrix.scala.gfx.UI.UIManager
-import com.colofabrix.scala.gfx.{GFXManager, Renderable, Renderer_D, Renderer}
+import com.colofabrix.scala.gfx.{ GFXManager, Renderable, Renderer_D, Renderer }
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /**
@@ -44,7 +43,7 @@ import scala.util.Random
  * @param _tanks The tanks present in the world
  */
 class World(
-  val arena: Box = Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1280, 800)),
+  val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
   val max_tank_speed: Double = 5,
   val max_tank_rotation: Double = 10 * 2.0 * Math.PI / 360,
   val max_bullet_speed: Double = 4,
@@ -52,15 +51,15 @@ class World(
   val max_sight: Double = 62831.853071795864, // Area for a total radius of 100
   val max_rounds: Int = 1000,
   val dead_time: Double = 0.2,
-  private var _tanks: List[Tank] = List() ) {
-  require(arena.width > 0 && arena.height > 0, "The arena must not be a point")
-  require(max_tank_rotation > 0, "The maximum angular speed must be positive")
-  require(max_tank_speed > 0, "The maximum tank speed must be positive")
-  require(max_bullet_speed > 0, "The maximum bullet speed must be positive")
-  require(bullet_life > 0, "The maximum bullet lifespan must be positive")
-  require(max_sight > 0, "The sight value must be positive")
-  require(max_rounds > 0, "The number of rounds must be positive")
-  require(dead_time >= 0 && dead_time <= 1.0, "The dead time percentage must be between 0 and 1")
+  private var _tanks: List[Tank] = List( ) ) {
+  require( arena.width > 0 && arena.height > 0, "The arena must not be a point" )
+  require( max_tank_rotation > 0, "The maximum angular speed must be positive" )
+  require( max_tank_speed > 0, "The maximum tank speed must be positive" )
+  require( max_bullet_speed > 0, "The maximum bullet speed must be positive" )
+  require( bullet_life > 0, "The maximum bullet lifespan must be positive" )
+  require( max_sight > 0, "The sight value must be positive" )
+  require( max_rounds > 0, "The number of rounds must be positive" )
+  require( dead_time >= 0 && dead_time <= 1.0, "The dead time percentage must be between 0 and 1" )
 
   /**
    * List of tanks present in the world
@@ -70,14 +69,14 @@ class World(
   /**
    * Penalty applied to each tank by the rules of the world
    */
-  val tanksPenalty = ArrayBuffer.fill(tanks.length)(0.0)
+  val tanksPenalty = ArrayBuffer.fill( tanks.length )( 0.0 )
 
   /**
    * List of bullets running through the world
    */
   def bullets = _bullets
 
-  private var _bullets: List[Bullet] = List()
+  private var _bullets: List[Bullet] = List( )
 
 
   /**
@@ -97,8 +96,8 @@ class World(
 
 
   // NOTE: Freddie's integration of graphic. Temporary
-  val GFXManager = new GFXManager(this, "Tank War", new BGRenderer(arena.width.toInt, arena.height.toInt))
-  val UIManager = new UIManager(this)
+  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena.width.toInt, arena.height.toInt ) )
+  val UIManager = new UIManager( this )
 
   /**
    * Check if a limit is respected. If not it first notifies an entity and
@@ -109,9 +108,9 @@ class World(
    * @param action The action to take if check equals false for a second time
    */
   private def check_limit( check: () => Boolean, notify: () => Unit, action: () => Unit ) {
-    if( !check() ) {
-      notify()
-      if( !check() ) action()
+    if( !check( ) ) {
+      notify( )
+      if( !check( ) ) action( )
     }
   }
 
@@ -139,7 +138,7 @@ class World(
    * @param counter The counter to increment
    */
   private def incCounter( counter: String ): Unit = {
-    _counters += (counter -> (_counters(counter) + 1))
+    _counters += (counter -> (_counters( counter ) + 1))
   }
 
   /**
@@ -163,60 +162,60 @@ class World(
 
     // Handling bullets
     _bullets foreach { b =>
-      b.stepForward()
+      b.stepForward( )
 
       // Arena boundary check
       check_limit(
-        ( ) => arena.overlaps(b.position),
-        ( ) => b.on_hitsWalls(),
-        ( ) => _bullets = _bullets.filter(_ != b)
+        ( ) => arena.overlaps( b.position ),
+        ( ) => b.on_hitsWalls( ),
+        ( ) => _bullets = _bullets.filter( _ != b )
       )
 
       // Check the lifespan of a bullet
       if( b.life >= bullet_life ) {
-        _bullets = _bullets.filter(_ != b)
+        _bullets = _bullets.filter( _ != b )
       }
     }
 
     // Handling tanks
-    _tanks.filter(!_.isDead).par.foreach { t: Tank =>
-      t.stepForward()
+    _tanks.filter( !_.isDead ).par.foreach { t: Tank =>
+      t.stepForward( )
 
       // Arena boundary check
       check_limit(
-        ( ) => arena.overlaps(t.position),
-        ( ) => t.on_hitsWalls(),
-        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForPosition")}
+        ( ) => arena.overlaps( t.position ),
+        ( ) => t.on_hitsWalls( ),
+        ( ) => {_tanks = _tanks.filter( _ != t ); incCounter( "bannedForPosition" )}
       )
 
       // Speed limit check
       check_limit(
         ( ) => t.speed.x <= max_tank_speed || t.speed.y <= max_tank_speed,
-        ( ) => t.on_maxSpeedReached(max_tank_speed),
-        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForSpeed")}
+        ( ) => t.on_maxSpeedReached( max_tank_speed ),
+        ( ) => {_tanks = _tanks.filter( _ != t ); incCounter( "bannedForSpeed" )}
       )
 
       // Angular speed limit check
       check_limit(
         ( ) => t.angularSpeed <= max_tank_rotation,
-        ( ) => t.on_maxAngularSpeedReached(max_tank_rotation),
-        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForAngularSpeed")}
+        ( ) => t.on_maxAngularSpeedReached( max_tank_rotation ),
+        ( ) => {_tanks = _tanks.filter( _ != t ); incCounter( "bannedForAngularSpeed" )}
       )
 
       // Maximum sight boundary
       check_limit(
-        ( ) => t.sight(classOf[Tank]).area + t.sight(classOf[Bullet]).area <= max_sight,
-        ( ) => t.on_sightExceedingMax(max_sight),
-        ( ) => {_tanks = _tanks.filter(_ != t); incCounter("bannedForSight")}
+        ( ) => t.sight( classOf[Tank] ).area + t.sight( classOf[Bullet] ).area <= max_sight,
+        ( ) => t.on_sightExceedingMax( max_sight ),
+        ( ) => {_tanks = _tanks.filter( _ != t ); incCounter( "bannedForSight" )}
       )
 
       // Tank/Tank sight (when a tank crosses the vision area of the current tank)
-      tanks.filter(that => !that.isDead && !(t == that)).par.foreach { that =>
+      tanks.filter( that => !that.isDead && !(t == that) ).par.foreach { that =>
 
         // If a tank overlaps a Tank's sight then I inform the Tank
-        if( t.sight(classOf[Tank]).overlaps(that.objectShape) ) {
-          t.on_objectOnSight(that)
-          incCounter("seenTanks")
+        if( t.sight( classOf[Tank] ).overlaps( that.objectShape ) ) {
+          t.on_objectOnSight( that )
+          incCounter( "seenTanks" )
         }
 
       }
@@ -225,29 +224,29 @@ class World(
       bullets.par.foreach { that =>
 
         // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
-        if( t.sight(classOf[Bullet]).overlaps(that.objectShape) && that.tank != t && !that.tank.isDead ) {
-          t.on_objectOnSight(that)
-          incCounter("seenBullets")
+        if( t.sight( classOf[Bullet] ).overlaps( that.objectShape ) && that.tank != t && !that.tank.isDead ) {
+          t.on_objectOnSight( that )
+          incCounter( "seenBullets" )
         }
 
         // TODO: space partitioning for collision detection (there might be hundreds of bullets!)
-        if( that.touches(t) && that.tank != t ) this.on_tankHit(t, that)
+        if( that.touches( t ) && that.tank != t ) this.on_tankHit( t, that )
 
       }
     }
 
     // Check which tank must be called to be respawned
-    tanks.filter(_.isDead).par.foreach { t =>
+    tanks.filter( _.isDead ).par.foreach { t =>
       if( t.surviveTime + max_rounds * dead_time < _time ) {
-        t.on_respawn()
+        t.on_respawn( )
       }
     }
 
-    UIManager.UpdateUI()
+    UIManager.UpdateUI( )
 
     // Update the graphic
-    if( GFXManager != null && tanks.count(!_.isDead) > 1 ) {
-      GFXManager.renderAll()
+    if( GFXManager != null && tanks.count( !_.isDead ) > 1 ) {
+      GFXManager.renderAll( )
     }
   }
 
@@ -261,10 +260,11 @@ class World(
    */
   def createAndAddDefaultTank( reader: DataReader ): Tank = {
     val chromosome = new TankChromosome(
-      Seq(), Seq(), 2.0 * Math.PI * new Random().nextDouble(), Tank.defaultSightRatio, Tank.defaultRange, Tank.defaultActivationFunction, Tank.defaultBrainBuilder
+      Seq( ), Seq( ), 2.0 * Math.PI * new
+          Random( ).nextDouble( ), Tank.defaultSightRatio, Tank.defaultRange, Tank.defaultActivationFunction, Tank.defaultBrainBuilder
     )
 
-    createAndAddTank(chromosome, reader)
+    createAndAddTank( chromosome, reader )
   }
 
 
@@ -278,7 +278,7 @@ class World(
    * @return
    */
   def createAndAddTank( chromosome: TankChromosome, reader: DataReader = null ): Tank = {
-    val tank = Tank(this, chromosome, reader)
+    val tank = Tank( this, chromosome, reader )
     _tanks = _tanks ::: tank :: Nil
     tank
   }
@@ -295,14 +295,14 @@ class World(
     _time = 0
 
     // Reinitialize the Tanks
-    tankList.foreach(_.clear())
+    tankList.foreach( _.clear( ) )
     _tanks = tankList
 
     // Clear all bullets
-    _bullets = List()
+    _bullets = List( )
 
     // Reset dei counter
-    _counters.foreach { case (k, v) => resCounter(k) }
+    _counters.foreach { case (k, v) => resCounter( k )}
   }
 
 
@@ -312,8 +312,8 @@ class World(
    * @param tank The tank that requested to shot
    */
   def on_tankShot( tank: Tank ) {
-    _bullets = _bullets ::: new Bullet(this, tank, max_bullet_speed) :: Nil
-    incCounter("shots")
+    _bullets = _bullets ::: new Bullet( this, tank, max_bullet_speed ) :: Nil
+    incCounter( "shots" )
   }
 
   /**
@@ -327,29 +327,19 @@ class World(
     if( bullet.tank.isDead ) return
 
     // Inform the hit tank
-    tank.on_isHit(bullet)
+    tank.on_isHit( bullet )
     // Inform the tank that shot the bullet
-    bullet.tank.on_hits(bullet)
+    bullet.tank.on_hits( bullet )
 
     if( _bullets contains bullet ) {
-      _bullets = _bullets.filter(_ != bullet)
+      _bullets = _bullets.filter( _ != bullet )
     }
-    incCounter("hits")
+    incCounter( "hits" )
   }
 
-  def getRenderers (): Array[Renderer] = {
-
-    var renderers: Array[Renderer] = null;
-    var renderers_working = new ArrayBuffer[Renderer]()
-
-    tanks.foreach(t =>  renderers_working.append(t.renderer))
-    bullets.foreach(b => renderers_working.append(b.renderer))
-
-    renderers = renderers_working.toArray
-
-    return renderers
-
-
-  }
+  /**
+   * @return - All the renderers for the worlds
+   */
+  def getRenderers( ): Seq[Renderer] = tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
 }
 

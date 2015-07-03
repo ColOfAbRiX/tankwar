@@ -19,12 +19,12 @@ package com.colofabrix.scala.simulation
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.Renderers.TankRenderer
-import com.colofabrix.scala.gfx.{Renderer, Renderable}
+import com.colofabrix.scala.gfx.{ Renderer, Renderable }
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
-import com.colofabrix.scala.neuralnetwork.old.builders.{FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork}
-import com.colofabrix.scala.simulation.abstracts.{InteractiveObject, PhysicalObject}
+import com.colofabrix.scala.neuralnetwork.old.builders.{ FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork }
+import com.colofabrix.scala.simulation.abstracts.{ InteractiveObject, PhysicalObject }
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 
 import scala.collection.mutable.ArrayBuffer
@@ -61,11 +61,11 @@ class Tank private( override val world: World, initialData: TankChromosome, data
   // Private variables. Check public/protected counterparts for documentation
   //
 
-  private var _direction = Vector2D.new_xy(1, 1)
+  private var _direction = Vector2D.new_xy( 1, 1 )
   private val _rotReference = initialData.rotationRef
 
-  private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer()
-  private var _seenBullets: ArrayBuffer[(Bullet, Vector2D, Vector2D)] = ArrayBuffer()
+  private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer( )
+  private var _seenBullets: ArrayBuffer[(Bullet, Vector2D, Vector2D)] = ArrayBuffer( )
 
   private var _isShooting: Boolean = false
   private var _shoot = 0.0
@@ -74,7 +74,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
   private var _killsCount: Int = 0
   private var _surviveTime: Long = 0
 
-  val renderer = new TankRenderer(this)
+  val renderer: Renderer = new TankRenderer( this )
 
   /**
    * The list of tanks in the sight of the current instance of tank
@@ -93,7 +93,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
   /**
    * Physical boundary of the PhysicalObject located in the space
    */
-  override def objectShape: Shape = Circle(_position, 10)
+  override def objectShape: Shape = Circle( _position, 10 )
 
   /**
    * Indicates if the tank is dead
@@ -108,7 +108,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
       BrainInputHelper.count,
       BrainOutputHelper.count,
       if( dataReader == Option.empty ) {
-        new SeqDataReader(initialData.biases, initialData.weights, initialData.activationFunction)
+        new SeqDataReader( initialData.biases, initialData.weights, initialData.activationFunction )
       }
       else {
         dataReader.get
@@ -130,14 +130,14 @@ class Tank private( override val world: World, initialData: TankChromosome, data
    *
    * At creation time it is initialized as a random value inside the arena
    */
-  _position = world.arena.topRight := {_ * Random.nextDouble()}
+  _position = world.arena.topRight := {_ * Random.nextDouble( )}
 
   /**
    * Speed of the object relative to the arena
    *
    * At creation time it is always zero
    */
-  _speed = Vector2D.new_xy(0.0, 0.0)
+  _speed = Vector2D.new_xy( 0.0, 0.0 )
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -176,10 +176,10 @@ class Tank private( override val world: World, initialData: TankChromosome, data
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
-    _seenBullets = _seenBullets.filter(_ != null)
+    _seenBullets = _seenBullets.filter( _ != null )
 
-    val posVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._2)
-    val speedVector = _seenBullets.foldLeft(Vector2D.zero)(_ + _._3)
+    val posVector = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 )
+    val speedVector = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 )
 
     (posVector, speedVector)
   }
@@ -197,9 +197,9 @@ class Tank private( override val world: World, initialData: TankChromosome, data
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
-    _seenTanks = _seenTanks.filter(_ != null)
+    _seenTanks = _seenTanks.filter( _ != null )
 
-    val selectedTank = _seenTanks.sortBy(t => TankEvaluator.fitness(t._1)).head
+    val selectedTank = _seenTanks.sortBy( t => TankEvaluator.fitness( t._1 ) ).head
     (selectedTank._2, selectedTank._3)
   }
 
@@ -216,7 +216,8 @@ class Tank private( override val world: World, initialData: TankChromosome, data
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
-        new BrainInputHelper(world, _position, _speed := _direction, _rotation, seenTank._1, seenTank._2, seenBullet._1, seenBullet._2)
+        new
+            BrainInputHelper( world, _position, _speed := _direction, _rotation, seenTank._1, seenTank._2, seenBullet._1, seenBullet._2 )
       )
     )
 
@@ -226,30 +227,30 @@ class Tank private( override val world: World, initialData: TankChromosome, data
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
     val newAngle = output.rotation * PI * 2.0 + _rotReference
-    _angularSpeed = min(newAngle - _rotation.t, world.max_tank_rotation)
-    _rotation = Vector2D.new_rt(1, _rotation.t + _angularSpeed)
+    _angularSpeed = min( newAngle - _rotation.t, world.max_tank_rotation )
+    _rotation = Vector2D.new_rt( 1, _rotation.t + _angularSpeed )
 
     // It shoots when the function is increasing
     _isShooting = output.shoot - _shoot > 0.02
-    if( _isShooting ) world.on_tankShot(this)
+    if( _isShooting ) world.on_tankShot( this )
     _shoot = output.shoot
 
     // Update the survive time at each tick
     _surviveTime += 1
 
     // Every step the sight buffers are reset and filled again by the world
-    _seenTanks.clear()
-    _seenBullets.clear()
+    _seenTanks.clear( )
+    _seenBullets.clear( )
   }
 
   /**
    * Reset the status of a Tank to the initial values
    */
   def clear( ): Unit = {
-    _direction = Vector2D.new_xy(1, 1)
+    _direction = Vector2D.new_xy( 1, 1 )
 
-    _seenTanks = ArrayBuffer()
-    _seenBullets = ArrayBuffer()
+    _seenTanks = ArrayBuffer( )
+    _seenBullets = ArrayBuffer( )
 
     _isShooting = false
     _shoot = 0.0
@@ -290,11 +291,11 @@ class Tank private( override val world: World, initialData: TankChromosome, data
   override def on_hitsWalls( ): Unit = {
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
     _direction = _direction := { ( x, i ) =>
-      if( _position(i) < 0 || _position(i) > world.arena.topRight(i) ) -1.0 * x else x
+      if( _position( i ) < 0 || _position( i ) > world.arena.topRight( i ) ) -1.0 * x else x
     }
 
     // Trim the position to the boundary of the arena if the tank is outside
-    _position = _position := (( x, i ) => max(min(world.arena.topRight(i), x), world.arena.bottomLeft(i)))
+    _position = _position := (( x, i ) => max( min( world.arena.topRight( i ), x ), world.arena.bottomLeft( i ) ))
   }
 
   /**
@@ -303,7 +304,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
    * When maximum speed is reached, it is trimmed to the maximum
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
-    _speed = _speed := { x => min(max(x, -world.max_tank_speed), world.max_tank_speed) }
+    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed )}
   }
 
   /**
@@ -316,9 +317,9 @@ class Tank private( override val world: World, initialData: TankChromosome, data
    */
   override def on_respawn( ): Unit = {
     // Set speed to zero
-    _speed = Vector2D.new_xy(0, 0)
+    _speed = Vector2D.new_xy( 0, 0 )
     // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
-    _position = world.arena.topRight := {_ * Random.nextDouble()}
+    _position = world.arena.topRight := {_ * Random.nextDouble( )}
     // I'm not dead anymore!
     _isDead = false
   }
@@ -337,7 +338,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
       // Tank->Tank sight. {
       return new Circle(
         _position,
-        (1.0 - initialData.sightRatio) * sqrt(world.max_sight / PI)
+        (1.0 - initialData.sightRatio) * sqrt( world.max_sight / PI )
       )
     }
 
@@ -345,7 +346,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
       // Tank->Bullet sight. {
       return new Circle(
         _position,
-        initialData.sightRatio * sqrt(world.max_sight / PI)
+        initialData.sightRatio * sqrt( world.max_sight / PI )
       )
     }
 
@@ -385,7 +386,7 @@ class Tank private( override val world: World, initialData: TankChromosome, data
     case b: Bullet =>
       // Kill myself and lower my fitness
       _isDead = true
-      _killsCount = max(_killsCount - 1, 0)
+      _killsCount = max( _killsCount - 1, 0 )
   }
 
   /**
@@ -428,12 +429,12 @@ object Tank {
   /**
    * Default activation function
    */
-  val defaultActivationFunction = Seq.fill(3)("tanh")
+  val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
 
   /**
    * Default number of hidden neurons. It is the average between input and output neurons
    */
-  val defaultHiddenNeurons = Math.ceil((BrainInputHelper.count + BrainOutputHelper.count) / 2).toInt
+  val defaultHiddenNeurons = Math.ceil( (BrainInputHelper.count + BrainOutputHelper.count) / 2 ).toInt
 
   /**
    * Default sight ration.
@@ -444,7 +445,7 @@ object Tank {
    * Default type of neural network
    */
   val defaultBrainBuilder =
-    new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
+    new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
 
   // Mess below here. Refactoring planned.
 
@@ -453,13 +454,13 @@ object Tank {
       defaultBrainBuilder.hiddenLayersCount,
       rng,
       defaultRange / 30,
-      defaultActivationFunction(0)
+      defaultActivationFunction( 0 )
     )
 
-  def apply( world: World, chromosome: TankChromosome ): Tank = new Tank(world, chromosome)
+  def apply( world: World, chromosome: TankChromosome ): Tank = new Tank( world, chromosome )
 
-  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank(world, chromosome, Option(reader))
-
+  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new
+      Tank( world, chromosome, Option( reader ) )
 
 
 }

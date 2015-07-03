@@ -17,31 +17,32 @@
 package com.colofabrix.scala.gfx.Renderers.Primitives
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.{Color3d, Renderer}
+import com.colofabrix.scala.gfx.{ Color3D, Renderer }
 import org.lwjgl.opengl.GL11
 
-//TODO: Colours?
 
 /**
+ * Renders a box to the screen
  */
-class BoxRenderer (val box: Box, color: Color3d = null) extends Renderer{
+class BoxRenderer( val box: Box, color: Color3D = null ) extends Renderer {
 
-  def render(): Unit = {
+  def render( ): Unit = {
 
-    GL11.glPushMatrix()
+    GL11.glPushMatrix( )
 
-    GL11.glTranslated(box.bottomLeft.x, box.bottomLeft.y, 0)
-    if (color != null)
-      color.bind()
+    GL11.glTranslated( box.bottomLeft.x, box.bottomLeft.y, 0 )
+    if( color != null ) {
+      color.bind( )
+    }
 
-    GL11.glBegin(GL11.GL_QUADS)
-      GL11.glVertex2d(0,0)
-      GL11.glVertex2d(box.width,0)
-      GL11.glVertex2d(box.width,box.height)
-      GL11.glVertex2d(0,box.height)
-    GL11.glEnd()
+    GL11.glBegin( GL11.GL_QUADS )
+    GL11.glVertex2d( 0, 0 )
+    GL11.glVertex2d( box.width, 0 )
+    GL11.glVertex2d( box.width, box.height )
+    GL11.glVertex2d( 0, box.height )
+    GL11.glEnd( )
 
-    GL11.glPopMatrix()
+    GL11.glPopMatrix( )
 
   }
 

@@ -17,9 +17,13 @@
 package com.colofabrix.scala.gfx
 
 /**
+ * A class that renders something to the screen
  */
 abstract class Renderer {
 
-  def render()
+  /**
+   * Draw this to the screen
+   */
+  def render( )
 
 }

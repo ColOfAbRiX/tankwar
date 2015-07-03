@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.shapes.{Box, ConvexPolygon}
+import com.colofabrix.scala.geometry.shapes.{ Box, ConvexPolygon }
 
 /**
  * Quadtree implementation
@@ -27,10 +27,14 @@ import com.colofabrix.scala.geometry.shapes.{Box, ConvexPolygon}
  */
 class Quadtree[T <: ConvexPolygon]( val dimensions: Box, val bucketSize: Int = 1, val elements: Seq[T] ) {
 
-  def clear() = ???
-  protected def split() = ???
-  protected def getIndex() = ???
-  def insert() = ???
-  def retrieve() = ???
+  def clear( ) = ???
+
+  protected def split( ) = ???
+
+  protected def getIndex( ) = ???
+
+  def insert( ) = ???
+
+  def retrieve( ) = ???
 
 }

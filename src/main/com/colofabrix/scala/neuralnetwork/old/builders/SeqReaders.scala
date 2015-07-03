@@ -17,7 +17,7 @@
 package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{DataReader, LayerReader}
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{ DataReader, LayerReader }
 
 
 /**
@@ -32,16 +32,16 @@ class SeqDataReader( biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], a
   val combined = (biases zip weights).zipWithIndex
 
   // These checks are done because we need a reliable set of data to extract information like the number of inputs
-  require(biases.length == weights.length, "Biases and weights must represent the same number of layers")
-  require(biases.nonEmpty, "At least one layer must be specified")
-  require(af.length == biases.length, "The activation functions must be specified for every layer")
+  require( biases.length == weights.length, "Biases and weights must represent the same number of layers" )
+  require( biases.nonEmpty, "At least one layer must be specified" )
+  require( af.length == biases.length, "The activation functions must be specified for every layer" )
   for( (b, w) <- biases zip weights ) {
-    require(b.nonEmpty && b.length == w.length, "Bias and weights count must match the same number of neurons")
-    require(w.forall(w(0).length == _.length), "All the weights must be for the same number of inputs")
+    require( b.nonEmpty && b.length == w.length, "Bias and weights count must match the same number of neurons" )
+    require( w.forall( w( 0 ).length == _.length ), "All the weights must be for the same number of inputs" )
   }
 
   override def layerReaders = combined map { case ((b, w), i) =>
-    new SeqLayerReader(b, w, af(i))
+    new SeqLayerReader( b, w, af( i ) )
   }
 }
 
@@ -56,7 +56,7 @@ class SeqDataReader( biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], a
  * @param weights Weights of the layer
  */
 class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String ) extends LayerReader {
-  require(af != null, "An activation function must be specified")
+  require( af != null, "An activation function must be specified" )
 
   /**
    * Returns the biases of the neurons
@@ -65,7 +65,7 @@ class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String
    * @return The sequence of biases, one for each neuron
    */
   override def neuronBiases( neurons: Int ): Seq[Double] = {
-    require(neurons > 0, "The number of neurons must be a positive integer")
+    require( neurons > 0, "The number of neurons must be a positive integer" )
     //require(biases.length == neurons, "The number of biases don't match the number of neurons")
 
     biases
@@ -79,10 +79,10 @@ class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String
    * @return The weights, for each neuron, associated with the inputs
    */
   override def inputWeights( neurons: Int, inputs: Int ): Seq[Seq[Double]] = {
-    require(neurons > 0)
-    require(inputs > 0)
-    require(weights.length == neurons)
-    require(weights(0).length == inputs)
+    require( neurons > 0 )
+    require( inputs > 0 )
+    require( weights.length == neurons )
+    require( weights( 0 ).length == inputs )
 
     weights
   }
@@ -92,5 +92,5 @@ class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String
    *
    * @return The ActivationFunction associated with the layer
    */
-  override def activationFunction: ActivationFunction = ActivationFunction(af)
+  override def activationFunction: ActivationFunction = ActivationFunction( af )
 }

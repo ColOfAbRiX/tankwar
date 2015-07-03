@@ -17,9 +17,9 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.shapes.{Box, Circle}
-import com.colofabrix.scala.gfx.Renderers.Primitives.{FilledCircleRenderer, CircleRenderer, BoxRenderer}
-import com.colofabrix.scala.gfx.{Color3d, Renderer, Renderable}
+import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
+import com.colofabrix.scala.gfx.Renderers.Primitives.{ CircleRenderer, BoxRenderer }
+import com.colofabrix.scala.gfx.{ Color3D, Renderer, Renderable }
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -29,13 +29,14 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
-class Bullet( override val world: World, val tank: Tank, val proper_speed: Double ) extends PhysicalObject with Renderable{
+class Bullet( override val world: World, val tank: Tank, val proper_speed: Double )
+  extends PhysicalObject with Renderable {
 
   import Math._
 
   private var _life = 0
 
-  def renderer = new FilledCircleRenderer(objectShape.asInstanceOf[Circle], Color3d.BLUE)
+  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Color3D.BLUE, true )
 
   /**
    * Life of the bullet
@@ -58,13 +59,13 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The current speed of a bullet
    */
-  _speed = Vector2D.new_rt(proper_speed, tank.rotation.t) + tank.speed
-  _speed = _speed := { x => max(min(x, world.max_bullet_speed), -world.max_bullet_speed) }
+  _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
+  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed )}
 
   /**
    * Physical boundary of the bullet.
    */
-  override def objectShape: Shape = Circle(_position, 2)
+  override def objectShape: Shape = Circle( _position, 2 )
 
   /**
    * Moves the bullet one step into the future.

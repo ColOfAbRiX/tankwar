@@ -16,10 +16,10 @@
 
 package com.colofabrix.scala.gfx.UI.Input
 
+import com.colofabrix.scala.simulation.World
 import org.lwjgl.input.Keyboard
 
 /**
- * Created by Freddie on 26/05/2015.
  *
  * Class to listen for keyboard input, can be event driven, ie activated on a discrete press
  * or release or continuous, ie activated each frame when the key is down. If event driven
@@ -31,18 +31,20 @@ import org.lwjgl.input.Keyboard
  * @param onPress If eventDriven then this determined if it should be activated onPress (T) or onRelease (F)
  *
  */
-class KeyboardListener(val key: Int,
-                       val action: () => Unit,
-                       val eventDriven: Boolean = false,
-                       val onPress: Boolean = true){
+class KeyboardListener( val key: Int,
+  val action: (World) => Unit,
+  val world: World,
+  val eventDriven: Boolean = false,
+  val onPress: Boolean = true ) {
 
   /**
    * Update the key if it is not eventDriven
    */
-  def update(): Unit = {
-    if (!eventDriven) {
-      if (Keyboard.isKeyDown(key))
-        action()
+  def update( ): Unit = {
+    if( !eventDriven ) {
+      if( Keyboard.isKeyDown( key ) ) {
+        action( world )
+      }
     }
   }
 
@@ -51,14 +53,14 @@ class KeyboardListener(val key: Int,
    * @param eKey The key integer of the event
    * @param isPress True if the event is a press, false if it is a release
    */
-  def checkEvent (eKey: Int, isPress: Boolean): Unit = {
+  def checkEvent( eKey: Int, isPress: Boolean ): Unit = {
     //If this listener is event driven and not continuous polling
-    if (eventDriven){
+    if( eventDriven ) {
       //If the event is the right type (release/press)
-      if(isPress == onPress) {
+      if( isPress == onPress ) {
         //If it is the right key
-        if (eKey == key) {
-          action()
+        if( eKey == key ) {
+          action( world )
         }
       }
     }

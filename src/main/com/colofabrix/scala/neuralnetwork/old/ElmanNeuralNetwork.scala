@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.neuralnetwork.old
 
-import com.colofabrix.scala.neuralnetwork.old.layers.{ElmanFeedbackLayer, InputLayer, OutputLayer}
+import com.colofabrix.scala.neuralnetwork.old.layers.{ ElmanFeedbackLayer, InputLayer, OutputLayer }
 
 /**
  * Elman Neural Network
@@ -38,7 +38,7 @@ class ElmanNeuralNetwork(
 
   def rememberPast_=( value: Boolean ) {
     _rememberPast = value
-    hidden_layers.foreach(_.remember = value)
+    hidden_layers.foreach( _.remember = value )
   }
 
   override val weights = for( layer <- all_layers ) yield layer.weights

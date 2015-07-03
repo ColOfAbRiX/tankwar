@@ -25,12 +25,12 @@ import com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser
  *
  * This class allows to create CSV files to analyse the various outputs varying specific inputs.
  */
-final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser(tank.world, tank.brain) {
+final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser( tank.world, tank.brain ) {
 
   /**
    * First line that will be written to the output stream
    */
-  override def outputHeader: String = s"${Seq.range(0, network.n_inputs).mkString("", "-input;", "-input")};Force-X;Force-Y;Rot;Shoot"
+  override def outputHeader: String = s"${Seq.range( 0, network.n_inputs ).mkString( "", "-input;", "-input" )};Force-X;Force-Y;Rot;Shoot"
 
   /**
    * Contains the definition of the plots for the network, like the definition of the
@@ -54,7 +54,7 @@ final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser(ta
    * @return A list of functions that run the test, each of which are called once
    */
   override val testDefinitions: List[(PrintWriter => Unit)] = List(
-    fullAnalysis(Seq.fill(BrainInputHelper.count)(0.0), 5, 6)(_)
+    fullAnalysis( Seq.fill( BrainInputHelper.count )( 0.0 ), 5, 6 )( _ )
   )
 
   def runTests( ): Unit = {
@@ -62,19 +62,19 @@ final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser(ta
     testDefinitions.zipWithIndex.foreach { test =>
 
       // Different name of files for different networks and tests
-      val fileName = s"out/NN-${Math.abs(network.hashCode)}_test-${test._2}.csv"
+      val fileName = s"out/NN-${Math.abs( network.hashCode )}_test-${test._2}.csv"
 
       // Don't do anything if the test has already run (speedup a lot)
-      if( !new java.io.File(fileName).exists() ) {
-        val writer = new PrintWriter(fileName)
+      if( !new java.io.File( fileName ).exists( ) ) {
+        val writer = new PrintWriter( fileName )
 
         // Write the header
-        writer.println(outputHeader)
+        writer.println( outputHeader )
 
         // Run the test
         test._1 {writer}
 
-        writer.close()
+        writer.close( )
       }
     }
   }
