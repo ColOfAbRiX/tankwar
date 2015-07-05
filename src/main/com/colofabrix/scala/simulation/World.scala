@@ -17,9 +17,10 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.Renderers.BGRenderer
-import com.colofabrix.scala.gfx.UI.UIManager
-import com.colofabrix.scala.gfx.{ GFXManager, Renderable, Renderer_D, Renderer }
+import com.colofabrix.scala.gfx.GFXManager
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.renderers.BGRenderer
+import com.colofabrix.scala.gfx.ui.UIManager
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
@@ -94,9 +95,7 @@ class World(
    */
   val rounds = 1 to max_rounds
 
-
-  // NOTE: Freddie's integration of graphic. Temporary
-  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena.width.toInt, arena.height.toInt ) )
+  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena ) )
   val UIManager = new UIManager( this )
 
   /**
@@ -242,7 +241,7 @@ class World(
       }
     }
 
-    UIManager.UpdateUI( )
+    UIManager.update( )
 
     // Update the graphic
     if( GFXManager != null && tanks.count( !_.isDead ) > 1 ) {
@@ -338,8 +337,11 @@ class World(
   }
 
   /**
-   * @return - All the renderers for the worlds
+   * Collects the renderers to draw the objects in the world, like tanks and bullets
+   *
+   * @return All the renderers for the objects in the simulation worlds
    */
-  def getRenderers( ): Seq[Renderer] = tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+  def renderers: Seq[Renderer] = tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+
 }
 

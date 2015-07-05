@@ -17,20 +17,23 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.Vector2D
 
 /**
  * A generic two-dimensional polygon
  * A generic two-dimensional polygon
  */
-class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
+class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
 
   /**
    * Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
    */
-  val edges: Seq[Vector2D] = (vertices :+ vertices.head).sliding( 2 ) map { v => v( 1 ) - v( 0 )} toList
+  val edges: Seq[Vector2D] = (vertices :+ vertices.head).sliding( 2 ) map { v => v( 1 ) - v( 0 ) } toList
 
   /**
    * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
@@ -161,8 +164,8 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
    * @return True if the point is inside the shape
    */
   def overlaps( that: Polygon ): Boolean = {
-    val thisInThat = vertices.foldLeft( false ) { ( r, v ) => r || that.overlaps( v )}
-    val thatInThis = that.vertices.foldLeft( false ) { ( r, v ) => r || overlaps( v )}
+    val thisInThat = vertices.foldLeft( false ) { ( r, v ) => r || that.overlaps( v ) }
+    val thatInThis = that.vertices.foldLeft( false ) { ( r, v ) => r || overlaps( v ) }
     thisInThat || thatInThis
   }
 
@@ -235,4 +238,11 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
       case v0 :: v1 :: v2 :: Nil => v1.x * (v2.y - v0.y)
     }.sum / 2.0
   }
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new PolygonRenderer( this, Color3D.RED )
 }

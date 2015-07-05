@@ -14,10 +14,11 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.Renderers.Primitives
+package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.{ Color3D, Renderer }
+import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.abstracts.Renderer
 import org.lwjgl.opengl.GL11
 
 
@@ -27,13 +28,11 @@ import org.lwjgl.opengl.GL11
 class BoxRenderer( val box: Box, color: Color3D = null ) extends Renderer {
 
   def render( ): Unit = {
-
     GL11.glPushMatrix( )
 
     GL11.glTranslated( box.bottomLeft.x, box.bottomLeft.y, 0 )
-    if( color != null ) {
-      color.bind( )
-    }
+
+    bindColor( color )
 
     GL11.glBegin( GL11.GL_QUADS )
     GL11.glVertex2d( 0, 0 )
@@ -43,7 +42,6 @@ class BoxRenderer( val box: Box, color: Color3D = null ) extends Renderer {
     GL11.glEnd( )
 
     GL11.glPopMatrix( )
-
   }
 
 }

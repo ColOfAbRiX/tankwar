@@ -14,76 +14,48 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.Renderers.Primitives
+package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.{ Color3D, Renderer }
+import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11
 
-
 /**
- *
  * Renders a Circle to the screen
  *
+ * @param circle The circle to draw
+ * @param color The colour of the circle
+ * @param filled True indicated the circle has to be filled
  */
 class CircleRenderer( val circle: Circle, color: Color3D = null, val filled: Boolean = false ) extends Renderer {
 
+  /**
+   * Draw this to the screen
+   */
   def render( ): Unit = {
+    val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
+
+    GL11.glPushMatrix( )
+    bindColor( color )
+
     if( filled ) {
-      render_filled( )
+      GL11.glTranslated( circle.center.x, circle.center.y, 0 )
+      GL11.glBegin( GL11.GL_TRIANGLE_FAN )
     }
     else {
-      render_empty( )
-    }
-  }
-
-  private def render_filled( ): Unit = {
-    GL11.glPushMatrix( )
-    GL11.glTranslated( circle.center.x, circle.center.y, 0 )
-    GL11.glScaled( circle.radius, circle.radius, 1 )
-
-    if( color != null ) {
-      color.bind( )
+      GL11.glTranslated( 0, 0, 0 )
+      GL11.glBegin( GL11.GL_LINE_LOOP )
     }
 
-    val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
-
-    GL11.glBegin( GL11.GL_TRIANGLE_FAN )
-    GL11.glVertex2f( 0, 0 )
-    var i: Int = 0
-    while( i <= numSegments ) {
-      {
-        val angle: Double = Math.PI * 2 * i / numSegments
-        GL11.glVertex2f( Math.cos( angle ).toFloat, Math.sin( angle ).toFloat )
-      }
-      i += 1
-      i - 1
-    }
-    GL11.glEnd( )
-
-    GL11.glPopMatrix( )
-  }
-
-  private def render_empty( ): Unit = {
-    val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
-
-    GL11.glPushMatrix( )
-
-    GL11.glTranslated( 0, 0, 0 )
-    if( color != null ) {
-      color.bind( )
-    }
-    GL11.glBegin( GL11.GL_LINE_LOOP )
-
-    for( i ← 0 until numSegments ) {
+    for( i <- 0 until numSegments ) {
       val tetha = 2.0 * Math.PI * i.toDouble / numSegments.toDouble
       val point = Vector2D.new_rt( circle.radius, tetha )
       GL11.glVertex2f( point.x.toFloat, point.y.toFloat )
     }
 
     GL11.glEnd( )
-
     GL11.glPopMatrix( )
   }
 

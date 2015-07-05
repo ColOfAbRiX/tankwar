@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,18 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.Renderers
+package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.Renderers.Primitives.CircleRenderer
+import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
-import com.colofabrix.scala.simulation.{ Bullet, Tank }
-
-import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.simulation.integration.TankEvaluator
+import com.colofabrix.scala.simulation.{ Bullet, Tank }
 import org.lwjgl.opengl.GL11
-;
-
 
 /**
- * Renders a tank to the screen
+ * Renders a tank to the screen with its properties
  */
 class TankRenderer( tank: Tank ) extends Renderer {
 
@@ -57,15 +54,17 @@ class TankRenderer( tank: Tank ) extends Renderer {
     GL11.glEnd( )
     new CircleRenderer( new Circle( Vector2D.origin, size ) ).render( )
 
-    // Draw the sights of a tank
-    GL11.glColor3d( 0.3, 0.1, 0.1 )
-    new CircleRenderer( tank.sight( classOf[Bullet] ).asInstanceOf[Circle] ).render( )
+    // Draw the sight of a bullet
+    val threatRenderer = tank.sight( classOf[Tank] ).renderer
+    threatRenderer.bindColor( new Color3D( 0.3, 0.1, 0.1 ) )
+    threatRenderer.render( )
 
-    GL11.glColor3d( 0.1, 0.3, 0.1 )
-    new CircleRenderer( tank.sight( classOf[Tank] ).asInstanceOf[Circle] ).render( )
+    // Draw the sights of a tank
+    val treatRenderer = tank.sight( classOf[Bullet] ).renderer
+    treatRenderer.bindColor( new Color3D( 0.1, 0.3, 0.1 ) )
+    treatRenderer.render( )
 
     GL11.glPopMatrix( )
-
   }
 
 }

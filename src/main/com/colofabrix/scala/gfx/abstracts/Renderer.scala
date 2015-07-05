@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,29 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx
+package com.colofabrix.scala.gfx.abstracts
+
+import com.colofabrix.scala.gfx.Color3D
 
 /**
  * A class that renders something to the screen
  */
-abstract class Renderer {
+trait Renderer {
 
   /**
    * Draw this to the screen
    */
   def render( )
+
+  /**
+   * Sets the color of the brush
+   *
+   * @param color The color to set
+   */
+   def bindColor(color: Color3D) {
+    if( color != null ) {
+      color.bind( )
+    }
+  }
 
 }

@@ -14,18 +14,18 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.UI
+package com.colofabrix.scala.gfx.ui
 
-import com.colofabrix.scala.gfx.Renderer
-import com.colofabrix.scala.gfx.UI.Input.{ KeyboardListener, KeyboardManager }
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.ui.input.KeyboardManager
 import com.colofabrix.scala.simulation.World
-import org.lwjgl.input.Keyboard
 
-import scala.collection.mutable.Map
-
+import scala.collection._
 
 /**
- * A class that manages all of the UserInterface such as Input and the GUI
+ * Manages all of the user interfaces, such as Input and the GUI.
+ *
+ * @param world A reference to the World
  */
 class UIManager( val world: World ) {
 
@@ -34,30 +34,37 @@ class UIManager( val world: World ) {
    */
   val KBM = new KeyboardManager( )
 
-  //This is an example keyboard listener that toggles a variable in the flags Map
-  //KBM.addListener(new KeyboardListener( Keyboard.KEY_A, (world: World) => {world.UIManager.flags.toggleBoolFlag("A")}, world, true))
-
   /**
-   * The flags [Wrapper for a Map]
+   * The flags of the user interface
    */
-  val flags = new FlagManager( )
-
-  //This is an example keyboard listener that toggles a variable in the Flags HashMap
-
-  //TODO: UI RENDERERS
-  /**
-   * Get the renderers for the GUI
-   * @return The Renderers
-   */
-  def getRenderers( ): Array[Renderer] = {
-    return null
+  val flags = new mutable.HashMap[String, Any] {
+    def getWithDefault[T]( key: String, default: T ): T = {
+      if( !contains( key ) ) return default
+      apply( key ) match {
+        case v: T => v
+        case _ => default
+      }
+    }
   }
+
+  initializeFlags( )
+
+  /**
+   * The renderers for the User Interface
+   *
+   * @return Returns the renderers for the User Interface
+   */
+  def renderers: Seq[Renderer] = Seq( )
 
   /**
    * Update all of the UI including the KeyBoardManager
    */
-  def UpdateUI( ): Unit = {
+  def update( ): Unit = {
     KBM.update( )
+  }
+
+  private def initializeFlags( ): Unit = {
+    flags += (( "sync" -> 25 ))  // Frame sync
   }
 
 }

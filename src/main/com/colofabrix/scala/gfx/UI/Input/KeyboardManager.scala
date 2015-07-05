@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,28 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.UI.Input
+package com.colofabrix.scala.gfx.ui.input
 
 import org.lwjgl.input.Keyboard
 
-import scala.collection.mutable.ArrayBuffer
-
 /**
- *
  * Class to manage all keyboard input, has an array buffer of KeyboardListeners which can listen for keyboard events
- *
  */
 class KeyboardManager {
-
-  //DONE: Implement keyboard
 
   /**
    * The ArrayBuffer of listeners
    */
-  val keyBoardListeners = new ArrayBuffer[KeyboardListener]( )
+  var keyboardListeners = Seq[KeyboardListener]( )
 
   /**
    * Add a listener to the list
-   * @param keyboardListener The Listener to add
+   *
+   * @param listener The Listener to add
    */
-  def addListener( keyboardListener: KeyboardListener ) = keyBoardListeners.append( keyboardListener )
+  def addListener( listener: KeyboardListener ): Unit ={
+    keyboardListeners = listener +: keyboardListeners
+  }
 
   /**
    * Update the keyboard ie poll for input. Called once per frame by the Game
@@ -46,20 +43,12 @@ class KeyboardManager {
   def update( ): Unit = {
 
     while( Keyboard.next( ) ) {
-      keyBoardListeners.foreach(
-        k =>
-          if( k.eventDriven ) {
-            k.checkEvent( Keyboard.getEventKey, Keyboard.getEventKeyState )
-          }
-      )
+      keyboardListeners.filter( _.eventDriven ).foreach {
+        _.checkEvent( Keyboard.getEventKey, Keyboard.getEventKeyState )
+      }
     }
 
-    keyBoardListeners.foreach(
-      k =>
-        if( !k.eventDriven ) {
-          k.update( )
-        }
-    )
+    keyboardListeners.filter( !_.eventDriven ).foreach( _.update( ) )
 
   }
 

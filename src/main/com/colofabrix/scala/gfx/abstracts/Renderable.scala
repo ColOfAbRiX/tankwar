@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx
+package com.colofabrix.scala.gfx.abstracts
 
 /**
  * Designates an object that can be rendered
@@ -22,7 +22,9 @@ package com.colofabrix.scala.gfx
 trait Renderable {
 
   /**
-   * @return This classes renderer
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
    */
   def renderer: Renderer
 

@@ -17,9 +17,10 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
-import com.colofabrix.scala.gfx.Renderers.Primitives.{ CircleRenderer, BoxRenderer }
-import com.colofabrix.scala.gfx.{ Color3D, Renderer, Renderable }
+import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import com.colofabrix.scala.gfx.renderers.CircleRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 

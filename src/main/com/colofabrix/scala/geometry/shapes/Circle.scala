@@ -17,6 +17,8 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.renderers.CircleRenderer
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -128,4 +130,11 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @return True if the point is inside the shape or on its boundary
    */
   override def overlaps( p: Vector2D ): Boolean = (p - center).r <= radius
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new CircleRenderer(this, null)
 }

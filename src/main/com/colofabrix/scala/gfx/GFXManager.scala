@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,40 +16,32 @@
 
 package com.colofabrix.scala.gfx
 
+import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.World
-import org.lwjgl.opengl.{ GL11, DisplayMode, Display }
+import org.lwjgl.opengl.{ Display, DisplayMode, GL11 }
 
 /**
  * Runs all of the GFX operations
  */
 class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Renderer ) {
-
-  //DONE: Formatting
-  //DONE: TankRenderer knowledge problem
-  //DONE: Flags
-  //DONE`: Circle Renderer
-  //TODO: DOCS
-  //--BLOCKED BY: FLAGS
-
   require( world != null, "The World must be specified" )
   require( BGRenderer != null, "There must be a BG Renderer" )
 
-  val width = world.arena.width
   val height = world.arena.height
+  val width = world.arena.width
 
   // Initialize OpenGL
   Display.setDisplayMode( new DisplayMode( width.toInt, height.toInt ) )
   Display.create( )
   Display.setTitle( windowsTitle )
 
-  // Set the camera
   setCamera( )
 
   /**
    * Render all of the GFX
-   * --Gets all the renderers from the world and the UI then renders them
-   * --Syncs the display to the SimSpeed flag
-   * --Exits if the Red-Cross is clicked
+   * - Gets all the renderers from the world and the UI then renders them
+   * - Syncs the display to the SimSpeed flag
+   * - Exits if the Red-Cross is clicked
    */
   def renderAll( ): Unit = {
 
@@ -57,17 +49,10 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
     BGRenderer.render( )
 
-    val worldRenderers = world.getRenderers( )
-    val UIRenderers = world.UIManager.getRenderers( )
+    world.renderers.foreach( _.render( ) )
+    world.UIManager.renderers.foreach( _.render( ) )
 
-    if( worldRenderers != null ) {
-      worldRenderers.foreach( r => if( r != null ) r.render( ) )
-    }
-    if( UIRenderers != null ) {
-      UIRenderers.foreach( r => if( r != null ) r.render( ) )
-    }
-
-    Display.sync( world.UIManager.flags.getFlag( "SimSpeed", 60, create = true ).asInstanceOf[Int] )
+    Display.sync( world.UIManager.flags.getWithDefault("sync", 25) )
     Display.update( )
 
     // Deal with a close request
@@ -77,7 +62,6 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
   }
 
-  //Important LWJGL method
   private def setCamera( ) {
     GL11.glClearColor( 0f, 0f, 0f, 1.0f )
     GL11.glClear( GL11.GL_COLOR_BUFFER_BIT )

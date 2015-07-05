@@ -18,8 +18,8 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.Renderers.TankRenderer
-import com.colofabrix.scala.gfx.{ Renderer, Renderable }
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import com.colofabrix.scala.gfx.renderers.TankRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -453,14 +453,12 @@ object Tank {
     new RandomReader(
       defaultBrainBuilder.hiddenLayersCount,
       rng,
-      defaultRange / 30,
+      defaultRange / 2,
       defaultActivationFunction( 0 )
     )
 
   def apply( world: World, chromosome: TankChromosome ): Tank = new Tank( world, chromosome )
 
-  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new
-      Tank( world, chromosome, Option( reader ) )
-
+  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank( world, chromosome, Option( reader ) )
 
 }
