@@ -17,6 +17,7 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.gfx.renderers.BoxRenderer
 import com.colofabrix.scala.math.Vector2D
 
 
@@ -108,6 +109,13 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
    * @return True if the point is inside the shape
    */
   def intersects( that: Circle ): Boolean = that.intersects( this )
+
+  /**
+   * A renderer for a box
+   *
+   * @return A new instance of BoxRenderer for the current polygon
+   */
+  override def renderer = new BoxRenderer( this )
 
   /**
    * Determines if a point is inside or on the boundary the shape

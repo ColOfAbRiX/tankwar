@@ -119,7 +119,7 @@ class LayerTest extends WordSpec with Matchers {
         inputs_range foreach { x =>
 
           withClue( s"While checking with n=$n, x=$x," ) {
-            layer.output( x ) foreach {_ should equal( x )}
+            layer.output( x ) foreach { _ should equal( x ) }
           }
         }
       }

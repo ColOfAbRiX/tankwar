@@ -18,6 +18,8 @@ package com.colofabrix.scala.geometry
 
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -28,28 +30,28 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * object-object interactions in graphical environments.
  *
  * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
+ * @param bounds The boundary of the quadtree
+ * @param level The level of the root of the quadtree. If the quadtree is not a subtree of any other node, this parameter is 0
+ * @param nodes The children nodes of the current node, or an empty list if we are on a leaf
+ * @param shapes The shapes contained by the node.
+ * @param splitSize The size of `shapes` after which the node splits
+ * @param depth The maximum depth of the quadtree
+ * @tparam T The type of the shapes that the quadtree will check for operations. They must be of type `Shape`
+ * @tparam U The type of objects contained by the quadtree. They must be `PhysicalObject`
  */
 class Quadtree[T <: Shape, U <: PhysicalObject] protected(
-  val bounds: Box,
+  override val bounds: Box,
   val level: Int,
-  val nodes: List[Quadtree[T, U]],
-  val shapes: List[U],
-  val splitSize: Int,
-  val depth: Int
+  override val nodes: List[Quadtree[T, U]],
+  override val shapes: List[U],
+  override val splitSize: Int,
+  override val depth: Int
 ) extends abstracts.Quadtree[T, U] {
   require( bounds != null, "A box must be specified to indicate the Quadtree area" )
   require( nodes != null, "A node list must be specified, even empty" )
   require( shapes != null, "A shape list must be specified, even empty" )
   require( splitSize > 0, "The bucket size must be an integer greater than zero" )
   require( depth > 0, "The number of levels must be an integer greater than zero" )
-
-  /**
-   * Determines where an object belongs in the quadtree by determining which node the object can fit into.
-   *
-   * @param s The shape to check
-   * @return An Option containing the Quadtree that contains the Shape or nothing
-   */
-  def findNode( s: Shape ) = nodes.find( _.bounds.intersects( s ) )
 
   /**
    * Remove the object from the quadtree.
@@ -67,7 +69,7 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected(
       if( where.isDefined ) {
         val output = where.get - p
 
-        if( output.areNodesEmpty ) {
+        if( output.areShapesEmpty ) {
           return new Quadtree[T, U]( bounds, level, List( ), output.shapes, splitSize, depth )
         }
 
@@ -111,7 +113,7 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected(
    *
    * @return true is the quadtree doesn't contain any subnode
    */
-  def areNodesEmpty: Boolean = nodes.isEmpty && nodes.forall( _.areNodesEmpty )
+  def areNodesEmpty: Boolean = nodes.isEmpty
 
   /**
    * Tells if the Quadtree is empty of Shapes
@@ -126,6 +128,14 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected(
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
   def clear( ) = new Quadtree[T, U]( bounds, level, List( ), List( ), splitSize, depth )
+
+  /**
+   * Determines where an object belongs in the quadtree by determining which node the object can fit into.
+   *
+   * @param s The shape to check
+   * @return An Option containing the Quadtree that contains the Shape or nothing
+   */
+  def findNode( s: Shape ) = nodes.find( _.bounds.intersects( s ) )
 
   /**
    * Return all Shapes that could collide with the given object
@@ -148,6 +158,13 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected(
     // Otherwise, look recursively into the subnode
     return shapes.filter( _.objectShape != s ) ::: where.get.lookAround( s )
   }
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new QuadtreeRenderer( this )
 
   /**
    * Create 4 quadrants into the node
@@ -202,7 +219,7 @@ object Quadtree {
     }
     else {
       // For quadtrees with initial shapes, I add them one by one
-      initialSet.foldLeft( new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels ) ) {_ + _}
+      initialSet.foldLeft( new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels ) ) { _ + _ }
     }
   }
 

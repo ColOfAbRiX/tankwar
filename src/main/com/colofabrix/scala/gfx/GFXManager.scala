@@ -18,7 +18,8 @@ package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.World
-import org.lwjgl.opengl.{ Display, DisplayMode, GL11 }
+import org.lwjgl.opengl.GL11._
+import org.lwjgl.opengl.{ Display, DisplayMode }
 
 /**
  * Runs all of the GFX operations
@@ -37,6 +38,11 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
   setCamera( )
 
+  private def clearScreen( ): Unit = {
+    glClearColor( 0f, 0f, 0f, 1.0f )
+    glClear( GL_COLOR_BUFFER_BIT )
+  }
+
   /**
    * Render all of the GFX
    * - Gets all the renderers from the world and the UI then renders them
@@ -45,14 +51,19 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
    */
   def renderAll( ): Unit = {
 
-    setCamera( )
+    clearScreen( )
 
     BGRenderer.render( )
 
-    world.renderers.foreach( _.render( ) )
-    world.UIManager.renderers.foreach( _.render( ) )
+    // Renders the graphical objects
+    for( r <- world.renderers )
+      r.render( )
 
-    Display.sync( world.UIManager.flags.getWithDefault("sync", 25) )
+    // Renders the user interaction graphic objects
+    for( r <- world.UIManager.renderers )
+      r.render( )
+
+    Display.sync( world.UIManager.flags.getWithDefault( "sync", 25 ) )
     Display.update( )
 
     // Deal with a close request
@@ -63,20 +74,17 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   }
 
   private def setCamera( ) {
-    GL11.glClearColor( 0f, 0f, 0f, 1.0f )
-    GL11.glClear( GL11.GL_COLOR_BUFFER_BIT )
-    GL11.glMatrixMode( GL11.GL_PROJECTION )
-    GL11.glLoadIdentity( )
-    GL11.glOrtho( 0, width, 0, height, -1, 1 )
-    GL11.glMatrixMode( GL11.GL_MODELVIEW )
-    GL11.glLoadIdentity( )
-    GL11.glViewport( 0, 0, width.toInt, height.toInt )
-    GL11.glMatrixMode( GL11.GL_MODELVIEW )
-    GL11.glMatrixMode( GL11.GL_PROJECTION )
-    GL11.glLoadIdentity( )
-    GL11.glOrtho( 0, Display.getWidth, 0, Display.getHeight, 1, -1 )
-    GL11.glMatrixMode( GL11.GL_MODELVIEW )
-    GL11.glLoadIdentity( )
+    glMatrixMode( GL_PROJECTION )
+    glLoadIdentity( )
+    glOrtho( 0, width, 0, height, -1, 1 )
+    glMatrixMode( GL_MODELVIEW )
+    glLoadIdentity( )
+    glViewport( 0, 0, width.toInt, height.toInt )
+    glMatrixMode( GL_MODELVIEW )
+    glMatrixMode( GL_PROJECTION )
+    glLoadIdentity( )
+    glOrtho( 0, Display.getWidth, 0, Display.getHeight, 1, -1 )
+    glMatrixMode( GL_MODELVIEW )
+    glLoadIdentity( )
   }
-
 }

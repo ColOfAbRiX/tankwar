@@ -18,7 +18,7 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.OpenGL.Colour
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.CircleRenderer
 import com.colofabrix.scala.math.Vector2D
@@ -37,7 +37,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
 
   private var _life = 0
 
-  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Color3D.BLUE, true )
+  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Colour.BLUE, true )
 
   /**
    * Life of the bullet
@@ -61,7 +61,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    * @return The current speed of a bullet
    */
   _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
-  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed )}
+  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
 
   /**
    * Physical boundary of the bullet.

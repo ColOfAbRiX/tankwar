@@ -17,30 +17,22 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.gfx.OpenGL.Colour
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import org.lwjgl.opengl.GL11
+
 
 /**
- * Renders the Background of the screen
+ * Renders the Background of the screen.
+ *
+ * It's an alias for `BoxRenderer`
  */
-class BGRenderer( box: Box ) extends Renderer {
+class BGRenderer( box: Box, colour: Colour = Colour.BLACK ) extends Renderer {
 
-  def render( ): Unit = {
-    GL11.glPushMatrix( )
-
-    GL11.glTranslated( 0, 0, 0 )
-    GL11.glColor3d( 0, 0, 0 )
-
-    GL11.glBegin( GL11.GL_QUADS )
-
-    GL11.glVertex2d( box.bottomLeft.x, box.bottomLeft.y )
-    GL11.glVertex2d( box.bottomLeft.x, box.topRight.y )
-    GL11.glVertex2d( box.topRight.x, box.topRight.y )
-    GL11.glVertex2d( box.topRight.x, box.bottomLeft.y )
-
-    GL11.glEnd( )
-
-    GL11.glPopMatrix( )
-  }
+  /**
+   * Renders the background as a box
+   *
+   * @param create With a value of true a new drawing context will be create, with false nothing is done
+   */
+  def render( create: Boolean = true ): Unit = new BoxRenderer( box, colour, true ).render( true )
 
 }

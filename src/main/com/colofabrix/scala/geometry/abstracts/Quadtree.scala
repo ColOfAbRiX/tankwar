@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
@@ -26,17 +27,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  *
  * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
  */
-trait Quadtree[-T <: Shape, U <: PhysicalObject]  {
-
-  /**
-   * The maximum depth of the Quadtree
-   */
-  def depth: Int
-
-  /**
-   * The number of items a node can contain before it splits
-   */
-  def splitSize: Int
+trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
 
   /**
    * Remove the object from the quadtree.
@@ -69,11 +60,29 @@ trait Quadtree[-T <: Shape, U <: PhysicalObject]  {
   def areShapesEmpty: Boolean
 
   /**
+   * Area covered by the quadtree
+   */
+  def bounds: Shape
+
+  /**
    * Reset the status of the Quadtree
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
   def clear( ): Quadtree[T, U]
+
+  /**
+   * The maximum depth of the Quadtree
+   */
+  def depth: Int
+
+  /**
+   * Determines where an object belongs in the quadtree by determining which node the object can fit into.
+   *
+   * @param s The shape to check
+   * @return An Option containing the Quadtree that contains the Shape or nothing
+   */
+  def findNode( s: Shape ): Option[Quadtree[T, U]]
 
   /**
    * Return all PhysicalObjects that could collide with the given Shape
@@ -82,6 +91,23 @@ trait Quadtree[-T <: Shape, U <: PhysicalObject]  {
    * @return All PhysicalObjects that could collide with the given object
    */
   def lookAround( s: T ): List[U]
+
+  /**
+   * The children nodes of the current node, or an empty list if we are on a leaf
+   */
+  def nodes: List[Quadtree[T, U]]
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  def renderer: Renderer
+
+  /**
+   * The shapes contained by the node.
+   */
+  def shapes: List[U]
 
   /**
    * Create 4 quadrants into the node
@@ -94,11 +120,7 @@ trait Quadtree[-T <: Shape, U <: PhysicalObject]  {
   def split( ): Quadtree[T, U]
 
   /**
-   * Determines where an object belongs in the quadtree by determining which node the object can fit into.
-   *
-   * @param s The shape to check
-   * @return An Option containing the Quadtree that contains the Shape or nothing
+   * The number of items a node can contain before it splits
    */
-  def findNode( s: Shape ): Option[Quadtree[T, U]]
-
+  def splitSize: Int
 }

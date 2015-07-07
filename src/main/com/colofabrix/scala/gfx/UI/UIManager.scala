@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,10 @@ class UIManager( val world: World ) {
 
   initializeFlags( )
 
+  private def initializeFlags( ): Unit = {
+    flags += (("sync" -> 25)) // Frame sync
+  }
+
   /**
    * The renderers for the User Interface
    *
@@ -61,10 +65,6 @@ class UIManager( val world: World ) {
    */
   def update( ): Unit = {
     KBM.update( )
-  }
-
-  private def initializeFlags( ): Unit = {
-    flags += (( "sync" -> 25 ))  // Frame sync
   }
 
 }

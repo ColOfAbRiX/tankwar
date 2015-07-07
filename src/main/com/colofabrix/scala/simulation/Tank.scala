@@ -53,14 +53,9 @@ import scala.util.Random
  */
 class Tank private(
   override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty )
-  extends PhysicalObject with InteractiveObject {
   extends PhysicalObject with InteractiveObject with Renderable {
 
   import java.lang.Math._
-
-  //
-  // Private variables. Check public/protected counterparts for documentation
-  //
 
   private val _rotReference = initialData.rotationRef
   private var _direction = Vector2D.new_xy( 1, 1 )
@@ -336,7 +331,7 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
-  private def calculateBulletVision: (Vector2D, Vector2D) = {
+  def calculateBulletVision: (Vector2D, Vector2D) = {
     val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
 
     if( _seenBullets.isEmpty ) {
@@ -486,7 +481,7 @@ object Tank {
     new RandomReader(
       defaultBrainBuilder.hiddenLayersCount,
       rng,
-      defaultRange,
+      defaultRange / 20,
       defaultActivationFunction(0)
     )
 

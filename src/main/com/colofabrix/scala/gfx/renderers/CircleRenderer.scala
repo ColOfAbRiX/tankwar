@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Freddie Poser
+ * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,46 +17,41 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11._
 
 /**
  * Renders a Circle to the screen
  *
  * @param circle The circle to draw
- * @param color The colour of the circle
- * @param filled True indicated the circle has to be filled
+ * @param colour The colour of the circle
+ * @param filled True indicated the circle has to be . It defaults to false
  */
-class CircleRenderer( val circle: Circle, color: Color3D = null, val filled: Boolean = false ) extends Renderer {
+class CircleRenderer( val circle: Circle, colour: Colour, val filled: Boolean = false ) extends Renderer {
+  val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
+  val angularDistance = 2.0 * Math.PI / numSegments.toDouble
 
   /**
-   * Draw this to the screen
+   * Draw a circle on the screen
+   *
+   * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
-  def render( ): Unit = {
-    val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
+  def render( create: Boolean = true ): Unit = {
 
-    GL11.glPushMatrix( )
-    bindColor( color )
+    withContext( create, Frame( colour, circle.center ) ) {
 
-    if( filled ) {
-      GL11.glTranslated( circle.center.x, circle.center.y, 0 )
-      GL11.glBegin( GL11.GL_TRIANGLE_FAN )
-    }
-    else {
-      GL11.glTranslated( 0, 0, 0 )
-      GL11.glBegin( GL11.GL_LINE_LOOP )
-    }
+      val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
+      draw( mode ) {
+        // Go around the vertices of a regular polygon, using polar coordinates
+        for( i <- 0 until numSegments ) {
+          drawVertex( Vector2D.new_rt( circle.radius, angularDistance * i ) )
+        }
+      }
 
-    for( i <- 0 until numSegments ) {
-      val tetha = 2.0 * Math.PI * i.toDouble / numSegments.toDouble
-      val point = Vector2D.new_rt( circle.radius, tetha )
-      GL11.glVertex2f( point.x.toFloat, point.y.toFloat )
     }
 
-    GL11.glEnd( )
-    GL11.glPopMatrix( )
   }
 
 }

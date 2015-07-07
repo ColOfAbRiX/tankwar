@@ -17,54 +17,75 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 import com.colofabrix.scala.simulation.{ Bullet, Tank }
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11._
+
 
 /**
  * Renders a tank to the screen with its properties
+ *
+ * @param tank The tank that has to be drawn
  */
 class TankRenderer( tank: Tank ) extends Renderer {
 
-  def render( ): Unit = {
+  private val size: Double = tank.objectShape.asInstanceOf[Circle].radius
 
-    val world = tank.world
-
-    val size: Double = tank.objectShape.asInstanceOf[Circle].radius
+  /**
+   * Draws a Tank on the screen
+   *
+   * @param create This parameter is disabled for this renderer
+   */
+  def render( create: Boolean = true ): Unit = {
     val fitness: Double = new TankEvaluator( ).getFitness( tank, null )
-    val sight: Double = world.max_sight
+    val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
 
-    GL11.glPushMatrix( )
+    drawingContext( Frame( _position = tank.position ) ) {
 
-    // Rotation of the tank
-    GL11.glTranslated( tank.position.x, tank.position.y, 0 )
-    GL11.glRotated( tank.rotation.t * 180 / Math.PI, 0, 0, 1 )
+      // Drawing tank's main shape (a triangle surrounded by a circle)
+      setFrame( Frame( colour ) ) {
 
-    // The color of the tank depends on its fitness
-    GL11.glColor3d( 1, fitness / TankEvaluator.higherFitness( world ), 0 )
+        // Draw the tank's main triangle
+        draw( GL_TRIANGLES, Frame( _rotation = tank.rotation ) ) {
+          glVertex2d( size, 0.0 )
+          glVertex2d( -0.866025 * size, 0.5 * size )
+          glVertex2d( -0.866025 * size, -0.5 * size )
+        }
 
-    // Draw the shape of a tank
-    GL11.glBegin( GL11.GL_TRIANGLES )
-    GL11.glVertex2d( size, 0.0 )
-    GL11.glVertex2d( -0.866025 * size, 0.5 * size )
-    GL11.glVertex2d( -0.866025 * size, -0.5 * size )
-    GL11.glEnd( )
-    new CircleRenderer( new Circle( Vector2D.origin, size ) ).render( )
+        // Draw a circle corresponding to its actual size
+        new Circle( Vector2D.zero, size ).renderer.render( false )
 
-    // Draw the sight of a bullet
-    val threatRenderer = tank.sight( classOf[Tank] ).renderer
-    threatRenderer.bindColor( new Color3D( 0.3, 0.1, 0.1 ) )
-    threatRenderer.render( )
+      }
 
-    // Draw the sights of a tank
-    val treatRenderer = tank.sight( classOf[Bullet] ).renderer
-    treatRenderer.bindColor( new Color3D( 0.1, 0.3, 0.1 ) )
-    treatRenderer.render( )
+      // Draw the sight toward bullets
+      setFrame( Frame( Colour.DARK_RED ) ) {
+        tank.sight( classOf[Bullet] ).renderer.render( false )
+      }
 
-    GL11.glPopMatrix( )
+      // Draw the sight toward tanks
+      setFrame( Frame( Colour.DARK_GREEN ) ) {
+        tank.sight( classOf[Tank] ).renderer.render( false )
+      }
+
+    }
+
+    // Draw the speed vector
+    setFrame( Frame( Colour.WHITE ) ) {
+      new VectorRenderer( tank.speed * 10, tank.position ).render()
+    }
+
+    // Draw bullet sight vectors
+    val (pos, speed) = tank.calculateBulletVision
+    setFrame( Frame( Colour.CYAN ) ) {
+      new VectorRenderer( pos * 10, tank.position ).render()
+    }
+    setFrame( Frame( Colour.MAGENTA ) ) {
+      new VectorRenderer( speed * 10, tank.position ).render()
+    }
+
   }
 
 }

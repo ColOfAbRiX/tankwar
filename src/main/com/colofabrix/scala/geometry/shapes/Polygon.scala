@@ -17,7 +17,6 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
-import com.colofabrix.scala.gfx.Color3D
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.Vector2D
@@ -26,7 +25,6 @@ import com.colofabrix.scala.math.Vector2D
  * A generic two-dimensional polygon
  * A generic two-dimensional polygon
  */
-class Polygon( val vertices: Seq[Vector2D] ) extends Shape {
 class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   // The smallest polygon is a triangle!!
   require(vertices.length > 2)
@@ -223,9 +221,9 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * An object responsible to renderer the class where this trait is applied
+   * A renderer for a generic polygon
    *
-   * @return A renderer that can draw the object where it's applied
+   * @return A new instance of PolygonRenderer for the current polygon
    */
-  override def renderer: Renderer = new PolygonRenderer( this, Color3D.RED )
+  override def renderer: Renderer = new PolygonRenderer( this )
 }

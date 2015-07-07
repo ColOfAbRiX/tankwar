@@ -57,7 +57,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * Main diagonal of the matrix
    */
-  lazy val diagonal = Seq.tabulate( Math.min( rows, cols ) ) { i => matrix( i )( i )}
+  lazy val diagonal = Seq.tabulate( Math.min( rows, cols ) ) { i => matrix( i )( i ) }
 
   /**
    * Transpose of the matrix
@@ -208,7 +208,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return A new matrix with the same values as the current one
    */
-  override def clone = new Matrix( Seq.tabulate( rows, cols ) { ( i, j ) => matrix( i )( j )} )
+  override def clone = new Matrix( Seq.tabulate( rows, cols ) { ( i, j ) => matrix( i )( j ) } )
 
   /**
    * Determines if two matrices are equals
@@ -264,8 +264,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   {
     val c = other.transpose.toSeq
     for( row <- matrix )
-    yield for( col <- c )
-    yield (row.zip( col ) map {Function.tupled( _ * _ )}).sum
+      yield for( col <- c )
+        yield (row.zip( col ) map { Function.tupled( _ * _ ) }).sum
   }
   )
 
@@ -309,7 +309,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param other The scalar to multiply with the matrix
    * @return A new matrix that is the original matrix multiplied by the supplied scalar
    */
-  def *( other: T ) = this map { x: T => x * other}
+  def *( other: T ) = this map { x: T => x * other }
 
   /**
    * Returns a square identity matrix of the same size of the current matrix
@@ -326,7 +326,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return A new, zero matrix of the same size of the current matrix
    */
-  def toZero: Matrix[T] = this map { _ => n.zero}
+  def toZero: Matrix[T] = this map { _ => n.zero }
 
   /**
    * String representation of the matrix

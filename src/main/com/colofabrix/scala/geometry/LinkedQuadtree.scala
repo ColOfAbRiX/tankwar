@@ -18,6 +18,8 @@ package com.colofabrix.scala.geometry
 
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
@@ -67,11 +69,21 @@ class LinkedQuadtree[T <: Shape, U <: PhysicalObject] protected(
   def areShapesEmpty: Boolean = _quadtree.areShapesEmpty
 
   /**
+   * Area covered by the quadtree
+   */
+  override def bounds: Shape = _quadtree.bounds
+
+  /**
    * Reset the status of the LinkedQuadtreeTmp
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
   def clear( ): LinkedQuadtree[T, U] = new LinkedQuadtree[T, U]( List[U]( ), _quadtree.clear( ) )
+
+  /**
+   * The maximum depth of the Quadtree
+   */
+  override def depth: Int = _quadtree.depth
 
   /**
    * Determines where an object belongs in the quadtree by determining which node the object can fit into.
@@ -90,6 +102,23 @@ class LinkedQuadtree[T <: Shape, U <: PhysicalObject] protected(
   def lookAround( s: T ): List[U] = _quadtree.lookAround( s )
 
   /**
+   * The children nodes of the current node, or an empty list if we are on a leaf
+   */
+  override def nodes: List[abstracts.Quadtree[T, U]] = _quadtree.nodes
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new QuadtreeRenderer( this._quadtree )
+
+  /**
+   * The shapes contained by the node.
+   */
+  override def shapes: List[U] = _quadtree.shapes
+
+  /**
    * Create 4 quadrants into the node
    *
    * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
@@ -98,11 +127,6 @@ class LinkedQuadtree[T <: Shape, U <: PhysicalObject] protected(
    * @return A new LinkedQuadtreeTmp with 4 new subnodes
    */
   def split( ): LinkedQuadtree[T, U] = new LinkedQuadtree[T, U]( asList, _quadtree.split( ) )
-
-  /**
-   * The maximum depth of the Quadtree
-   */
-  override def depth: Int = _quadtree.depth
 
   /**
    * The number of items a node can contain before it splits
@@ -133,7 +157,7 @@ object LinkedQuadtree {
       // For quadtree with initial shapes, I add them one by one
       initialSet.foldLeft(
         new LinkedQuadtree[T, U]( List[U]( ), Quadtree( bounds, initialSet, splitSize, depth ) )
-      ) {_ + _}
+      ) { _ + _ }
     }
   }
 

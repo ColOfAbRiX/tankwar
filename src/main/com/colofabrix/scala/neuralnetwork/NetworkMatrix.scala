@@ -199,7 +199,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   /**
    * A Double.NaN matrix of the same size of the current matrix
    */
-  def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ => Double.NaN}, inputRoots, outputRoots )
+  def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ => Double.NaN }, inputRoots, outputRoots )
 }
 
 
@@ -210,6 +210,6 @@ object NetworkMatrix {
    *
    * @return A new matrix of the size of the given matrix and containing only Double.NaN
    */
-  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ => Double.NaN} toSeq )
+  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ => Double.NaN } toSeq )
 
 }

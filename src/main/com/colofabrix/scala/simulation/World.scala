@@ -19,8 +19,6 @@ package com.colofabrix.scala.simulation
 import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.Controls.InputManager
-import com.colofabrix.scala.gfx.Renderer
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.BGRenderer
@@ -77,11 +75,17 @@ class World(
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
-  private val _inputManager = new InputManager
-  private val _renderer = new Renderer( this, "TankWar" )
   private var _bullets = LinkedQuadtree[Shape, Bullet]( arena, List( ), 2, 12 )
   private var _tanks = LinkedQuadtree[Shape, Tank]( arena, _initialTanks, 2, 12 )
   private var _time: Long = 0
+  /**
+   * Graphics manager of the simulation
+   */
+  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena ) )
+  /**
+   * User interaction manager of the simulation
+   */
+  val UIManager = new UIManager( this )
   /**
    * Sequence of all rounds in the world
    */
@@ -132,9 +136,6 @@ class World(
     tank
   }
 
-  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena ) )
-  val UIManager = new UIManager( this )
-
   /**
    * A tank requests to shot a bullet
    *
@@ -153,6 +154,25 @@ class World(
   private def incCounter( counter: String ): Unit = {
     _counters += (counter -> (_counters( counter ) + 1))
   }
+
+  /**
+   * Collects the renderers to draw the objects in the world, like tanks and bullets
+   *
+   * @return All the renderers for the objects in the simulation worlds
+   */
+  def renderers: Seq[Renderer] = {
+    _tanks.renderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+  }
+
+  /**
+   * List of tanks present in the world
+   */
+  def tanks = _tanks.asList
+
+  /**
+   * List of bullets running through the world
+   */
+  def bullets = _bullets.asList
 
   /**
    * Resets the world to a known, initial states
@@ -194,6 +214,12 @@ class World(
   def step( ): Unit = {
     _time += 1
 
+    // Update the positions of the tanks in the Quadtree
+    // TODO: include a method in the Quadtree
+    // FIXME: Huge performance impact
+    _tanks = LinkedQuadtree( _tanks.bounds.asInstanceOf[Box], _tanks.asList, _tanks.splitSize, _tanks.depth )
+    _bullets = LinkedQuadtree( _bullets.bounds.asInstanceOf[Box], _bullets.asList, _bullets.splitSize, _bullets.depth )
+
     // Managing tanks
     tanks.par.foreach(
       tank =>
@@ -208,24 +234,16 @@ class World(
     // Managing bullets
     bullets.par.foreach( manageBullet )
 
-    // Update the graphic
-    if( _renderer != null && tanks.count( !_.isDead ) > 1 ) {
-      _renderer.update( )
-      inputManager.update( )
+    // Update the user interaction object
+    if( UIManager != null ) {
+      UIManager.update( )
+    }
+
+    // Update the graphic object and render everything
+    if( GFXManager != null ) {
+      GFXManager.renderAll( )
     }
   }
-
-  def inputManager = _inputManager
-
-  /**
-   * List of tanks present in the world
-   */
-  def tanks = _tanks.asList
-
-  /**
-   * List of bullets running through the world
-   */
-  def bullets = _bullets.asList
 
   /**
    * Handles any dead tank in the world
@@ -331,7 +349,7 @@ class World(
   }
 
   /**
-   * A tank its hit by a bullet
+   * A tank is hit by a bullet
    *
    * @param tank The tank hit by the bullet
    * @param bullet The bullet that hits the tank
@@ -421,15 +439,3 @@ class World(
    */
   def time = _time
 }
-    incCounter( "hits" )
-  }
-
-  /**
-   * Collects the renderers to draw the objects in the world, like tanks and bullets
-   *
-   * @return All the renderers for the objects in the simulation worlds
-   */
-  def renderers: Seq[Renderer] = tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
-
-}
-

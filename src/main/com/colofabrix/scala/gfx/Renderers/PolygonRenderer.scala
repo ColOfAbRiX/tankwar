@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (C) 2015 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,40 +17,37 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Polygon
-import com.colofabrix.scala.gfx.Color3D
+import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11._
 
 
 /**
  * Renders a polygon to the screen
  *
  * @param polygon The polygon that has to be rendered
- * @param color The colour of the polygon
+ * @param colour The colour of the polygon
+ * @param filled True indicated the circle has to be filled. It defaults to false
  */
-class PolygonRenderer( val polygon: Polygon, color: Color3D = null, filled: Boolean = false ) extends Renderer {
+class PolygonRenderer( val polygon: Polygon, colour: Colour = null, filled: Boolean = false ) extends Renderer {
 
-  def render( ): Unit = {
-    GL11.glPushMatrix( )
-    GL11.glTranslated( 0, 0, 0 )
+  /**
+   * Draws a polygon on the screen
+   *
+   * @param create With a value of true a new drawing context will be create, with false nothing is done
+   */
+  def render( create: Boolean = true ): Unit = {
 
-    bindColor( color )
+    withContext( create, Frame(colour) ) {
 
-    if( filled ) {
-      GL11.glBegin( GL11.GL_TRIANGLE_FAN )
-    }
-    else {
-      GL11.glBegin( GL11.GL_LINE_LOOP )
-    }
+      val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
+      draw( mode ) {
+        // Don't forget the edge from the last to the first vertex
+        (polygon.vertices :+ polygon.vertices.head).foreach( drawVertex )
+      }
 
-    // Render all edges, including the one from the last to the first vertex
-    (polygon.vertices :+ polygon.vertices.head).foreach {
-      v =>
-        GL11.glVertex2f( v.x.toFloat, v.y.toFloat )
     }
 
-    GL11.glEnd( )
-    GL11.glPopMatrix( )
   }
 
 }

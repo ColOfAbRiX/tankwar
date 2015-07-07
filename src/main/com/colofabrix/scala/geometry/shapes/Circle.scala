@@ -17,6 +17,8 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import com.colofabrix.scala.gfx.renderers.CircleRenderer
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -28,7 +30,7 @@ import com.colofabrix.scala.math.Vector2D
  * @param center Center of the circle
  * @param radius Radius of the circle. Must be non-negative
  */
-case class Circle( center: Vector2D, radius: Double ) extends Shape with Container {
+case class Circle( center: Vector2D, radius: Double ) extends Shape with Container with Renderable {
   // If the radius is 0... it's a point!
   require( radius > 0, "The circle must have a non-zero radius" )
 
@@ -104,14 +106,6 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
   }
 
   /**
-   * Moves the circle of the specified vector
-   *
-   * @param where The vector specifying how to move the shape
-   * @return A new shape moved of {where}
-   */
-  override def move( where: Vector2D ): Shape = new Circle( center + where, radius )
-
-  /**
    * Determines if a line segment touches in any way this shape
    *
    * @param p0 The first point that defines the line segment
@@ -136,9 +130,9 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     // For Boxes I exploit its property to be parallel to the axis
     case b: Box => b.contains( center ) || (
       center.x + radius <= b.topRight.x &&
-      center.x - radius >= b.bottomLeft.y &&
-      center.y + radius <= b.topRight.y &&
-      center.y - radius >= b.topRight.y
+        center.x - radius >= b.bottomLeft.y &&
+        center.y + radius <= b.topRight.y &&
+        center.y - radius >= b.topRight.y
       )
 
     // For polygons I check the distance from the nearest edge
@@ -146,6 +140,21 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
 
     case _ => false
   }
+
+  /**
+   * Moves the circle of the specified vector
+   *
+   * @param where The vector specifying how to move the shape
+   * @return A new shape moved of {where}
+   */
+  override def move( where: Vector2D ): Shape = new Circle( center + where, radius )
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new CircleRenderer( this, null )
 }
 
 
@@ -174,12 +183,6 @@ object Circle {
     // All other cases, I throw an Exception
     case _ => throw new IllegalArgumentException
 
-  /**
-   * An object responsible to renderer the class where this trait is applied
-   *
-   * @return A renderer that can draw the object where it's applied
-   */
-  override def renderer: Renderer = new CircleRenderer(this, null)
   }
 
 }
