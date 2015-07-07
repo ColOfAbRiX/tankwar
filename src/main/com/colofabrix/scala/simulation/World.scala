@@ -21,6 +21,10 @@ import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Controls.InputManager
 import com.colofabrix.scala.gfx.Renderer
+import com.colofabrix.scala.gfx.GFXManager
+import com.colofabrix.scala.gfx.abstracts.Renderer
+import com.colofabrix.scala.gfx.renderers.BGRenderer
+import com.colofabrix.scala.gfx.ui.UIManager
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
@@ -127,6 +131,9 @@ class World(
     _tanks = _tanks + tank
     tank
   }
+
+  val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena ) )
+  val UIManager = new UIManager( this )
 
   /**
    * A tank requests to shot a bullet
@@ -414,3 +421,15 @@ class World(
    */
   def time = _time
 }
+    incCounter( "hits" )
+  }
+
+  /**
+   * Collects the renderers to draw the objects in the world, like tanks and bullets
+   *
+   * @return All the renderers for the objects in the simulation worlds
+   */
+  def renderers: Seq[Renderer] = tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+
+}
+

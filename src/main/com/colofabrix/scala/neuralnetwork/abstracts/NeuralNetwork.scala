@@ -75,7 +75,7 @@ trait NeuralNetwork {
    * @param input A numerical value of type T to feed the NN
    * @return A sequence of T representing the output
    */
-  def output( input: Double ): Seq[Double] = output(Seq(input))
+  def output( input: Double ): Seq[Double] = output( Seq( input ) )
 
   /**
    * Determine if two Neural Network are the same
@@ -97,7 +97,7 @@ trait NeuralNetwork {
    *
    * @return A number identifying the network
    */
-  override def hashCode: Int = matrix.hashCode()
+  override def hashCode: Int = matrix.hashCode( )
 
   /**
    * Gets a string representation of the neural network
@@ -105,8 +105,8 @@ trait NeuralNetwork {
    * @return A string containing the representation of weights and biases of the neural network
    */
   override def toString = {
-    val text = this.getClass + "(" + matrix.toString() + ")"
-    text.replace("class ", "").replace("List", "").replaceFirst( """(\w+\.)*""", "")
+    val text = this.getClass + "(" + matrix.toString( ) + ")"
+    text.replace( "class ", "" ).replace( "List", "" ).replaceFirst( """(\w+\.)*""", "" )
   }
 
   /**
@@ -142,67 +142,67 @@ object NeuralNetwork {
   def analiseNetwork( network: NetworkMatrix, rootIndex: Int ): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
     val matrix = network.adjacencyOnly
 
-    require(network.inputRoots.contains(rootIndex), "The specified input is not within the input matrix")
-    require(matrix.rows == matrix.cols, "The input matrix must be square")
-    require(matrix.rows > 0, "The adjacency matrix must be non empty")
+    require( network.inputRoots.contains( rootIndex ), "The specified input is not within the input matrix" )
+    require( matrix.rows == matrix.cols, "The input matrix must be square" )
+    require( matrix.rows > 0, "The adjacency matrix must be non empty" )
 
     // NOTE: for speed, this function uses mutable ArrayLists and not the Matrix class
 
     // Output matrices, all set to Double.NaN at the beginning
-    val forward = NetworkMatrix.toNaN(matrix).toBuffer
-    val back = NetworkMatrix.toNaN(matrix).toBuffer
-    val cross = NetworkMatrix.toNaN(matrix).toBuffer
+    val forward = NetworkMatrix.toNaN( matrix ).toBuffer
+    val back = NetworkMatrix.toNaN( matrix ).toBuffer
+    val cross = NetworkMatrix.toNaN( matrix ).toBuffer
 
     // Tree search stack
-    val searchStack = new mutable.Stack[Int]()
+    val searchStack = new mutable.Stack[Int]( )
     // List of already discovered nodes.
-    val visited = ArrayBuffer.fill(matrix.rows)(ArrayBuffer.fill(matrix.rows)(false))
+    val visited = ArrayBuffer.fill( matrix.rows )( ArrayBuffer.fill( matrix.rows )( false ) )
     // List of the ancestors of the currently explored node
-    val ancestors = ArrayBuffer.fill(matrix.rows)(new ArrayBuffer[Int]())
+    val ancestors = ArrayBuffer.fill( matrix.rows )( new ArrayBuffer[Int]( ) )
 
     // Initial node
-    searchStack.push(rootIndex)
+    searchStack.push( rootIndex )
 
     // Loop until there are nodes to visit
     while( searchStack.nonEmpty ) {
 
       // Get the node to explore
-      val current = searchStack.pop()
+      val current = searchStack.pop( )
 
       // Process a node that hasn't been visited yet
-      if( !visited(rootIndex)(current) ) {
+      if( !visited( rootIndex )( current ) ) {
         // Mark the node as visited
-        visited(rootIndex)(current) = true
+        visited( rootIndex )( current ) = true
 
         // Get the list of nodes that are directly connected to this one by a forward edge, including a self reference
-        val adjacentForwardNodes = matrix.row(current)
+        val adjacentForwardNodes = matrix.row( current )
           .zipWithIndex
-          .filter(!_._1.isNaN)
+          .filter( !_._1.isNaN )
 
         // Go through the children
         for( (value, child) ← adjacentForwardNodes ) {
-          ancestors(child) += current
+          ancestors( child ) += current
 
-          if( !visited(rootIndex)(child) && !searchStack.contains(child) ) {
+          if( !visited( rootIndex )( child ) && !searchStack.contains( child ) ) {
             // Child not been seen before. Add it as a new node to explore and update the forward matrix
-            forward(current)(child) = value
-            searchStack.push(child)
+            forward( current )( child ) = value
+            searchStack.push( child )
           }
           else {
-            if( !ancestors(current).contains(child) ) {
+            if( !ancestors( current ).contains( child ) ) {
               // The child has been seen before, but it's not an ancestor. Just update the cross matrix {
-              cross(current)(child) = value
+              cross( current )( child ) = value
             }
 
             else {
               // The child has been seen before as an ancestor of the current node. Update the back matrix {
-              back(current)(child) = value
+              back( current )( child ) = value
             }
           }
         }
       }
     }
 
-    (new Matrix(forward), new Matrix(back), new Matrix(cross))
+    (new Matrix( forward ), new Matrix( back ), new Matrix( cross ))
   }
 }

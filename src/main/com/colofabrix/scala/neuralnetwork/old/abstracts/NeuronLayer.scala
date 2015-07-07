@@ -38,15 +38,15 @@ abstract class NeuronLayer(
   override val weights: Seq[Seq[Double]] )
   extends NeuralNetwork {
   // An activation function must be provided
-  require(activation != null)
+  require( activation != null )
   // There must be at least a neuron
-  require(n_outputs > 0, "The number of outputs must be positive")
+  require( n_outputs > 0, "The number of outputs must be positive" )
   // Every neuron must have at least one input
-  require(n_inputs > 0, "The number of inputs must be positive")
+  require( n_inputs > 0, "The number of inputs must be positive" )
   // Every neuron has a bias, so bias.length must match neuron_count
-  require(biases.length == n_outputs, "The number of biases must match the number of outputs")
+  require( biases.length == n_outputs, "The number of biases must match the number of outputs" )
   // Check that every sequence of weights associated with each neuron is the same size of the inputs of that neuron
-  require(weights.length == n_outputs && weights.forall(_.length == n_inputs), "The size of weights must match the input/output numbers")
+  require( weights.length == n_outputs && weights.forall( _.length == n_inputs ), "The size of weights must match the input/output numbers" )
 
   override type V = String
 
@@ -62,7 +62,7 @@ abstract class NeuronLayer(
    */
   override def equals( other: Any ) = other match {
     case that: NeuronLayer =>
-      this.canEqual(that) &&
+      this.canEqual( that ) &&
         this.biases == that.biases &&
         this.weights == that.weights &&
         this.activation == that.activation
@@ -91,10 +91,10 @@ abstract class NeuronLayer(
    */
   def output( inputs: Seq[Double] ): Seq[Double] = {
     // The given input values must match the NN configuration
-    require(inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)")
+    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
 
     for( o <- 0 until n_outputs ) yield
-    activation((inputs zip weights(o) map { case (i, w) => i * w } sum) + biases(o))
+      activation( (inputs zip weights( o ) map { case (i, w) => i * w} sum) + biases( o ) )
   }
 
   /**

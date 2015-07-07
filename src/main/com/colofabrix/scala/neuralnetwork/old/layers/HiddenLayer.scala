@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.neuralnetwork.old.layers
 
-import com.colofabrix.scala.neuralnetwork.old.abstracts.{ActivationFunction, NeuronLayer}
+import com.colofabrix.scala.neuralnetwork.old.abstracts.{ ActivationFunction, NeuronLayer }
 
 /**
  * It represents the output layer of a NN

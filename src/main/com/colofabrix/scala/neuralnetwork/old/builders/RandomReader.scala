@@ -17,7 +17,7 @@
 package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{DataReader, LayerReader}
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{ DataReader, LayerReader }
 
 import scala.util.Random
 
@@ -31,10 +31,11 @@ import scala.util.Random
  * @param nLayers The number of layers of the network
  * @param rng Random Number Generator
  */
-class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: String ) extends DataReader with LayerReader {
+class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: String )
+  extends DataReader with LayerReader {
 
   // Function to retrieve the number
-  private def _nextDouble = rng.nextDouble() * 2 * scale - scale
+  private def _nextDouble = rng.nextDouble( ) * 2 * scale - scale
 
   /**
    * Gets the next `LayerReader` for the next layer.
@@ -44,7 +45,7 @@ class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: S
    *
    * @return An instance of `LayerReader` in the current position
    */
-  override def layerReaders = Seq.fill(nLayers)(this)
+  override def layerReaders = Seq.fill( nLayers )( this )
 
   /**
    * Returns the biases of the neurons
@@ -53,7 +54,7 @@ class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: S
    * @return The sequence of biases, one for each neuron
    */
   override def neuronBiases( neurons: Int ) = {
-    Seq.fill(neurons)(_nextDouble)
+    Seq.fill( neurons )( _nextDouble )
   }
 
   /**
@@ -64,7 +65,7 @@ class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: S
    * @return The weights, for each neuron, associated with the inputs
    */
   override def inputWeights( neurons: Int, inputs: Int ) = {
-    Seq.fill(neurons, inputs)(_nextDouble)
+    Seq.fill( neurons, inputs )( _nextDouble )
   }
 
   /**
@@ -72,5 +73,5 @@ class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: S
    *
    * @return The ActivationFunction associated with the layer
    */
-  override def activationFunction = ActivationFunction(af)
+  override def activationFunction = ActivationFunction( af )
 }

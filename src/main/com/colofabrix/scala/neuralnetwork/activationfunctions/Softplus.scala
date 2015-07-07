@@ -32,7 +32,7 @@ class Softplus extends ActivationFunction {
 
   override val UFID = "8772e26c-fe70-483c-96a8-dc4a2aa2f900"
 
-  override def apply( input: Double ): Double = Math.log(1 + Math.exp(input))
+  override def apply( input: Double ): Double = Math.log( 1 + Math.exp( input ) )
 
   override def toString = "Softplus"
 

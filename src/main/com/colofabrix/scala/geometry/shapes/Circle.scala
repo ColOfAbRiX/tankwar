@@ -173,6 +173,13 @@ object Circle {
 
     // All other cases, I throw an Exception
     case _ => throw new IllegalArgumentException
+
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  override def renderer: Renderer = new CircleRenderer(this, null)
   }
 
 }

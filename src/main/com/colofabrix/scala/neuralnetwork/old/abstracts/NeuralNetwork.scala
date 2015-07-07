@@ -27,7 +27,7 @@ trait NeuralNetwork {
   /**
    * Type of data used to expose externally biases and weights
    */
-  @specialized(Double)
+  @specialized( Double )
   type U
 
   /**
@@ -63,7 +63,7 @@ trait NeuralNetwork {
    * @param input A sequence of T to feed the NN
    * @return A sequence of T representing the output
    */
-  def output( input: Double ): Seq[Double] = output(Seq(input))
+  def output( input: Double ): Seq[Double] = output( Seq( input ) )
 
   /**
    * Calculate the output of the Neural Network
@@ -74,7 +74,7 @@ trait NeuralNetwork {
    * @return A sequence of T representing the output
    */
   def output( inputHelper: InputHelper[Double] ): Seq[Double] = {
-    output(inputHelper.getValues)
+    output( inputHelper.getValues )
   }
 
   /**

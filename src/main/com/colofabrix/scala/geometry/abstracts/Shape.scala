@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.math.Vector2D
 
 /**
@@ -24,7 +25,14 @@ import com.colofabrix.scala.math.Vector2D
  * This train contains definitions of basic geometric operations like distance to a point of a check to see if
  * a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
  */
-trait Shape {
+trait Shape extends Renderable {
+  /**
+   * An object responsible to renderer the class where this trait is applied
+   *
+   * @return A renderer that can draw the object where it's applied
+   */
+  def renderer: Renderer
+
   /**
    * Determines if a point is inside or on the boundary the shape
    *

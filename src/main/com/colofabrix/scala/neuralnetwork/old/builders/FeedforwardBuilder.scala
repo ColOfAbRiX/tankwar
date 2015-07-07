@@ -18,8 +18,8 @@ package com.colofabrix.scala.neuralnetwork.old.builders
 
 import com.colofabrix.scala.neuralnetwork.old.FeedforwardNeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
-import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{BehaviourBuilder, LayerReader}
-import com.colofabrix.scala.neuralnetwork.old.layers.{HiddenLayer, InputLayer, OutputLayer}
+import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{ BehaviourBuilder, LayerReader }
+import com.colofabrix.scala.neuralnetwork.old.layers.{ HiddenLayer, InputLayer, OutputLayer }
 
 /**
  * Builder to create the components of a simple FeedForward Neural Network
@@ -47,7 +47,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
    * @return A new InputLayer for the NN
    */
   override def buildInputLayer( nInputs: Int, dataReader: LayerReader ): InputLayer =
-    new InputLayer(nInputs)
+    new InputLayer( nInputs )
 
   /**
    * Returns a new HiddenLayer for the specific BehaviourBuilder
@@ -61,8 +61,8 @@ class FeedforwardBuilder extends BehaviourBuilder {
       dataReader.activationFunction,
       nInputs,
       nNeurons,
-      dataReader.neuronBiases(nNeurons),
-      dataReader.inputWeights(nNeurons, nInputs)
+      dataReader.neuronBiases( nNeurons ),
+      dataReader.inputWeights( nNeurons, nInputs )
     )
 
   /**
@@ -77,7 +77,7 @@ class FeedforwardBuilder extends BehaviourBuilder {
       dataReader.activationFunction,
       nInputs,
       nNeurons,
-      dataReader.neuronBiases(nNeurons),
-      dataReader.inputWeights(nNeurons, nInputs)
+      dataReader.neuronBiases( nNeurons ),
+      dataReader.inputWeights( nNeurons, nInputs )
     )
 }

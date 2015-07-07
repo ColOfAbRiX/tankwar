@@ -19,7 +19,7 @@ package com.colofabrix.scala.simulation.integration.operators
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.simulation.{Tank, TankChromosome}
+import com.colofabrix.scala.simulation.{ Tank, TankChromosome }
 import org.uncommons.watchmaker.framework.EvolutionaryOperator
 
 import scala.collection.JavaConversions._
@@ -41,18 +41,18 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
   override def apply( list: util.List[Tank], random: Random ): util.List[Tank] = {
     // Calls mutation rules for each Tank
     list.map { t =>
-      val newChromosome = mutateTank(t.chromosome, random)
-      t.world.createAndAddTank(newChromosome)
+      val newChromosome = mutateTank( t.chromosome, random )
+      t.world.createAndAddTank( newChromosome )
     }
   }
 
   private def mutateTank( c: TankChromosome, random: Random ): TankChromosome = {
     // Spreads the mutation of a Tank in different small tasks
     new TankChromosome(
-      mutateBiases(c, random),
-      mutateWeights(c, random),
-      mutateRotationReference(c, random),
-      mutateSightRatio(c, random),
+      mutateBiases( c, random ),
+      mutateWeights( c, random ),
+      mutateRotationReference( c, random ),
+      mutateSightRatio( c, random ),
       c.valueRange,
       c.activationFunction,
       c.brainBuilder
@@ -69,7 +69,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    */
   protected def mutate( f: (Double, Random) => Double, seq: Seq[Seq[Double]], random: Random ): Seq[Seq[Double]] = {
     for( outer <- seq ) yield {
-      for( value <- outer ) yield f(value, random)
+      for( value <- outer ) yield f( value, random )
     }
   }
 

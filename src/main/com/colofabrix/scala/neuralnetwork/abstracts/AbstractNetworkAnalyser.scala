@@ -18,7 +18,7 @@ package com.colofabrix.scala.neuralnetwork.abstracts
 
 import java.io.PrintWriter
 
-import com.colofabrix.scala.simulation.{BrainInputHelper, World}
+import com.colofabrix.scala.simulation.{ BrainInputHelper, World }
 
 /**
  * Provides a way to visualize the behaviour of a NN
@@ -31,7 +31,8 @@ import com.colofabrix.scala.simulation.{BrainInputHelper, World}
  * @param network The neural network that you want to analyse
  */
 // FIXME: Remove the usage of {world}. It is there only to provide data for a badly designed {BrainInputHelper}
-abstract class AbstractNetworkAnalyser( val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork ) extends NetworkAnalyser {
+abstract class AbstractNetworkAnalyser( val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork )
+  extends NetworkAnalyser {
 
   /**
    * First line that will be written to the output stream, usually the header of the CSV file
@@ -78,23 +79,23 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
     val currentIndex = plotIndexes.head
 
     // Extracts the definition of the plot from the list
-    val (input, start, end, points) = plotDefinitions(currentIndex)
+    val (input, start, end, points) = plotDefinitions( currentIndex )
 
     // The list of the input values to plot
-    val range = start.to(end, (end - start) / points)
+    val range = start.to( end, (end - start) / points )
 
     range.foreach { x =>
       // Modify the value of the current input
-      val inputs = inputBase.patch(input, Seq(x), 1)
+      val inputs = inputBase.patch( input, Seq( x ), 1 )
 
       if( plotIndexes.length == 1 ) {
         // If there is only one value to plot, then plot it
-        val outputs = network.output(new BrainInputHelper(world, inputs))
-        writer.write(s"${inputs.mkString(";")};${outputs.mkString(";")}\n".replace(".", ","))
+        val outputs = network.output( new BrainInputHelper( world, inputs ) )
+        writer.write( s"${inputs.mkString( ";" )};${outputs.mkString( ";" )}\n".replace( ".", "," ) )
       }
       else {
         // If there is more than one value to plot, recursively call this function over the remaining indexes { {
-        internalFullAnalysis(inputs, plotIndexes.tail)(writer)
+        internalFullAnalysis( inputs, plotIndexes.tail )( writer )
       }
     }
   }
@@ -110,5 +111,5 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
    * @param writer Writer used to write the output
    */
   protected def fullAnalysis( inputBase: Seq[Double], plotIndexes: Int* )( writer: PrintWriter ): Unit =
-    internalFullAnalysis(inputBase, plotIndexes)(writer)
+    internalFullAnalysis( inputBase, plotIndexes )( writer )
 }

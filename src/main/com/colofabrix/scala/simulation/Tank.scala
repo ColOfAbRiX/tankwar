@@ -18,6 +18,8 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import com.colofabrix.scala.gfx.renderers.TankRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -52,6 +54,7 @@ import scala.util.Random
 class Tank private(
   override val world: World, initialData: TankChromosome, dataReader: Option[DataReader] = Option.empty )
   extends PhysicalObject with InteractiveObject {
+  extends PhysicalObject with InteractiveObject with Renderable {
 
   import java.lang.Math._
 
@@ -68,6 +71,8 @@ class Tank private(
   private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer( )
   private var _shoot = 0.0
   private var _surviveTime: Long = 0
+  val renderer: Renderer = new TankRenderer( this )
+
   /**
    * Brain of the tank
    */

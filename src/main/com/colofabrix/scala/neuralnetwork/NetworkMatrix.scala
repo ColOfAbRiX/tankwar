@@ -32,14 +32,15 @@ import scala.collection.mutable
  * @param inputRoots The indexes in the matrix that represent the inputs
  * @param outputRoots The indexes in the matrix that represent the outputs
  */
-class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[Int], val outputRoots: Seq[Int] ) extends Matrix[Double](matrix) {
-  require(this.rows == this.cols + 1, "The adjacency matrix must be square with one additional row for biases")
-  require(inputRoots.nonEmpty && outputRoots.nonEmpty, "Input and output roots must not be empty")
-  require(inputRoots.length + outputRoots.length <= this.cols, "The number of inputs and outputs must be less than the size of the matrix")
-  require(inputRoots.forall(_ < this.cols), "One or more input refer an index not present in the matrix")
-  require(outputRoots.forall(_ < this.cols), "One or more output refer an index not present in the matrix")
-  require(inputRoots.distinct.length == inputRoots.length, "The input roots must be distinct")
-  require(outputRoots.distinct.length == outputRoots.length, "The output roots must be distinct")
+class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[Int], val outputRoots: Seq[Int] )
+  extends Matrix[Double]( matrix ) {
+  require( this.rows == this.cols + 1, "The adjacency matrix must be square with one additional row for biases" )
+  require( inputRoots.nonEmpty && outputRoots.nonEmpty, "Input and output roots must not be empty" )
+  require( inputRoots.length + outputRoots.length <= this.cols, "The number of inputs and outputs must be less than the size of the matrix" )
+  require( inputRoots.forall( _ < this.cols ), "One or more input refer an index not present in the matrix" )
+  require( outputRoots.forall( _ < this.cols ), "One or more output refer an index not present in the matrix" )
+  require( inputRoots.distinct.length == inputRoots.length, "The input roots must be distinct" )
+  require( outputRoots.distinct.length == outputRoots.length, "The output roots must be distinct" )
 
   /**
    * Mutable constructor
@@ -49,7 +50,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    * @param outputRoots The neurons in the matrix that represent the outputs
    */
   def this( matrix: mutable.Seq[mutable.Seq[Double]], inputRoots: Seq[Int], outputRoots: Seq[Int] ) {
-    this(matrix.toSeq, inputRoots, outputRoots)
+    this( matrix.toSeq, inputRoots, outputRoots )
   }
 
   /**
@@ -60,18 +61,18 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    * @param outputRoots The neurons in the matrix that represent the outputs
    */
   def this( matrix: Matrix[Double], inputRoots: Seq[Int], outputRoots: Seq[Int] ) {
-    this(matrix.toSeq, inputRoots, outputRoots)
+    this( matrix.toSeq, inputRoots, outputRoots )
   }
 
   /**
    * The subset of the matrix that contains the adjacency weights
    */
-  val adjacencyOnly = this.rowSet(this.rows - 1)
+  val adjacencyOnly = this.rowSet( this.rows - 1 )
 
   /**
    * The bias row (which is always the last row of the matrix)
    */
-  val biases = this.row(this.rows - 1)
+  val biases = this.row( this.rows - 1 )
 
   /**
    * Tells if the Neural Network represented by this NetworkMatrix is stateless (and the graph acyclic)
@@ -79,13 +80,13 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   lazy val isAcyclic: Boolean = {
     // Test the network for all possible starting points (the inputs)
     val result = inputRoots map { i =>
-      val (_, back, _) = NeuralNetwork.analiseNetwork(this, i)
+      val (_, back, _) = NeuralNetwork.analiseNetwork( this, i )
       // Check that there are no back edges
-      back.map(x => if( x.isNaN ) 0.0 else 1.0) == back.toZero
+      back.map( x => if( x.isNaN ) 0.0 else 1.0 ) == back.toZero
     }
 
     // The condition must be true for all the starting points
-    result.forall(_ == true)
+    result.forall( _ == true )
   }
 
   /**
@@ -101,13 +102,13 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
       // Test the network for all possible starting points (the inputs)
 
       val result = inputRoots map { i =>
-        val (_, _, cross) = NeuralNetwork.analiseNetwork(this, i)
+        val (_, _, cross) = NeuralNetwork.analiseNetwork( this, i )
         // Check that there are no back edges nor cross edges
-        cross.map(x => if( x.isNaN ) 0.0 else 1.0) == cross.toZero
+        cross.map( x => if( x.isNaN ) 0.0 else 1.0 ) == cross.toZero
       }
 
       // The condition must be true for all the starting points
-      result.forall(_ == true)
+      result.forall( _ == true )
     }
   }
 
@@ -121,7 +122,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     case that: NetworkMatrix => this compare that
     case that: Matrix[Double] => this compare that
     case that: Seq[Double] => this compare that
-    case _ => super.equals(obj)
+    case _ => super.equals( obj )
   }
 
   /**
@@ -143,10 +144,10 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
 
     // Check element by element that they are the equal also in respect to NaN values
     val values = for( i <- (0 until adMatrix.rows).par; j <- (0 until adMatrix.cols).par ) yield {
-      (adMatrix(i, j) == that(i, j)) || (adMatrix(i, j).isNaN && that(i, j).isNaN)
+      (adMatrix( i, j ) == that( i, j )) || (adMatrix( i, j ).isNaN && that( i, j ).isNaN)
     }
 
-    values.forall(_ == true)
+    values.forall( _ == true )
   }
 
   /**
@@ -171,7 +172,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
       (x == y) || (x.isNaN && y.isNaN)
     }
 
-    values.forall(_ == true)
+    values.forall( _ == true )
   }
 
   /**
@@ -198,7 +199,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   /**
    * A Double.NaN matrix of the same size of the current matrix
    */
-  def toNaN: NetworkMatrix = new NetworkMatrix(this map { _ => Double.NaN }, inputRoots, outputRoots)
+  def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ => Double.NaN}, inputRoots, outputRoots )
 }
 
 
@@ -209,6 +210,6 @@ object NetworkMatrix {
    *
    * @return A new matrix of the size of the given matrix and containing only Double.NaN
    */
-  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix(matrix map { _ => Double.NaN } toSeq)
+  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ => Double.NaN} toSeq )
 
 }
