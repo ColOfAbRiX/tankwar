@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.Renderers
+package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.{ LinkedQuadtree, Quadtree }

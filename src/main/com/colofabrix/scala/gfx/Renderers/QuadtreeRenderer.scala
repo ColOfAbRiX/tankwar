@@ -33,8 +33,6 @@ class QuadtreeRenderer( var quadtree: Quadtree[_ <: Shape, _ <: PhysicalObject] 
    * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
   override def render( create: Boolean ): Unit = {
-    println("---------------")
-
     withContext( create, Frame( Colour.DARK_GREY ) ) {
 
       // Renders the current boundaries

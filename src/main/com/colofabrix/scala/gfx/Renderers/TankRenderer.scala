@@ -61,14 +61,16 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      // Draw the sight toward bullets
-      setFrame( Frame( Colour.DARK_RED ) ) {
-        tank.sight( classOf[Bullet] ).renderer.render( false )
-      }
+      if (flags.getWithDefault("tksight", true)) {
+        // Draw the sight toward bullets
+        setFrame( Frame( Colour.DARK_RED ) ) {
+          tank.sight( classOf[Bullet] ).renderer.render( false )
+        }
 
-      // Draw the sight toward tanks
-      setFrame( Frame( Colour.DARK_GREEN ) ) {
-        tank.sight( classOf[Tank] ).renderer.render( false )
+        // Draw the sight toward tanks
+        setFrame( Frame( Colour.DARK_GREEN ) ) {
+          tank.sight( classOf[Tank] ).renderer.render( false )
+        }
       }
 
     }
