@@ -18,6 +18,7 @@ package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11._
+import org.newdawn.slick.Color
 
 /**
  * This class is meant to be a simple wrapper for OpenGL, to provide a Scala-way to use graphics but keeping things
@@ -29,7 +30,9 @@ object OpenGL {
   /**
    * A colour in the OpenGL system
    */
-  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
+  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 ) {
+    def asSlickColour = new Color(r.toFloat, g.toFloat, b.toFloat, 1)
+  }
 
 
   /**
@@ -190,6 +193,22 @@ object OpenGL {
 
     // Call the actions
     actions
+  }
+
+  def withTextContext ()(actions: => Unit): Unit = {
+
+    glEnable(GL_TEXTURE_2D)
+
+    glClearColor(1f,1f,1f,1.0f)
+
+    // enable alpha blending
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
+    actions
+
+    glDisable(GL_TEXTURE_2D)
+    glDisable(GL_BLEND)
   }
 
 }

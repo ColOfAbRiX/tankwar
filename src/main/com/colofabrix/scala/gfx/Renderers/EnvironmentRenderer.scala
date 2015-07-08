@@ -34,6 +34,9 @@ class EnvironmentRenderer (val world: World, quadtree: => LinkedQuadtree[_ <: Sh
     val flags = world.UIManager.flags
     if (flags.getWithDefault("qtree", true))
       quadtree.renderer.render( create = true )
+
+    val tr= new TextRenderer("Max Simulation Speed: " + flags.getWithDefault("sync", 25).toString, Vector2D.new_xy(10,10))
+    tr.render()
   }
 
 }
