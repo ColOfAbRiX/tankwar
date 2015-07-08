@@ -10,11 +10,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" line="19" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="Cleanup">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TextRenderer.scala" />
-      <change type="MODIFICATION" beforePath="C:\Users\Freddie\Desktop\Programming\IdeaProjects\tankwar\src\main\com\colofabrix\scala\gfx\renderers\EnvironmentRenderer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/GFXManager.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/GFXManager.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" />
+    <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TankWar.iws" />
@@ -165,11 +161,9 @@
       <file leaf-file-name="EnvironmentRenderer.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53125" vertical-offset="0" max-vertical-offset="896">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding>
-                <element signature="e#645#697#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.11467116" vertical-offset="0" max-vertical-offset="593">
+              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1313,12 +1307,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.4968017" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32792208" sideWeight="0.4968017" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3365801" sideWeight="0.5021322" order="11" side_tool="true" content_ui="tabs" />
@@ -1328,7 +1322,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3538961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="0" width="1920" height="520" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32900432" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="98" y="218" width="1645" height="816" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16950959" sideWeight="0.5573593" order="0" side_tool="true" content_ui="combo" x="-1591" y="89" width="318" height="924" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16950959" sideWeight="0.5573593" order="0" side_tool="true" content_ui="combo" x="-1591" y="89" width="318" height="924" />
       <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20469083" sideWeight="0.4426407" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1386,7 +1380,8 @@
     <MESSAGE value="Refactored graphics, added new renderers, completed TKWAR-4 and TKWAR-39, although performance issues remain" />
     <MESSAGE value="TKWAR-22 DONE&#10;Added specific controls&#10;--Speed Up and Down (+/-)&#10;--View QuadTree (q)&#10;--View TankVectors (v)&#10;Added &quot;clever&quot; EnvironmentRenderer" />
     <MESSAGE value="Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
+    <MESSAGE value="Added a text renderer for rendering text&#10;WARNING =&gt; GFX (0,0) is now in the top left" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a text renderer for rendering text&#10;WARNING =&gt; GFX (0,0) is now in the top left" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1839,11 +1834,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53125" vertical-offset="0" max-vertical-offset="896">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="e#645#697#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.11467116" vertical-offset="0" max-vertical-offset="593">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
