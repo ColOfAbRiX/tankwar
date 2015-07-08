@@ -33,7 +33,7 @@ class KeyboardManager {
    *
    * @param listener The Listener to add
    */
-  def addListener( listener: KeyboardListener ): Unit ={
+  def addListener( listener: KeyboardListener ): Unit = {
     keyboardListeners = listener +: keyboardListeners
   }
 

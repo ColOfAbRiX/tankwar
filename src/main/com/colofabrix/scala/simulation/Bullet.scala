@@ -33,7 +33,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 class Bullet( override val world: World, val tank: Tank, val proper_speed: Double )
   extends PhysicalObject with Renderable {
 
-  import Math._
+  import java.lang.Math._
 
   private var _life = 0
 
@@ -61,7 +61,7 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    * @return The current speed of a bullet
    */
   _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
-  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
+  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed )}
 
   /**
    * Physical boundary of the bullet.

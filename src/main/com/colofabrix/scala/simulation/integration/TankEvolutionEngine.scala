@@ -34,7 +34,7 @@ class TankEvolutionEngine(
   fitnessEvaluator: FitnessEvaluator[_ >: Tank],
   selectionStrategy: SelectionStrategy[_ >: Tank],
   rng: Random )
-  extends GameEvolutionEngine[Tank](candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng) {
+  extends GameEvolutionEngine[Tank]( candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng ) {
 
   /**
    * This method runs the competition between the individuals of the population
@@ -48,20 +48,20 @@ class TankEvolutionEngine(
   override protected def runCompetition( population: util.List[Tank] ): util.List[Tank] = {
 
     if( population.size == 0 ) {
-      return List()
+      return List( )
     }
 
     // Safest way to reference the world is using one of the Tanks
     val world = population.head.world
 
     // Clean the world for a new start
-    world.resetWorld(population.to)
+    world.resetWorld( population.to )
 
     // Runs the competition
-    val start = java.lang.System.currentTimeMillis();
-    world.rounds foreach { _ => world.step() }
-    val end = java.lang.System.currentTimeMillis();
-    println( s"Time for a round: ${end - start}ms")
+    val start = java.lang.System.currentTimeMillis( );
+    world.rounds foreach { _ => world.step( )}
+    val end = java.lang.System.currentTimeMillis( );
+    println( s"Time for a round: ${end - start}ms" )
 
     // Returns the population
     world.tanks

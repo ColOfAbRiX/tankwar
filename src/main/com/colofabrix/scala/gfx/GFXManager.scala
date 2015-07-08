@@ -63,7 +63,7 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
     for( r <- world.UIManager.renderers )
       r.render( )
 
-    println (world.UIManager.renderers.length)
+    println( world.UIManager.renderers.length )
 
     Display.sync( world.UIManager.flags.getWithDefault( "sync", 25 ) )
     Display.update( )

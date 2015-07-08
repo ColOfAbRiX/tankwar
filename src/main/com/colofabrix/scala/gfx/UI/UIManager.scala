@@ -35,7 +35,7 @@ class UIManager( val world: World ) {
    */
   val KBM = new KeyboardManager( )
 
-  initializeListeners()
+  initializeListeners( )
 
   /**
    * The flags of the user interface
@@ -56,6 +56,7 @@ class UIManager( val world: World ) {
     flags += ("sync" -> 25) // Frame sync
     flags += ("qtree" -> true)
     flags += ("vectors" -> true)
+    flags += ("tksight" -> true)
   }
 
   /**
@@ -72,31 +73,62 @@ class UIManager( val world: World ) {
     KBM.update( )
   }
 
-  private def initializeListeners(): Unit = {
+  private def initializeListeners( ): Unit = {
     //Add the right listeners
-    KBM.addListener(new KeyboardListener(
-      Keyboard.KEY_EQUALS,
-      (world: World) => {val flags = world.UIManager.flags
-        flags.update("sync", flags.getWithDefault("sync", 25)+5)},
-      world))
-    KBM.addListener(new KeyboardListener(
-      Keyboard.KEY_MINUS,
-      (world: World) => {val flags = world.UIManager.flags
-        val speed = flags.getWithDefault("sync", 25)-5
-        if (speed > 5) flags.update("sync", speed)},
-      world))
-    KBM.addListener(new KeyboardListener(
-      Keyboard.KEY_Q,
-      (world: World) => {val flags = world.UIManager.flags
-        val qtree = flags.getWithDefault("qtree", true)
-        flags.update("qtree", !qtree)},
-      world))
-    KBM.addListener(new KeyboardListener(
-      Keyboard.KEY_V,
-      (world: World) => {val flags = world.UIManager.flags
-        val vectors = flags.getWithDefault("vectors", true)
-        flags.update("vectors", !vectors)},
-      world))
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_EQUALS,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          flags.update( "sync", flags.getWithDefault( "sync", 25 ) + 5 )
+        },
+        world
+      )
+    )
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_MINUS,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val speed = flags.getWithDefault( "sync", 25 ) - 5
+          if( speed > 5 ) flags.update( "sync", speed )
+        },
+        world
+      )
+    )
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_Q,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val qtree = flags.getWithDefault( "qtree", true )
+          flags.update( "qtree", !qtree )
+        },
+        world
+      )
+    )
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_V,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val vectors = flags.getWithDefault( "vectors", true )
+          flags.update( "vectors", !vectors )
+        },
+        world
+      )
+    )
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_S,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val tksight = flags.getWithDefault( "tksight", true )
+          flags.update( "tksight", !tksight )
+        },
+        world
+      )
+    )
   }
 
 }

@@ -157,7 +157,7 @@ object LinkedQuadtree {
       // For quadtree with initial shapes, I add them one by one
       initialSet.foldLeft(
         new LinkedQuadtree[T, U]( List[U]( ), Quadtree( bounds, initialSet, splitSize, depth ) )
-      ) { _ + _ }
+      ) {_ + _}
     }
   }
 

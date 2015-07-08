@@ -97,7 +97,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
 
     "Be correct with only an input layer" in {
       val nn = new FeedforwardNeuralNetwork( input_layer )
-      inputs_range foreach { i => nn.output( i )( 0 ) should equal( i ) }
+      inputs_range foreach { i => nn.output( i )( 0 ) should equal( i )}
     }
 
   }

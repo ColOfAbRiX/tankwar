@@ -55,7 +55,7 @@ abstract class NeuralNetworkTester( val network: NeuralNetwork, nInputs: Int ) e
       if( plotIndexes.length == 1 ) {
         // If there is only one value to plot, then plot it
         val outputs = network.output( inputs )
-        writer.write( s"${inputs.mkString( ";" ) };${outputs.mkString( ";" ) }\n".replace( ".", "," ) )
+        writer.write( s"${inputs.mkString( ";" )};${outputs.mkString( ";" )}\n".replace( ".", "," ) )
       }
       else {
         // If there is more than one value to plot, recursively call this function over the remaining indexes {
@@ -75,7 +75,7 @@ abstract class NeuralNetworkTester( val network: NeuralNetwork, nInputs: Int ) e
       // Don't do anything if the test has already run
       if( !new java.io.File( fileName ).exists( ) ) {
         val writer = new PrintWriter( fileName )
-        writer.println( s"${Seq.range( 0, nInputs ).mkString( "", "-input;", "-input" ) };Force-X;Force-Y;Rot;Shoot" )
+        writer.println( s"${Seq.range( 0, nInputs ).mkString( "", "-input;", "-input" )};Force-X;Force-Y;Rot;Shoot" )
 
         // Run the test
         test._1 {writer}

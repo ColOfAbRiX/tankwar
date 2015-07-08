@@ -51,7 +51,7 @@ trait PhysicalObject {
    */
   final def position: Vector2D = _position
 
-  protected var _position: Vector2D = Vector2D.new_xy(0, 0)
+  protected var _position: Vector2D = Vector2D.new_xy( 0, 0 )
 
   /**
    * Speed of the {position} of the object, relative to the arena.
@@ -64,7 +64,7 @@ trait PhysicalObject {
    */
   final def speed: Vector2D = _speed
 
-  protected var _speed: Vector2D = Vector2D.new_xy(0, 0)
+  protected var _speed: Vector2D = Vector2D.new_xy( 0, 0 )
 
   /**
    * Rotation of the object relative to the X-axis
@@ -76,7 +76,7 @@ trait PhysicalObject {
    */
   final def rotation: Vector2D = _rotation
 
-  protected var _rotation: Vector2D = Vector2D.new_rt(1, 0)
+  protected var _rotation: Vector2D = Vector2D.new_rt( 1, 0 )
 
   /**
    * Angular speed of the object's main axis
@@ -114,7 +114,7 @@ trait PhysicalObject {
    * @param that The point to check
    * @return true if the point is inside or on the boundary of the shape
    */
-  def intersects( that: Vector2D ): Boolean = objectShape.contains(that)
+  def intersects( that: Vector2D ): Boolean = objectShape.contains( that )
 
   /**
    * Determines if a shape touches this one
@@ -124,14 +124,14 @@ trait PhysicalObject {
    * @param that The shape to check
    * @return true if the two shapes overlap
    */
-  def touches( that: PhysicalObject ): Boolean = objectShape.intersects(that.objectShape)
+  def touches( that: PhysicalObject ): Boolean = objectShape.intersects( that.objectShape )
 
   /**
    * Identifier of the instance.
    *
    * The default implementation is to return the class name with an hash appended to it, like Object@14235
    */
-  val id = this.getClass.toString.replace("class ", "").replaceFirst( """(\w+\.)*""", "") + "@" + java.util.UUID.randomUUID.toString.substring(0, 5)
+  val id = this.getClass.toString.replace( "class ", "" ).replaceFirst( """(\w+\.)*""", "" ) + "@" + java.util.UUID.randomUUID.toString.substring( 0, 5 )
 
   /**
    * Record identifying the step of the PhysicalObject

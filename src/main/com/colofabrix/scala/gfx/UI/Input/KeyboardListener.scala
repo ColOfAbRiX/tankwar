@@ -19,8 +19,6 @@ package com.colofabrix.scala.gfx.ui.input
 import com.colofabrix.scala.simulation.World
 import org.lwjgl.input.Keyboard
 
-import scala.collection.mutable
-
 /**
  *
  * Class to listen for keyboard input, can be event driven, ie activated on a discrete press
@@ -36,7 +34,7 @@ class KeyboardListener( val key: Int,
   val action: (World) => Unit,
   val world: World,
   val eventDriven: Boolean = true,
-  val onPress: Boolean = true) {
+  val onPress: Boolean = true ) {
 
   /**
    * Update the key if it is not eventDriven

@@ -23,7 +23,7 @@ import com.colofabrix.scala.math.Vector2D
  * TODO: Complete the class
  * @see http://geomalgorithms.com/a08-_containers.html
  */
-class Diamond(v: Seq[Vector2D]) extends ConvexPolygon(v) with Container {
+class Diamond( v: Seq[Vector2D] ) extends ConvexPolygon( v ) with Container {
   /**
    * Determines if the container fully contain a Shape
    *

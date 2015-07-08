@@ -20,9 +20,8 @@ import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
-import com.colofabrix.scala.gfx.Renderers.EnvironmentRenderer
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.renderers.BGRenderer
+import com.colofabrix.scala.gfx.renderers._
 import com.colofabrix.scala.gfx.ui.UIManager
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -80,7 +79,7 @@ class World(
   private var _tanks = LinkedQuadtree[Shape, Tank]( arena, _initialTanks, 2, 12 )
   private var _time: Long = 0
 
-  val environRenderer: EnvironmentRenderer = new EnvironmentRenderer(this, _tanks)
+  val environRenderer: EnvironmentRenderer = new EnvironmentRenderer( this, _tanks )
   /**
    * Graphics manager of the simulation
    */
@@ -196,7 +195,7 @@ class World(
     _bullets = _bullets.clear( )
 
     // Reset dei counter
-    _counters.foreach { case (k, v) => resCounter( k ) }
+    _counters.foreach { case (k, v) => resCounter( k )}
   }
 
   /**

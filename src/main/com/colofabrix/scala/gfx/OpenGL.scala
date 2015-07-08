@@ -31,6 +31,7 @@ object OpenGL {
    */
   case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
 
+
   /**
    * An OpenGL reference frame. It holds data about its position to the absolute reference, its rotation and the colour of its brush
    *
@@ -54,6 +55,7 @@ object OpenGL {
      */
     def rotation = Option( _rotation )
   }
+
 
   /**
    * Predefined colour set
@@ -82,6 +84,7 @@ object OpenGL {
     val WHITE = Colour( 1.0, 1.0, 1.0 )
     val YELLOW = Colour( 1.0, 1.0, 0.0 )
   }
+
 
   private val DEG2RAD = 180 / Math.PI
 

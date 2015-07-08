@@ -91,10 +91,10 @@ abstract class NeuronLayer(
    */
   def output( inputs: Seq[Double] ): Seq[Double] = {
     // The given input values must match the NN configuration
-    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length }) must match the number of set inputs for the layer ($n_inputs)" )
+    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
 
     for( o <- 0 until n_outputs ) yield
-    activation( (inputs zip weights( o ) map { case (i, w) => i * w } sum) + biases( o ) )
+      activation( (inputs zip weights( o ) map { case (i, w) => i * w} sum) + biases( o ) )
   }
 
   /**
