@@ -20,6 +20,7 @@ import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
+import com.colofabrix.scala.gfx.renderers.EnvironmentRenderer
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers._
 import com.colofabrix.scala.gfx.ui.UIManager

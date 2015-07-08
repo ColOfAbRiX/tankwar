@@ -75,6 +75,7 @@ class UIManager( val world: World ) {
 
   private def initializeListeners( ): Unit = {
     //Add the right listeners
+    //This listener adds 5 to the sync flag (controls sim. speed) when plus key pressed
     KBM.addListener(
       new KeyboardListener(
         Keyboard.KEY_EQUALS,
@@ -85,6 +86,7 @@ class UIManager( val world: World ) {
         world
       )
     )
+    //This listener minuses 5 from the sync flag when the minus key is pressed (Min 5)
     KBM.addListener(
       new KeyboardListener(
         Keyboard.KEY_MINUS,
@@ -96,6 +98,7 @@ class UIManager( val world: World ) {
         world
       )
     )
+    //This flag toggles the qtree flag which controls the rendering of the QuadTree
     KBM.addListener(
       new KeyboardListener(
         Keyboard.KEY_Q,
@@ -107,6 +110,7 @@ class UIManager( val world: World ) {
         world
       )
     )
+    //This listener toggles the vectors flag which controls the rendering of the tanks' vectors
     KBM.addListener(
       new KeyboardListener(
         Keyboard.KEY_V,
@@ -118,6 +122,7 @@ class UIManager( val world: World ) {
         world
       )
     )
+    //This listener toggles the tksight flag which controls the rendering of the tank's sight
     KBM.addListener(
       new KeyboardListener(
         Keyboard.KEY_S,
