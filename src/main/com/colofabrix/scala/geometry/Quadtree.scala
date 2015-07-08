@@ -92,7 +92,7 @@ class Quadtree[T <: Shape, U <: PhysicalObject] protected(
 
       // Try to add the shape into one subnode
       if( where.isDefined ) {
-        val newNodes = nodes.map { q => if( where.get == q ) where.get + p else q }
+        val newNodes = nodes.map { q => if( where.get == q ) where.get + p else q}
         return new Quadtree[T, U]( bounds, level, newNodes, shapes, splitSize, depth )
       }
 
@@ -219,7 +219,7 @@ object Quadtree {
     }
     else {
       // For quadtrees with initial shapes, I add them one by one
-      initialSet.foldLeft( new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels ) ) { _ + _ }
+      initialSet.foldLeft( new Quadtree[T, U]( bounds, 0, List( ), List( ), bucketSize, maxLevels ) ) {_ + _}
     }
   }
 

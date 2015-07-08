@@ -84,7 +84,7 @@ class ElmanFeedbackLayer(
    * @return A new `Seq[Seq[Double]]` containing, for each neuron, the inputs of the first lists and the inputs of the second list
    */
   private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) =
-    (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
+    (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2}
 
   /**
    * Calculate the output of the layer

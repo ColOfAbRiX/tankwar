@@ -72,11 +72,11 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    */
   override def mutateWeights( c: TankChromosome, random: Random ) =
     for( layer <- c.weights ) yield
-    mutate(
-      mutationRule( c.valueRange ),
-      layer,
-      random
-    )
+      mutate(
+        mutationRule( c.valueRange ),
+        layer,
+        random
+      )
 
   /**
    * Mutate the reference rotation zero of a Tank

@@ -23,7 +23,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
   */
-class QuadtreeRenderer( val quadtree: Quadtree[_ <: Shape, _ <: PhysicalObject] ) extends Renderer {
+class QuadtreeRenderer( var quadtree: Quadtree[_ <: Shape, _ <: PhysicalObject] ) extends Renderer {
   /**
    * Draw the appropriate things on the screen given a specific drawing context
    *
@@ -33,7 +33,6 @@ class QuadtreeRenderer( val quadtree: Quadtree[_ <: Shape, _ <: PhysicalObject] 
    * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
   override def render( create: Boolean ): Unit = {
-
     withContext( create, Frame( Colour.DARK_GREY ) ) {
 
       // Renders the current boundaries

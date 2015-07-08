@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.simulation.abstracts
 
-import com.colofabrix.scala.simulation.World
 import com.colofabrix.scala.geometry.abstracts.Shape
+import com.colofabrix.scala.simulation.World
 
 /**
  * An interactive object is an object that actively interacts, like it can see, it can hit and be hit, any kind of

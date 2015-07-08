@@ -17,8 +17,9 @@
 package com.colofabrix.scala.gfx.ui
 
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.ui.input.KeyboardManager
+import com.colofabrix.scala.gfx.ui.input.{ KeyboardListener, KeyboardManager }
 import com.colofabrix.scala.simulation.World
+import org.lwjgl.input.Keyboard
 
 import scala.collection._
 
@@ -33,6 +34,8 @@ class UIManager( val world: World ) {
    * The keyboard manager
    */
   val KBM = new KeyboardManager( )
+
+  initializeListeners( )
 
   /**
    * The flags of the user interface
@@ -50,7 +53,10 @@ class UIManager( val world: World ) {
   initializeFlags( )
 
   private def initializeFlags( ): Unit = {
-    flags += (("sync" -> 25)) // Frame sync
+    flags += ("sync" -> 25) // Frame sync
+    flags += ("qtree" -> true)
+    flags += ("vectors" -> true)
+    flags += ("tksight" -> true)
   }
 
   /**
@@ -65,6 +71,69 @@ class UIManager( val world: World ) {
    */
   def update( ): Unit = {
     KBM.update( )
+  }
+
+  private def initializeListeners( ): Unit = {
+    //Add the right listeners
+    //This listener adds 5 to the sync flag (controls sim. speed) when plus key pressed
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_EQUALS,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          flags.update( "sync", flags.getWithDefault( "sync", 25 ) + 5 )
+        },
+        world
+      )
+    )
+    //This listener minuses 5 from the sync flag when the minus key is pressed (Min 5)
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_MINUS,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val speed = flags.getWithDefault( "sync", 25 ) - 5
+          if( speed > 5 ) flags.update( "sync", speed )
+        },
+        world
+      )
+    )
+    //This flag toggles the qtree flag which controls the rendering of the QuadTree
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_Q,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val qtree = flags.getWithDefault( "qtree", true )
+          flags.update( "qtree", !qtree )
+        },
+        world
+      )
+    )
+    //This listener toggles the vectors flag which controls the rendering of the tanks' vectors
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_V,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val vectors = flags.getWithDefault( "vectors", true )
+          flags.update( "vectors", !vectors )
+        },
+        world
+      )
+    )
+    //This listener toggles the tksight flag which controls the rendering of the tank's sight
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_S,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val tksight = flags.getWithDefault( "tksight", true )
+          flags.update( "tksight", !tksight )
+        },
+        world
+      )
+    )
   }
 
 }

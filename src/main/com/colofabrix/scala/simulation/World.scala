@@ -20,8 +20,9 @@ import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
+import com.colofabrix.scala.gfx.renderers.EnvironmentRenderer
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.renderers.BGRenderer
+import com.colofabrix.scala.gfx.renderers._
 import com.colofabrix.scala.gfx.ui.UIManager
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -78,6 +79,8 @@ class World(
   private var _bullets = LinkedQuadtree[Shape, Bullet]( arena, List( ), 2, 12 )
   private var _tanks = LinkedQuadtree[Shape, Tank]( arena, _initialTanks, 2, 12 )
   private var _time: Long = 0
+
+  val environRenderer: EnvironmentRenderer = new EnvironmentRenderer( this, _tanks )
   /**
    * Graphics manager of the simulation
    */
@@ -161,7 +164,7 @@ class World(
    * @return All the renderers for the objects in the simulation worlds
    */
   def renderers: Seq[Renderer] = {
-    _tanks.renderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+    environRenderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
   }
 
   /**
@@ -193,7 +196,7 @@ class World(
     _bullets = _bullets.clear( )
 
     // Reset dei counter
-    _counters.foreach { case (k, v) => resCounter( k ) }
+    _counters.foreach { case (k, v) => resCounter( k )}
   }
 
   /**

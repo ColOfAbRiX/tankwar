@@ -210,7 +210,7 @@ class Tank private(
    * When maximum speed is reached, it is trimmed to the maximum
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
-    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed ) }
+    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed )}
   }
 
   /**
@@ -439,6 +439,7 @@ class Tank private(
   override def toString = id
 }
 
+
 /**
  * Structural configuration of a tank (usually used at first-time creation)
  */
@@ -457,12 +458,12 @@ object Tank {
   /**
    * Default activation function
    */
-  val defaultActivationFunction = Seq.fill(3)("tanh")
+  val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
 
   /**
    * Default number of hidden neurons. It is the average between input and output neurons
    */
-  val defaultHiddenNeurons = Math.ceil((BrainInputHelper.count + BrainOutputHelper.count) / 2).toInt
+  val defaultHiddenNeurons = Math.ceil( (BrainInputHelper.count + BrainOutputHelper.count) / 2 ).toInt
 
   /**
    * Default sight ration.
@@ -473,7 +474,7 @@ object Tank {
    * Default type of neural network
    */
   val defaultBrainBuilder =
-    new ThreeLayerNetwork(new FeedforwardBuilder, defaultHiddenNeurons)
+    new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
 
   // Mess below here. Refactoring planned.
 
@@ -482,11 +483,12 @@ object Tank {
       defaultBrainBuilder.hiddenLayersCount,
       rng,
       defaultRange / 20,
-      defaultActivationFunction(0)
+      defaultActivationFunction( 0 )
     )
 
-  def apply( world: World, chromosome: TankChromosome ): Tank = new Tank(world, chromosome)
+  def apply( world: World, chromosome: TankChromosome ): Tank = new Tank( world, chromosome )
 
-  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank(world, chromosome, Option(reader))
+  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new
+      Tank( world, chromosome, Option( reader ) )
 
 }

@@ -42,6 +42,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
   def render( create: Boolean = true ): Unit = {
     val fitness: Double = new TankEvaluator( ).getFitness( tank, null )
     val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
+    val flags = tank.world.UIManager.flags
 
     drawingContext( Frame( _position = tank.position ) ) {
 
@@ -60,30 +61,34 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      // Draw the sight toward bullets
-      setFrame( Frame( Colour.DARK_RED ) ) {
-        tank.sight( classOf[Bullet] ).renderer.render( false )
+      if (flags.getWithDefault("tksight", true)) {
+        // Draw the sight toward bullets
+        setFrame( Frame( Colour.DARK_RED ) ) {
+          tank.sight( classOf[Bullet] ).renderer.render( false )
+        }
+
+        // Draw the sight toward tanks
+        setFrame( Frame( Colour.DARK_GREEN ) ) {
+          tank.sight( classOf[Tank] ).renderer.render( false )
+        }
       }
 
-      // Draw the sight toward tanks
-      setFrame( Frame( Colour.DARK_GREEN ) ) {
-        tank.sight( classOf[Tank] ).renderer.render( false )
+    }
+
+    if (flags.getWithDefault("vectors", true)) {
+      // Draw the speed vector
+      setFrame( Frame( Colour.WHITE ) ) {
+        new VectorRenderer( tank.speed * 10, tank.position ).render( )
       }
 
-    }
-
-    // Draw the speed vector
-    setFrame( Frame( Colour.WHITE ) ) {
-      new VectorRenderer( tank.speed * 10, tank.position ).render()
-    }
-
-    // Draw bullet sight vectors
-    val (pos, speed) = tank.calculateBulletVision
-    setFrame( Frame( Colour.CYAN ) ) {
-      new VectorRenderer( pos * 10, tank.position ).render()
-    }
-    setFrame( Frame( Colour.MAGENTA ) ) {
-      new VectorRenderer( speed * 10, tank.position ).render()
+      // Draw bullet sight vectors
+      val (pos, speed) = tank.calculateBulletVision
+      setFrame( Frame( Colour.CYAN ) ) {
+        new VectorRenderer( pos * 10, tank.position ).render( )
+      }
+      setFrame( Frame( Colour.MAGENTA ) ) {
+        new VectorRenderer( speed * 10, tank.position ).render( )
+      }
     }
 
   }

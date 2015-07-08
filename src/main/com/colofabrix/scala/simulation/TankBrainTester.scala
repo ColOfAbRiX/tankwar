@@ -30,7 +30,7 @@ final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser( t
   /**
    * First line that will be written to the output stream
    */
-  override def outputHeader: String = s"${Seq.range( 0, network.n_inputs ).mkString( "", "-input;", "-input" ) };Force-X;Force-Y;Rot;Shoot"
+  override def outputHeader: String = s"${Seq.range( 0, network.n_inputs ).mkString( "", "-input;", "-input" )};Force-X;Force-Y;Rot;Shoot"
 
   /**
    * Contains the definition of the plots for the network, like the definition of the
@@ -62,7 +62,7 @@ final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser( t
     testDefinitions.zipWithIndex.foreach { test =>
 
       // Different name of files for different networks and tests
-      val fileName = s"out/NN-${Math.abs( network.hashCode ) }_test-${test._2 }.csv"
+      val fileName = s"out/NN-${Math.abs( network.hashCode )}_test-${test._2}.csv"
 
       // Don't do anything if the test has already run (speedup a lot)
       if( !new java.io.File( fileName ).exists( ) ) {
