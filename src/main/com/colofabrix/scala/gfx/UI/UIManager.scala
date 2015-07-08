@@ -17,8 +17,9 @@
 package com.colofabrix.scala.gfx.ui
 
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.ui.input.KeyboardManager
+import com.colofabrix.scala.gfx.ui.input.{ KeyboardListener, KeyboardManager }
 import com.colofabrix.scala.simulation.World
+import org.lwjgl.input.Keyboard
 
 import scala.collection._
 
@@ -33,6 +34,8 @@ class UIManager( val world: World ) {
    * The keyboard manager
    */
   val KBM = new KeyboardManager( )
+
+  initializeListeners()
 
   /**
    * The flags of the user interface
@@ -50,7 +53,9 @@ class UIManager( val world: World ) {
   initializeFlags( )
 
   private def initializeFlags( ): Unit = {
-    flags += (("sync" -> 25)) // Frame sync
+    flags += ("sync" -> 25) // Frame sync
+    flags += ("qtree" -> true)
+    flags += ("vectors" -> true)
   }
 
   /**
@@ -65,6 +70,33 @@ class UIManager( val world: World ) {
    */
   def update( ): Unit = {
     KBM.update( )
+  }
+
+  private def initializeListeners(): Unit = {
+    //Add the right listeners
+    KBM.addListener(new KeyboardListener(
+      Keyboard.KEY_EQUALS,
+      (world: World) => {val flags = world.UIManager.flags
+        flags.update("sync", flags.getWithDefault("sync", 25)+5)},
+      world))
+    KBM.addListener(new KeyboardListener(
+      Keyboard.KEY_MINUS,
+      (world: World) => {val flags = world.UIManager.flags
+        val speed = flags.getWithDefault("sync", 25)-5
+        if (speed > 5) flags.update("sync", speed)},
+      world))
+    KBM.addListener(new KeyboardListener(
+      Keyboard.KEY_Q,
+      (world: World) => {val flags = world.UIManager.flags
+        val qtree = flags.getWithDefault("qtree", true)
+        flags.update("qtree", !qtree)},
+      world))
+    KBM.addListener(new KeyboardListener(
+      Keyboard.KEY_V,
+      (world: World) => {val flags = world.UIManager.flags
+        val vectors = flags.getWithDefault("vectors", true)
+        flags.update("vectors", !vectors)},
+      world))
   }
 
 }
