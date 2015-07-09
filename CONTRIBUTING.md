@@ -69,7 +69,8 @@ In general, when something is not clear, follow the [Scala Style Guide][scala-st
 Push to your fork and submit a pull request from Github.
 
 At this point you're waiting on me. I like to comment on pull requests as soon as possible and I may suggest
-some changes or improvements or alternatives.
+some changes or improvements or alternatives. The final decision to merge or not the changes on the master
+branch shall only be mine.
 
 To be accepted a pull request, from any contributor, must at least and without reserve:
 

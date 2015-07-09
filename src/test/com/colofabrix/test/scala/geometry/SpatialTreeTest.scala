@@ -21,7 +21,7 @@ import org.scalatest.{ Matchers, WordSpec }
 /**
  * Test for `Quadtree`
  */
-class QuadtreeTest extends WordSpec with Matchers {
+class SpatialTreeTest extends WordSpec with Matchers {
 
   "Basic operations" must {
 

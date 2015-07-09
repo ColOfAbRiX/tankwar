@@ -24,7 +24,7 @@ import org.lwjgl.opengl.{ Display, DisplayMode }
 /**
  * Runs all of the GFX operations
  */
-class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Renderer ) {
+class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Renderer ) extends Renderer {
   require( world != null, "The World must be specified" )
   require( BGRenderer != null, "There must be a BG Renderer" )
 
@@ -44,12 +44,14 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   }
 
   /**
-   * Render all of the GFX
-   * - Gets all the renderers from the world and the UI then renders them
-   * - Syncs the display to the SimSpeed flag
-   * - Exits if the Red-Cross is clicked
+   *Render all of the GFX
+   *
+   * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
+   * to do and usually its behaviour is stated in the documentation
+   *
+   * @param create Ignored by this method
    */
-  def renderAll( ): Unit = {
+  def render( create: Boolean = true ): Unit = {
 
     clearScreen( )
 

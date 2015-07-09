@@ -30,14 +30,19 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
-class Bullet( override val world: World, val tank: Tank, val proper_speed: Double )
+class Bullet( override val world: World, val tank: Tank, val properSpeed: Double )
   extends PhysicalObject with Renderable {
 
   import Math._
 
   private var _life = 0
 
-  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Colour.BLUE, true )
+  /**
+   * Resets the status of the `PhysicalObject
+   * `
+   * @return A new `PhysicalObject` where its internal status has been reset
+   */
+  override def clear( ): Unit = {}
 
   /**
    * Life of the bullet
@@ -60,23 +65,8 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    *
    * @return The current speed of a bullet
    */
-  _speed = Vector2D.new_rt( proper_speed, tank.rotation.t ) + tank.speed
+  _speed = Vector2D.new_rt( properSpeed, tank.rotation.t ) + tank.speed
   _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
-
-  /**
-   * Physical boundary of the bullet.
-   */
-  override def objectShape: Shape = Circle( _position, 2 )
-
-  /**
-   * Moves the bullet one step into the future.
-   */
-  override def step( ) {
-    _life += 1
-    _position = _position + _speed
-  }
-
-  override def toString = id
 
   /**
    * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
@@ -84,13 +74,6 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    * If a bullet hits a wall nothing is done, as we want the {World} to remove it, as if it simply flew away.
    */
   override def on_hitsWalls( ): Unit = {}
-
-  /**
-   * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
-   *
-   * Bullets are never respawned, so the implementation is empty
-   */
-  override def on_respawn( ): Unit = {}
 
   /**
    * Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
@@ -107,4 +90,27 @@ class Bullet( override val world: World, val tank: Tank, val proper_speed: Doubl
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {}
 
+  /**
+   * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
+   *
+   * Bullets are never respawned, so the implementation is empty
+   */
+  override def on_respawn( ): Unit = {}
+
+  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Colour.BLUE, true )
+
+  /**
+   * Physical boundary of the bullet.
+   */
+  override def objectShape: Shape = Circle( _position, 2 )
+
+  /**
+   * Moves the bullet one step into the future.
+   */
+  override def step( ) {
+    _life += 1
+    _position = _position + _speed
+  }
+
+  override def toString = id
 }

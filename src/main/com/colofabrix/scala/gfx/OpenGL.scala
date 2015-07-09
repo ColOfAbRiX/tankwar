@@ -131,13 +131,13 @@ object OpenGL {
    * the caller to set the context for the new objects that are going to be drawn.
    *
    * @param create With a value of true a new drawing context will be create, with false nothing is done
-   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
+   * @param defaultFrame The configuration of the reference frame. If not specified the reference frame is not affected
    * @param actions The drawing actions
    */
-  def withContext( create: Boolean, frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+  def withContext( create: Boolean, defaultFrame: Frame = Frame( ) )( actions: => Unit ): Unit = {
 
     if( create ) {
-      drawingContext( frame ) {
+      drawingContext( defaultFrame ) {
         actions
       }
     }
@@ -158,7 +158,7 @@ object OpenGL {
    * @param frame The configuration of the reference frame. If not specified the reference frame is set to default
    * @param actions The drawing actions
    */
-  def drawingContext( frame: Frame = Frame( Colour.BLACK, Vector2D.zero, Vector2D.zero ) )( actions: => Unit ): Unit = {
+  def drawingContext( frame: Frame = Frame( Colour.WHITE, Vector2D.zero, Vector2D.zero ) )( actions: => Unit ): Unit = {
     glPushMatrix( )
 
     setFrame( frame ) {

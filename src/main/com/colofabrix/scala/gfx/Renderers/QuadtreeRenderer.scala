@@ -16,14 +16,14 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.abstracts.{ Quadtree, Shape }
+import com.colofabrix.scala.geometry.abstracts.SpatialTree
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
   */
-class QuadtreeRenderer( val quadtree: Quadtree[_ <: Shape, _ <: PhysicalObject] ) extends Renderer {
+class QuadtreeRenderer( val quadtree: SpatialTree[_ <: PhysicalObject] ) extends Renderer {
   /**
    * Draw the appropriate things on the screen given a specific drawing context
    *

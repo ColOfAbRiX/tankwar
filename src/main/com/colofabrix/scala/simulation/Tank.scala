@@ -102,7 +102,7 @@ class Tank private(
   /**
    * Reset the status of a Tank to the initial values
    */
-  def clear( ): Unit = {
+  override def clear( ): Unit = {
     _direction = Vector2D.new_xy( 1, 1 )
 
     _seenTanks = ArrayBuffer( )

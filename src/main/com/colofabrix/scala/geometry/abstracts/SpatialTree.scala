@@ -20,14 +20,11 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
- * An immutable Quadtree
+ * A generic spatial tree
  *
- * A quadtree is a try of tree with 4 children nodes per parent used to partition a cartesian plane and speed up
- * object-object interactions in graphical environments.
- *
- * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
+ * A spatial tree is a type of tree used to index object in a 2D space and provide fast search for them
  */
-trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
+trait SpatialTree[T <: PhysicalObject] extends Renderable {
 
   /**
    * Remove the object from the quadtree.
@@ -36,28 +33,14 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
    *
    * @return A new quadtree without the specified PhysicalObject.
    */
-  def -( p: U ): Quadtree[T, U]
+  def -( p: T ): SpatialTree[T]
 
   /**
    * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to their corresponding nodes.
    *
    * @return A new quadtree containing the new PhysicalObject in the appropriate position
    */
-  def +( p: U ): Quadtree[T, U]
-
-  /**
-   * Tells if the Quadtree is empty of Nodes
-   *
-   * @return true is the quadtree doesn't contain any subnode
-   */
-  def areNodesEmpty: Boolean
-
-  /**
-   * Tells if the Quadtree is empty of Shapes
-   *
-   * @return true is the quadtree doesn't contain any Shape
-   */
-  def areShapesEmpty: Boolean
+  def +( p: T ): SpatialTree[T]
 
   /**
    * Area covered by the quadtree
@@ -69,7 +52,7 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  def clear( ): Quadtree[T, U]
+  def clear( ): SpatialTree[T]
 
   /**
    * The maximum depth of the Quadtree
@@ -82,7 +65,14 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
    * @param s The shape to check
    * @return An Option containing the Quadtree that contains the Shape or nothing
    */
-  def findNode( s: Shape ): Option[Quadtree[T, U]]
+  def findNode( s: Shape ): Option[SpatialTree[T]]
+
+  /**
+   * Tells if the Quadtree is empty of Shapes
+   *
+   * @return true is the quadtree doesn't contain any Shape
+   */
+  def isEmpty: Boolean
 
   /**
    * Return all PhysicalObjects that could collide with the given Shape
@@ -90,12 +80,21 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
    * @param s A Shape used to collect other shapes that are spatially near it
    * @return All PhysicalObjects that could collide with the given object
    */
-  def lookAround( s: T ): List[U]
+  def lookAround( s: Shape ): List[T]
 
   /**
    * The children nodes of the current node, or an empty list if we are on a leaf
    */
-  def nodes: List[Quadtree[T, U]]
+  def nodes: List[SpatialTree[T]]
+
+  /**
+   * Updates the quadtree
+   *
+   * The objects inside the quadtree can move and thus their position inside the tree can change
+   *
+   * @return A new instance of a SpatialTree with the updated objects
+   */
+  def refresh( ): SpatialTree[T]
 
   /**
    * An object responsible to renderer the class where this trait is applied
@@ -107,7 +106,12 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
   /**
    * The shapes contained by the node.
    */
-  def shapes: List[U]
+  def shapes: List[T]
+
+  /**
+   * The number of shapes contained in the quadtree
+   */
+  def size: Int
 
   /**
    * Create 4 quadrants into the node
@@ -117,10 +121,17 @@ trait Quadtree[T <: Shape, U <: PhysicalObject] extends Renderable {
    *
    * @return A new Quadtree with 4 new subnodes
    */
-  def split( ): Quadtree[T, U]
+  def split( ): SpatialTree[T]
 
   /**
    * The number of items a node can contain before it splits
    */
   def splitSize: Int
+
+  /**
+   * Get the current tree as a list
+   *
+   * @return A new List containing all the elements of the tree
+   */
+  def toList( ): List[T]
 }

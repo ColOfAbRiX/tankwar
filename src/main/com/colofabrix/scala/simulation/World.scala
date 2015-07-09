@@ -16,8 +16,7 @@
 
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.LinkedQuadtree
-import com.colofabrix.scala.geometry.abstracts._
+import com.colofabrix.scala.geometry.DummyQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -70,13 +69,12 @@ class World(
     "shots" -> 0,
     "bannedForPosition" -> 0,
     "bannedForSpeed" -> 0,
-    "bannedForSight" -> 0,
-    "bannedForAngularSpeed" -> 0,
+
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
-  private var _bullets = LinkedQuadtree[Shape, Bullet]( arena, List( ), 2, 12 )
-  private var _tanks = LinkedQuadtree[Shape, Tank]( arena, _initialTanks, 2, 12 )
+  private var _bullets = DummyQuadtree[Bullet]( arena, List() ) //LinkedQuadtree[Bullet]( arena, List( ), 3, 10 )
+  private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks ) //LinkedQuadtree[Tank]( arena, _initialTanks, 2, 5 )
   private var _time: Long = 0
   /**
    * Graphics manager of the simulation
@@ -167,12 +165,12 @@ class World(
   /**
    * List of tanks present in the world
    */
-  def tanks = _tanks.asList
+  def tanks = _tanks.toList
 
   /**
    * List of bullets running through the world
    */
-  def bullets = _bullets.asList
+  def bullets = _bullets.toList
 
   /**
    * Resets the world to a known, initial states
@@ -186,8 +184,11 @@ class World(
     _time = 0
 
     // Reinitialize the Tanks
-    tankList.foreach( _.clear( ) )
-    _tanks = LinkedQuadtree[Shape, Tank]( arena, tankList, _tanks.splitSize, _tanks.depth )
+    _tanks = _tanks.clear()
+    for( t <- tankList ) {
+      t.clear()
+      _tanks = _tanks + t
+    }
 
     // Clear all bullets
     _bullets = _bullets.clear( )
@@ -215,34 +216,25 @@ class World(
     _time += 1
 
     // Update the positions of the tanks in the Quadtree
-    // TODO: include a method in the Quadtree
-    // FIXME: Huge performance impact
-    _tanks = LinkedQuadtree( _tanks.bounds.asInstanceOf[Box], _tanks.asList, _tanks.splitSize, _tanks.depth )
-    _bullets = LinkedQuadtree( _bullets.bounds.asInstanceOf[Box], _bullets.asList, _bullets.splitSize, _bullets.depth )
+    _tanks = _tanks.refresh( )
+    _bullets = _bullets.refresh( )
 
     // Managing tanks
-    tanks.par.foreach(
-      tank =>
-        if( !tank.isDead ) {
-          manageAliveTank( tank )
-        }
-        else {
-          manageDeadTank( tank )
-        }
-    )
+    for( tank <- tanks.par ) {
+      if( !tank.isDead ) {
+        manageAliveTank( tank )
+      }
+      else {
+        manageDeadTank( tank )
+      }
+    }
 
     // Managing bullets
     bullets.par.foreach( manageBullet )
 
-    // Update the user interaction object
-    if( UIManager != null ) {
-      UIManager.update( )
-    }
-
     // Update the graphic object and render everything
-    if( GFXManager != null ) {
-      GFXManager.renderAll( )
-    }
+    UIManager.update( )
+    GFXManager.render( )
   }
 
   /**

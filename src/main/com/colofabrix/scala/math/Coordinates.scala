@@ -142,6 +142,7 @@ object PolarCoord {
    * @param t The angle to trim
    * @return An equivalent angle that is always non-negative and less than 2 * PI
    */
+  @inline
   def trimAngles( t: Double ): Double = t % (-2 * Math.PI) + 2 * Math.PI
 }
 
@@ -160,6 +161,7 @@ object CoordinatesImplicits {
    * @param c The input cartesian coordinates
    * @return The same point represented in polar coordinates
    */
+  @inline
   implicit def Cartesian2Polar( c: CartesianCoord ): PolarCoord =
     PolarCoord(
       sqrt( pow( c.x, 2 ) + pow( c.y, 2 ) ),
@@ -189,6 +191,7 @@ object CoordinatesImplicits {
    * @param p The input polar coordinates
    * @return The same point represented in cartesian coordinates
    */
+  @inline
   implicit def Polar2Cartesian( p: PolarCoord ): CartesianCoord =
     CartesianCoord(
       p.r * cos( p.t ),
