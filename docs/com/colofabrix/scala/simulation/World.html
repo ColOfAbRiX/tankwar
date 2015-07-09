@@ -1,19 +1,19 @@
 <!DOCTYPE html >
 <html>
-        <head>
-          <title>World - TankWar Documentation - com.colofabrix.scala.simulation.World</title>
-          <meta name="description" content="World - TankWar Documentation - com.colofabrix.scala.simulation.World" />
-          <meta name="keywords" content="World TankWar Documentation com.colofabrix.scala.simulation.World" />
-          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-          
-      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
-      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
-      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
-      <script type="text/javascript" src="../../../../lib/template.js"></script>
-      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
-      
-      <script type="text/javascript">
+<head>
+    <title>World - TankWar Documentation - com.colofabrix.scala.simulation.World</title>
+    <meta name="description" content="World - TankWar Documentation - com.colofabrix.scala.simulation.World"/>
+    <meta name="keywords" content="World TankWar Documentation com.colofabrix.scala.simulation.World"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet"/>
+    <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css"/>
+    <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+    <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../../../lib/template.js"></script>
+    <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+
+    <script type="text/javascript">
          if(top === self) {
             var url = '../../../../index.html';
             var hash = 'com.colofabrix.scala.simulation.World';
@@ -23,302 +23,491 @@
               anchor_opt = '@' + anchor.substring(1);
             window.location.href = url + '#' + hash + anchor_opt;
          }
-   	  </script>
-    
-        </head>
-        <body class="type">
-      <div id="definition">
-        <img src="../../../../lib/class_big.png" />
-        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.simulation">simulation</a></p>
-        <h1>World</h1> <span class="permalink">
+
+    </script>
+
+</head>
+<body class="type">
+<div id="definition">
+    <img src="../../../../lib/class_big.png"/>
+
+    <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html"
+                                                                                       class="extype"
+                                                                                       name="com.colofabrix">colofabrix</a>.<a
+            href="../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="package.html"
+                                                                                           class="extype"
+                                                                                           name="com.colofabrix.scala.simulation">simulation</a>
+    </p>
+
+    <h1>World</h1> <span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      </div>
+</div>
 
-      <h4 id="signature" class="signature">
+<h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">World</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">World</span><span class="result"> extends <span class="extype"
+                                                                           name="scala.AnyRef">AnyRef</span></span>
       </span>
-      </h4>
-      
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The world of the simulation</p><p>This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
-and limits that the participants must follow
-</p></div><div class="toggleContainer block">
-          <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div></div>
-        
+</h4>
 
-      <div id="mbrsel">
-        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
-        <div id="order">
-              <span class="filtertype">Ordering</span>
-              <ol>
-                
-                <li class="alpha in"><span>Alphabetic</span></li>
-                <li class="inherit out"><span>By inheritance</span></li>
-              </ol>
-            </div>
-        <div id="ancestors">
-                <span class="filtertype">Inherited<br />
+<div id="comment" class="fullcommenttop">
+    <div class="comment cmt"><p>The world of the simulation</p>
+
+        <p>This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
+            and limits that the participants must follow
+        </p></div>
+    <div class="toggleContainer block">
+        <span class="toggle">Linear Supertypes</span>
+
+        <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span
+                class="extype" name="scala.Any">Any</span></div>
+    </div>
+</div>
+
+
+<div id="mbrsel">
+    <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text"
+                                                                             accesskey="/"/></span><span
+            class="post"></span></div>
+    <div id="order">
+        <span class="filtertype">Ordering</span>
+        <ol>
+
+            <li class="alpha in"><span>Alphabetic</span></li>
+            <li class="inherit out"><span>By inheritance</span></li>
+        </ol>
+    </div>
+    <div id="ancestors">
+                <span class="filtertype">Inherited<br/>
                 </span>
-                <ol id="linearization">
-                  <li class="in" name="com.colofabrix.scala.simulation.World"><span>World</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
-                </ol>
-              </div><div id="ancestors">
-            <span class="filtertype"></span>
-            <ol>
-              <li class="hideall out"><span>Hide All</span></li>
-              <li class="showall in"><span>Show all</span></li>
-            </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
-          </div>
-        <div id="visbl">
-            <span class="filtertype">Visibility</span>
-            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
-          </div>
-      </div>
+        <ol id="linearization">
+            <li class="in" name="com.colofabrix.scala.simulation.World"><span>World</span></li>
+            <li class="in" name="scala.AnyRef"><span>AnyRef</span></li>
+            <li class="in" name="scala.Any"><span>Any</span></li>
+        </ol>
+    </div>
+    <div id="ancestors">
+        <span class="filtertype"></span>
+        <ol>
+            <li class="hideall out"><span>Hide All</span></li>
+            <li class="showall in"><span>Show all</span></li>
+        </ol>
+        <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about
+            member selection</a>
+    </div>
+    <div id="visbl">
+        <span class="filtertype">Visibility</span>
+        <ol>
+            <li class="public in"><span>Public</span></li>
+            <li class="all out"><span>All</span></li>
+        </ol>
+    </div>
+</div>
 
-      <div id="template">
-        <div id="allMembers">
+<div id="template">
+    <div id="allMembers">
         <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="com.colofabrix.scala.simulation.World#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(arena:com.colofabrix.scala.geometry.shapes.Box,max_tank_speed:Double,max_tank_rotation:Double,max_bullet_speed:Double,bullet_life:Int,max_sight:Double,max_rounds:Int,dead_time:Double,_tanks:List[com.colofabrix.scala.simulation.Tank]):com.colofabrix.scala.simulation.World"></a>
-      <a id="&lt;init&gt;:World"></a>
-      <h4 class="signature">
+            <h3>Instance Constructors</h3>
+            <ol>
+                <li name="com.colofabrix.scala.simulation.World#&lt;init&gt;" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="&lt;init&gt;(arena:com.colofabrix.scala.geometry.shapes.Box,max_tank_speed:Double,max_tank_rotation:Double,max_bullet_speed:Double,bullet_life:Int,max_sight:Double,max_rounds:Int,dead_time:Double,_tanks:List[com.colofabrix.scala.simulation.Tank]):com.colofabrix.scala.simulation.World"></a>
+                    <a id="&lt;init&gt;:World"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">World</span><span class="params">(<span name="arena">arena: <a href="../geometry/shapes/Box.html" class="extype" name="com.colofabrix.scala.geometry.shapes.Box">Box</a> = <span class="defval" name='<span class="name"><a href="../../../package.html">Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1280, 800))</a></span>'>...</span></span>, <span name="max_tank_speed">max_tank_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">5</span></span>, <span name="max_tank_rotation">max_tank_rotation: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">10 * 2.0 * Math.PI / 360</span></span>, <span name="max_bullet_speed">max_bullet_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">4</span></span>, <span name="bullet_life">bullet_life: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">25</span></span>, <span name="max_sight">max_sight: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">62831.853071795864</span></span>, <span name="max_rounds">max_rounds: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">1000</span></span>, <span name="dead_time">dead_time: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">0.2</span></span>, <span name="_tanks">_tanks: <span class="extype" name="scala.List">List</span>[<a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>] = <span class="symbol">List()</span></span>)</span>
+        <span class="name">World</span><span class="params">(<span name="arena">arena: <a
+              href="../geometry/shapes/Box.html" class="extype" name="com.colofabrix.scala.geometry.shapes.Box">Box</a> = <span
+              class="defval"
+              name='<span class="name"><a href="../../../package.html">Box(Vector2D.new_xy(0, 0), Vector2D.new_xy(1280, 800))</a></span>'>...</span></span>, <span
+              name="max_tank_speed">max_tank_speed: <span class="extype" name="scala.Double">Double</span> = <span
+              class="symbol">5</span></span>, <span name="max_tank_rotation">max_tank_rotation: <span class="extype"
+                                                                                                      name="scala.Double">Double</span> = <span
+              class="symbol">10 * 2.0 * Math.PI / 360</span></span>, <span
+              name="max_bullet_speed">max_bullet_speed: <span class="extype" name="scala.Double">Double</span> = <span
+              class="symbol">4</span></span>, <span name="bullet_life">bullet_life: <span class="extype"
+                                                                                          name="scala.Int">Int</span> = <span
+              class="symbol">25</span></span>, <span name="max_sight">max_sight: <span class="extype"
+                                                                                       name="scala.Double">Double</span> = <span
+              class="symbol">62831.853071795864</span></span>, <span name="max_rounds">max_rounds: <span class="extype"
+                                                                                                         name="scala.Int">Int</span> = <span
+              class="symbol">1000</span></span>, <span name="dead_time">dead_time: <span class="extype"
+                                                                                         name="scala.Double">Double</span> = <span
+              class="symbol">0.2</span></span>, <span name="_tanks">_tanks: <span class="extype"
+                                                                                  name="scala.List">List</span>[<a
+              href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>] = <span
+              class="symbol">List()</span></span>)</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@&lt;init&gt;(arena:com.colofabrix.scala.geometry.shapes.Box,max_tank_speed:Double,max_tank_rotation:Double,max_bullet_speed:Double,bullet_life:Int,max_sight:Double,max_rounds:Int,dead_time:Double,_tanks:List[com.colofabrix.scala.simulation.Tank]):com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@&lt;init&gt;(arena:com.colofabrix.scala.geometry.shapes.Box,max_tank_speed:Double,max_tank_rotation:Double,max_bullet_speed:Double,bullet_life:Int,max_sight:Double,max_rounds:Int,dead_time:Double,_tanks:List[com.colofabrix.scala.simulation.Tank]):com.colofabrix.scala.simulation.World"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">arena</dt><dd class="cmt"><p>The arena where the tanks play</p></dd><dt class="param">max_tank_speed</dt><dd class="cmt"><p>The maximum speed allowed for a tank per step</p></dd><dt class="param">max_tank_rotation</dt><dd class="cmt"><p>The maximum angular speed of a tank per step</p></dd><dt class="param">max_bullet_speed</dt><dd class="cmt"><p>The maximum proper speed of a bullet per step</p></dd><dt class="param">bullet_life</dt><dd class="cmt"><p>The maximum number of steps a bullet can live</p></dd><dt class="param">max_sight</dt><dd class="cmt"><p>Maximum allowed sight for a tank</p></dd><dt class="param">max_rounds</dt><dd class="cmt"><p>Maximum number of rounds for a generation</p></dd><dt class="param">dead_time</dt><dd class="cmt"><p>Percentage of the time when a tank can be dead</p></dd><dt class="param">_tanks</dt><dd class="cmt"><p>The tanks present in the world
-</p></dd></dl></div>
-    </li></ol>
-            </div>
 
-        
+                    <p class="shortcomment cmt"></p>
 
-        
+                    <div class="fullcomment">
+                        <div class="comment cmt"></div>
+                        <dl class="paramcmts block">
+                            <dt class="param">arena</dt>
+                            <dd class="cmt"><p>The arena where the tanks play</p></dd>
+                            <dt class="param">max_tank_speed</dt>
+                            <dd class="cmt"><p>The maximum speed allowed for a tank per step</p></dd>
+                            <dt class="param">max_tank_rotation</dt>
+                            <dd class="cmt"><p>The maximum angular speed of a tank per step</p></dd>
+                            <dt class="param">max_bullet_speed</dt>
+                            <dd class="cmt"><p>The maximum proper speed of a bullet per step</p></dd>
+                            <dt class="param">bullet_life</dt>
+                            <dd class="cmt"><p>The maximum number of steps a bullet can live</p></dd>
+                            <dt class="param">max_sight</dt>
+                            <dd class="cmt"><p>Maximum allowed sight for a tank</p></dd>
+                            <dt class="param">max_rounds</dt>
+                            <dd class="cmt"><p>Maximum number of rounds for a generation</p></dd>
+                            <dt class="param">dead_time</dt>
+                            <dd class="cmt"><p>Percentage of the time when a tank can be dead</p></dd>
+                            <dt class="param">_tanks</dt>
+                            <dd class="cmt"><p>The tanks present in the world
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
 
         <div id="values" class="values members">
-              <h3>Value Members</h3>
-              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="!=(x$1:Any):Boolean"></a>
-      <a id="!=(Any):Boolean"></a>
-      <h4 class="signature">
+            <h3>Value Members</h3>
+            <ol>
+                <li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="!=(x$1:Any):Boolean"></a>
+                    <a id="!=(Any):Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span
+              class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype"
+                                                                                                    name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@!=(x$1:Any):Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="##():Int"></a>
-      <a id="##():Int"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="##():Int"></a>
+                    <a id="##():Int"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span
+              class="extype" name="scala.Int">Int</span></span>
       </span>
-      </h4><span class="permalink">
+                    </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@##():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="==(x$1:Any):Boolean"></a>
-      <a id="==(Any):Boolean"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="==(x$1:Any):Boolean"></a>
+                    <a id="==(Any):Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span
+              class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype"
+                                                                                                    name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@==(x$1:Any):Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#arena" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="arena:com.colofabrix.scala.geometry.shapes.Box"></a>
-      <a id="arena:Box"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#arena" visbl="pub" data-isabs="false" fullComment="no"
+                    group="Ungrouped">
+                    <a id="arena:com.colofabrix.scala.geometry.shapes.Box"></a>
+                    <a id="arena:Box"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">arena</span><span class="result">: <a href="../geometry/shapes/Box.html" class="extype" name="com.colofabrix.scala.geometry.shapes.Box">Box</a></span>
+        <span class="name">arena</span><span class="result">: <a href="../geometry/shapes/Box.html" class="extype"
+                                                                 name="com.colofabrix.scala.geometry.shapes.Box">Box</a></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@arena:com.colofabrix.scala.geometry.shapes.Box" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@arena:com.colofabrix.scala.geometry.shapes.Box"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">The arena where the tanks play</p>
-    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="asInstanceOf[T0]:T0"></a>
-      <a id="asInstanceOf[T0]:T0"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">The arena where the tanks play</p>
+                </li>
+                <li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="asInstanceOf[T0]:T0"></a>
+                    <a id="asInstanceOf[T0]:T0"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span
+              class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@asInstanceOf[T0]:T0" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#bullet_life" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bullet_life:Int"></a>
-      <a id="bullet_life:Int"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#bullet_life" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="bullet_life:Int"></a>
+                    <a id="bullet_life:Int"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">bullet_life</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">bullet_life</span><span class="result">: <span class="extype"
+                                                                          name="scala.Int">Int</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullet_life:Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullet_life:Int" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">The maximum number of steps a bullet can live</p>
-    </li><li name="com.colofabrix.scala.simulation.World#bullets" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bullets:List[com.colofabrix.scala.simulation.Bullet]"></a>
-      <a id="bullets:List[Bullet]"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">The maximum number of steps a bullet can live</p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#bullets" visbl="pub" data-isabs="false" fullComment="no"
+                    group="Ungrouped">
+                    <a id="bullets:List[com.colofabrix.scala.simulation.Bullet]"></a>
+                    <a id="bullets:List[Bullet]"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bullets</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a>]</span>
+        <span class="name">bullets</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a
+              href="Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a>]</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullets:List[com.colofabrix.scala.simulation.Bullet]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullets:List[com.colofabrix.scala.simulation.Bullet]"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">List of bullets running through the world
-</p>
-    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="clone():Object"></a>
-      <a id="clone():AnyRef"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">List of bullets running through the world
+                    </p>
+                </li>
+                <li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="clone():Object"></a>
+                    <a id="clone():AnyRef"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                  name="scala.AnyRef">AnyRef</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@clone():Object" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Attributes</dt>
+                            <dd>protected[<a href="../../../../java$lang.html" class="extype"
+                                             name="java.lang">java.lang</a>]
+                            </dd>
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                            <dt>Annotations</dt>
+                            <dd>
+                                <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
     </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#counters" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="counters:scala.collection.immutable.Map[String,Int]"></a>
-      <a id="counters:Map[String,Int]"></a>
-      <h4 class="signature">
+
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#counters" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="counters:scala.collection.immutable.Map[String,Int]"></a>
+                    <a id="counters:Map[String,Int]"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">counters</span><span class="result">: <span class="extype" name="scala.collection.immutable.Map">Map</span>[<span class="extype" name="java.lang.String">String</span>, <span class="extype" name="scala.Int">Int</span>]</span>
+        <span class="name">counters</span><span class="result">: <span class="extype"
+                                                                       name="scala.collection.immutable.Map">Map</span>[<span
+              class="extype" name="java.lang.String">String</span>, <span class="extype"
+                                                                          name="scala.Int">Int</span>]</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@counters:scala.collection.immutable.Map[String,Int]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@counters:scala.collection.immutable.Map[String,Int]"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Counters for the statistics of the world
-</p>
-    </li><li name="com.colofabrix.scala.simulation.World#createAndAddDefaultTank" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="createAndAddDefaultTank(reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"></a>
-      <a id="createAndAddDefaultTank(DataReader):Tank"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Counters for the statistics of the world
+                    </p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#createAndAddDefaultTank" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="createAndAddDefaultTank(reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"></a>
+                    <a id="createAndAddDefaultTank(DataReader):Tank"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">createAndAddDefaultTank</span><span class="params">(<span name="reader">reader: <a href="../neuralnetwork/old/builders/abstracts/DataReader.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader">DataReader</a></span>)</span><span class="result">: <a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></span>
+        <span class="name">createAndAddDefaultTank</span><span class="params">(<span name="reader">reader: <a
+              href="../neuralnetwork/old/builders/abstracts/DataReader.html" class="extype"
+              name="com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader">DataReader</a></span>)</span><span
+              class="result">: <a href="Tank.html" class="extype"
+                                  name="com.colofabrix.scala.simulation.Tank">Tank</a></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddDefaultTank(reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddDefaultTank(reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Creates and add a new Tank to the world</p><div class="fullcomment"><div class="comment cmt"><p>Creates and add a new Tank to the world</p><p>NOTE: To be refactored
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The newly created Tank
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#createAndAddTank" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"></a>
-      <a id="createAndAddTank(TankChromosome,DataReader):Tank"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Creates and add a new Tank to the world</p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>Creates and add a new Tank to the world</p>
+
+                            <p>NOTE: To be refactored
+                            </p></div>
+                        <dl class="paramcmts block">
+                            <dt>returns</dt>
+                            <dd class="cmt"><p>The newly created Tank
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#createAndAddTank" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"></a>
+                    <a id="createAndAddTank(TankChromosome,DataReader):Tank"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">createAndAddTank</span><span class="params">(<span name="chromosome">chromosome: <a href="TankChromosome.html" class="extype" name="com.colofabrix.scala.simulation.TankChromosome">TankChromosome</a></span>, <span name="reader">reader: <a href="../neuralnetwork/old/builders/abstracts/DataReader.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader">DataReader</a> = <span class="symbol">null</span></span>)</span><span class="result">: <a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></span>
+        <span class="name">createAndAddTank</span><span class="params">(<span name="chromosome">chromosome: <a
+              href="TankChromosome.html" class="extype" name="com.colofabrix.scala.simulation.TankChromosome">TankChromosome</a></span>, <span
+              name="reader">reader: <a href="../neuralnetwork/old/builders/abstracts/DataReader.html" class="extype"
+                                       name="com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader">DataReader</a> = <span
+              class="symbol">null</span></span>)</span><span class="result">: <a href="Tank.html" class="extype"
+                                                                                 name="com.colofabrix.scala.simulation.Tank">Tank</a></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Creates and add a new Tank to the world</p><div class="fullcomment"><div class="comment cmt"><p>Creates and add a new Tank to the world</p><p>NOTE: To be refactored
-</p></div><dl class="paramcmts block"><dt class="param">chromosome</dt><dd class="cmt"><p>The chromosome defining the Tank</p></dd><dt class="param">reader</dt><dd class="cmt"><p>N/A</p></dd><dt>returns</dt><dd class="cmt"><p>
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#dead_time" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="dead_time:Double"></a>
-      <a id="dead_time:Double"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Creates and add a new Tank to the world</p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>Creates and add a new Tank to the world</p>
+
+                            <p>NOTE: To be refactored
+                            </p></div>
+                        <dl class="paramcmts block">
+                            <dt class="param">chromosome</dt>
+                            <dd class="cmt"><p>The chromosome defining the Tank</p></dd>
+                            <dt class="param">reader</dt>
+                            <dd class="cmt"><p>N/A</p></dd>
+                            <dt>returns</dt>
+                            <dd class="cmt"><p>
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#dead_time" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="dead_time:Double"></a>
+                    <a id="dead_time:Double"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
@@ -326,175 +515,256 @@ and limits that the participants must follow
       <span class="symbol">
         <span class="name">dead_time</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@dead_time:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@dead_time:Double" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Percentage of the time when a tank can be dead</p>
-    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="eq(x$1:AnyRef):Boolean"></a>
-      <a id="eq(AnyRef):Boolean"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Percentage of the time when a tank can be dead</p>
+                </li>
+                <li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="eq(x$1:AnyRef):Boolean"></a>
+                    <a id="eq(AnyRef):Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype"
+                                                                                        name="scala.AnyRef">AnyRef</span></span>)</span><span
+              class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@eq(x$1:AnyRef):Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a>
-      <a id="equals(Any):Boolean"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="equals(x$1:Any):Boolean"></a>
+                    <a id="equals(Any):Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype"
+                                                                                            name="scala.Any">Any</span></span>)</span><span
+              class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@equals(x$1:Any):Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="finalize():Unit"></a>
-      <a id="finalize():Unit"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="finalize():Unit"></a>
+                    <a id="finalize():Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                     name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@finalize():Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Attributes</dt>
+                            <dd>protected[<a href="../../../../java$lang.html" class="extype"
+                                             name="java.lang">java.lang</a>]
+                            </dd>
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                            <dt>Annotations</dt>
+                            <dd>
+                                <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
     </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getClass():Class[_]"></a>
-      <a id="getClass():Class[_]"></a>
-      <h4 class="signature">
+
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="getClass():Class[_]"></a>
+                    <a id="getClass():Class[_]"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                     name="java.lang.Class">Class</span>[_]</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@getClass():Class[_]" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <a id="hashCode():Int"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="hashCode():Int"></a>
+                    <a id="hashCode():Int"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                     name="scala.Int">Int</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@hashCode():Int" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#inputManager" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="inputManager:com.colofabrix.scala.gfx.Controls.InputManager"></a>
-      <a id="inputManager:InputManager"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#inputManager" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="inputManager:com.colofabrix.scala.gfx.Controls.InputManager"></a>
+                    <a id="inputManager:InputManager"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">inputManager</span><span class="result">: <a href="../gfx/Controls/InputManager.html" class="extype" name="com.colofabrix.scala.gfx.Controls.InputManager">InputManager</a></span>
+        <span class="name">inputManager</span><span class="result">: <a href="../gfx/Controls/InputManager.html"
+                                                                        class="extype"
+                                                                        name="com.colofabrix.scala.gfx.Controls.InputManager">InputManager</a></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@inputManager:com.colofabrix.scala.gfx.Controls.InputManager" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@inputManager:com.colofabrix.scala.gfx.Controls.InputManager"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      
-    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="isInstanceOf[T0]:Boolean"></a>
-      <a id="isInstanceOf[T0]:Boolean"></a>
-      <h4 class="signature">
+
+                </li>
+                <li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="isInstanceOf[T0]:Boolean"></a>
+                    <a id="isInstanceOf[T0]:Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span
+              class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@isInstanceOf[T0]:Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#max_bullet_speed" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="max_bullet_speed:Double"></a>
-      <a id="max_bullet_speed:Double"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#max_bullet_speed" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="max_bullet_speed:Double"></a>
+                    <a id="max_bullet_speed:Double"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">max_bullet_speed</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+        <span class="name">max_bullet_speed</span><span class="result">: <span class="extype"
+                                                                               name="scala.Double">Double</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_bullet_speed:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_bullet_speed:Double" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">The maximum proper speed of a bullet per step</p>
-    </li><li name="com.colofabrix.scala.simulation.World#max_rounds" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="max_rounds:Int"></a>
-      <a id="max_rounds:Int"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">The maximum proper speed of a bullet per step</p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#max_rounds" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="max_rounds:Int"></a>
+                    <a id="max_rounds:Int"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">max_rounds</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">max_rounds</span><span class="result">: <span class="extype"
+                                                                         name="scala.Int">Int</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_rounds:Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_rounds:Int" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Maximum number of rounds for a generation</p>
-    </li><li name="com.colofabrix.scala.simulation.World#max_sight" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="max_sight:Double"></a>
-      <a id="max_sight:Double"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Maximum number of rounds for a generation</p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#max_sight" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="max_sight:Double"></a>
+                    <a id="max_sight:Double"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
@@ -502,16 +772,20 @@ and limits that the participants must follow
       <span class="symbol">
         <span class="name">max_sight</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_sight:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_sight:Double" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Maximum allowed sight for a tank</p>
-    </li><li name="com.colofabrix.scala.simulation.World#max_tank_rotation" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="max_tank_rotation:Double"></a>
-      <a id="max_tank_rotation:Double"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Maximum allowed sight for a tank</p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#max_tank_rotation" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="max_tank_rotation:Double"></a>
+                    <a id="max_tank_rotation:Double"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
@@ -519,233 +793,358 @@ and limits that the participants must follow
       <span class="symbol">
         <span class="name">max_tank_rotation</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_rotation:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_rotation:Double" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">The maximum angular speed of a tank per step</p>
-    </li><li name="com.colofabrix.scala.simulation.World#max_tank_speed" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="max_tank_speed:Double"></a>
-      <a id="max_tank_speed:Double"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">The maximum angular speed of a tank per step</p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#max_tank_speed" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="max_tank_speed:Double"></a>
+                    <a id="max_tank_speed:Double"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">max_tank_speed</span><span class="result">: <span class="extype" name="scala.Double">Double</span></span>
+        <span class="name">max_tank_speed</span><span class="result">: <span class="extype"
+                                                                             name="scala.Double">Double</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_speed:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_speed:Double" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">The maximum speed allowed for a tank per step</p>
-    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="ne(x$1:AnyRef):Boolean"></a>
-      <a id="ne(AnyRef):Boolean"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">The maximum speed allowed for a tank per step</p>
+                </li>
+                <li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="ne(x$1:AnyRef):Boolean"></a>
+                    <a id="ne(AnyRef):Boolean"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype"
+                                                                                        name="scala.AnyRef">AnyRef</span></span>)</span><span
+              class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@ne(x$1:AnyRef):Boolean" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="notify():Unit"></a>
-      <a id="notify():Unit"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="notify():Unit"></a>
+                    <a id="notify():Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                   name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notify():Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="notifyAll():Unit"></a>
-      <a id="notifyAll():Unit"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="notifyAll():Unit"></a>
+                    <a id="notifyAll():Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                      name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notifyAll():Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#on_tankHit" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="on_tankHit(tank:com.colofabrix.scala.simulation.Tank,bullet:com.colofabrix.scala.simulation.Bullet):Unit"></a>
-      <a id="on_tankHit(Tank,Bullet):Unit"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#on_tankHit" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="on_tankHit(tank:com.colofabrix.scala.simulation.Tank,bullet:com.colofabrix.scala.simulation.Bullet):Unit"></a>
+                    <a id="on_tankHit(Tank,Bullet):Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">on_tankHit</span><span class="params">(<span name="tank">tank: <a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></span>, <span name="bullet">bullet: <a href="Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">on_tankHit</span><span class="params">(<span name="tank">tank: <a href="Tank.html"
+                                                                                             class="extype"
+                                                                                             name="com.colofabrix.scala.simulation.Tank">Tank</a></span>, <span
+              name="bullet">bullet: <a href="Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a></span>)</span><span
+              class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankHit(tank:com.colofabrix.scala.simulation.Tank,bullet:com.colofabrix.scala.simulation.Bullet):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankHit(tank:com.colofabrix.scala.simulation.Tank,bullet:com.colofabrix.scala.simulation.Bullet):Unit"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">A tank its hit by a bullet
-</p><div class="fullcomment"><div class="comment cmt"><p>A tank its hit by a bullet
-</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank hit by the bullet</p></dd><dt class="param">bullet</dt><dd class="cmt"><p>The bullet that hits the tank
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#on_tankShot" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit"></a>
-      <a id="on_tankShot(Tank):Unit"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">A tank its hit by a bullet
+                    </p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>A tank its hit by a bullet
+                        </p></div>
+                        <dl class="paramcmts block">
+                            <dt class="param">tank</dt>
+                            <dd class="cmt"><p>The tank hit by the bullet</p></dd>
+                            <dt class="param">bullet</dt>
+                            <dd class="cmt"><p>The bullet that hits the tank
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#on_tankShot" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit"></a>
+                    <a id="on_tankShot(Tank):Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">on_tankShot</span><span class="params">(<span name="tank">tank: <a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">on_tankShot</span><span class="params">(<span name="tank">tank: <a href="Tank.html"
+                                                                                              class="extype"
+                                                                                              name="com.colofabrix.scala.simulation.Tank">Tank</a></span>)</span><span
+              class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">A tank requests to shot a bullet
-</p><div class="fullcomment"><div class="comment cmt"><p>A tank requests to shot a bullet
-</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank that requested to shot
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#resetWorld" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit"></a>
-      <a id="resetWorld(List[Tank]):Unit"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">A tank requests to shot a bullet
+                    </p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>A tank requests to shot a bullet
+                        </p></div>
+                        <dl class="paramcmts block">
+                            <dt class="param">tank</dt>
+                            <dd class="cmt"><p>The tank that requested to shot
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#resetWorld" visbl="pub" data-isabs="false"
+                    fullComment="yes" group="Ungrouped">
+                    <a id="resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit"></a>
+                    <a id="resetWorld(List[Tank]):Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">resetWorld</span><span class="params">(<span name="tankList">tankList: <span class="extype" name="scala.List">List</span>[<a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">resetWorld</span><span class="params">(<span name="tankList">tankList: <span class="extype"
+                                                                                                        name="scala.List">List</span>[<a
+              href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>]</span>)</span><span
+              class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Resets the world to a known, initial states</p><div class="fullcomment"><div class="comment cmt"><p>Resets the world to a known, initial states</p><p>NOTE: Might be refactored
-</p></div><dl class="paramcmts block"><dt class="param">tankList</dt><dd class="cmt"><p>Current population of the world
-</p></dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#rounds" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="rounds:scala.collection.immutable.Range.Inclusive"></a>
-      <a id="rounds:Inclusive"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Resets the world to a known, initial states</p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>Resets the world to a known, initial states</p>
+
+                            <p>NOTE: Might be refactored
+                            </p></div>
+                        <dl class="paramcmts block">
+                            <dt class="param">tankList</dt>
+                            <dd class="cmt"><p>Current population of the world
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#rounds" visbl="pub" data-isabs="false" fullComment="no"
+                    group="Ungrouped">
+                    <a id="rounds:scala.collection.immutable.Range.Inclusive"></a>
+                    <a id="rounds:Inclusive"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">rounds</span><span class="result">: <span class="extype" name="scala.collection.immutable.Range.Inclusive">Inclusive</span></span>
+        <span class="name">rounds</span><span class="result">: <span class="extype"
+                                                                     name="scala.collection.immutable.Range.Inclusive">Inclusive</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@rounds:scala.collection.immutable.Range.Inclusive" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@rounds:scala.collection.immutable.Range.Inclusive"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Sequence of all rounds in the world
-</p>
-    </li><li name="com.colofabrix.scala.simulation.World#step" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="step():Unit"></a>
-      <a id="step():Unit"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Sequence of all rounds in the world
+                    </p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#step" visbl="pub" data-isabs="false" fullComment="yes"
+                    group="Ungrouped">
+                    <a id="step():Unit"></a>
+                    <a id="step():Unit"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">step</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">step</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                 name="scala.Unit">Unit</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@step():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@step():Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Moves the world one step forward.</p><div class="fullcomment"><div class="comment cmt"><p>Moves the world one step forward.</p><p>It first moves tanks and thus manages tanks firing. It then
-handles bullets and collision between bullets and tanks
-</p></div></div>
-    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
-      <a id="synchronized[T0](⇒T0):T0"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Moves the world one step forward.</p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>Moves the world one step forward.</p>
+
+                            <p>It first moves tanks and thus manages tanks firing. It then
+                                handles bullets and collision between bullets and tanks
+                            </p></div>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+                    <a id="synchronized[T0](⇒T0):T0"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span
+              class="params">(<span name="arg0">arg0: ⇒ <span class="extype"
+                                                              name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span
+              class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@synchronized[T0](x$1:=&gt;T0):T0"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.colofabrix.scala.simulation.World#tanks" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="tanks:List[com.colofabrix.scala.simulation.Tank]"></a>
-      <a id="tanks:List[Tank]"></a>
-      <h4 class="signature">
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#tanks" visbl="pub" data-isabs="false" fullComment="no"
+                    group="Ungrouped">
+                    <a id="tanks:List[com.colofabrix.scala.simulation.Tank]"></a>
+                    <a id="tanks:List[Tank]"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">tanks</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>]</span>
+        <span class="name">tanks</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a
+              href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>]</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanks:List[com.colofabrix.scala.simulation.Tank]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanks:List[com.colofabrix.scala.simulation.Tank]"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">List of tanks present in the world
-</p>
-    </li><li name="com.colofabrix.scala.simulation.World#tanksPenalty" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="tanksPenalty:scala.collection.mutable.ArrayBuffer[Double]"></a>
-      <a id="tanksPenalty:ArrayBuffer[Double]"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">List of tanks present in the world
+                    </p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#tanksPenalty" visbl="pub" data-isabs="false"
+                    fullComment="no" group="Ungrouped">
+                    <a id="tanksPenalty:scala.collection.mutable.ArrayBuffer[Double]"></a>
+                    <a id="tanksPenalty:ArrayBuffer[Double]"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">tanksPenalty</span><span class="result">: <span class="extype" name="scala.collection.mutable.ArrayBuffer">ArrayBuffer</span>[<span class="extype" name="scala.Double">Double</span>]</span>
+        <span class="name">tanksPenalty</span><span class="result">: <span class="extype"
+                                                                           name="scala.collection.mutable.ArrayBuffer">ArrayBuffer</span>[<span
+              class="extype" name="scala.Double">Double</span>]</span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanksPenalty:scala.collection.mutable.ArrayBuffer[Double]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanksPenalty:scala.collection.mutable.ArrayBuffer[Double]"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Penalty applied to each tank by the rules of the world
-</p>
-    </li><li name="com.colofabrix.scala.simulation.World#time" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="time:Long"></a>
-      <a id="time:Long"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Penalty applied to each tank by the rules of the world
+                    </p>
+                </li>
+                <li name="com.colofabrix.scala.simulation.World#time" visbl="pub" data-isabs="false" fullComment="yes"
+                    group="Ungrouped">
+                    <a id="time:Long"></a>
+                    <a id="time:Long"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
@@ -753,131 +1152,185 @@ handles bullets and collision between bullets and tanks
       <span class="symbol">
         <span class="name">time</span><span class="result">: <span class="extype" name="scala.Long">Long</span></span>
       </span>
-      </h4><span class="permalink">
+                    </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@time:Long" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <p class="shortcomment cmt">Global execution time
-</p><div class="fullcomment"><div class="comment cmt"><p>Global execution time
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The number of steps taken from the beginning
-</p></dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
-      <a id="toString():String"></a>
-      <h4 class="signature">
+
+                    <p class="shortcomment cmt">Global execution time
+                    </p>
+
+                    <div class="fullcomment">
+                        <div class="comment cmt"><p>Global execution time
+                        </p></div>
+                        <dl class="paramcmts block">
+                            <dt>returns</dt>
+                            <dd class="cmt"><p>The number of steps taken from the beginning
+                            </p></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="toString():String"></a>
+                    <a id="toString():String"></a>
+                    <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                     name="java.lang.String">String</span></span>
       </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@toString():String" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@toString():String" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait():Unit"></a>
-      <a id="wait():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
-      <a id="wait(Long,Int):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="wait(x$1:Long):Unit"></a>
-      <a id="wait(Long):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
-      </a>
-    </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
-                <span class="name">@throws</span><span class="args">(<span>
-      
-      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
-    </span>)</span>
-              
-        </dd></dl></div>
-    </li></ol>
-            </div>
 
-        
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef → Any</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="wait():Unit"></a>
+                    <a id="wait():Unit"></a>
+                    <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype"
+                                                                                                 name="scala.Unit">Unit</span></span>
+      </span>
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait():Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
+      </a>
+    </span>
 
-        
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                            <dt>Annotations</dt>
+                            <dd>
+                                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+                    <a id="wait(Long,Int):Unit"></a>
+                    <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype"
+                                                                                          name="scala.Long">Long</span></span>, <span
+              name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span
+              class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long,x$2:Int):Unit"
+         title="Permalink" target="_top">
+          <img src="../../../../lib/permalink.png"/>
+      </a>
+    </span>
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                            <dt>Annotations</dt>
+                            <dd>
+                                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+                <li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+                    <a id="wait(x$1:Long):Unit"></a>
+                    <a id="wait(Long):Unit"></a>
+                    <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype"
+                                                                                          name="scala.Long">Long</span></span>)</span><span
+              class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+                    </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long):Unit" title="Permalink"
+         target="_top">
+          <img src="../../../../lib/permalink.png"/>
+      </a>
+    </span>
+
+                    <div class="fullcomment">
+                        <dl class="attributes block">
+                            <dt>Definition Classes</dt>
+                            <dd>AnyRef</dd>
+                            <dt>Annotations</dt>
+                            <dd>
+                                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ol>
         </div>
 
-        <div id="inheritedMembers">
+
+    </div>
+
+    <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
-            </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
-            </div>
-        
+            <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+        </div>
+        <div class="parent" name="scala.Any">
+            <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
         </div>
 
-        <div id="groupedMembers">
+    </div>
+
+    <div id="groupedMembers">
         <div class="group" name="Ungrouped">
-              <h3>Ungrouped</h3>
-              
-            </div>
+            <h3>Ungrouped</h3>
+
         </div>
+    </div>
 
-      </div>
+</div>
 
-      <div id="tooltip"></div>
+<div id="tooltip"></div>
 
-      <div id="footer">  </div>
+<div id="footer"></div>
 
 
-    </body>
-      </html>
+</body>
+</html>

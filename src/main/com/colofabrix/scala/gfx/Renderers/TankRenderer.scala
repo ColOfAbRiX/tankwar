@@ -61,7 +61,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      if (flags.getWithDefault("tksight", true)) {
+      if( flags.getWithDefault( "tksight", true ) ) {
         // Draw the sight toward bullets
         setFrame( Frame( Colour.DARK_RED ) ) {
           tank.sight( classOf[Bullet] ).renderer.render( false )
@@ -75,7 +75,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
     }
 
-    if (flags.getWithDefault("vectors", true)) {
+    if( flags.getWithDefault( "vectors", true ) ) {
       // Draw the speed vector
       setFrame( Frame( Colour.WHITE ) ) {
         new VectorRenderer( tank.speed * 10, tank.position ).render( )

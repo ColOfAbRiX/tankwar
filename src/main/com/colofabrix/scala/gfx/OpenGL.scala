@@ -31,7 +31,7 @@ object OpenGL {
    * A colour in the OpenGL system
    */
   case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 ) {
-    def asSlickColour = new Color(r.toFloat, g.toFloat, b.toFloat, 1)
+    def asSlickColour = new Color( r.toFloat, g.toFloat, b.toFloat, 1 )
   }
 
 
@@ -195,20 +195,20 @@ object OpenGL {
     actions
   }
 
-  def withTextContext ()(actions: => Unit): Unit = {
+  def withTextContext( )( actions: => Unit ): Unit = {
 
-    glEnable(GL_TEXTURE_2D)
+    glEnable( GL_TEXTURE_2D )
 
-    glClearColor(1f,1f,1f,1.0f)
+    glClearColor( 1f, 1f, 1f, 1.0f )
 
     // enable alpha blending
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glEnable( GL_BLEND )
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
 
     actions
 
-    glDisable(GL_TEXTURE_2D)
-    glDisable(GL_BLEND)
+    glDisable( GL_TEXTURE_2D )
+    glDisable( GL_BLEND )
   }
 
 }

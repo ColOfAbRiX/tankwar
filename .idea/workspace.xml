@@ -11,6 +11,207 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/AbstractTankMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/AbstractTankMutation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/BoxTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/BoxTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Bullet.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Bullet.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/ButtonControl.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/ButtonControl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/CircleTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/CircleTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/CoordinatesTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/CoordinatesTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Diamond.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Diamond.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/EvolutionLogger.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/EvolutionLogger.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/GenericStatelessNetworkTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/GenericStatelessNetworkTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/InputManager.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/InputManager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/LayerTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/LayerTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/MatrixTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/MatrixTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NetworkMatrixTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NetworkMatrixTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NeuralNetworkTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NeuralNetworkTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/NeuralNetworkTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/NeuralNetworkTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Octagon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Octagon.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/PhysicalObject.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/PhysicalObject.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" />
+      <change type="MODIFICATION" beforePath="C:\Users\Freddie\Desktop\Programming\IdeaProjects\tankwar\src\main\com\colofabrix\scala\gfx\renderers\PolygonRenderer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/PolygonRenderer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/PolygonTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/PolygonTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Renderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Renderer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankBrainTester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankBrainTester.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankCrossover.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankCrossover.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankDriftMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankDriftMutation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvolutionEngine.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvolutionEngine.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankFactory.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankFactory.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankFullMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankFullMutation.html" />
+      <change type="MODIFICATION" beforePath="C:\Users\Freddie\Desktop\Programming\IdeaProjects\tankwar\src\main\com\colofabrix\scala\gfx\renderers\TankRenderer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankSight.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankSight.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2DImplicits$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2DImplicits$.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/Vector2DTest.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/Vector2DTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/World.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/World.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-_.html" afterPath="$PROJECT_DIR$/docs/index/index-_.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-a.html" afterPath="$PROJECT_DIR$/docs/index/index-a.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-b.html" afterPath="$PROJECT_DIR$/docs/index/index-b.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-c.html" afterPath="$PROJECT_DIR$/docs/index/index-c.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-d.html" afterPath="$PROJECT_DIR$/docs/index/index-d.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-e.html" afterPath="$PROJECT_DIR$/docs/index/index-e.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-f.html" afterPath="$PROJECT_DIR$/docs/index/index-f.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-g.html" afterPath="$PROJECT_DIR$/docs/index/index-g.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-h.html" afterPath="$PROJECT_DIR$/docs/index/index-h.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-i.html" afterPath="$PROJECT_DIR$/docs/index/index-i.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-k.html" afterPath="$PROJECT_DIR$/docs/index/index-k.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-l.html" afterPath="$PROJECT_DIR$/docs/index/index-l.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-m.html" afterPath="$PROJECT_DIR$/docs/index/index-m.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-n.html" afterPath="$PROJECT_DIR$/docs/index/index-n.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-o.html" afterPath="$PROJECT_DIR$/docs/index/index-o.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-p.html" afterPath="$PROJECT_DIR$/docs/index/index-p.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-q.html" afterPath="$PROJECT_DIR$/docs/index/index-q.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-r.html" afterPath="$PROJECT_DIR$/docs/index/index-r.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-s.html" afterPath="$PROJECT_DIR$/docs/index/index-s.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-t.html" afterPath="$PROJECT_DIR$/docs/index/index-t.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-u.html" afterPath="$PROJECT_DIR$/docs/index/index-u.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-v.html" afterPath="$PROJECT_DIR$/docs/index/index-v.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-w.html" afterPath="$PROJECT_DIR$/docs/index/index-w.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-x.html" afterPath="$PROJECT_DIR$/docs/index/index-x.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-y.html" afterPath="$PROJECT_DIR$/docs/index/index-y.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-z.html" afterPath="$PROJECT_DIR$/docs/index/index-z.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/package.html" afterPath="$PROJECT_DIR$/docs/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/package.html" afterPath="$PROJECT_DIR$/docs/com/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/package.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TankWar.iws" />
@@ -48,36 +249,23 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="KeyboardListener.scala" pinned="false" current-in-tab="false">
+            <file leaf-file-name="KeyboardListener.scala" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/Input/KeyboardListener.scala">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="867">
+                  <state vertical-scroll-proportion="0.052040815" vertical-offset="0" max-vertical-offset="980">
                     <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
                     <folding />
                   </state>
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="OpenGL.scala" pinned="false" current-in-tab="true">
+            <file leaf-file-name="OpenGL.scala" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.35032538" vertical-offset="0" max-vertical-offset="3502">
-                    <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+                  <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3502">
+                    <caret line="33" column="69" selection-start-line="33" selection-start-column="69" selection-end-line="33" selection-end-column="69" />
                     <folding>
                       <element signature="e#638#679#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="UIManager.scala" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="2482">
-                    <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-                    <folding>
-                      <element signature="n#!!doc" expanded="true" />
-                      <element signature="e#641#691#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -107,7 +295,7 @@
       <file leaf-file-name="TankRenderer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TankRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="481" max-vertical-offset="1377">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1258" max-vertical-offset="1717">
               <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding />
             </state>
@@ -118,9 +306,30 @@
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TextRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-              <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+              <caret line="49" column="1" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Renderer.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/abstracts/Renderer.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+              <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UIManager.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7453626" vertical-offset="1139" max-vertical-offset="3009">
+              <caret line="93" column="19" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
               <folding>
-                <element signature="e#645#665#0" expanded="true" />
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#641#691#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,11 +338,9 @@
       <file leaf-file-name="World.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="7412">
-              <caret line="37" column="2" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
-              <folding>
-                <element signature="e#645#696#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="7633">
+              <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,7 +348,7 @@
       <file leaf-file-name="QuadtreeRenderer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="612">
+            <state vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="901">
               <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
               <folding />
             </state>
@@ -151,19 +358,21 @@
       <file leaf-file-name="VectorRenderer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5" max-vertical-offset="901">
+            <state vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="1190">
               <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnvironmentRenderer.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EnvironmentRenderer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.11467116" vertical-offset="0" max-vertical-offset="593">
-              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+              <caret line="41" column="75" selection-start-line="41" selection-start-column="75" selection-end-line="41" selection-end-column="75" />
+              <folding>
+                <element signature="e#645#696#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,18 +380,8 @@
       <file leaf-file-name="Vector2D.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="7021">
+            <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="7259">
               <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tank.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/Tank.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="8058">
-              <caret line="68" column="6" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -269,13 +468,13 @@
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala" />
-        <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/Renderers/QuadtreeRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/Renderers/TankRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/GFXManager.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TextRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
+        <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala" />
       </list>
     </option>
   </component>
@@ -457,6 +656,64 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Production">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src/main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -673,64 +930,6 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Problems" />
-        <subPane subId="Production">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Default">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src/main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Tests" />
       </pane>
       <pane id="Scratches">
         <subPane />
@@ -1278,7 +1477,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436384215964</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added a text renderer for rendering text&#10;WARNING =&gt; GFX (0,0) is now in the top left">
+      <created>1436385929133</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1436385929133</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <option name="clearContext" value="false" />
     <option name="createChangelist" value="false" />
     <servers>
@@ -1307,7 +1512,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1315,14 +1520,14 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32792208" sideWeight="0.4968017" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3365801" sideWeight="0.5021322" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3538961" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.50319827" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3538961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="0" width="1920" height="520" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35497835" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="0" width="1920" height="520" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32900432" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="98" y="218" width="1645" height="816" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16950959" sideWeight="0.5573593" order="0" side_tool="true" content_ui="combo" x="-1591" y="89" width="318" height="924" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16950959" sideWeight="0.5573593" order="0" side_tool="true" content_ui="combo" x="-1591" y="89" width="318" height="924" />
       <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20469083" sideWeight="0.4426407" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1381,7 +1586,8 @@
     <MESSAGE value="TKWAR-22 DONE&#10;Added specific controls&#10;--Speed Up and Down (+/-)&#10;--View QuadTree (q)&#10;--View TankVectors (v)&#10;Added &quot;clever&quot; EnvironmentRenderer" />
     <MESSAGE value="Cleanup" />
     <MESSAGE value="Added a text renderer for rendering text&#10;WARNING =&gt; GFX (0,0) is now in the top left" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a text renderer for rendering text&#10;WARNING =&gt; GFX (0,0) is now in the top left" />
+    <MESSAGE value="Added details for the user to see" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added details for the user to see" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1489,9 +1695,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33277026" vertical-offset="0" max-vertical-offset="0">
           <caret line="228" column="21" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
-          <folding>
-            <element signature="e#645#696#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1712,14 +1916,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/abstracts/Renderer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/scala/lib/scala-library.jar!/scala/Option.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8303665" vertical-offset="23" max-vertical-offset="1003">
@@ -1743,16 +1939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="7412">
-          <caret line="37" column="2" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="2" />
-          <folding>
-            <element signature="e#645#696#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
@@ -1761,22 +1947,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/Input/KeyboardListener.scala">
+    <entry file="jar://$PROJECT_DIR$/lib/slick-util.jar!/org/newdawn/slick/TrueTypeFont.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="867">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="-11.44" vertical-offset="2672" max-vertical-offset="3757">
+          <caret line="199" column="16" selection-start-line="199" selection-start-column="16" selection-end-line="199" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="901">
+          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="2482">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#641#691#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="7208">
+          <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1790,26 +1980,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35032538" vertical-offset="0" max-vertical-offset="3502">
-          <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="3502">
+          <caret line="33" column="69" selection-start-line="33" selection-start-column="69" selection-end-line="33" selection-end-column="69" />
           <folding>
             <element signature="e#638#679#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/slick-util.jar!/org/newdawn/slick/TrueTypeFont.class">
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/abstracts/Renderer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.44" vertical-offset="2672" max-vertical-offset="3757">
-          <caret line="199" column="16" selection-start-line="199" selection-start-column="16" selection-end-line="199" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="901">
-          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1822,21 +2004,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/Input/KeyboardListener.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.052040815" vertical-offset="0" max-vertical-offset="980">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TextRenderer.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
-          <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
-          <folding>
-            <element signature="e#645#665#0" expanded="true" />
-          </folding>
+          <caret line="49" column="1" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11467116" vertical-offset="0" max-vertical-offset="593">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+          <caret line="41" column="75" selection-start-line="41" selection-start-column="75" selection-end-line="41" selection-end-column="75" />
+          <folding>
+            <element signature="e#645#696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/UI/UIManager.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7453626" vertical-offset="1139" max-vertical-offset="3009">
+          <caret line="93" column="19" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#641#691#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

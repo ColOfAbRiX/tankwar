@@ -17,27 +17,32 @@
 package com.colofabrix.scala.gfx.renderers
 
 import java.awt.Font
-import com.colofabrix.scala.gfx.OpenGL._
 
+import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
-import org.newdawn.slick.{ Color, TrueTypeFont }
+import org.newdawn.slick.TrueTypeFont
 
 /**
  *
  */
 class TextRenderer(
-    text: String,
-    position: Vector2D,
-    awtFont: Font = new Font("Consolas", Font.PLAIN, 12))
-  extends Renderer{
+  text: List[String],
+  position: Vector2D,
+  awtFont: Font = new Font( "Consolas", Font.PLAIN, 12 ) )
+  extends Renderer {
 
-  val font = new TrueTypeFont(awtFont, false)
+  val font = new TrueTypeFont( awtFont, false )
 
-  def render(create:Boolean = true): Unit = {
+  def render( create: Boolean = true ): Unit = {
 
-    withTextContext() {
-      font.drawString(position.x.toInt, position.y.toInt, text, Colour.CYAN.asSlickColour)
+    var i = 0;
+
+    withTextContext( ) {
+      text.foreach(t => {
+        font.drawString(position.x.toFloat, position.y.toFloat+20*i, t, Colour.CYAN.asSlickColour)
+        i+=1
+      })
     }
 
   }

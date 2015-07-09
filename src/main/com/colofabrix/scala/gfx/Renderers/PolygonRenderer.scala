@@ -38,7 +38,7 @@ class PolygonRenderer( val polygon: Polygon, colour: Colour = null, filled: Bool
    */
   def render( create: Boolean = true ): Unit = {
 
-    withContext( create, Frame(colour) ) {
+    withContext( create, Frame( colour ) ) {
 
       val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
       draw( mode ) {
