@@ -16,66 +16,75 @@
 
 package com.colofabrix.scala.geometry
 
+import com.colofabrix.scala.geometry.abstracts.SpatialTree.SpatialIndexable
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.gfx.OpenGL.Colour
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
-import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
- * An immutable Quadtree implementation with a support List
+ * A dummy quadtree. It's not a quadtree, it's a list
  *
- * A quadtree is a try of tree with 4 children nodes per parent used to partition a cartesian plane and speed up
- * object-object interactions in graphical environments.
- * This implementation includes a List to have fast access to the complete set of object contained in the Quadtree
- * and perform common and useful operations on that
- *
- * @see http://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
+ * Used to do performance tests and comparisons
  */
-class DummyQuadtree[T <: PhysicalObject] protected(
+class DummyQuadtree[T: SpatialIndexable] protected(
   override val toList: List[T],
-  override val bounds: Box
+  override val bounds: Shape
 ) extends abstracts.SpatialTree[T] {
   require( toList != null, "A shape list must be specified, even empty" )
 
   /**
+   * Create 4 quadrants into the node
+   *
+   * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
+   * the new bounds and inserts the contained shapes in the subnodes where they fit
+   *
+   * @return A new DummyQuadtree with 4 new subnodes
+   */
+  protected override def split( ): DummyQuadtree[T] = this
+
+  /**
    * Remove the object from the quadtree.
    *
-   * Nothing bad happens if the Shape is not in the DummyQuadtreeTmp
+   * Nothing bad happens if the Shape is not in the DummyQuadtree
    *
    * @return A new quadtree without the specified Shape.
    */
-  def -( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( toList.filter( _ != p ), bounds )
+  override def -( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( toList.filter( _ != p ), bounds )
 
   /**
    * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to their corresponding nodes.
    *
    * @return A new quadtree containing the new Shape in the appropriate position
    */
-  def +( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( p :: toList, bounds )
+  override def +( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( p :: toList, bounds )
 
   /**
-   * Reset the status of the DummyQuadtreeTmp
+   * Insert a list of objects into the SpatialTree.
+   *
+   * @return A new quadtree containing the new PhysicalObject in the appropriate position
+   */
+  override def ++( pi: List[T] ): SpatialTree[T] = new DummyQuadtree[T]( pi ::: toList, bounds )
+
+  /**
+   * Reset the status of the DummyQuadtree
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  def clear( ): DummyQuadtree[T] = new DummyQuadtree[T]( List[T]( ), bounds )
+  override def clear( ): DummyQuadtree[T] = new DummyQuadtree[T]( List[T]( ), bounds )
 
   /**
-   * Determines where an object belongs in the quadtree by determining which node the object can fit into.
-   *
-   * @param s The shape to check
-   * @return An Option containing the Quadtree that contains the Shape or nothing
+   * The maximum depth of the Quadtree
    */
-  def findNode( s: Shape ) = None
+  override def depth: Int = 0
 
   /**
-   * Tells if the DummyQuadtreeTmp is empty of Shapes
+   * Tells if the DummyQuadtree is empty of Shapes
    *
    * @return true is the quadtree doesn't contain any Shape
    */
-  def isEmpty: Boolean = toList.isEmpty
+  override def isEmpty: Boolean = toList.isEmpty
 
   /**
    * Return all Shapes that could collide with the given object
@@ -83,12 +92,17 @@ class DummyQuadtree[T <: PhysicalObject] protected(
    * @param s A Shape used to collect other shapes that are spatially near it
    * @return All Shapes that could collide with the given object
    */
-  def lookAround( s: Shape ): List[T] = toList
+  override def lookAround( s: Shape ): List[T] = toList
 
   /**
    * The children nodes of the current node, or an empty list if we are on a leaf
    */
-  override def nodes: List[abstracts.SpatialTree[T]] = List()
+  override def nodes: List[abstracts.SpatialTree[T]] = List( )
+
+  /**
+   * The shapes contained by the node.
+   */
+  override def objects: List[T] = toList
 
   /**
    * Updates the quadtree
@@ -97,29 +111,14 @@ class DummyQuadtree[T <: PhysicalObject] protected(
    *
    * @return A new instance of DummyQuadtree with the updated objects
    */
-  def refresh( ): DummyQuadtree[T] = this
-
-  /**
-   * The maximum depth of the Quadtree
-   */
-  override def depth: Int = depth
-
-  /**
-   * The number of items a node can contain before it splits
-   */
-  override def splitSize: Int = splitSize
+  override def refresh( ): DummyQuadtree[T] = this
 
   /**
    * An object responsible to renderer the class where this trait is applied
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new BoxRenderer(bounds, Colour.DARK_GREY)
-
-  /**
-   * The shapes contained by the node.
-   */
-  override def shapes: List[T] = toList
+  override def renderer: Renderer = new BoxRenderer( bounds.asInstanceOf[Box], Colour.DARK_GREY )
 
   /**
    * The number of shapes contained in the quadtree
@@ -127,14 +126,9 @@ class DummyQuadtree[T <: PhysicalObject] protected(
   override def size: Int = toList.size
 
   /**
-   * Create 4 quadrants into the node
-   *
-   * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
-   * the new bounds and inserts the contained shapes in the subnodes where they fit
-   *
-   * @return A new DummyQuadtreeTmp with 4 new subnodes
+   * The number of items a node can contain before it splits
    */
-  def split( ): DummyQuadtree[T] = this
+  override def splitSize: Int = 0
 }
 
 
@@ -143,12 +137,12 @@ object DummyQuadtree {
   /**
    * Creates a new DummyQuadtree
    *
-   * @param bounds The area that the DummyQuadtreeTmp will cover
-   * @param initialSet The initial data contained by the DummyQuadtreeTmp
-   * @tparam T Type of `PhysicalObject` that the DummyQuadtreeTmp will contain
-   * @return A new instance of DummyQuadtreeTmp
+   * @param bounds The area that the DummyQuadtree will cover
+   * @param initialSet The initial data contained by the DummyQuadtree
+   * @tparam T Type of `PhysicalObject` that the DummyQuadtree will contain
+   * @return A new instance of DummyQuadtree
    */
-  def apply[T <: PhysicalObject]( bounds: Box, initialSet: List[T] = List( ) ): DummyQuadtree[T] =
+  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List( ) ): DummyQuadtree[T] =
     new DummyQuadtree[T]( initialSet, bounds )
 
 }

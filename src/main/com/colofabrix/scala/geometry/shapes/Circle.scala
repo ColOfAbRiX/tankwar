@@ -57,7 +57,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     case c: Circle => (this.center - c.center).r + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
-    case p: Polygon => p.verticesIterator.forall( v => this.contains( v.head ) )
+    case p: Polygon =>  p.vertices.forall( this.contains )
 
     // Other cases are a false
     case _ => false
@@ -124,6 +124,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @return True if the shape touches the current shape
    */
   override def intersects( that: Shape ): Boolean = that match {
+
     // For circles is enough to check the distance from the two centers
     case c: Circle => center - c.center < radius + c.radius
 
@@ -138,6 +139,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     // For polygons I check the distance from the nearest edge
     case p: Polygon => p.distance( center )._1 <= radius
 
+    // Other comparisons are not possible
     case _ => false
   }
 

@@ -69,12 +69,13 @@ class World(
     "shots" -> 0,
     "bannedForPosition" -> 0,
     "bannedForSpeed" -> 0,
-
+    "bannedForSpeed" -> 0,
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
-  private var _bullets = DummyQuadtree[Bullet]( arena, List() ) //LinkedQuadtree[Bullet]( arena, List( ), 3, 10 )
-  private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks ) //LinkedQuadtree[Tank]( arena, _initialTanks, 2, 5 )
+
+  private var _bullets = DummyQuadtree[Bullet]( arena, List( ) )
+  private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks )
   private var _time: Long = 0
   /**
    * Graphics manager of the simulation
@@ -159,18 +160,8 @@ class World(
    * @return All the renderers for the objects in the simulation worlds
    */
   def renderers: Seq[Renderer] = {
-    _tanks.renderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+    _bullets.renderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
   }
-
-  /**
-   * List of tanks present in the world
-   */
-  def tanks = _tanks.toList
-
-  /**
-   * List of bullets running through the world
-   */
-  def bullets = _bullets.toList
 
   /**
    * Resets the world to a known, initial states
@@ -184,9 +175,9 @@ class World(
     _time = 0
 
     // Reinitialize the Tanks
-    _tanks = _tanks.clear()
+    _tanks = _tanks.clear( )
     for( t <- tankList ) {
-      t.clear()
+      t.clear( )
       _tanks = _tanks + t
     }
 
@@ -215,7 +206,6 @@ class World(
   def step( ): Unit = {
     _time += 1
 
-    // Update the positions of the tanks in the Quadtree
     _tanks = _tanks.refresh( )
     _bullets = _bullets.refresh( )
 
@@ -236,6 +226,16 @@ class World(
     UIManager.update( )
     GFXManager.render( )
   }
+
+  /**
+   * List of tanks present in the world
+   */
+  def tanks = _tanks.toList
+
+  /**
+   * List of bullets running through the world
+   */
+  def bullets = _bullets.toList
 
   /**
    * Handles any dead tank in the world

@@ -69,7 +69,7 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   val width = topRight.x - bottomLeft.x
 
   /**
-   * Constructor that uses width, height and the center of the box
+   * Constructor that uses width, height and the bottom left corner
    *
    * @param center Center of the box
    * @param width Width of the box
@@ -83,41 +83,6 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   }
 
   /**
-   * Determines if the container fully contain a Shape
-   *
-   * The Box contains the Shape if all the vertices of the Shape are inside the Box. The
-   * condition is sufficient as a Box is a `ConvexPolygon`
-   *
-   * @param s The shape to check
-   * @return true if the container fully contain the other shape. Boundaries are included in the container
-   */
-  override def contains( s: Shape ): Boolean = s match {
-    // For the case Box-Polygon I check that all its vertices are inside the box - O(n)
-    case p: Polygon => p.vertices.forall( v => this.contains( v ) )
-
-    // For the case Box-Circle I use the fact the an enclosing Box for the Circle has its borders parallel to the current one - O(n)
-    case c: Circle => this.contains( Box.bestFit( c ) )
-
-    // Other cases are not contained
-    case _ => false
-  }
-
-  /**
-   * Determines if a shape is inside or on the boundary this shape
-   *
-   * @param that The point to be checked
-   * @return True if the point is inside the shape
-   */
-  def intersects( that: Circle ): Boolean = that.intersects( this )
-
-  /**
-   * A renderer for a box
-   *
-   * @return A new instance of BoxRenderer for the current polygon
-   */
-  override def renderer = new BoxRenderer( this )
-
-  /**
    * Determines if a point is inside or on the boundary the shape
    *
    * @param p The point to be checked
@@ -128,6 +93,29 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
       p.x <= topRight.x &&
       p.y >= bottomLeft.y &&
       p.y <= topRight.y
+
+  /**
+   * Determines if a shape is inside or on the boundary this shape
+   *
+   * @param that The point to be checked
+   * @return True if the point is inside the shape
+   */
+  override def intersects( that: Shape ): Boolean = that match {
+
+    // Box-circle case I use the code in Circle, as it's already present, and the commutative property of intersection
+    case c: Circle => c.intersects( this )
+
+    // For other comparisons I fell back to the parent
+    case _ => super.intersects( that )
+
+  }
+
+  /**
+   * A renderer for a box
+   *
+   * @return A new instance of BoxRenderer for the current polygon
+   */
+  override def renderer = new BoxRenderer( this )
 
 }
 

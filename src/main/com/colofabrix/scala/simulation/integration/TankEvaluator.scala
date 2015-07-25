@@ -63,7 +63,7 @@ object TankEvaluator {
    * @return The highest possible value
    */
   def higherFitness( world: World ): Double = {
-    world.tanks.maxBy(_.points).points
+    world.tanks.filter(!_.isDead).maxBy(_.points).points
   }
 
 }

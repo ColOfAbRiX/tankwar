@@ -19,7 +19,7 @@ package com.colofabrix.scala.simulation.integration
 import java.util
 import java.util.Random
 
-import com.colofabrix.scala.Util._
+import com.colofabrix.scala.Tools._
 import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy }
 
