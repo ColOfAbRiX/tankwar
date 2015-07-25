@@ -23,7 +23,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
   */
-class QuadtreeRenderer( val quadtree: SpatialTree[_ <: PhysicalObject] ) extends Renderer {
+class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
   /**
    * Draw the appropriate things on the screen given a specific drawing context
    *

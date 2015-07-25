@@ -33,7 +33,7 @@ import org.lwjgl.input.Keyboard
 class KeyboardListener( val key: Int,
   val action: (World) => Unit,
   val world: World,
-  val eventDriven: Boolean = false,
+  val eventDriven: Boolean = true,
   val onPress: Boolean = true ) {
 
   /**

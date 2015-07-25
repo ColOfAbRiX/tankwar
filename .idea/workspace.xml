@@ -9,26 +9,31 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.scala" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="Fixed many problems with quadtrees and its usage in the world. Big performance issues. Created a DummyQuadtree as temporary workaround">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LeafQuadtree.scala" />
-      <change type="DELETED" beforePath="C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\com\colofabrix\scala\geometry\Quadtree.scala" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\com\colofabrix\scala\Util.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/Tools.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Box.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Box.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Circle.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Circle.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/DummyQuadtree.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/DummyQuadtree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Fabrizio_Colonna.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Fabrizio_Colonna.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LinkedQuadtree.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LinkedQuadtree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Polygon.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Polygon.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/Shape.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/Shape.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" />
+    <list default="true" id="225d932d-32f1-47db-b25a-3260686017d6" name="Default" comment="Merge">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/Apache_License.xml" afterPath="$PROJECT_DIR$/.idea/copyright/Apache_License.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/BoxTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/BoxTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/CircleTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/CircleTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/Container.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/Container.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Diamond.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Diamond.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/abstracts/InteractiveObject.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/abstracts/InteractiveObject.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/neuralnetworkOld/LayerTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/neuralnetworkOld/LayerTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Matrix.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Matrix.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/math/MatrixTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/math/MatrixTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/neuralnetworkOld/NeuralNetworkTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/neuralnetworkOld/NeuralNetworkTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Octagon.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/shapes/Octagon.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/OpenGL.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/PolygonTest.scala" afterPath="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/PolygonTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/Tank.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/Tank.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/TankWarMain.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/TankWarMain.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/atlassian-ide-plugin.xml" afterPath="$PROJECT_DIR$/.idea/atlassian-ide-plugin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/TankBrainTester.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/TankBrainTester.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala" afterPath="$PROJECT_DIR$/src/main/com/colofabrix/scala/math/Vector2D.scala" />
     </list>
     <ignored path="TankWar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,7 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/BoxTest.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/Container.scala" />
         <option value="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/CircleTest.scala" />
         <option value="$PROJECT_DIR$/src/test/com/colofabrix/test/scala/geometry/PolygonTest.scala" />
@@ -141,7 +145,6 @@
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/Quadtree.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/DummyQuadtree.scala" />
-        <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/Tools.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LinkedQuadtree.scala" />
@@ -150,6 +153,8 @@
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/World.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LeafQuadtree.scala" />
         <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
+        <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala" />
+        <option value="$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
       </list>
     </option>
   </component>
@@ -277,6 +282,87 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches">
+        <subPane />
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
+        <subPane subId="Production">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="TankWar">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src/main">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -340,87 +426,6 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Problems" />
-        <subPane subId="Production">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Default">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="TankWar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src/main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Tests" />
       </pane>
     </panes>
   </component>
@@ -906,7 +911,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22294372" sideWeight="0.4968017" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22294372" sideWeight="0.4968017" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3365801" sideWeight="0.5021322" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -915,14 +920,14 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.3538961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="1920" y="0" width="1920" height="520" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32900432" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="129" y="90" width="1645" height="816" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19989339" sideWeight="0.54329" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19989339" sideWeight="0.53760445" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="628" y="406" width="664" height="227" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19989339" sideWeight="0.45670995" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19989339" sideWeight="0.46239555" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18230277" sideWeight="0.49675325" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.3961039" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="1920" y="520" width="1920" height="520" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.3961039" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="1920" y="520" width="1920" height="520" />
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1000,7 +1005,8 @@
     <MESSAGE value="Refactored graphics, added new renderers, completed TKWAR-4 and TWAR-39, although performance issues remain" />
     <MESSAGE value="Refactored graphics, added new renderers, completed TKWAR-4 and TKWAR-39, although performance issues remain" />
     <MESSAGE value="Fixed many problems with quadtrees and its usage in the world. Big performance issues. Created a DummyQuadtree as temporary workaround" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed many problems with quadtrees and its usage in the world. Big performance issues. Created a DummyQuadtree as temporary workaround" />
+    <MESSAGE value="Merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1073,13 +1079,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files (x86)/scala/lib/scala-library.jar!/scala/collection/parallel/Task.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57455266">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/scala/lib/scala-library.jar!/scala/collection/parallel/ParIterableLike.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5185184">
@@ -1207,13 +1206,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CONTRIBUTING.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.78456223">
           <caret line="72" column="26" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
         </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/simulation/integration/GameEvolutionEngine.java">
@@ -1325,7 +1324,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41183037">
           <caret line="124" column="47" selection-start-line="124" selection-start-column="47" selection-end-line="124" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1341,7 +1339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5636161">
           <caret line="166" column="25" selection-start-line="166" selection-start-column="25" selection-end-line="166" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1349,10 +1346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3962264">
           <caret line="236" column="5" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
-          <folding>
-            <element signature="e#10065#10066#0" expanded="false" />
-            <element signature="e#10148#10149#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1360,9 +1353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33207548">
           <caret line="38" column="81" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="81" />
-          <folding>
-            <element signature="e#634#657#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1370,7 +1360,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.8888888">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1378,42 +1367,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.89988494">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/out/TankWarMain.log">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files (x86)/scala/lib/scala-library.jar!/scala/inline.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05868815">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4174107">
-          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LinkedQuadtree.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8348215">
-          <caret line="145" column="48" selection-start-line="145" selection-start-column="48" selection-end-line="145" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1437,7 +1407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27901787">
           <caret line="208" column="5" selection-start-line="208" selection-start-column="5" selection-end-line="208" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1445,7 +1414,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3984375">
           <caret line="147" column="25" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1453,6 +1421,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71540177">
           <caret line="78" column="39" selection-start-line="78" selection-start-column="39" selection-end-line="78" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47433037">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="e#645#697#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18973215">
+          <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/colofabrix/scala/geometry/LinkedQuadtree.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6043478">
+          <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
           <folding />
         </state>
       </provider>
