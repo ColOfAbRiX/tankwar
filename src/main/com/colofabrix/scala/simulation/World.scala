@@ -20,7 +20,7 @@ import com.colofabrix.scala.geometry.DummyQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.renderers.BGRenderer
+import com.colofabrix.scala.gfx.renderers.{ EnvironmentRenderer, _ }
 import com.colofabrix.scala.gfx.ui.UIManager
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
@@ -73,7 +73,7 @@ class World(
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
-
+  private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this, _tanks )
   private var _bullets = DummyQuadtree[Bullet]( arena, List( ) )
   private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks )
   private var _time: Long = 0
@@ -146,22 +146,21 @@ class World(
   }
 
   /**
-   * Increments a specific counter by 1
-   *
-   * @param counter The counter to increment
-   */
-  private def incCounter( counter: String ): Unit = {
-    _counters += (counter -> (_counters( counter ) + 1))
-  }
-
-  /**
    * Collects the renderers to draw the objects in the world, like tanks and bullets
    *
    * @return All the renderers for the objects in the simulation worlds
    */
-  def renderers: Seq[Renderer] = {
-    _bullets.renderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
-  }
+  def renderers: Seq[Renderer] = _envRenderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
+
+  /**
+   * List of tanks present in the world
+   */
+  def tanks = _tanks.toList
+
+  /**
+   * List of bullets running through the world
+   */
+  def bullets = _bullets.toList
 
   /**
    * Resets the world to a known, initial states
@@ -226,16 +225,6 @@ class World(
     UIManager.update( )
     GFXManager.render( )
   }
-
-  /**
-   * List of tanks present in the world
-   */
-  def tanks = _tanks.toList
-
-  /**
-   * List of bullets running through the world
-   */
-  def bullets = _bullets.toList
 
   /**
    * Handles any dead tank in the world
@@ -377,6 +366,15 @@ class World(
       tank.on_hits( otherTank )
       otherTank.on_isHit( tank )
     }
+  }
+
+  /**
+   * Increments a specific counter by 1
+   *
+   * @param counter The counter to increment
+   */
+  private def incCounter( counter: String ): Unit = {
+    _counters += (counter -> (_counters( counter ) + 1))
   }
 
   /**

@@ -19,6 +19,7 @@ package com.colofabrix.scala.gfx.ui
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.ui.input.{ KeyboardListener, KeyboardManager }
 import com.colofabrix.scala.simulation.World
+import org.lwjgl.Sys
 import org.lwjgl.input.Keyboard
 
 import scala.collection._
@@ -29,6 +30,9 @@ import scala.collection._
  * @param world A reference to the World
  */
 class UIManager( val world: World ) {
+
+  private var lastFPS =  (Sys.getTime * 1000) / Sys.getTimerResolution
+  private var framesThisSecond = 0
 
   /**
    * The keyboard manager
@@ -54,9 +58,22 @@ class UIManager( val world: World ) {
 
   private def initializeFlags( ): Unit = {
     flags += ("sync" -> 25) // Frame sync
-    flags += ("qtree" -> true)
+    flags += ("fps" -> 0)
+    flags += ("qtree" -> false)
     flags += ("vectors" -> true)
     flags += ("tksight" -> true)
+    flags += ("details" -> true)
+  }
+
+  private def updateFPS (): Unit = {
+    val time = (Sys.getTime * 1000) / Sys.getTimerResolution
+    var fps = flags.getWithDefault("fps", 0)
+    if (time-lastFPS > 1000) {
+      flags.update("fps", framesThisSecond)
+      lastFPS += 1000
+      framesThisSecond = 0
+    }
+    framesThisSecond += 1
   }
 
   /**
@@ -71,6 +88,7 @@ class UIManager( val world: World ) {
    */
   def update( ): Unit = {
     KBM.update( )
+    updateFPS()
   }
 
   private def initializeListeners( ): Unit = {
@@ -93,7 +111,7 @@ class UIManager( val world: World ) {
         ( world: World ) => {
           val flags = world.UIManager.flags
           val speed = flags.getWithDefault( "sync", 25 ) - 5
-          if( speed > 5 ) flags.update( "sync", speed )
+          if( speed > 4 ) flags.update( "sync", speed )
         },
         world
       )
@@ -130,6 +148,19 @@ class UIManager( val world: World ) {
           val flags = world.UIManager.flags
           val tksight = flags.getWithDefault( "tksight", true )
           flags.update( "tksight", !tksight )
+        },
+        world
+      )
+    )
+
+    //This listener toggles the details flag which controls the rendering of the data about the simulation
+    KBM.addListener(
+      new KeyboardListener(
+        Keyboard.KEY_D,
+        ( world: World ) => {
+          val flags = world.UIManager.flags
+          val details = flags.getWithDefault( "details", true )
+          flags.update( "details", !details )
         },
         world
       )

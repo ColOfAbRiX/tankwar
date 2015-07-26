@@ -16,6 +16,8 @@
 
 package com.colofabrix.scala.gfx.renderers
 
+import java.awt.Font
+
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -35,7 +37,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
   private val size: Double = tank.objectShape.asInstanceOf[Circle].radius
 
   /**
-   * Draws a Tank on the screen
+   * Draws a Tank n the screen
    *
    * @param create This parameter is disabled for this renderer
    */
@@ -45,6 +47,10 @@ class TankRenderer( tank: Tank ) extends Renderer {
     val flags = tank.world.UIManager.flags
 
     drawingContext( Frame( _position = tank.position ) ) {
+
+      textContext() {
+        drawText( List( TankEvaluator.fitness( tank ).toString ), new Font( "Consolas", Font.PLAIN, 12 ) )
+      }
 
       // Drawing tank's main shape (a triangle surrounded by a circle)
       setFrame( Frame( colour ) ) {
@@ -61,7 +67,8 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      if (flags.getWithDefault("tksight", true)) {
+      if( flags.getWithDefault( "tksight", true ) ) {
+
         // Draw the sight toward bullets
         setFrame( Frame( Colour.DARK_RED ) ) {
           tank.sight( classOf[Bullet] ).renderer.render( false )
@@ -71,11 +78,13 @@ class TankRenderer( tank: Tank ) extends Renderer {
         setFrame( Frame( Colour.DARK_GREEN ) ) {
           tank.sight( classOf[Tank] ).renderer.render( false )
         }
+
       }
 
     }
 
-    if (flags.getWithDefault("vectors", true)) {
+    if( flags.getWithDefault( "vectors", true ) ) {
+
       // Draw the speed vector
       setFrame( Frame( Colour.WHITE ) ) {
         new VectorRenderer( tank.speed * 10, tank.position ).render( )
@@ -89,6 +98,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
       setFrame( Frame( Colour.MAGENTA ) ) {
         new VectorRenderer( speed * 10, tank.position ).render( )
       }
+
     }
 
   }

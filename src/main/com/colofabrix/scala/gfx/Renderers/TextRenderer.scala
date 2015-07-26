@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fabrizio Colonna
+ * Copyright (C) 2015 Freddie Poser
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,34 +16,40 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.shapes.Polygon
+import java.awt.Font
+
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import org.lwjgl.opengl.GL11._
-
+import com.colofabrix.scala.math.Vector2D
 
 /**
- * Renders a polygon to the screen
+ * Writes some text to the screen
  *
- * @param polygon The polygon that has to be rendered
- * @param colour The colour of the polygon
- * @param filled True indicated the circle has to be filled. It defaults to false
+ * @param text A list of strings to be written on the screen one after the other
+ * @param position A vector indicating the top-left corner (?) of the text
+ * @param awtFont The font used to draw the text
  */
-class PolygonRenderer( val polygon: Polygon, colour: Colour = null, filled: Boolean = false ) extends Renderer {
+class TextRenderer(
+  text: List[String],
+  position: Vector2D,
+  awtFont: Font = new Font( "Consolas", Font.PLAIN, 12 ),
+  interline: Double = 1.5,
+  colour: Colour = Colour.CYAN
+) extends Renderer {
 
   /**
-   * Draws a polygon on the screen
+   * Writes some text to the screen
    *
    * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
   def render( create: Boolean = true ): Unit = {
 
-    withContext( create, Frame( colour ) ) {
+    withContext( create, Frame( colour, position ) ) {
 
-      val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
-      draw( mode ) {
-        // Don't forget the edge from the last to the first vertex
-        (polygon.vertices :+ polygon.vertices.head).foreach( drawVertex )
+      textContext( ) {
+
+        drawText( text, awtFont, interline, Frame( Colour.CYAN ) )
+
       }
 
     }

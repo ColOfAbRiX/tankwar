@@ -311,7 +311,7 @@ class Tank private(
     _rotation = Vector2D.new_rt( 1, _rotation.t + _angularSpeed )
 
     // It shoots when the function is increasing
-    _isShooting = output.shoot - _shoot > 0.0 //0.02
+    _isShooting = output.shoot - _shoot > 0.02
     if( _isShooting ) world.on_tankShot( this )
     _shoot = output.shoot
 

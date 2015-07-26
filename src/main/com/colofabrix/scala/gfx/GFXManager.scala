@@ -85,7 +85,7 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
     glMatrixMode( GL_MODELVIEW )
     glMatrixMode( GL_PROJECTION )
     glLoadIdentity( )
-    glOrtho( 0, Display.getWidth, 0, Display.getHeight, 1, -1 )
+    glOrtho( 0, Display.getWidth, Display.getHeight, 0, 1, -1 )
     glMatrixMode( GL_MODELVIEW )
     glLoadIdentity( )
   }

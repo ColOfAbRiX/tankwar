@@ -32,8 +32,8 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
   require( _cartesian != null || _polar != null, "A set of coordinates must be specified" )
 
 
+  import com.colofabrix.scala.math.Vector2DImplicits._
 
-import com.colofabrix.scala.math.Vector2DImplicits._
   /**
    * Cartesian representation of this vectors
    */

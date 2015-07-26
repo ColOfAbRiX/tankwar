@@ -16,8 +16,13 @@
 
 package com.colofabrix.scala.gfx
 
+import java.awt.Font
+
 import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11._
+import org.newdawn.slick.{ Color, TrueTypeFont }
+
+import scala.collection.immutable.HashMap
 
 /**
  * This class is meant to be a simple wrapper for OpenGL, to provide a Scala-way to use graphics but keeping things
@@ -29,7 +34,9 @@ object OpenGL {
   /**
    * A colour in the OpenGL system
    */
-  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
+  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 ) {
+    def asSlickColour = new Color( r.toFloat, g.toFloat, b.toFloat, 1 )
+  }
 
 
   /**
@@ -87,6 +94,7 @@ object OpenGL {
 
 
   private val DEG2RAD = 180 / Math.PI
+  private var fontMap = HashMap[Int, TrueTypeFont]( )
 
   /**
    * Initialize a drawing action
@@ -117,6 +125,64 @@ object OpenGL {
   }
 
   /**
+   * Sets a reference frame
+   *
+   * The method sets position, rotation and brush colour for the active reference frame.
+   * For the way this function is built, if a value of the `frame` is not provided, that configuration
+   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
+   * and `draw`.
+   *
+   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
+   * @param actions The function that actually draw
+   */
+  def setFrame( frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+    // Set position, rotation and colour
+    for( p <- frame.position ) glTranslated( p.x, p.y, 0.0 )
+    for( r <- frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
+    for( c <- frame.colour ) glColor3d( c.r, c.g, c.b )
+
+    // Call the actions
+    actions
+  }
+
+  /**
+   * Draw some text on the screen.
+   *
+   * @param text A list of texts to write one after the other
+   * @param awtFont An AWT font used to draw the text
+   * @param interline Interline spacing between lines
+   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
+   */
+  def drawText( text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame( ) ) = {
+    val font = getTTFont( awtFont )
+
+    setFrame( frame ) {
+      text.zipWithIndex.foreach { case (t, i) =>
+        font.drawString( 0, (awtFont.getSize * interline * i).toFloat, t, frame.colour.getOrElse( Colour.WHITE ).asSlickColour )
+      }
+    }
+  }
+
+  /**
+   * Get a TrueTypeFont from a cache
+   *
+   * Loading fonts is expensive, so a simple caching system is used
+   *
+   * @param awtFont The AWT font of which you want to obtain the TrueTypeFont
+   * @return
+   */
+  private def getTTFont( awtFont: Font ): TrueTypeFont = {
+
+    if( !fontMap.contains( awtFont.hashCode ) ) {
+      val ttfont = new TrueTypeFont( awtFont, false )
+      fontMap = fontMap + (awtFont.hashCode -> ttfont)
+      return ttfont
+    }
+
+    fontMap( awtFont.hashCode )
+  }
+
+  /**
    * Draw a vertex on the screen.
    *
    * What it draws is subordinates to the drawing mode in the drawing context
@@ -125,6 +191,30 @@ object OpenGL {
    */
   def drawVertex( vertex: Vector2D ): Unit = {
     glVertex2d( vertex.x, vertex.y )
+  }
+
+  /**
+   * Creates a new text context.
+   *
+   * The method encloses the action between the necessary operations to draw a text
+   * For the way this function is built, if a value of the `frame` is not provided, that configuration
+   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
+   * and `draw`.
+   *
+   * @param frame The configuration of the reference frame. If not specified the reference frame is set to default
+   * @param actions The drawing actions
+   */
+  def textContext( frame: Frame = Frame( Colour.RED, Vector2D.zero, Vector2D.zero ) )( actions: => Unit ): Unit = {
+
+    // Enable alpha blending to merge text and graphics
+    glEnable( GL_BLEND )
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
+
+    setFrame( frame ) {
+      actions
+    }
+
+    glDisable( GL_BLEND )
   }
 
   /**
@@ -169,27 +259,6 @@ object OpenGL {
     }
 
     glPopMatrix( )
-  }
-
-  /**
-   * Sets a reference frame
-   *
-   * The method sets position, rotation and brush colour for the active reference frame.
-   * For the way this function is built, if a value of the `frame` is not provided, that configuration
-   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
-   * and `draw`.
-   *
-   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
-   * @param actions The function that actually draw
-   */
-  def setFrame( frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
-    // Set position, rotation and colour
-    for( p <- frame.position ) glTranslated( p.x, p.y, 0.0 )
-    for( r <- frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
-    for( c <- frame.colour ) glColor3d( c.r, c.g, c.b )
-
-    // Call the actions
-    actions
   }
 
 }

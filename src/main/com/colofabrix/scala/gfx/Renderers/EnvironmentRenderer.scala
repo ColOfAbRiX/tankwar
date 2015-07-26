@@ -16,24 +16,36 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.{ LinkedQuadtree }
+import com.colofabrix.scala.geometry.abstracts.SpatialTree
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
-import com.colofabrix.scala.math.{ CartesianCoord, Vector2D }
-import com.colofabrix.scala.simulation.abstracts.PhysicalObject
-import com.colofabrix.scala.simulation.{ Tank, World }
-import com.colofabrix.scala.gfx.OpenGL._
+import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.simulation.World
 
 /**
 
- */
-class EnvironmentRenderer (val world: World, quadtree: => LinkedQuadtree[_]) extends Renderer{
+  */
+class EnvironmentRenderer( val world: World, quadtree: => SpatialTree[_] )
+  extends Renderer {
 
   override def render( create: Boolean ): Unit = {
     val flags = world.UIManager.flags
-    if (flags.getWithDefault("qtree", true))
+    if( flags.getWithDefault( "qtree", true ) ) {
       quadtree.renderer.render( create = true )
+    }
+
+    if( flags.getWithDefault( "details", true ) ) {
+      val tr = new TextRenderer(
+        List[String](
+          "Max Simulation Speed: " + flags.getWithDefault( "sync", 25 )+ "fps",
+          "Number Of Hits: " + world.counters.get( "hits" ).get,
+          "Number Of Shots: " + world.counters.get( "shots" ).get,
+          "Hit Percentage: " + (world.counters.get( "hits" ).get.toFloat / (world.counters.get( "shots" ).get.toFloat + 1)).toString,
+          "FPS: " + flags.getWithDefault( "fps", 0 )
+        ),
+        Vector2D.new_xy( 10, 10 )
+      )
+      tr.render( )
+    }
   }
 
 }
