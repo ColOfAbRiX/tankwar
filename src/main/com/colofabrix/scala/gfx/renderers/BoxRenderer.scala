@@ -27,10 +27,11 @@ import org.lwjgl.opengl.GL11._
  *
  * Draw a box on the screen
  * @param box The box to draw on screen
- * @param colour The colour of the box
  * @param filled True indicated the circle has to be filled. It defaults to false
+ * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
-class BoxRenderer( val box: Box, colour: Colour = null, filled: Boolean = false ) extends Renderer {
+class BoxRenderer( val box: Box, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
+  extends Renderer {
 
   /**
    * Render a box to the screen
@@ -39,14 +40,18 @@ class BoxRenderer( val box: Box, colour: Colour = null, filled: Boolean = false 
    */
   def render( create: Boolean = true ): Unit = {
 
-    withContext( create, Frame( colour, box.bottomLeft ) ) {
+    withDefaultContext( create, defaultFrame ) {
 
-      val mode = if( filled ) GL_QUADS else GL_LINE_LOOP
-      draw( mode ) {
-        glVertex2d( 0, 0 )
-        glVertex2d( box.width, 0 )
-        glVertex2d( box.width, box.height )
-        glVertex2d( 0, box.height )
+      applyContext( Frame( _position = box.bottomLeft ) ) {
+
+        val mode = if( filled ) GL_QUADS else GL_LINE_LOOP
+        drawOpenGL( mode ) {
+          glVertex2d( 0, 0 )
+          glVertex2d( box.width, 0 )
+          glVertex2d( box.width, box.height )
+          glVertex2d( 0, box.height )
+        }
+
       }
 
     }

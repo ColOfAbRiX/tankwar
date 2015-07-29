@@ -146,7 +146,7 @@ class LinkedQuadtree[T: SpatialIndexable] protected(
    * @return A new string containing a textual representation of the tree
    */
   override def toString: String =
-    s"Tree list content: ${toList.size}\n" + _quadtree.toString
+    s"Tree list content: ${toList.size }\n" + _quadtree.toString
 }
 
 

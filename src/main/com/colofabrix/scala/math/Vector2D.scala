@@ -104,7 +104,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def :=( that: Vector2D ): Vector2D = this := {_ * that( _ )}
+  def :=( that: Vector2D ): Vector2D = this := { _ * that( _ ) }
 
   /**
    * Apply a transformation to the point
@@ -138,7 +138,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a point-to-point multiplication with `that`
    */
   @inline
-  def @=( that: Vector2D ): Vector2D = this @= {_ * that( _ )}
+  def @=( that: Vector2D ): Vector2D = this @= { _ * that( _ ) }
 
   /**
    * Projects a vector onto another

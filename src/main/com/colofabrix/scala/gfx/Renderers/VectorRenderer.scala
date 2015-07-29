@@ -30,10 +30,14 @@ import org.lwjgl.opengl.GL11._
  * @param vector The vector to draw
  * @param apply Its apply point (where its tail begins)
  * @param size The maximum size of the arrow
- * @param colour The color used to render it
+ * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
-class VectorRenderer( val vector: Vector2D, val apply: Vector2D = Vector2D.zero, size: Double = 5, colour: Colour = null )
-  extends Renderer {
+class VectorRenderer(
+  val vector: Vector2D,
+  val apply: Vector2D = Vector2D.zero,
+  size: Double = 5,
+  defaultFrame: Frame = Frame( Colour.WHITE )
+) extends Renderer {
 
   /**
    * Draws the vector
@@ -42,20 +46,25 @@ class VectorRenderer( val vector: Vector2D, val apply: Vector2D = Vector2D.zero,
    */
   def render( create: Boolean = true ): Unit = {
 
-    withContext( create, Frame( colour ) ) {
+    withDefaultContext( create, defaultFrame ) {
 
-      // Draw the main line
-      draw( GL_LINES, Frame( _position = apply ) ) {
-        glVertex2d( 0, 0 )
-        glVertex2d( vector.x, vector.y )
-      }
+      // This sets the position to the application point of the vector
+      applyContext( Frame( _position = apply ) ) {
 
-      // Draw the arrow of the vector
-      val arrowSize = Math.min( size, vector.r / 4 )
-      draw( GL_TRIANGLES, Frame( _position = vector, _rotation = vector ) ) {
-        glVertex2d( arrowSize, 0.0 )
-        glVertex2d( -0.866025 * arrowSize, 0.5 * arrowSize )
-        glVertex2d( -0.866025 * arrowSize, -0.5 * arrowSize )
+        // Draw the main line
+        drawOpenGL( GL_LINES ) {
+          glVertex2d( 0, 0 )
+          glVertex2d( vector.x, vector.y )
+        }
+
+        // Draw the arrow of the vector
+        val arrowSize = Math.min( size, vector.r / 4 )
+        drawOpenGL( GL_TRIANGLES, Frame( _position = vector, _rotation = vector ) ) {
+          glVertex2d( arrowSize, 0.0 )
+          glVertex2d( -0.866025 * arrowSize, 0.5 * arrowSize )
+          glVertex2d( -0.866025 * arrowSize, -0.5 * arrowSize )
+        }
+
       }
 
     }

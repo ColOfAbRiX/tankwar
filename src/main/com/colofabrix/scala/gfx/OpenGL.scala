@@ -19,6 +19,7 @@ package com.colofabrix.scala.gfx
 import java.awt.Font
 
 import com.colofabrix.scala.math.Vector2D
+import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
 
@@ -34,10 +35,7 @@ object OpenGL {
   /**
    * A colour in the OpenGL system
    */
-  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 ) {
-    def asSlickColour = new Color( r.toFloat, g.toFloat, b.toFloat, 1 )
-  }
-
+  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
 
   /**
    * An OpenGL reference frame. It holds data about its position to the absolute reference, its rotation and the colour of its brush
@@ -110,10 +108,10 @@ object OpenGL {
    * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
    * @param actions The function that actually draw
    */
-  def draw( mode: Int, frame: Frame = Frame( ) )( actions: => Unit ) {
+  def drawOpenGL( mode: Int, frame: Frame = Frame( ) )( actions: => Unit ) {
 
     // First sets the reference frame
-    setFrame( frame ) {
+    applyContext( frame ) {
 
       // Then starts the drawing context
       glBegin( mode )
@@ -122,27 +120,6 @@ object OpenGL {
 
     }
 
-  }
-
-  /**
-   * Sets a reference frame
-   *
-   * The method sets position, rotation and brush colour for the active reference frame.
-   * For the way this function is built, if a value of the `frame` is not provided, that configuration
-   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
-   * and `draw`.
-   *
-   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
-   * @param actions The function that actually draw
-   */
-  def setFrame( frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
-    // Set position, rotation and colour
-    for( p <- frame.position ) glTranslated( p.x, p.y, 0.0 )
-    for( r <- frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
-    for( c <- frame.colour ) glColor3d( c.r, c.g, c.b )
-
-    // Call the actions
-    actions
   }
 
   /**
@@ -156,9 +133,17 @@ object OpenGL {
   def drawText( text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame( ) ) = {
     val font = getTTFont( awtFont )
 
-    setFrame( frame ) {
+    applyContext( frame ) {
+      // Slick fonts don't work like OpenGL. I retrieve the current colour from the OpenGL
+      val colourBuffer = BufferUtils.createFloatBuffer( 16 )
+      glGetFloat( GL_CURRENT_COLOR, colourBuffer )
+      val defaultTextColour = Colour( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
+      val color = frame.colour.getOrElse( defaultTextColour )
+      val slickColor = new Color( color.r.toFloat, color.g.toFloat, color.b.toFloat, 1 )
+
+      // Draw all the lines of text
       text.zipWithIndex.foreach { case (t, i) =>
-        font.drawString( 0, (awtFont.getSize * interline * i).toFloat, t, frame.colour.getOrElse( Colour.WHITE ).asSlickColour )
+        font.drawString( 0, (awtFont.getSize * interline * i).toFloat, t, slickColor )
       }
     }
   }
@@ -166,20 +151,51 @@ object OpenGL {
   /**
    * Get a TrueTypeFont from a cache
    *
-   * Loading fonts is expensive, so a simple caching system is used
+   * Loading fonts is expensive, so a simple caching system provides faster access
    *
    * @param awtFont The AWT font of which you want to obtain the TrueTypeFont
    * @return
    */
   private def getTTFont( awtFont: Font ): TrueTypeFont = {
-
     if( !fontMap.contains( awtFont.hashCode ) ) {
       val ttfont = new TrueTypeFont( awtFont, false )
+
       fontMap = fontMap + (awtFont.hashCode -> ttfont)
       return ttfont
     }
 
     fontMap( awtFont.hashCode )
+  }
+
+  /**
+   * Apply a reference frame on top of an existing one
+   *
+   * The method sets position, rotation and brush colour for the active reference frame. Position and rotation
+   * are treated as relative to
+   * For the way this function is built, if a value of the `frame` is not provided, that configuration
+   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
+   * and `draw`.
+   *
+   * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
+   * @param actions The function that actually draw
+   */
+  def applyContext( frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+    // Save the previous settings (only if needed)
+    val colourBuffer = BufferUtils.createFloatBuffer( 16 )
+    if( frame.colour.isDefined ) glGetFloat( GL_CURRENT_COLOR, colourBuffer )
+    if( frame.position.isDefined || frame.rotation.isDefined ) glPushMatrix( )
+
+    // Set position, rotation and colour
+    for( p <- frame.position ) glTranslated( p.x, p.y, 0.0 )
+    for( r <- frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
+    for( c <- frame.colour ) glColor3d( c.r, c.g, c.b )
+
+    // Call the actions
+    actions
+
+    // Restore the previous settings
+    if( frame.position.isDefined || frame.rotation.isDefined ) glPopMatrix( )
+    if( frame.colour.isDefined ) glColor3d( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
   }
 
   /**
@@ -201,18 +217,14 @@ object OpenGL {
    * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
    * and `draw`.
    *
-   * @param frame The configuration of the reference frame. If not specified the reference frame is set to default
    * @param actions The drawing actions
    */
-  def textContext( frame: Frame = Frame( Colour.RED, Vector2D.zero, Vector2D.zero ) )( actions: => Unit ): Unit = {
-
+  def textContext( )( actions: => Unit ): Unit = {
     // Enable alpha blending to merge text and graphics
     glEnable( GL_BLEND )
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
 
-    setFrame( frame ) {
-      actions
-    }
+    actions
 
     glDisable( GL_BLEND )
   }
@@ -224,13 +236,13 @@ object OpenGL {
    * the caller to set the context for the new objects that are going to be drawn.
    *
    * @param create With a value of true a new drawing context will be create, with false nothing is done
-   * @param defaultFrame The configuration of the reference frame. If not specified the reference frame is not affected
+   * @param withFrame The configuration of the reference frame if a new context has to be created. If not specified the reference frame is not affected
    * @param actions The drawing actions
    */
-  def withContext( create: Boolean, defaultFrame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+  def withDefaultContext( create: Boolean, withFrame: Frame = Frame( ) )( actions: => Unit ): Unit = {
 
     if( create ) {
-      drawingContext( defaultFrame ) {
+      applyContext( withFrame ) {
         actions
       }
     }
@@ -238,27 +250,6 @@ object OpenGL {
       actions
     }
 
-  }
-
-  /**
-   * Creates a new drawing context.
-   *
-   * The method encloses the action between a push/pop of the matrix stack and it also resets the reference frame
-   * For the way this function is built, if a value of the `frame` is not provided, that configuration
-   * will not change. This allow to nest subsequent frame modifications from `drawingContext`, `setFrame`
-   * and `draw`.
-   *
-   * @param frame The configuration of the reference frame. If not specified the reference frame is set to default
-   * @param actions The drawing actions
-   */
-  def drawingContext( frame: Frame = Frame( Colour.WHITE, Vector2D.zero, Vector2D.zero ) )( actions: => Unit ): Unit = {
-    glPushMatrix( )
-
-    setFrame( frame ) {
-      actions
-    }
-
-    glPopMatrix( )
   }
 
 }

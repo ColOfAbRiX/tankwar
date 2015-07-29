@@ -41,13 +41,13 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
     val stddev = Math.sqrt( devs.sum / count )
 
     // Print on screen
-    println( s"Gen #${pop.getGenerationNumber}: Best: ${pop.getBestCandidateFitness}, Mean: $mean, Std Dev: $stddev" )
-    println( s"Best - Points: ${best.points}, Survival: ${best.surviveTime}" )
-    println( s"Counters: ${best.world.counters}" )
+    println( s"Gen #${pop.getGenerationNumber }: Best: ${pop.getBestCandidateFitness }, Mean: $mean, Std Dev: $stddev" )
+    println( s"Best - Points: ${best.points }, Survival: ${best.surviveTime }" )
+    println( s"Counters: ${best.world.counters }" )
     println( "" )
 
     // Print on file
-    writer.println( s"${pop.getGenerationNumber};${pop.getMeanFitness};${pop.getBestCandidateFitness};${best.points};${best.surviveTime}".replace( ".", "," ) )
+    writer.println( s"${pop.getGenerationNumber };${pop.getMeanFitness };${pop.getBestCandidateFitness };${best.points };${best.surviveTime }".replace( ".", "," ) )
     writer.flush( )
 
     // Run the network analysis of the fittest candidate

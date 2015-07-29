@@ -73,7 +73,7 @@ class World(
     "seenTanks" -> 0,
     "seenBullets" -> 0
   )
-  private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this, _tanks )
+  private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
   private var _bullets = DummyQuadtree[Bullet]( arena, List( ) )
   private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks )
   private var _time: Long = 0
@@ -153,16 +153,6 @@ class World(
   def renderers: Seq[Renderer] = _envRenderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
 
   /**
-   * List of tanks present in the world
-   */
-  def tanks = _tanks.toList
-
-  /**
-   * List of bullets running through the world
-   */
-  def bullets = _bullets.toList
-
-  /**
    * Resets the world to a known, initial states
    *
    * NOTE: Might be refactored
@@ -225,6 +215,16 @@ class World(
     UIManager.update( )
     GFXManager.render( )
   }
+
+  /**
+   * List of tanks present in the world
+   */
+  def tanks = _tanks.toList
+
+  /**
+   * List of bullets running through the world
+   */
+  def bullets = _bullets.toList
 
   /**
    * Handles any dead tank in the world
@@ -339,14 +339,15 @@ class World(
     // Prevent a dead tank to kill another tank
     if( !bullet.tank.isDead ) {
 
+      // Inform the tank that shot the bullet
+      bullet.tank.on_hits( new Casuality( tank ) )
       // Inform the hit tank
       tank.on_isHit( bullet )
-      // Inform the tank that shot the bullet
-      bullet.tank.on_hits( bullet )
 
-      _bullets = _bullets - bullet
       incCounter( "hits" )
     }
+
+    _bullets = _bullets - bullet
   }
 
   /**
@@ -417,7 +418,7 @@ class World(
     )
 
     // Check the lifespan of a bullet
-    if( bullet.life >= bullet_life ) {
+    if( bullet.life >= bullet_life || bullet.tank.isDead ) {
       _bullets = _bullets - bullet
     }
   }

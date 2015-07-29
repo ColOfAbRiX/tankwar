@@ -57,7 +57,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     case c: Circle => (this.center - c.center).r + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
-    case p: Polygon =>  p.vertices.forall( this.contains )
+    case p: Polygon => p.vertices.forall( this.contains )
 
     // Other cases are a false
     case _ => false
@@ -156,7 +156,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new CircleRenderer( this, null )
+  override def renderer: Renderer = new CircleRenderer( this )
 }
 
 

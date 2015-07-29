@@ -26,10 +26,11 @@ import org.lwjgl.opengl.GL11._
  * Renders a polygon to the screen
  *
  * @param polygon The polygon that has to be rendered
- * @param colour The colour of the polygon
  * @param filled True indicated the circle has to be filled. It defaults to false
+ * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
-class PolygonRenderer( val polygon: Polygon, colour: Colour = null, filled: Boolean = false ) extends Renderer {
+class PolygonRenderer( val polygon: Polygon, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
+  extends Renderer {
 
   /**
    * Draws a polygon on the screen
@@ -38,10 +39,10 @@ class PolygonRenderer( val polygon: Polygon, colour: Colour = null, filled: Bool
    */
   def render( create: Boolean = true ): Unit = {
 
-    withContext( create, Frame( colour ) ) {
+    withDefaultContext( create, defaultFrame ) {
 
       val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
-      draw( mode ) {
+      drawOpenGL( mode ) {
         // Don't forget the edge from the last to the first vertex
         (polygon.vertices :+ polygon.vertices.head).foreach( drawVertex )
       }

@@ -139,7 +139,7 @@ object Box {
     case c: Circle => new Box( c.center, c.radius * 2, c.radius * 2 )
 
     // If it's a polygon, find its limits - O(n)
-    case p: Polygon => {
+    case p: Polygon =>
       // Finds the minimum and maximum coordinates for the points
       var (minX, minY) = (Double.MaxValue, Double.MaxValue)
       var (maxX, maxY) = (Double.MinValue, Double.MinValue)
@@ -156,7 +156,6 @@ object Box {
       val topRight = Vector2D.new_xy( maxX, maxY )
 
       new Box( bottomLeft, topRight )
-    }
 
     // Other cases, error
     case _ => throw new IllegalArgumentException

@@ -44,7 +44,7 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   }
 
   /**
-   *Render all of the GFX
+   * Render all of the GFX
    *
    * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
    * to do and usually its behaviour is stated in the documentation

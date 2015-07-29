@@ -16,8 +16,6 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import java.awt.Font
-
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -46,17 +44,13 @@ class TankRenderer( tank: Tank ) extends Renderer {
     val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
     val flags = tank.world.UIManager.flags
 
-    drawingContext( Frame( _position = tank.position ) ) {
-
-      textContext() {
-        drawText( List( TankEvaluator.fitness( tank ).toString ), new Font( "Consolas", Font.PLAIN, 12 ) )
-      }
+    applyContext( Frame( _position = tank.position ) ) {
 
       // Drawing tank's main shape (a triangle surrounded by a circle)
-      setFrame( Frame( colour ) ) {
+      applyContext( Frame( colour ) ) {
 
         // Draw the tank's main triangle
-        draw( GL_TRIANGLES, Frame( _rotation = tank.rotation ) ) {
+        drawOpenGL( GL_TRIANGLES, Frame( _rotation = tank.rotation ) ) {
           glVertex2d( size, 0.0 )
           glVertex2d( -0.866025 * size, 0.5 * size )
           glVertex2d( -0.866025 * size, -0.5 * size )
@@ -67,18 +61,25 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      if( flags.getWithDefault( "tksight", true ) ) {
+      // Write information about the tank
+      applyContext( Frame( Colour.WHITE, Vector2D.new_xy( 10, 10 ) ) ) {
+        val fitness = TankEvaluator.fitness( tank ).toString
+        val tankName = tank.toString.replaceFirst( "^\\w+@", "" )
+        new TextRenderer( List( tankName, fitness ), interline = 1.0 ).render( false )
+      }
 
-        // Draw the sight toward bullets
-        setFrame( Frame( Colour.DARK_RED ) ) {
-          tank.sight( classOf[Bullet] ).renderer.render( false )
-        }
+    }
 
-        // Draw the sight toward tanks
-        setFrame( Frame( Colour.DARK_GREEN ) ) {
-          tank.sight( classOf[Tank] ).renderer.render( false )
-        }
+    if( flags.getWithDefault( "tksight", true ) ) {
 
+      // Draw the sight toward bullets
+      applyContext( Frame( Colour.DARK_RED ) ) {
+        tank.sight( classOf[Bullet] ).renderer.render( false )
+      }
+
+      // Draw the sight toward tanks
+      applyContext( Frame( Colour.DARK_GREEN ) ) {
+        tank.sight( classOf[Tank] ).renderer.render( false )
       }
 
     }
@@ -86,19 +87,27 @@ class TankRenderer( tank: Tank ) extends Renderer {
     if( flags.getWithDefault( "vectors", true ) ) {
 
       // Draw the speed vector
-      setFrame( Frame( Colour.WHITE ) ) {
-        new VectorRenderer( tank.speed * 10, tank.position ).render( )
+      applyContext( Frame( Colour.WHITE ) ) {
+        new VectorRenderer( tank.speed * 5, tank.position ).render( false )
       }
 
       // Draw bullet sight vectors
-      val (pos, speed) = tank.calculateBulletVision
-      setFrame( Frame( Colour.CYAN ) ) {
-        new VectorRenderer( pos * 10, tank.position ).render( )
+      val (bPos, bSpeed) = tank.calculateBulletVision
+      applyContext( Frame( Colour.CYAN ) ) {
+        new VectorRenderer( bPos * 5, tank.position ).render( false )
       }
-      setFrame( Frame( Colour.MAGENTA ) ) {
-        new VectorRenderer( speed * 10, tank.position ).render( )
+      applyContext( Frame( Colour.GREEN ) ) {
+        new VectorRenderer( bSpeed * 5, tank.position ).render( false )
       }
 
+      // Draw tank sight vectors
+      val (tPos, tSpeed) = tank.calculateTankVision
+      applyContext( Frame( Colour.YELLOW ) ) {
+        new VectorRenderer( tPos * 5, tank.position ).render( false )
+      }
+      applyContext( Frame( Colour.MAGENTA ) ) {
+        new VectorRenderer( tSpeed * 5, tank.position ).render( false )
+      }
     }
 
   }

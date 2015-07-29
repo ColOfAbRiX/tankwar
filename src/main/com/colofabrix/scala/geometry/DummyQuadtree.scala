@@ -19,7 +19,7 @@ package com.colofabrix.scala.geometry
 import com.colofabrix.scala.geometry.abstracts.SpatialTree.SpatialIndexable
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
-import com.colofabrix.scala.gfx.OpenGL.Colour
+import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
 
@@ -118,7 +118,8 @@ class DummyQuadtree[T: SpatialIndexable] protected(
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new BoxRenderer( bounds.asInstanceOf[Box], Colour.DARK_GREY )
+  override def renderer: Renderer = new
+      BoxRenderer( bounds.asInstanceOf[Box], defaultFrame = Frame( Colour.DARK_GREY ) )
 
   /**
    * The number of shapes contained in the quadtree

@@ -68,7 +68,7 @@ class RecursiveElmanLayer(
     mixInputs( weights, contextWeights )
   )
 
-  private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2}
+  private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) = (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
 
   override def output( inputs: Seq[Double] ): Seq[Double] = {
     val outputs = internalLayer.output( inputs ++ _memory )

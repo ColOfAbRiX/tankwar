@@ -17,7 +17,7 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.gfx.OpenGL.Colour
+import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
 
@@ -33,6 +33,6 @@ class BGRenderer( box: Box, colour: Colour = Colour.BLACK ) extends Renderer {
    *
    * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
-  def render( create: Boolean = true ): Unit = new BoxRenderer( box, colour, true ).render( true )
+  def render( create: Boolean = true ): Unit = new BoxRenderer( box, true, Frame( colour ) ).render( true )
 
 }

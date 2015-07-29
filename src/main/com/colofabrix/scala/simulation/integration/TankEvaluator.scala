@@ -33,7 +33,7 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
    * @param list The list of all Tanks. It may be useful for comparison purposes
    * @return A number representing the fitness of the Tank
    */
-  override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double = TankEvaluator.fitness(t)
+  override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double = TankEvaluator.fitness( t )
 
   override def isNatural: Boolean = true
 
@@ -41,7 +41,8 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
 
 
 object TankEvaluator {
-  import math._
+
+  import Math._
 
   /**
    * Returns the fitness of a tank
@@ -53,7 +54,7 @@ object TankEvaluator {
    */
   def fitness( t: Tank ): Double = {
     val (w, ts) = (t.world, t.world.tanks)
-    max(t.points, 0.0)
+    max( t.points, 0.0 )
   }
 
   /**
@@ -63,7 +64,7 @@ object TankEvaluator {
    * @return The highest possible value
    */
   def higherFitness( world: World ): Double = {
-    world.tanks.filter(!_.isDead).maxBy(_.points).points
+    world.tanks.filter( !_.isDead ).maxBy( _.points ).points
   }
 
 }

@@ -132,7 +132,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
    * @return True if the given shape is inside the shape or on its boundary
    */
   override def contains( s: Shape ): Boolean = s match {
-      // TODO: For Polygon-Polygon... the general case is not so easy. Check vertex inclusion and edge crossing
+    // TODO: For Polygon-Polygon... the general case is not so easy. Check vertex inclusion and edge crossing
     case p: Polygon => ???
 
     // For Polygon-Circles I check that each vertex is outside the circle

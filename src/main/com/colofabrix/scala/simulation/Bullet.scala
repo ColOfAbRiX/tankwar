@@ -18,9 +18,8 @@ package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.gfx.OpenGL.Colour
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
-import com.colofabrix.scala.gfx.renderers.CircleRenderer
+import com.colofabrix.scala.gfx.renderers.BulletRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
@@ -69,6 +68,11 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
   _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
 
   /**
+   * Physical boundary of the bullet.
+   */
+  override def objectShape: Shape = Circle( _position, 2 )
+
+  /**
    * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
    *
    * If a bullet hits a wall nothing is done, as we want the {World} to remove it, as if it simply flew away.
@@ -97,12 +101,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
    */
   override def on_respawn( ): Unit = {}
 
-  def renderer: Renderer = new CircleRenderer( objectShape.asInstanceOf[Circle], Colour.BLUE, true )
-
-  /**
-   * Physical boundary of the bullet.
-   */
-  override def objectShape: Shape = Circle( _position, 2 )
+  def renderer: Renderer = new BulletRenderer( this )
 
   /**
    * Moves the bullet one step into the future.

@@ -31,7 +31,7 @@ import scala.collection._
  */
 class UIManager( val world: World ) {
 
-  private var lastFPS =  (Sys.getTime * 1000) / Sys.getTimerResolution
+  private var lastFPS = (Sys.getTime * 1000) / Sys.getTimerResolution
   private var framesThisSecond = 0
 
   /**
@@ -65,11 +65,11 @@ class UIManager( val world: World ) {
     flags += ("details" -> true)
   }
 
-  private def updateFPS (): Unit = {
+  private def updateFPS( ): Unit = {
     val time = (Sys.getTime * 1000) / Sys.getTimerResolution
-    var fps = flags.getWithDefault("fps", 0)
-    if (time-lastFPS > 1000) {
-      flags.update("fps", framesThisSecond)
+    var fps = flags.getWithDefault( "fps", 0 )
+    if( time - lastFPS > 1000 ) {
+      flags.update( "fps", framesThisSecond )
       lastFPS += 1000
       framesThisSecond = 0
     }
@@ -88,7 +88,7 @@ class UIManager( val world: World ) {
    */
   def update( ): Unit = {
     KBM.update( )
-    updateFPS()
+    updateFPS( )
   }
 
   private def initializeListeners( ): Unit = {

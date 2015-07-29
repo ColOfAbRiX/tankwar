@@ -144,9 +144,14 @@ class Tank private(
     case t: Tank =>
     // No actions for Tank-Tank collision
 
+    case c: Casuality[_] => c.initial match {
+      case t: Tank =>
+        // Making up points for the fitness
+        _points += 1 + (if( t.points > _points * 4 ) _points * 4 else t.points)
+    }
+
     case b: Bullet =>
-      // Making up points for the fitness
-      _points += 1 + b.tank.points
+    // Actually this situation never arises
   }
 
   /**
@@ -154,7 +159,7 @@ class Tank private(
    *
    * At creation time it is initialized as a random value inside the arena
    */
-  _position = world.arena.topRight := {_ * Random.nextDouble( )}
+  _position = world.arena.topRight := { _ * Random.nextDouble( ) }
 
   /**
    * Speed of the object relative to the arena
@@ -210,7 +215,7 @@ class Tank private(
    * When maximum speed is reached, it is trimmed to the maximum
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
-    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed )}
+    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed ) }
   }
 
   /**
@@ -244,7 +249,7 @@ class Tank private(
     // Set speed to zero
     _speed = Vector2D.new_xy( 0, 0 )
     // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
-    _position = world.arena.topRight := {_ * Random.nextDouble( )}
+    _position = world.arena.topRight := { _ * Random.nextDouble( ) }
     // I'm not dead anymore!
     _isDead = false
   }
@@ -259,7 +264,7 @@ class Tank private(
    *
    * @return A string in the format of a CSV
    */
-  override def record = super.record + s",${rotation.t},${_shoot},$isShooting"
+  override def record = super.record + s",${rotation.t },${_shoot },$isShooting"
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -396,7 +401,7 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target
    */
-  private def calculateTankVision: (Vector2D, Vector2D) = {
+  def calculateTankVision: (Vector2D, Vector2D) = {
     val sightShape = sight( classOf[Tank] ).asInstanceOf[Circle]
 
     if( _seenTanks.isEmpty ) {

@@ -113,7 +113,7 @@ object Tools {
 
     actions
 
-    val end = java.lang.System.nanoTime( );
+    val end = java.lang.System.nanoTime( )
     //val time = (end - start).toAutoEngineering( "s", -9 )
     val time = (end - start).toFixedEngineering( "s", -3, -9 )
 

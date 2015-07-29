@@ -19,7 +19,6 @@ package com.colofabrix.scala.gfx.renderers
 import com.colofabrix.scala.geometry.abstracts.SpatialTree
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
   */
@@ -34,7 +33,7 @@ class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
    */
   override def render( create: Boolean ): Unit = {
 
-    withContext( create, Frame( Colour.DARK_GREY ) ) {
+    withDefaultContext( create, Frame( Colour.DARK_GREY ) ) {
 
       // Renders the current boundaries
       quadtree.bounds.renderer.render( )

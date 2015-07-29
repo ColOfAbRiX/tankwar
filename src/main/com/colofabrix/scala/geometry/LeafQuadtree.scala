@@ -327,7 +327,7 @@ class LeafQuadtree[T: SpatialIndexable] protected(
     import com.colofabrix.scala.Tools._
 
     s"""|${"    " * level }Type: ${this.className }[${ct.runtimeClass.toString.replaceFirst( "^class (\\w+\\.)*", "" ) }]
-        |${"    " * level }Objects: ${objects.size }
+                                                                                                                          |${"    " * level }Objects: ${objects.size }
         |${"    " * level }Subnodes: ${nodes.map( _.toString ).mkString( "{\n", "", s"${"    " * level }}\n" ) }"""
       .stripMargin
   }
@@ -335,7 +335,7 @@ class LeafQuadtree[T: SpatialIndexable] protected(
   /**
    * Un-splits a set of nodes if they are empty
    *
-   * @param q
+   * @param q The list of subnodes to check for un-splitting
    * @return
    */
   @inline
