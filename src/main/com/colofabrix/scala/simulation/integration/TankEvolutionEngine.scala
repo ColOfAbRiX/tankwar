@@ -65,6 +65,7 @@ class TankEvolutionEngine(
     }
 
     // Returns the population
+    world.tanks.foreach( _.on_respawn() )
     world.tanks
 
   }

@@ -32,6 +32,7 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
   override def populationUpdate( pop: PopulationData[_ <: T] ): Unit = {
     // Best candidate
     val best = pop.getBestCandidate
+    val counters = best.world.counters
 
     // Calculates various stats about the population
     val scores = best.world.tanks.map( TankEvaluator.fitness ).toSeq
@@ -47,7 +48,7 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
     println( "" )
 
     // Print on file
-    writer.println( s"${pop.getGenerationNumber };${pop.getMeanFitness };${pop.getBestCandidateFitness };${best.points };${best.surviveTime }".replace( ".", "," ) )
+    writer.println( s"${pop.getGenerationNumber };${pop.getMeanFitness};${pop.getBestCandidateFitness};${counters("hits")};${counters("shots")}".replace( ".", "," ) )
     writer.flush( )
 
     // Run the network analysis of the fittest candidate

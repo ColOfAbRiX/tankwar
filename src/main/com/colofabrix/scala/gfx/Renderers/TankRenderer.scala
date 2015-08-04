@@ -61,11 +61,16 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      // Write information about the tank
-      applyContext( Frame( Colour.WHITE, Vector2D.new_xy( 10, 10 ) ) ) {
-        val fitness = TankEvaluator.fitness( tank ).toString
-        val tankName = tank.toString.replaceFirst( "^\\w+@", "" )
-        new TextRenderer( List( tankName, fitness ), interline = 1.0 ).render( false )
+      if( flags.getWithDefault( "tkinfo", true ) ) {
+
+        // Write information about the tank
+        applyContext( Frame( Colour.WHITE, Vector2D.new_xy( 10, 10 ) ) ) {
+          val fitness = TankEvaluator.fitness( tank ).toString
+          val tankName = tank.toString.replaceFirst( "^\\w+@", "" )
+          val tmp = tank.calculateBulletVision._1.r.toString
+          new TextRenderer( List( tankName, fitness ), interline = 1.0 ).render( false )
+        }
+
       }
 
     }
@@ -94,19 +99,19 @@ class TankRenderer( tank: Tank ) extends Renderer {
       // Draw bullet sight vectors
       val (bPos, bSpeed) = tank.calculateBulletVision
       applyContext( Frame( Colour.CYAN ) ) {
-        new VectorRenderer( bPos * 5, tank.position ).render( false )
+        new VectorRenderer( bPos * 25, tank.position ).render( false )
       }
       applyContext( Frame( Colour.GREEN ) ) {
-        new VectorRenderer( bSpeed * 5, tank.position ).render( false )
+        new VectorRenderer( bSpeed * 25, tank.position ).render( false )
       }
 
       // Draw tank sight vectors
       val (tPos, tSpeed) = tank.calculateTankVision
       applyContext( Frame( Colour.YELLOW ) ) {
-        new VectorRenderer( tPos * 5, tank.position ).render( false )
+        new VectorRenderer( tPos * 25, tank.position ).render( false )
       }
       applyContext( Frame( Colour.MAGENTA ) ) {
-        new VectorRenderer( tSpeed * 5, tank.position ).render( false )
+        new VectorRenderer( tSpeed * 25, tank.position ).render( false )
       }
     }
 

@@ -25,15 +25,15 @@ import scala.reflect.ClassTag
  * Object that allow casuality
  *
  * In the simulation only a direct collision is allowed and it's not possible to simulate something like "a tank
- * that hits another tank" because this resultant collision is mediated by bullets. This objects is, by all means, a
- * `PhysicalObject` but it encapsulate the original object that gave start to the sequence of events that ultimately
- * led to the collision.
+ * that hits another tank by an intermediate object (a bullet)" because this resultant collision is mediated by bullets.
+ * This objects is, by all means, a `PhysicalObject` but it encapsulate the original object that gave start to the
+ * sequence of events that ultimately led to the collision.
  *
  * @param initial The initial object that gave start to the this collision
  * @param t A type used to investigate the parameter `initial`
  * @tparam T The type of object for `T`
  */
-class Casuality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T] ) extends PhysicalObject {
+class Causality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T] ) extends PhysicalObject {
   /**
    * Resets the status of the `PhysicalObject
    * `

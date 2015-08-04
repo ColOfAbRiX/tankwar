@@ -31,18 +31,6 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   val height = world.arena.height
   val width = world.arena.width
 
-  // Initialize OpenGL
-  Display.setDisplayMode( new DisplayMode( width.toInt, height.toInt ) )
-  Display.create( )
-  Display.setTitle( windowsTitle )
-
-  setCamera( )
-
-  private def clearScreen( ): Unit = {
-    glClearColor( 0f, 0f, 0f, 1.0f )
-    glClear( GL_COLOR_BUFFER_BIT )
-  }
-
   /**
    * Render all of the GFX
    *
@@ -57,16 +45,24 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
     BGRenderer.render( )
 
-    // Renders the graphical objects
-    for( r <- world.renderers )
-      r.render( )
-
     // Renders the user interaction graphic objects
     for( r <- world.UIManager.renderers )
       r.render( )
 
-    Display.sync( world.UIManager.flags.getWithDefault( "sync", 25 ) )
+    // Renders the graphical objects
+    if( _flags.getWithDefault( "render", true ) ) {
+      for( r <- world.renderers )
+        r.render( )
+
+      Display.sync( _flags.getWithDefault( "sync", 25 ) )
+    }
+
     Display.update( )
+
+    while( _flags.getWithDefault( "pause", false ) ) {
+      world.UIManager.update( )
+      Thread.sleep( 200 )
+    }
 
     // Deal with a close request
     if( Display.isCloseRequested ) {
@@ -75,18 +71,26 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
   }
 
-  private def setCamera( ) {
-    glMatrixMode( GL_PROJECTION )
-    glLoadIdentity( )
-    glOrtho( 0, width, 0, height, -1, 1 )
-    glMatrixMode( GL_MODELVIEW )
-    glLoadIdentity( )
-    glViewport( 0, 0, width.toInt, height.toInt )
-    glMatrixMode( GL_MODELVIEW )
-    glMatrixMode( GL_PROJECTION )
-    glLoadIdentity( )
-    glOrtho( 0, Display.getWidth, Display.getHeight, 0, 1, -1 )
-    glMatrixMode( GL_MODELVIEW )
-    glLoadIdentity( )
+  // Initialize OpenGL
+  Display.setDisplayMode( new DisplayMode( width.toInt, height.toInt ) )
+  Display.create( )
+  Display.setTitle( windowsTitle )
+
+  glMatrixMode( GL_MODELVIEW )
+  glLoadIdentity( )
+  glViewport( 0, 0, width.toInt, height.toInt )
+
+  glMatrixMode( GL_PROJECTION )
+  glLoadIdentity( )
+  glOrtho( 0, Display.getWidth, Display.getHeight, 0, 1, -1 )
+
+  glMatrixMode( GL_MODELVIEW )
+  glLoadIdentity( )
+
+  private def _flags = world.UIManager.flags
+
+  private def clearScreen( ): Unit = {
+    glClearColor( 0f, 0f, 0f, 1.0f )
+    glClear( GL_COLOR_BUFFER_BIT )
   }
 }

@@ -187,4 +187,16 @@ object Circle {
 
   }
 
+  /**
+   * Creates a Circle known its area
+   *
+   * @param center Center of the circle
+   * @param area Area of the circle. Must be non-negative
+   * @return A new instance of Circle with an area equals to the specified one
+   */
+  def fromArea( center: Vector2D, area: Double ) = {
+    require( area > 0, "The area specified for a circle must be positive" )
+    new Circle( center, Math.sqrt( area / Math.PI ) )
+  }
+
 }

@@ -5,4 +5,3 @@ Class-Path: scalatest.jar scala-actors-2.11.0.jar scala-actors-migrati
  0.2.jar lwjgl_util.jar ibxm.jar lwjgl.jar slick-util.jar watchmaker-f
  ramework.jar uncommons-maths.jar TankWar.jar
 Main-Class: com.colofabrix.scala.TankWarMain
-

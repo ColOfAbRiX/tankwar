@@ -21,11 +21,11 @@ import java.io.File
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.integration._
-import com.colofabrix.scala.simulation.integration.operators.{ TankCrossover, TankDriftMutation, TankFullMutation }
+import com.colofabrix.scala.simulation.integration.operators.{ TankCrossover, TankDriftMutation }
 import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.maths.random.{ GaussianGenerator, MersenneTwisterRNG, Probability }
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
-import org.uncommons.watchmaker.framework.selection.TournamentSelection
+import org.uncommons.watchmaker.framework.selection._
 import org.uncommons.watchmaker.framework.termination._
 
 import scala.collection.JavaConversions._
@@ -44,24 +44,29 @@ object TankWarMain {
     } file.delete( )
 
     // Create a new world where to run the Tanks
-    val world = new
-        World( max_rounds = 3000, arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1900, 900 ) ), dead_time = 0.25 )
+    val world = new World(
+      max_rounds = 3000,
+      arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1800, 900 ) ),
+      dead_time = 1.0 / 3.0,
+      max_bullet_speed = 5,
+      bullet_life = 20
+    )
 
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
         // A very small mutation from the current values is applied frequently
         new TankDriftMutation(
-          new Probability( 0.1 ), new GaussianGenerator( 0, 1.0 / (2.96 * 10), new MersenneTwisterRNG( ) )
+          new Probability( 0.05 ), new GaussianGenerator( 0, Tank.defaultRange / (2.96 * 50.0), new MersenneTwisterRNG( ) )
         ),
         // A less small drift is applied less frequently
         new TankDriftMutation(
-          new Probability( 0.01 ), new GaussianGenerator( 0, 1.0 / 2.96, new MersenneTwisterRNG( ) )
+          new Probability( 0.005 ), new GaussianGenerator( 0, Tank.defaultRange / (2.96 * 5.0), new MersenneTwisterRNG( ) )
         ),
         // Every so and then a value is changed completely
-        new TankFullMutation( new Probability( 0.002 ) ),
+        //new TankFullMutation( new Probability( 0.001 ) ),
         // Crossover between tanks
-        new TankCrossover( 1, new Probability( 0.005 ) )
+        new TankCrossover( 1, new Probability( 0.01 ) )
       )
     )
 
@@ -70,18 +75,13 @@ object TankWarMain {
       new TankFactory( world ),
       pipeline,
       new TankEvaluator( ),
-      new TournamentSelection( new Probability( 0.75 ) ),
-      //new RouletteWheelSelection(),
-      //new SigmaScaling(),
+      new RankSelection( ),
       new MersenneTwisterRNG( )
     )
 
     engine.addEvolutionObserver( new EvolutionLogger )
 
-    // Run the simulation and stop for stagnation
-    engine.evolve( 40, 0, new Stagnation( 500, true ) )
-    //engine.evolve( 40, 0, new GenerationCount(102) )
+    engine.evolve( 40, 2, new GenerationCount(500) )
   }
 
 }
-

@@ -340,7 +340,7 @@ class World(
     if( !bullet.tank.isDead ) {
 
       // Inform the tank that shot the bullet
-      bullet.tank.on_hits( new Casuality( tank ) )
+      bullet.tank.on_hits( new Causality( tank ) )
       // Inform the hit tank
       tank.on_isHit( bullet )
 

@@ -1,15 +1,17 @@
 <component name="ArtifactManager">
   <artifact build-on-make="true" name="TankWar.jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="root">
-      <element id="archive" name="TankWar.jar">
+      <element id="library" level="project" name="lwjgl" />
+      <element id="library" level="project" name="scala-sdk-2.11.4" />
+      <element id="library" level="project" name="scalatest" />
+      <element id="library" level="project" name="uncommons-maths" />
+      <element id="library" level="project" name="watchmaker-framework" />
+      <element id="dir-copy" path="$PROJECT_DIR$/lib/windows" />
+      <element id="archive" name="tank-war.jar">
         <element id="module-output" name="TankWar" />
       </element>
-      <element id="library" level="project" name="scala-sdk-2.11.4" />
-      <element id="library" level="project" name="lwjgl" />
-      <element id="library" level="project" name="watchmaker-framework" />
-      <element id="library" level="project" name="uncommons-maths" />
-      <element id="dir-copy" path="$PROJECT_DIR$/lib/windows" />
+      <element id="directory" name="out" />
     </root>
   </artifact>
 </component>
