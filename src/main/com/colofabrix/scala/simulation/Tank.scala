@@ -24,6 +24,7 @@ import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{ FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork }
+import com.colofabrix.scala.simulation.Tank.TargetType
 import com.colofabrix.scala.simulation.abstracts.{ InteractiveObject, PhysicalObject }
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 
@@ -60,11 +61,7 @@ class Tank private(
 
   import java.lang.Math._
 
-  object TargetType extends Enumeration {
-    type TargetType = Enumeration
-    val first, fittest, lessFit, highPoints, lowPoints, slowest = Value
-  }
-
+  private val _maxSight = Circle.fromArea( Vector2D.origin, world.max_sight )
   private val _rotReference = initialData.rotationRef
   private var _direction = Vector2D.new_xy( 1, 1 )
   private var _isDead = false
@@ -74,7 +71,6 @@ class Tank private(
   private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer( )
   private var _shoot = 0.0
   private var _surviveTime: Long = 0
-  private val _maxSight = Circle.fromArea( Vector2D.origin, world.max_sight )
   /**
    * Brain of the tank
    */
@@ -204,12 +200,12 @@ class Tank private(
   override def on_isHit( that: PhysicalObject ): Unit = that match {
     case t: Tank =>
       // Small penalty if you hit another tank
-      _points = max( _points * Tank.tankTankPenalty, 0 ).toInt
+      _points = ceil( max( _points * Tank.tankTankPenalty, 0 ) ).toInt
 
     case b: Bullet =>
       // Kill myself and lower my fitness
       _isDead = true
-      _points = ceil( max( pow( _points, Tank.tankBulletPenalty ), 0 ) ).toInt
+      _points = max( _points * Tank.tankBulletPenalty, 0 ).toInt
   }
 
   /**
@@ -304,19 +300,23 @@ class Tank private(
     // Data related to the vision
     val seenTank = calculateTankVision
     val seenBullet = calculateBulletVision
+    val closerBullet = calculateClosestBulletVision
 
     // Calculating outputs
     val output = new BrainOutputHelper(
       brain.output(
         new BrainInputHelper(
-          world, _position, _speed := _direction, _rotation, seenTank._1, seenTank._2, seenBullet._1, seenBullet._2
+          world, _position, _speed := _direction, _rotation, seenTank._1, seenTank._2, seenBullet._1, closerBullet._1, closerBullet._2, seenBullet._2
         )
       )
     )
 
     // The output of the NN is the speed (mapped to the max allowed speed)
-    _speed = (output.speed * world.max_tank_speed) := _direction
-    _position = _position + _speed
+    //_speed = (output.speed * world.max_tank_speed) := _direction
+    val newSpeed = output.speed * world.max_tank_speed
+    _speed = Vector2D.new_rt( newSpeed.r, min( newSpeed.t, _speed.t + world.max_tank_rotation ) )
+    _position = _position + (_speed := _direction)
+    _speed = _speed := _direction
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
     val newAngle = output.rotation * PI * 2.0 + _rotReference
@@ -344,33 +344,22 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
-  def calculateBulletVision: (Vector2D, Vector2D) = {
+  def calculateClosestBulletVision: (Vector2D, Vector2D) = {
     val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
 
     if( _seenBullets.isEmpty ) {
       return (Vector2D.zero, Vector2D.zero)
     }
 
-    // For some (unknown) reasons it can happen that the array contains null values
-    _seenBullets = _seenBullets.filter( _ != null )
-
-    // I get the sum of the positions and speeds of all the bullets seen by the tank
-    // Distance vectors are greater the more the distance from the tank. I invert this relation to have a higher
-    // value when the bullets are closer to the tank
-    val bulletsPositionsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 ) / _seenBullets.size
-    val bulletsSpeedsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 ) / _seenBullets.size
+    val closestBullet = _seenBullets.minBy( _._2.r <= sightShape.radius / 2.0 )
+    val closestBulletPosition = Vector2D.new_rt(
+      max( 1.0 - closestBullet._2.r / _maxSight.radius, 0 ),
+      closestBullet._2.t
+    )
+    val closestBulleSpeed = closestBullet._3
 
     // Final position seen by the tank
-    val seenPosition = Vector2D.new_rt(
-      2.0 * sqrt( _seenBullets.size ) * max( 1.0 - bulletsPositionsSum.r / _maxSight.radius, 0 ),
-      bulletsPositionsSum.t
-    )
-
-    // Final speed seen by the tank
-    // Speed vector can easily point away from the tank, so I get its projection to the radial from the tank
-    val seenSpeed = (bulletsSpeedsSum / world.max_bullet_speed) -> seenPosition.v
-
-    (seenPosition, seenSpeed)
+    (closestBulletPosition, closestBulletPosition)
   }
 
   /**
@@ -384,7 +373,7 @@ class Tank private(
    */
   override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
     if( that == classOf[Tank] ) {
-      // Tank->Tank sight. {
+      // Tank->Tank sight
       return new Circle(
         _position,
         (1.0 - initialData.sightRatio) * sqrt( world.max_sight / PI )
@@ -392,7 +381,7 @@ class Tank private(
     }
 
     if( that == classOf[Bullet] ) {
-      // Tank->Bullet sight. {
+      // Tank->Bullet sight
       return new Circle(
         _position,
         initialData.sightRatio * sqrt( world.max_sight / PI )
@@ -400,6 +389,40 @@ class Tank private(
     }
 
     return null
+  }
+
+  /**
+   * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
+   *
+   * The current implementation is to do a vector-sum of all the threats (their positions and speed). Then the resulting
+   * position vector is used as "seen bullet" and the resulting speed is first projected onto the radial
+   *
+   * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
+   */
+  def calculateBulletVision: (Vector2D, Vector2D) = {
+    val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
+
+    if( _seenBullets.isEmpty ) {
+      return (Vector2D.zero, Vector2D.zero)
+    }
+
+    // For some (unknown) reasons it can happen that the array contains null values
+    _seenBullets = _seenBullets.filter( _ != null )
+
+    // Average position and speed of all the seen bullets
+    val bulletsPositionsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 ) / _seenBullets.size
+    val bulletsSpeedsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 ) / _seenBullets.size
+
+    // Final position seen by the tank
+    val seenPosition = Vector2D.new_rt(
+      sqrt( _seenBullets.size ) * max( 1.0 - bulletsPositionsSum.r / _maxSight.radius, 0 ),
+      bulletsPositionsSum.t
+    )
+
+    // Final speed seen by the tank
+    val seenSpeed = (bulletsSpeedsSum / world.max_bullet_speed) -> seenPosition.v
+
+    (seenPosition, seenSpeed)
   }
 
   /**
@@ -419,8 +442,7 @@ class Tank private(
     // For some (unknown) reasons it can happen that the array contains null values
     _seenTanks = _seenTanks.filter( _ != null )
 
-    val target = TargetType.fittest
-    val selectedTank = target match {
+    val selectedTank = Tank.defaultTargetType match {
 
       case TargetType.first =>
         // I target the same tank not caring about new tanks on sight (for consistency)
@@ -476,33 +498,33 @@ class Tank private(
  */
 object Tank {
 
+  object TargetType extends Enumeration {
+    type TargetType = Enumeration
+    val first, fittest, lessFit, highPoints, lowPoints, slowest = Value
+  }
+
   /** Default activation function */
   val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
-
   /** Default number of hidden neurons. It is the average between input and output neurons */
   val defaultHiddenNeurons = Math.ceil( (BrainInputHelper.count + BrainOutputHelper.count) / 2 ).toInt
-
   /** Default type of neural network */
-  val defaultBrainBuilder =
-    new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
-
+  val defaultBrainBuilder = new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
   /** Default mass of the tank at initial creation */
   val defaultMass = 1.0
-
   /** Default range of the inputs (the purpose is to utilize all the range of the activation function) at initial creation */
   val defaultRange = 4.0
-
   /** Default sight ration. */
   val defaultSightRatio = 0.5
-
-  /** Penalty that applies when there is a Tank-Tank collision */
-  val tankTankPenalty = 0.95
-
-  /** Penalty that applies when there is a Tank-Bullet collision (a Tank is hit) */
-  val tankBulletPenalty = 0.5
-
+  /** Default targeting strategy for targets */
+  val defaultTargetType = TargetType.highPoints
   /** Max amount af point that a Tank can gain */
   val maxGainK = 2.0
+  //val maxGainK = 10.0
+  /** Penalty that applies when there is a Tank-Bullet collision (a Tank is hit) */
+  val tankBulletPenalty = 0.8
+  //val tankBulletPenalty = 0.5
+  /** Penalty that applies when there is a Tank-Tank collision */
+  val tankTankPenalty = 0.95
 
   // Mess below here. Refactoring planned.
 
@@ -515,7 +537,7 @@ object Tank {
     new RandomReader(
       defaultBrainBuilder.hiddenLayersCount,
       rng,
-      defaultRange / 4.0,
+      defaultRange / 40.0,
       defaultActivationFunction( 0 )
     )
 

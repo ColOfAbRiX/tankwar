@@ -47,7 +47,7 @@ import scala.util.Random
 class World(
   val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
   val max_tank_speed: Double = 5,
-  val max_tank_rotation: Double = 10 * 2.0 * Math.PI / 360,
+  val max_tank_rotation: Double = 15 * 2.0 * Math.PI / 360,
   val max_bullet_speed: Double = 4,
   val bullet_life: Int = 25,
   val max_sight: Double = 62831.853071795864, // Area for a total radius of 100
@@ -195,6 +195,7 @@ class World(
   def step( ): Unit = {
     _time += 1
 
+    // Refresh of the position of the objects in the lists
     _tanks = _tanks.refresh( )
     _bullets = _bullets.refresh( )
 

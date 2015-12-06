@@ -21,7 +21,7 @@ import java.io.File
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.integration._
-import com.colofabrix.scala.simulation.integration.operators.{ TankCrossover, TankDriftMutation }
+import com.colofabrix.scala.simulation.integration.operators.{ TankCrossover, TankDriftMutation, TankFullMutation }
 import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.maths.random.{ GaussianGenerator, MersenneTwisterRNG, Probability }
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
@@ -47,7 +47,9 @@ object TankWarMain {
     val world = new World(
       max_rounds = 3000,
       arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1800, 900 ) ),
-      dead_time = 1.0 / 3.0,
+      //arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 800, 600 ) ),
+      dead_time = 1.0 / 5.0,
+      //dead_time = 1.0 / 3.0,
       max_bullet_speed = 5,
       bullet_life = 20
     )
@@ -64,9 +66,9 @@ object TankWarMain {
           new Probability( 0.005 ), new GaussianGenerator( 0, Tank.defaultRange / (2.96 * 5.0), new MersenneTwisterRNG( ) )
         ),
         // Every so and then a value is changed completely
-        //new TankFullMutation( new Probability( 0.001 ) ),
+        new TankFullMutation( new Probability( 0.001 ) ),
         // Crossover between tanks
-        new TankCrossover( 1, new Probability( 0.01 ) )
+        new TankCrossover( 1, new Probability( 0.005 ) )
       )
     )
 
@@ -81,7 +83,8 @@ object TankWarMain {
 
     engine.addEvolutionObserver( new EvolutionLogger )
 
-    engine.evolve( 40, 2, new GenerationCount(500) )
+    //engine.evolve( 40, 8, new GenerationCount(1000) )
+    engine.evolve( 40, 2, new GenerationCount(1000) )
   }
 
 }

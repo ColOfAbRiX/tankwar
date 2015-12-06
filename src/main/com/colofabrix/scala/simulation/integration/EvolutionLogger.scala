@@ -21,7 +21,7 @@ import java.io.PrintWriter
 import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
 
-/**
+/**r
  * Trivial evolution observer to display information about the population at the end
  * of each generation.
  */
@@ -29,26 +29,31 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
   val writer = new PrintWriter( "out/population.csv" )
 
+  writer.println( s"Generation;Mean;Fittest;StdDev;NormToMeanDev;NormToMaxDev;Hits;Shots".replace( ".", "," ) )
+
   override def populationUpdate( pop: PopulationData[_ <: T] ): Unit = {
     // Best candidate
     val best = pop.getBestCandidate
     val counters = best.world.counters
 
-    // Calculates various stats about the population
+    // Calculates various stats about the populationr
     val scores = best.world.tanks.map( TankEvaluator.fitness ).toSeq
     val count = scores.length
     val mean = scores.sum / count
+    val highest = best.points
     val devs = scores.map( score => (score - mean) * (score - mean) )
     val stddev = Math.sqrt( devs.sum / count )
+    val normMeanDev = stddev / mean
+    val normMaxDev = stddev / highest
 
     // Print on screen
-    println( s"Gen #${pop.getGenerationNumber }: Best: ${pop.getBestCandidateFitness }, Mean: $mean, Std Dev: $stddev" )
-    println( s"Best - Points: ${best.points }, Survival: ${best.surviveTime }" )
+    println( s"Gen #${pop.getGenerationNumber }: Best: $highest, Norm Dev: $normMaxDev, Hits: ${counters("hits")}, Shots: ${counters("shots")}" )
+    println( s"Best - Points: $highest, Survival: ${best.surviveTime }" )
     println( s"Counters: ${best.world.counters }" )
     println( "" )
 
     // Print on file
-    writer.println( s"${pop.getGenerationNumber };${pop.getMeanFitness};${pop.getBestCandidateFitness};${counters("hits")};${counters("shots")}".replace( ".", "," ) )
+    writer.println( s"${pop.getGenerationNumber};$mean;$highest;$stddev;$normMeanDev;$normMaxDev;${counters("hits")};${counters("shots")}".replace( ".", "," ) )
     writer.flush( )
 
     // Run the network analysis of the fittest candidate

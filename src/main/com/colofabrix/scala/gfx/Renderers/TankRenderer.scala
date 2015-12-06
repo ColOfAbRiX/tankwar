@@ -105,6 +105,11 @@ class TankRenderer( tank: Tank ) extends Renderer {
         new VectorRenderer( bSpeed * 25, tank.position ).render( false )
       }
 
+      val cPos = tank.calculateClosestBulletVision._1
+      applyContext( Frame( Colour.RED ) ) {
+        new VectorRenderer( cPos * 25, tank.position ).render( false )
+      }
+
       // Draw tank sight vectors
       val (tPos, tSpeed) = tank.calculateTankVision
       applyContext( Frame( Colour.YELLOW ) ) {

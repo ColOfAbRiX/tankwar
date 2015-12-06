@@ -58,7 +58,7 @@ class UIManager( val world: World ) {
   private def initializeFlags( ): Unit = {
     flags += ("sync" -> 25) // Frame sync
     flags += ("fps" -> 0)
-    flags += ("render" -> true)
+    flags += ("render" -> false)
     flags += ("pause" -> false)
     flags += ("vectors" -> true)
     flags += ("tksight" -> true)

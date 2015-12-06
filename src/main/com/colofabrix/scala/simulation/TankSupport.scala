@@ -86,9 +86,9 @@ object BrainOutputHelper {
  * - Shoot-or-not
  */
 class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double]( outputs ) {
-  val speed = Vector2D.new_xy( outputs( 0 ), outputs( 1 ) )
   val rotation = outputs( 2 )
   val shoot = outputs( 3 )
+  val speed = Vector2D.new_xy( outputs( 0 ), outputs( 1 ) )
 }
 
 
@@ -96,7 +96,7 @@ class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double]( ou
  * Support class used as an interface between the `Tank` and the input of the NN
  */
 object BrainInputHelper {
-  val count = 13
+  val count = 17
 }
 
 
@@ -116,11 +116,35 @@ object BrainInputHelper {
  * @param seenBulletsPos Position vector of a seen bullet
  * @param seenBulletsSpeed Speed vector of a seen bullet
  */
-class BrainInputHelper( world: World, pos: Vector2D, speed: Vector2D, rot: Vector2D, seenTanksPos: Vector2D, seenTanksSpeed: Vector2D, seenBulletsPos: Vector2D, seenBulletsSpeed: Vector2D )
-  extends InputHelper[Double] {
+class BrainInputHelper(
+  world: World,
+  pos: Vector2D,
+  speed: Vector2D,
+  rot: Vector2D,
+  seenTanksPos: Vector2D,
+  seenTanksSpeed: Vector2D,
+  seenBulletsPos: Vector2D,
+  closerBulletPos: Vector2D,
+  closerBulletSpeed: Vector2D,
+  seenBulletsSpeed: Vector2D
+) extends InputHelper[Double] {
+
+  private val TWO_PI = 2.0 * Math.PI
+
+  override protected val _values = Seq(
+    pos.x / world.arena.topRight.x, pos.y / world.arena.topRight.y,
+    speed.x / world.max_tank_speed, speed.y / world.max_tank_speed,
+    rot.t / TWO_PI,
+    seenTanksPos.r, seenTanksPos.t / TWO_PI,
+    seenTanksSpeed.r, seenTanksSpeed.t / TWO_PI,
+    seenBulletsPos.r, seenBulletsPos.t / TWO_PI,
+    closerBulletPos.r, closerBulletPos.t / TWO_PI,
+    closerBulletSpeed.r, closerBulletSpeed.t / TWO_PI,
+    seenBulletsSpeed.r, seenBulletsSpeed.t / TWO_PI
+  )
 
   /**
-   * Constructor that uses a Seq to initialize the instance
+   * Constructor that uses a Seq to initialize the instancew
    *
    * @param world Reference to the world
    * @param rawSequence A sequence containing the input data (see class' description for more information on the data)
@@ -134,16 +158,8 @@ class BrainInputHelper( world: World, pos: Vector2D, speed: Vector2D, rot: Vecto
     Vector2D.new_xy( rawSequence( 5 ), rawSequence( 6 ) ),
     Vector2D.new_xy( rawSequence( 7 ), rawSequence( 8 ) ),
     Vector2D.new_xy( rawSequence( 9 ), rawSequence( 10 ) ),
-    Vector2D.new_xy( rawSequence( 11 ), rawSequence( 12 ) )
-  )
-
-  override protected val _values = Seq(
-    pos.x / world.arena.topRight.x, pos.y / world.arena.topRight.y,
-    speed.x / world.max_tank_speed, speed.y / world.max_tank_speed,
-    rot.t / (2.0 * Math.PI),
-    seenTanksPos.r / world.max_sight, seenTanksPos.t / (2.0 * Math.PI),
-    seenTanksSpeed.r / world.max_tank_speed, seenTanksSpeed.t / (2.0 * Math.PI),
-    seenBulletsPos.r / world.max_sight, seenBulletsPos.t / (2.0 * Math.PI),
-    seenBulletsSpeed.r / world.max_bullet_speed, seenBulletsSpeed.t / (2.0 * Math.PI)
+    Vector2D.new_xy( rawSequence( 11 ), rawSequence( 12 ) ),
+    Vector2D.new_xy( rawSequence( 13 ), rawSequence( 14 ) ),
+    Vector2D.new_xy( rawSequence( 15 ), rawSequence( 16 ) )
   )
 }
