@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TankWar.iml" filepath="$PROJECT_DIR$/TankWar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tankwar.iml" filepath="$PROJECT_DIR$/.idea/modules/tankwar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tankwar-build.iml" filepath="$PROJECT_DIR$/.idea/modules/tankwar-build.iml" />
     </modules>
   </component>
 </project>

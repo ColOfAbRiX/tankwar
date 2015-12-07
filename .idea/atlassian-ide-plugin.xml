@@ -1,5 +1,14 @@
 <atlassian-ide-plugin>
   <project-configuration id="1">
-    <servers id="2" />
+    <servers id="2">
+      <jira id="3">
+        <server-id id="4">c3006fb3-6267-4af6-af64-cacf3b233a78</server-id>
+        <name>ColOfAbRiX</name>
+        <url>http://jira.colofabrix.com</url>
+        <shared>false</shared>
+        <useSessionCookies>false</useSessionCookies>
+      </jira>
+    </servers>
+    <default-jira-server reference="4" />
   </project-configuration>
 </atlassian-ide-plugin>
