@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.lwjgl.lwjgl:lwjgl:2.9.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.lwjgl.lwjgl/lwjgl/jars/lwjgl-2.9.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.lwjgl.lwjgl/lwjgl/docs/lwjgl-2.9.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.lwjgl.lwjgl/lwjgl/srcs/lwjgl-2.9.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

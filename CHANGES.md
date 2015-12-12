@@ -1,5 +1,11 @@
 #Changes
 
+##0.2.0 - 18/06/2015
+
+###New Features
+###Improvements
+###Bugs
+
 ##0.1.0 - 18/06/2015
 
 ###New Features

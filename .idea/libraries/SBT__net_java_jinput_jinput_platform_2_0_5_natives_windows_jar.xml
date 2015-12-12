@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: net.java.jinput:jinput-platform:2.0.5:natives-windows:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.jinput/jinput-platform/jars/jinput-platform-2.0.5-natives-windows.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

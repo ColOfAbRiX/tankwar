@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: net.java.jinput:jinput:2.0.5:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.jinput/jinput/jars/jinput-2.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.jinput/jinput/docs/jinput-2.0.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.jinput/jinput/srcs/jinput-2.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
