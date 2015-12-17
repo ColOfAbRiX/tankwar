@@ -9,6 +9,6 @@
       <parameter value="-encoding" />
       <parameter value="UTF-8" />
     </parameters>
-    <profile name="SBT 1" modules="tankwar" />
+    <profile name="SBT 1" modules="tankwar,root" />
   </component>
 </project>

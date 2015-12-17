@@ -39,7 +39,7 @@ object TankWarMain {
 
     // Clean analysis files
     for {
-      files <- Option( new File( "./out/" ).listFiles )
+      files <- Option( new File( "." ).listFiles )
       file <- files if file.getName.endsWith( ".csv" )
     } file.delete( )
 

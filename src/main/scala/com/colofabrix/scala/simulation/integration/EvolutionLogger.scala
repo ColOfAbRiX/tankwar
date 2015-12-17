@@ -27,7 +27,7 @@ import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
  */
 class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
-  val writer = new PrintWriter( "out/population.csv" )
+  val writer = new PrintWriter( "population.csv" )
 
   writer.println( s"Generation;Mean;Fittest;StdDev;NormToMeanDev;NormToMaxDev;Hits;Shots".replace( ".", "," ) )
 
