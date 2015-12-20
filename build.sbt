@@ -16,7 +16,7 @@
 /*
  * Tankwar SBT Build File
  * Ref: http://www.scala-sbt.org/0.13.0/docs/Examples/Quick-Configuration-Examples.html
-*/
+ */
 
 // Projecty Definition
 lazy val root = (project in file(".")).
@@ -29,12 +29,12 @@ lazy val root = (project in file(".")).
 
 // Dependencies
 libraryDependencies ++= Seq(
-  "org.lwjgl.lwjgl" % "lwjgl_util" % "2.9.0",
-  "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux",
+  "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
-  "org.uncommons" % "uncommons-maths" % "1.2",
   "org.uncommons.watchmaker" % "watchmaker-framework" % "0.7.1",
-  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
+  "org.uncommons" % "uncommons-maths" % "1.2",
+  "org.lwjgl.lwjgl" % "lwjgl_util" % "2.9.0"
 )
 
 // Native libraries extraction - LWJGL has some native libraries provided as JAR files that I have to extract

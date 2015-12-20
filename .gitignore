@@ -1,17 +1,19 @@
 # Project specific
-/lib/*
-/*.log
-out
+/out/
 *.class
+/lib/*
+*.log
+*.csv
 
 # SBT specific
-.cache
-.history
-.lib/
-dist/*
-target/
+project/plugins/project/
+project/project/target/
+project/target/
+project/boot/
 lib_managed/
 src_managed/
-project/boot/
-project/target
-project/plugins/project/
+target/
+dist/
+.lib/
+.cache
+.history
