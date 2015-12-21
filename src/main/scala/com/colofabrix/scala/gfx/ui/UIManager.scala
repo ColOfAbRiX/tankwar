@@ -47,7 +47,7 @@ class UIManager( val world: World ) {
     def getWithDefault[T]( key: String, default: T ): T = {
       if( !contains( key ) ) return default
       apply( key ) match {
-        case v: T => v
+        case v: T @unchecked => v
         case _ => default
       }
     }
@@ -125,4 +125,3 @@ class UIManager( val world: World ) {
   }
 
 }
-

@@ -18,6 +18,7 @@ package com.colofabrix.scala.math
 
 import scala.collection.mutable
 import scala.reflect.ClassTag
+import scala.language.postfixOps
 
 /**
  * Represents an immutable Matrix and the possible operations on it

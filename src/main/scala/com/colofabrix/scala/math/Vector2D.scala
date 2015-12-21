@@ -17,6 +17,9 @@
 package com.colofabrix.scala.math
 
 import java.lang.Math._
+import scala.language.implicitConversions
+
+// scalastyle:off number.of.methods
 
 /**
  * A generic Cartesian Vector

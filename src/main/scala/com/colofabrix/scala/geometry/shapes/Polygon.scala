@@ -20,12 +20,14 @@ import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.Vector2D
+import scala.language.postfixOps
 
 /**
  * A generic two-dimensional polygon
  * A generic two-dimensional polygon
  */
 class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
+
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
 

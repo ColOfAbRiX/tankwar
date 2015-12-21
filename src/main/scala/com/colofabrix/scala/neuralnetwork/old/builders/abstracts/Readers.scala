@@ -66,4 +66,3 @@ trait LayerReader {
    */
   def activationFunction: ActivationFunction
 }
-

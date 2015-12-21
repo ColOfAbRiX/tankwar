@@ -17,6 +17,7 @@
 package com.colofabrix.scala.math
 
 import com.colofabrix.scala.geometry.abstracts.Coordinates
+import scala.language.implicitConversions
 
 
 /**
@@ -104,6 +105,12 @@ final class PolarCoord private( val r: Double, val t: Double ) extends Coordinat
     case _ => false
   }
 
+  /**
+   * Determines if two matrices are equals
+   *
+   * @param obj The other object to compare
+   * @return true if the other object is a matrix identical to the current one
+   */
   override def hashCode: Int = 41 + this.r.hashCode + 41 * this.t.hashCode
 }
 

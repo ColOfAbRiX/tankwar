@@ -20,6 +20,7 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.World
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.{ Display, DisplayMode }
+import scala.language.reflectiveCalls
 
 /**
  * Runs all of the GFX operations

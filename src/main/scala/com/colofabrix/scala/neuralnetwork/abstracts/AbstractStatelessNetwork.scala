@@ -47,7 +47,8 @@ abstract class AbstractStatelessNetwork(
   require( matrix.rows >= inputCount + outputCount + 1, "The adjacency matrix must be define for at least the inputs and the outputs plus biases" )
   require( matrix.cols >= inputCount + outputCount, "The size of weights must match the input/output numbers" )
   require( !matrix.isAllNaN, "The biases must always be numeric" )
-  require( this.isAcyclic, "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)" )
+  require( this.isAcyclic,
+    "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)" )
 
   /**
    * Calculate the output of the Neural Network

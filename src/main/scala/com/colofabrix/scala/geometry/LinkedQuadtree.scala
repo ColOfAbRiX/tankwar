@@ -162,7 +162,12 @@ object LinkedQuadtree {
    * @tparam T Type of `PhysicalObject` that the LinkedQuadtree will contain
    * @return A new instance of LinkedQuadtree
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List( ), splitSize: Int = 1, depth: Int = 1 )( implicit m: ClassTag[T] ): LinkedQuadtree[T] =
+  def apply[T: SpatialIndexable](
+    bounds: Shape,
+    initialSet: List[T] = List( ),
+    splitSize: Int = 1,
+    depth: Int = 1
+  )( implicit m: ClassTag[T] ): LinkedQuadtree[T] =
     new LinkedQuadtree[T]( initialSet, LeafQuadtree( bounds, initialSet, splitSize, depth ) )
 
 }

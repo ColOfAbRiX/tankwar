@@ -37,6 +37,13 @@ libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl_util" % "2.9.0"
 )
 
+// Scala compiler options
+scalacOptions ++= Seq(
+  "-Xmax-classfile-name", "72",
+  "-deprecation",
+  "-feature"
+)
+
 // Native libraries extraction - LWJGL has some native libraries provided as JAR files that I have to extract
 compile in Compile <<= (compile in Compile).dependsOn(Def.task {
   val r = "^(\\w+).*".r
@@ -55,7 +62,14 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
 })
 
 // META-INF discarding
+/*
 mergeStrategy in assembly <<= (mergeStrategy in assembly)( old => {
   case PathList( "META-INF", xs@_* ) => MergeStrategy.discard
   case x => MergeStrategy.first
 })
+*/
+
+assemblyMergeStrategy in assembly := {
+  case PathList( "META-INF", xs@_* ) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}

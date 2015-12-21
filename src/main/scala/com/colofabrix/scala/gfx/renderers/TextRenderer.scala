@@ -20,6 +20,7 @@ import java.awt.Font
 
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
+import scala.language.implicitConversions
 
 /**
  * Writes some text to the screen
@@ -59,6 +60,7 @@ class TextRenderer(
 
 object TextRenderer {
 
+  // scalastyle:off structural.type
   /**
    * Implicit method to convert a text into a renderable object
    *
@@ -80,5 +82,6 @@ object TextRenderer {
     new com.colofabrix.scala.gfx.abstracts.Renderable( ) {
       override def renderer: Renderer = new TextRenderer( text )
     }
+  // scalastyle:on structural.type
 
 }

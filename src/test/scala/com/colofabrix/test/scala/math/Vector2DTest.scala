@@ -18,6 +18,7 @@ package com.colofabrix.test.scala.math
 
 import com.colofabrix.scala.math.Vector2D
 import org.scalatest.{ Matchers, WordSpec }
+import scala.language.postfixOps
 
 /**
  * Unit testing for Vector2D

@@ -23,6 +23,7 @@ import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 import com.colofabrix.scala.simulation.{ Bullet, Tank }
 import org.lwjgl.opengl.GL11._
+import scala.language.reflectiveCalls
 
 
 /**
@@ -33,6 +34,8 @@ import org.lwjgl.opengl.GL11._
 class TankRenderer( tank: Tank ) extends Renderer {
 
   private val size: Double = tank.objectShape.asInstanceOf[Circle].radius
+
+  // scalastyle:off method.length
 
   /**
    * Draws a Tank n the screen
@@ -121,5 +124,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
     }
 
   }
+
+  // scalastyle:on method.length
 
 }

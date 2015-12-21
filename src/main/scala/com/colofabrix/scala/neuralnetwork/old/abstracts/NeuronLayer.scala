@@ -16,6 +16,8 @@
 
 package com.colofabrix.scala.neuralnetwork.old.abstracts
 
+import scala.language.postfixOps
+
 /**
  * A neural network layer
  *

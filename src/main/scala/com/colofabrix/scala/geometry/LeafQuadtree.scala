@@ -22,6 +22,7 @@ import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
 
+import scala.annotation.tailrec
 import scala.reflect.ClassTag
 
 /**
@@ -139,7 +140,7 @@ class LeafQuadtree[T: SpatialIndexable] protected(
    * @return A new quadtree containing the new Shape in the appropriate position
    */
   @inline
-  override def +( p: T ): LeafQuadtree[T] = {
+  override final def +( p: T ): LeafQuadtree[T] = {
     // This check avoids to parse the subnodes that don't contain the object
     if( !bounds.intersects( shape( p ) ) ) {
       return this
@@ -327,7 +328,7 @@ class LeafQuadtree[T: SpatialIndexable] protected(
     import com.colofabrix.scala.Tools._
 
     s"""|${"    " * level }Type: ${this.className }[${ct.runtimeClass.toString.replaceFirst( "^class (\\w+\\.)*", "" ) }]
-                                                                                                                          |${"    " * level }Objects: ${objects.size }
+        |${"    " * level }Objects: ${objects.size }
         |${"    " * level }Subnodes: ${nodes.map( _.toString ).mkString( "{\n", "", s"${"    " * level }}\n" ) }"""
       .stripMargin
   }
@@ -363,7 +364,12 @@ object LeafQuadtree {
    * @tparam T Type of `PhysicalObject` that the LinkedLeafQuadtreeTmp will contain
    * @return A new instance of LinkedLeafQuadtreeTmp
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List( ), splitSize: Int = 1, depth: Int = 1 )( implicit ct: ClassTag[T] ) = {
+  def apply[T: SpatialIndexable](
+    bounds: Shape,
+    initialSet: List[T] = List( ),
+    splitSize: Int = 1,
+    depth: Int = 1
+  )( implicit ct: ClassTag[T] ) = {
     if( initialSet.isEmpty ) {
       new LeafQuadtree[T]( bounds, 0, List( ), List( ), splitSize, depth )
     }

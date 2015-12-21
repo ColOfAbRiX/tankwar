@@ -20,6 +20,7 @@ import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.simulation.World
+import scala.language.reflectiveCalls
 
 /**
 

@@ -20,6 +20,7 @@ import com.colofabrix.scala.math.Matrix
 import com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork
 
 import scala.collection.mutable
+import scala.language.postfixOps
 
 /**
  * An adjacency matrix for Neural Networks
@@ -86,7 +87,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     }
 
     // The condition must be true for all the starting points
-    result.forall( _ == true )
+    result.forall( _ == true )  // scalastyle:ignore
   }
 
   /**
@@ -108,7 +109,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
       }
 
       // The condition must be true for all the starting points
-      result.forall( _ == true )
+      result.forall( _ == true )  // scalastyle:ignore
     }
   }
 
@@ -120,10 +121,20 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    */
   override def equals( obj: Any ): Boolean = obj match {
     case that: NetworkMatrix => this compare that
-    case that: Matrix[Double] => this compare that
-    case that: Seq[Double] => this compare that
+    case that: Matrix[Double @unchecked] => this compare that
+    case that: Seq[Double @unchecked] => this compare that
     case _ => super.equals( obj )
   }
+
+  /**
+   * The hashCode of the instance
+   *
+   * @return An hashCode based only on the type of the class
+   */
+  override def hashCode =
+    43 + this.matrix.hashCode *
+    43 * this.inputRoots.hashCode *
+    43 * 43 * this.outputRoots.hashCode
 
   /**
    * Determines if the given adjacency matrix is the same as the current instance
@@ -147,7 +158,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
       (adMatrix( i, j ) == that( i, j )) || (adMatrix( i, j ).isNaN && that( i, j ).isNaN)
     }
 
-    values.forall( _ == true )
+    values.forall( _ == true )  // scalastyle:ignore
   }
 
   /**
@@ -172,7 +183,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
       (x == y) || (x.isNaN && y.isNaN)
     }
 
-    values.forall( _ == true )
+    values.forall( _ == true )  // scalastyle:ignore
   }
 
   /**

@@ -18,6 +18,7 @@ package com.colofabrix.scala.gfx.ui.input
 
 import com.colofabrix.scala.gfx.ui.UIManager
 import org.lwjgl.input.Keyboard
+import scala.language.reflectiveCalls
 
 /**
  * Class to listen for keyboard input, can be event driven, ie activated on a discrete press
