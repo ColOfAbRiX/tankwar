@@ -18,6 +18,10 @@
  * Ref: http://www.scala-sbt.org/0.13.0/docs/Examples/Quick-Configuration-Examples.html
  */
 
+import de.johoop.cpd4sbt.CopyPasteDetector._
+import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform._
+
 // Projecty Definition
 lazy val root = (project in file(".")).
   settings(
@@ -38,10 +42,24 @@ libraryDependencies ++= Seq(
 )
 
 // Scala compiler options
+//   Ref: https://tpolecat.github.io/2014/04/11/scalac-flags.html
 scalacOptions ++= Seq(
   "-Xmax-classfile-name", "72",
+  "-encoding", "UTF-8",
   "-deprecation",
-  "-feature"
+  "-unchecked",
+  "-feature",
+  //"-Xfatal-warnings",
+  "-Xfuture",
+  "-Xlint",
+  "-language:implicitConversions",
+  "-language:existentials",
+  "-language:higherKinds",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-value-discard",
+  "-Ywarn-unused-import",
+  "-Ywarn-adapted-args",
+  "-Ywarn-dead-code"
 )
 
 // Native libraries extraction - LWJGL has some native libraries provided as JAR files that I have to extract
@@ -62,14 +80,45 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
 })
 
 // META-INF discarding
-/*
-mergeStrategy in assembly <<= (mergeStrategy in assembly)( old => {
-  case PathList( "META-INF", xs@_* ) => MergeStrategy.discard
-  case x => MergeStrategy.first
-})
-*/
-
 assemblyMergeStrategy in assembly := {
   case PathList( "META-INF", xs@_* ) => MergeStrategy.discard
   case x => MergeStrategy.first
 }
+
+// Code quality
+wartremoverWarnings += Wart.Nothing
+
+wartremoverErrors += Wart.Nothing
+
+wartremoverWarnings ++= Seq(
+  // Customization of Warts.unsafe
+  Wart.Any,
+  Wart.Any2StringAdd,
+  Wart.AsInstanceOf,
+  Wart.EitherProjectionPartial,
+  Wart.IsInstanceOf,
+  Wart.ListOps,
+  Wart.NonUnitStatements,
+  Wart.Null,
+  Wart.OptionPartial,
+  Wart.Product,
+  Wart.Return,
+  Wart.Serializable,
+  Wart.Throw
+  //Wart.Var
+)
+
+SbtScalariform.scalariformSettings ++ Seq(
+  ScalariformKeys.preferences := ScalariformKeys.preferences.value
+    .setPreference(RewriteArrowSymbols, true)
+    .setPreference(DoubleIndentClassDeclaration, true)
+    .setPreference(SpaceInsideParentheses, true)
+    .setPreference(SpacesWithinPatternBinders, true)
+    .setPreference(SpacesAroundMultiImports, true)
+)
+
+coverageMinimum := 75
+
+coverageFailOnMinimum := true
+
+cpdSettings

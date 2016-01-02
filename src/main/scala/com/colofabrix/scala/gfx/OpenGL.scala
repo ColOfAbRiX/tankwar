@@ -108,7 +108,7 @@ object OpenGL {
    * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
    * @param actions The function that actually draw
    */
-  def drawOpenGL( mode: Int, frame: Frame = Frame( ) )( actions: => Unit ) {
+  def drawOpenGL( mode: Int, frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
 
     // First sets the reference frame
     applyContext( frame ) {

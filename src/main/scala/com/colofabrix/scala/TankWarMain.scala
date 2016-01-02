@@ -36,7 +36,7 @@ import scala.collection.JavaConversions._
  */
 object TankWarMain {
 
-  def main( args: Array[String] ) {
+  def main( args: Array[String] ): Unit = {
 
     // Clean analysis files
     for {

@@ -36,7 +36,7 @@ class ElmanNeuralNetwork(
 
   def rememberPast = _rememberPast
 
-  def rememberPast_=( value: Boolean ) {
+  def rememberPast_=( value: Boolean ): Unit = {
     _rememberPast = value
     hidden_layers.foreach( _.remember = value )
   }

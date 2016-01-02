@@ -140,7 +140,7 @@ class World(
    *
    * @param tank The tank that requested to shot
    */
-  def on_tankShot( tank: Tank ) {
+  def on_tankShot( tank: Tank ): Unit = {
     _bullets = _bullets + new Bullet( this, tank, max_bullet_speed )
     incCounter( "shots" )
   }
@@ -336,7 +336,7 @@ class World(
    * @param tank The tank hit by the bullet
    * @param bullet The bullet that hits the tank
    */
-  def on_tankHit( tank: Tank, bullet: Bullet ) {
+  def on_tankHit( tank: Tank, bullet: Bullet ): Unit = {
     // Prevent a dead tank to kill another tank
     if( !bullet.tank.isDead ) {
 
@@ -387,7 +387,7 @@ class World(
    * @param notify Function to call to notify an entity the first time check is found to be equals to false
    * @param action The action to take if check equals false for a second time
    */
-  private def check_limit( check: () => Boolean, notify: () => Unit, action: () => Unit ) {
+  private def check_limit( check: () => Boolean, notify: () => Unit, action: () => Unit ): Unit = {
     if( !check( ) ) {
       notify( )
       if( !check( ) ) {

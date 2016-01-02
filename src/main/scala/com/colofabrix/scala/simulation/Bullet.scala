@@ -106,7 +106,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
   /**
    * Moves the bullet one step into the future.
    */
-  override def step( ) {
+  override def step( ): Unit = {
     _life += 1
     _position = _position + _speed
   }
