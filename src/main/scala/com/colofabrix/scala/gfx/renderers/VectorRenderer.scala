@@ -21,7 +21,6 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11._
 
-
 /**
  * Draws an applied vector on screen
  *
@@ -33,10 +32,10 @@ import org.lwjgl.opengl.GL11._
  * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
 class VectorRenderer(
-  val vector: Vector2D,
-  val apply: Vector2D = Vector2D.zero,
-  size: Double = 5,
-  defaultFrame: Frame = Frame( Colour.WHITE )
+    val vector: Vector2D,
+    val apply: Vector2D = Vector2D.zero,
+    size: Double = 5,
+    defaultFrame: Frame = Frame( Colour.WHITE )
 ) extends Renderer {
 
   /**

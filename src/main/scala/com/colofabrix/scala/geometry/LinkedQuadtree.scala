@@ -29,11 +29,12 @@ import scala.reflect.ClassTag
  * This implementation includes a List to have fast access to the complete set of object contained in the Quadtree
  * and perform common and useful operations on that
  */
-class LinkedQuadtree[T: SpatialIndexable] protected(
-  override val toList: List[T],
-  private val _quadtree: abstracts.SpatialTree[T]
+class LinkedQuadtree[T: SpatialIndexable] protected (
+    override val toList: List[T],
+    private val _quadtree: abstracts.SpatialTree[T]
 )(
-  implicit ct: ClassTag[T]
+    implicit
+    ct: ClassTag[T]
 ) extends abstracts.SpatialTree[T] {
 
   require( toList != null, "A shape list must be specified, even empty" )
@@ -47,7 +48,7 @@ class LinkedQuadtree[T: SpatialIndexable] protected(
    *
    * @return A new LinkedQuadtree with 4 new subnodes
    */
-  override protected def split( ): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree )
+  override protected def split(): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree )
 
   /**
    * Remove the object from the quadtree.
@@ -82,7 +83,7 @@ class LinkedQuadtree[T: SpatialIndexable] protected(
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  override def clear( ): LinkedQuadtree[T] = new LinkedQuadtree[T]( List[T]( ), _quadtree.clear( ) )
+  override def clear(): LinkedQuadtree[T] = new LinkedQuadtree[T]( List[T](), _quadtree.clear() )
 
   /**
    * The maximum depth of the Quadtree
@@ -121,14 +122,14 @@ class LinkedQuadtree[T: SpatialIndexable] protected(
    *
    * @return A new instance of LinkedQuadtree with the updated objects
    */
-  override def refresh( ): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree.refresh( ) )
+  override def refresh(): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree.refresh() )
 
   /**
    * An object responsible to renderer the class where this trait is applied
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new QuadtreeRenderer( this._quadtree.refresh( ) )
+  override def renderer: Renderer = new QuadtreeRenderer( this._quadtree.refresh() )
 
   /**
    * The number of shapes contained in the quadtree
@@ -146,9 +147,8 @@ class LinkedQuadtree[T: SpatialIndexable] protected(
    * @return A new string containing a textual representation of the tree
    */
   override def toString: String =
-    s"Tree list content: ${toList.size }\n" + _quadtree.toString
+    s"Tree list content: ${toList.size}\n" + _quadtree.toString
 }
-
 
 object LinkedQuadtree {
 
@@ -164,7 +164,7 @@ object LinkedQuadtree {
    */
   def apply[T: SpatialIndexable](
     bounds: Shape,
-    initialSet: List[T] = List( ),
+    initialSet: List[T] = List(),
     splitSize: Int = 1,
     depth: Int = 1
   )( implicit m: ClassTag[T] ): LinkedQuadtree[T] =

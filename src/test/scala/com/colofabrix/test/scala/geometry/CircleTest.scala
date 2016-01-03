@@ -76,8 +76,7 @@ class CircleTest extends WordSpec with Matchers {
         val circle = new Circle( Vector2D.new_xy( 50, 50 ), 50 )
 
         // Overlaps the vertices
-        val contained1 = new
-            Box( Vector2D.new_xy( 50, 50 ), Math.sqrt( 2 ) * circle.radius, Math.sqrt( 2 ) * circle.radius )
+        val contained1 = new Box( Vector2D.new_xy( 50, 50 ), Math.sqrt( 2 ) * circle.radius, Math.sqrt( 2 ) * circle.radius )
         // Fully inside the box
         val contained2 = new Box( Vector2D.new_xy( 50, 50 ), 10, 10 )
         // Partially inside the box

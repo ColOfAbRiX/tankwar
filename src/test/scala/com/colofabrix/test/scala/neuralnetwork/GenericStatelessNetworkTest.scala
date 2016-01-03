@@ -32,7 +32,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
   import scala.Double._
 
   // Range of test values
-  private val inputs_range: List[Double] = (-2.0 to(2.0, 0.2)).toList ::: List.fill( 10 )( Random.nextDouble * 10 - 5 )
+  private val inputs_range: List[Double] = ( -2.0 to ( 2.0, 0.2 ) ).toList ::: List.fill( 10 )( Random.nextDouble * 10 - 5 )
   private val activation = ActivationFunction( "tanh" )
 
   /**
@@ -45,17 +45,17 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
    * @param matrix The matrix that defines the NN
    * @param expectedOutputs A function that manually calculate the output of {matrix}
    */
-  private def executeTest( nI: Int, nO: Int, matrix: NetworkMatrix, expectedOutputs: Seq[Double] => Seq[Double] ): Unit = {
+  private def executeTest( nI: Int, nO: Int, matrix: NetworkMatrix, expectedOutputs: Seq[Double] ⇒ Seq[Double] ): Unit = {
 
     val testNetwork = new GenericStatelessNetwork( matrix, activation )
 
     def innerExecute( inputsBase: Seq[Double], index: Int ) {
-      inputs_range.foreach { x =>
+      inputs_range.foreach { x ⇒
 
         // Modify the value of the current input
         val inputs = inputsBase.patch( index, Seq( x ), 1 )
 
-        if( index == inputsBase.length - 1 ) {
+        if ( index == inputsBase.length - 1 ) {
           // If there is only one value to check, then check it
           val outputs = testNetwork.output( inputs )
 
@@ -87,7 +87,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
               Seq( NaN, 1.0 ),
               Seq( NaN, NaN ),
               Seq( 0.0, 0.0 )
-            ), Seq( ), Seq( 1 )
+            ), Seq(), Seq( 1 )
           )
           new GenericStatelessNetwork( matrix, activation )
         }
@@ -113,7 +113,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
               Seq( NaN, 1.0 ),
               Seq( NaN, NaN ),
               Seq( 0.0, 0.0 )
-            ), Seq( 0 ), Seq( )
+            ), Seq( 0 ), Seq()
           )
           new GenericStatelessNetwork( matrix, activation )
         }
@@ -125,8 +125,8 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
         intercept[IllegalArgumentException] {
           val matrix = new NetworkMatrix(
             Seq(
-              Seq( )
-            ), Seq( ), Seq( )
+              Seq()
+            ), Seq(), Seq()
           )
           new GenericStatelessNetwork( matrix, activation )
         }
@@ -233,7 +233,7 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq( NaN, 1.0 ), // 1 - Input neuron 1
           Seq( NaN, NaN ), // 2 - Output neuron 1
           Seq( 0.0, 0.0 ) // 3 - Biases
-          //   1    2     //     Neuron #
+        //   1    2     //     Neuron #
         ), Seq( 0 ), Seq( 1 )
       )
 
@@ -253,12 +253,12 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq( NaN, NaN, NaN, NaN ), // 3 - Output neuron 1
           Seq( NaN, NaN, NaN, NaN ), // 4 - Output neuron 2
           Seq( 0.0, 0.0, 0.0, 0.0 ) // 5 - Biases
-          //   1    2    3    4      //     Neuron #
+        //   1    2    3    4      //     Neuron #
         ), Seq( 0, 1 ), Seq( 2, 3 )
       )
 
       def expected( inputs: Seq[Double] ): Seq[Double] =
-        Seq( activation( inputs( 0 ) * 0.1 + inputs( 1 ) * 0.3 ), activation( inputs( 0 ) * (-0.2) + inputs( 1 ) * (-0.4) ) )
+        Seq( activation( inputs( 0 ) * 0.1 + inputs( 1 ) * 0.3 ), activation( inputs( 0 ) * ( -0.2 ) + inputs( 1 ) * ( -0.4 ) ) )
 
       executeTest( 2, 2, matrix, expected )
     }
@@ -276,20 +276,20 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 6 - Output neuron 1
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 7 - Output neuron 1
           Seq( 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ) // 8 - Biases
-          //   1     2     3     4     5     6     7      //     Neuron #
+        //   1     2     3     4     5     6     7      //     Neuron #
         ), Seq( 0, 1 ), Seq( 5, 6 )
       )
 
       // Calculates manually the outputs of the network
       def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
-          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * (-0.2) ),
-          activation( inputs( 0 ) * (-0.1) + inputs( 1 ) * 0.3 ),
-          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * (-0.3) )
+          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * ( -0.2 ) ),
+          activation( inputs( 0 ) * ( -0.1 ) + inputs( 1 ) * 0.3 ),
+          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * ( -0.3 ) )
         )
         val hdLayerOutputs = Seq(
           activation( inLayerOutputs( 0 ) * 0.4 + inLayerOutputs( 1 ) * 0.5 + inLayerOutputs( 2 ) * 0.6 ),
-          activation( inLayerOutputs( 0 ) * (-0.4) + inLayerOutputs( 1 ) * (-0.5) + inLayerOutputs( 2 ) * (-0.6) )
+          activation( inLayerOutputs( 0 ) * ( -0.4 ) + inLayerOutputs( 1 ) * ( -0.5 ) + inLayerOutputs( 2 ) * ( -0.6 ) )
         )
         Seq( hdLayerOutputs( 0 ), hdLayerOutputs( 1 ) )
       }
@@ -313,20 +313,20 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 6 - Output neuron 1
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 7 - Output neuron 1
           Seq( 0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4 ) // 8 - Biases
-          //   1     2     3     4     5     6     7      //     Neuron #
+        //   1     2     3     4     5     6     7      //     Neuron #
         ), Seq( 0, 1 ), Seq( 5, 6 )
       )
 
       // Calculates manually the outputs of the network
       def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
-          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * (-0.2) + 0.2 ),
-          activation( inputs( 0 ) * (-0.1) + inputs( 1 ) * 0.3 - 0.2 ),
-          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * (-0.3) + 0.3 )
+          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * ( -0.2 ) + 0.2 ),
+          activation( inputs( 0 ) * ( -0.1 ) + inputs( 1 ) * 0.3 - 0.2 ),
+          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * ( -0.3 ) + 0.3 )
         )
         val hdLayerOutputs = Seq(
           activation( inLayerOutputs( 0 ) * 0.4 + inLayerOutputs( 1 ) * 0.5 + inLayerOutputs( 2 ) * 0.6 - 0.3 ),
-          activation( inLayerOutputs( 0 ) * (-0.4) + inLayerOutputs( 1 ) * (-0.5) + inLayerOutputs( 2 ) * (-0.6) + 0.4 )
+          activation( inLayerOutputs( 0 ) * ( -0.4 ) + inLayerOutputs( 1 ) * ( -0.5 ) + inLayerOutputs( 2 ) * ( -0.6 ) + 0.4 )
         )
         Seq( hdLayerOutputs( 0 ), hdLayerOutputs( 1 ) )
       }
@@ -347,20 +347,20 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 6 - Output neuron 1
           Seq( NaN, NaN, NaN, NaN, NaN, NaN, NaN ), // 7 - Output neuron 1
           Seq( 0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4 ) // 8 - Biases
-          //   1     2     3     4     5     6     7      //     Neuron #
+        //   1     2     3     4     5     6     7      //     Neuron #
         ), Seq( 0, 1 ), Seq( 5, 6 )
       )
 
       // Calculates manually the outputs of the network
       def expected( inputs: Seq[Double] ): Seq[Double] = {
         val inLayerOutputs = Seq(
-          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * (-0.2) + 0.2 ),
-          activation( inputs( 0 ) * 1.0 + inputs( 0 ) * (-0.1) + inputs( 1 ) * 0.3 - 0.2 ),
-          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * (-0.3) + 0.3 )
+          activation( inputs( 0 ) * 0.1 + inputs( 1 ) * ( -0.2 ) + 0.2 ),
+          activation( inputs( 0 ) * 1.0 + inputs( 0 ) * ( -0.1 ) + inputs( 1 ) * 0.3 - 0.2 ),
+          activation( inputs( 0 ) * 0.2 + inputs( 1 ) * ( -0.3 ) + 0.3 )
         )
         val hdLayerOutputs = Seq(
           activation( inLayerOutputs( 0 ) * 0.4 + inLayerOutputs( 1 ) * 0.5 + inLayerOutputs( 2 ) * 0.6 - 0.3 ),
-          activation( inLayerOutputs( 0 ) * (-0.4) + inLayerOutputs( 1 ) * (-0.5) + inLayerOutputs( 2 ) * (-0.6) + 0.4 )
+          activation( inLayerOutputs( 0 ) * ( -0.4 ) + inLayerOutputs( 1 ) * ( -0.5 ) + inLayerOutputs( 2 ) * ( -0.6 ) + 0.4 )
         )
         Seq( hdLayerOutputs( 0 ), hdLayerOutputs( 1 ) )
       }

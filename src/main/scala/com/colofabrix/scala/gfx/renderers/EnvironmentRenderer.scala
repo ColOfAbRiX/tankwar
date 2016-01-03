@@ -23,8 +23,8 @@ import com.colofabrix.scala.simulation.World
 import scala.language.reflectiveCalls
 
 /**
-
-  */
+ *
+ */
 class EnvironmentRenderer( val world: World ) extends Renderer {
 
   import com.colofabrix.scala.gfx.renderers.TextRenderer._
@@ -33,7 +33,7 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
 
     val flags = world.UIManager.flags
 
-    if( flags.getWithDefault( "details", true ) ) {
+    if ( flags.getWithDefault( "details", true ) ) {
 
       applyContext( Frame( Colour.CYAN, Vector2D.new_xy( 10, 10 ) ) ) {
 
@@ -41,7 +41,7 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
           "Max Simulation Speed: " + flags.getWithDefault( "sync", 25 ) + "fps",
           "Number Of Hits: " + world.counters.get( "hits" ).get,
           "Number Of Shots: " + world.counters.get( "shots" ).get,
-          "Hit Percentage: " + (world.counters.get( "hits" ).get.toFloat / (world.counters.get( "shots" ).get.toFloat + 1)).toString,
+          "Hit Percentage: " + ( world.counters.get( "hits" ).get.toFloat / ( world.counters.get( "shots" ).get.toFloat + 1 ) ).toString,
           "Generation",
           "Best tank fitness",
           "Average fitness"

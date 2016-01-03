@@ -53,10 +53,10 @@ import scala.util.Random
  * @param initialData The defining data of the Tank in the form of a Chromosome
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
-class Tank private(
-  override val world: World,
-  initialData: TankChromosome,
-  dataReader: Option[DataReader] = Option.empty
+class Tank private (
+    override val world: World,
+    initialData: TankChromosome,
+    dataReader: Option[DataReader] = Option.empty
 ) extends PhysicalObject with InteractiveObject with Renderable {
 
   import java.lang.Math._
@@ -67,8 +67,8 @@ class Tank private(
   private var _isDead = false
   private var _isShooting: Boolean = false
   private var _points: Int = 0
-  private var _seenBullets: ArrayBuffer[(Bullet, Vector2D, Vector2D)] = ArrayBuffer( )
-  private var _seenTanks: ArrayBuffer[(Tank, Vector2D, Vector2D)] = ArrayBuffer( )
+  private var _seenBullets: ArrayBuffer[( Bullet, Vector2D, Vector2D )] = ArrayBuffer()
+  private var _seenTanks: ArrayBuffer[( Tank, Vector2D, Vector2D )] = ArrayBuffer()
   private var _shoot = 0.0
   private var _surviveTime: Long = 0
   /**
@@ -78,7 +78,7 @@ class Tank private(
     initialData.brainBuilder.buildNetwork(
       BrainInputHelper.count,
       BrainOutputHelper.count,
-      if( dataReader == Option.empty ) {
+      if ( dataReader == Option.empty ) {
         new SeqDataReader( initialData.biases, initialData.weights, initialData.activationFunction )
       }
       else {
@@ -106,11 +106,11 @@ class Tank private(
   /**
    * Reset the status of a Tank to the initial values
    */
-  override def clear( ): Unit = {
+  override def clear(): Unit = {
     _direction = Vector2D.new_xy( 1, 1 )
 
-    _seenTanks = ArrayBuffer( )
-    _seenBullets = ArrayBuffer( )
+    _seenTanks = ArrayBuffer()
+    _seenBullets = ArrayBuffer()
 
     _isShooting = false
     _shoot = 0.0
@@ -144,7 +144,7 @@ class Tank private(
    *
    * At creation time it is initialized as a random value inside the arena
    */
-  _position = world.arena.topRight := { _ * Random.nextDouble( ) }
+  _position = world.arena.topRight := { _ * Random.nextDouble() }
 
   /**
    * Speed of the object relative to the arena
@@ -159,16 +159,16 @@ class Tank private(
    * @param that The object that is being hit
    */
   override def on_hits( that: PhysicalObject ): Unit = that match {
-    case t: Tank =>
+    case t: Tank ⇒
     // No actions for Tank-Tank collision
 
-    case c: Causality[_] => c.initial match {
-      case t: Tank =>
+    case c: Causality[_] ⇒ c.initial match {
+      case t: Tank ⇒
         // Making up points for the fitness
         _points += 1 + min( t.points, _points * Tank.maxGainK ).toInt
     }
 
-    case b: Bullet =>
+    case b: Bullet ⇒
     // Actually this situation never arises
   }
 
@@ -182,14 +182,14 @@ class Tank private(
    *
    * When a Tank hits a wall it is bounced back (using a direction vector)
    */
-  override def on_hitsWalls( ): Unit = {
+  override def on_hitsWalls(): Unit = {
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
-    _direction = _direction := { ( x, i ) =>
-      if( _position( i ) < 0 || _position( i ) > world.arena.topRight( i ) ) -1.0 * x else x
+    _direction = _direction := { ( x, i ) ⇒
+      if ( _position( i ) < 0 || _position( i ) > world.arena.topRight( i ) ) -1.0 * x else x
     }
 
     // Trim the position to the boundary of the arena if the tank is outside
-    _position = _position := (( x, i ) => max( min( world.arena.topRight( i ), x ), world.arena.bottomLeft( i ) ))
+    _position = _position := ( ( x, i ) ⇒ max( min( world.arena.topRight( i ), x ), world.arena.bottomLeft( i ) ) )
   }
 
   /**
@@ -198,11 +198,11 @@ class Tank private(
    * @param that The object that hit the current instance
    */
   override def on_isHit( that: PhysicalObject ): Unit = that match {
-    case t: Tank =>
+    case t: Tank ⇒
       // Small penalty if you hit another tank
       _points = ceil( max( _points * Tank.tankTankPenalty, 0 ) ).toInt
 
-    case b: Bullet =>
+    case b: Bullet ⇒
       // Kill myself and lower my fitness
       _isDead = true
       _points = max( _points * Tank.tankBulletPenalty, 0 ).toInt
@@ -219,7 +219,7 @@ class Tank private(
    * When maximum speed is reached, it is trimmed to the maximum
    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
-    _speed = _speed := { x => min( max( x, -world.max_tank_speed ), world.max_tank_speed ) }
+    _speed = _speed := { x ⇒ min( max( x, -world.max_tank_speed ), world.max_tank_speed ) }
   }
 
   /**
@@ -228,32 +228,32 @@ class Tank private(
    * @param that The object that it's in the sight of the current one
    */
   override def on_objectOnSight( that: PhysicalObject ): Unit = {
-    if( that == null ) return
+    if ( that == null ) return
 
     val direction = that.position - this.position
     val speed = _speed - that.speed
 
     // We don't like objects that precisely overlaps the tank... Infinities can happen
-    if( direction == Vector2D.zero ) return
+    if ( direction == Vector2D.zero ) return
 
     // Memorize the direction of all the targets or threats (one at a time)
     that match {
-      case t: Tank =>
-        _seenTanks += ((t, direction, speed))
+      case t: Tank ⇒
+        _seenTanks += ( ( t, direction, speed ) )
 
-      case b: Bullet =>
-        _seenBullets += ((b, direction, speed))
+      case b: Bullet ⇒
+        _seenBullets += ( ( b, direction, speed ) )
     }
   }
 
   /**
    * Callback function used to signal the Tank that it will be respawned in the next step
    */
-  override def on_respawn( ): Unit = {
+  override def on_respawn(): Unit = {
     // Set speed to zero
     _speed = Vector2D.new_xy( 0, 0 )
     // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
-    _position = world.arena.topRight := { _ * Random.nextDouble( ) }
+    _position = world.arena.topRight := { _ * Random.nextDouble() }
     // I'm not dead anymore!
     _isDead = false
   }
@@ -268,7 +268,7 @@ class Tank private(
    *
    * @return A string in the format of a CSV
    */
-  override def record = super.record + s",${rotation.t },${_shoot },$isShooting"
+  override def record = super.record + s",${rotation.t},${_shoot},$isShooting"
 
   /**
    * Indicates if the tanks is shooting at current time
@@ -296,7 +296,7 @@ class Tank private(
    *
    * In other words it calculates the position, speed and shooting condition for the current step
    */
-  override def step( ): Unit = {
+  override def step(): Unit = {
     // Data related to the vision
     val seenTank = calculateTankVision
     val seenBullet = calculateBulletVision
@@ -315,7 +315,7 @@ class Tank private(
     //_speed = (output.speed * world.max_tank_speed) := _direction
     val newSpeed = output.speed * world.max_tank_speed
     _speed = Vector2D.new_rt( newSpeed.r, min( newSpeed.t, _speed.t + world.max_tank_rotation ) )
-    _position = _position + (_speed := _direction)
+    _position = _position + ( _speed := _direction )
     _speed = _speed := _direction
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
@@ -325,15 +325,15 @@ class Tank private(
 
     // It shoots when the function is increasing
     _isShooting = output.shoot - _shoot > 0.02
-    if( _isShooting ) world.on_tankShot( this )
+    if ( _isShooting ) world.on_tankShot( this )
     _shoot = output.shoot
 
     // Update the survive time at each tick
     _surviveTime += 1
 
     // Every step the sight buffers are reset and filled again by the world
-    _seenTanks.clear( )
-    _seenBullets.clear( )
+    _seenTanks.clear()
+    _seenBullets.clear()
   }
 
   /**
@@ -344,11 +344,11 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
-  def calculateClosestBulletVision: (Vector2D, Vector2D) = {
+  def calculateClosestBulletVision: ( Vector2D, Vector2D ) = {
     val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
 
-    if( _seenBullets.isEmpty ) {
-      return (Vector2D.zero, Vector2D.zero)
+    if ( _seenBullets.isEmpty ) {
+      return ( Vector2D.zero, Vector2D.zero )
     }
 
     val closestBullet = _seenBullets.minBy( _._2.r <= sightShape.radius / 2.0 )
@@ -359,7 +359,7 @@ class Tank private(
     val closestBulleSpeed = closestBullet._3
 
     // Final position seen by the tank
-    (closestBulletPosition, closestBulletPosition)
+    ( closestBulletPosition, closestBulletPosition )
   }
 
   /**
@@ -372,15 +372,15 @@ class Tank private(
    * @return A {Shape} that represents the sight towards the object type of {that}
    */
   override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
-    if( that == classOf[Tank] ) {
+    if ( that == classOf[Tank] ) {
       // Tank->Tank sight
       return new Circle(
         _position,
-        (1.0 - initialData.sightRatio) * sqrt( world.max_sight / PI )
+        ( 1.0 - initialData.sightRatio ) * sqrt( world.max_sight / PI )
       )
     }
 
-    if( that == classOf[Bullet] ) {
+    if ( that == classOf[Bullet] ) {
       // Tank->Bullet sight
       return new Circle(
         _position,
@@ -399,11 +399,11 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
-  def calculateBulletVision: (Vector2D, Vector2D) = {
+  def calculateBulletVision: ( Vector2D, Vector2D ) = {
     val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
 
-    if( _seenBullets.isEmpty ) {
-      return (Vector2D.zero, Vector2D.zero)
+    if ( _seenBullets.isEmpty ) {
+      return ( Vector2D.zero, Vector2D.zero )
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
@@ -420,9 +420,9 @@ class Tank private(
     )
 
     // Final speed seen by the tank
-    val seenSpeed = (bulletsSpeedsSum / world.max_bullet_speed) -> seenPosition.v
+    val seenSpeed = ( bulletsSpeedsSum / world.max_bullet_speed ) → seenPosition.v
 
-    (seenPosition, seenSpeed)
+    ( seenPosition, seenSpeed )
   }
 
   /**
@@ -432,11 +432,11 @@ class Tank private(
    *
    * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target, both with components normalized to 1.0
    */
-  def calculateTankVision: (Vector2D, Vector2D) = {
+  def calculateTankVision: ( Vector2D, Vector2D ) = {
     val sightShape = sight( classOf[Tank] ).asInstanceOf[Circle]
 
-    if( _seenTanks.isEmpty ) {
-      return (Vector2D.zero, Vector2D.zero)
+    if ( _seenTanks.isEmpty ) {
+      return ( Vector2D.zero, Vector2D.zero )
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
@@ -444,29 +444,29 @@ class Tank private(
 
     val selectedTank = Tank.defaultTargetType match {
 
-      case TargetType.first =>
+      case TargetType.first ⇒
         // I target the same tank not caring about new tanks on sight (for consistency)
-        _seenTanks.sortBy( t => t._1.id ).head
+        _seenTanks.sortBy( t ⇒ t._1.id ).head
 
-      case TargetType.fittest =>
+      case TargetType.fittest ⇒
         // I target the fittest tank on sight (hoping to gain more points)
-        _seenTanks.maxBy( t => TankEvaluator.fitness( t._1 ) )
+        _seenTanks.maxBy( t ⇒ TankEvaluator.fitness( t._1 ) )
 
-      case TargetType.lessFit =>
+      case TargetType.lessFit ⇒
         // I target the weaker tank on sight (for an easy kill)
-        _seenTanks.minBy( t => TankEvaluator.fitness( t._1 ) )
+        _seenTanks.minBy( t ⇒ TankEvaluator.fitness( t._1 ) )
 
-      case TargetType.highPoints =>
+      case TargetType.highPoints ⇒
         // I target the tank with the highest points (hoping to gain more points myself)
-        _seenTanks.maxBy( t => t._1.points )
+        _seenTanks.maxBy( t ⇒ t._1.points )
 
-      case TargetType.lowPoints =>
+      case TargetType.lowPoints ⇒
         // I target the tank with the lowest points (for an easy kill)
-        _seenTanks.minBy( t => t._1.points )
+        _seenTanks.minBy( t ⇒ t._1.points )
 
-      case TargetType.slowest =>
+      case TargetType.slowest ⇒
         // I target the slowest tank on sight (for an easy kill)
-        _seenTanks.minBy( t => t._3.r )
+        _seenTanks.minBy( t ⇒ t._3.r )
     }
 
     // Final position seen by the tank
@@ -476,7 +476,7 @@ class Tank private(
     // Final position seen by the tank, normalized to 1.0
     val seenTankSpeed = selectedTank._3 / world.max_tank_speed
 
-    (seenTankPosition, seenTankSpeed)
+    ( seenTankPosition, seenTankSpeed )
   }
 
   /**
@@ -492,7 +492,6 @@ class Tank private(
   override def toString = id
 }
 
-
 /**
  * Structural configuration of a tank (usually used at first-time creation)
  */
@@ -506,7 +505,7 @@ object Tank {
   /** Default activation function */
   val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
   /** Default number of hidden neurons. It is the average between input and output neurons */
-  val defaultHiddenNeurons = Math.ceil( (BrainInputHelper.count + BrainOutputHelper.count) / 2 ).toInt
+  val defaultHiddenNeurons = Math.ceil( ( BrainInputHelper.count + BrainOutputHelper.count ) / 2 ).toInt
   /** Default type of neural network */
   val defaultBrainBuilder = new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
   /** Default mass of the tank at initial creation */
@@ -530,8 +529,7 @@ object Tank {
 
   def apply( world: World, chromosome: TankChromosome ): Tank = new Tank( world, chromosome )
 
-  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new
-      Tank( world, chromosome, Option( reader ) )
+  def apply( world: World, chromosome: TankChromosome, reader: DataReader ) = new Tank( world, chromosome, Option( reader ) )
 
   def defaultRandomReader( rng: Random ) =
     new RandomReader(

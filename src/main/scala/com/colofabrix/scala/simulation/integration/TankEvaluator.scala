@@ -24,7 +24,7 @@ import org.uncommons.watchmaker.framework.FitnessEvaluator
 /**
  * Evaluates the fitness of a Tank
  */
-class TankEvaluator( ) extends FitnessEvaluator[Tank] {
+class TankEvaluator() extends FitnessEvaluator[Tank] {
 
   /**
    * Given a Tank returns its fitness
@@ -39,7 +39,6 @@ class TankEvaluator( ) extends FitnessEvaluator[Tank] {
 
 }
 
-
 object TankEvaluator {
 
   import Math._
@@ -53,7 +52,7 @@ object TankEvaluator {
    * @return The score of the tank representing its fitness
    */
   def fitness( t: Tank ): Double = {
-    val (w, ts) = (t.world, t.world.tanks)
+    val ( w, ts ) = ( t.world, t.world.tanks )
     max( t.points, 0.0 )
   }
 

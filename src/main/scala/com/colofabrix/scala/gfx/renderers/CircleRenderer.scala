@@ -30,9 +30,9 @@ import org.lwjgl.opengl.GL11._
  * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
 class CircleRenderer( val circle: Circle, val filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
-  extends Renderer {
+    extends Renderer {
 
-  val numSegments: Int = Math.max( (circle.radius * 2.0 * Math.PI / 10).toInt, 10 )
+  val numSegments: Int = Math.max( ( circle.radius * 2.0 * Math.PI / 10 ).toInt, 10 )
   val angularDistance = 2.0 * Math.PI / numSegments.toDouble
 
   /**
@@ -46,10 +46,10 @@ class CircleRenderer( val circle: Circle, val filled: Boolean = false, defaultFr
 
       applyContext( Frame( _position = circle.center ) ) {
 
-        val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
+        val mode = if ( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
         drawOpenGL( mode ) {
           // Go around the vertices of a regular polygon, using polar coordinates
-          for( i <- 0 until numSegments ) {
+          for ( i ← 0 until numSegments ) {
             drawVertex( Vector2D.new_rt( circle.radius, angularDistance * i ) )
           }
         }

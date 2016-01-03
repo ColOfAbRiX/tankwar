@@ -42,31 +42,31 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
    */
   def render( create: Boolean = true ): Unit = {
 
-    clearScreen( )
+    clearScreen()
 
-    BGRenderer.render( )
+    BGRenderer.render()
 
     // Renders the user interaction graphic objects
-    for( r <- world.UIManager.renderers )
-      r.render( )
+    for ( r ← world.UIManager.renderers )
+      r.render()
 
     // Renders the graphical objects
-    if( _flags.getWithDefault( "render", true ) ) {
-      for( r <- world.renderers )
-        r.render( )
+    if ( _flags.getWithDefault( "render", true ) ) {
+      for ( r ← world.renderers )
+        r.render()
 
       Display.sync( _flags.getWithDefault( "sync", 25 ) )
     }
 
-    Display.update( )
+    Display.update()
 
-    while( _flags.getWithDefault( "pause", false ) ) {
-      world.UIManager.update( )
+    while ( _flags.getWithDefault( "pause", false ) ) {
+      world.UIManager.update()
       Thread.sleep( 200 )
     }
 
     // Deal with a close request
-    if( Display.isCloseRequested ) {
+    if ( Display.isCloseRequested ) {
       System.exit( 0 )
     }
 
@@ -74,23 +74,23 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
 
   // Initialize OpenGL
   Display.setDisplayMode( new DisplayMode( width.toInt, height.toInt ) )
-  Display.create( )
+  Display.create()
   Display.setTitle( windowsTitle )
 
   glMatrixMode( GL_MODELVIEW )
-  glLoadIdentity( )
+  glLoadIdentity()
   glViewport( 0, 0, width.toInt, height.toInt )
 
   glMatrixMode( GL_PROJECTION )
-  glLoadIdentity( )
+  glLoadIdentity()
   glOrtho( 0, Display.getWidth, Display.getHeight, 0, 1, -1 )
 
   glMatrixMode( GL_MODELVIEW )
-  glLoadIdentity( )
+  glLoadIdentity()
 
   private def _flags = world.UIManager.flags
 
-  private def clearScreen( ): Unit = {
+  private def clearScreen(): Unit = {
     glClearColor( 0f, 0f, 0f, 1.0f )
     glClear( GL_COLOR_BUFFER_BIT )
   }

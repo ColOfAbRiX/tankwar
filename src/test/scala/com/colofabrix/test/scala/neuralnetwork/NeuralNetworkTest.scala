@@ -37,7 +37,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
       )
     }
 
-    def checkTuples( result: (Matrix[Double], Matrix[Double], Matrix[Double]), expected: (Matrix[Double], Matrix[Double], Matrix[Double]) ): Unit = {
+    def checkTuples( result: ( Matrix[Double], Matrix[Double], Matrix[Double] ), expected: ( Matrix[Double], Matrix[Double], Matrix[Double] ) ): Unit = {
       getMockMatrix( result._1 ) should equal( expected._1 )
       getMockMatrix( result._2 ) should equal( expected._2 )
       getMockMatrix( result._3 ) should equal( expected._3 )
@@ -67,7 +67,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 0 )
-        checkTuples( result, (expected, NetworkMatrix.toNaN( expected ), NetworkMatrix.toNaN( expected )) )
+        checkTuples( result, ( expected, NetworkMatrix.toNaN( expected ), NetworkMatrix.toNaN( expected ) ) )
 
       }
 
@@ -83,7 +83,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 1 )
-        checkTuples( result, (expected, NetworkMatrix.toNaN( expected ), NetworkMatrix.toNaN( expected )) )
+        checkTuples( result, ( expected, NetworkMatrix.toNaN( expected ), NetworkMatrix.toNaN( expected ) ) )
 
       }
 
@@ -122,7 +122,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 0 )
-        checkTuples( result, (expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward )) )
+        checkTuples( result, ( expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward ) ) )
 
       }
 
@@ -147,7 +147,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 1 )
-        checkTuples( result, (expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward )) )
+        checkTuples( result, ( expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward ) ) )
 
       }
 
@@ -188,7 +188,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 0 )
-        checkTuples( result, (expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward )) )
+        checkTuples( result, ( expectedForward, expectedBack, NetworkMatrix.toNaN( expectedForward ) ) )
 
       }
 
@@ -222,7 +222,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 1 )
-        checkTuples( result, (expectedForward, expectedBack, expectedCross) )
+        checkTuples( result, ( expectedForward, expectedBack, expectedCross ) )
 
       }
 
@@ -270,7 +270,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 0 )
-        checkTuples( result, (expectedForward, expectedBack, expectedCross) )
+        checkTuples( result, ( expectedForward, expectedBack, expectedCross ) )
 
       }
 
@@ -304,7 +304,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 1 )
-        checkTuples( result, (expectedForward, expectedBack, expectedCross) )
+        checkTuples( result, ( expectedForward, expectedBack, expectedCross ) )
 
       }
     }
@@ -367,7 +367,7 @@ class NeuralNetworkTest extends WordSpec with Matchers {
         )
 
         val result = NeuralNetwork.analiseNetwork( matrix, 0 )
-        checkTuples( result, (expectedForward, expectedBack, expectedCross) )
+        checkTuples( result, ( expectedForward, expectedBack, expectedCross ) )
 
       }
 

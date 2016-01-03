@@ -25,7 +25,6 @@ import com.colofabrix.scala.simulation.{ Bullet, Tank }
 import org.lwjgl.opengl.GL11._
 import scala.language.reflectiveCalls
 
-
 /**
  * Renders a tank to the screen with its properties
  *
@@ -43,7 +42,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
    * @param create This parameter is disabled for this renderer
    */
   def render( create: Boolean = true ): Unit = {
-    val fitness: Double = new TankEvaluator( ).getFitness( tank, null )
+    val fitness: Double = new TankEvaluator().getFitness( tank, null )
     val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
     val flags = tank.world.UIManager.flags
 
@@ -64,7 +63,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
       }
 
-      if( flags.getWithDefault( "tkinfo", true ) ) {
+      if ( flags.getWithDefault( "tkinfo", true ) ) {
 
         // Write information about the tank
         applyContext( Frame( Colour.WHITE, Vector2D.new_xy( 10, 10 ) ) ) {
@@ -78,7 +77,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
     }
 
-    if( flags.getWithDefault( "tksight", true ) ) {
+    if ( flags.getWithDefault( "tksight", true ) ) {
 
       // Draw the sight toward bullets
       applyContext( Frame( Colour.DARK_RED ) ) {
@@ -92,7 +91,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
 
     }
 
-    if( flags.getWithDefault( "vectors", true ) ) {
+    if ( flags.getWithDefault( "vectors", true ) ) {
 
       // Draw the speed vector
       applyContext( Frame( Colour.WHITE ) ) {
@@ -100,7 +99,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
       }
 
       // Draw bullet sight vectors
-      val (bPos, bSpeed) = tank.calculateBulletVision
+      val ( bPos, bSpeed ) = tank.calculateBulletVision
       applyContext( Frame( Colour.CYAN ) ) {
         new VectorRenderer( bPos * 25, tank.position ).render( false )
       }
@@ -114,7 +113,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
       }
 
       // Draw tank sight vectors
-      val (tPos, tSpeed) = tank.calculateTankVision
+      val ( tPos, tSpeed ) = tank.calculateTankVision
       applyContext( Frame( Colour.YELLOW ) ) {
         new VectorRenderer( tPos * 25, tank.position ).render( false )
       }

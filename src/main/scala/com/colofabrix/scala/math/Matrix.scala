@@ -58,12 +58,12 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   /**
    * Main diagonal of the matrix
    */
-  lazy val diagonal = Seq.tabulate( Math.min( rows, cols ) ) { i => matrix( i )( i ) }
+  lazy val diagonal = Seq.tabulate( Math.min( rows, cols ) ) { i ⇒ matrix( i )( i ) }
 
   /**
    * Transpose of the matrix
    */
-  lazy val transpose = new Matrix( this.colSet( ) )
+  lazy val transpose = new Matrix( this.colSet() )
 
   /**
    * Gets a row of the matrix
@@ -78,7 +78,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return A Seq() containing the rows of the matrix
    */
-  def rowSet( ) = matrix
+  def rowSet() = matrix
 
   /**
    * Gets a subset of the rows of the matrix
@@ -107,14 +107,14 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param i The number of the column to return
    * @return The i-th column of the matrix
    */
-  def col( i: Int ) = matrix map (_( i ))
+  def col( i: Int ) = matrix map ( _( i ) )
 
   /**
    * Gets the matrix as a Seq of columns
    *
    * @return A Seq() containing the columns of the matrix
    */
-  def colSet( ) = matrix.transpose
+  def colSet() = matrix.transpose
 
   /**
    * Gets a subset of the rows of the matrix
@@ -144,8 +144,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param f The mapping function that returns a value for the new cells
    * @return A new matrix where each element is a mapping from the original matrix
    */
-  def map[U]( f: () => U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
-    this.map( ( _, _, _ ) => f( ) )
+  def map[U]( f: () ⇒ U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
+    this.map( ( _, _, _ ) ⇒ f() )
 
   /**
    * Maps each element of the matrix in a new element of
@@ -154,8 +154,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param f The mapping function that provides the value of the cell and returns the value for the new cell
    * @return A new matrix where each element is a mapping from the original matrix
    */
-  def map[U]( f: T => U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
-    this.map( ( x, _, _ ) => f( x ) )
+  def map[U]( f: T ⇒ U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
+    this.map( ( x, _, _ ) ⇒ f( x ) )
 
   /**
    * Maps each element of the matrix in a new element of
@@ -164,8 +164,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param f The mapping function that provides the i and j indexes and returns the value for the new cell
    * @return A new matrix where each element is a mapping from the original matrix
    */
-  def map[U]( f: (Int, Int) => U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
-    this.map( ( _, i, j ) => f( i, j ) )
+  def map[U]( f: ( Int, Int ) ⇒ U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] =
+    this.map( ( _, i, j ) ⇒ f( i, j ) )
 
   /**
    * Maps each element of the matrix in a new element of
@@ -174,9 +174,9 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param f The mapping function that provides the value of the cell and the i and j indexes and returns the value for the new cell
    * @return A new matrix where each element is a mapping from the original matrix
    */
-  def map[U]( f: (T, Int, Int) => U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] = {
+  def map[U]( f: ( T, Int, Int ) ⇒ U )( implicit n: Numeric[U], m: ClassTag[U] ): Matrix[U] = {
     new Matrix[U](
-      Seq.tabulate( rows, cols ) { ( i, j ) =>
+      Seq.tabulate( rows, cols ) { ( i, j ) ⇒
         f( matrix( i )( j ), i, j )
       }
     )
@@ -188,7 +188,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param i A tuple that specify the i and j index of the element to return
    * @return The element at position (i, j)
    */
-  def apply( i: (Int, Int) ) = matrix( i._1 )( i._2 )
+  def apply( i: ( Int, Int ) ) = matrix( i._1 )( i._2 )
 
   /**
    * Updates an element of the matrix
@@ -197,7 +197,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param value The new value to set
    * @return A new matrix with the changed value
    */
-  def update( k: (Int, Int), value: T ) = {
+  def update( k: ( Int, Int ), value: T ) = {
     val before: Seq[Seq[T]] = matrix.take( k._1 )
     val row: Seq[T] = matrix( k._1 ).updated( k._2, value )
     val after: Seq[Seq[T]] = matrix.takeRight( this.rows - k._1 - 1 )
@@ -209,7 +209,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return A new matrix with the same values as the current one
    */
-  override def clone = new Matrix( Seq.tabulate( rows, cols ) { ( i, j ) => matrix( i )( j ) } )
+  override def clone = new Matrix( Seq.tabulate( rows, cols ) { ( i, j ) ⇒ matrix( i )( j ) } )
 
   /**
    * Determines if two matrices are equals
@@ -219,22 +219,22 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    */
   override def equals( obj: Any ): Boolean = {
     // Check if the two objects can be compared
-    if( !(this canEqual obj) ) return false
+    if ( !( this canEqual obj ) ) return false
 
     obj match {
-      case that: Matrix[T] =>
+      case that: Matrix[T] ⇒
 
         // Fast check with the number of inputs
-        if( rows != that.rows || cols != that.cols ) return false
+        if ( rows != that.rows || cols != that.cols ) return false
 
         // Checking every element
-        for( i ← matrix.indices.par; j ← matrix( i ).indices.par ) {
-          if( matrix( i )( j ) != that( i, j ) ) return false
+        for ( i ← matrix.indices.par; j ← matrix( i ).indices.par ) {
+          if ( matrix( i )( j ) != that( i, j ) ) return false
         }
 
         true
 
-      case _ => false
+      case _ ⇒ false
     }
   }
 
@@ -247,10 +247,10 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    */
   protected def canEqual( other: Any ): Boolean = other.isInstanceOf[Matrix[T]]
 
-  override def hashCode = matrix.foldLeft( 0 ) { ( res, row ) =>
+  override def hashCode = matrix.foldLeft( 0 ) { ( res, row ) ⇒
     41 * res +
-      row.foldLeft( 41 ) { ( res2, x ) =>
-        41 * res2 + x.hashCode( )
+      row.foldLeft( 41 ) { ( res2, x ) ⇒
+        41 * res2 + x.hashCode()
       }
   }
 
@@ -262,12 +262,12 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @return A new matrix that is the result of a matrix multiplication between the current one and {that}
    */
   def *( other: Matrix[T] ): Matrix[T] = new Matrix(
-  {
-    val c = other.transpose.toSeq
-    for( row <- matrix )
-      yield for( col <- c )
-        yield (row.zip( col ) map { Function.tupled( _ * _ ) }).sum
-  }
+    {
+      val c = other.transpose.toSeq
+      for ( row ← matrix )
+        yield for ( col ← c )
+        yield ( row.zip( col ) map { Function.tupled( _ * _ ) } ).sum
+    }
   )
 
   /**
@@ -290,8 +290,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
     var n = p
     var b = this
 
-    while( n > 0 ) {
-      if( n % 2 == 0 ) {
+    while ( n > 0 ) {
+      if ( n % 2 == 0 ) {
         b = b * b
         n /= 2
       }
@@ -310,7 +310,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param other The scalar to multiply with the matrix
    * @return A new matrix that is the original matrix multiplied by the supplied scalar
    */
-  def *( other: T ) = this map { x: T => x * other }
+  def *( other: T ) = this map { x: T ⇒ x * other }
 
   /**
    * Returns a square identity matrix of the same size of the current matrix
@@ -327,7 +327,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    *
    * @return A new, zero matrix of the same size of the current matrix
    */
-  def toZero: Matrix[T] = this map { _ => n.zero }
+  def toZero: Matrix[T] = this map { _ ⇒ n.zero }
 
   /**
    * String representation of the matrix
@@ -351,7 +351,6 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   def toBuffer = this.matrix map { _.toBuffer } toBuffer
 }
 
-
 object Matrix {
 
   /**
@@ -367,8 +366,8 @@ object Matrix {
    */
   def identity[T]( size: Int )( implicit n: Numeric[T], m: ClassTag[T] ) =
     new Matrix(
-      Seq.tabulate( size, size ) { ( i, j ) =>
-        if( i == j ) n.one else n.zero
+      Seq.tabulate( size, size ) { ( i, j ) ⇒
+        if ( i == j ) n.one else n.zero
       }
     )
 

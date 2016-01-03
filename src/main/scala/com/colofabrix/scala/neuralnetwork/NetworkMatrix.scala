@@ -34,7 +34,7 @@ import scala.language.postfixOps
  * @param outputRoots The indexes in the matrix that represent the outputs
  */
 class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[Int], val outputRoots: Seq[Int] )
-  extends Matrix[Double]( matrix ) {
+    extends Matrix[Double]( matrix ) {
   require( this.rows == this.cols + 1, "The adjacency matrix must be square with one additional row for biases" )
   require( inputRoots.nonEmpty && outputRoots.nonEmpty, "Input and output roots must not be empty" )
   require( inputRoots.length + outputRoots.length <= this.cols, "The number of inputs and outputs must be less than the size of the matrix" )
@@ -80,21 +80,21 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    */
   lazy val isAcyclic: Boolean = {
     // Test the network for all possible starting points (the inputs)
-    val result = inputRoots map { i =>
-      val (_, back, _) = NeuralNetwork.analiseNetwork( this, i )
+    val result = inputRoots map { i ⇒
+      val ( _, back, _ ) = NeuralNetwork.analiseNetwork( this, i )
       // Check that there are no back edges
-      back.map( x => if( x.isNaN ) 0.0 else 1.0 ) == back.toZero
+      back.map( x ⇒ if ( x.isNaN ) 0.0 else 1.0 ) == back.toZero
     }
 
     // The condition must be true for all the starting points
-    result.forall( _ == true )  // scalastyle:ignore
+    result.forall( _ == true ) // scalastyle:ignore
   }
 
   /**
    * Tells if the Neural Network represented by this NetworkMatrix is forward only (this implies the network is also stateless)
    */
   lazy val isForwardOnly: Boolean = {
-    if( !isAcyclic ) {
+    if ( !isAcyclic ) {
       // Shortcut, if acyclic is never forward-only {
       false
     }
@@ -102,14 +102,14 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     else {
       // Test the network for all possible starting points (the inputs)
 
-      val result = inputRoots map { i =>
-        val (_, _, cross) = NeuralNetwork.analiseNetwork( this, i )
+      val result = inputRoots map { i ⇒
+        val ( _, _, cross ) = NeuralNetwork.analiseNetwork( this, i )
         // Check that there are no back edges nor cross edges
-        cross.map( x => if( x.isNaN ) 0.0 else 1.0 ) == cross.toZero
+        cross.map( x ⇒ if ( x.isNaN ) 0.0 else 1.0 ) == cross.toZero
       }
 
       // The condition must be true for all the starting points
-      result.forall( _ == true )  // scalastyle:ignore
+      result.forall( _ == true ) // scalastyle:ignore
     }
   }
 
@@ -120,10 +120,10 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    * @return true if the other object is a matrix identical to the current one
    */
   override def equals( obj: Any ): Boolean = obj match {
-    case that: NetworkMatrix => this compare that
-    case that: Matrix[Double @unchecked] => this compare that
-    case that: Seq[Double @unchecked] => this compare that
-    case _ => super.equals( obj )
+    case that: NetworkMatrix ⇒ this compare that
+    case that: Matrix[Double @unchecked] ⇒ this compare that
+    case that: Seq[Double @unchecked] ⇒ this compare that
+    case _ ⇒ super.equals( obj )
   }
 
   /**
@@ -133,8 +133,8 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    */
   override def hashCode =
     43 + this.matrix.hashCode *
-    43 * this.inputRoots.hashCode *
-    43 * 43 * this.outputRoots.hashCode
+      43 * this.inputRoots.hashCode *
+      43 * 43 * this.outputRoots.hashCode
 
   /**
    * Determines if the given adjacency matrix is the same as the current instance
@@ -149,16 +149,16 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     val adMatrix = this.adjacencyOnly
 
     // Shortcut checking only the number of rows and cols
-    if( adMatrix.cols != that.cols || adMatrix.rows != that.rows ) {
+    if ( adMatrix.cols != that.cols || adMatrix.rows != that.rows ) {
       return false
     }
 
     // Check element by element that they are the equal also in respect to NaN values
-    val values = for( i <- (0 until adMatrix.rows).par; j <- (0 until adMatrix.cols).par ) yield {
-      (adMatrix( i, j ) == that( i, j )) || (adMatrix( i, j ).isNaN && that( i, j ).isNaN)
+    val values = for ( i ← ( 0 until adMatrix.rows ).par; j ← ( 0 until adMatrix.cols ).par ) yield {
+      ( adMatrix( i, j ) == that( i, j ) ) || ( adMatrix( i, j ).isNaN && that( i, j ).isNaN )
     }
 
-    values.forall( _ == true )  // scalastyle:ignore
+    values.forall( _ == true ) // scalastyle:ignore
   }
 
   /**
@@ -174,16 +174,17 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     val biases = this.biases
 
     // Shortcut checking only the number of elements
-    if( biases.length != that.length ) {
+    if ( biases.length != that.length ) {
       return false
     }
 
     // Check element by element that they are the equal also in respect to NaN values
-    val values = (biases zip that) map { case (x, y) =>
-      (x == y) || (x.isNaN && y.isNaN)
+    val values = ( biases zip that ) map {
+      case ( x, y ) ⇒
+        ( x == y ) || ( x.isNaN && y.isNaN )
     }
 
-    values.forall( _ == true )  // scalastyle:ignore
+    values.forall( _ == true ) // scalastyle:ignore
   }
 
   /**
@@ -196,10 +197,10 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
    * @return true if the two matrices are equal
    */
   private def compare( that: NetworkMatrix ): Boolean = {
-    (this compare that.adjacencyOnly) &&
-      (this compare that.biases) &&
-      (this.inputRoots == that.inputRoots) &&
-      (this.outputRoots == that.outputRoots)
+    ( this compare that.adjacencyOnly ) &&
+      ( this compare that.biases ) &&
+      ( this.inputRoots == that.inputRoots ) &&
+      ( this.outputRoots == that.outputRoots )
   }
 
   /**
@@ -210,9 +211,8 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   /**
    * A Double.NaN matrix of the same size of the current matrix
    */
-  def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ => Double.NaN }, inputRoots, outputRoots )
+  def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ ⇒ Double.NaN }, inputRoots, outputRoots )
 }
-
 
 object NetworkMatrix {
 
@@ -221,6 +221,6 @@ object NetworkMatrix {
    *
    * @return A new matrix of the size of the given matrix and containing only Double.NaN
    */
-  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ => Double.NaN } toSeq )
+  def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ ⇒ Double.NaN } toSeq )
 
 }

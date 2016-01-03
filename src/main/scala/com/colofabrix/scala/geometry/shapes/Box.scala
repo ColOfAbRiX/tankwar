@@ -20,7 +20,6 @@ import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
 import com.colofabrix.scala.math.Vector2D
 
-
 /**
  * Rectangle shape with edges parallel to the cartesian axis
  *
@@ -33,15 +32,15 @@ import com.colofabrix.scala.math.Vector2D
  * @param topRight Rectangle right-top point, in any quadrant of the plane
  */
 case class Box( bottomLeft: Vector2D, topRight: Vector2D )
-  extends ConvexPolygon(
-    Seq(
-      bottomLeft,
-      Vector2D.new_xy( bottomLeft.x, topRight.y ),
-      topRight,
-      Vector2D.new_xy( topRight.x, bottomLeft.y )
+    extends ConvexPolygon(
+      Seq(
+        bottomLeft,
+        Vector2D.new_xy( bottomLeft.x, topRight.y ),
+        topRight,
+        Vector2D.new_xy( topRight.x, bottomLeft.y )
+      )
     )
-  )
-  with Container {
+    with Container {
 
   require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect their spatial meaning" )
 
@@ -58,7 +57,7 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   /**
    * Center of the Box
    */
-  val center = bottomLeft + Vector2D.new_xy( (topRight.x - bottomLeft.x) / 2.0, (topRight.y - bottomLeft.y) / 2.0 )
+  val center = bottomLeft + Vector2D.new_xy( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
   /**
    * Height of the rectangle
    */
@@ -103,10 +102,10 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   override def intersects( that: Shape ): Boolean = that match {
 
     // Box-circle case I use the code in Circle, as it's already present, and the commutative property of intersection
-    case c: Circle => c.intersects( this )
+    case c: Circle ⇒ c.intersects( this )
 
     // For other comparisons I fell back to the parent
-    case _ => super.intersects( that )
+    case _ ⇒ super.intersects( that )
 
   }
 
@@ -118,7 +117,6 @@ case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   override def renderer = new BoxRenderer( this )
 
 }
-
 
 object Box {
 
@@ -133,22 +131,22 @@ object Box {
   def bestFit( s: Shape ): Container = s match {
 
     // If it's a box, return it - O(1)
-    case b: Box => b
+    case b: Box ⇒ b
 
     // If it's a circle, it's simple to find the enclosing box - O(1)
-    case c: Circle => new Box( c.center, c.radius * 2, c.radius * 2 )
+    case c: Circle ⇒ new Box( c.center, c.radius * 2, c.radius * 2 )
 
     // If it's a polygon, find its limits - O(n)
-    case p: Polygon =>
+    case p: Polygon ⇒
       // Finds the minimum and maximum coordinates for the points
-      var (minX, minY) = (Double.MaxValue, Double.MaxValue)
-      var (maxX, maxY) = (Double.MinValue, Double.MinValue)
+      var ( minX, minY ) = ( Double.MaxValue, Double.MaxValue )
+      var ( maxX, maxY ) = ( Double.MinValue, Double.MinValue )
 
-      for( v <- p.vertices ) {
-        minX = if( minX > v.x ) v.x else minX
-        minY = if( minY > v.y ) v.y else minY
-        maxX = if( maxX < v.x ) v.x else maxX
-        maxY = if( maxY < v.y ) v.y else maxY
+      for ( v ← p.vertices ) {
+        minX = if ( minX > v.x ) v.x else minX
+        minY = if ( minY > v.y ) v.y else minY
+        maxX = if ( maxX < v.x ) v.x else maxX
+        maxY = if ( maxY < v.y ) v.y else maxY
       }
 
       // Creates the Box
@@ -158,7 +156,7 @@ object Box {
       new Box( bottomLeft, topRight )
 
     // Other cases, error
-    case _ => throw new IllegalArgumentException
+    case _ ⇒ throw new IllegalArgumentException
   }
 
 }

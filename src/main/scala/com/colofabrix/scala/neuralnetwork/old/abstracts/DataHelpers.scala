@@ -40,7 +40,6 @@ abstract class InputHelper[T] {
 
 }
 
-
 /**
  * Output helper object
  *

@@ -26,7 +26,7 @@ class KeyboardManager {
   /**
    * The ArrayBuffer of listeners
    */
-  var keyboardListeners = Seq[KeyboardListener]( )
+  var keyboardListeners = Seq[KeyboardListener]()
 
   /**
    * Add a listener to the list
@@ -40,15 +40,15 @@ class KeyboardManager {
   /**
    * Update the keyboard ie poll for input. Called once per frame by the Game
    */
-  def update( ): Unit = {
+  def update(): Unit = {
 
-    while( Keyboard.next( ) ) {
+    while ( Keyboard.next() ) {
       keyboardListeners.filter( _.eventDriven ).foreach {
         _.checkEvent( Keyboard.getEventKey, Keyboard.getEventKeyState )
       }
     }
 
-    keyboardListeners.filter( !_.eventDriven ).foreach( _.update( ) )
+    keyboardListeners.filter( !_.eventDriven ).foreach( _.update() )
 
   }
 

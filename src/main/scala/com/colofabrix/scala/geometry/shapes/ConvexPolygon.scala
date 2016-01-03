@@ -34,10 +34,10 @@ class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
   override def contains( s: Shape ): Boolean = s match {
 
     // For ConvexPolygon-Polygon I check if all the vertices are inside it. This follows from the definition of polygon and applies to
-    case p: Polygon => p.vertices.forall( contains )
+    case p: Polygon ⇒ p.vertices.forall( contains )
 
     // For other comparisons I fell back to the parent
-    case _ => super.contains( s )
+    case _ ⇒ super.contains( s )
   }
 
   /**
@@ -54,25 +54,25 @@ class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
     *
     * @see http://www.sevenson.com.au/actionscript/sat/
     */
-    case cp: ConvexPolygon =>
-      this.edges.map( edge => edge.n ).
+    case cp: ConvexPolygon ⇒
+      this.edges.map( edge ⇒ edge.n ).
         // Chosen an edge of this polygon...
-        forall { edge_normal =>
-        // ...I get the projections of all vertices on the normal of the edge
-        val prVxThis = vertices.map( v => (v -> edge_normal).r )
-        val prVxThat = cp.vertices.map( v => (v -> edge_normal).r )
+        forall { edge_normal ⇒
+          // ...I get the projections of all vertices on the normal of the edge
+          val prVxThis = vertices.map( v ⇒ ( v → edge_normal ).r )
+          val prVxThat = cp.vertices.map( v ⇒ ( v → edge_normal ).r )
 
-        // Then I check if the extremities of the projections of the two polygons overlaps
-        if( prVxThis.min < prVxThat.min ) {
-          prVxThis.max >= prVxThat.min
+          // Then I check if the extremities of the projections of the two polygons overlaps
+          if ( prVxThis.min < prVxThat.min ) {
+            prVxThis.max >= prVxThat.min
+          }
+          else {
+            prVxThat.max >= prVxThis.min
+          }
         }
-        else {
-          prVxThat.max >= prVxThis.min
-        }
-      }
 
     // For other comparisons I fell back to the parent
-    case _ => super.intersects( that )
+    case _ ⇒ super.intersects( that )
 
   }
 }

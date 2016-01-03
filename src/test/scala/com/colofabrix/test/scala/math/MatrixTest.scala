@@ -105,8 +105,8 @@ class MatrixTest extends WordSpec with Matchers {
 
     "to-identity" must {
       val expected = new Matrix(
-        Seq.tabulate( 3, 3 ) { ( i, j ) =>
-          if( i == j ) 1 else 0
+        Seq.tabulate( 3, 3 ) { ( i, j ) ⇒
+          if ( i == j ) 1 else 0
         }
       )
 
@@ -132,8 +132,8 @@ class MatrixTest extends WordSpec with Matchers {
     "mapping" must {
       val expected = new Matrix[Int]( Seq.tabulate( 3, 5 )( 2 * _ * _ ) )
 
-      val map1 = test map { ( x, _, _ ) => 2 * x }
-      val map2 = test map { ( _, i, j ) => 2 * i * j }
+      val map1 = test map { ( x, _, _ ) ⇒ 2 * x }
+      val map2 = test map { ( _, i, j ) ⇒ 2 * i * j }
 
       map1 should equal( expected )
       map2 should equal( expected )
@@ -148,7 +148,7 @@ class MatrixTest extends WordSpec with Matchers {
         )
       )
 
-      test.update( (1, 1), 123 ) should equal( expected )
+      test.update( ( 1, 1 ), 123 ) should equal( expected )
     }
 
     "addition" must {}

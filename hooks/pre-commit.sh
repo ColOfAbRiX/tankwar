@@ -13,44 +13,49 @@
 # GIT_EDITOR=: if the command will not bring up an editor to modify the
 # commit message.
 #
-# The hook should exit with non-zero status after issuing an appropriate
-# message if it wants to stop the commit.
-#
 
-fail_commit() {
+enter() {
+    echo -e "GIT - ENFORCING CODE POLICIES"
+
+    # Stash unstaged changes before running tests
+    git add -A :/
+    #git stash -q --keep-index
+}
+
+exit_success() {
+    # Adding all the files and changes
+    git add -A :/
+
     # Reapply stashed changes
     #git stash pop -q
-    echo "\nERROR: Cannot commit.\n\nThe project didn't pass a policy check and cannot be committed\nCheck your code and try again."
+
+    echo -e "\nThe project successfully completed the code policies checks\n"
     exit 1
 }
 
-echo "GIT - ENFORCING CODE POLICIES"
+exit_fail() {
+    # Reapply stashed changes
+    #git stash pop -q
 
-# Stash unstaged changes before running tests
-#git stash -q --keep-index
+    echo -e "\nERROR: Cannot commit.\n\nThe project didn't pass a policy check and cannot be committed\nCheck your code and try again."
+    exit 1
+}
 
-
-# Cleaning
-sbt clean
+enter
 
 # Compilation check
-echo "\nCheck code compilation...\n"
-sbt compile
-[ $? -ne 0 ] && fail_commit
+echo -e "\nCheck code compilation...\n"
+sbt clean compile
+[ $? -ne 0 ] && exit_fail
 
 # Code style check
-echo "\nCheck coding style...\n"
+echo -e "\nCheck coding style...\n"
 sbt scalastyle
-[ $? -ne 0 ] && fail_commit
+[ $? -ne 0 ] && exit_fail
 
 # Unit testing and code coverage
-echo "\nUnit testing and code coverage...\n"
+echo -e "\nUnit testing and code coverage...\n"
 sbt coverage test
-[ $? -ne 0 ] && fail_commit
+[ $? -ne 0 ] && exit_fail
 
-
-# Reapply stashed changes
-#git stash pop -q
-
-echo "\nThe project successfully completed the policy checks\n"
-exit 1
+exit_success

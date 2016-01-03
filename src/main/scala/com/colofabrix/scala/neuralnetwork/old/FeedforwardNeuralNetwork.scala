@@ -31,9 +31,10 @@ import com.colofabrix.scala.neuralnetwork.old.layers.{ HiddenLayer, InputLayer, 
  */
 class FeedforwardNeuralNetwork(
   val input_layer: InputLayer,
-  val hidden_layers: Seq[HiddenLayer] = Seq( ),
-  val output_layer: OutputLayer = null )
-  extends NeuralNetwork {
+  val hidden_layers: Seq[HiddenLayer] = Seq(),
+  val output_layer: OutputLayer = null
+)
+    extends NeuralNetwork {
 
   override type U = Seq[Double]
 
@@ -49,7 +50,7 @@ class FeedforwardNeuralNetwork(
    * Internally there is no distinction between input/hidden/output layers to allow uniformity
    */
   protected val all_layers: Seq[NeuronLayer] = {
-    if( output_layer == null ) {
+    if ( output_layer == null ) {
       input_layer :: hidden_layers.toList ::: Nil
     }
     else {
@@ -57,21 +58,21 @@ class FeedforwardNeuralNetwork(
     }
   }
 
-  override val biases = for( layer <- all_layers ) yield layer.biases
+  override val biases = for ( layer ← all_layers ) yield layer.biases
 
-  override val weights = for( layer <- all_layers ) yield layer.weights
+  override val weights = for ( layer ← all_layers ) yield layer.weights
 
-  override val activationFunction = for( layer <- all_layers ) yield layer.activationFunction
+  override val activationFunction = for ( layer ← all_layers ) yield layer.activationFunction
 
   override val n_inputs = all_layers.head.n_inputs
 
   override val n_outputs = all_layers.last.n_outputs
 
   override def equals( other: Any ) = other match {
-    case that: FeedforwardNeuralNetwork =>
+    case that: FeedforwardNeuralNetwork ⇒
       this.canEqual( that ) &&
         this.all_layers == that.all_layers
-    case _ => false
+    case _ ⇒ false
   }
 
   override def hashCode: Int = {
@@ -85,7 +86,7 @@ class FeedforwardNeuralNetwork(
   require(
     all_layers.size == 1 ||
       all_layers.iterator.sliding( 2 ).forall {
-        layer => layer( 0 ).n_outputs == layer( 1 ).n_inputs
+        layer ⇒ layer( 0 ).n_outputs == layer( 1 ).n_inputs
       }, "Input/outputs count didn't match between layers"
   )
 
@@ -99,7 +100,7 @@ class FeedforwardNeuralNetwork(
    */
   override def output( inputs: Seq[Double] ): Seq[Double] = {
     // Calculate the output of one layer and use it to feed the next layer
-    all_layers.foldLeft( inputs )( ( input, layer ) => layer.output( input ) )
+    all_layers.foldLeft( inputs )( ( input, layer ) ⇒ layer.output( input ) )
   }
 
   /**

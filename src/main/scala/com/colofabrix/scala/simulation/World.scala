@@ -45,15 +45,16 @@ import scala.util.Random
  * @param _initialTanks The tanks present in the world
  */
 class World(
-  val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
-  val max_tank_speed: Double = 5,
-  val max_tank_rotation: Double = 15 * 2.0 * Math.PI / 360,
-  val max_bullet_speed: Double = 4,
-  val bullet_life: Int = 25,
-  val max_sight: Double = 62831.853071795864, // Area for a total radius of 100
-  val max_rounds: Int = 1000,
-  val dead_time: Double = 0.2,
-  _initialTanks: List[Tank] = List( ) ) {
+    val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
+    val max_tank_speed: Double = 5,
+    val max_tank_rotation: Double = 15 * 2.0 * Math.PI / 360,
+    val max_bullet_speed: Double = 4,
+    val bullet_life: Int = 25,
+    val max_sight: Double = 62831.853071795864, // Area for a total radius of 100
+    val max_rounds: Int = 1000,
+    val dead_time: Double = 0.2,
+    _initialTanks: List[Tank] = List()
+) {
 
   require( arena.width > 0 && arena.height > 0, "The arena must not be a point" )
   require( max_tank_rotation > 0, "The maximum angular speed must be positive" )
@@ -65,16 +66,16 @@ class World(
   require( dead_time >= 0 && dead_time <= 1.0, "The dead time percentage must be between 0 and 1" )
 
   private val _counters = collection.mutable.HashMap(
-    "hits" -> 0,
-    "shots" -> 0,
-    "bannedForPosition" -> 0,
-    "bannedForSpeed" -> 0,
-    "bannedForSpeed" -> 0,
-    "seenTanks" -> 0,
-    "seenBullets" -> 0
+    "hits" → 0,
+    "shots" → 0,
+    "bannedForPosition" → 0,
+    "bannedForSpeed" → 0,
+    "bannedForSpeed" → 0,
+    "seenTanks" → 0,
+    "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets = DummyQuadtree[Bullet]( arena, List( ) )
+  private var _bullets = DummyQuadtree[Bullet]( arena, List() )
   private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks )
   private var _time: Long = 0
   /**
@@ -108,9 +109,9 @@ class World(
    */
   def createAndAddDefaultTank( reader: DataReader ): Tank = {
     val chromosome = new TankChromosome(
-      Seq( ),
-      Seq( ),
-      2.0 * Math.PI * new Random( ).nextDouble( ),
+      Seq(),
+      Seq(),
+      2.0 * Math.PI * new Random().nextDouble(),
       Tank.defaultSightRatio,
       Tank.defaultRange,
       Tank.defaultActivationFunction,
@@ -164,17 +165,17 @@ class World(
     _time = 0
 
     // Reinitialize the Tanks
-    _tanks = _tanks.clear( )
-    for( t <- tankList ) {
-      t.clear( )
+    _tanks = _tanks.clear()
+    for ( t ← tankList ) {
+      t.clear()
       _tanks = _tanks + t
     }
 
     // Clear all bullets
-    _bullets = _bullets.clear( )
+    _bullets = _bullets.clear()
 
     // Reset dei counter
-    _counters.foreach { case (k, v) => resCounter( k ) }
+    _counters.foreach { case ( k, v ) ⇒ resCounter( k ) }
   }
 
   /**
@@ -183,7 +184,7 @@ class World(
    * @param counter The counter to reset
    */
   private def resCounter( counter: String ): Unit = {
-    _counters += (counter -> 0)
+    _counters += ( counter → 0 )
   }
 
   /**
@@ -192,16 +193,16 @@ class World(
    * It first moves tanks and thus manages tanks firing. It then
    * handles bullets and collision between bullets and tanks
    */
-  def step( ): Unit = {
+  def step(): Unit = {
     _time += 1
 
     // Refresh of the position of the objects in the lists
-    _tanks = _tanks.refresh( )
-    _bullets = _bullets.refresh( )
+    _tanks = _tanks.refresh()
+    _bullets = _bullets.refresh()
 
     // Managing tanks
-    for( tank <- tanks.par ) {
-      if( !tank.isDead ) {
+    for ( tank ← tanks.par ) {
+      if ( !tank.isDead ) {
         manageAliveTank( tank )
       }
       else {
@@ -213,8 +214,8 @@ class World(
     bullets.par.foreach( manageBullet )
 
     // Update the graphic object and render everything
-    UIManager.update( )
-    GFXManager.render( )
+    UIManager.update()
+    GFXManager.render()
   }
 
   /**
@@ -236,8 +237,8 @@ class World(
    * @param tank The tank to manage
    */
   private def manageDeadTank( tank: Tank ): Unit = {
-    if( tank.surviveTime + max_rounds * dead_time < _time ) {
-      tank.on_respawn( )
+    if ( tank.surviveTime + max_rounds * dead_time < _time ) {
+      tank.on_respawn()
     }
   }
 
@@ -252,13 +253,13 @@ class World(
    * @param tank The tank to manage
    */
   private def manageAliveTank( tank: Tank ): Unit = {
-    tank.step( )
+    tank.step()
 
     // Arena boundary check
     check_limit(
-      ( ) => arena.contains( tank.position ),
-      ( ) => tank.on_hitsWalls( ),
-      ( ) => {
+      () ⇒ arena.contains( tank.position ),
+      () ⇒ tank.on_hitsWalls(),
+      () ⇒ {
         _tanks = _tanks - tank
         incCounter( "bannedForPosition" )
       }
@@ -266,9 +267,9 @@ class World(
 
     // Speed limit check
     check_limit(
-      ( ) => tank.speed.x <= max_tank_speed || tank.speed.y <= max_tank_speed,
-      ( ) => tank.on_maxSpeedReached( max_tank_speed ),
-      ( ) => {
+      () ⇒ tank.speed.x <= max_tank_speed || tank.speed.y <= max_tank_speed,
+      () ⇒ tank.on_maxSpeedReached( max_tank_speed ),
+      () ⇒ {
         _tanks = _tanks - tank
         incCounter( "bannedForSpeed" )
       }
@@ -276,9 +277,9 @@ class World(
 
     // Angular speed limit check
     check_limit(
-      ( ) => tank.angularSpeed <= max_tank_rotation,
-      ( ) => tank.on_maxAngularSpeedReached( max_tank_rotation ),
-      ( ) => {
+      () ⇒ tank.angularSpeed <= max_tank_rotation,
+      () ⇒ tank.on_maxAngularSpeedReached( max_tank_rotation ),
+      () ⇒ {
         _tanks = _tanks - tank
         incCounter( "bannedForAngularSpeed" )
       }
@@ -286,9 +287,9 @@ class World(
 
     // Maximum sight boundary
     check_limit(
-      ( ) => tank.sight( classOf[Tank] ).area + tank.sight( classOf[Bullet] ).area <= max_sight,
-      ( ) => tank.on_sightExceedingMax( max_sight ),
-      ( ) => {
+      () ⇒ tank.sight( classOf[Tank] ).area + tank.sight( classOf[Bullet] ).area <= max_sight,
+      () ⇒ tank.on_sightExceedingMax( max_sight ),
+      () ⇒ {
         _tanks = _tanks - tank
         incCounter( "bannedForSight" )
       }
@@ -297,19 +298,19 @@ class World(
     // Tank/Tank sight (when a tank crosses the vision area of the current tank)
     _tanks
       .lookAround( tank.sight( classOf[Tank] ) )
-      .filter( t => !t.isDead && t != tank )
+      .filter( t ⇒ !t.isDead && t != tank )
       .foreach {
-      otherTank =>
-        interactionTankTank( tank, otherTank )
-    }
+        otherTank ⇒
+          interactionTankTank( tank, otherTank )
+      }
 
     // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
     _bullets
       .lookAround( tank.sight( classOf[Bullet] ) )
       .foreach {
-      bullet =>
-        interactionTankBullet( tank, bullet )
-    }
+        bullet ⇒
+          interactionTankBullet( tank, bullet )
+      }
   }
 
   /**
@@ -320,12 +321,12 @@ class World(
    */
   private def interactionTankBullet( tank: Tank, bullet: Bullet ): Unit = {
     // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
-    if( tank.sight( classOf[Bullet] ).intersects( bullet.objectShape ) && bullet.tank != tank && !bullet.tank.isDead ) {
+    if ( tank.sight( classOf[Bullet] ).intersects( bullet.objectShape ) && bullet.tank != tank && !bullet.tank.isDead ) {
       tank.on_objectOnSight( bullet )
       incCounter( "seenBullets" )
     }
 
-    if( bullet.touches( tank ) && bullet.tank != tank ) {
+    if ( bullet.touches( tank ) && bullet.tank != tank ) {
       this.on_tankHit( tank, bullet )
     }
   }
@@ -338,7 +339,7 @@ class World(
    */
   def on_tankHit( tank: Tank, bullet: Bullet ): Unit = {
     // Prevent a dead tank to kill another tank
-    if( !bullet.tank.isDead ) {
+    if ( !bullet.tank.isDead ) {
 
       // Inform the tank that shot the bullet
       bullet.tank.on_hits( new Causality( tank ) )
@@ -359,12 +360,12 @@ class World(
    */
   private def interactionTankTank( tank: Tank, otherTank: Tank ): Unit = {
     // If a tank overlaps a Tank's sight then I inform the Tank
-    if( tank.sight( classOf[Tank] ).intersects( otherTank.objectShape ) ) {
+    if ( tank.sight( classOf[Tank] ).intersects( otherTank.objectShape ) ) {
       tank.on_objectOnSight( otherTank )
       incCounter( "seenTanks" )
     }
 
-    if( otherTank.touches( tank ) ) {
+    if ( otherTank.touches( tank ) ) {
       tank.on_hits( otherTank )
       otherTank.on_isHit( tank )
     }
@@ -376,7 +377,7 @@ class World(
    * @param counter The counter to increment
    */
   private def incCounter( counter: String ): Unit = {
-    _counters += (counter -> (_counters( counter ) + 1))
+    _counters += ( counter → ( _counters( counter ) + 1 ) )
   }
 
   /**
@@ -387,11 +388,11 @@ class World(
    * @param notify Function to call to notify an entity the first time check is found to be equals to false
    * @param action The action to take if check equals false for a second time
    */
-  private def check_limit( check: () => Boolean, notify: () => Unit, action: () => Unit ): Unit = {
-    if( !check( ) ) {
-      notify( )
-      if( !check( ) ) {
-        action( )
+  private def check_limit( check: () ⇒ Boolean, notify: () ⇒ Unit, action: () ⇒ Unit ): Unit = {
+    if ( !check() ) {
+      notify()
+      if ( !check() ) {
+        action()
       }
     }
   }
@@ -407,19 +408,19 @@ class World(
    * @param bullet The bullet to manage
    */
   private def manageBullet( bullet: Bullet ): Unit = {
-    bullet.step( )
+    bullet.step()
 
     // Arena boundary check
     check_limit(
-      ( ) => arena.contains( bullet.position ),
-      ( ) => bullet.on_hitsWalls( ),
-      ( ) => {
+      () ⇒ arena.contains( bullet.position ),
+      () ⇒ bullet.on_hitsWalls(),
+      () ⇒ {
         _bullets = _bullets - bullet
       }
     )
 
     // Check the lifespan of a bullet
-    if( bullet.life >= bullet_life || bullet.tank.isDead ) {
+    if ( bullet.life >= bullet_life || bullet.tank.isDead ) {
       _bullets = _bullets - bullet
     }
   }

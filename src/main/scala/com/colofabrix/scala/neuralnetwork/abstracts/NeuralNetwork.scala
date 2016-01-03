@@ -88,8 +88,8 @@ trait NeuralNetwork {
    * @param other The other object to check
    */
   override final def equals( other: Any ): Boolean = other match {
-    case that: NeuralNetwork => matrix equals that.matrix
-    case _ => false
+    case that: NeuralNetwork ⇒ matrix equals that.matrix
+    case _ ⇒ false
   }
 
   /**
@@ -97,7 +97,7 @@ trait NeuralNetwork {
    *
    * @return A number identifying the network
    */
-  override def hashCode: Int = matrix.hashCode( )
+  override def hashCode: Int = matrix.hashCode()
 
   /**
    * Gets a string representation of the neural network
@@ -105,7 +105,7 @@ trait NeuralNetwork {
    * @return A string containing the representation of weights and biases of the neural network
    */
   override def toString = {
-    val text = this.getClass + "(" + matrix.toString( ) + ")"
+    val text = this.getClass + "(" + matrix.toString() + ")"
     text.replace( "class ", "" ).replace( "List", "" ).replaceFirst( """(\w+\.)*""", "" )
   }
 
@@ -120,7 +120,6 @@ trait NeuralNetwork {
   lazy val isForwardOnly: Boolean = matrix.isForwardOnly
 
 }
-
 
 object NeuralNetwork {
 
@@ -139,7 +138,7 @@ object NeuralNetwork {
    * @param network Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
-  def analiseNetwork( network: NetworkMatrix, rootIndex: Int ): (Matrix[Double], Matrix[Double], Matrix[Double]) = {
+  def analiseNetwork( network: NetworkMatrix, rootIndex: Int ): ( Matrix[Double], Matrix[Double], Matrix[Double] ) = {
     val matrix = network.adjacencyOnly
 
     require( network.inputRoots.contains( rootIndex ), "The specified input is not within the input matrix" )
@@ -154,23 +153,23 @@ object NeuralNetwork {
     val cross = NetworkMatrix.toNaN( matrix ).toBuffer
 
     // Tree search stack
-    val searchStack = new mutable.Stack[Int]( )
+    val searchStack = new mutable.Stack[Int]()
     // List of already discovered nodes.
     val visited = ArrayBuffer.fill( matrix.rows )( ArrayBuffer.fill( matrix.rows )( false ) )
     // List of the ancestors of the currently explored node
-    val ancestors = ArrayBuffer.fill( matrix.rows )( new ArrayBuffer[Int]( ) )
+    val ancestors = ArrayBuffer.fill( matrix.rows )( new ArrayBuffer[Int]() )
 
     // Initial node
     searchStack.push( rootIndex )
 
     // Loop until there are nodes to visit
-    while( searchStack.nonEmpty ) {
+    while ( searchStack.nonEmpty ) {
 
       // Get the node to explore
-      val current = searchStack.pop( )
+      val current = searchStack.pop()
 
       // Process a node that hasn't been visited yet
-      if( !visited( rootIndex )( current ) ) {
+      if ( !visited( rootIndex )( current ) ) {
         // Mark the node as visited
         visited( rootIndex )( current ) = true
 
@@ -180,16 +179,16 @@ object NeuralNetwork {
           .filter( !_._1.isNaN )
 
         // Go through the children
-        for( (value, child) ← adjacentForwardNodes ) {
+        for ( ( value, child ) ← adjacentForwardNodes ) {
           ancestors( child ) += current
 
-          if( !visited( rootIndex )( child ) && !searchStack.contains( child ) ) {
+          if ( !visited( rootIndex )( child ) && !searchStack.contains( child ) ) {
             // Child not been seen before. Add it as a new node to explore and update the forward matrix
             forward( current )( child ) = value
             searchStack.push( child )
           }
           else {
-            if( !ancestors( current ).contains( child ) ) {
+            if ( !ancestors( current ).contains( child ) ) {
               // The child has been seen before, but it's not an ancestor. Just update the cross matrix {
               cross( current )( child ) = value
             }
@@ -203,6 +202,6 @@ object NeuralNetwork {
       }
     }
 
-    (new Matrix( forward ), new Matrix( back ), new Matrix( cross ))
+    ( new Matrix( forward ), new Matrix( back ), new Matrix( cross ) )
   }
 }

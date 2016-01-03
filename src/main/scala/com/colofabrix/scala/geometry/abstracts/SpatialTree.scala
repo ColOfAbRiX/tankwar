@@ -38,7 +38,7 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable {
    *
    * @return A new Quadtree with 4 new subnodes
    */
-  protected def split( ): SpatialTree[T]
+  protected def split(): SpatialTree[T]
 
   /**
    * Remove the object from the quadtree.
@@ -73,7 +73,7 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable {
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  def clear( ): SpatialTree[T]
+  def clear(): SpatialTree[T]
 
   /**
    * The maximum depth of the Quadtree
@@ -112,7 +112,7 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable {
    *
    * @return A new instance of a SpatialTree with the updated objects
    */
-  def refresh( ): SpatialTree[T]
+  def refresh(): SpatialTree[T]
 
   /**
    * An object responsible to renderer the class where this trait is applied
@@ -169,7 +169,7 @@ object SpatialTree {
    * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
    * @return A new instance of LinkedQuadtreeTmp
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List( ), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
+  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List(), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
     LinkedQuadtree[T]( bounds, initialSet, splitSize, depth )
   }
 

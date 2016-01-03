@@ -37,7 +37,6 @@ trait DataReader {
   def layerReaders: Seq[LayerReader]
 }
 
-
 /**
  * It provides the data for a layer
  */

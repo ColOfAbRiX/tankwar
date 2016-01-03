@@ -20,7 +20,6 @@ import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
-
 /**
  * Renders the Background of the screen.
  *

@@ -25,13 +25,13 @@ import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilde
  * Tank with identical chromosomes behave in the same way
  */
 case class TankChromosome(
-  biases: Seq[Seq[Double]],
-  weights: Seq[Seq[Seq[Double]]],
-  rotationRef: Double,
-  sightRatio: Double,
-  valueRange: Double,
-  activationFunction: Seq[String],
-  brainBuilder: StructureBuilder
+    biases: Seq[Seq[Double]],
+    weights: Seq[Seq[Seq[Double]]],
+    rotationRef: Double,
+    sightRatio: Double,
+    valueRange: Double,
+    activationFunction: Seq[String],
+    brainBuilder: StructureBuilder
 ) {
 
   /**
@@ -44,7 +44,6 @@ case class TankChromosome(
   )
 
 }
-
 
 object TankChromosome {
 
@@ -68,14 +67,12 @@ object TankChromosome {
 
 }
 
-
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
  */
 object BrainOutputHelper {
   val count = 4
 }
-
 
 /**
  * Support class used as an interface between the output of the NN and the `Tank`
@@ -91,14 +88,12 @@ class BrainOutputHelper( outputs: Seq[Double] ) extends OutputHelper[Double]( ou
   val speed = Vector2D.new_xy( outputs( 0 ), outputs( 1 ) )
 }
 
-
 /**
  * Support class used as an interface between the `Tank` and the input of the NN
  */
 object BrainInputHelper {
   val count = 17
 }
-
 
 /**
  * Support class used as an interface between the `Tank` and the input of the NN
@@ -117,16 +112,16 @@ object BrainInputHelper {
  * @param seenBulletsSpeed Speed vector of a seen bullet
  */
 class BrainInputHelper(
-  world: World,
-  pos: Vector2D,
-  speed: Vector2D,
-  rot: Vector2D,
-  seenTanksPos: Vector2D,
-  seenTanksSpeed: Vector2D,
-  seenBulletsPos: Vector2D,
-  closerBulletPos: Vector2D,
-  closerBulletSpeed: Vector2D,
-  seenBulletsSpeed: Vector2D
+    world: World,
+    pos: Vector2D,
+    speed: Vector2D,
+    rot: Vector2D,
+    seenTanksPos: Vector2D,
+    seenTanksSpeed: Vector2D,
+    seenBulletsPos: Vector2D,
+    closerBulletPos: Vector2D,
+    closerBulletSpeed: Vector2D,
+    seenBulletsSpeed: Vector2D
 ) extends InputHelper[Double] {
 
   private val TWO_PI = 2.0 * Math.PI

@@ -37,8 +37,9 @@ abstract class NeuronLayer(
   override val n_inputs: Int,
   override val n_outputs: Int,
   override val biases: Seq[Double],
-  override val weights: Seq[Seq[Double]] )
-  extends NeuralNetwork {
+  override val weights: Seq[Seq[Double]]
+)
+    extends NeuralNetwork {
   // An activation function must be provided
   require( activation != null )
   // There must be at least a neuron
@@ -63,12 +64,12 @@ abstract class NeuronLayer(
    * @return true if two objects represents the same layer
    */
   override def equals( other: Any ) = other match {
-    case that: NeuronLayer =>
+    case that: NeuronLayer ⇒
       this.canEqual( that ) &&
         this.biases == that.biases &&
         this.weights == that.weights &&
         this.activation == that.activation
-    case _ => false
+    case _ ⇒ false
   }
 
   override def hashCode: Int =
@@ -76,9 +77,9 @@ abstract class NeuronLayer(
       41 * (
         41 * (
           41 + this.activation.hashCode
-          ) + this.biases.hashCode
-        ) + this.weights.hashCode
-      ) + this.activation.hashCode
+        ) + this.biases.hashCode
+      ) + this.weights.hashCode
+    ) + this.activation.hashCode
 
   protected def canEqual( other: Any ): Boolean =
     other.isInstanceOf[NeuronLayer]
@@ -93,10 +94,9 @@ abstract class NeuronLayer(
    */
   def output( inputs: Seq[Double] ): Seq[Double] = {
     // The given input values must match the NN configuration
-    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length }) must match the number of set inputs for the layer ($n_inputs)" )
+    require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
 
-    for( o <- 0 until n_outputs ) yield
-    activation( (inputs zip weights( o ) map { case (i, w) => i * w } sum) + biases( o ) )
+    for ( o ← 0 until n_outputs ) yield activation( ( inputs zip weights( o ) map { case ( i, w ) ⇒ i * w } sum ) + biases( o ) )
   }
 
   /**

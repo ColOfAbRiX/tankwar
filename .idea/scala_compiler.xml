@@ -23,7 +23,6 @@
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
       <parameters>
-        <parameter value="-P:wartremover:traverser:org.brianmckenna.wartremover.warts.Nothing" />
         <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Any" />
         <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Any2StringAdd" />
         <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.AsInstanceOf" />

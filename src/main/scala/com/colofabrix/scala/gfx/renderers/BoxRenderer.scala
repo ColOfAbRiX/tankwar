@@ -21,7 +21,6 @@ import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import org.lwjgl.opengl.GL11._
 
-
 /**
  * Renders a box to the screen
  *
@@ -31,7 +30,7 @@ import org.lwjgl.opengl.GL11._
  * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
 class BoxRenderer( val box: Box, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
-  extends Renderer {
+    extends Renderer {
 
   /**
    * Render a box to the screen
@@ -44,7 +43,7 @@ class BoxRenderer( val box: Box, filled: Boolean = false, defaultFrame: Frame = 
 
       applyContext( Frame( _position = box.bottomLeft ) ) {
 
-        val mode = if( filled ) GL_QUADS else GL_LINE_LOOP
+        val mode = if ( filled ) GL_QUADS else GL_LINE_LOOP
         drawOpenGL( mode ) {
           glVertex2d( 0, 0 )
           glVertex2d( box.width, 0 )

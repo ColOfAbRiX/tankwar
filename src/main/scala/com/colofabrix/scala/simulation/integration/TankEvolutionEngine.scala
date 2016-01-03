@@ -25,7 +25,6 @@ import org.uncommons.watchmaker.framework.{ CandidateFactory, EvolutionaryOperat
 
 import scala.collection.JavaConversions._
 
-
 /**
  * This `EvolutionEngine` takes care of run a competition between
  * all the Tanks after a new generation is created
@@ -35,8 +34,9 @@ class TankEvolutionEngine(
   evolutionScheme: EvolutionaryOperator[Tank],
   fitnessEvaluator: FitnessEvaluator[_ >: Tank],
   selectionStrategy: SelectionStrategy[_ >: Tank],
-  rng: Random )
-  extends GameEvolutionEngine[Tank]( candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng ) {
+  rng: Random
+)
+    extends GameEvolutionEngine[Tank]( candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng ) {
 
   /**
    * This method runs the competition between the individuals of the population
@@ -49,8 +49,8 @@ class TankEvolutionEngine(
    */
   override protected def runCompetition( population: util.List[Tank] ): util.List[Tank] = {
 
-    if( population.size == 0 ) {
-      return List( )
+    if ( population.size == 0 ) {
+      return List()
     }
 
     // Safest way to reference the world is using one of the Tanks
@@ -61,7 +61,7 @@ class TankEvolutionEngine(
 
     // Runs the competition
     measureTime( "Time for a round: $time" ) {
-      world.rounds foreach { _ => world.step( ) }
+      world.rounds foreach { _ ⇒ world.step() }
     }
 
     // Returns the population

@@ -36,8 +36,9 @@ import scala.collection.mutable.ArrayBuffer
  */
 abstract class AbstractStatelessNetwork(
   override val matrix: NetworkMatrix,
-  override val af: ActivationFunction )
-  extends NeuralNetwork {
+  override val af: ActivationFunction
+)
+    extends NeuralNetwork {
 
   //
   // INITIALIZATION CONSTRAINTS
@@ -47,8 +48,10 @@ abstract class AbstractStatelessNetwork(
   require( matrix.rows >= inputCount + outputCount + 1, "The adjacency matrix must be define for at least the inputs and the outputs plus biases" )
   require( matrix.cols >= inputCount + outputCount, "The size of weights must match the input/output numbers" )
   require( !matrix.isAllNaN, "The biases must always be numeric" )
-  require( this.isAcyclic,
-    "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)" )
+  require(
+    this.isAcyclic,
+    "The adjacency matrix must represent a non-recurrent, forward-only neural network (the graph must be acyclic and with no cross edges)"
+  )
 
   /**
    * Calculate the output of the Neural Network
@@ -84,22 +87,22 @@ abstract class AbstractStatelessNetwork(
     val outputs = ArrayBuffer.fill( matrix.rows - 1 )( Double.NaN )
 
     // Calculate the sum of the weighted inputs using the output vector
-    for( i ← 0 until matrix.rows; j ← 0 until matrix.cols ) {
+    for ( i ← 0 until matrix.rows; j ← 0 until matrix.cols ) {
       // The inputs are multiplied by the weight of the neuron they feed
       val weightedInput = inputs( i ) * matrix( i, j )
 
       // I have to deal with the NaN values: I process the weightedInput only if it's not NaN
-      if( !weightedInput.isNaN ) {
+      if ( !weightedInput.isNaN ) {
         // The output matrix too contains NaN values, that I have to revert if I have to make calculations.
         // Except with the bias weights, as they are always not NaN and would always been added, also for invalid outputs
-        if( outputs( j ).isNaN && i < matrix.rows - 1 ) outputs( j ) = 0.0
+        if ( outputs( j ).isNaN && i < matrix.rows - 1 ) outputs( j ) = 0.0
         // Sum the weightedInputs here, to save a for-loop later. The AF is applied later, if needed
         outputs( j ) += weightedInput
       }
     }
 
     // If there's nothing more to process, return the result
-    if( outputs.forall( _.isNaN ) ) {
+    if ( outputs.forall( _.isNaN ) ) {
       return inputs
     }
 

@@ -32,7 +32,7 @@ import scala.collection.JavaConversions._
 class TankFactory( world: World ) extends AbstractCandidateFactory[Tank] {
 
   override def generateInitialPopulation( i: Int, random: Random ): util.List[Tank] = {
-    (0 until i).foreach( _ => generateRandomCandidate( random ) )
+    ( 0 until i ).foreach( _ ⇒ generateRandomCandidate( random ) )
     world.tanks
   }
 

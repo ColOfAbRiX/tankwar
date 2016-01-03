@@ -47,7 +47,7 @@ trait PhysicalObject {
    * `
    * @return A new `PhysicalObject` where its internal status has been reset
    */
-  def clear( ): Unit
+  def clear(): Unit
 
   /**
    * Position of the center of the object
@@ -111,7 +111,7 @@ trait PhysicalObject {
    * In other words, this method will perform the needed calculations to updated all the internal field of the objects
    * like the position in the next step, speed and so on.
    */
-  def step( ): Unit
+  def step(): Unit
 
   /**
    * Determines if a point lies inside the Shape
@@ -148,12 +148,12 @@ trait PhysicalObject {
    *
    * @return A string in the format of a CSV
    */
-  def record = s"$id,${world.time },${position.x },${position.y },${speed.x },${speed.y }"
+  def record = s"$id,${world.time},${position.x},${position.y},${speed.x},${speed.y}"
 
   /**
    * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
    */
-  def on_hitsWalls( ): Unit
+  def on_hitsWalls(): Unit
 
   /**
    * Callback function used to signal the {PhysicalObject} that is moving faster than the maximum allowed speed
@@ -168,5 +168,5 @@ trait PhysicalObject {
   /**
    * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
    */
-  def on_respawn( ): Unit
+  def on_respawn(): Unit
 }

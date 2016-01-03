@@ -33,9 +33,10 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.{ ActivationFunction, Ne
 class OutputLayer(
   activation: ActivationFunction,
   n_inputs: Int, n_outputs: Int,
-  biases: Seq[Double], weights: Seq[Seq[Double]] )
-  extends NeuronLayer(
-    activation,
-    n_inputs, n_outputs,
-    biases, weights
-  )
+  biases: Seq[Double], weights: Seq[Seq[Double]]
+)
+    extends NeuronLayer(
+      activation,
+      n_inputs, n_outputs,
+      biases, weights
+    )

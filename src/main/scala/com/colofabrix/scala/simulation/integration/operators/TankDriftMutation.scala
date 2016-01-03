@@ -28,7 +28,7 @@ import org.uncommons.maths.random.Probability
  * by a proper distribution generator
  */
 class TankDriftMutation( probability: Probability, generator: NumberGenerator[java.lang.Double] )
-  extends TankFullMutation( probability ) {
+    extends TankFullMutation( probability ) {
 
   /**
    * Rules that defines how to mutate
@@ -44,7 +44,7 @@ class TankDriftMutation( probability: Probability, generator: NumberGenerator[ja
    * @return The old value or a new mutated value
    */
   override def mutationRule( scale: Double )( x: Double, rng: Random ) = {
-    if( rng.nextDouble <= probability.doubleValue ) {
+    if ( rng.nextDouble <= probability.doubleValue ) {
       x + generator.nextValue
     }
     else {

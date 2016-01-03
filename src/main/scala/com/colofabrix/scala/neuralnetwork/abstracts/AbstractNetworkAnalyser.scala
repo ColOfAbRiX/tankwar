@@ -32,7 +32,7 @@ import com.colofabrix.scala.simulation.{ BrainInputHelper, World }
  */
 // FIXME: Remove the usage of {world}. It is there only to provide data for a badly designed {BrainInputHelper}
 abstract class AbstractNetworkAnalyser( val world: World, val network: com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork )
-  extends NetworkAnalyser {
+    extends NetworkAnalyser {
 
   /**
    * First line that will be written to the output stream, usually the header of the CSV file
@@ -54,7 +54,7 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
    *
    * @return A list of tuples constructed like:
    */
-  def plotDefinitions: List[(Int, Double, Double, Double)]
+  def plotDefinitions: List[( Int, Double, Double, Double )]
 
   /**
    * Contains the definition of the tests that will be performed during the run. The list will be filled
@@ -63,7 +63,7 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
    *
    * @return A list of functions that run the test, each of which are called in the sequence found in the list
    */
-  def testDefinitions: List[(PrintWriter => Unit)]
+  def testDefinitions: List[( PrintWriter ⇒ Unit )]
 
   /**
    * Performs the numerical analysis of the network
@@ -79,19 +79,19 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
     val currentIndex = plotIndexes.head
 
     // Extracts the definition of the plot from the list
-    val (input, start, end, points) = plotDefinitions( currentIndex )
+    val ( input, start, end, points ) = plotDefinitions( currentIndex )
 
     // The list of the input values to plot
-    val range = start.to( end, (end - start) / points )
+    val range = start.to( end, ( end - start ) / points )
 
-    range.foreach { x =>
+    range.foreach { x ⇒
       // Modify the value of the current input
       val inputs = inputBase.patch( input, Seq( x ), 1 )
 
-      if( plotIndexes.length == 1 ) {
+      if ( plotIndexes.length == 1 ) {
         // If there is only one value to plot, then plot it
         val outputs = network.output( new BrainInputHelper( world, inputs ) )
-        writer.write( s"${inputs.mkString( ";" ) };${outputs.mkString( ";" ) }\n".replace( ".", "," ) )
+        writer.write( s"${inputs.mkString( ";" )};${outputs.mkString( ";" )}\n".replace( ".", "," ) )
       }
       else {
         // If there is more than one value to plot, recursively call this function over the remaining indexes { {

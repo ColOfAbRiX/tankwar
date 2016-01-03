@@ -31,21 +31,20 @@ import scala.language.implicitConversions
  * @param _cartesian The ending point of a origin centered vector in cartesian coordinates
  * @param _polar The ending point of a origin centered vector in polar coordinates
  */
-case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
+case class Vector2D private ( _cartesian: CartesianCoord, _polar: PolarCoord ) {
   require( _cartesian != null || _polar != null, "A set of coordinates must be specified" )
-
 
   import com.colofabrix.scala.math.Vector2DImplicits._
 
   /**
    * Cartesian representation of this vectors
    */
-  lazy val cartesian: CartesianCoord = if( _cartesian == null ) CoordinatesImplicits.Polar2Cartesian( polar ) else _cartesian
+  lazy val cartesian: CartesianCoord = if ( _cartesian == null ) CoordinatesImplicits.Polar2Cartesian( polar ) else _cartesian
 
   /**
    * Polar representation of this vectors
    */
-  lazy val polar: PolarCoord = if( _polar == null ) CoordinatesImplicits.Cartesian2Polar( cartesian ) else _polar
+  lazy val polar: PolarCoord = if ( _polar == null ) CoordinatesImplicits.Cartesian2Polar( cartesian ) else _polar
 
   /**
    * Distance on the X-Axis
@@ -84,7 +83,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: Double => Double ): Vector2D = Vector2D.new_xy( t( this.x ), t( this.y ) )
+  def :=( t: Double ⇒ Double ): Vector2D = Vector2D.new_xy( t( this.x ), t( this.y ) )
 
   /**
    * Apply a transformation to the point
@@ -96,7 +95,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def :=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_xy( t( this.x, 0 ), t( this.y, 1 ) )
+  def :=( t: ( Double, Int ) ⇒ Double ): Vector2D = Vector2D.new_xy( t( this.x, 0 ), t( this.y, 1 ) )
 
   /**
    * Map a point through another one
@@ -118,7 +117,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: Double => Double ): Vector2D = Vector2D.new_rt( t( this.r ), t( this.t ) )
+  def @=( t: Double ⇒ Double ): Vector2D = Vector2D.new_rt( t( this.r ), t( this.t ) )
 
   /**
    * Apply a transformation to the point
@@ -130,7 +129,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @return A new point which is a transformation of the current one
    */
   @inline
-  def @=( t: (Double, Int) => Double ): Vector2D = Vector2D.new_rt( t( this.r, 2 ), t( this.t, 3 ) )
+  def @=( t: ( Double, Int ) ⇒ Double ): Vector2D = Vector2D.new_rt( t( this.r, 2 ), t( this.t, 3 ) )
 
   /**
    * Map a point through another one
@@ -149,7 +148,7 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
    * @param that The vector identifying the projection axis
    */
   @inline
-  def ->( that: Vector2D ): Vector2D = this.r * cos( this.t - that.t ) * that.v
+  def → ( that: Vector2D ): Vector2D = this.r * cos( this.t - that.t ) * that.v
 
   /**
    * Rotates the vector of a given angle
@@ -360,7 +359,6 @@ case class Vector2D private( _cartesian: CartesianCoord, _polar: PolarCoord ) {
   override def toString: String = s"Vector[C($x, $y), P($r, $t)]"
 }
 
-
 object Vector2D {
 
   /**
@@ -413,7 +411,6 @@ object Vector2D {
    */
   def zero = origin
 }
-
 
 /**
  * Implicits for Vector2D

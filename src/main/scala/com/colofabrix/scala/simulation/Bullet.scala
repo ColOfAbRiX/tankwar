@@ -30,7 +30,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
 class Bullet( override val world: World, val tank: Tank, val properSpeed: Double )
-  extends PhysicalObject with Renderable {
+    extends PhysicalObject with Renderable {
 
   import Math._
 
@@ -41,7 +41,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
    * `
    * @return A new `PhysicalObject` where its internal status has been reset
    */
-  override def clear( ): Unit = {}
+  override def clear(): Unit = {}
 
   /**
    * Life of the bullet
@@ -65,7 +65,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
    * @return The current speed of a bullet
    */
   _speed = Vector2D.new_rt( properSpeed, tank.rotation.t ) + tank.speed
-  _speed = _speed := { x => max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
+  _speed = _speed := { x ⇒ max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
 
   /**
    * Physical boundary of the bullet.
@@ -77,7 +77,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
    *
    * If a bullet hits a wall nothing is done, as we want the {World} to remove it, as if it simply flew away.
    */
-  override def on_hitsWalls( ): Unit = {}
+  override def on_hitsWalls(): Unit = {}
 
   /**
    * Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
@@ -99,14 +99,14 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
    *
    * Bullets are never respawned, so the implementation is empty
    */
-  override def on_respawn( ): Unit = {}
+  override def on_respawn(): Unit = {}
 
   def renderer: Renderer = new BulletRenderer( this )
 
   /**
    * Moves the bullet one step into the future.
    */
-  override def step( ): Unit = {
+  override def step(): Unit = {
     _life += 1
     _position = _position + _speed
   }

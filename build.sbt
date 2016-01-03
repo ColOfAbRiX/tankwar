@@ -86,9 +86,6 @@ assemblyMergeStrategy in assembly := {
 }
 
 // Code quality
-wartremoverWarnings += Wart.Nothing
-
-wartremoverErrors += Wart.Nothing
 
 wartremoverWarnings ++= Seq(
   // Customization of Warts.unsafe
@@ -108,6 +105,12 @@ wartremoverWarnings ++= Seq(
   //Wart.Var
 )
 
+coverageMinimum := 75
+
+coverageFailOnMinimum := true
+
+cpdSettings
+
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
     .setPreference(RewriteArrowSymbols, true)
@@ -115,10 +118,6 @@ SbtScalariform.scalariformSettings ++ Seq(
     .setPreference(SpaceInsideParentheses, true)
     .setPreference(SpacesWithinPatternBinders, true)
     .setPreference(SpacesAroundMultiImports, true)
+    .setPreference(DanglingCloseParenthesis, Force)
+    .setPreference(CompactControlReadability, true)
 )
-
-coverageMinimum := 75
-
-coverageFailOnMinimum := true
-
-cpdSettings

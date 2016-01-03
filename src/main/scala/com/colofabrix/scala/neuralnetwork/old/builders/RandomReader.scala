@@ -32,10 +32,10 @@ import scala.util.Random
  * @param rng Random Number Generator
  */
 class RandomReader( nLayers: Int, rng: Random = new Random, scale: Double, af: String )
-  extends DataReader with LayerReader {
+    extends DataReader with LayerReader {
 
   // Function to retrieve the number
-  private def _nextDouble = rng.nextDouble( ) * 2 * scale - scale
+  private def _nextDouble = rng.nextDouble() * 2 * scale - scale
 
   /**
    * Gets the next `LayerReader` for the next layer.

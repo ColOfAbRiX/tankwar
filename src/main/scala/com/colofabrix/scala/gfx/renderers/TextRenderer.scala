@@ -31,10 +31,10 @@ import scala.language.implicitConversions
  * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
 class TextRenderer(
-  text: List[String],
-  defaultFrame: Frame = Frame( Colour.WHITE ),
-  awtFont: Font = new Font( "Consolas", Font.PLAIN, 12 ),
-  interline: Double = 1.5
+    text: List[String],
+    defaultFrame: Frame = Frame( Colour.WHITE ),
+    awtFont: Font = new Font( "Consolas", Font.PLAIN, 12 ),
+    interline: Double = 1.5
 ) extends Renderer {
 
   /**
@@ -46,7 +46,7 @@ class TextRenderer(
 
     withDefaultContext( create, defaultFrame ) {
 
-      textContext( ) {
+      textContext() {
 
         drawText( text, awtFont, interline )
 
@@ -67,8 +67,8 @@ object TextRenderer {
    * @param text The text to convert
    * @return A new Renderable object that returns a new `TextRenderer`
    */
-  implicit def String2Renderable( text: String ): Renderable with Object {def renderer: Renderer} =
-    new com.colofabrix.scala.gfx.abstracts.Renderable( ) {
+  implicit def String2Renderable( text: String ): Renderable with Object { def renderer: Renderer } =
+    new com.colofabrix.scala.gfx.abstracts.Renderable() {
       override def renderer: Renderer = new TextRenderer( List( text ) )
     }
 
@@ -78,8 +78,8 @@ object TextRenderer {
    * @param text A list of strings to convert into a renderable object
    * @return A new Renderable object that returns a new `TextRenderer`
    */
-  implicit def StringList2Renderable( text: List[String] ): Renderable with Object {def renderer: Renderer} =
-    new com.colofabrix.scala.gfx.abstracts.Renderable( ) {
+  implicit def StringList2Renderable( text: List[String] ): Renderable with Object { def renderer: Renderer } =
+    new com.colofabrix.scala.gfx.abstracts.Renderable() {
       override def renderer: Renderer = new TextRenderer( text )
     }
   // scalastyle:on structural.type

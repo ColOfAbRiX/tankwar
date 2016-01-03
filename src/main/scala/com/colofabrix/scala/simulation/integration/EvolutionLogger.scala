@@ -21,7 +21,8 @@ import java.io.PrintWriter
 import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
 
-/**r
+/**
+ * r
  * Trivial evolution observer to display information about the population at the end
  * of each generation.
  */
@@ -41,20 +42,20 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
     val count = scores.length
     val mean = scores.sum / count
     val highest = best.points
-    val devs = scores.map( score => (score - mean) * (score - mean) )
+    val devs = scores.map( score ⇒ ( score - mean ) * ( score - mean ) )
     val stddev = Math.sqrt( devs.sum / count )
     val normMeanDev = stddev / mean
     val normMaxDev = stddev / highest
 
     // Print on screen
-    println( s"Gen #${pop.getGenerationNumber }: Best: $highest, Norm Dev: $normMaxDev, Hits: ${counters("hits")}, Shots: ${counters("shots")}" )
-    println( s"Best - Points: $highest, Survival: ${best.surviveTime }" )
-    println( s"Counters: ${best.world.counters }" )
+    println( s"Gen #${pop.getGenerationNumber}: Best: $highest, Norm Dev: $normMaxDev, Hits: ${counters( "hits" )}, Shots: ${counters( "shots" )}" )
+    println( s"Best - Points: $highest, Survival: ${best.surviveTime}" )
+    println( s"Counters: ${best.world.counters}" )
     println( "" )
 
     // Print on file
-    writer.println( s"${pop.getGenerationNumber};$mean;$highest;$stddev;$normMeanDev;$normMaxDev;${counters("hits")};${counters("shots")}".replace( ".", "," ) )
-    writer.flush( )
+    writer.println( s"${pop.getGenerationNumber};$mean;$highest;$stddev;$normMeanDev;$normMaxDev;${counters( "hits" )};${counters( "shots" )}".replace( ".", "," ) )
+    writer.flush()
 
     // Run the network analysis of the fittest candidate
     //new TankBrainTester(best).runTests()

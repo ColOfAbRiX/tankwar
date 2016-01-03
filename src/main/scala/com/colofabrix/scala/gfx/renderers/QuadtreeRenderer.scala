@@ -21,7 +21,7 @@ import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
 /**
-  */
+ */
 class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
   /**
    * Draw the appropriate things on the screen given a specific drawing context
@@ -36,8 +36,8 @@ class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
     withDefaultContext( create, Frame( Colour.DARK_GREY ) ) {
 
       // Renders the current boundaries
-      quadtree.bounds.renderer.render( )
-      for( n <- quadtree.nodes )
+      quadtree.bounds.renderer.render()
+      for ( n ← quadtree.nodes )
         new QuadtreeRenderer( n ).render( false )
 
     }

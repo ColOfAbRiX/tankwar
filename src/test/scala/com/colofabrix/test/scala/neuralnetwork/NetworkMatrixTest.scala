@@ -76,16 +76,16 @@ class NetworkMatrixTest extends WordSpec with Matchers {
     "Matrix is empty" in {
 
       intercept[IllegalArgumentException] {
-        new NetworkMatrix( Seq( Seq( ) ), Seq( ), Seq( ) )
+        new NetworkMatrix( Seq( Seq() ), Seq(), Seq() )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix( Seq( Seq( ) ), Seq( 0 ), Seq( ) )
+        new NetworkMatrix( Seq( Seq() ), Seq( 0 ), Seq() )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix( Seq( Seq( ) ), Seq( ), Seq( 1 ) )
+        new NetworkMatrix( Seq( Seq() ), Seq(), Seq( 1 ) )
       }
       intercept[IllegalArgumentException] {
-        new NetworkMatrix( Seq( Seq( ) ), Seq( 0 ), Seq( 1 ) )
+        new NetworkMatrix( Seq( Seq() ), Seq( 0 ), Seq( 1 ) )
       }
 
     }
@@ -102,7 +102,7 @@ class NetworkMatrixTest extends WordSpec with Matchers {
               Seq( NaN, NaN, NaN, NaN ),
               Seq( NaN, NaN, NaN, NaN ),
               Seq( NaN, NaN, NaN, NaN )
-            ), Seq( ), Seq( )
+            ), Seq(), Seq()
           )
         }
 
@@ -341,21 +341,21 @@ class NetworkMatrixTest extends WordSpec with Matchers {
       )
 
       "compared with another NetworkMatrix" in {
-        (test equals isEqual) should equal( true )
-        (test equals isNotEqual1) should equal( false )
-        (test equals isNotEqual2) should equal( false )
+        ( test equals isEqual ) should equal( true )
+        ( test equals isNotEqual1 ) should equal( false )
+        ( test equals isNotEqual2 ) should equal( false )
       }
 
       "compared with an adjacency matrix" in {
-        (test equals isEqual.adjacencyOnly) should equal( true )
-        (test equals isNotEqual1.adjacencyOnly) should equal( false )
-        (test equals isNotEqual2.adjacencyOnly) should equal( false )
+        ( test equals isEqual.adjacencyOnly ) should equal( true )
+        ( test equals isNotEqual1.adjacencyOnly ) should equal( false )
+        ( test equals isNotEqual2.adjacencyOnly ) should equal( false )
       }
 
       "compared with a biases row" in {
-        (test equals isEqual.biases) should equal( true )
-        (test equals isNotEqual1.biases) should equal( false )
-        (test equals isNotEqual2.biases) should equal( false )
+        ( test equals isEqual.biases ) should equal( true )
+        ( test equals isNotEqual1.biases ) should equal( false )
+        ( test equals isNotEqual2.biases ) should equal( false )
       }
 
     }
@@ -384,7 +384,7 @@ class NetworkMatrixTest extends WordSpec with Matchers {
           ), Seq( 0 ), Seq( 1 )
         )
 
-        (testNotNaN equals reference) should equal( false )
+        ( testNotNaN equals reference ) should equal( false )
 
       }
 
@@ -400,7 +400,7 @@ class NetworkMatrixTest extends WordSpec with Matchers {
           ), Seq( 0 ), Seq( 1 )
         )
 
-        (testNaN equals reference) should equal( true )
+        ( testNaN equals reference ) should equal( true )
       }
     }
 

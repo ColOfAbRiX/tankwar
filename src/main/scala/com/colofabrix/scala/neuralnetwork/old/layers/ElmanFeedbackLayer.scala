@@ -41,8 +41,9 @@ class ElmanFeedbackLayer(
   private val _biases: Seq[Double],
   private val _weights: Seq[Seq[Double]],
   protected val contextWeights: Seq[Seq[Double]],
-  var remember: Boolean = true )
-  extends HiddenLayer( activation, n_inputs, n_outputs, _biases, _weights ) {
+  var remember: Boolean = true
+)
+    extends HiddenLayer( activation, n_inputs, n_outputs, _biases, _weights ) {
 
   // Check that every sequence of feedback weights associated with each neuron is the same size of the inputs of that neuron
   require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
@@ -84,7 +85,7 @@ class ElmanFeedbackLayer(
    * @return A new `Seq[Seq[Double]]` containing, for each neuron, the inputs of the first lists and the inputs of the second list
    */
   private def mixInputs( inputs1: Seq[Seq[Double]], inputs2: Seq[Seq[Double]] ) =
-    (inputs1 zip inputs2) map { case (i1, i2) => i1 ++ i2 }
+    ( inputs1 zip inputs2 ) map { case ( i1, i2 ) ⇒ i1 ++ i2 }
 
   /**
    * Calculate the output of the layer
@@ -97,8 +98,8 @@ class ElmanFeedbackLayer(
   override def output( inputs: Seq[Double] ): Seq[Double] = {
     val outputs = internalLayer.output( inputs ++ _memory )
 
-    if( remember ) {
-      _memory.clear( )
+    if ( remember ) {
+      _memory.clear()
       _memory ++= outputs
     }
 

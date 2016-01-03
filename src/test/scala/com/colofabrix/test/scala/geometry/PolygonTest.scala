@@ -33,8 +33,7 @@ class PolygonTest extends WordSpec with Matchers {
 
       "Find the correct distance" in {
 
-        val triangle = new
-            Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
+        val triangle = new Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
 
         // It's inside, distance = 0
         val p0 = Vector2D.new_xy( 10, 10 )
@@ -65,8 +64,7 @@ class PolygonTest extends WordSpec with Matchers {
 
       "Determine if they overlap" in {
 
-        val triangle = new
-            Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
+        val triangle = new Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
 
         val insidePoint = Vector2D.new_xy( 10, 10 )
         val outsidePoint1 = Vector2D.new_xy( 20, 40 )
@@ -95,10 +93,8 @@ class PolygonTest extends WordSpec with Matchers {
       "Determine if they overlap" in {
 
         val convex = new Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
-        val concaveNoOverlap = new
-            Polygon( Seq( Vector2D.new_xy( 40, 0 ), Vector2D.new_xy( 60, 0 ), Vector2D.new_xy( 55, 20 ), Vector2D.new_xy( 45, -20 ) ) )
-        val concaveOverlap = new
-            Polygon( Seq( Vector2D.new_xy( 10, 10 ), Vector2D.new_xy( 30, 10 ), Vector2D.new_xy( 45, 30 ), Vector2D.new_xy( 15, -10 ) ) )
+        val concaveNoOverlap = new Polygon( Seq( Vector2D.new_xy( 40, 0 ), Vector2D.new_xy( 60, 0 ), Vector2D.new_xy( 55, 20 ), Vector2D.new_xy( 45, -20 ) ) )
+        val concaveOverlap = new Polygon( Seq( Vector2D.new_xy( 10, 10 ), Vector2D.new_xy( 30, 10 ), Vector2D.new_xy( 45, 30 ), Vector2D.new_xy( 15, -10 ) ) )
 
         convex.intersects( concaveNoOverlap ) should equal( false )
         convex.intersects( concaveOverlap ) should equal( true )
@@ -138,8 +134,7 @@ class PolygonTest extends WordSpec with Matchers {
     "Be checked if it is convex" in {
 
       val convex = new Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 10, 20 ) ) )
-      val concave = new
-          Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 15, 20 ), Vector2D.new_xy( 5, -20 ) ) )
+      val concave = new Polygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 15, 20 ), Vector2D.new_xy( 5, -20 ) ) )
 
       convex.isConvex should equal( true )
       concave.isConvex should equal( false )
@@ -151,8 +146,7 @@ class PolygonTest extends WordSpec with Matchers {
     }
 
     "Must have a valida area" in {
-      val polygon = new
-          ConvexPolygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 20, 20 ), Vector2D.new_xy( 0, 20 ) ) )
+      val polygon = new ConvexPolygon( Seq( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 20, 0 ), Vector2D.new_xy( 20, 20 ), Vector2D.new_xy( 0, 20 ) ) )
 
       polygon.area should equal( 400.0 )
     }

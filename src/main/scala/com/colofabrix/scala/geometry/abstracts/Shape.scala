@@ -44,14 +44,14 @@ trait Shape extends Renderable {
     val c1 = v x w
     val c2 = v x v
 
-    if( c1 <= 0.0 ) {
+    if ( c1 <= 0.0 ) {
       return v0 - p
     }
-    else if( c2 <= c1 ) {
+    else if ( c2 <= c1 ) {
       return v1 - p
     }
 
-    val pb = v0 + v * (c1 / c2)
+    val pb = v0 + v * ( c1 / c2 )
     pb - p
   }
 
@@ -94,7 +94,7 @@ trait Shape extends Renderable {
    * @param p The point to check
    * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
    */
-  def distance( p: Vector2D ): (Vector2D, Vector2D)
+  def distance( p: Vector2D ): ( Vector2D, Vector2D )
 
   /**
    * Compute the distance between a line segment and the nearest edge of the shape.
@@ -103,7 +103,7 @@ trait Shape extends Renderable {
    * @param p1 The second point that defines the line
    * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
    */
-  def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D)
+  def distance( p0: Vector2D, p1: Vector2D ): ( Vector2D, Vector2D )
 
   /**
    * Determines if a line segment touches in any way this shape

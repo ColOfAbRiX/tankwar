@@ -41,7 +41,7 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    * @return The old value or a new mutated value
    */
   protected def mutationRule( scale: Double )( x: Double, rng: Random ) = {
-    if( rng.nextDouble <= probability.doubleValue ) {
+    if ( rng.nextDouble <= probability.doubleValue ) {
       rng.nextDouble * 2.0 * scale - scale
     }
     else {
@@ -71,8 +71,7 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    * @return A new set of weights with applied the mutation rules
    */
   override def mutateWeights( c: TankChromosome, random: Random ) =
-    for( layer <- c.weights ) yield
-    mutate(
+    for ( layer ← c.weights ) yield mutate(
       mutationRule( c.valueRange ),
       layer,
       random
@@ -96,8 +95,8 @@ class TankFullMutation( probability: Probability ) extends AbstractTankMutation 
    */
   protected def mutateSightRatio( c: TankChromosome, random: Random ) = {
     // The sight ration doesn't use {mutationRule} because its value is not centered in zero
-    if( random.nextDouble <= probability.doubleValue ) {
-      random.nextDouble * (1.0 - 2.0 * extremityDistance) + extremityDistance
+    if ( random.nextDouble <= probability.doubleValue ) {
+      random.nextDouble * ( 1.0 - 2.0 * extremityDistance ) + extremityDistance
     }
     else {
       c.sightRatio

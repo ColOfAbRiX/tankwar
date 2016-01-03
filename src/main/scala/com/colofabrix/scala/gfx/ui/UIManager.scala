@@ -32,51 +32,51 @@ import scala.collection._
 class UIManager( val world: World ) {
 
   private var framesThisSecond = 0
-  private var lastFPS = (Sys.getTime * 1000) / Sys.getTimerResolution
+  private var lastFPS = ( Sys.getTime * 1000 ) / Sys.getTimerResolution
   /**
    * The keyboard manager
    */
-  val KBM = new KeyboardManager( )
+  val KBM = new KeyboardManager()
 
-  initializeListeners( )
+  initializeListeners()
 
   /**
    * The flags of the user interface
    */
   val flags = new mutable.HashMap[String, Any] {
     def getWithDefault[T]( key: String, default: T ): T = {
-      if( !contains( key ) ) return default
+      if ( !contains( key ) ) return default
       apply( key ) match {
-        case v: T @unchecked => v
-        case _ => default
+        case v: T @unchecked ⇒ v
+        case _ ⇒ default
       }
     }
   }
 
-  initializeFlags( )
+  initializeFlags()
 
-  private def initializeFlags( ): Unit = {
-    flags += ("sync" -> 25) // Frame sync
-    flags += ("fps" -> 0)
-    flags += ("render" -> false)
-    flags += ("pause" -> false)
-    flags += ("vectors" -> true)
-    flags += ("tksight" -> true)
-    flags += ("tkinfo" -> true)
-    flags += ("details" -> true)
+  private def initializeFlags(): Unit = {
+    flags += ( "sync" → 25 ) // Frame sync
+    flags += ( "fps" → 0 )
+    flags += ( "render" → false )
+    flags += ( "pause" → false )
+    flags += ( "vectors" → true )
+    flags += ( "tksight" → true )
+    flags += ( "tkinfo" → true )
+    flags += ( "details" → true )
   }
 
-  private def initializeListeners( ): Unit = {
+  private def initializeListeners(): Unit = {
     import Math._
 
     // Key "=": Increases max FPS
     KBM.addListener(
-      new NumUpdateKListener[Int]( Keyboard.KEY_EQUALS, this, "sync", x => max( x + 5, 0 ) )
+      new NumUpdateKListener[Int]( Keyboard.KEY_EQUALS, this, "sync", x ⇒ max( x + 5, 0 ) )
     )
 
     // Key "-": Increases max FPS
     KBM.addListener(
-      new NumUpdateKListener[Int]( Keyboard.KEY_MINUS, this, "sync", x => max( x - 5, 0 ) )
+      new NumUpdateKListener[Int]( Keyboard.KEY_MINUS, this, "sync", x ⇒ max( x - 5, 0 ) )
     )
 
     // Key "v": Toggle the rendering of vectors
@@ -115,13 +115,13 @@ class UIManager( val world: World ) {
    *
    * @return Returns the renderers for the User Interface
    */
-  def renderers: Seq[Renderer] = Seq( )
+  def renderers: Seq[Renderer] = Seq()
 
   /**
    * Update all of the UI including the KeyBoardManager
    */
-  def update( ): Unit = {
-    KBM.update( )
+  def update(): Unit = {
+    KBM.update()
   }
 
 }

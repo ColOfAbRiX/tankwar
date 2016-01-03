@@ -21,7 +21,6 @@ import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import org.lwjgl.opengl.GL11._
 
-
 /**
  * Renders a polygon to the screen
  *
@@ -30,7 +29,7 @@ import org.lwjgl.opengl.GL11._
  * @param defaultFrame The default frame to use when a new drawing context has to be created
  */
 class PolygonRenderer( val polygon: Polygon, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
-  extends Renderer {
+    extends Renderer {
 
   /**
    * Draws a polygon on the screen
@@ -41,10 +40,10 @@ class PolygonRenderer( val polygon: Polygon, filled: Boolean = false, defaultFra
 
     withDefaultContext( create, defaultFrame ) {
 
-      val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
+      val mode = if ( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
       drawOpenGL( mode ) {
         // Don't forget the edge from the last to the first vertex
-        (polygon.vertices :+ polygon.vertices.head).foreach( drawVertex )
+        ( polygon.vertices :+ polygon.vertices.head ).foreach( drawVertex )
       }
 
     }

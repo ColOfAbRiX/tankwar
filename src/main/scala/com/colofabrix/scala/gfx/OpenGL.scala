@@ -31,7 +31,6 @@ import scala.collection.immutable.HashMap
  */
 object OpenGL {
 
-
   /**
    * A colour in the OpenGL system
    */
@@ -61,7 +60,6 @@ object OpenGL {
     def rotation = Option( _rotation )
   }
 
-
   /**
    * Predefined colour set
    */
@@ -90,9 +88,8 @@ object OpenGL {
     val YELLOW = Colour( 1.0, 1.0, 0.0 )
   }
 
-
   private val DEG2RAD = 180 / Math.PI
-  private var fontMap = HashMap[Int, TrueTypeFont]( )
+  private var fontMap = HashMap[Int, TrueTypeFont]()
 
   /**
    * Initialize a drawing action
@@ -108,7 +105,7 @@ object OpenGL {
    * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
    * @param actions The function that actually draw
    */
-  def drawOpenGL( mode: Int, frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+  def drawOpenGL( mode: Int, frame: Frame = Frame() )( actions: ⇒ Unit ): Unit = {
 
     // First sets the reference frame
     applyContext( frame ) {
@@ -116,7 +113,7 @@ object OpenGL {
       // Then starts the drawing context
       glBegin( mode )
       actions
-      glEnd( )
+      glEnd()
 
     }
 
@@ -130,7 +127,7 @@ object OpenGL {
    * @param interline Interline spacing between lines
    * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
    */
-  def drawText( text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame( ) ) = {
+  def drawText( text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame() ) = {
     val font = getTTFont( awtFont )
 
     applyContext( frame ) {
@@ -142,8 +139,9 @@ object OpenGL {
       val slickColor = new Color( color.r.toFloat, color.g.toFloat, color.b.toFloat, 1 )
 
       // Draw all the lines of text
-      text.zipWithIndex.foreach { case (t, i) =>
-        font.drawString( 0, (awtFont.getSize * interline * i).toFloat, t, slickColor )
+      text.zipWithIndex.foreach {
+        case ( t, i ) ⇒
+          font.drawString( 0, ( awtFont.getSize * interline * i ).toFloat, t, slickColor )
       }
     }
   }
@@ -157,10 +155,10 @@ object OpenGL {
    * @return
    */
   private def getTTFont( awtFont: Font ): TrueTypeFont = {
-    if( !fontMap.contains( awtFont.hashCode ) ) {
+    if ( !fontMap.contains( awtFont.hashCode ) ) {
       val ttfont = new TrueTypeFont( awtFont, false )
 
-      fontMap = fontMap + (awtFont.hashCode -> ttfont)
+      fontMap = fontMap + ( awtFont.hashCode → ttfont )
       return ttfont
     }
 
@@ -179,23 +177,23 @@ object OpenGL {
    * @param frame The configuration of the reference frame. If not specified the reference frame is not affected
    * @param actions The function that actually draw
    */
-  def applyContext( frame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+  def applyContext( frame: Frame = Frame() )( actions: ⇒ Unit ): Unit = {
     // Save the previous settings (only if needed)
     val colourBuffer = BufferUtils.createFloatBuffer( 16 )
-    if( frame.colour.isDefined ) glGetFloat( GL_CURRENT_COLOR, colourBuffer )
-    if( frame.position.isDefined || frame.rotation.isDefined ) glPushMatrix( )
+    if ( frame.colour.isDefined ) glGetFloat( GL_CURRENT_COLOR, colourBuffer )
+    if ( frame.position.isDefined || frame.rotation.isDefined ) glPushMatrix()
 
     // Set position, rotation and colour
-    for( p <- frame.position ) glTranslated( p.x, p.y, 0.0 )
-    for( r <- frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
-    for( c <- frame.colour ) glColor3d( c.r, c.g, c.b )
+    for ( p ← frame.position ) glTranslated( p.x, p.y, 0.0 )
+    for ( r ← frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
+    for ( c ← frame.colour ) glColor3d( c.r, c.g, c.b )
 
     // Call the actions
     actions
 
     // Restore the previous settings
-    if( frame.position.isDefined || frame.rotation.isDefined ) glPopMatrix( )
-    if( frame.colour.isDefined ) glColor3d( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
+    if ( frame.position.isDefined || frame.rotation.isDefined ) glPopMatrix()
+    if ( frame.colour.isDefined ) glColor3d( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
   }
 
   /**
@@ -219,7 +217,7 @@ object OpenGL {
    *
    * @param actions The drawing actions
    */
-  def textContext( )( actions: => Unit ): Unit = {
+  def textContext()( actions: ⇒ Unit ): Unit = {
     // Enable alpha blending to merge text and graphics
     glEnable( GL_BLEND )
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA )
@@ -239,9 +237,9 @@ object OpenGL {
    * @param withFrame The configuration of the reference frame if a new context has to be created. If not specified the reference frame is not affected
    * @param actions The drawing actions
    */
-  def withDefaultContext( create: Boolean, withFrame: Frame = Frame( ) )( actions: => Unit ): Unit = {
+  def withDefaultContext( create: Boolean, withFrame: Frame = Frame() )( actions: ⇒ Unit ): Unit = {
 
-    if( create ) {
+    if ( create ) {
       applyContext( withFrame ) {
         actions
       }

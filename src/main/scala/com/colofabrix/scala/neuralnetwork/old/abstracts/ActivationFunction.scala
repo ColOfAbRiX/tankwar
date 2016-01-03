@@ -58,19 +58,18 @@ abstract class ActivationFunction {
   final override def hashCode: Int = this.UFID.hashCode
 }
 
-
 object ActivationFunction {
 
   def apply( name: String ) = name.toLowerCase match {
-    case "linear" => new Linear
-    case "clipped" => new LinearClipped
-    case "step" => new Step
-    case "sigmoid" => new Sigmoid
-    case "tanh" => new Tanh
-    case "softplus" => new Softplus
-    case "rectifier" => new Rectifier
-    case "sin" => new Sin
-    case _ => throw new IllegalArgumentException
+    case "linear" ⇒ new Linear
+    case "clipped" ⇒ new LinearClipped
+    case "step" ⇒ new Step
+    case "sigmoid" ⇒ new Sigmoid
+    case "tanh" ⇒ new Tanh
+    case "softplus" ⇒ new Softplus
+    case "rectifier" ⇒ new Rectifier
+    case "sin" ⇒ new Sin
+    case _ ⇒ throw new IllegalArgumentException
   }
 
 }

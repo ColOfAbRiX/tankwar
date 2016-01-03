@@ -54,13 +54,13 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
   override def contains( s: Shape ): Boolean = s match {
 
     // For the case Circle-Circle I check that the center and the points on the circumference are inside this one - O(1)
-    case c: Circle => (this.center - c.center).r + c.radius <= this.radius
+    case c: Circle ⇒ ( this.center - c.center ).r + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
-    case p: Polygon => p.vertices.forall( this.contains )
+    case p: Polygon ⇒ p.vertices.forall( this.contains )
 
     // Other cases are a false
-    case _ => false
+    case _ ⇒ false
   }
 
   /**
@@ -69,7 +69,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p The point to be checked
    * @return True if the point is inside the shape or on its boundary
    */
-  override def contains( p: Vector2D ): Boolean = (p - center).r <= radius
+  override def contains( p: Vector2D ): Boolean = ( p - center ).r <= radius
 
   /**
    * Compute the distance between a line and the circle
@@ -78,7 +78,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p1 The second point that defines the line
    * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
    */
-  override def distance( p0: Vector2D, p1: Vector2D ): (Vector2D, Vector2D) = {
+  override def distance( p0: Vector2D, p1: Vector2D ): ( Vector2D, Vector2D ) = {
     val nearestSegmentPoint = center + distance( p0, p1, center )
     distance( nearestSegmentPoint )
   }
@@ -89,7 +89,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
    * @param p The point to check
    * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
    */
-  override def distance( p: Vector2D ): (Vector2D, Vector2D) = {
+  override def distance( p: Vector2D ): ( Vector2D, Vector2D ) = {
     // The distance of the point from the center of the circle. This vector is not related to the origin of axes
     val distanceFromCenter = p - center
     // A radius (segment that starts in the center of the circle and ends on a point in the circumference) directed towards p.
@@ -102,7 +102,7 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
     // The couching point is point on the circumference closer to p, but this time related to the origin of axes
     val touchingPoint = center + radiusTowardsPoint
 
-    (distance, touchingPoint)
+    ( distance, touchingPoint )
   }
 
   /**
@@ -126,21 +126,21 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
   override def intersects( that: Shape ): Boolean = that match {
 
     // For circles is enough to check the distance from the two centers
-    case c: Circle => center - c.center < radius + c.radius
+    case c: Circle ⇒ center - c.center < radius + c.radius
 
     // For Boxes I exploit its property to be parallel to the axis
-    case b: Box => b.contains( center ) || (
+    case b: Box ⇒ b.contains( center ) || (
       center.x + radius <= b.topRight.x &&
-        center.x - radius >= b.bottomLeft.y &&
-        center.y + radius <= b.topRight.y &&
-        center.y - radius >= b.topRight.y
-      )
+      center.x - radius >= b.bottomLeft.y &&
+      center.y + radius <= b.topRight.y &&
+      center.y - radius >= b.topRight.y
+    )
 
     // For polygons I check the distance from the nearest edge
-    case p: Polygon => p.distance( center )._1 <= radius
+    case p: Polygon ⇒ p.distance( center )._1 <= radius
 
     // Other comparisons are not possible
-    case _ => false
+    case _ ⇒ false
   }
 
   /**
@@ -159,7 +159,6 @@ case class Circle( center: Vector2D, radius: Double ) extends Shape with Contain
   override def renderer: Renderer = new CircleRenderer( this )
 }
 
-
 object Circle {
 
   /**
@@ -173,17 +172,17 @@ object Circle {
   def bestFit( s: Shape ): Container = s match {
 
     // If the shape it's a circle I simply return it - O(1)
-    case c: Circle => c
+    case c: Circle ⇒ c
 
     // A Box is a very easy case, so I take advantage of this - O(1)
-    case b: Box => new Circle( b.center, b.width / 2.0 )
+    case b: Box ⇒ new Circle( b.center, b.width / 2.0 )
 
     // Generic Polygon - O(n)
     // TODO: See "A Fast Approximate Bounding Ball",  http://geomalgorithms.com/a08-_containers.html
-    case p: Polygon => ???
+    case p: Polygon ⇒ ???
 
     // All other cases, I throw an Exception
-    case _ => throw new IllegalArgumentException
+    case _ ⇒ throw new IllegalArgumentException
 
   }
 

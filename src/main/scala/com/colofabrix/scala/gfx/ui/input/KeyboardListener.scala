@@ -30,16 +30,18 @@ import scala.language.reflectiveCalls
  * @param eventDriven If true then will only be activated on a discrete press/release otherwise it is every frame while the key is down
  * @param onPress If eventDriven then this determined if it should be activated onPress (T) or onRelease (F)
  */
-class KeyboardListener( val key: Int,
-  action: => Unit,
-  val eventDriven: Boolean = true,
-  val onPress: Boolean = true ) {
+class KeyboardListener(
+    val key: Int,
+    action: ⇒ Unit,
+    val eventDriven: Boolean = true,
+    val onPress: Boolean = true
+) {
 
   /**
    * Update the key if it is not eventDriven
    */
-  def update( ): Unit = {
-    if( !eventDriven && Keyboard.isKeyDown( key ) ) {
+  def update(): Unit = {
+    if ( !eventDriven && Keyboard.isKeyDown( key ) ) {
       action
     }
   }
@@ -52,7 +54,7 @@ class KeyboardListener( val key: Int,
    */
   def checkEvent( eKey: Int, isPress: Boolean ): Unit = {
     // If this listener is event driven and not continuous polling and is the right type (release/press) and it is the right key
-    if( eventDriven && isPress == onPress && eKey == key ) {
+    if ( eventDriven && isPress == onPress && eKey == key ) {
       action
     }
   }
@@ -70,7 +72,7 @@ class BooleanToggleKListener(
   key: Int,
   uim: UIManager,
   flag: String
-) extends KeyboardListener (
+) extends KeyboardListener(
   key,
   uim.flags.update( flag, !uim.flags.getWithDefault( flag, true ) )
 )
@@ -87,7 +89,7 @@ class NumUpdateKListener[T: Numeric](
   key: Int,
   uim: UIManager,
   flag: String,
-  update: T => T
+  update: T ⇒ T
 ) extends KeyboardListener(
   key,
   uim.flags.update(

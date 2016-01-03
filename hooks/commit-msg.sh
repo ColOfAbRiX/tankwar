@@ -10,3 +10,23 @@
 # has one). It can also be used to refuse the commit after inspecting the
 # message file.
 #
+
+echo -e "GIT - ENFORCING COMMIT MESSAGE POLICIES"
+
+CARDS="[A-Z]+-[0-9]+:\s+[^\.]{8,}\."     # TKWAR-10: This is a commit. TKWAR-10: This is another ocmmit.
+NOTES="NOTES?:\s+[^\.]{8,}\."            # NOTES: This is a note on the commit.
+TESTS="TEST:\s+[^\.]{8,}\."              # TEST: This is a test.
+CAVEATS="CAV(|EAT):\s+[^\.]{8,}\."       # CAVEAT: When reading note that something is not perfect.
+REGEX="^($CARDS(\s+$CARDS)*|$TESTS)(|\s+$NOTES)(|\s+$CAVEATS)$"
+
+egrep -q "$REGEX" "$1"
+if [ $? -ne 0 ]
+then
+
+    echo -e "\nERROR: Cannot commit.\n\nThe commit message doesn't comply to the required standard.\n\nThe commit message must respect the regular expression:\n    $REGEX\n\nChange the commit message and try again."
+    exit 1
+
+fi
+
+echo -e "\nThe project successfully completed the commit message policies checks\n"
+exit 1

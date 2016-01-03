@@ -26,6 +26,6 @@ package com.colofabrix.scala.neuralnetwork.old.abstracts
  */
 trait Tester {
 
-  def runTests( ): Unit
+  def runTests(): Unit
 
 }

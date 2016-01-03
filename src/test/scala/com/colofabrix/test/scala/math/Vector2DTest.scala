@@ -137,7 +137,7 @@ class Vector2DTest extends WordSpec with Matchers {
 
       val vector = Vector2D.new_xy( 100, 100 )
       val axis = Vector2D.new_xy( 10, 0 )
-      val projection = vector -> axis
+      val projection = vector → axis
 
       projection.x should equal( 100.0 +- tolerance )
       projection.y should equal( 0.0 )
@@ -150,7 +150,7 @@ class Vector2DTest extends WordSpec with Matchers {
       // Rotation half a turn
       val rotation1 = vector ¬ Math.PI
       // Rotation of 3 turns
-      val rotation2 = vector ¬ (6 * Math.PI)
+      val rotation2 = vector ¬ ( 6 * Math.PI )
 
       rotation1.x should equal( -10.0 +- tolerance )
       rotation1.y should equal( -10.0 +- tolerance )

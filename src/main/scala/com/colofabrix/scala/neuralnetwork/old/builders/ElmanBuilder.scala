@@ -39,8 +39,8 @@ class ElmanBuilder extends BehaviourBuilder {
 
     // Check the type of the hidden layer. It must be an ElmanFeedbackLayer
     val elmanHidden: ElmanFeedbackLayer = hiddenLayers( 0 ) match {
-      case efl: ElmanFeedbackLayer => efl
-      case _ => throw new IllegalArgumentException( "A layer of type ElmanFeedbackLayer must be specified" )
+      case efl: ElmanFeedbackLayer ⇒ efl
+      case _ ⇒ throw new IllegalArgumentException( "A layer of type ElmanFeedbackLayer must be specified" )
     }
 
     // Build the object

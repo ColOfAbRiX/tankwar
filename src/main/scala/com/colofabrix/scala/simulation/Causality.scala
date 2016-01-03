@@ -39,7 +39,7 @@ class Causality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T]
    * `
    * @return A new `PhysicalObject` where its internal status has been reset
    */
-  override def clear( ): Unit = initial.clear( )
+  override def clear(): Unit = initial.clear()
 
   /**
    * Physical shape of the {PhysicalObject}.
@@ -52,7 +52,7 @@ class Causality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T]
   /**
    * Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
    */
-  override def on_hitsWalls( ): Unit = initial.on_hitsWalls( )
+  override def on_hitsWalls(): Unit = initial.on_hitsWalls()
 
   /**
    * Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
@@ -67,7 +67,7 @@ class Causality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T]
   /**
    * Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
    */
-  override def on_respawn( ): Unit = initial.on_respawn( )
+  override def on_respawn(): Unit = initial.on_respawn()
 
   /**
    * Moves the PhysicalObject one step into the future.
@@ -75,7 +75,7 @@ class Causality[+T <: PhysicalObject]( val initial: T )( implicit t: ClassTag[T]
    * In other words, this method will perform the needed calculations to updated all the internal field of the objects
    * like the position in the next step, speed and so on.
    */
-  override def step( ): Unit = initial.step( )
+  override def step(): Unit = initial.step()
 
   /**
    * Reference to the world
