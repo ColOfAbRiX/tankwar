@@ -64,6 +64,8 @@ class UIManager( val world: World ) {
     flags += ( "tksight" → true )
     flags += ( "tkinfo" → true )
     flags += ( "details" → true )
+
+    return
   }
 
   private def initializeListeners(): Unit = {

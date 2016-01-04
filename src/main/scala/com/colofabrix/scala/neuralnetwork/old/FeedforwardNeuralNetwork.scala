@@ -109,7 +109,7 @@ class FeedforwardNeuralNetwork(
    * @return A string containing the representation of weights and biases of the neural network
    */
   override def toString = {
-    val text = this.getClass + "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
+    val text = this.getClass.toString + "(" + this.input_layer.toString + ", " + this.hidden_layers.toString + ", " + this.output_layer.toString + ")"
     text.replace( "class ", "" ).replace( "List", "" ).replace( "com.colofabrix.scala.neuralnetwork.", "" )
   }
 }

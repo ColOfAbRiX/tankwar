@@ -185,6 +185,7 @@ class World(
    */
   private def resCounter( counter: String ): Unit = {
     _counters += ( counter → 0 )
+    return
   }
 
   /**
@@ -378,6 +379,7 @@ class World(
    */
   private def incCounter( counter: String ): Unit = {
     _counters += ( counter → ( _counters( counter ) + 1 ) )
+    return
   }
 
   /**

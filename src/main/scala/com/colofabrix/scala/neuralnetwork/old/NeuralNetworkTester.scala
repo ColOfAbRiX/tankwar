@@ -28,7 +28,7 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.{ NeuralNetwork, Tester 
  *
  * Created by Fabrizio on 15/02/2015.
  */
-@deprecated
+@deprecated( "Deprecated", "0.1.0" )
 abstract class NeuralNetworkTester( val network: NeuralNetwork, nInputs: Int ) extends Tester {
 
   // Range of the values and number of points (input#, start_value, end_value, points_count)

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.scaldi:scaldi_2.11:0.4:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.scaldi/scaldi_2.11/jars/scaldi_2.11-0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

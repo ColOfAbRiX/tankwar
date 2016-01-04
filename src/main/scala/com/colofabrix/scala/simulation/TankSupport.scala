@@ -24,7 +24,7 @@ import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilde
  * A TankChromosome contains all the data needed to uniquely identify a Tank from another.
  * Tank with identical chromosomes behave in the same way
  */
-case class TankChromosome(
+final case class TankChromosome(
     biases: Seq[Seq[Double]],
     weights: Seq[Seq[Seq[Double]]],
     rotationRef: Double,

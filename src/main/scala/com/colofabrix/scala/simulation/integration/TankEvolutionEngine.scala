@@ -60,14 +60,13 @@ class TankEvolutionEngine(
     world.resetWorld( population.to )
 
     // Runs the competition
-    measureTime( "Time for a round: $time" ) {
+    measureTime( "Time for a round: @time" ) {
       world.rounds foreach { _ ⇒ world.step() }
     }
 
     // Returns the population
     world.tanks.foreach( _.on_respawn() )
     world.tanks
-
   }
 
 }

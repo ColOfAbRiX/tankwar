@@ -31,7 +31,7 @@ import com.colofabrix.scala.math.Vector2D
  * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
  * @param topRight Rectangle right-top point, in any quadrant of the plane
  */
-case class Box( bottomLeft: Vector2D, topRight: Vector2D )
+final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
     extends ConvexPolygon(
       Seq(
         bottomLeft,

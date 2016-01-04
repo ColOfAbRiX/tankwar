@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: com.sksamuel.scapegoat:scalac-scapegoat-plugin_2.11:1.0.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.sksamuel.scapegoat/scalac-scapegoat-plugin_2.11/jars/scalac-scapegoat-plugin_2.11-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

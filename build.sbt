@@ -19,12 +19,13 @@
  */
 
 import de.johoop.cpd4sbt.CopyPasteDetector._
+import sbt.Keys._
 import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform._
 
 // Projecty Definition
 lazy val root = (project in file(".")).
-  settings(
+ settings(
     name := "TankWar",
     version := "0.2.0",
     scalaVersion := "2.11.7",
@@ -62,6 +63,12 @@ scalacOptions ++= Seq(
   "-Ywarn-dead-code"
 )
 
+// SBT > 0.13.6 way of specifiying JVM options
+//   Ref: http://stackoverflow.com/questions/3868863/how-to-specify-jvm-maximum-heap-size-xmx-for-running-an-application-with-run
+val buildSettings = Defaults.defaultSettings ++ Seq(
+  javaOptions += s""
+)
+
 // Native libraries extraction - LWJGL has some native libraries provided as JAR files that I have to extract
 compile in Compile <<= (compile in Compile).dependsOn(Def.task {
   val r = "^(\\w+).*".r
@@ -85,31 +92,7 @@ assemblyMergeStrategy in assembly := {
   case x => MergeStrategy.first
 }
 
-// Code quality
-
-wartremoverWarnings ++= Seq(
-  // Customization of Warts.unsafe
-  Wart.Any,
-  Wart.Any2StringAdd,
-  Wart.AsInstanceOf,
-  Wart.EitherProjectionPartial,
-  Wart.IsInstanceOf,
-  Wart.ListOps,
-  Wart.NonUnitStatements,
-  Wart.Null,
-  Wart.OptionPartial,
-  Wart.Product,
-  Wart.Return,
-  Wart.Serializable,
-  Wart.Throw
-  //Wart.Var
-)
-
-coverageMinimum := 75
-
-coverageFailOnMinimum := true
-
-cpdSettings
+// Code Style
 
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -121,3 +104,39 @@ SbtScalariform.scalariformSettings ++ Seq(
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(CompactControlReadability, true)
 )
+
+// Code Quality
+
+scapegoatRunAlways := false
+
+/*
+wartremoverErrors ++= Seq(
+  //Wart.Any
+  //Wart.AsInstanceOf,
+  //Wart.IsInstanceOf,
+  Wart.Any2StringAdd,
+  Wart.EitherProjectionPartial,
+  Wart.ListOps,
+  Wart.OptionPartial,
+  Wart.Product,
+  Wart.Serializable
+  // For a more purely functional approach
+  //Wart.NonUnitStatements,
+  //Wart.Null,
+  //Wart.Return,
+  //Wart.Throw
+  //Wart.Var
+)
+
+wartremoverWarnings ++= Seq(
+  Wart.Enumeration,
+  Wart.ExplicitImplicitTypes,
+  Wart.FinalCaseClass
+)
+*/
+
+coverageMinimum := 75
+
+coverageFailOnMinimum := true
+
+cpdSettings

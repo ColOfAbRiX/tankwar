@@ -14,8 +14,7 @@
       <parameter value="-Xmax-classfile-name" />
       <parameter value="72" />
     </parameters>
-    <profile name="SBT 1" modules="tankwar" />
-    <profile name="SBT 2" modules="root">
+    <profile name="SBT 2" modules="tankwar,root">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -23,19 +22,6 @@
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
       <parameters>
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Any" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Any2StringAdd" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.AsInstanceOf" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.EitherProjectionPartial" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.IsInstanceOf" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.ListOps" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.NonUnitStatements" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Null" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.OptionPartial" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Product" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Return" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Serializable" />
-        <parameter value="-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Throw" />
         <parameter value="-Xmax-classfile-name" />
         <parameter value="72" />
         <parameter value="-encoding" />

@@ -34,7 +34,7 @@ object OpenGL {
   /**
    * A colour in the OpenGL system
    */
-  case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
+  final case class Colour( r: Double = 0.0, g: Double = 0.0, b: Double = 0.0 )
 
   /**
    * An OpenGL reference frame. It holds data about its position to the absolute reference, its rotation and the colour of its brush
@@ -43,7 +43,7 @@ object OpenGL {
    * @param _position The position of the reference frame relative to the absolute frame
    * @param _rotation The rotation vector of the reference frame relative to the absolute frame
    */
-  case class Frame( private val _colour: Colour = null, private val _position: Vector2D = null, private val _rotation: Vector2D = null ) {
+  final case class Frame( private val _colour: Colour = null, private val _position: Vector2D = null, private val _rotation: Vector2D = null ) {
     /**
      * The colour of the brush
      */
@@ -134,7 +134,7 @@ object OpenGL {
       // Slick fonts don't work like OpenGL. I retrieve the current colour from the OpenGL
       val colourBuffer = BufferUtils.createFloatBuffer( 16 )
       glGetFloat( GL_CURRENT_COLOR, colourBuffer )
-      val defaultTextColour = Colour( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
+      val defaultTextColour = Colour( colourBuffer.get( 0 ).toDouble, colourBuffer.get( 1 ).toDouble, colourBuffer.get( 2 ).toDouble )
       val color = frame.colour.getOrElse( defaultTextColour )
       val slickColor = new Color( color.r.toFloat, color.g.toFloat, color.b.toFloat, 1 )
 
@@ -193,7 +193,7 @@ object OpenGL {
 
     // Restore the previous settings
     if ( frame.position.isDefined || frame.rotation.isDefined ) glPopMatrix()
-    if ( frame.colour.isDefined ) glColor3d( colourBuffer.get( 0 ), colourBuffer.get( 1 ), colourBuffer.get( 2 ) )
+    if ( frame.colour.isDefined ) glColor3d( colourBuffer.get( 0 ).toDouble, colourBuffer.get( 1 ).toDouble, colourBuffer.get( 2 ).toDouble )
   }
 
   /**

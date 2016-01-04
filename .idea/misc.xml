@@ -68,7 +68,7 @@
     <option name="additionalFlags" value="" />
     <option name="maxHeapSize" value="" />
     <option name="docTitle" value="TankWar Documentation" />
-    <option name="verbose" value="false" />
+    <option name="verbose" value="true" />
     <option name="openInBrowser" value="true" />
   </component>
 </project>

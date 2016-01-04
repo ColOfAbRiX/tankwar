@@ -165,7 +165,7 @@ class Tank private (
     case c: Causality[_] ⇒ c.initial match {
       case t: Tank ⇒
         // Making up points for the fitness
-        _points += 1 + min( t.points, _points * Tank.maxGainK ).toInt
+        _points += 1 + min( t.points.toDouble, _points * Tank.maxGainK ).toInt
     }
 
     case b: Bullet ⇒
@@ -244,6 +244,8 @@ class Tank private (
       case b: Bullet ⇒
         _seenBullets += ( ( b, direction, speed ) )
     }
+
+    return
   }
 
   /**
@@ -410,12 +412,12 @@ class Tank private (
     _seenBullets = _seenBullets.filter( _ != null )
 
     // Average position and speed of all the seen bullets
-    val bulletsPositionsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 ) / _seenBullets.size
-    val bulletsSpeedsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 ) / _seenBullets.size
+    val bulletsPositionsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 ) / _seenBullets.size.toDouble
+    val bulletsSpeedsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 ) / _seenBullets.size.toDouble
 
     // Final position seen by the tank
     val seenPosition = Vector2D.new_rt(
-      sqrt( _seenBullets.size ) * max( 1.0 - bulletsPositionsSum.r / _maxSight.radius, 0 ),
+      sqrt( _seenBullets.size.toDouble ) * max( 1.0 - bulletsPositionsSum.r / _maxSight.radius, 0 ),
       bulletsPositionsSum.t
     )
 
@@ -505,7 +507,7 @@ object Tank {
   /** Default activation function */
   val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
   /** Default number of hidden neurons. It is the average between input and output neurons */
-  val defaultHiddenNeurons = Math.ceil( ( BrainInputHelper.count + BrainOutputHelper.count ) / 2 ).toInt
+  val defaultHiddenNeurons = Math.ceil( ( BrainInputHelper.count + BrainOutputHelper.count ) / 2.0 ).toInt
   /** Default type of neural network */
   val defaultBrainBuilder = new ThreeLayerNetwork( new FeedforwardBuilder, defaultHiddenNeurons )
   /** Default mass of the tank at initial creation */

@@ -105,7 +105,7 @@ trait NeuralNetwork {
    * @return A string containing the representation of weights and biases of the neural network
    */
   override def toString = {
-    val text = this.getClass + "(" + matrix.toString() + ")"
+    val text = this.getClass.toString + "(" + matrix.toString + ")"
     text.replace( "class ", "" ).replace( "List", "" ).replaceFirst( """(\w+\.)*""", "" )
   }
 

@@ -229,7 +229,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
 
         // Checking every element
         for ( i ← matrix.indices.par; j ← matrix( i ).indices.par ) {
-          if ( matrix( i )( j ) != that( i, j ) ) return false
+          if ( matrix( i )( j ) != that( ( i, j ) ) ) return false
         }
 
         true

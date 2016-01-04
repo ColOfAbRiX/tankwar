@@ -89,7 +89,7 @@ abstract class AbstractStatelessNetwork(
     // Calculate the sum of the weighted inputs using the output vector
     for ( i ← 0 until matrix.rows; j ← 0 until matrix.cols ) {
       // The inputs are multiplied by the weight of the neuron they feed
-      val weightedInput = inputs( i ) * matrix( i, j )
+      val weightedInput = inputs( i ) * matrix( ( i, j ) )
 
       // I have to deal with the NaN values: I process the weightedInput only if it's not NaN
       if ( !weightedInput.isNaN ) {

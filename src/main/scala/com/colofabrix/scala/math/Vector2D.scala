@@ -31,7 +31,7 @@ import scala.language.implicitConversions
  * @param _cartesian The ending point of a origin centered vector in cartesian coordinates
  * @param _polar The ending point of a origin centered vector in polar coordinates
  */
-case class Vector2D private ( _cartesian: CartesianCoord, _polar: PolarCoord ) {
+final case class Vector2D private ( _cartesian: CartesianCoord, _polar: PolarCoord ) {
   require( _cartesian != null || _polar != null, "A set of coordinates must be specified" )
 
   import com.colofabrix.scala.math.Vector2DImplicits._

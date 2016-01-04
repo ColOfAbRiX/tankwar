@@ -71,7 +71,7 @@ object Tools {
      */
     def toAutoEngineering( unit: String = "", startingExp: Int = 0 ): ( Double, String ) = {
 
-      def calcExp( n: Double, e: Int ) = n * Math.pow( 10, e )
+      def calcExp( n: Double, e: Int ) = n * Math.pow( 10, e.toDouble )
 
       // A number can already be expressed in a different prefix, like a given milliseconds
       val normNumber = calcExp( conv.toDouble( number ), startingExp )
@@ -93,7 +93,7 @@ object Tools {
      */
     def toFixedEngineering( unit: String = "", targetPrefix: Int = 0, startingExp: Int = 0 ): ( Double, String ) = {
 
-      def calcExp( n: Double, e: Int ) = n * Math.pow( 10, e )
+      def calcExp( n: Double, e: Int ) = n * Math.pow( 10, e.toDouble )
 
       // A number can already be expressed in a different prefix, like a given milliseconds
       val normNumber = calcExp( conv.toDouble( number ), startingExp )
@@ -117,7 +117,7 @@ object Tools {
     //val time = (end - start).toAutoEngineering( "s", -9 )
     val time = ( end - start ).toFixedEngineering( "s", -3, -9 )
 
-    println( description.replaceAll( "\\$time", "%.3f".formatLocal( Locale.getDefault, time._1 ) + time._2 ) )
+    println( description.replaceAll( "@time", "%.3f".formatLocal( Locale.getDefault, time._1 ) + time._2 ) )
   }
 
 }

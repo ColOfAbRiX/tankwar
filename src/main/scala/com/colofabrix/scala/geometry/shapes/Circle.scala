@@ -30,7 +30,7 @@ import com.colofabrix.scala.math.Vector2D
  * @param center Center of the circle
  * @param radius Radius of the circle. Must be non-negative
  */
-case class Circle( center: Vector2D, radius: Double ) extends Shape with Container with Renderable {
+final case class Circle( center: Vector2D, radius: Double ) extends Shape with Container with Renderable {
   // If the radius is 0... it's a point!
   require( radius > 0, "The circle must have a non-zero radius" )
 

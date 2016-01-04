@@ -3,7 +3,13 @@
 ##0.2.0 - 18/06/2015
 
 ###New Features
+
+* TKWAR-18 - Add SBT
+
 ###Improvements
+
+* Enforced code quality (style, unit testing, code coverage, commit safety, commit message)
+
 ###Bugs
 
 ##0.1.0 - 18/06/2015

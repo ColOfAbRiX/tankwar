@@ -50,7 +50,7 @@ object TankWarMain {
     // Create a new world where to run the Tanks
     val world = new World(
       max_rounds = 3000,
-      arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( gd.getWidth - 60, gd.getHeight - 60 ) ),
+      arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( gd.getWidth - 60.0, gd.getHeight - 60.0 ) ),
       dead_time = 1.0 / 5.0,
       //dead_time = 1.0 / 3.0,
       max_bullet_speed = 5,
@@ -88,6 +88,8 @@ object TankWarMain {
 
     //engine.evolve( 40, 8, new GenerationCount(1000) )
     engine.evolve( 40, 2, new GenerationCount( 1000 ) )
+
+    return
   }
 
 }

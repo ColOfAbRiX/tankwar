@@ -183,7 +183,7 @@ class LeafQuadtree[T: SpatialIndexable] protected (
     }
     // Fall back in the single element add (avoid list scans, not sure how helpful)
     if ( shapesInNode.size == 1 ) {
-      return this + shapesInNode.head
+      return this + shapesInNode( 0 )
     }
 
     // Try to add the object to every node (the + method itself checks if the object belongs to its)
