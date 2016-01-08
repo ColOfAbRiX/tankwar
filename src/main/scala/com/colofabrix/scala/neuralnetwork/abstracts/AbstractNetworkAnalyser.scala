@@ -76,7 +76,7 @@ abstract class AbstractNetworkAnalyser( val world: World, val network: com.colof
    * @param writer Writer used to write the output
    */
   protected def internalFullAnalysis( inputBase: Seq[Double], plotIndexes: Seq[Int] )( writer: PrintWriter ): Unit = {
-    val currentIndex = plotIndexes.head
+    val currentIndex = plotIndexes( 0 )
 
     // Extracts the definition of the plot from the list
     val ( input, start, end, points ) = plotDefinitions( currentIndex )

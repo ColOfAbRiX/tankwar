@@ -39,7 +39,7 @@ abstract class NeuralNetworkTester( val network: NeuralNetwork, nInputs: Int ) e
   protected def evaluateNetwork(): Unit
 
   protected def internalFullAnalysis( inputBase: Seq[Double], plotIndexes: Seq[Int] )( writer: PrintWriter ): Unit = {
-    val currentIndex = plotIndexes.head
+    val currentIndex = plotIndexes( 0 )
 
     // Extracts the definition of the plot from the list
     val ( input, start, end, points ) = plotDefinitions( currentIndex )

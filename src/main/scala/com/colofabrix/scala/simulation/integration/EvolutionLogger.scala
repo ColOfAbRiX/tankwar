@@ -17,6 +17,7 @@
 package com.colofabrix.scala.simulation.integration
 
 import java.io.PrintWriter
+import java.text.DecimalFormatSymbols
 
 import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
@@ -30,7 +31,7 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
   val writer = new PrintWriter( "population.csv" )
 
-  writer.println( s"Generation;Mean;Fittest;StdDev;NormToMeanDev;NormToMaxDev;Hits;Shots".replace( ".", "," ) )
+  writer.println( "Generation;Mean;Fittest;StdDev;NormToMeanDev;NormToMaxDev;Hits;Shots".replace( ".", "," ) )
 
   override def populationUpdate( pop: PopulationData[_ <: T] ): Unit = {
     // Best candidate

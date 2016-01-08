@@ -137,11 +137,11 @@ object DummyQuadtree {
    * Creates a new DummyQuadtree
    *
    * @param bounds The area that the DummyQuadtree will cover
-   * @param initialSet The initial data contained by the DummyQuadtree
+   * @param initialList The initial data contained by the DummyQuadtree
    * @tparam T Type of `PhysicalObject` that the DummyQuadtree will contain
    * @return A new instance of DummyQuadtree
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List() ): DummyQuadtree[T] =
-    new DummyQuadtree[T]( initialSet, bounds )
+  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List() ): DummyQuadtree[T] =
+    new DummyQuadtree[T]( initialList, bounds )
 
 }

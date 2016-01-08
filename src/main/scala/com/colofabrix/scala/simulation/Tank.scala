@@ -78,12 +78,9 @@ class Tank private (
     initialData.brainBuilder.buildNetwork(
       BrainInputHelper.count,
       BrainOutputHelper.count,
-      if ( dataReader == Option.empty ) {
+      dataReader.getOrElse(
         new SeqDataReader( initialData.biases, initialData.weights, initialData.activationFunction )
-      }
-      else {
-        dataReader.get
-      }
+      )
     )
   /**
    * The chromosome contains all the data needed to identify uniquely this Tank.
@@ -434,6 +431,7 @@ class Tank private (
    *
    * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target, both with components normalized to 1.0
    */
+  @SuppressWarnings( Array( "TraversableHead" ) )
   def calculateTankVision: ( Vector2D, Vector2D ) = {
     val sightShape = sight( classOf[Tank] ).asInstanceOf[Circle]
 

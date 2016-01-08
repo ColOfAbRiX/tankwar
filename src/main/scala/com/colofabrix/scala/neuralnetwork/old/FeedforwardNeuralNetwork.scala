@@ -29,6 +29,7 @@ import com.colofabrix.scala.neuralnetwork.old.layers.{ HiddenLayer, InputLayer, 
  * @param hidden_layers Zero or more hidden layers. If no output layer the output matches exactly the inputs
  * @param output_layer One output layer to collect the results
  */
+@SuppressWarnings( Array("NullParameter") )
 class FeedforwardNeuralNetwork(
   val input_layer: InputLayer,
   val hidden_layers: Seq[HiddenLayer] = Seq(),
@@ -64,7 +65,7 @@ class FeedforwardNeuralNetwork(
 
   override val activationFunction = for ( layer ← all_layers ) yield layer.activationFunction
 
-  override val n_inputs = all_layers.head.n_inputs
+  override val n_inputs = all_layers( 0 ).n_inputs
 
   override val n_outputs = all_layers.last.n_outputs
 

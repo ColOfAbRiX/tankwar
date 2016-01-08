@@ -163,14 +163,14 @@ object SpatialTree {
    * Creates a new Quadtree
    *
    * @param bounds The area that the LinkedQuadtreeTmp will cover
-   * @param initialSet The initial data contained by the LinkedQuadtreeTmp
+   * @param initialList The initial data contained by the LinkedQuadtreeTmp
    * @param splitSize Max size of each node before a split happens
    * @param depth Depth of the LinkedQuadtreeTmp
    * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
    * @return A new instance of LinkedQuadtreeTmp
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialSet: List[T] = List(), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
-    LinkedQuadtree[T]( bounds, initialSet, splitSize, depth )
+  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List(), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
+    LinkedQuadtree[T]( bounds, initialList, splitSize, depth )
   }
 
   /**

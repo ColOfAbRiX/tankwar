@@ -25,6 +25,8 @@ import com.colofabrix.scala.simulation.{ Bullet, Tank }
 import org.lwjgl.opengl.GL11._
 import scala.language.reflectiveCalls
 
+import scala.collection.JavaConverters._
+
 /**
  * Renders a tank to the screen with its properties
  *
@@ -42,7 +44,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
    * @param create This parameter is disabled for this renderer
    */
   def render( create: Boolean = true ): Unit = {
-    val fitness: Double = new TankEvaluator().getFitness( tank, null )
+    val fitness: Double = new TankEvaluator().getFitness( tank, List[Tank]().asJava )
     val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
     val flags = tank.world.UIManager.flags
 

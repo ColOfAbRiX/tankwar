@@ -22,7 +22,7 @@ import java.util.Random
 import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 /**
  * Factory to generate the initial Tank population.
@@ -33,7 +33,7 @@ class TankFactory( world: World ) extends AbstractCandidateFactory[Tank] {
 
   override def generateInitialPopulation( i: Int, random: Random ): util.List[Tank] = {
     ( 0 until i ).foreach( _ ⇒ generateRandomCandidate( random ) )
-    world.tanks
+    world.tanks.asJava
   }
 
   override def generateInitialPopulation( i: Int, collection: util.Collection[Tank], random: Random ): util.List[Tank] = {

@@ -24,13 +24,10 @@ import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform._
 
 // Projecty Definition
-lazy val root = (project in file(".")).
- settings(
-    name := "TankWar",
-    version := "0.2.0",
-    scalaVersion := "2.11.7",
-    mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
-  )
+name := "TankWar"
+version := "0.2.0"
+scalaVersion := "2.11.7"
+mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
 
 // Dependencies
 libraryDependencies ++= Seq(
@@ -66,8 +63,26 @@ scalacOptions ++= Seq(
 // SBT > 0.13.6 way of specifiying JVM options
 //   Ref: http://stackoverflow.com/questions/3868863/how-to-specify-jvm-maximum-heap-size-xmx-for-running-an-application-with-run
 val buildSettings = Defaults.defaultSettings ++ Seq(
-  javaOptions += s""
+  // See: http://blog.sokolenko.me/2014/11/javavm-options-production.html
+  // Forking doesn't work, these parameters are not applied
+  javaOptions ++= Seq(
+    "-server",
+    "-Xms1G",
+    "-Xmx1G",
+    "-Xmn128M",
+    "-XX:MaxMetaspaceSize=128M",
+    "-XX:SurvivorRatio=3",
+    "-XX:+UseConcMarkSweepGC",
+    "-XX:+CMSParallelRemarkEnabled",
+    "-XX:+UseCMSInitiatingOccupancyOnly",
+    "-XX:CMSInitiatingOccupancyFraction=90",
+    "-XX:+ScavengeBeforeFullGC",
+    "-XX:+CMSScavengeBeforeRemark"
+  )
 )
+
+// Scaladoc configuration
+target in (Compile, compile) in doc := baseDirectory.value / "doc"
 
 // Native libraries extraction - LWJGL has some native libraries provided as JAR files that I have to extract
 compile in Compile <<= (compile in Compile).dependsOn(Def.task {
@@ -86,12 +101,6 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
   Seq.empty[File]
 })
 
-// META-INF discarding
-assemblyMergeStrategy in assembly := {
-  case PathList( "META-INF", xs@_* ) => MergeStrategy.discard
-  case x => MergeStrategy.first
-}
-
 // Code Style
 
 SbtScalariform.scalariformSettings ++ Seq(
@@ -108,35 +117,35 @@ SbtScalariform.scalariformSettings ++ Seq(
 // Code Quality
 
 scapegoatRunAlways := false
+scapegoatDisabledInspections := Seq(
+  "RedundantFinalModifierOnCaseClass",
+  "UnnecessaryReturnUse",
+  "MethodNames"
+)
 
 /*
-wartremoverErrors ++= Seq(
+wartremoverErrors in (Compile, compile) ++= Seq(
   //Wart.Any
-  //Wart.AsInstanceOf,
-  //Wart.IsInstanceOf,
+  Wart.AsInstanceOf,
+  Wart.IsInstanceOf,
   Wart.Any2StringAdd,
   Wart.EitherProjectionPartial,
-  Wart.ListOps,
-  Wart.OptionPartial,
+  //Wart.ListOps,
+  //Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable
-  // For a more purely functional approach
   //Wart.NonUnitStatements,
   //Wart.Null,
-  //Wart.Return,
   //Wart.Throw
-  //Wart.Var
-)
-
-wartremoverWarnings ++= Seq(
-  Wart.Enumeration,
-  Wart.ExplicitImplicitTypes,
-  Wart.FinalCaseClass
 )
 */
+wartremoverWarnings in (Compile, compile) ++= Seq(
+  Wart.Enumeration,
+  Wart.FinalCaseClass,
+  Wart.JavaConversions
+)
 
 coverageMinimum := 75
-
 coverageFailOnMinimum := true
 
 cpdSettings

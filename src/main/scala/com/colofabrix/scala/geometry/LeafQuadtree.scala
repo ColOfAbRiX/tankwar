@@ -359,7 +359,7 @@ object LeafQuadtree {
    * Creates a new LeafQuadtree
    *
    * @param bounds The area that the LinkedLeafQuadtreeTmp will cover
-   * @param initialSet The initial data contained by the LinkedLeafQuadtreeTmp
+   * @param initialList The initial data contained by the LinkedLeafQuadtreeTmp
    * @param splitSize Max size of each node before a split happens
    * @param depth Depth of the LinkedLeafQuadtreeTmp
    * @tparam T Type of `PhysicalObject` that the LinkedLeafQuadtreeTmp will contain
@@ -367,15 +367,15 @@ object LeafQuadtree {
    */
   def apply[T: SpatialIndexable](
     bounds: Shape,
-    initialSet: List[T] = List(),
+    initialList: List[T] = List(),
     splitSize: Int = 1,
     depth: Int = 1
   )( implicit ct: ClassTag[T] ) = {
-    if ( initialSet.isEmpty ) {
+    if ( initialList.isEmpty ) {
       new LeafQuadtree[T]( bounds, 0, List(), List(), splitSize, depth )
     }
     else {
-      new LeafQuadtree[T]( bounds, 0, List(), List(), splitSize, depth ) ++ initialSet
+      new LeafQuadtree[T]( bounds, 0, List(), List(), splitSize, depth ) ++ initialList
     }
   }
 

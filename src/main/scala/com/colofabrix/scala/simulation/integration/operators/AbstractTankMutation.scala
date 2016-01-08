@@ -22,7 +22,8 @@ import java.util.Random
 import com.colofabrix.scala.simulation.{ Tank, TankChromosome }
 import org.uncommons.watchmaker.framework.EvolutionaryOperator
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
+import scala.language.postfixOps
 
 /**
  * Abstract operator to mutate a Tank
@@ -38,12 +39,13 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    */
   val extremityDistance = 1E-6
 
+  @SuppressWarnings( Array("JavaConverters") )
   override def apply( list: util.List[Tank], random: Random ): util.List[Tank] = {
     // Calls mutation rules for each Tank
-    list.map { t ⇒
+    list.asScala.map { t ⇒
       val newChromosome = mutateTank( t.chromosome, random )
       t.world.createAndAddTank( newChromosome )
-    }
+    } asJava
   }
 
   private def mutateTank( c: TankChromosome, random: Random ): TankChromosome = {

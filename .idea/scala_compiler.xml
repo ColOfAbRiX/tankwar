@@ -14,7 +14,7 @@
       <parameter value="-Xmax-classfile-name" />
       <parameter value="72" />
     </parameters>
-    <profile name="SBT 2" modules="tankwar,root">
+    <profile name="SBT 2" modules="root,tankwar">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />

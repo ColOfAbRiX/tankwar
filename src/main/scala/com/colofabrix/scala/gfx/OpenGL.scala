@@ -29,6 +29,7 @@ import scala.collection.immutable.HashMap
  * This class is meant to be a simple wrapper for OpenGL, to provide a Scala-way to use graphics but keeping things
  * as simple and small as possible (it doesn't want to be a full Scala OpenGL library)
  */
+@SuppressWarnings( Array( "NullAssignment" ) ) // null is allowed to work with OpenGL
 object OpenGL {
 
   /**

@@ -36,6 +36,7 @@ class PolygonRenderer( val polygon: Polygon, filled: Boolean = false, defaultFra
    *
    * @param create With a value of true a new drawing context will be create, with false nothing is done
    */
+  @SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
   def render( create: Boolean = true ): Unit = {
 
     withDefaultContext( create, defaultFrame ) {

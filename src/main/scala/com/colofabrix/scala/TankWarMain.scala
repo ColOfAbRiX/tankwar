@@ -29,14 +29,14 @@ import org.uncommons.watchmaker.framework.operators.EvolutionPipeline
 import org.uncommons.watchmaker.framework.selection._
 import org.uncommons.watchmaker.framework.termination._
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 /**
  * Simulation entry point
  */
 object TankWarMain {
 
-  def main( args: Array[String] ): Unit = {
+  def main(): Unit = {
 
     // Clean analysis files
     for {
@@ -72,7 +72,7 @@ object TankWarMain {
         new TankFullMutation( new Probability( 0.001 ) ),
         // Crossover between tanks
         new TankCrossover( 1, new Probability( 0.005 ) )
-      )
+      ).asJava
     )
 
     // Evolutionary engine

@@ -23,7 +23,8 @@ import com.colofabrix.scala.Tools._
 import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy }
 
-import scala.collection.JavaConversions._
+//import scala.collection.JavaConversions
+import scala.collection.JavaConverters._
 
 /**
  * This `EvolutionEngine` takes care of run a competition between
@@ -50,14 +51,14 @@ class TankEvolutionEngine(
   override protected def runCompetition( population: util.List[Tank] ): util.List[Tank] = {
 
     if ( population.size == 0 ) {
-      return List()
+      return List[Tank]().asJava
     }
 
     // Safest way to reference the world is using one of the Tanks
-    val world = population.head.world
+    val world = population.asScala( 0 ).world
 
     // Clean the world for a new start
-    world.resetWorld( population.to )
+    world.resetWorld( population.asScala.to )
 
     // Runs the competition
     measureTime( "Time for a round: @time" ) {
@@ -66,7 +67,7 @@ class TankEvolutionEngine(
 
     // Returns the population
     world.tanks.foreach( _.on_respawn() )
-    world.tanks
+    world.tanks.asJava
   }
 
 }

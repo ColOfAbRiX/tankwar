@@ -39,9 +39,9 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
 
         List(
           "Max Simulation Speed: " + flags.getWithDefault( "sync", 25 ) + "fps",
-          "Number Of Hits: " + world.counters.get( "hits" ).get,
-          "Number Of Shots: " + world.counters.get( "shots" ).get,
-          "Hit Percentage: " + ( world.counters.get( "hits" ).get.toFloat / ( world.counters.get( "shots" ).get.toFloat + 1 ) ).toString,
+          "Number Of Hits: " + world.counters.getOrElse( "hits", 0 ).toString,
+          "Number Of Shots: " + world.counters.getOrElse( "shots", 0 ).toString,
+          "Hit Percentage: " + ( world.counters.getOrElse( "hits", 0 ).toFloat / ( world.counters.getOrElse( "shots", 0 ).toFloat + 1.0 ) ).toString,
           "Generation",
           "Best tank fitness",
           "Average fitness"

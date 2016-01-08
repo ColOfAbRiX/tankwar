@@ -15,7 +15,7 @@
 #
 
 enter() {
-    echo -e "GIT - ENFORCING CODE POLICIES"
+    echo -e "\e[1;33mGIT - ENFORCING CODE POLICIES\e[0;0m"
 
     # Stash unstaged changes before running tests
     git add -A :/

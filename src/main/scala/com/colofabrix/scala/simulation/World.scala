@@ -109,8 +109,8 @@ class World(
    */
   def createAndAddDefaultTank( reader: DataReader ): Tank = {
     val chromosome = new TankChromosome(
-      Seq(),
-      Seq(),
+      Seq.empty,
+      Seq.empty,
       2.0 * Math.PI * new Random().nextDouble(),
       Tank.defaultSightRatio,
       Tank.defaultRange,

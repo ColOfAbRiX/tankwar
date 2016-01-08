@@ -26,6 +26,7 @@ import scala.language.postfixOps
  * A generic two-dimensional polygon
  * A generic two-dimensional polygon
  */
+@SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
 class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
 
   // The smallest polygon is a triangle!!
@@ -71,13 +72,13 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   lazy val isConvex = {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
     // direction of the first edge as a reference.
-    val direction = Math.signum( edges( 1 ) ^ edges( 0 ) )
+    val direction = Math.signum( edges( 1 ) ^ edges( 0 ) ).toInt
 
     // Check the condition on all edges
     this.edgesIterator.tail forall {
       case u :: v :: Nil ⇒
         val r = v ^ u
-        Math.signum( r ) == direction || r == 0
+        Math.signum( r ).toInt == direction || r.abs <= Double.MinPositiveValue
     }
   }
   /**
@@ -190,7 +191,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
    * @param p1 The second point that defines the line
    * @return True if the point is inside the shape
    */
-  override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1 )._1.r == 0.0
+  override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1 )._1.r.abs <= Double.MinPositiveValue
 
   /**
    * Determines if a shape is inside or on the boundary this shape

@@ -11,7 +11,11 @@
 # message file.
 #
 
-echo -e "GIT - ENFORCING COMMIT MESSAGE POLICIES"
+echo -e "\e[1;33mGIT - ENFORCING COMMIT MESSAGE POLICIES\e[0;0m"
+
+#
+# Message format
+#
 
 CARDS="[A-Z]+-[0-9]+:\s+[^\.]{8,}\."     # TKWAR-10: This is a commit. TKWAR-10: This is another ocmmit.
 NOTES="NOTES?:\s+[^\.]{8,}\."            # NOTES: This is a note on the commit.
@@ -22,11 +26,24 @@ REGEX="^($CARDS(\s+$CARDS)*|$TESTS)(|\s+$NOTES)(|\s+$CAVEATS)$"
 egrep -q "$REGEX" "$1"
 if [ $? -ne 0 ]
 then
-
     echo -e "\nERROR: Cannot commit.\n\nThe commit message doesn't comply to the required standard.\n\nThe commit message must respect the regular expression:\n    $REGEX\n\nChange the commit message and try again."
     exit 1
-
 fi
+
+#
+# Spell checker
+#
+
+ASPELL=$(which aspell)
+
+if [ $? -eq 0 ]; then
+    WORDS=$($ASPELL list < "$1")
+
+    if [ -n "$WORDS" ]; then
+        echo -e "Possible spelling errors found in commit message. Use git commit --amend to change the message.\n\tPossible mispelled words: $WORDS."
+    fi
+fi
+
 
 echo -e "\nThe project successfully completed the commit message policies checks\n"
 exit 1

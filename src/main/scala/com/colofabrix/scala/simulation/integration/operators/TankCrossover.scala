@@ -23,7 +23,7 @@ import com.colofabrix.scala.simulation.{ Tank, TankChromosome }
 import org.uncommons.maths.random.Probability
 import org.uncommons.watchmaker.framework.operators.AbstractCrossover
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 /**
  * Object to perform Tank-Tank crossover
@@ -46,7 +46,7 @@ class TankCrossover( crossoverPoints: Int, crossoverProbability: Probability )
     Seq(
       t0.world.createAndAddTank( TankChromosome( newCh1 ) ),
       t0.world.createAndAddTank( TankChromosome( newCh2 ) )
-    )
+    ).asJava
   }
 
 }

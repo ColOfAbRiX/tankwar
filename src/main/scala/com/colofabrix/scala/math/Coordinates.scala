@@ -36,7 +36,9 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
    */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case cc: CartesianCoord ⇒ this.x == cc.x && this.y == cc.y
+    case cc: CartesianCoord ⇒
+      ( this.x - cc.x ).abs <= Double.MinPositiveValue &&
+        ( this.y - cc.y ).abs <= Double.MinPositiveValue
 
     // For polar coordinates I first transform them in polar form
     case pc: PolarCoord ⇒ CartesianCoord( pc ) == this
@@ -93,7 +95,9 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
    */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case pc: PolarCoord ⇒ this.r == pc.r && this.t == pc.t
+    case pc: PolarCoord ⇒
+      ( this.r - pc.r ) <= Double.MinPositiveValue &&
+        ( this.t - pc.t ) <= Double.MinPositiveValue
 
     // For cartesian coordinates I first transform them in polar form
     case cc: CartesianCoord ⇒ PolarCoord( cc ) == this
@@ -105,7 +109,6 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
   /**
    * Determines if two matrices are equals
    *
-   * @param obj The other object to compare
    * @return true if the other object is a matrix identical to the current one
    */
   override def hashCode: Int = 41 + this.r.hashCode + 41 * this.t.hashCode

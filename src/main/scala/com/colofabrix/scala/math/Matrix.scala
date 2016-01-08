@@ -28,6 +28,7 @@ import scala.language.postfixOps
  * @param m N/A
  * @tparam T Data type of the matrix elements
  */
+@SuppressWarnings( Array( "TraversableHead" ) ) // Applied after checking the whole class. This is safe ATM
 class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[T] ) {
 
   import n._
@@ -42,8 +43,8 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
   }
 
   // Constraint for the construction: minimum size greater than zero and that all the rows are of the same length
-  require( matrix.nonEmpty || matrix.head.nonEmpty, "The columns or the rows of the matrix must not be empty" )
-  require( matrix.forall( _.length == matrix.head.length ), "The length of every row must match between each other" )
+  require( matrix.nonEmpty || matrix( 0 ).nonEmpty, "The columns or the rows of the matrix must not be empty" )
+  require( matrix.forall( _.length == matrix( 0 ).length ), "The length of every row must match between each other" )
 
   /**
    * Number of rows of the matrix
