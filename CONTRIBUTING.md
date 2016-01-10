@@ -7,6 +7,8 @@ together.
 
 ###Reccomended settings
 
+_NOT UPDATED - Jan 2016_
+
 The project was developed using:
 
 * Intellij IDEA 14
@@ -18,6 +20,8 @@ To maximise the compatibility and to have a quick start, that setup is recommend
 coding habits.
 
 ## Getting Started
+
+_NOT UPDATED - Jan 2016_
 
 * Make sure you have a [GitHub account](https://github.com/signup/free)
 * Submit a ticket for your issue, assuming one does not already exist.

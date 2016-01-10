@@ -17,6 +17,7 @@
 package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.math.Vector2D
@@ -34,7 +35,11 @@ import scala.collection.JavaConverters._
  */
 class TankRenderer( tank: Tank ) extends Renderer {
 
-  private val size: Double = tank.objectShape.asInstanceOf[Circle].radius
+  private val size: Double = tank.objectShape.container match {
+    case c: Circle ⇒ c.radius
+    case b: Box ⇒ Math.max( b.width, b.height )
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected container shape" )
+  }
 
   // scalastyle:off method.length
 

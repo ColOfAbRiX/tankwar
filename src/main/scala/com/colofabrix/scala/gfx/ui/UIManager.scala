@@ -56,14 +56,14 @@ class UIManager( val world: World ) {
   initializeFlags()
 
   private def initializeFlags(): Unit = {
-    flags += ( "sync" → 25 ) // Frame sync
-    flags += ( "fps" → 0 )
-    flags += ( "render" → false )
-    flags += ( "pause" → false )
-    flags += ( "vectors" → true )
-    flags += ( "tksight" → true )
-    flags += ( "tkinfo" → true )
-    flags += ( "details" → true )
+    flags += ( ( "sync" → 25 ) ) // Frame sync
+    flags += ( ( "fps" → 0 ) )
+    flags += ( ( "render" → false ) )
+    flags += ( ( "pause" → false ) )
+    flags += ( ( "vectors" → true ) )
+    flags += ( ( "tksight" → true ) )
+    flags += ( ( "tkinfo" → true ) )
+    flags += ( ( "details" → true ) )
 
     return
   }
@@ -117,7 +117,7 @@ class UIManager( val world: World ) {
    *
    * @return Returns the renderers for the User Interface
    */
-  def renderers: Seq[Renderer] = Seq()
+  def renderers: Seq[Renderer] = Seq.empty
 
   /**
    * Update all of the UI including the KeyBoardManager

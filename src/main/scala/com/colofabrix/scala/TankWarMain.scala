@@ -36,7 +36,7 @@ import scala.collection.JavaConverters._
  */
 object TankWarMain {
 
-  def main(): Unit = {
+  def main( args: Array[String] ): Unit = {
 
     // Clean analysis files
     for {
@@ -60,19 +60,19 @@ object TankWarMain {
     // Mutation pipeline
     val pipeline = new EvolutionPipeline[Tank](
       List(
-        // A very small mutation from the current values is applied frequently
-        new TankDriftMutation(
-          new Probability( 0.05 ), new GaussianGenerator( 0, Tank.defaultRange / ( 2.96 * 50.0 ), new MersenneTwisterRNG() )
-        ),
-        // A less small drift is applied less frequently
-        new TankDriftMutation(
-          new Probability( 0.005 ), new GaussianGenerator( 0, Tank.defaultRange / ( 2.96 * 5.0 ), new MersenneTwisterRNG() )
-        ),
-        // Every so and then a value is changed completely
-        new TankFullMutation( new Probability( 0.001 ) ),
-        // Crossover between tanks
-        new TankCrossover( 1, new Probability( 0.005 ) )
-      ).asJava
+      // A very small mutation from the current values is applied frequently
+      new TankDriftMutation(
+        new Probability( 0.05 ), new GaussianGenerator( 0, Tank.defaultRange / ( 2.96 * 50.0 ), new MersenneTwisterRNG() )
+      ),
+      // A less small drift is applied less frequently
+      new TankDriftMutation(
+        new Probability( 0.005 ), new GaussianGenerator( 0, Tank.defaultRange / ( 2.96 * 5.0 ), new MersenneTwisterRNG() )
+      ),
+      // Every so and then a value is changed completely
+      new TankFullMutation( new Probability( 0.001 ) ),
+      // Crossover between tanks
+      new TankCrossover( 1, new Probability( 0.005 ) )
+    ).asJava
     )
 
     // Evolutionary engine

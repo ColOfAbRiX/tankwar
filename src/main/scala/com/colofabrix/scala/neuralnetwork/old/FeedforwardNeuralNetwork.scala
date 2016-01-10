@@ -29,7 +29,7 @@ import com.colofabrix.scala.neuralnetwork.old.layers.{ HiddenLayer, InputLayer, 
  * @param hidden_layers Zero or more hidden layers. If no output layer the output matches exactly the inputs
  * @param output_layer One output layer to collect the results
  */
-@SuppressWarnings( Array("NullParameter") )
+@SuppressWarnings( Array( "NullParameter", "org.brianmckenna.wartremover.warts.IsInstanceOf" ) )
 class FeedforwardNeuralNetwork(
   val input_layer: InputLayer,
   val hidden_layers: Seq[HiddenLayer] = Seq(),

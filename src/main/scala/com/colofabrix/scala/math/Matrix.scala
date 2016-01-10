@@ -246,7 +246,10 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param other The other object to check
    * @return The method should return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
    */
-  protected def canEqual( other: Any ): Boolean = other.isInstanceOf[Matrix[T]]
+  protected def canEqual( other: Any ): Boolean = other match {
+    case _: Matrix[T] ⇒ true
+    case _ ⇒ false
+  }
 
   override def hashCode = matrix.foldLeft( 0 ) { ( res, row ) ⇒
     41 * res +

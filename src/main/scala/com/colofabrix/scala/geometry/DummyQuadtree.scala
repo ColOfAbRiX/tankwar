@@ -34,6 +34,11 @@ class DummyQuadtree[T: SpatialIndexable] protected (
 ) extends abstracts.SpatialTree[T] {
   require( toList != null, "A shape list must be specified, even empty" )
 
+  private def box: Box = bounds match {
+    case b: Box ⇒ b
+    case _ ⇒ throw new IllegalArgumentException( "Variable 'bound' is not of type Box" )
+  }
+
   /**
    * Create 4 quadrants into the node
    *
@@ -118,7 +123,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new BoxRenderer( bounds.asInstanceOf[Box], defaultFrame = Frame( Colour.DARK_GREY ) )
+  override def renderer: Renderer = new BoxRenderer( box, defaultFrame = Frame( Colour.DARK_GREY ) )
 
   /**
    * The number of shapes contained in the quadtree

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="uncommons-maths">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/uncommons-maths.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

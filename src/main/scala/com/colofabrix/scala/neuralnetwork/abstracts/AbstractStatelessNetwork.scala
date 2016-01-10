@@ -82,6 +82,7 @@ abstract class AbstractStatelessNetwork(
    * @return A sequence of Double representing all the outputs of the matrix for the given input
    */
   @tailrec
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
   protected final def solveNetwork( inputs: Seq[Double] ): Seq[Double] = {
     // Outputs of each neurons. By default it's NaN, as a neuron might not have an output value yet
     val outputs = ArrayBuffer.fill( matrix.rows - 1 )( Double.NaN )

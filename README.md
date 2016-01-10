@@ -3,7 +3,7 @@
 ##A study on Neuroevolution
 
 > "Neuroevolution, or neuro-evolution, is a form of machine learning that uses evolutionary algorithms to train artificial
-neural networks. It is most commonly applied in artificial life, computer games, and evolutionary robotics." – Wikipedia
+neural networks. It is most commonly applied in artificial life, computer games, and evolutionary robotics." ï¿½ Wikipedia
 
 ##The TankWar Project
 
@@ -20,6 +20,8 @@ are useless for the final score -fitness- of the Tank but sometimes, here and th
 be useful for the Tank, increasing its score. Useful behaviours are spread across generations and accumulated on individuals
 so that recognizable behaviours can be seen, like Tanks dodging bullets, following and targeting other Tanks and even
 close-combat scenes!
+
+This is an optimization process aimed at maximising a "life function".
 
 [turing-test]: https://en.wikipedia.org/wiki/Turing_test
 
@@ -39,7 +41,9 @@ that first one and properly implement my own ideas on the subject and learn the 
 
 ###Goals
 
-TankWar has several different goals.
+TankWar has several different goals. And all the goals are related to learning and personal growth.
+
+Tankwar is mainly an educational project.
 
 The first is to learn the basics of Artificial Intelligence and related topic, like [Artificial Neural Networks][WIKI-1]
 and [Genetic Algorithms][WIKI-2]. And to be honest, to see my little tanks evolve and how they live their artificial
@@ -74,6 +78,8 @@ state-of-the-art practices. I will be pleased to receive corrections and suggest
 [JOEL]: http://joelonsoftware.com/articles/fog0000000007.html
 
 ##Quick Start
+
+_NOT UPDATED - Jan 2016_
 
 The quick start assumes you are using the [Reccomended Settings][CONTRIBUTING.md]
 
@@ -120,6 +126,7 @@ or you can start it inside Intellij IDEA and work with it.
 * Scala programming language
   * Functional programming
   * Design patterns in scala
+  * SBT
 * Implementation of algorithms and data structures
   * Quadtree for spatial partitioning
   * Matrix multiplication
@@ -133,8 +140,10 @@ or you can start it inside Intellij IDEA and work with it.
 * Organise the issues with JIRA
 * Use Test-Driven Development
   * Unit testing
+* Static code analysis
 * Public repository on Github
   * External Github tools
+* GIT
 
 ###Topics of Computer Graphics
 

@@ -39,7 +39,7 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
    */
   val extremityDistance = 1E-6
 
-  @SuppressWarnings( Array("JavaConverters") )
+  @SuppressWarnings( Array( "JavaConverters" ) )
   override def apply( list: util.List[Tank], random: Random ): util.List[Tank] = {
     // Calls mutation rules for each Tank
     list.asScala.map { t ⇒

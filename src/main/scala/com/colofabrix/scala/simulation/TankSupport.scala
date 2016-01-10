@@ -53,6 +53,7 @@ object TankChromosome {
    * @param s A list containing the data for a chromosome
    * @return A new chromosome object
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.AsInstanceOf" ) )
   def apply( s: List[Any] ) = {
     new TankChromosome(
       s( 0 ).asInstanceOf[Seq[Seq[Double]]],

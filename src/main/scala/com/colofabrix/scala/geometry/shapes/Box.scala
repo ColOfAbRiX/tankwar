@@ -23,9 +23,11 @@ import com.colofabrix.scala.math.Vector2D
 /**
  * Rectangle shape with edges parallel to the cartesian axis
  *
- * This kind of shape is particularly useful in checking overlaps and collisions
- * as it is done in constant time O(k) and without complex mathematical operations.
- * For this reasons, more than being only a {ConvexPolygon} it is also a {Container}
+ * This kind of shape is particularly useful in checking overlaps and collisions as it
+ * is done in constant time O(k) and without complex mathematical operations. For this
+ * reasons, more than being only a {ConvexPolygon} it is also a {Container} to implement
+ * an AABB collision detection.
+ * See: http://stackoverflow.com/questions/22512319/what-is-aabb-collision-detection
  *
  * @see http://geomalgorithms.com/a08-_containers.html
  * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane

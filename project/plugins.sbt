@@ -21,3 +21,5 @@ addSbtPlugin("de.johoop" % "cpd4sbt" % "1.1.5")
 // IDE Integration
 
 //addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
+
+addSbtPlugin("com.markatta" % "taglist-plugin" % "1.3.1")

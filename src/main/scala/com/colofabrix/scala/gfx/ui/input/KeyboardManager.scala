@@ -26,7 +26,7 @@ class KeyboardManager {
   /**
    * The ArrayBuffer of listeners
    */
-  var keyboardListeners = Seq[KeyboardListener]()
+  var keyboardListeners = Seq.empty[KeyboardListener]
 
   /**
    * Add a listener to the list

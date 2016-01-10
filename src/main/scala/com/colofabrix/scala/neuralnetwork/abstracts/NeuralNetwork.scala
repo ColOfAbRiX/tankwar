@@ -138,6 +138,7 @@ object NeuralNetwork {
    * @param network Adjacency matrix that represents the network
    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
   def analiseNetwork( network: NetworkMatrix, rootIndex: Int ): ( Matrix[Double], Matrix[Double], Matrix[Double] ) = {
     val matrix = network.adjacencyOnly
 

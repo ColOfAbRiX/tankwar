@@ -58,6 +58,11 @@ class LeafQuadtree[T: SpatialIndexable] protected (
   require( splitSize > 0, "The bucket size must be an integer greater than zero" )
   require( depth > 0, "The number of levels must be an integer greater than zero" )
 
+  private def box: Box = bounds match {
+    case b: Box ⇒ b
+    case _ ⇒ throw new IllegalArgumentException( "Variable 'bound' is not of type Box" )
+  }
+
   @inline
   private def shape( t: T ): Shape = implicitly[SpatialIndexable[T]].container( t )
 
@@ -71,9 +76,6 @@ class LeafQuadtree[T: SpatialIndexable] protected (
    */
   override protected def split() = {
     import com.colofabrix.scala.math.Vector2D._
-
-    // In this object, bounds is always of type Box
-    val box = this.bounds.asInstanceOf[Box]
 
     val quadLookup = List(
       new Box(

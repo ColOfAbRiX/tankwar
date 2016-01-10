@@ -32,6 +32,7 @@ import scala.language.postfixOps
  * @param biases The set of bias values, one for each neuron
  * @param weights The set of input weights. Every neuron has n_inputs weights.
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.IsInstanceOf" ) )
 abstract class NeuronLayer(
   val activation: ActivationFunction,
   override val n_inputs: Int,

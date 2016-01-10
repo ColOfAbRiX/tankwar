@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.Bullet
@@ -40,7 +39,7 @@ class BulletRenderer( bullet: Bullet ) extends Renderer {
 
     applyContext( Frame( Colour.BLUE ) ) {
 
-      new CircleRenderer( bullet.objectShape.asInstanceOf[Circle], true ).render( false )
+      bullet.objectShape.renderer.render( false )
 
     }
 

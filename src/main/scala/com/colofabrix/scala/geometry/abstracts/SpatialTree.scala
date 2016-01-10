@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.geometry.LinkedQuadtree
+import com.colofabrix.scala.geometry.{ DummyQuadtree, LinkedQuadtree }
 import com.colofabrix.scala.geometry.abstracts.SpatialTree.SpatialIndexable
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject

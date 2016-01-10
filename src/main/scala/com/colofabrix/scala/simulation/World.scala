@@ -17,6 +17,7 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.DummyQuadtree
+import com.colofabrix.scala.geometry.abstracts.SpatialTree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -44,6 +45,7 @@ import scala.util.Random
  * @param dead_time Percentage of the time when a tank can be dead
  * @param _initialTanks The tanks present in the world
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
 class World(
     val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
     val max_tank_speed: Double = 5,
@@ -75,8 +77,8 @@ class World(
     "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets = DummyQuadtree[Bullet]( arena, List() )
-  private var _tanks = DummyQuadtree[Tank]( arena, _initialTanks )
+  private var _bullets = SpatialTree[Bullet]( arena, List() )
+  private var _tanks = SpatialTree[Tank]( arena, _initialTanks )
   private var _time: Long = 0
   /**
    * Graphics manager of the simulation
@@ -130,6 +132,7 @@ class World(
    * @param reader N/A
    * @return
    */
+  @SuppressWarnings( Array( "NullAssignment" ) )
   def createAndAddTank( chromosome: TankChromosome, reader: DataReader = null ): Tank = {
     val tank = Tank( this, chromosome, reader )
     _tanks = _tanks + tank

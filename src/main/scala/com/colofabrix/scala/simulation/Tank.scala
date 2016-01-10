@@ -17,14 +17,14 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.TankRenderer
 import com.colofabrix.scala.math.Vector2D
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{ FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork }
-import com.colofabrix.scala.simulation.Tank.TargetType
+import com.colofabrix.scala.simulation.Tank._
 import com.colofabrix.scala.simulation.abstracts.{ InteractiveObject, PhysicalObject }
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 
@@ -53,6 +53,7 @@ import scala.util.Random
  * @param initialData The defining data of the Tank in the form of a Chromosome
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
 class Tank private (
     override val world: World,
     initialData: TankChromosome,
@@ -89,7 +90,8 @@ class Tank private (
    * can be obtained in other ways too.
    * Note that it doesn't contain any status information like the current position or speed
    */
-  val chromosome = new TankChromosome(
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.AsInstanceOf" ) )
+  def chromosome = new TankChromosome(
     brain.biases.asInstanceOf[Seq[Seq[Double]]],
     brain.weights.asInstanceOf[Seq[Seq[Seq[Double]]]],
     initialData.rotationRef,
@@ -224,6 +226,7 @@ class Tank private (
    *
    * @param that The object that it's in the sight of the current one
    */
+  @SuppressWarnings( Array( "NullParameter" ) )
   override def on_objectOnSight( that: PhysicalObject ): Unit = {
     if ( that == null ) return
 
@@ -344,13 +347,17 @@ class Tank private (
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
   def calculateClosestBulletVision: ( Vector2D, Vector2D ) = {
-    val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
+    val sightDistance = sight( classOf[Bullet] ) match {
+      case c: Circle ⇒ c.radius
+      case b: Box ⇒ max( b.width, b.height )
+      case _ ⇒ throw new IllegalArgumentException( "Cannot use something different than a Box or Circle here and now" )
+    }
 
     if ( _seenBullets.isEmpty ) {
       return ( Vector2D.zero, Vector2D.zero )
     }
 
-    val closestBullet = _seenBullets.minBy( _._2.r <= sightShape.radius / 2.0 )
+    val closestBullet = _seenBullets.minBy( _._2.r <= sightDistance / 2.0 )
     val closestBulletPosition = Vector2D.new_rt(
       max( 1.0 - closestBullet._2.r / _maxSight.radius, 0 ),
       closestBullet._2.t
@@ -358,7 +365,7 @@ class Tank private (
     val closestBulleSpeed = closestBullet._3
 
     // Final position seen by the tank
-    ( closestBulletPosition, closestBulletPosition )
+    ( closestBulletPosition, closestBulleSpeed )
   }
 
   /**
@@ -399,7 +406,11 @@ class Tank private (
    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
    */
   def calculateBulletVision: ( Vector2D, Vector2D ) = {
-    val sightShape = sight( classOf[Bullet] ).asInstanceOf[Circle]
+    val sightDistance = sight( classOf[Bullet] ) match {
+      case c: Circle ⇒ c.radius
+      case b: Box ⇒ max( b.width, b.height )
+      case _ ⇒ throw new IllegalArgumentException( "Cannot use something different than a Box or Circle here and now" )
+    }
 
     if ( _seenBullets.isEmpty ) {
       return ( Vector2D.zero, Vector2D.zero )
@@ -433,8 +444,6 @@ class Tank private (
    */
   @SuppressWarnings( Array( "TraversableHead" ) )
   def calculateTankVision: ( Vector2D, Vector2D ) = {
-    val sightShape = sight( classOf[Tank] ).asInstanceOf[Circle]
-
     if ( _seenTanks.isEmpty ) {
       return ( Vector2D.zero, Vector2D.zero )
     }
@@ -444,27 +453,27 @@ class Tank private (
 
     val selectedTank = Tank.defaultTargetType match {
 
-      case TargetType.first ⇒
+      case FirstTarget ⇒
         // I target the same tank not caring about new tanks on sight (for consistency)
         _seenTanks.sortBy( t ⇒ t._1.id ).head
 
-      case TargetType.fittest ⇒
+      case FittestTarget ⇒
         // I target the fittest tank on sight (hoping to gain more points)
         _seenTanks.maxBy( t ⇒ TankEvaluator.fitness( t._1 ) )
 
-      case TargetType.lessFit ⇒
+      case LessFitTarget ⇒
         // I target the weaker tank on sight (for an easy kill)
         _seenTanks.minBy( t ⇒ TankEvaluator.fitness( t._1 ) )
 
-      case TargetType.highPoints ⇒
+      case HighPointsTarget ⇒
         // I target the tank with the highest points (hoping to gain more points myself)
         _seenTanks.maxBy( t ⇒ t._1.points )
 
-      case TargetType.lowPoints ⇒
+      case LowPointsTarget ⇒
         // I target the tank with the lowest points (for an easy kill)
         _seenTanks.minBy( t ⇒ t._1.points )
 
-      case TargetType.slowest ⇒
+      case SlowestTarget ⇒
         // I target the slowest tank on sight (for an easy kill)
         _seenTanks.minBy( t ⇒ t._3.r )
     }
@@ -497,10 +506,14 @@ class Tank private (
  */
 object Tank {
 
-  object TargetType extends Enumeration {
-    type TargetType = Enumeration
-    val first, fittest, lessFit, highPoints, lowPoints, slowest = Value
-  }
+  sealed trait TargetType
+
+  case object FirstTarget extends TargetType
+  case object FittestTarget extends TargetType
+  case object LessFitTarget extends TargetType
+  case object HighPointsTarget extends TargetType
+  case object LowPointsTarget extends TargetType
+  case object SlowestTarget extends TargetType
 
   /** Default activation function */
   val defaultActivationFunction = Seq.fill( 3 )( "tanh" )
@@ -515,7 +528,7 @@ object Tank {
   /** Default sight ration. */
   val defaultSightRatio = 0.5
   /** Default targeting strategy for targets */
-  val defaultTargetType = TargetType.highPoints
+  val defaultTargetType: TargetType = HighPointsTarget
   /** Max amount af point that a Tank can gain */
   val maxGainK = 2.0
   //val maxGainK = 10.0

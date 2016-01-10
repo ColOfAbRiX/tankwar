@@ -55,7 +55,10 @@ class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
     println( "" )
 
     // Print on file
-    writer.println( s"${pop.getGenerationNumber};$mean;$highest;$stddev;$normMeanDev;$normMaxDev;${counters( "hits" )};${counters( "shots" )}".replace( ".", "," ) )
+    writer.println(
+      s"${pop.getGenerationNumber};$mean;$highest;$stddev;$normMeanDev;$normMaxDev;${counters( "hits" )};${counters( "shots" )}"
+        .replace( ".", "," )
+    )
     writer.flush()
 
     // Run the network analysis of the fittest candidate
