@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>World - TankWar Documentation - com.colofabrix.scala.simulation.World</title>
-          <meta name="description" content="World - TankWar Documentation - com.colofabrix.scala.simulation.World" />
-          <meta name="keywords" content="World TankWar Documentation com.colofabrix.scala.simulation.World" />
+          <title>World - com.colofabrix.scala.simulation.World</title>
+          <meta name="description" content="World - com.colofabrix.scala.simulation.World" />
+          <meta name="keywords" content="World com.colofabrix.scala.simulation.World" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../../../../lib/class_big.png" />
+        <img alt="Class" src="../../../../lib/class_big.png" />
         <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.simulation">simulation</a></p>
-        <h1>World</h1> <span class="permalink">
+        <h1>World</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.colofabrix.scala.simulation">package simulation</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -49,7 +51,10 @@
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The world of the simulation</p><p>This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
 and limits that the participants must follow
-</p></div><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -77,7 +82,6 @@ and limits that the participants must follow
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -98,15 +102,14 @@ and limits that the participants must follow
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">World</span><span class="params">(<span name="arena">arena: <a href="../geometry/shapes/Box.html" class="extype" name="com.colofabrix.scala.geometry.shapes.Box">Box</a> = <span class="defval" name='<span class="name"><a href="../../../package.html">Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) )</a></span>'>...</span></span>, <span name="max_tank_speed">max_tank_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">5</span></span>, <span name="max_tank_rotation">max_tank_rotation: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">10 * 2.0 * Math.PI / 360</span></span>, <span name="max_bullet_speed">max_bullet_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">4</span></span>, <span name="bullet_life">bullet_life: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">25</span></span>, <span name="max_sight">max_sight: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">62831.853071795864</span></span>, <span name="max_rounds">max_rounds: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">1000</span></span>, <span name="dead_time">dead_time: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">0.2</span></span>, <span name="_initialTanks">_initialTanks: <span class="extype" name="scala.List">List</span>[<a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>] = <span class="symbol">List( )</span></span>)</span>
+        <span class="name">World</span><span class="params">(<span name="arena">arena: <a href="../geometry/shapes/Box.html" class="extype" name="com.colofabrix.scala.geometry.shapes.Box">Box</a> = <span class="defval" name='<span class="name"><a href="../../../package.html">Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) )</a></span>'>...</span></span>, <span name="max_tank_speed">max_tank_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">5</span></span>, <span name="max_tank_rotation">max_tank_rotation: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">15 * 2.0 * Math.PI / 360</span></span>, <span name="max_bullet_speed">max_bullet_speed: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">4</span></span>, <span name="bullet_life">bullet_life: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">25</span></span>, <span name="max_sight">max_sight: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">62831.853071795864</span></span>, <span name="max_rounds">max_rounds: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">1000</span></span>, <span name="dead_time">dead_time: <span class="extype" name="scala.Double">Double</span> = <span class="symbol">0.2</span></span>, <span name="_initialTanks">_initialTanks: <span class="extype" name="scala.List">List</span>[<a href="Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a>] = <span class="symbol">List()</span></span>)</span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@&lt;init&gt;(arena:com.colofabrix.scala.geometry.shapes.Box,max_tank_speed:Double,max_tank_rotation:Double,max_bullet_speed:Double,bullet_life:Int,max_sight:Double,max_rounds:Int,dead_time:Double,_initialTanks:List[com.colofabrix.scala.simulation.Tank]):com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">arena</dt><dd class="cmt"><p>The arena where the tanks play</p></dd><dt class="param">max_tank_speed</dt><dd class="cmt"><p>The maximum speed allowed for a tank per step</p></dd><dt class="param">max_tank_rotation</dt><dd class="cmt"><p>The maximum angular speed of a tank per step</p></dd><dt class="param">max_bullet_speed</dt><dd class="cmt"><p>The maximum proper speed of a bullet per step</p></dd><dt class="param">bullet_life</dt><dd class="cmt"><p>The maximum number of steps a bullet can live</p></dd><dt class="param">max_sight</dt><dd class="cmt"><p>Maximum allowed sight for a tank</p></dd><dt class="param">max_rounds</dt><dd class="cmt"><p>Maximum number of rounds for a generation</p></dd><dt class="param">dead_time</dt><dd class="cmt"><p>Percentage of the time when a tank can be dead</p></dd><dt class="param">_initialTanks</dt><dd class="cmt"><p>The tanks present in the world
-</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">arena</dt><dd class="cmt"><p>The arena where the tanks play</p></dd><dt class="param">max_tank_speed</dt><dd class="cmt"><p>The maximum speed allowed for a tank per step</p></dd><dt class="param">max_tank_rotation</dt><dd class="cmt"><p>The maximum angular speed of a tank per step</p></dd><dt class="param">max_bullet_speed</dt><dd class="cmt"><p>The maximum proper speed of a bullet per step</p></dd><dt class="param">bullet_life</dt><dd class="cmt"><p>The maximum number of steps a bullet can live</p></dd><dt class="param">max_sight</dt><dd class="cmt"><p>Maximum allowed sight for a tank</p></dd><dt class="param">max_rounds</dt><dd class="cmt"><p>Maximum number of rounds for a generation</p></dd><dt class="param">dead_time</dt><dd class="cmt"><p>Percentage of the time when a tank can be dead</p></dd><dt class="param">_initialTanks</dt><dd class="cmt"><p>The tanks present in the world</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -129,7 +132,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -146,7 +149,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@##():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -163,7 +166,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -180,7 +183,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@GFXManager:com.colofabrix.scala.gfx.GFXManager" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Graphics manager of the simulation
@@ -198,7 +201,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@UIManager:com.colofabrix.scala.gfx.ui.UIManager" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">User interaction manager of the simulation
@@ -216,7 +219,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@arena:com.colofabrix.scala.geometry.shapes.Box" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The arena where the tanks play</p>
@@ -233,7 +236,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -250,7 +253,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullet_life:Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The maximum number of steps a bullet can live</p>
@@ -267,7 +270,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@bullets:List[com.colofabrix.scala.simulation.Bullet]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">List of bullets running through the world
@@ -285,7 +288,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -308,7 +311,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@counters:scala.collection.immutable.Map[String,Int]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Counters for the statistics of the world
@@ -326,12 +329,11 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddDefaultTank(reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Creates and add a new Tank to the world</p><div class="fullcomment"><div class="comment cmt"><p>Creates and add a new Tank to the world</p><p>NOTE: To be refactored
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The newly created Tank
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The newly created Tank</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#createAndAddTank" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank"></a>
       <a id="createAndAddTank(TankChromosome,DataReader):Tank"></a>
@@ -345,12 +347,14 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@createAndAddTank(chromosome:com.colofabrix.scala.simulation.TankChromosome,reader:com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader):com.colofabrix.scala.simulation.Tank" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Creates and add a new Tank to the world</p><div class="fullcomment"><div class="comment cmt"><p>Creates and add a new Tank to the world</p><p>NOTE: To be refactored
-</p></div><dl class="paramcmts block"><dt class="param">chromosome</dt><dd class="cmt"><p>The chromosome defining the Tank</p></dd><dt class="param">reader</dt><dd class="cmt"><p>N/A</p></dd><dt>returns</dt><dd class="cmt"><p>
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">chromosome</dt><dd class="cmt"><p>The chromosome defining the Tank</p></dd><dt class="param">reader</dt><dd class="cmt"><p>N/A</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#dead_time" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="dead_time:Double"></a>
       <a id="dead_time:Double"></a>
@@ -364,7 +368,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@dead_time:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Percentage of the time when a tank can be dead</p>
@@ -381,7 +385,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -398,7 +402,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -415,7 +419,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -438,7 +442,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -455,7 +459,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -472,7 +476,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -489,7 +493,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_bullet_speed:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The maximum proper speed of a bullet per step</p>
@@ -506,7 +510,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_rounds:Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Maximum number of rounds for a generation</p>
@@ -523,7 +527,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_sight:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Maximum allowed sight for a tank</p>
@@ -540,7 +544,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_rotation:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The maximum angular speed of a tank per step</p>
@@ -557,7 +561,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@max_tank_speed:Double" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The maximum speed allowed for a tank per step</p>
@@ -574,7 +578,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -591,7 +595,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -608,7 +612,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -625,13 +629,12 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankHit(tank:com.colofabrix.scala.simulation.Tank,bullet:com.colofabrix.scala.simulation.Bullet):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">A tank is hit by a bullet
 </p><div class="fullcomment"><div class="comment cmt"><p>A tank is hit by a bullet
-</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank hit by the bullet</p></dd><dt class="param">bullet</dt><dd class="cmt"><p>The bullet that hits the tank
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank hit by the bullet</p></dd><dt class="param">bullet</dt><dd class="cmt"><p>The bullet that hits the tank</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#on_tankShot" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit"></a>
       <a id="on_tankShot(Tank):Unit"></a>
@@ -645,13 +648,12 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@on_tankShot(tank:com.colofabrix.scala.simulation.Tank):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">A tank requests to shot a bullet
 </p><div class="fullcomment"><div class="comment cmt"><p>A tank requests to shot a bullet
-</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank that requested to shot
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">tank</dt><dd class="cmt"><p>The tank that requested to shot</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#renderers" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="renderers:Seq[com.colofabrix.scala.gfx.abstracts.Renderer]"></a>
       <a id="renderers:Seq[Renderer]"></a>
@@ -665,13 +667,12 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@renderers:Seq[com.colofabrix.scala.gfx.abstracts.Renderer]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Collects the renderers to draw the objects in the world, like tanks and bullets
 </p><div class="fullcomment"><div class="comment cmt"><p>Collects the renderers to draw the objects in the world, like tanks and bullets
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>All the renderers for the objects in the simulation worlds
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>All the renderers for the objects in the simulation worlds</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#resetWorld" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit"></a>
       <a id="resetWorld(List[Tank]):Unit"></a>
@@ -685,12 +686,11 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@resetWorld(tankList:List[com.colofabrix.scala.simulation.Tank]):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Resets the world to a known, initial states</p><div class="fullcomment"><div class="comment cmt"><p>Resets the world to a known, initial states</p><p>NOTE: Might be refactored
-</p></div><dl class="paramcmts block"><dt class="param">tankList</dt><dd class="cmt"><p>Current population of the world
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">tankList</dt><dd class="cmt"><p>Current population of the world</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.World#rounds" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="rounds:scala.collection.immutable.Range.Inclusive"></a>
       <a id="rounds:Inclusive"></a>
@@ -704,7 +704,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@rounds:scala.collection.immutable.Range.Inclusive" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Sequence of all rounds in the world
@@ -722,7 +722,7 @@ and limits that the participants must follow
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@step():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Moves the world one step forward.</p><div class="fullcomment"><div class="comment cmt"><p>Moves the world one step forward.</p><p>It first moves tanks and thus manages tanks firing. It then
@@ -741,7 +741,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -758,7 +758,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanks:List[com.colofabrix.scala.simulation.Tank]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">List of tanks present in the world
@@ -776,7 +776,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@tanksPenalty:scala.collection.mutable.ArrayBuffer[Double]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Penalty applied to each tank by the rules of the world
@@ -794,13 +794,12 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@time:Long" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Global execution time
 </p><div class="fullcomment"><div class="comment cmt"><p>Global execution time
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The number of steps taken from the beginning
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The number of steps taken from the beginning</p></dd></dl></div>
     </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <a id="toString():String"></a>
@@ -814,7 +813,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@toString():String" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -831,7 +830,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -854,7 +853,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -877,7 +876,7 @@ handles bullets and collision between bullets and tanks
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.World@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>shapes - TankWar Documentation - com.colofabrix.scala.geometry.shapes</title>
-          <meta name="description" content="shapes - TankWar Documentation - com.colofabrix.scala.geometry.shapes" />
-          <meta name="keywords" content="shapes TankWar Documentation com.colofabrix.scala.geometry.shapes" />
+          <title>shapes - com.colofabrix.scala.geometry.shapes</title>
+          <meta name="description" content="shapes - com.colofabrix.scala.geometry.shapes" />
+          <meta name="keywords" content="shapes com.colofabrix.scala.geometry.shapes" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,11 @@
         </head>
         <body class="value">
       <div id="definition">
-        <img src="../../../../../lib/package_big.png" />
+        <img alt="Package" src="../../../../../lib/package_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.geometry">geometry</a></p>
-        <h1>shapes</h1> <span class="permalink">
+        <h1>shapes</h1><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -71,7 +71,7 @@
       <a id="Box:Box"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
@@ -79,20 +79,21 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@BoxextendsConvexPolygonwithContainerwithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Rectangle shape with edges parallel to the cartesian axis</p><div class="fullcomment"><div class="comment cmt"><p>Rectangle shape with edges parallel to the cartesian axis</p><p>This kind of shape is particularly useful in checking overlaps and collisions
-as it is done in constant time O(k) and without complex mathematical operations.
-For this reasons, more than being only a {ConvexPolygon} it is also a {Container}
-</p></div><dl class="paramcmts block"><dt class="param">bottomLeft</dt><dd class="cmt"><p>Rectangle left-bottom-most point, in any quadrant of the plane</p></dd><dt class="param">topRight</dt><dd class="cmt"><p>Rectangle right-top point, in any quadrant of the plane
-</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html</p></span></dd></dl></div>
+      <p class="shortcomment cmt">Rectangle shape with edges parallel to the cartesian axis</p><div class="fullcomment"><div class="comment cmt"><p>Rectangle shape with edges parallel to the cartesian axis</p><p>This kind of shape is particularly useful in checking overlaps and collisions as it
+is done in constant time O(k) and without complex mathematical operations. For this
+reasons, more than being only a {ConvexPolygon} it is also a {Container} to implement
+an AABB collision detection.
+See: http://stackoverflow.com/questions/22512319/what-is-aabb-collision-detection
+</p></div><dl class="paramcmts block"><dt class="param">bottomLeft</dt><dd class="cmt"><p>Rectangle left-bottom-most point, in any quadrant of the plane</p></dd><dt class="param">topRight</dt><dd class="cmt"><p>Rectangle right-top point, in any quadrant of the plane</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Circle" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CircleextendsShapewithContainerwithRenderablewithProductwithSerializable"></a>
       <a id="Circle:Circle"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
@@ -100,13 +101,12 @@ For this reasons, more than being only a {ConvexPolygon} it is also a {Container
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@CircleextendsShapewithContainerwithRenderablewithProductwithSerializable" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Circle shape</p><div class="fullcomment"><div class="comment cmt"><p>Circle shape</p><p>A Circle is a very convenient shape to check for geometrical properties as
 it is, generally speaking, very fast to compute them. For this reason it is also marked as a {Container}
-</p></div><dl class="paramcmts block"><dt class="param">center</dt><dd class="cmt"><p>Center of the circle</p></dd><dt class="param">radius</dt><dd class="cmt"><p>Radius of the circle. Must be non-negative
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">center</dt><dd class="cmt"><p>Center of the circle</p></dd><dt class="param">radius</dt><dd class="cmt"><p>Radius of the circle. Must be non-negative</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.ConvexPolygon" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ConvexPolygonextendsPolygon"></a>
       <a id="ConvexPolygon:ConvexPolygon"></a>
@@ -120,7 +120,7 @@ it is, generally speaking, very fast to compute them. For this reason it is also
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@ConvexPolygonextendsPolygon" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">A convex polygon
@@ -138,11 +138,10 @@ it is, generally speaking, very fast to compute them. For this reason it is also
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@DiamondextendsConvexPolygonwithContainer" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">TODO: Complete the class</p><div class="fullcomment"><div class="comment cmt"><p>TODO: Complete the class</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html
-</p></span></dd></dl></div>
+      <p class="shortcomment cmt">TODO: Complete the class</p><div class="fullcomment"><div class="comment cmt"><p>TODO: Complete the class</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html</p></span></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.shapes.Octagon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="OctagonextendsConvexPolygonwithContainer"></a>
       <a id="Octagon:Octagon"></a>
@@ -156,12 +155,11 @@ it is, generally speaking, very fast to compute them. For this reason it is also
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@OctagonextendsConvexPolygonwithContainer" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">TODO: Complete the class</p><div class="fullcomment"><div class="comment cmt"><p>TODO: Complete the class</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html
-</p></span></dd></dl></div>
-    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">TODO: Complete the class</p><div class="fullcomment"><div class="comment cmt"><p>TODO: Complete the class</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a08-_containers.html</p></span></dd></dl></div>
+    </li><li name="com.colofabrix.scala.geometry.shapes.Polygon" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PolygonextendsShapewithRenderable"></a>
       <a id="Polygon:Polygon"></a>
       <h4 class="signature">
@@ -174,12 +172,17 @@ it is, generally speaking, very fast to compute them. For this reason it is also
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@PolygonextendsShapewithRenderable" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">A generic two-dimensional polygon
 A generic two-dimensional polygon
-</p>
+</p><div class="fullcomment"><div class="comment cmt"><p>A generic two-dimensional polygon
+A generic two-dimensional polygon
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li></ol>
             </div>
 
@@ -200,7 +203,7 @@ A generic two-dimensional polygon
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@Box" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       
@@ -217,7 +220,7 @@ A generic two-dimensional polygon
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.shapes.package@Circle" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       

@@ -28,6 +28,7 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
  *
  * Used to do performance tests and comparisons
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class DummyQuadtree[T: SpatialIndexable] protected (
     override val toList: List[T],
     override val bounds: Shape
@@ -146,7 +147,7 @@ object DummyQuadtree {
    * @tparam T Type of `PhysicalObject` that the DummyQuadtree will contain
    * @return A new instance of DummyQuadtree
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List() ): DummyQuadtree[T] =
+  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List[T]() ): DummyQuadtree[T] =
     new DummyQuadtree[T]( initialList, bounds )
 
 }

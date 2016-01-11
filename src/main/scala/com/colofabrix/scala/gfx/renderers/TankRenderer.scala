@@ -49,9 +49,11 @@ class TankRenderer( tank: Tank ) extends Renderer {
    * @param create This parameter is disabled for this renderer
    */
   def render( create: Boolean = true ): Unit = {
+    @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
+    val flags = tank.world.UIManager.flags
+
     val fitness: Double = new TankEvaluator().getFitness( tank, List[Tank]().asJava )
     val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
-    val flags = tank.world.UIManager.flags
 
     applyContext( Frame( _position = tank.position ) ) {
 

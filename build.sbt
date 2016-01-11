@@ -19,12 +19,13 @@
  */
 
 import de.johoop.cpd4sbt.CopyPasteDetector._
+import sbt.File
 import sbt.Keys._
 import wartremover.WartRemover.autoImport._
 import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform._
 
-// Projecty Definition
+// Project Definition
 
 name := "TankWar"
 version := "0.2.0"
@@ -91,7 +92,6 @@ javaOptions ++= Seq(
   s"-Djava.library.path=${unmanagedBase.value}"
 )
 
-
 // Scaladoc configuration
 
 target in (Compile, compile) in doc := baseDirectory.value / "docs"
@@ -107,7 +107,7 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
     .filter( _.name.contains( os.toLowerCase ) )
 
   jars foreach { jar =>
-    println( s"[info] Processing '$jar' and saving to '${unmanagedBase.value}'" )
+    println( s"[info] Processing '${jar.getName}' and saving to '${unmanagedBase.value}'" )
     IO.unzip(  jar, unmanagedBase.value )
   }
 
@@ -115,6 +115,8 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
 })
 
 // Code Style
+
+scalastyleConfig := file( s"${sourceDirectory.value}/main/resources/scalastyle-config.xml" )
 
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -129,32 +131,18 @@ SbtScalariform.scalariformSettings ++ Seq(
 
 // Code Quality
 
-scapegoatRunAlways := false
-scapegoatIgnoredFiles := Seq( ".*/old/.*" )
-scapegoatDisabledInspections := Seq(
-  "RedundantFinalModifierOnCaseClass",
-  "UnusedMethodParameter",
-  "UnnecessaryReturnUse",
-  "MethodNames"
-)
-
+wartremoverExcluded ++= (sourceDirectory.value ** "*old*" ** "*.scala").get
 wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.Any2StringAdd,
   Wart.AsInstanceOf,
   Wart.EitherProjectionPartial,
   Wart.IsInstanceOf,
+  Wart.ListOps,
+  Wart.Nothing,
+  Wart.Null,
   Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable
-  // These aren't always good applied to this project, though useful
-  //Wart.Any
-  //Wart.Null
-  //Wart.ListOps,
-  //Wart.Var
-  // These don't make sense at all to me in the place where they fail
-  //Wart.NonUnitStatements
-  //Wart.Return
-  //Wart.Throw
 )
 wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.Any2StringAdd,
@@ -166,15 +154,13 @@ wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.Option2Iterable,
   Wart.Serializable,
   Wart.ToString,
-  Wart.TryPartial
-  // These aren't always good applied to this project, though useful
-  //Wart.Nothing
-  // I don't find these useful at all
-  //Wart.DefaultArguments
-  //Wart.ExplicitImplicitTypes
-  // This is broken, raises an exception on v0.14
-  //Wart.NoNeedForMonad
+  Wart.TryPartial,
+  Wart.Var
 )
+
+lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
+compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
+(compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
 
 coverageMinimum := 75
 coverageFailOnMinimum := true

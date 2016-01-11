@@ -45,7 +45,13 @@ import scala.util.Random
  * @param dead_time Percentage of the time when a tank can be dead
  * @param _initialTanks The tanks present in the world
  */
-@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
+@SuppressWarnings(
+  Array(
+    "org.brianmckenna.wartremover.warts.MutableDataStructures",
+    "org.brianmckenna.wartremover.warts.Null",
+    "org.brianmckenna.wartremover.warts.Var"
+  )
+)
 class World(
     val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
     val max_tank_speed: Double = 5,
@@ -111,8 +117,8 @@ class World(
    */
   def createAndAddDefaultTank( reader: DataReader ): Tank = {
     val chromosome = new TankChromosome(
-      Seq.empty,
-      Seq.empty,
+      Seq.empty[Seq[Double]],
+      Seq.empty[Seq[Seq[Double]]],
       2.0 * Math.PI * new Random().nextDouble(),
       Tank.defaultSightRatio,
       Tank.defaultRange,

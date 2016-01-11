@@ -29,7 +29,7 @@ import scala.collection.immutable.HashMap
  * This class is meant to be a simple wrapper for OpenGL, to provide a Scala-way to use graphics but keeping things
  * as simple and small as possible (it doesn't want to be a full Scala OpenGL library)
  */
-@SuppressWarnings( Array( "NullAssignment" ) ) // null is allowed to work with OpenGL
+@SuppressWarnings( Array( "NullAssignment", "org.brianmckenna.wartremover.warts.Null" ) ) // null is allowed to work with OpenGL
 object OpenGL {
 
   /**
@@ -90,6 +90,7 @@ object OpenGL {
   }
 
   private val DEG2RAD = 180 / Math.PI
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   private var fontMap = HashMap[Int, TrueTypeFont]()
 
   /**

@@ -26,6 +26,7 @@ class KeyboardManager {
   /**
    * The ArrayBuffer of listeners
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   var keyboardListeners = Seq.empty[KeyboardListener]
 
   /**

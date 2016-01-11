@@ -130,6 +130,7 @@ object Box {
    * @param s The shape that must be surrounded by a container
    * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def bestFit( s: Shape ): Container = s match {
 
     // If it's a box, return it - O(1)

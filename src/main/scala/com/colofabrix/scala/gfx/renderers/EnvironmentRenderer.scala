@@ -31,6 +31,7 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
 
   override def render( create: Boolean ): Unit = {
 
+    @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
     val flags = world.UIManager.flags
 
     if ( flags.getWithDefault( "details", true ) ) {
@@ -42,9 +43,9 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
           "Number Of Hits: " + world.counters.getOrElse( "hits", 0 ).toString,
           "Number Of Shots: " + world.counters.getOrElse( "shots", 0 ).toString,
           "Hit Percentage: " + ( world.counters.getOrElse( "hits", 0 ).toFloat / ( world.counters.getOrElse( "shots", 0 ).toFloat + 1.0 ) ).toString,
-          "Generation",
-          "Best tank fitness",
-          "Average fitness"
+          "Generation: -",
+          "Best tank fitness: -",
+          "Average fitness: -"
         ).renderer.render( false )
 
       }

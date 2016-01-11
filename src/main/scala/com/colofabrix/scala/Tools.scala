@@ -75,6 +75,7 @@ object Tools {
 
       // A number can already be expressed in a different prefix, like a given milliseconds
       val normNumber = calcExp( conv.toDouble( number ), startingExp )
+      @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
       var index = prefixes.keySet.max
 
       while ( calcExp( normNumber, index ) <= 1.0 || calcExp( normNumber, index ) >= 1000.0 )

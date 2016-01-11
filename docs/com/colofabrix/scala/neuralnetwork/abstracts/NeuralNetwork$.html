@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>NeuralNetwork - TankWar Documentation - com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork</title>
-          <meta name="description" content="NeuralNetwork - TankWar Documentation - com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork" />
-          <meta name="keywords" content="NeuralNetwork TankWar Documentation com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork" />
+          <title>NeuralNetwork - com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork</title>
+          <meta name="description" content="NeuralNetwork - com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork" />
+          <meta name="keywords" content="NeuralNetwork com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,15 @@
         </head>
         <body class="value">
       <div id="definition">
-        <a href="NeuralNetwork.html" title="Go to companion"><img src="../../../../../lib/object_to_trait_big.png" /></a>
+        <a href="NeuralNetwork.html" title="See companion trait"><img alt="Object/Trait" src="../../../../../lib/object_to_trait_big.png" /></a>
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.neuralnetwork">neuralnetwork</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts">abstracts</a></p>
-        <h1><a href="NeuralNetwork.html" title="Go to companion">NeuralNetwork</a></h1> <span class="permalink">
+        <h1><a href="NeuralNetwork.html" title="See companion trait">NeuralNetwork</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="NeuralNetwork.html" title="See companion trait">trait NeuralNetwork</a>
+            | <a href="package.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts">package abstracts</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -75,7 +79,6 @@
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -106,7 +109,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -123,7 +126,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@##():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -140,7 +143,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -157,7 +160,7 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@analiseNetwork(network:com.colofabrix.scala.neuralnetwork.NetworkMatrix,rootIndex:Int):(com.colofabrix.scala.math.Matrix[Double],com.colofabrix.scala.math.Matrix[Double],com.colofabrix.scala.math.Matrix[Double])" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Analyse a network and returns its subset of edges as adjacency matrices</p><div class="fullcomment"><div class="comment cmt"><p>Analyse a network and returns its subset of edges as adjacency matrices</p><p>This method works only with one starting point. Thus, if the network is multi-rooted (more than one
@@ -165,8 +168,10 @@ input), this function must be called for every input.</p><p>The method returns a
 - Forward edges
 - Back edges
 - Cross edges
-</p></div><dl class="paramcmts block"><dt class="param">network</dt><dd class="cmt"><p>Adjacency matrix that represents the network</p></dd><dt class="param">rootIndex</dt><dd class="cmt"><p>The index of the matrix that contain the root of the graph.</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">network</dt><dd class="cmt"><p>Adjacency matrix that represents the network</p></dd><dt class="param">rootIndex</dt><dd class="cmt"><p>The index of the matrix that contain the root of the graph.</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -180,7 +185,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -197,7 +202,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -220,7 +225,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -237,7 +242,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -254,7 +259,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -277,7 +282,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -294,7 +299,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -311,7 +316,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -328,7 +333,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -345,7 +350,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -362,7 +367,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -379,7 +384,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -396,7 +401,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@toString():String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -413,7 +418,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -436,7 +441,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -459,7 +464,7 @@ input), this function must be called for every input.</p><p>The method returns a
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.NeuralNetwork$@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

@@ -1,5 +1,6 @@
 # Project specific
-/out/
+out/
+docs/
 *.class
 /lib/*
 *.log

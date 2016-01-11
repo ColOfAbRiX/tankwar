@@ -29,6 +29,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
  * Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
  * of Tank's interactions. This means that they don't implement {InteractiveObject}.
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
 class Bullet( override val world: World, val tank: Tank, val properSpeed: Double )
     extends PhysicalObject with Renderable {
 

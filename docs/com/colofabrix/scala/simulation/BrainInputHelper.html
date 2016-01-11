@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>BrainInputHelper - TankWar Documentation - com.colofabrix.scala.simulation.BrainInputHelper</title>
-          <meta name="description" content="BrainInputHelper - TankWar Documentation - com.colofabrix.scala.simulation.BrainInputHelper" />
-          <meta name="keywords" content="BrainInputHelper TankWar Documentation com.colofabrix.scala.simulation.BrainInputHelper" />
+          <title>BrainInputHelper - com.colofabrix.scala.simulation.BrainInputHelper</title>
+          <meta name="description" content="BrainInputHelper - com.colofabrix.scala.simulation.BrainInputHelper" />
+          <meta name="keywords" content="BrainInputHelper com.colofabrix.scala.simulation.BrainInputHelper" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,15 @@
         </head>
         <body class="type">
       <div id="definition">
-        <a href="BrainInputHelper$.html" title="Go to companion"><img src="../../../../lib/class_to_object_big.png" /></a>
+        <a href="BrainInputHelper$.html" title="See companion object"><img alt="Class/Object" src="../../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.simulation">simulation</a></p>
-        <h1><a href="BrainInputHelper$.html" title="Go to companion">BrainInputHelper</a></h1> <span class="permalink">
+        <h1><a href="BrainInputHelper$.html" title="See companion object">BrainInputHelper</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="BrainInputHelper$.html" title="See companion object">object BrainInputHelper</a>
+            | <a href="package.html" class="extype" name="com.colofabrix.scala.simulation">package simulation</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -78,7 +82,6 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -103,15 +106,14 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@&lt;init&gt;(world:com.colofabrix.scala.simulation.World,rawSequence:Seq[Double]):com.colofabrix.scala.simulation.BrainInputHelper" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Constructor that uses a Seq to initialize the instance
-</p><div class="fullcomment"><div class="comment cmt"><p>Constructor that uses a Seq to initialize the instance
-</p></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the world</p></dd><dt class="param">rawSequence</dt><dd class="cmt"><p>A sequence containing the input data (see class' description for more information on the data)</p></dd><dt>returns</dt><dd class="cmt"><p>A new BrainInputHelper
-</p></dd></dl></div>
+      <p class="shortcomment cmt">Constructor that uses a Seq to initialize the instancew
+</p><div class="fullcomment"><div class="comment cmt"><p>Constructor that uses a Seq to initialize the instancew
+</p></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the world</p></dd><dt class="param">rawSequence</dt><dd class="cmt"><p>A sequence containing the input data (see class' description for more information on the data)</p></dd><dt>returns</dt><dd class="cmt"><p>A new BrainInputHelper</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.BrainInputHelper#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(world:com.colofabrix.scala.simulation.World,pos:com.colofabrix.scala.math.Vector2D,speed:com.colofabrix.scala.math.Vector2D,rot:com.colofabrix.scala.math.Vector2D,seenTanksPos:com.colofabrix.scala.math.Vector2D,seenTanksSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsPos:com.colofabrix.scala.math.Vector2D,seenBulletsSpeed:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.simulation.BrainInputHelper"></a>
+      <a id="&lt;init&gt;(world:com.colofabrix.scala.simulation.World,pos:com.colofabrix.scala.math.Vector2D,speed:com.colofabrix.scala.math.Vector2D,rot:com.colofabrix.scala.math.Vector2D,seenTanksPos:com.colofabrix.scala.math.Vector2D,seenTanksSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsPos:com.colofabrix.scala.math.Vector2D,closerBulletPos:com.colofabrix.scala.math.Vector2D,closerBulletSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsSpeed:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.simulation.BrainInputHelper"></a>
       <a id="&lt;init&gt;:BrainInputHelper"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -119,15 +121,14 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">BrainInputHelper</span><span class="params">(<span name="world">world: <a href="World.html" class="extype" name="com.colofabrix.scala.simulation.World">World</a></span>, <span name="pos">pos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="speed">speed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="rot">rot: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenTanksPos">seenTanksPos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenTanksSpeed">seenTanksSpeed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenBulletsPos">seenBulletsPos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenBulletsSpeed">seenBulletsSpeed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>)</span>
+        <span class="name">BrainInputHelper</span><span class="params">(<span name="world">world: <a href="World.html" class="extype" name="com.colofabrix.scala.simulation.World">World</a></span>, <span name="pos">pos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="speed">speed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="rot">rot: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenTanksPos">seenTanksPos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenTanksSpeed">seenTanksSpeed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenBulletsPos">seenBulletsPos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="closerBulletPos">closerBulletPos: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="closerBulletSpeed">closerBulletSpeed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>, <span name="seenBulletsSpeed">seenBulletsSpeed: <a href="../math/Vector2D.html" class="extype" name="com.colofabrix.scala.math.Vector2D">Vector2D</a></span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@&lt;init&gt;(world:com.colofabrix.scala.simulation.World,pos:com.colofabrix.scala.math.Vector2D,speed:com.colofabrix.scala.math.Vector2D,rot:com.colofabrix.scala.math.Vector2D,seenTanksPos:com.colofabrix.scala.math.Vector2D,seenTanksSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsPos:com.colofabrix.scala.math.Vector2D,seenBulletsSpeed:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.simulation.BrainInputHelper" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@&lt;init&gt;(world:com.colofabrix.scala.simulation.World,pos:com.colofabrix.scala.math.Vector2D,speed:com.colofabrix.scala.math.Vector2D,rot:com.colofabrix.scala.math.Vector2D,seenTanksPos:com.colofabrix.scala.math.Vector2D,seenTanksSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsPos:com.colofabrix.scala.math.Vector2D,closerBulletPos:com.colofabrix.scala.math.Vector2D,closerBulletSpeed:com.colofabrix.scala.math.Vector2D,seenBulletsSpeed:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.simulation.BrainInputHelper" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the world</p></dd><dt class="param">pos</dt><dd class="cmt"><p>Position vector of the tank</p></dd><dt class="param">speed</dt><dd class="cmt"><p>Speed vector of the tank</p></dd><dt class="param">rot</dt><dd class="cmt"><p>Rotation versor of the tank</p></dd><dt class="param">seenTanksPos</dt><dd class="cmt"><p>Position vector of a seen tank</p></dd><dt class="param">seenTanksSpeed</dt><dd class="cmt"><p>Speed vector of a seen tank</p></dd><dt class="param">seenBulletsPos</dt><dd class="cmt"><p>Position vector of a seen bullet</p></dd><dt class="param">seenBulletsSpeed</dt><dd class="cmt"><p>Speed vector of a seen bullet
-</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the world</p></dd><dt class="param">pos</dt><dd class="cmt"><p>Position vector of the tank</p></dd><dt class="param">speed</dt><dd class="cmt"><p>Speed vector of the tank</p></dd><dt class="param">rot</dt><dd class="cmt"><p>Rotation versor of the tank</p></dd><dt class="param">seenTanksPos</dt><dd class="cmt"><p>Position vector of a seen tank</p></dd><dt class="param">seenTanksSpeed</dt><dd class="cmt"><p>Speed vector of a seen tank</p></dd><dt class="param">seenBulletsPos</dt><dd class="cmt"><p>Position vector of a seen bullet</p></dd><dt class="param">seenBulletsSpeed</dt><dd class="cmt"><p>Speed vector of a seen bullet</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -150,7 +151,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -167,7 +168,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@##():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -184,7 +185,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -201,7 +202,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@_values:Seq[Double]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The sequence of values to feed into the NN
@@ -220,7 +221,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -237,7 +238,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -260,7 +261,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -277,7 +278,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -294,7 +295,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -317,7 +318,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -334,11 +335,10 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@getValues:Seq[T]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Fetch the data from the object</p><div class="fullcomment"><div class="comment cmt"><p>Fetch the data from the object</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The data to feed the NN
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../neuralnetwork/old/abstracts/InputHelper.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.InputHelper">InputHelper</a></dd></dl></div>
+      <p class="shortcomment cmt">Fetch the data from the object</p><div class="fullcomment"><div class="comment cmt"><p>Fetch the data from the object</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The data to feed the NN</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../neuralnetwork/old/abstracts/InputHelper.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.InputHelper">InputHelper</a></dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <a id="hashCode():Int"></a>
@@ -352,7 +352,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -369,7 +369,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -386,7 +386,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -403,7 +403,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -420,7 +420,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -437,7 +437,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -454,7 +454,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@toString():String" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -471,7 +471,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -494,7 +494,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -517,7 +517,7 @@ the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks tha
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.colofabrix.scala.simulation.BrainInputHelper@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" />
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

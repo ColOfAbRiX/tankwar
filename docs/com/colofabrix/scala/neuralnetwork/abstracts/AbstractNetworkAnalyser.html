@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>AbstractNetworkAnalyser - TankWar Documentation - com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser</title>
-          <meta name="description" content="AbstractNetworkAnalyser - TankWar Documentation - com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" />
-          <meta name="keywords" content="AbstractNetworkAnalyser TankWar Documentation com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" />
+          <title>AbstractNetworkAnalyser - com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser</title>
+          <meta name="description" content="AbstractNetworkAnalyser - com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" />
+          <meta name="keywords" content="AbstractNetworkAnalyser com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../../../../../lib/class_big.png" />
+        <img alt="Class" src="../../../../../lib/class_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.neuralnetwork">neuralnetwork</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts">abstracts</a></p>
-        <h1>AbstractNetworkAnalyser</h1> <span class="permalink">
+        <h1>AbstractNetworkAnalyser</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts">package abstracts</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -81,7 +83,6 @@ of tests (for different inputs and combinations of them) for different ranges of
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -106,11 +107,10 @@ of tests (for different inputs and combinations of them) for different ranges of
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@&lt;init&gt;(world:com.colofabrix.scala.simulation.World,network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork):com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the World.</p></dd><dt class="param">network</dt><dd class="cmt"><p>The neural network that you want to analyse
-</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">world</dt><dd class="cmt"><p>Reference to the World.</p></dd><dt class="param">network</dt><dd class="cmt"><p>The neural network that you want to analyse</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -131,13 +131,12 @@ of tests (for different inputs and combinations of them) for different ranges of
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@outputHeader:String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">First line that will be written to the output stream, usually the header of the CSV file
 </p><div class="fullcomment"><div class="comment cmt"><p>First line that will be written to the output stream, usually the header of the CSV file
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A text containing a comma-separated values as a header for the CSV file
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A text containing a comma-separated values as a header for the CSV file</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser#plotDefinitions" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="plotDefinitions:List[(Int,Double,Double,Double)]"></a>
       <a id="plotDefinitions:List[(Int,Double,Double,Double)]"></a>
@@ -151,7 +150,7 @@ of tests (for different inputs and combinations of them) for different ranges of
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@plotDefinitions:List[(Int,Double,Double,Double)]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Contains the definition of the plots for the network, like the definition of the input range for a
@@ -162,8 +161,7 @@ is a tuple containing:</p><p>(input#, start_value, end_value, points_count)
 - start_value: The initial value to start to feed
 - end_value: The final value to feed
 - points_count: How many intermediate values (between start_value and end_value) feed to the network
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of tuples constructed like:
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of tuples constructed like:</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.neuralnetwork.abstracts.NetworkAnalyser#runTests" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="runTests():Unit"></a>
       <a id="runTests():Unit"></a>
@@ -177,7 +175,7 @@ is a tuple containing:</p><p>(input#, start_value, end_value, points_count)
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@runTests():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Run the tests for the network
@@ -196,14 +194,13 @@ is a tuple containing:</p><p>(input#, start_value, end_value, points_count)
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@testDefinitions:List[java.io.PrintWriter=&gt;Unit]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Contains the definition of the tests that will be performed during the run.</p><div class="fullcomment"><div class="comment cmt"><p>Contains the definition of the tests that will be performed during the run. The list will be filled
 by a concrete implementation of the class. The list simply contains functions that will be called one
 after the other and that accept a writer. The writer is used to write the data to the output stream
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of functions that run the test, each of which are called in the sequence found in the list
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A list of functions that run the test, each of which are called in the sequence found in the list</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -222,7 +219,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -239,7 +236,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@##():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -256,7 +253,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -273,7 +270,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -290,7 +287,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -313,7 +310,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -330,7 +327,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -347,7 +344,7 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -370,13 +367,12 @@ after the other and that accept a writer. The writer is used to write the data t
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@fullAnalysis(inputBase:Seq[Double],plotIndexes:Int*)(writer:java.io.PrintWriter):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Performs the numerical analysis of the network</p><div class="fullcomment"><div class="comment cmt"><p>Performs the numerical analysis of the network</p><p>Give the plot definition to use, it scan through the values and calculates the output of the
 network that then writes in an outputs stream
-</p></div><dl class="paramcmts block"><dt class="param">inputBase</dt><dd class="cmt"><p>The initial vector to feed the network. Used to define custom values for the indexes not in the range</p></dd><dt class="param">plotIndexes</dt><dd class="cmt"><p>Indexes of the input vector to scan through, applying the plot definition</p></dd><dt class="param">writer</dt><dd class="cmt"><p>Writer used to write the output
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">inputBase</dt><dd class="cmt"><p>The initial vector to feed the network. Used to define custom values for the indexes not in the range</p></dd><dt class="param">plotIndexes</dt><dd class="cmt"><p>Indexes of the input vector to scan through, applying the plot definition</p></dd><dt class="param">writer</dt><dd class="cmt"><p>Writer used to write the output</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -390,7 +386,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -407,7 +403,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -424,13 +420,12 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@internalFullAnalysis(inputBase:Seq[Double],plotIndexes:Seq[Int])(writer:java.io.PrintWriter):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Performs the numerical analysis of the network</p><div class="fullcomment"><div class="comment cmt"><p>Performs the numerical analysis of the network</p><p>Give the plot definition to use, it scan through the values and calculates the output of the
 network that then writes in an outputs stream
-</p></div><dl class="paramcmts block"><dt class="param">inputBase</dt><dd class="cmt"><p>The initial vector to feed the network. Used to define custom values for the indexes not in the range</p></dd><dt class="param">plotIndexes</dt><dd class="cmt"><p>Sequence containing the iIndexes of the input vector to scan through, applying the plot definition</p></dd><dt class="param">writer</dt><dd class="cmt"><p>Writer used to write the output
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">inputBase</dt><dd class="cmt"><p>The initial vector to feed the network. Used to define custom values for the indexes not in the range</p></dd><dt class="param">plotIndexes</dt><dd class="cmt"><p>Sequence containing the iIndexes of the input vector to scan through, applying the plot definition</p></dd><dt class="param">writer</dt><dd class="cmt"><p>Writer used to write the output</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -444,7 +439,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -461,7 +456,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -478,11 +473,10 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@network:com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">The neural network that you want to analyse
-</p>
+      <p class="shortcomment cmt">The neural network that you want to analyse</p>
     </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <a id="notify():Unit"></a>
@@ -496,7 +490,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -513,7 +507,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -530,7 +524,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -547,7 +541,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@toString():String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -564,7 +558,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -587,7 +581,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -610,7 +604,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -633,7 +627,7 @@ network that then writes in an outputs stream
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser@world:com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Reference to the World.</p>

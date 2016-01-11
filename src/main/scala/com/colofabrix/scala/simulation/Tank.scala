@@ -53,11 +53,17 @@ import scala.util.Random
  * @param initialData The defining data of the Tank in the form of a Chromosome
  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
  */
-@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
+@SuppressWarnings(
+  Array(
+    "org.brianmckenna.wartremover.warts.MutableDataStructures",
+    "org.brianmckenna.wartremover.warts.Null",
+    "org.brianmckenna.wartremover.warts.Var"
+  )
+)
 class Tank private (
     override val world: World,
     initialData: TankChromosome,
-    dataReader: Option[DataReader] = Option.empty
+    dataReader: Option[DataReader] = Option.empty[DataReader]
 ) extends PhysicalObject with InteractiveObject with Renderable {
 
   import java.lang.Math._

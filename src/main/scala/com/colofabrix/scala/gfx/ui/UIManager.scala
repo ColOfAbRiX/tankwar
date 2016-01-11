@@ -29,10 +29,9 @@ import scala.collection._
  *
  * @param world A reference to the World
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
 class UIManager( val world: World ) {
 
-  private var framesThisSecond = 0
-  private var lastFPS = ( Sys.getTime * 1000 ) / Sys.getTimerResolution
   /**
    * The keyboard manager
    */
@@ -117,7 +116,7 @@ class UIManager( val world: World ) {
    *
    * @return Returns the renderers for the User Interface
    */
-  def renderers: Seq[Renderer] = Seq.empty
+  def renderers: Seq[Renderer] = Seq.empty[Renderer]
 
   /**
    * Update all of the UI including the KeyBoardManager

@@ -108,6 +108,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
    * @param p The point to be checked
    * @return True if the point is inside the shape
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   override def contains( p: Vector2D ): Boolean = {
     var wn = 0
 

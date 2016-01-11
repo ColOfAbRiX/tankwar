@@ -20,11 +20,13 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.World
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.{ Display, DisplayMode }
+import scala.collection.immutable.HashMap
 import scala.language.reflectiveCalls
 
 /**
  * Runs all of the GFX operations
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Renderer ) extends Renderer {
   require( world != null, "The World must be specified" )
   require( BGRenderer != null, "There must be a BG Renderer" )
@@ -88,6 +90,7 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   glMatrixMode( GL_MODELVIEW )
   glLoadIdentity()
 
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
   private def _flags = world.UIManager.flags
 
   private def clearScreen(): Unit = {

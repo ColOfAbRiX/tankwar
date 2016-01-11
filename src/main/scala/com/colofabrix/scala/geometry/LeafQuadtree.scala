@@ -40,6 +40,7 @@ import scala.reflect.ClassTag
  * @param depth The maximum depth of the quadtree
  * @tparam T The type of objects contained by the quadtree. They must be `PhysicalObject`
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class LeafQuadtree[T: SpatialIndexable] protected (
     override val bounds: Shape,
     val level: Int,
@@ -118,6 +119,7 @@ class LeafQuadtree[T: SpatialIndexable] protected (
    * @return A new quadtree without the specified Shape.
    */
   @inline
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   override def -( p: T ): LeafQuadtree[T] = {
     // This check avoids to parse the subnodes that don't contain the object
     if ( !bounds.intersects( shape( p ) ) ) {
@@ -263,6 +265,7 @@ class LeafQuadtree[T: SpatialIndexable] protected (
   @inline
   override def refresh(): LeafQuadtree[T] = {
 
+    @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
     def recurse( q: LeafQuadtree[T] ): ( List[T], LeafQuadtree[T] ) = {
       // Objects that were previously contained in one or more subnodes but moved from it now
       var movedFromNodes = List[T]()
@@ -347,10 +350,10 @@ class LeafQuadtree[T: SpatialIndexable] protected (
     val objectsInSubnodes = q.flatMap( _.objects )
 
     if ( q.nonEmpty && q.forall( _.nodes.isEmpty ) && objectsInSubnodes.size <= splitSize ) {
-      return ( objectsInSubnodes, List() )
+      return ( objectsInSubnodes, List[LeafQuadtree[T]]() )
     }
 
-    ( List(), q )
+    ( List[T](), q )
   }
 
 }
@@ -369,7 +372,7 @@ object LeafQuadtree {
    */
   def apply[T: SpatialIndexable](
     bounds: Shape,
-    initialList: List[T] = List(),
+    initialList: List[T] = List[T](),
     splitSize: Int = 1,
     depth: Int = 1
   )( implicit ct: ClassTag[T] ) = {

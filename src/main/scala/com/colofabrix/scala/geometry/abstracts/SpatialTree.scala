@@ -137,6 +137,8 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable {
    * @return A new List containing all the elements of the tree
    */
   def toList: List[T]
+
+  override def toString: String = this.toList.toString()
 }
 
 object SpatialTree {
@@ -169,7 +171,7 @@ object SpatialTree {
    * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
    * @return A new instance of LinkedQuadtreeTmp
    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List(), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
+  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List[T](), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
     LinkedQuadtree[T]( bounds, initialList, splitSize, depth )
   }
 

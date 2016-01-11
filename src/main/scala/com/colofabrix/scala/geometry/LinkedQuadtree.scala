@@ -29,6 +29,7 @@ import scala.reflect.ClassTag
  * This implementation includes a List to have fast access to the complete set of object contained in the Quadtree
  * and perform common and useful operations on that
  */
+@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class LinkedQuadtree[T: SpatialIndexable] protected (
     override val toList: List[T],
     private val _quadtree: abstracts.SpatialTree[T]
@@ -164,7 +165,7 @@ object LinkedQuadtree {
    */
   def apply[T: SpatialIndexable](
     bounds: Shape,
-    initialList: List[T] = List(),
+    initialList: List[T] = List[T](),
     splitSize: Int = 1,
     depth: Int = 1
   )( implicit m: ClassTag[T] ): LinkedQuadtree[T] =

@@ -22,7 +22,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: com.google.collections:google-collections:1.0:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.sksamuel.scapegoat:scalac-scapegoat-plugin_2.11:1.0.0:jar" level="project" />
     <orderEntry type="library" name="SBT: net.java.jinput:jinput:2.0.5:jar" level="project" />
     <orderEntry type="library" name="SBT: net.java.jinput:jinput-platform:2.0.5:natives-linux:jar" level="project" />
     <orderEntry type="library" name="SBT: net.java.jinput:jinput-platform:2.0.5:natives-osx:jar" level="project" />
@@ -34,16 +33,15 @@
     <orderEntry type="library" name="SBT: org.lwjgl.lwjgl:lwjgl-platform:2.9.0:natives-windows:jar" level="project" />
     <orderEntry type="library" name="SBT: org.lwjgl.lwjgl:lwjgl_util:2.9.0:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.11.7:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.11.6:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.2:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.11:2.2.4:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scaldi:scaldi_2.11:0.4:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.scoverage:scalac-scoverage-plugin_2.11:1.1.1:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.scoverage:scalac-scoverage-runtime_2.11:1.1.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.uncommons:uncommons-maths:1.2:jar" level="project" />
     <orderEntry type="library" name="SBT: org.uncommons.maths:uncommons-maths:1.2.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.uncommons.watchmaker:watchmaker-framework:0.7.1:jar" level="project" />
     <orderEntry type="library" name="SBT: slick-util:slick-util:1.0.0:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-reflect:2.11.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.2:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
         <CLASSES />

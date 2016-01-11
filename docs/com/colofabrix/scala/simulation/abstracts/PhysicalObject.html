@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>PhysicalObject - TankWar Documentation - com.colofabrix.scala.simulation.abstracts.PhysicalObject</title>
-          <meta name="description" content="PhysicalObject - TankWar Documentation - com.colofabrix.scala.simulation.abstracts.PhysicalObject" />
-          <meta name="keywords" content="PhysicalObject TankWar Documentation com.colofabrix.scala.simulation.abstracts.PhysicalObject" />
+          <title>PhysicalObject - com.colofabrix.scala.simulation.abstracts.PhysicalObject</title>
+          <meta name="description" content="PhysicalObject - com.colofabrix.scala.simulation.abstracts.PhysicalObject" />
+          <meta name="keywords" content="PhysicalObject com.colofabrix.scala.simulation.abstracts.PhysicalObject" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../../../../../lib/trait_big.png" />
+        <img alt="Trait" src="../../../../../lib/trait_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.simulation">simulation</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.simulation.abstracts">abstracts</a></p>
-        <h1>PhysicalObject</h1> <span class="permalink">
+        <h1>PhysicalObject</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.colofabrix.scala.simulation.abstracts">package abstracts</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -54,7 +56,7 @@ internally read-write but read-only for clients.
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="../Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a>, <a href="../Casuality.html" class="extype" name="com.colofabrix.scala.simulation.Casuality">Casuality</a>, <a href="../Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></div>
+            <div class="subClasses hiddenContent"><a href="../Bullet.html" class="extype" name="com.colofabrix.scala.simulation.Bullet">Bullet</a>, <a href="../Causality.html" class="extype" name="com.colofabrix.scala.simulation.Causality">Causality</a>, <a href="../Tank.html" class="extype" name="com.colofabrix.scala.simulation.Tank">Tank</a></div>
           </div></div>
         
 
@@ -80,7 +82,6 @@ internally read-write but read-only for clients.
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -109,13 +110,12 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@clear():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Resets the status of the <code>PhysicalObject
 <code></code></code></p><div class="fullcomment"><div class="comment cmt"><p>Resets the status of the <code>PhysicalObject
-<code></code></code></p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new <code>PhysicalObject</code> where its internal status has been reset
-</p></dd></dl></div>
+<code></code></code></p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new <code>PhysicalObject</code> where its internal status has been reset</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.abstracts.PhysicalObject#objectShape" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="objectShape:com.colofabrix.scala.geometry.abstracts.Shape"></a>
       <a id="objectShape:Shape"></a>
@@ -129,7 +129,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@objectShape:com.colofabrix.scala.geometry.abstracts.Shape" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Physical shape of the {PhysicalObject}.</p><div class="fullcomment"><div class="comment cmt"><p>Physical shape of the {PhysicalObject}.</p><p>It is used to interact with the {World} itself, to display the {PhysicalObject} or to interact with other
@@ -148,7 +148,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@on_hitsWalls():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Callback function used to signal the {PhysicalObject} that it has hit a wall (or it has gone beyond it)
@@ -166,7 +166,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@on_maxAngularSpeedReached(maxAngularSpeed:Double):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Callback function used to signal the {PhysicalObject} that is revolving faster than the maximum allowed angular speed
@@ -184,7 +184,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@on_maxSpeedReached(maxSpeed:Double):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Callback function used to signal the {PhysicalObject} that is moving faster than the maximum allowed speed
@@ -202,7 +202,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@on_respawn():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Callback function used to signal the {PhysicalObject} that it will be respawned in the next step
@@ -220,7 +220,7 @@ internally read-write but read-only for clients.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@step():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Moves the PhysicalObject one step into the future.</p><div class="fullcomment"><div class="comment cmt"><p>Moves the PhysicalObject one step into the future.</p><p>In other words, this method will perform the needed calculations to updated all the internal field of the objects
@@ -239,7 +239,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@world:com.colofabrix.scala.simulation.World" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Reference to the world</p><div class="fullcomment"><div class="comment cmt"><p>Reference to the world</p><p>The world can be used to obtain information about the simulation, the other objects or the limits of the world
@@ -262,7 +262,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -279,7 +279,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@##():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -296,7 +296,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -313,7 +313,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@_angularSpeed:Double" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
@@ -330,7 +330,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@_mass:Double" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
@@ -347,7 +347,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@_position:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
@@ -364,7 +364,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@_rotation:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
@@ -381,7 +381,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@_speed:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
@@ -398,12 +398,11 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@angularSpeed:Double" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Angular speed of the object's main axis</p><div class="fullcomment"><div class="comment cmt"><p>Angular speed of the object's main axis</p><p>The angular speed is relative to a single step of the world or, in other words, speed is given in radians/step
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current angular speed
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current angular speed</p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -417,7 +416,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -434,7 +433,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -457,7 +456,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -474,7 +473,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -491,7 +490,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -514,7 +513,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -531,7 +530,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -548,7 +547,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@id:String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Identifier of the instance.</p><div class="fullcomment"><div class="comment cmt"><p>Identifier of the instance.</p><p>The default implementation is to return the class name with an hash appended to it, like Object@14235
@@ -566,12 +565,11 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@intersects(that:com.colofabrix.scala.math.Vector2D):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a point lies inside the Shape</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point lies inside the Shape</p><p>This is a shortcut to {objectShape.intersects} with a {Vector2D} as argument
-</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>true if the point is inside or on the boundary of the shape
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>true if the point is inside or on the boundary of the shape</p></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -585,7 +583,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -602,13 +600,12 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@mass:Double" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Mass of the PhysicalObject
 </p><div class="fullcomment"><div class="comment cmt"><p>Mass of the PhysicalObject
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The mass of the object
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The mass of the object</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -622,7 +619,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -639,7 +636,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -656,7 +653,7 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -673,12 +670,11 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@position:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Position of the center of the object</p><div class="fullcomment"><div class="comment cmt"><p>Position of the center of the object</p><p>All spatial information of the object must be related to this one.
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The point on the world where is the center of the {PhysicalObject}
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The point on the world where is the center of the {PhysicalObject}</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.abstracts.PhysicalObject#record" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="record:String"></a>
       <a id="record:String"></a>
@@ -692,13 +688,12 @@ like the position in the next step, speed and so on.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@record:String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Record identifying the step of the PhysicalObject</p><div class="fullcomment"><div class="comment cmt"><p>Record identifying the step of the PhysicalObject</p><p>The string returns information about the status of the objects in a CSV format that can be used to. Derived classes
 can extend this definition adding or changing it for their purposes
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A string in the format of a CSV
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A string in the format of a CSV</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.abstracts.PhysicalObject#rotation" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="rotation:com.colofabrix.scala.math.Vector2D"></a>
       <a id="rotation:Vector2D"></a>
@@ -712,13 +707,12 @@ can extend this definition adding or changing it for their purposes
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@rotation:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Rotation of the object relative to the X-axis</p><div class="fullcomment"><div class="comment cmt"><p>Rotation of the object relative to the X-axis</p><p>The main axis of a {PhysicalObject} is the axis that passes through the {position} point. At zero radians or rotation
 the axis is parallel to the X-axis.
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A versor indicating the angle formed by the object's main axis and the X-axis, in radians
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A versor indicating the angle formed by the object's main axis and the X-axis, in radians</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.simulation.abstracts.PhysicalObject#speed" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="speed:com.colofabrix.scala.math.Vector2D"></a>
       <a id="speed:Vector2D"></a>
@@ -732,14 +726,13 @@ the axis is parallel to the X-axis.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@speed:com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Speed of the {position} of the object, relative to the arena.</p><div class="fullcomment"><div class="comment cmt"><p>Speed of the {position} of the object, relative to the arena.</p><p>Note that the speed is the speed of the {position} and if the {PhysicalObject} is doing other movements this
 field will not tell anything about the other movements.
 The speed is relative to a single step of the world or, in other words, speed is given in points/step
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current speed of the object
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>The current speed of the object</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -753,7 +746,7 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -770,7 +763,7 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@toString():String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -787,12 +780,11 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@touches(that:com.colofabrix.scala.simulation.abstracts.PhysicalObject):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a shape touches this one</p><div class="fullcomment"><div class="comment cmt"><p>Determines if a shape touches this one</p><p>This is a shortcut to {objectShape.intersects} with a {Shape} as argument
-</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The shape to check</p></dd><dt>returns</dt><dd class="cmt"><p>true if the two shapes overlap
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The shape to check</p></dd><dt>returns</dt><dd class="cmt"><p>true if the two shapes overlap</p></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -806,7 +798,7 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -829,7 +821,7 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -852,7 +844,7 @@ The speed is relative to a single step of the world or, in other words, speed is
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.simulation.abstracts.PhysicalObject@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

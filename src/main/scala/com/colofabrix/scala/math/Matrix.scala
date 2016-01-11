@@ -286,6 +286,7 @@ class Matrix[T]( val matrix: Seq[Seq[T]] )( implicit n: Numeric[T], m: ClassTag[
    * @param p The exponent to raise the matrix, a non-negative integer
    * @return The current matrix multiplied by itself p times
    */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def **( p: Int ) = {
     require( p >= 0 )
     require( rows == cols )

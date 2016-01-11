@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>Shape - TankWar Documentation - com.colofabrix.scala.geometry.abstracts.Shape</title>
-          <meta name="description" content="Shape - TankWar Documentation - com.colofabrix.scala.geometry.abstracts.Shape" />
-          <meta name="keywords" content="Shape TankWar Documentation com.colofabrix.scala.geometry.abstracts.Shape" />
+          <title>Shape - com.colofabrix.scala.geometry.abstracts.Shape</title>
+          <meta name="description" content="Shape - com.colofabrix.scala.geometry.abstracts.Shape" />
+          <meta name="keywords" content="Shape com.colofabrix.scala.geometry.abstracts.Shape" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,11 +28,13 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img src="../../../../../lib/trait_big.png" />
+        <img alt="Trait" src="../../../../../lib/trait_big.png" />
         <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../../package.html" class="extype" name="com.colofabrix.scala">scala</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala.geometry">geometry</a>.<a href="package.html" class="extype" name="com.colofabrix.scala.geometry.abstracts">abstracts</a></p>
-        <h1>Shape</h1> <span class="permalink">
+        <h1>Shape</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.colofabrix.scala.geometry.abstracts">package abstracts</a>
+          </div></span></h3><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
@@ -80,7 +82,6 @@ a line segment intersects the Shape. Upon this elementary operation the derived 
               <li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li>
             </ol>
-            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
           </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -109,7 +110,7 @@ a line segment intersects the Shape. Upon this elementary operation the derived 
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@area:Double" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">The surface area of the Shape
@@ -127,15 +128,14 @@ a line segment intersects the Shape. Upon this elementary operation the derived 
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@container:com.colofabrix.scala.geometry.abstracts.Container" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Find a containing box for the current shape.</p><div class="fullcomment"><div class="comment cmt"><p>Find a containing box for the current shape.</p><p>A container is used as a faster and simpler way to obtain information or do some
 actions on a Shape that would otherwise require more computation.
 Ideally the computation should take O(n) or less. This trait should be applied
 to shapes that guarantee this fast computation
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new Container where the current shape is completely inside its boundaries
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A new Container where the current shape is completely inside its boundaries</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#contains" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="contains(s:com.colofabrix.scala.geometry.abstracts.Shape):Boolean"></a>
       <a id="contains(Shape):Boolean"></a>
@@ -149,13 +149,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@contains(s:com.colofabrix.scala.geometry.abstracts.Shape):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a shape is inside or on the boundary the current shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a shape is inside or on the boundary the current shape
-</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>The shape to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the given shape is inside the shape or on its boundary
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>The shape to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the given shape is inside the shape or on its boundary</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#contains" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="contains(p:com.colofabrix.scala.math.Vector2D):Boolean"></a>
       <a id="contains(Vector2D):Boolean"></a>
@@ -169,13 +168,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@contains(p:com.colofabrix.scala.math.Vector2D):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a point is inside or on the boundary the shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a point is inside or on the boundary the shape
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape or on its boundary
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape or on its boundary</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#distance" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="distance(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)"></a>
       <a id="distance(Vector2D,Vector2D):(Vector2D,Vector2D)"></a>
@@ -189,12 +187,11 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@distance(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Compute the distance between a line segment and the nearest edge of the shape.</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a line segment and the nearest edge of the shape.
-</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#distance" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="distance(p:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)"></a>
       <a id="distance(Vector2D):(Vector2D,Vector2D)"></a>
@@ -208,13 +205,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@distance(p:com.colofabrix.scala.math.Vector2D):(com.colofabrix.scala.math.Vector2D,com.colofabrix.scala.math.Vector2D)" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Compute the distance between a point and the boundary of the shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and the boundary of the shape
-</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">p</dt><dd class="cmt"><p>The point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#intersects" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="intersects(that:com.colofabrix.scala.geometry.abstracts.Shape):Boolean"></a>
       <a id="intersects(Shape):Boolean"></a>
@@ -228,13 +224,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@intersects(that:com.colofabrix.scala.geometry.abstracts.Shape):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a shape touches in any way this shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a shape touches in any way this shape
-</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The shape to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">that</dt><dd class="cmt"><p>The shape to be checked</p></dd><dt>returns</dt><dd class="cmt"><p>True if the point is inside the shape</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#intersects" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="intersects(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):Boolean"></a>
       <a id="intersects(Vector2D,Vector2D):Boolean"></a>
@@ -248,13 +243,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@intersects(p0:com.colofabrix.scala.math.Vector2D,p1:com.colofabrix.scala.math.Vector2D):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Determines if a line segment touches in any way this shape
 </p><div class="fullcomment"><div class="comment cmt"><p>Determines if a line segment touches in any way this shape
-</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line segment</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line segment</p></dd><dt>returns</dt><dd class="cmt"><p>True if the line intersects the shape
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">p0</dt><dd class="cmt"><p>The first point that defines the line segment</p></dd><dt class="param">p1</dt><dd class="cmt"><p>The second point that defines the line segment</p></dd><dt>returns</dt><dd class="cmt"><p>True if the line intersects the shape</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#move" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="move(where:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.geometry.abstracts.Shape"></a>
       <a id="move(Vector2D):Shape"></a>
@@ -268,12 +262,11 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@move(where:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.geometry.abstracts.Shape" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Shifts a shape on the space</p><div class="fullcomment"><div class="comment cmt"><p>Shifts a shape on the space</p><p>Provided a vector, every vertex or equivalent of the shape will be moved following that vector
-</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying where to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of a vector {where}
-</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">where</dt><dd class="cmt"><p>The vector specifying where to move the shape</p></dd><dt>returns</dt><dd class="cmt"><p>A new shape moved of a vector {where}</p></dd></dl></div>
     </li><li name="com.colofabrix.scala.geometry.abstracts.Shape#renderer" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="renderer:com.colofabrix.scala.gfx.abstracts.Renderer"></a>
       <a id="renderer:Renderer"></a>
@@ -287,13 +280,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@renderer:com.colofabrix.scala.gfx.abstracts.Renderer" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">An object responsible to renderer the class where this trait is applied
 </p><div class="fullcomment"><div class="comment cmt"><p>An object responsible to renderer the class where this trait is applied
-</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A renderer that can draw the object where it's applied
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a> → <a href="../../gfx/abstracts/Renderable.html" class="extype" name="com.colofabrix.scala.gfx.abstracts.Renderable">Renderable</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>A renderer that can draw the object where it's applied</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.colofabrix.scala.geometry.abstracts.Shape">Shape</a> → <a href="../../gfx/abstracts/Renderable.html" class="extype" name="com.colofabrix.scala.gfx.abstracts.Renderable">Renderable</a></dd></dl></div>
     </li></ol>
             </div>
 
@@ -312,7 +304,7 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -329,7 +321,7 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@##():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -346,7 +338,7 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -363,7 +355,7 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -380,7 +372,7 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@clone():Object" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -403,13 +395,12 @@ to shapes that guarantee this fast computation
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@distance(v0:com.colofabrix.scala.math.Vector2D,v1:com.colofabrix.scala.math.Vector2D,p:com.colofabrix.scala.math.Vector2D):com.colofabrix.scala.math.Vector2D" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <p class="shortcomment cmt">Compute the distance between a point and a line segment</p><div class="fullcomment"><div class="comment cmt"><p>Compute the distance between a point and a line segment</p><p>This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
 other methods.
-</p></div><dl class="paramcmts block"><dt class="param">v0</dt><dd class="cmt"><p>First end of the segment</p></dd><dt class="param">v1</dt><dd class="cmt"><p>Second end of the segment</p></dd><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to the segment or one of its ends
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a02-_lines.html</p></span></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">v0</dt><dd class="cmt"><p>First end of the segment</p></dd><dt class="param">v1</dt><dd class="cmt"><p>Second end of the segment</p></dd><dt class="param">p</dt><dd class="cmt"><p>Point to check</p></dd><dt>returns</dt><dd class="cmt"><p>A distance vector from the point to the segment or one of its ends</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>See also</dt><dd><span class="cmt"><p>http://geomalgorithms.com/a02-_lines.html</p></span></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -423,7 +414,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -440,7 +431,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -457,7 +448,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@finalize():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -480,7 +471,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -497,7 +488,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@hashCode():Int" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -514,7 +505,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -531,7 +522,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -548,7 +539,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@notify():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -565,7 +556,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -582,7 +573,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -599,7 +590,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@toString():String" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -616,7 +607,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@wait():Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -639,7 +630,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -662,7 +653,7 @@ other methods.
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.colofabrix.scala.geometry.abstracts.Shape@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../../../../../lib/permalink.png" />
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
