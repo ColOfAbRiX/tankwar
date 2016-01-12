@@ -1,20 +1,28 @@
-# Project specific
-out/
-docs/
+# Project Specific
+/out/
+/lib/
+/doc/
 *.class
-/lib/*
 *.log
 *.csv
 
-# SBT specific
-project/plugins/project/
-project/project/target/
-project/target/
-project/boot/
-lib_managed/
-src_managed/
-target/
-dist/
-.lib/
-.cache
-.history
+# SBT Specific
+/project/plugins/project/
+/project/project/target/
+/project/target/
+/project/boot/
+/lib_managed/
+/src_managed/
+/target/
+/dist/
+/.lib/
+/.cache
+/.history
+
+# IDE Specific
+.idea/libraries/
+.idea/scopes/
+.idea/uiDesigner.xml
+.idea/dbnavigator.xml
+.idea/excludeFromValidation.xml
+.idea/play2_compiler_settings.xml

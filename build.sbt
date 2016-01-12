@@ -72,12 +72,12 @@ scalacOptions ++= Seq(
 javaOptions ++= Seq(
   "-server",
   // Memory settings
-  "-Xms128M",
-  "-Xmx256M",
-  "-Xmn128M",
+  "-XX:InitialHeapSize=1G",
+  "-XX:MaxHeapSize=1G",
+  "-XX:NewRatio=1",
   "-XX:MetaspaceSize=32M",
-  "-XX:MaxMetaspaceSize=64M",
-  "-XX:SurvivorRatio=4",
+  "-XX:MaxMetaspaceSize=32M",
+  "-XX:SurvivorRatio=10",
   "-XX:CompressedClassSpaceSize=16M",
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
