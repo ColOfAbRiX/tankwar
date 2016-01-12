@@ -5,295 +5,307 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f588c826-046e-45e2-a7b8-8f4c961dd02a" name="Default" comment="Applied Scalastyle rules">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/BooleanToggleKListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/GameEvolutionEngine.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/ModifiedAbstractEvolutionEngine.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/ModifiedGenerationalEvolutionEngine.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/NumUpdateKListener.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Stats.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FirstTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FittestTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$HighPointsTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LessFitTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LowPointsTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$SlowestTarget$.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$TargetType.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/deprecated-list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/package.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/package.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/package.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_sksamuel_scapegoat_scalac_scapegoat_plugin_2_11_1_0_0_jar.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_6_jar.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scaldi_scaldi_2_11_0_4_jar.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/EvolutionLogger.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/Quadtree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/PhysicalObject.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/ButtonControl.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/InputManager.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Controls/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/Renderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/NetworkMatrix.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainInputHelper.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/BrainOutputHelper.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Bullet.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/Tank.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankBrainTester.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankChromosome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/TankSight.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/World.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator$.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvaluator.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankEvolutionEngine.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/TankFactory.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/AbstractTankMutation.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankCrossover.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankDriftMutation.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/TankFullMutation.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/operators/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/integration/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/tankwar/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/BoxTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/CircleTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/PolygonTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/SpatialTreeTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/geometry/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/CoordinatesTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/MatrixTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/Vector2DTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/math/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/GenericStatelessNetworkTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NetworkMatrixTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/NeuralNetworkTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/LayerTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/NeuralNetworkTest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/old/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/neuralnetwork/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/scala/package.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_6_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_2_jar.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Casuality.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Causality.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/test/package.html" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/package.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/scalastyle-config.xml" afterPath="$PROJECT_DIR$/src/main/resources/scalastyle-config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/IdeaProject.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/highlighting.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/projectCodeStyle.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/Fabrizio_Colonna.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/excludeFromValidation.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_google_collections_google_collections_1_0_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__net_java_jinput_jinput_2_0_5_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__net_java_jinput_jinput_platform_2_0_5_natives_linux_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__net_java_jinput_jinput_platform_2_0_5_natives_osx_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__net_java_jinput_jinput_platform_2_0_5_natives_windows_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__net_java_jutils_jutils_1_0_0_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_lwjgl_lwjgl_lwjgl_2_9_0_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_lwjgl_lwjgl_lwjgl_platform_2_9_0_natives_linux_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_lwjgl_lwjgl_lwjgl_platform_2_9_0_natives_osx_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_lwjgl_lwjgl_lwjgl_platform_2_9_0_natives_windows_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_lwjgl_lwjgl_lwjgl_util_2_9_0_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_modules_scala_xml_2_11_1_0_2_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_library_2_11_7_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_2_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scalatest_scalatest_2_11_2_2_4_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scoverage_scalac_scoverage_plugin_2_11_1_1_1_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scoverage_scalac_scoverage_runtime_2_11_1_1_1_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_uncommons_maths_uncommons_maths_1_2_1_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_uncommons_uncommons_maths_1_2_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_uncommons_watchmaker_watchmaker_framework_0_7_1_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__slick_util_slick_util_1_0_0_jar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/play2_compiler_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/Sources___Tests.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomClass.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomNumeric.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$$SpatialIndexable.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Diamond.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Octagon.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/GFXManager.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Frame.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderable.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BGRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BoxRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BulletRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/CircleRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/PolygonRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TankRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/VectorRenderer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/UIManager.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/BooleanToggleKListener.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardListener.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardManager.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/NumUpdateKListener.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2DImplicits$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Causality.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Stats.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FirstTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FittestTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$HighPointsTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LessFitTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LowPointsTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$SlowestTarget$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$TargetType.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/GameEvolutionEngine.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/com/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/deprecated-list.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-_.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-a.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-b.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-c.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-d.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-e.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-f.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-g.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-h.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-i.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-k.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-l.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-m.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-n.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-o.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-p.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-q.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-r.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-s.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-t.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-u.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-v.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-w.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-x.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-y.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/index/index-z.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/arrow-down.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/arrow-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/class.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/class_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/class_diagram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/class_to_object_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/constructorsbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/conversionbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/defbg-blue.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/defbg-green.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/diagrams.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/diagrams.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filter_box_left.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filter_box_left2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filter_box_right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filterbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filterboxbarbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filterboxbarbg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/filterboxbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/fullcommenttopbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/jquery-ui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/jquery.layout.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/modernizr.custom.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/navigation-li-a.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/navigation-li.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object_diagram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object_to_class_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object_to_trait_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/object_to_type_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/ownderbg2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/ownerbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/ownerbg2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/package.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/package_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/packagesbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/permalink.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/ref-index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/remove.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/scheduler.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected-implicits.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected-right-implicits.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected2-right.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/selected2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/signaturebg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/signaturebg2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/template.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/template.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/tools.tooltip.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/trait.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/trait_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/trait_diagram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/trait_to_object_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/type.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/type_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/type_diagram.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/type_to_object_big.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/typebg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/unselected.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/lib/valuemembersbg.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/uncommons/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/ModifiedAbstractEvolutionEngine.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/ModifiedGenerationalEvolutionEngine.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/package.html" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/dictionaries/Fabrizio.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/ColOfAbRiX.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BGRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BGRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BoxRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BoxRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Bullet.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Bullet.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BulletRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BulletRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/CircleRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/CircleRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Diamond.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Diamond.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/DummyQuadtree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/DummyQuadtree.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/DummyQuadtree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/GFXManager.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/GFXManager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/GFXManager.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/GFXManager.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardListener.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardListener.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardManager.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardManager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LeafQuadtree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/LeafQuadtree.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/LeafQuadtree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/LinkedQuadtree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/LinkedQuadtree.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/LinkedQuadtree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Matrix.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Matrix.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Octagon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Octagon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Frame.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Frame.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/OpenGL.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/OpenGL.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/PolygonRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/PolygonRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderable.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderable.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$$SpatialIndexable.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$$SpatialIndexable.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialTree.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Tank.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Tank.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TankRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TankRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomClass.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomClass.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomNumeric.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomNumeric.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/Tools.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/Tools.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/UIManager.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/UIManager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/UIManager.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/UIManager.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2D.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vector2D.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vector2D.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2DImplicits$.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vector2DImplicits$.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/VectorRenderer.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/VectorRenderer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/World.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/World.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/lib/diagrams.js" afterPath="$PROJECT_DIR$/docs/lib/diagrams.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-_.html" afterPath="$PROJECT_DIR$/docs/index/index-_.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-a.html" afterPath="$PROJECT_DIR$/docs/index/index-a.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-b.html" afterPath="$PROJECT_DIR$/docs/index/index-b.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-c.html" afterPath="$PROJECT_DIR$/docs/index/index-c.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-d.html" afterPath="$PROJECT_DIR$/docs/index/index-d.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-e.html" afterPath="$PROJECT_DIR$/docs/index/index-e.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-f.html" afterPath="$PROJECT_DIR$/docs/index/index-f.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-g.html" afterPath="$PROJECT_DIR$/docs/index/index-g.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-h.html" afterPath="$PROJECT_DIR$/docs/index/index-h.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-i.html" afterPath="$PROJECT_DIR$/docs/index/index-i.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-k.html" afterPath="$PROJECT_DIR$/docs/index/index-k.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-l.html" afterPath="$PROJECT_DIR$/docs/index/index-l.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-m.html" afterPath="$PROJECT_DIR$/docs/index/index-m.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-n.html" afterPath="$PROJECT_DIR$/docs/index/index-n.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-o.html" afterPath="$PROJECT_DIR$/docs/index/index-o.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-p.html" afterPath="$PROJECT_DIR$/docs/index/index-p.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-q.html" afterPath="$PROJECT_DIR$/docs/index/index-q.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-r.html" afterPath="$PROJECT_DIR$/docs/index/index-r.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-s.html" afterPath="$PROJECT_DIR$/docs/index/index-s.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-t.html" afterPath="$PROJECT_DIR$/docs/index/index-t.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-u.html" afterPath="$PROJECT_DIR$/docs/index/index-u.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-v.html" afterPath="$PROJECT_DIR$/docs/index/index-v.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-w.html" afterPath="$PROJECT_DIR$/docs/index/index-w.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-x.html" afterPath="$PROJECT_DIR$/docs/index/index-x.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-y.html" afterPath="$PROJECT_DIR$/docs/index/index-y.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index/index-z.html" afterPath="$PROJECT_DIR$/docs/index/index-z.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.js" afterPath="$PROJECT_DIR$/docs/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/lib/index.js" afterPath="$PROJECT_DIR$/docs/lib/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/package.html" afterPath="$PROJECT_DIR$/docs/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/package.html" afterPath="$PROJECT_DIR$/docs/com/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/plugins.sbt" afterPath="$PROJECT_DIR$/project/plugins.sbt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sbt.xml" afterPath="$PROJECT_DIR$/.idea/sbt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/tankwar-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/tankwar-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/tankwar.iml" afterPath="$PROJECT_DIR$/.idea/modules/tankwar.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/lib/template.css" afterPath="$PROJECT_DIR$/docs/lib/template.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/lib/template.js" afterPath="$PROJECT_DIR$/docs/lib/template.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TankWar.iws" />
@@ -373,11 +385,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="plugins.sbt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54404145">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3398058">
+              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -396,7 +408,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala" />
         <option value="$PROJECT_DIR$/project/build.properties" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/PolygonRenderer.scala" />
@@ -420,7 +431,6 @@
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/TankWarMain.scala" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
@@ -447,6 +457,8 @@
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/project/plugins.sbt" />
+        <option value="$PROJECT_DIR$/.idea/dictionaries/ColOfAbRiX.xml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -466,9 +478,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="52" />
-    <option name="width" value="1363" />
-    <option name="height" value="705" />
+    <option name="y" value="24" />
+    <option name="width" value="1366" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="ColOfAbRiX">
@@ -515,7 +527,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -534,37 +546,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tankwar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tankwar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -737,7 +721,7 @@
     </configuration>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1452547979656" />
+    <option name="lastUpdateTimestamp" value="1452638259178" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -802,14 +786,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="52" width="1363" height="705" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="24" width="1366" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271605" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38423645" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -819,7 +802,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32741934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23538345" sideWeight="0.4814815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23484848" sideWeight="0.4814815" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23484848" sideWeight="0.5185185" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -831,6 +814,7 @@
       <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4452871" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39814815" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38423645" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561728" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -888,98 +872,10 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2605178">
-          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50970876">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10221465">
-          <caret line="82" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CONTRIBUTING.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.94614005">
-          <caret line="97" column="90" selection-start-line="97" selection-start-column="90" selection-end-line="97" selection-end-column="90" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/build.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/TankSupport.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63106793">
-          <caret line="42" column="44" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/TankBrainTester.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55825245">
-          <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36407766">
-          <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/operators/TankCrossover.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2961165">
-          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding>
-            <element signature="e#667#683#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Object.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7281553">
           <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding>
-            <element signature="e#487#488#0" expanded="true" />
-            <element signature="e#580#581#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -987,7 +883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.61165047">
           <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -995,7 +890,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15048544">
           <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1003,15 +897,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5388349">
           <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.097087376">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1019,7 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6796116">
           <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,7 +911,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38187703">
           <caret line="175" column="3" selection-start-line="175" selection-start-column="3" selection-end-line="175" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,7 +918,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.66019416">
           <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1043,7 +925,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6488673">
           <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,7 +932,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3851468">
           <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,7 +939,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25906736">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1067,7 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,7 +953,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22970639">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1083,7 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35578585">
           <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,7 +967,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3626943">
           <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1099,7 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1107,7 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69948184">
           <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1115,7 +988,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6476684">
           <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1123,7 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6476684">
           <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,7 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.59240067">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1139,7 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3074266">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,7 +1016,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3074266">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1155,7 +1023,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31088084">
           <caret line="363" column="0" selection-start-line="363" selection-start-column="0" selection-end-line="363" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1163,9 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35924006">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1173,7 +1037,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33678755">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,7 +1044,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16393442">
           <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1189,9 +1051,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding>
-            <element signature="e#645#697#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1199,7 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18134715">
           <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1207,7 +1065,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36787564">
           <caret line="112" column="7" selection-start-line="112" selection-start-column="7" selection-end-line="112" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1215,7 +1072,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1865285">
           <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1223,7 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.60103625">
           <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1231,7 +1086,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3626943">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1239,7 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33678755">
           <caret line="32" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1247,7 +1100,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3626943">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1255,7 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48877373">
           <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1263,7 +1114,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23316061">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1271,7 +1121,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35924006">
           <caret line="93" column="52" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,7 +1128,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30051813">
           <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1287,7 +1135,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46286702">
           <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1303,8 +1150,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54404145">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4854369">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TankWar.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4854369">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12135922">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/excludeFromValidation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12135922">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/play2_compiler_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12135922">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/inspectionProfiles/ColOfAbRiX.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2669903">
+          <caret line="11" column="72" selection-start-line="11" selection-start-column="72" selection-end-line="11" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dictionaries/ColOfAbRiX.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.024271844">
+          <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14563107">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/copyright/Apache_License.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19417475">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules/root.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3398058">
+          <caret line="14" column="75" selection-start-line="14" selection-start-column="75" selection-end-line="14" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3398058">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -1339,7 +1274,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>scala-sdk-2.11.6</last-edited>
+          <last-edited>scala-sdk-2.11.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
