@@ -19,10 +19,10 @@ package com.colofabrix.scala.neuralnetwork.old.activationfunctions
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
 
 /**
- * s
- * Linear function
- * Maps the input directly to the output
- */
+  * s
+  * Linear function
+  * Maps the input directly to the output
+  */
 class Linear extends ActivationFunction {
 
   override val UFID = "df8d5f6e-0523-4f60-90da-a9222ac8647a"

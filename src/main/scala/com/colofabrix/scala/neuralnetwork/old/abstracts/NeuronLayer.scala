@@ -19,19 +19,19 @@ package com.colofabrix.scala.neuralnetwork.old.abstracts
 import scala.language.postfixOps
 
 /**
- * A neural network layer
- *
- * A layer can be thought as a neural network itself as it has its own inputs
- * and outputs the same was a NN does.
- * A layer is defined by its neurons, their inputs and inputs weights, the
- * activation function used and a bias for every neuron.
- *
- * @param activation The activation function used by the neurons
- * @param n_outputs The number of neurons in the layer
- * @param n_inputs The number of inputs for each neuron
- * @param biases The set of bias values, one for each neuron
- * @param weights The set of input weights. Every neuron has n_inputs weights.
- */
+  * A neural network layer
+  *
+  * A layer can be thought as a neural network itself as it has its own inputs
+  * and outputs the same was a NN does.
+  * A layer is defined by its neurons, their inputs and inputs weights, the
+  * activation function used and a bias for every neuron.
+  *
+  * @param activation The activation function used by the neurons
+  * @param n_outputs The number of neurons in the layer
+  * @param n_inputs The number of inputs for each neuron
+  * @param biases The set of bias values, one for each neuron
+  * @param weights The set of input weights. Every neuron has n_inputs weights.
+  */
 abstract class NeuronLayer(
   val activation: ActivationFunction,
   override val n_inputs: Int,
@@ -58,11 +58,11 @@ abstract class NeuronLayer(
   override val activationFunction = activation.toString
 
   /**
-   * Check if two objects represents the same layer of neuron
-   *
-   * @param other The other object to compare
-   * @return true if two objects represents the same layer
-   */
+    * Check if two objects represents the same layer of neuron
+    *
+    * @param other The other object to compare
+    * @return true if two objects represents the same layer
+    */
   override def equals( other: Any ) = other match {
     case that: NeuronLayer ⇒
       this.canEqual( that ) &&
@@ -85,13 +85,13 @@ abstract class NeuronLayer(
     other.isInstanceOf[NeuronLayer]
 
   /**
-   * Calculate the output of the layer
-   *
-   * Given a set of input values it calculates the set of output values
-   *
-   * @param inputs A sequence of double to feed the layer
-   * @return A sequence of double representing the output
-   */
+    * Calculate the output of the layer
+    *
+    * Given a set of input values it calculates the set of output values
+    *
+    * @param inputs A sequence of double to feed the layer
+    * @return A sequence of double representing the output
+    */
   def output( inputs: Seq[Double] ): Seq[Double] = {
     // The given input values must match the NN configuration
     require( inputs.length == n_inputs, s"The actual inputs (${inputs.length}) must match the number of set inputs for the layer ($n_inputs)" )
@@ -100,10 +100,10 @@ abstract class NeuronLayer(
   }
 
   /**
-   * Gets a string representation of the layer
-   *
-   * @return A string containing the representation of weights and biases of the layer
-   */
+    * Gets a string representation of the layer
+    *
+    * @return A string containing the representation of weights and biases of the layer
+    */
   override def toString = {
     "(" + activation.toString + ", " + biases.toString + ", " + weights.toString + ")"
   }

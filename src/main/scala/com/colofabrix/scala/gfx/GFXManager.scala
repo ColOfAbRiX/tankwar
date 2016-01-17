@@ -24,8 +24,8 @@ import scala.collection.immutable.HashMap
 import scala.language.reflectiveCalls
 
 /**
- * Runs all of the GFX operations
- */
+  * Runs all of the GFX operations
+  */
 @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Renderer ) extends Renderer {
   require( world != null, "The World must be specified" )
@@ -35,13 +35,13 @@ class GFXManager( val world: World, windowsTitle: String, val BGRenderer: Render
   val width = world.arena.width
 
   /**
-   * Render all of the GFX
-   *
-   * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
-   * to do and usually its behaviour is stated in the documentation
-   *
-   * @param create Ignored by this method
-   */
+    * Render all of the GFX
+    *
+    * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
+    * to do and usually its behaviour is stated in the documentation
+    *
+    * @param create Ignored by this method
+    */
   def render( create: Boolean = true ): Unit = {
 
     clearScreen()

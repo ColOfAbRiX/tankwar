@@ -32,8 +32,8 @@ import org.uncommons.watchmaker.framework.termination._
 import scala.collection.JavaConverters._
 
 /**
- * Simulation entry point
- */
+  * Simulation entry point
+  */
 object TankWarMain {
 
   def main( args: Array[String] ): Unit = {

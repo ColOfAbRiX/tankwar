@@ -22,18 +22,18 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 /**
- * Abstract implementation of a Stateless Neural Network
- *
- * A stateless neural network is a network that satisfies all of these equivalent statements:
- * - Has no memory of the past
- * - There is no feedback between neurons
- * - The graph is acyclic
- * - Only the feedforward area of the adjacency matrix can be a numeric value
- *
- *
- * @param matrix Defining adjacency matrix
- * @param af Activation function used by the network
- */
+  * Abstract implementation of a Stateless Neural Network
+  *
+  * A stateless neural network is a network that satisfies all of these equivalent statements:
+  * - Has no memory of the past
+  * - There is no feedback between neurons
+  * - The graph is acyclic
+  * - Only the feedforward area of the adjacency matrix can be a numeric value
+  *
+  *
+  * @param matrix Defining adjacency matrix
+  * @param af Activation function used by the network
+  */
 abstract class AbstractStatelessNetwork(
   override val matrix: NetworkMatrix,
   override val af: ActivationFunction
@@ -54,13 +54,13 @@ abstract class AbstractStatelessNetwork(
   )
 
   /**
-   * Calculate the output of the Neural Network
-   *
-   * Given a set of input values it calculates the set of output values
-   *
-   * @param inputs A sequence of T to feed the NN
-   * @return A sequence of T representing the output
-   */
+    * Calculate the output of the Neural Network
+    *
+    * Given a set of input values it calculates the set of output values
+    *
+    * @param inputs A sequence of T to feed the NN
+    * @return A sequence of T representing the output
+    */
   override def output( inputs: Seq[Double] ): Seq[Double] = {
     require( inputs.length == inputCount, "The number of supplied inputs must match the number of inputs defined in the network" )
     require( inputs.forall( !_.isNaN ), "The inputs must be numeric values" )
@@ -73,14 +73,14 @@ abstract class AbstractStatelessNetwork(
   }
 
   /**
-   * Calculate the output of the Neural Network
-   *
-   * Given a set of input values it calculates the set of output values using a recursive algorithm
-   * This code is for internal use only as its inputs/outputs don't match the contract with the client nor their meaning
-   *
-   * @param inputs A sequence of Double that represents the inputs of the adjacency matrix. The length must match the number of neurons plus one
-   * @return A sequence of Double representing all the outputs of the matrix for the given input
-   */
+    * Calculate the output of the Neural Network
+    *
+    * Given a set of input values it calculates the set of output values using a recursive algorithm
+    * This code is for internal use only as its inputs/outputs don't match the contract with the client nor their meaning
+    *
+    * @param inputs A sequence of Double that represents the inputs of the adjacency matrix. The length must match the number of neurons plus one
+    * @return A sequence of Double representing all the outputs of the matrix for the given input
+    */
   @tailrec
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
   protected final def solveNetwork( inputs: Seq[Double] ): Seq[Double] = {

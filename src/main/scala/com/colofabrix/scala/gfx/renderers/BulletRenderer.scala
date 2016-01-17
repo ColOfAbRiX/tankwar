@@ -21,20 +21,20 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.simulation.Bullet
 
 /**
- * Renders a bullet on screen
- *
- * @param bullet The bullet to draw
- */
+  * Renders a bullet on screen
+  *
+  * @param bullet The bullet to draw
+  */
 class BulletRenderer( bullet: Bullet ) extends Renderer {
 
   /**
-   * Draw the appropriate things on the screen given a specific drawing context
-   *
-   * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
-   * to do and usually its behaviour is stated in the documentation
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draw the appropriate things on the screen given a specific drawing context
+    *
+    * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
+    * to do and usually its behaviour is stated in the documentation
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   override def render( create: Boolean ): Unit = {
 
     applyContext( Frame( Colour.BLUE ) ) {

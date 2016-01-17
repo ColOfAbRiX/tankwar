@@ -26,17 +26,17 @@ import scala.collection.JavaConverters._
 import scala.language.postfixOps
 
 /**
- * Abstract operator to mutate a Tank
- *
- * It provides a series of methods that work on the data of a tank and allow the
- * developer to focus on the implementation of the operator logic
- *
- * Created by Fabrizio on 27/01/2015.
- */
+  * Abstract operator to mutate a Tank
+  *
+  * It provides a series of methods that work on the data of a tank and allow the
+  * developer to focus on the implementation of the operator logic
+  *
+  * Created by Fabrizio on 27/01/2015.
+  */
 abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
   /**
-   * Constant used for those ranges that don't include the extremities
-   */
+    * Constant used for those ranges that don't include the extremities
+    */
   val extremityDistance = 1E-6
 
   @SuppressWarnings( Array( "JavaConverters" ) )
@@ -62,13 +62,13 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
   }
 
   /**
-   * Mutates a Seq[Seq[Double]] following the specified function
-   *
-   * @param f The function that mutate the original value
-   * @param seq Input sequence of number
-   * @param random Random Number generator
-   * @return A mutated sequences of numbers
-   */
+    * Mutates a Seq[Seq[Double]] following the specified function
+    *
+    * @param f The function that mutate the original value
+    * @param seq Input sequence of number
+    * @param random Random Number generator
+    * @return A mutated sequences of numbers
+    */
   protected def mutate( f: ( Double, Random ) ⇒ Double, seq: Seq[Seq[Double]], random: Random ): Seq[Seq[Double]] = {
     for ( outer ← seq ) yield {
       for ( value ← outer ) yield f( value, random )
@@ -76,39 +76,39 @@ abstract class AbstractTankMutation extends EvolutionaryOperator[Tank] {
   }
 
   /**
-   * Mutate the biases of a Tank
-   *
-   * @param c The chromosome used to gather information from the Tank
-   * @param random Random number generator
-   * @return A new set of biases with applied the mutation rules
-   */
+    * Mutate the biases of a Tank
+    *
+    * @param c The chromosome used to gather information from the Tank
+    * @param random Random number generator
+    * @return A new set of biases with applied the mutation rules
+    */
   protected def mutateBiases( c: TankChromosome, random: Random ): Seq[Seq[Double]]
 
   /**
-   * Mutate the weights of a Tank
-   *
-   * @param c The chromosome used to gather information from the Tank
-   * @param random Random number generator
-   * @return A new set of weights with applied the mutation rules
-   */
+    * Mutate the weights of a Tank
+    *
+    * @param c The chromosome used to gather information from the Tank
+    * @param random Random number generator
+    * @return A new set of weights with applied the mutation rules
+    */
   protected def mutateWeights( c: TankChromosome, random: Random ): Seq[Seq[Seq[Double]]]
 
   /**
-   * Mutate the reference rotation zero of a Tank
-   *
-   * @param c The chromosome used to gather information from the Tank
-   * @param random Random number generator
-   * @return A new rotation zero reference with applied the mutation rules
-   */
+    * Mutate the reference rotation zero of a Tank
+    *
+    * @param c The chromosome used to gather information from the Tank
+    * @param random Random number generator
+    * @return A new rotation zero reference with applied the mutation rules
+    */
   protected def mutateRotationReference( c: TankChromosome, random: Random ): Double
 
   /**
-   * Mutate the sight ratio of a Tank
-   *
-   * @param c The chromosome used to gather information from the Tank
-   * @param random Random number generator
-   * @return A new sight ratio with applied the mutation rules
-   */
+    * Mutate the sight ratio of a Tank
+    *
+    * @param c The chromosome used to gather information from the Tank
+    * @param random Random number generator
+    * @return A new sight ratio with applied the mutation rules
+    */
   protected def mutateSightRatio( c: TankChromosome, random: Random ): Double
 
 }

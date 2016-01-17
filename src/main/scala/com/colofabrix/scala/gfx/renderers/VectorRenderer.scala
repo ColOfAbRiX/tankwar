@@ -22,15 +22,15 @@ import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11._
 
 /**
- * Draws an applied vector on screen
- *
- * An applied vector is a vector with a tail that is not in the origin of axes
- *
- * @param vector The vector to draw
- * @param apply Its apply point (where its tail begins)
- * @param size The maximum size of the arrow
- * @param defaultFrame The default frame to use when a new drawing context has to be created
- */
+  * Draws an applied vector on screen
+  *
+  * An applied vector is a vector with a tail that is not in the origin of axes
+  *
+  * @param vector The vector to draw
+  * @param apply Its apply point (where its tail begins)
+  * @param size The maximum size of the arrow
+  * @param defaultFrame The default frame to use when a new drawing context has to be created
+  */
 class VectorRenderer(
     val vector: Vector2D,
     val apply: Vector2D = Vector2D.zero,
@@ -39,10 +39,10 @@ class VectorRenderer(
 ) extends Renderer {
 
   /**
-   * Draws the vector
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draws the vector
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit = {
 
     withDefaultContext( create, defaultFrame ) {

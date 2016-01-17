@@ -21,17 +21,17 @@ import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
 /**
- * Renders the Background of the screen.
- *
- * It's an alias for `BoxRenderer`
- */
+  * Renders the Background of the screen.
+  *
+  * It's an alias for `BoxRenderer`
+  */
 class BGRenderer( box: Box, colour: Colour = Colour.BLACK ) extends Renderer {
 
   /**
-   * Renders the background as a box
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Renders the background as a box
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit = new BoxRenderer( box, true, Frame( colour ) ).render( true )
 
 }

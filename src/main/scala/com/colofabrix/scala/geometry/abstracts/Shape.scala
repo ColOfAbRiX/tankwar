@@ -20,24 +20,24 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.math.Vector2D
 
 /**
- * Represents a geometric closed shape on a geometric space
- *
- * This train contains definitions of basic geometric operations like distance to a point of a check to see if
- * a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
- */
+  * Represents a geometric closed shape on a geometric space
+  *
+  * This train contains definitions of basic geometric operations like distance to a point of a check to see if
+  * a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
+  */
 trait Shape extends Renderable {
   /**
-   * Compute the distance between a point and a line segment
-   *
-   * This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
-   * other methods.
-   *
-   * @see http://geomalgorithms.com/a02-_lines.html
-   * @param v0 First end of the segment
-   * @param v1 Second end of the segment
-   * @param p Point to check
-   * @return A distance vector from the point to the segment or one of its ends
-   */
+    * Compute the distance between a point and a line segment
+    *
+    * This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
+    * other methods.
+    *
+    * @see http://geomalgorithms.com/a02-_lines.html
+    * @param v0 First end of the segment
+    * @param v1 Second end of the segment
+    * @param p Point to check
+    * @return A distance vector from the point to the segment or one of its ends
+    */
   protected def distance( v0: Vector2D, v1: Vector2D, p: Vector2D ): Vector2D = {
     val v = v1 - v0
     val w = p - v0
@@ -56,86 +56,86 @@ trait Shape extends Renderable {
   }
 
   /**
-   * The surface area of the Shape
-   */
+    * The surface area of the Shape
+    */
   def area: Double
 
   /**
-   * Find a containing box for the current shape.
-   *
-   * A container is used as a faster and simpler way to obtain information or do some
-   * actions on a Shape that would otherwise require more computation.
-   * Ideally the computation should take O(n) or less. This trait should be applied
-   * to shapes that guarantee this fast computation
-   *
-   * @return A new Container where the current shape is completely inside its boundaries
-   */
+    * Find a containing box for the current shape.
+    *
+    * A container is used as a faster and simpler way to obtain information or do some
+    * actions on a Shape that would otherwise require more computation.
+    * Ideally the computation should take O(n) or less. This trait should be applied
+    * to shapes that guarantee this fast computation
+    *
+    * @return A new Container where the current shape is completely inside its boundaries
+    */
   def container: Container
 
   /**
-   * Determines if a point is inside or on the boundary the shape
-   *
-   * @param p The point to be checked
-   * @return True if the point is inside the shape or on its boundary
-   */
+    * Determines if a point is inside or on the boundary the shape
+    *
+    * @param p The point to be checked
+    * @return True if the point is inside the shape or on its boundary
+    */
   def contains( p: Vector2D ): Boolean
 
   /**
-   * Determines if a shape is inside or on the boundary the current shape
-   *
-   * @param s The shape to be checked
-   * @return True if the given shape is inside the shape or on its boundary
-   */
+    * Determines if a shape is inside or on the boundary the current shape
+    *
+    * @param s The shape to be checked
+    * @return True if the given shape is inside the shape or on its boundary
+    */
   def contains( s: Shape ): Boolean
 
   /**
-   * Compute the distance between a point and the boundary of the shape
-   *
-   * @param p The point to check
-   * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
-   */
+    * Compute the distance between a point and the boundary of the shape
+    *
+    * @param p The point to check
+    * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
+    */
   def distance( p: Vector2D ): ( Vector2D, Vector2D )
 
   /**
-   * Compute the distance between a line segment and the nearest edge of the shape.
-   *
-   * @param p0 The first point that defines the line
-   * @param p1 The second point that defines the line
-   * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
-   */
+    * Compute the distance between a line segment and the nearest edge of the shape.
+    *
+    * @param p0 The first point that defines the line
+    * @param p1 The second point that defines the line
+    * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
+    */
   def distance( p0: Vector2D, p1: Vector2D ): ( Vector2D, Vector2D )
 
   /**
-   * Determines if a line segment touches in any way this shape
-   *
-   * @param p0 The first point that defines the line segment
-   * @param p1 The second point that defines the line segment
-   * @return True if the line intersects the shape
-   */
+    * Determines if a line segment touches in any way this shape
+    *
+    * @param p0 The first point that defines the line segment
+    * @param p1 The second point that defines the line segment
+    * @return True if the line intersects the shape
+    */
   def intersects( p0: Vector2D, p1: Vector2D ): Boolean
 
   /**
-   * Determines if a shape touches in any way this shape
-   *
-   * @param that The shape to be checked
-   * @return True if the point is inside the shape
-   */
+    * Determines if a shape touches in any way this shape
+    *
+    * @param that The shape to be checked
+    * @return True if the point is inside the shape
+    */
   def intersects( that: Shape ): Boolean
 
   /**
-   * Shifts a shape on the space
-   *
-   * Provided a vector, every vertex or equivalent of the shape will be moved following that vector
-   *
-   * @param where The vector specifying where to move the shape
-   * @return A new shape moved of a vector {where}
-   */
+    * Shifts a shape on the space
+    *
+    * Provided a vector, every vertex or equivalent of the shape will be moved following that vector
+    *
+    * @param where The vector specifying where to move the shape
+    * @return A new shape moved of a vector {where}
+    */
   def move( where: Vector2D ): Shape
 
   /**
-   * An object responsible to renderer the class where this trait is applied
-   *
-   * @return A renderer that can draw the object where it's applied
-   */
+    * An object responsible to renderer the class where this trait is applied
+    *
+    * @return A renderer that can draw the object where it's applied
+    */
   def renderer: Renderer
 }

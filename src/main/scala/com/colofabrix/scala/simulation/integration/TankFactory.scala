@@ -25,10 +25,10 @@ import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory
 import scala.collection.JavaConverters._
 
 /**
- * Factory to generate the initial Tank population.
- *
- * Required by Watchmaker library
- */
+  * Factory to generate the initial Tank population.
+  *
+  * Required by Watchmaker library
+  */
 class TankFactory( world: World ) extends AbstractCandidateFactory[Tank] {
 
   override def generateInitialPopulation( i: Int, random: Random ): util.List[Tank] = {

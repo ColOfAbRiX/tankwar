@@ -16,7 +16,9 @@
 
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.DummyQuadtree
+import com.colofabrix.scala.Tools
+import com.colofabrix.scala.geometry.{ LinkedQuadtree, DummyQuadtree, SpatialHash }
+import com.colofabrix.scala.geometry.abstracts.SpatialSet
 import com.colofabrix.scala.geometry.abstracts.SpatialTree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
@@ -30,21 +32,21 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /**
- * The world of the simulation
- *
- * This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
- * and limits that the participants must follow
- *
- * @param arena The arena where the tanks play
- * @param max_tank_speed The maximum speed allowed for a tank per step
- * @param max_tank_rotation The maximum angular speed of a tank per step
- * @param max_bullet_speed The maximum proper speed of a bullet per step
- * @param bullet_life The maximum number of steps a bullet can live
- * @param max_sight Maximum allowed sight for a tank
- * @param max_rounds Maximum number of rounds for a generation
- * @param dead_time Percentage of the time when a tank can be dead
- * @param _initialTanks The tanks present in the world
- */
+  * The world of the simulation
+  *
+  * This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
+  * and limits that the participants must follow
+  *
+  * @param arena The arena where the tanks play
+  * @param max_tank_speed The maximum speed allowed for a tank per step
+  * @param max_tank_rotation The maximum angular speed of a tank per step
+  * @param max_bullet_speed The maximum proper speed of a bullet per step
+  * @param bullet_life The maximum number of steps a bullet can live
+  * @param max_sight Maximum allowed sight for a tank
+  * @param max_rounds Maximum number of rounds for a generation
+  * @param dead_time Percentage of the time when a tank can be dead
+  * @param _initialTanks The tanks present in the world
+  */
 @SuppressWarnings(
   Array(
     "org.brianmckenna.wartremover.warts.MutableDataStructures",
@@ -83,38 +85,38 @@ class World(
     "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets = SpatialTree[Bullet]( arena, List() )
-  private var _tanks = SpatialTree[Tank]( arena, _initialTanks )
+  private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( List(), arena, 8, 8 )
+  private var _tanks: SpatialSet[Tank] = LinkedQuadtree[Tank]( arena, _initialTanks, 3, 3 )
   private var _time: Long = 0
   /**
-   * Graphics manager of the simulation
-   */
+    * Graphics manager of the simulation
+    */
   val GFXManager = new GFXManager( this, "Tank War", new BGRenderer( arena ) )
   /**
-   * User interaction manager of the simulation
-   */
+    * User interaction manager of the simulation
+    */
   val UIManager = new UIManager( this )
   /**
-   * Sequence of all rounds in the world
-   */
+    * Sequence of all rounds in the world
+    */
   val rounds = 1 to max_rounds
   /**
-   * Penalty applied to each tank by the rules of the world
-   */
+    * Penalty applied to each tank by the rules of the world
+    */
   val tanksPenalty = ArrayBuffer.fill( tanks.length )( 0.0 )
 
   /**
-   * Counters for the statistics of the world
-   */
+    * Counters for the statistics of the world
+    */
   def counters = _counters.toMap
 
   /**
-   * Creates and add a new Tank to the world
-   *
-   * NOTE: To be refactored
-   *
-   * @return The newly created Tank
-   */
+    * Creates and add a new Tank to the world
+    *
+    * NOTE: To be refactored
+    *
+    * @return The newly created Tank
+    */
   def createAndAddDefaultTank( reader: DataReader ): Tank = {
     val chromosome = new TankChromosome(
       Seq.empty[Seq[Double]],
@@ -130,14 +132,14 @@ class World(
   }
 
   /**
-   * Creates and add a new Tank to the world
-   *
-   * NOTE: To be refactored
-   *
-   * @param chromosome The chromosome defining the Tank
-   * @param reader N/A
-   * @return
-   */
+    * Creates and add a new Tank to the world
+    *
+    * NOTE: To be refactored
+    *
+    * @param chromosome The chromosome defining the Tank
+    * @param reader N/A
+    * @return
+    */
   @SuppressWarnings( Array( "NullAssignment" ) )
   def createAndAddTank( chromosome: TankChromosome, reader: DataReader = null ): Tank = {
     val tank = Tank( this, chromosome, reader )
@@ -146,29 +148,31 @@ class World(
   }
 
   /**
-   * A tank requests to shot a bullet
-   *
-   * @param tank The tank that requested to shot
-   */
+    * A tank requests to shot a bullet
+    *
+    * @param tank The tank that requested to shot
+    */
   def on_tankShot( tank: Tank ): Unit = {
+    //Tools.measureTime( s"To add a bullet to a list of ${_bullets.size} it took: @time" ) {
     _bullets = _bullets + new Bullet( this, tank, max_bullet_speed )
+    //}
     incCounter( "shots" )
   }
 
   /**
-   * Collects the renderers to draw the objects in the world, like tanks and bullets
-   *
-   * @return All the renderers for the objects in the simulation worlds
-   */
+    * Collects the renderers to draw the objects in the world, like tanks and bullets
+    *
+    * @return All the renderers for the objects in the simulation worlds
+    */
   def renderers: Seq[Renderer] = _envRenderer +: tanks.filter( !_.isDead ).map( _.renderer ) ++: bullets.map( _.renderer )
 
   /**
-   * Resets the world to a known, initial states
-   *
-   * NOTE: Might be refactored
-   *
-   * @param tankList Current population of the world
-   */
+    * Resets the world to a known, initial states
+    *
+    * NOTE: Might be refactored
+    *
+    * @param tankList Current population of the world
+    */
   def resetWorld( tankList: List[Tank] ): Unit = {
     // Reset time
     _time = 0
@@ -188,27 +192,29 @@ class World(
   }
 
   /**
-   * Reset a specific counter
-   *
-   * @param counter The counter to reset
-   */
+    * Reset a specific counter
+    *
+    * @param counter The counter to reset
+    */
   private def resCounter( counter: String ): Unit = {
     _counters += ( counter → 0 )
     return
   }
 
   /**
-   * Moves the world one step forward.
-   *
-   * It first moves tanks and thus manages tanks firing. It then
-   * handles bullets and collision between bullets and tanks
-   */
+    * Moves the world one step forward.
+    *
+    * It first moves tanks and thus manages tanks firing. It then
+    * handles bullets and collision between bullets and tanks
+    */
   def step(): Unit = {
     _time += 1
 
     // Refresh of the position of the objects in the lists
     _tanks = _tanks.refresh()
+    //Tools.measureTime( s"To refresh ${_bullets.size} bullets it took: @time" ) {
     _bullets = _bullets.refresh()
+    //}
 
     // Managing tanks
     for ( tank ← tanks.par ) {
@@ -229,23 +235,23 @@ class World(
   }
 
   /**
-   * List of tanks present in the world
-   */
+    * List of tanks present in the world
+    */
   def tanks = _tanks.toList
 
   /**
-   * List of bullets running through the world
-   */
+    * List of bullets running through the world
+    */
   def bullets = _bullets.toList
 
   /**
-   * Handles any dead tank in the world
-   *
-   * The method performs the following actions:
-   * - After a specific amount of time it respawns the tank
-   *
-   * @param tank The tank to manage
-   */
+    * Handles any dead tank in the world
+    *
+    * The method performs the following actions:
+    * - After a specific amount of time it respawns the tank
+    *
+    * @param tank The tank to manage
+    */
   private def manageDeadTank( tank: Tank ): Unit = {
     if ( tank.surviveTime + max_rounds * dead_time < _time ) {
       tank.on_respawn()
@@ -253,15 +259,15 @@ class World(
   }
 
   /**
-   * Handles any alive tank in the world
-   *
-   * The method performs the following actions:
-   * - Moves the tank on step forward
-   * - Checks that it respects the limits
-   * - Checks for tank-tank and tank-bullet interactions
-   *
-   * @param tank The tank to manage
-   */
+    * Handles any alive tank in the world
+    *
+    * The method performs the following actions:
+    * - Moves the tank on step forward
+    * - Checks that it respects the limits
+    * - Checks for tank-tank and tank-bullet interactions
+    *
+    * @param tank The tank to manage
+    */
   private def manageAliveTank( tank: Tank ): Unit = {
     tank.step()
 
@@ -314,6 +320,10 @@ class World(
           interactionTankTank( tank, otherTank )
       }
 
+    //Tools.measureTime( s"To to look around a list of ${_bullets.size}: @time" ) {
+    //  _bullets.lookAround( tank.sight( classOf[Bullet] ) )
+    //}
+
     // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
     _bullets
       .lookAround( tank.sight( classOf[Bullet] ) )
@@ -324,11 +334,11 @@ class World(
   }
 
   /**
-   * Manages the interaction between a tank and a bullet
-   *
-   * @param tank The reference tank
-   * @param bullet The bullet to check agains the tank
-   */
+    * Manages the interaction between a tank and a bullet
+    *
+    * @param tank The reference tank
+    * @param bullet The bullet to check agains the tank
+    */
   private def interactionTankBullet( tank: Tank, bullet: Bullet ): Unit = {
     // If a bullet overlaps a Tank's sight (and it's not one of the bullets fired by the Tank itself) then I inform the Tank
     if ( tank.sight( classOf[Bullet] ).intersects( bullet.objectShape ) && bullet.tank != tank && !bullet.tank.isDead ) {
@@ -342,11 +352,11 @@ class World(
   }
 
   /**
-   * A tank is hit by a bullet
-   *
-   * @param tank The tank hit by the bullet
-   * @param bullet The bullet that hits the tank
-   */
+    * A tank is hit by a bullet
+    *
+    * @param tank The tank hit by the bullet
+    * @param bullet The bullet that hits the tank
+    */
   def on_tankHit( tank: Tank, bullet: Bullet ): Unit = {
     // Prevent a dead tank to kill another tank
     if ( !bullet.tank.isDead ) {
@@ -359,15 +369,17 @@ class World(
       incCounter( "hits" )
     }
 
+    //Tools.measureTime( s"To remove a bullet (1) from a list of ${_bullets.size} it took: @time" ) {
     _bullets = _bullets - bullet
+    //}
   }
 
   /**
-   * Manages the interaction between two tanks
-   *
-   * @param tank The reference tank
-   * @param otherTank The other tank to check against the first one
-   */
+    * Manages the interaction between two tanks
+    *
+    * @param tank The reference tank
+    * @param otherTank The other tank to check against the first one
+    */
   private def interactionTankTank( tank: Tank, otherTank: Tank ): Unit = {
     // If a tank overlaps a Tank's sight then I inform the Tank
     if ( tank.sight( classOf[Tank] ).intersects( otherTank.objectShape ) ) {
@@ -382,23 +394,23 @@ class World(
   }
 
   /**
-   * Increments a specific counter by 1
-   *
-   * @param counter The counter to increment
-   */
+    * Increments a specific counter by 1
+    *
+    * @param counter The counter to increment
+    */
   private def incCounter( counter: String ): Unit = {
     _counters += ( counter → ( _counters( counter ) + 1 ) )
     return
   }
 
   /**
-   * Check if a limit is respected. If not it first notifies an entity and
-   * if the check is still not respected it takes a different action
-   *
-   * @param check What to check. If true no actions will be taken
-   * @param notify Function to call to notify an entity the first time check is found to be equals to false
-   * @param action The action to take if check equals false for a second time
-   */
+    * Check if a limit is respected. If not it first notifies an entity and
+    * if the check is still not respected it takes a different action
+    *
+    * @param check What to check. If true no actions will be taken
+    * @param notify Function to call to notify an entity the first time check is found to be equals to false
+    * @param action The action to take if check equals false for a second time
+    */
   private def check_limit( check: () ⇒ Boolean, notify: () ⇒ Unit, action: () ⇒ Unit ): Unit = {
     if ( !check() ) {
       notify()
@@ -409,15 +421,15 @@ class World(
   }
 
   /**
-   * Handles any bullet in the world
-   *
-   * The method performs the following actions:
-   * - Moves the bullet on step forward
-   * - Checks that it respects the limits
-   * - Removes it when he has to die
-   *
-   * @param bullet The bullet to manage
-   */
+    * Handles any bullet in the world
+    *
+    * The method performs the following actions:
+    * - Moves the bullet on step forward
+    * - Checks that it respects the limits
+    * - Removes it when he has to die
+    *
+    * @param bullet The bullet to manage
+    */
   private def manageBullet( bullet: Bullet ): Unit = {
     bullet.step()
 
@@ -426,20 +438,24 @@ class World(
       () ⇒ arena.contains( bullet.position ),
       () ⇒ bullet.on_hitsWalls(),
       () ⇒ {
+        //Tools.measureTime( s"To remove (2) a bullet from a list of ${_bullets.size} it took: @time" ) {
         _bullets = _bullets - bullet
+        //}
       }
     )
 
     // Check the lifespan of a bullet
     if ( bullet.life >= bullet_life || bullet.tank.isDead ) {
+      //Tools.measureTime( s"To remove a bullet (3) from a list of ${_bullets.size} it took: @time" ) {
       _bullets = _bullets - bullet
+      //}
     }
   }
 
   /**
-   * Global execution time
-   *
-   * @return The number of steps taken from the beginning
-   */
+    * Global execution time
+    *
+    * @return The number of steps taken from the beginning
+    */
   def time = _time
 }

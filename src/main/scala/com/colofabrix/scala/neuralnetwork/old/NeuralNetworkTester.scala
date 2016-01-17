@@ -21,13 +21,13 @@ import java.io.PrintWriter
 import com.colofabrix.scala.neuralnetwork.old.abstracts.{ NeuralNetwork, Tester }
 
 /**
- * Provides a way to visualize the behaviour of a NN
- *
- * This class allows to create CSV files to analyse the various outputs varying
- * specific inputs.
- *
- * Created by Fabrizio on 15/02/2015.
- */
+  * Provides a way to visualize the behaviour of a NN
+  *
+  * This class allows to create CSV files to analyse the various outputs varying
+  * specific inputs.
+  *
+  * Created by Fabrizio on 15/02/2015.
+  */
 @deprecated( "Deprecated", "0.1.0" )
 abstract class NeuralNetworkTester( val network: NeuralNetwork, nInputs: Int ) extends Tester {
 

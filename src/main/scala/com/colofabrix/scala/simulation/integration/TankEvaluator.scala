@@ -22,17 +22,17 @@ import com.colofabrix.scala.simulation.{ Tank, World }
 import org.uncommons.watchmaker.framework.FitnessEvaluator
 
 /**
- * Evaluates the fitness of a Tank
- */
+  * Evaluates the fitness of a Tank
+  */
 class TankEvaluator() extends FitnessEvaluator[Tank] {
 
   /**
-   * Given a Tank returns its fitness
-   *
-   * @param t The tank to evaluate
-   * @param list The list of all Tanks. It may be useful for comparison purposes
-   * @return A number representing the fitness of the Tank
-   */
+    * Given a Tank returns its fitness
+    *
+    * @param t The tank to evaluate
+    * @param list The list of all Tanks. It may be useful for comparison purposes
+    * @return A number representing the fitness of the Tank
+    */
   override def getFitness( t: Tank, list: util.List[_ <: Tank] ): Double = TankEvaluator.fitness( t )
 
   override def isNatural: Boolean = true
@@ -44,24 +44,24 @@ object TankEvaluator {
   import Math._
 
   /**
-   * Returns the fitness of a tank
-   *
-   * The current algorithm count the number of kills relative to the total number of Tanks
-   *
-   * @param t The tank being evaluated
-   * @return The score of the tank representing its fitness
-   */
+    * Returns the fitness of a tank
+    *
+    * The current algorithm count the number of kills relative to the total number of Tanks
+    *
+    * @param t The tank being evaluated
+    * @return The score of the tank representing its fitness
+    */
   def fitness( t: Tank ): Double = {
     val ( w, ts ) = ( t.world, t.world.tanks )
     max( t.points.toDouble, 0.0 )
   }
 
   /**
-   * Returns the highest possible fitness value
-   *
-   * @param world The world of the simulation
-   * @return The highest possible value
-   */
+    * Returns the highest possible fitness value
+    *
+    * @param world The world of the simulation
+    * @return The highest possible value
+    */
   def higherFitness( world: World ): Double = {
     world.tanks.filter( !_.isDead ).maxBy( _.points ).points.toDouble
   }

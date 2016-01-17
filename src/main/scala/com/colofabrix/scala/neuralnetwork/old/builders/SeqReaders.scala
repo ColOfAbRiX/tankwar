@@ -20,13 +20,13 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.{ DataReader, LayerReader }
 
 /**
- * Sequence Data Reader
- *
- * It reads the data of a NN Layer from its sequences
- *
- * @param biases Biases of the NN
- * @param weights Weights of the NN
- */
+  * Sequence Data Reader
+  *
+  * It reads the data of a NN Layer from its sequences
+  *
+  * @param biases Biases of the NN
+  * @param weights Weights of the NN
+  */
 class SeqDataReader( biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], af: Seq[String] ) extends DataReader {
   val combined = ( biases zip weights ).zipWithIndex
 
@@ -46,23 +46,23 @@ class SeqDataReader( biases: Seq[Seq[Double]], weights: Seq[Seq[Seq[Double]]], a
 }
 
 /**
- * Sequence Data Reader for a single Layer
- *
- * It reads the data of a Layer from a Sequence
- *
- * @param af Activation Function
- * @param biases Biases of the layer
- * @param weights Weights of the layer
- */
+  * Sequence Data Reader for a single Layer
+  *
+  * It reads the data of a Layer from a Sequence
+  *
+  * @param af Activation Function
+  * @param biases Biases of the layer
+  * @param weights Weights of the layer
+  */
 class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String ) extends LayerReader {
   require( af != null, "An activation function must be specified" )
 
   /**
-   * Returns the biases of the neurons
-   *
-   * @param neurons Number of neurons in the layer
-   * @return The sequence of biases, one for each neuron
-   */
+    * Returns the biases of the neurons
+    *
+    * @param neurons Number of neurons in the layer
+    * @return The sequence of biases, one for each neuron
+    */
   override def neuronBiases( neurons: Int ): Seq[Double] = {
     require( neurons > 0, "The number of neurons must be a positive integer" )
     //require(biases.length == neurons, "The number of biases don't match the number of neurons")
@@ -71,12 +71,12 @@ class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String
   }
 
   /**
-   * Return the weights, for each neuron, associated with the inputs
-   *
-   * @param neurons Number of neurons in the layer
-   * @param inputs Number of inputs for each neuron
-   * @return The weights, for each neuron, associated with the inputs
-   */
+    * Return the weights, for each neuron, associated with the inputs
+    *
+    * @param neurons Number of neurons in the layer
+    * @param inputs Number of inputs for each neuron
+    * @return The weights, for each neuron, associated with the inputs
+    */
   override def inputWeights( neurons: Int, inputs: Int ): Seq[Seq[Double]] = {
     require( neurons > 0 )
     require( inputs > 0 )
@@ -87,9 +87,9 @@ class SeqLayerReader( biases: Seq[Double], weights: Seq[Seq[Double]], af: String
   }
 
   /**
-   * Returns the ActivationFunction associated with the layer
-   *
-   * @return The ActivationFunction associated with the layer
-   */
+    * Returns the ActivationFunction associated with the layer
+    *
+    * @return The ActivationFunction associated with the layer
+    */
   override def activationFunction: ActivationFunction = ActivationFunction( af )
 }

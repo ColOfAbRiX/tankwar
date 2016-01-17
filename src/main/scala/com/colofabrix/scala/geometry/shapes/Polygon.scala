@@ -24,9 +24,9 @@ import com.colofabrix.scala.math.Vector2D
 import scala.language.postfixOps
 
 /**
- * A generic two-dimensional polygon
- * A generic two-dimensional polygon
- */
+  * A generic two-dimensional polygon
+  * A generic two-dimensional polygon
+  */
 @SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
 class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
 
@@ -34,42 +34,42 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   require( vertices.length > 2 )
 
   /**
-   * Find a containing box for the current shape.
-   *
-   * For simplicity the current implementation always returns a {Box}
-   *
-   * @see http://geomalgorithms.com/a08-_containers.html
-   * @return A shape that fully contains this shape
-   */
+    * Find a containing box for the current shape.
+    *
+    * For simplicity the current implementation always returns a {Box}
+    *
+    * @see http://geomalgorithms.com/a08-_containers.html
+    * @return A shape that fully contains this shape
+    */
   override lazy val container: Container = Container.bestFit( this )
   /**
-   * Area of the polygon
-   *
-   * @see http://geomalgorithms.com/a01-_area.html
-   */
+    * Area of the polygon
+    *
+    * @see http://geomalgorithms.com/a01-_area.html
+    */
   lazy val area = {
     ( vertices :+ vertices.head ).sliding( 3 ).map {
       case v0 :: v1 :: v2 :: Nil ⇒ v1.x * ( v2.y - v0.y )
     }.sum / 2.0
   }
   /**
-   * Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
-   */
+    * Edges of the shape, built from the vertices. Edges are {Vector2D} from one vertex to its adjacent one
+    */
   val edges: Seq[Vector2D] = ( vertices :+ vertices.head ).sliding( 2 ) map { v ⇒ v( 1 ) - v( 0 ) } toList
   /**
-   * List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
-   */
+    * List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
+    */
   val edgesIterator = ( edges :+ edges.head ).sliding( 2 ).toSeq
   /**
-   * Checks if a polygon is convex
-   *
-   * To be convex, the edges of a polygon must form between each others angles greater that 180. This is
-   * checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
-   * edge compared to the first.
-   *
-   * @see https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
-   * @return true if the polygon is convex
-   */
+    * Checks if a polygon is convex
+    *
+    * To be convex, the edges of a polygon must form between each others angles greater that 180. This is
+    * checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
+    * edge compared to the first.
+    *
+    * @see https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
+    * @return true if the polygon is convex
+    */
   lazy val isConvex = {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
     // direction of the first edge as a reference.
@@ -83,32 +83,32 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
     }
   }
   /**
-   * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
-   */
+    * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
+    */
   val verticesIterator = ( vertices :+ vertices.head ).sliding( 2 ).toSeq
 
   /**
-   * Tests if a point is Left|On|Right of an infinite line.
-   *
-   * This is a faster version (less calculations) of the vector product of two vectors
-   * defined by three points.
-   *
-   * @see http://algs4.cs.princeton.edu/91primitives/
-   * @param v0 First segment point
-   * @param v1 Second segment point
-   * @param p Point to check
-   * @return >0 for P2 left of the line through P0 and P1, =0 for P2  on the line, <0 for P2  right of the line
-   */
+    * Tests if a point is Left|On|Right of an infinite line.
+    *
+    * This is a faster version (less calculations) of the vector product of two vectors
+    * defined by three points.
+    *
+    * @see http://algs4.cs.princeton.edu/91primitives/
+    * @param v0 First segment point
+    * @param v1 Second segment point
+    * @param p Point to check
+    * @return >0 for P2 left of the line through P0 and P1, =0 for P2  on the line, <0 for P2  right of the line
+    */
   private def checkTurn( v0: Vector2D, v1: Vector2D, p: Vector2D ): Double =
     ( v1.x - v0.x ) * ( p.y - v0.y ) - ( p.x - v0.x ) * ( v1.y - v0.y )
 
   /**
-   * Determines if a point is inside or on the boundary the shape
-   *
-   * @see http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
-   * @param p The point to be checked
-   * @return True if the point is inside the shape
-   */
+    * Determines if a point is inside or on the boundary the shape
+    *
+    * @see http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
+    * @param p The point to be checked
+    * @return True if the point is inside the shape
+    */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   override def contains( p: Vector2D ): Boolean = {
     var wn = 0
@@ -131,11 +131,11 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * Determines if a shape is inside or on the boundary the current shape
-   *
-   * @param s The shape to be checked
-   * @return True if the given shape is inside the shape or on its boundary
-   */
+    * Determines if a shape is inside or on the boundary the current shape
+    *
+    * @param s The shape to be checked
+    * @return True if the given shape is inside the shape or on its boundary
+    */
   override def contains( s: Shape ): Boolean = s match {
     // TODO: For Polygon-Polygon... the general case is not so easy. Check vertex inclusion and edge crossing
     case p: Polygon ⇒ ???
@@ -148,13 +148,13 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * Compute the distance between a point and the edges of the polygon
-   *
-   * Checks the distances from all the edges and returns the nearest one
-   *
-   * @param p Point to check
-   * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
-   */
+    * Compute the distance between a point and the edges of the polygon
+    *
+    * Checks the distances from all the edges and returns the nearest one
+    *
+    * @param p Point to check
+    * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
+    */
   def distance( p: Vector2D ): ( Vector2D, Vector2D ) = {
     // If the point is inside the polygon....
     if ( contains( p ) ) return ( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 0, 0 ) )
@@ -169,12 +169,12 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * Compute the distance between a line segment and the edges of the polygon
-   *
-   * @param p0 The first point that defines the line
-   * @param p1 The second point that defines the line
-   * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
-   */
+    * Compute the distance between a line segment and the edges of the polygon
+    *
+    * @param p0 The first point that defines the line
+    * @param p1 The second point that defines the line
+    * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
+    */
   override def distance( p0: Vector2D, p1: Vector2D ): ( Vector2D, Vector2D ) = {
     // FIXME: The logic is correct, but there is a circular reference with `intersects`
     // If the point is inside the polygon....
@@ -187,20 +187,20 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * Determines if a line segment touches in any way this shape
-   *
-   * @param p0 The first point that defines the line
-   * @param p1 The second point that defines the line
-   * @return True if the point is inside the shape
-   */
+    * Determines if a line segment touches in any way this shape
+    *
+    * @param p0 The first point that defines the line
+    * @param p1 The second point that defines the line
+    * @return True if the point is inside the shape
+    */
   override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1 )._1.r.abs <= Double.MinPositiveValue
 
   /**
-   * Determines if a shape is inside or on the boundary this shape
-   *
-   * @param that The point to be checked
-   * @return True if the point is inside the shape
-   */
+    * Determines if a shape is inside or on the boundary this shape
+    *
+    * @param that The point to be checked
+    * @return True if the point is inside the shape
+    */
   override def intersects( that: Shape ): Boolean = that match {
 
     // With circles I find the nearest edge to the center and then I compare it to the radius to see if it's inside
@@ -222,17 +222,17 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
   }
 
   /**
-   * Moves a polygon shifting all its vertices by a vector quantity
-   *
-   * @param where The vector specifying how to move the polygon
-   * @return A new polygon moved of {where}
-   */
+    * Moves a polygon shifting all its vertices by a vector quantity
+    *
+    * @param where The vector specifying how to move the polygon
+    * @return A new polygon moved of {where}
+    */
   override def move( where: Vector2D ) = new Polygon( vertices.map( v ⇒ v + where ) )
 
   /**
-   * A renderer for a generic polygon
-   *
-   * @return A new instance of PolygonRenderer for the current polygon
-   */
+    * A renderer for a generic polygon
+    *
+    * @return A new instance of PolygonRenderer for the current polygon
+    */
   override def renderer: Renderer = new PolygonRenderer( this )
 }

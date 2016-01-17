@@ -23,13 +23,13 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import scala.language.implicitConversions
 
 /**
- * Writes some text to the screen
- *
- * @param text A list of strings to be written on the screen one after the other
- * @param awtFont The font used to draw the text
- * @param interline The line height, expressed relative to the font size
- * @param defaultFrame The default frame to use when a new drawing context has to be created
- */
+  * Writes some text to the screen
+  *
+  * @param text A list of strings to be written on the screen one after the other
+  * @param awtFont The font used to draw the text
+  * @param interline The line height, expressed relative to the font size
+  * @param defaultFrame The default frame to use when a new drawing context has to be created
+  */
 class TextRenderer(
     text: List[String],
     defaultFrame: Frame = Frame( Colour.WHITE ),
@@ -38,10 +38,10 @@ class TextRenderer(
 ) extends Renderer {
 
   /**
-   * Writes some text to the screen
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Writes some text to the screen
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit = {
 
     withDefaultContext( create, defaultFrame ) {
@@ -62,22 +62,22 @@ object TextRenderer {
 
   // scalastyle:off structural.type
   /**
-   * Implicit method to convert a text into a renderable object
-   *
-   * @param text The text to convert
-   * @return A new Renderable object that returns a new `TextRenderer`
-   */
+    * Implicit method to convert a text into a renderable object
+    *
+    * @param text The text to convert
+    * @return A new Renderable object that returns a new `TextRenderer`
+    */
   implicit def String2Renderable( text: String ): Renderable with Object { def renderer: Renderer } =
     new com.colofabrix.scala.gfx.abstracts.Renderable() {
       override def renderer: Renderer = new TextRenderer( List( text ) )
     }
 
   /**
-   * Implicit method to convert a text list into a renderable object
-   *
-   * @param text A list of strings to convert into a renderable object
-   * @return A new Renderable object that returns a new `TextRenderer`
-   */
+    * Implicit method to convert a text list into a renderable object
+    *
+    * @param text A list of strings to convert into a renderable object
+    * @return A new Renderable object that returns a new `TextRenderer`
+    */
   implicit def StringList2Renderable( text: List[String] ): Renderable with Object { def renderer: Renderer } =
     new com.colofabrix.scala.gfx.abstracts.Renderable() {
       override def renderer: Renderer = new TextRenderer( text )

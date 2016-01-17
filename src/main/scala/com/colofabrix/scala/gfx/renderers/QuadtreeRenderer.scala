@@ -21,16 +21,16 @@ import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
 /**
- */
+  */
 class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
   /**
-   * Draw the appropriate things on the screen given a specific drawing context
-   *
-   * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
-   * to do and usually its behaviour is stated in the documentation
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draw the appropriate things on the screen given a specific drawing context
+    *
+    * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
+    * to do and usually its behaviour is stated in the documentation
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   override def render( create: Boolean ): Unit = {
 
     withDefaultContext( create, Frame( Colour.DARK_GREY ) ) {

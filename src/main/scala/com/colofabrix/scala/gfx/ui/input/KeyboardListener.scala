@@ -21,15 +21,15 @@ import org.lwjgl.input.Keyboard
 import scala.language.reflectiveCalls
 
 /**
- * Class to listen for keyboard input, can be event driven, ie activated on a discrete press
- * or release or continuous, ie activated each frame when the key is down. If event driven
- * then it can be onPress or onRelease
- *
- * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
- * @param action The code to run when activated
- * @param eventDriven If true then will only be activated on a discrete press/release otherwise it is every frame while the key is down
- * @param onPress If eventDriven then this determined if it should be activated onPress (T) or onRelease (F)
- */
+  * Class to listen for keyboard input, can be event driven, ie activated on a discrete press
+  * or release or continuous, ie activated each frame when the key is down. If event driven
+  * then it can be onPress or onRelease
+  *
+  * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
+  * @param action The code to run when activated
+  * @param eventDriven If true then will only be activated on a discrete press/release otherwise it is every frame while the key is down
+  * @param onPress If eventDriven then this determined if it should be activated onPress (T) or onRelease (F)
+  */
 class KeyboardListener(
     val key: Int,
     action: ⇒ Unit,
@@ -38,8 +38,8 @@ class KeyboardListener(
 ) {
 
   /**
-   * Update the key if it is not eventDriven
-   */
+    * Update the key if it is not eventDriven
+    */
   def update(): Unit = {
     if ( !eventDriven && Keyboard.isKeyDown( key ) ) {
       action
@@ -47,11 +47,11 @@ class KeyboardListener(
   }
 
   /**
-   * Check the key on an event if it is event driven
-   *
-   * @param eKey The key integer of the event
-   * @param isPress True if the event is a press, false if it is a release
-   */
+    * Check the key on an event if it is event driven
+    *
+    * @param eKey The key integer of the event
+    * @param isPress True if the event is a press, false if it is a release
+    */
   def checkEvent( eKey: Int, isPress: Boolean ): Unit = {
     // If this listener is event driven and not continuous polling and is the right type (release/press) and it is the right key
     if ( eventDriven && isPress == onPress && eKey == key ) {
@@ -62,12 +62,12 @@ class KeyboardListener(
 }
 
 /**
- * Handle the toggle of boolean flags from a keyboard event
- *
- * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
- * @param uim The UIManager where the object can find the flags
- * @param flag The flag to update
- */
+  * Handle the toggle of boolean flags from a keyboard event
+  *
+  * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
+  * @param uim The UIManager where the object can find the flags
+  * @param flag The flag to update
+  */
 class BooleanToggleKListener(
   key: Int,
   uim: UIManager,
@@ -78,13 +78,13 @@ class BooleanToggleKListener(
 )
 
 /**
- * Handle the update of a numeric value from a keyboard event
- *
- * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
- * @param uim The UIManager where the object can find the flags
- * @param flag The flag to update
- * @param update A function that takes the numeric value present in the flag and returns its new value
- */
+  * Handle the update of a numeric value from a keyboard event
+  *
+  * @param key The key to listen for, a static integer found in the LWJGL Keyboard class
+  * @param uim The UIManager where the object can find the flags
+  * @param flag The flag to update
+  * @param update A function that takes the numeric value present in the flag and returns its new value
+  */
 class NumUpdateKListener[T: Numeric](
   key: Int,
   uim: UIManager,

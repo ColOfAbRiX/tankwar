@@ -23,8 +23,8 @@ import com.colofabrix.scala.simulation.World
 import scala.language.reflectiveCalls
 
 /**
- *
- */
+  *
+  */
 class EnvironmentRenderer( val world: World ) extends Renderer {
 
   import com.colofabrix.scala.gfx.renderers.TextRenderer._

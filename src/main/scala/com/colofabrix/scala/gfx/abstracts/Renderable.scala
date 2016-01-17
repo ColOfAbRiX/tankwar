@@ -17,15 +17,15 @@
 package com.colofabrix.scala.gfx.abstracts
 
 /**
- * Designates an object that can be rendered
- */
+  * Designates an object that can be rendered
+  */
 trait Renderable {
 
   /**
-   * An object responsible to renderer the class where this trait is applied
-   *
-   * @return A renderer that can draw the object where it's applied
-   */
+    * An object responsible to renderer the class where this trait is applied
+    *
+    * @return A renderer that can draw the object where it's applied
+    */
   def renderer: Renderer
 
 }

@@ -23,16 +23,16 @@ import scala.collection.mutable
 import scala.language.postfixOps
 
 /**
- * An adjacency matrix for Neural Networks
- *
- * It is a weighted, asymmetric adjacency matrix with Double.NaN to indicate non-connected vertices. The matrix is composed
- * of two parts, a square matrix that contains the weights of the edges and the last row that contains the biases for
- * each neuron
- *
- * @param matrix A sequence of sequence, the initializer of the matrix
- * @param inputRoots The indexes in the matrix that represent the inputs
- * @param outputRoots The indexes in the matrix that represent the outputs
- */
+  * An adjacency matrix for Neural Networks
+  *
+  * It is a weighted, asymmetric adjacency matrix with Double.NaN to indicate non-connected vertices. The matrix is composed
+  * of two parts, a square matrix that contains the weights of the edges and the last row that contains the biases for
+  * each neuron
+  *
+  * @param matrix A sequence of sequence, the initializer of the matrix
+  * @param inputRoots The indexes in the matrix that represent the inputs
+  * @param outputRoots The indexes in the matrix that represent the outputs
+  */
 class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[Int], val outputRoots: Seq[Int] )
     extends Matrix[Double]( matrix ) {
   require( this.rows == this.cols + 1, "The adjacency matrix must be square with one additional row for biases" )
@@ -44,40 +44,40 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   require( outputRoots.distinct.length == outputRoots.length, "The output roots must be distinct" )
 
   /**
-   * Mutable constructor
-   *
-   * @param matrix A mutable sequence of sequence, the initializer of the matrix
-   * @param inputRoots The neurons in the matrix that represent the inputs
-   * @param outputRoots The neurons in the matrix that represent the outputs
-   */
+    * Mutable constructor
+    *
+    * @param matrix A mutable sequence of sequence, the initializer of the matrix
+    * @param inputRoots The neurons in the matrix that represent the inputs
+    * @param outputRoots The neurons in the matrix that represent the outputs
+    */
   def this( matrix: mutable.Seq[mutable.Seq[Double]], inputRoots: Seq[Int], outputRoots: Seq[Int] ) {
     this( matrix.toSeq, inputRoots, outputRoots )
   }
 
   /**
-   * Matrix constructor
-   *
-   * @param matrix The adjacency matrix
-   * @param inputRoots The neurons in the matrix that represent the inputs
-   * @param outputRoots The neurons in the matrix that represent the outputs
-   */
+    * Matrix constructor
+    *
+    * @param matrix The adjacency matrix
+    * @param inputRoots The neurons in the matrix that represent the inputs
+    * @param outputRoots The neurons in the matrix that represent the outputs
+    */
   def this( matrix: Matrix[Double], inputRoots: Seq[Int], outputRoots: Seq[Int] ) {
     this( matrix.toSeq, inputRoots, outputRoots )
   }
 
   /**
-   * The subset of the matrix that contains the adjacency weights
-   */
+    * The subset of the matrix that contains the adjacency weights
+    */
   val adjacencyOnly = this.rowSet( this.rows - 1 )
 
   /**
-   * The bias row (which is always the last row of the matrix)
-   */
+    * The bias row (which is always the last row of the matrix)
+    */
   val biases = this.row( this.rows - 1 )
 
   /**
-   * Tells if the Neural Network represented by this NetworkMatrix is stateless (and the graph acyclic)
-   */
+    * Tells if the Neural Network represented by this NetworkMatrix is stateless (and the graph acyclic)
+    */
   lazy val isAcyclic: Boolean = {
     // Test the network for all possible starting points (the inputs)
     val result = inputRoots map { i ⇒
@@ -91,8 +91,8 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * Tells if the Neural Network represented by this NetworkMatrix is forward only (this implies the network is also stateless)
-   */
+    * Tells if the Neural Network represented by this NetworkMatrix is forward only (this implies the network is also stateless)
+    */
   lazy val isForwardOnly: Boolean = {
     if ( !isAcyclic ) {
       // Shortcut, if acyclic is never forward-only {
@@ -114,11 +114,11 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * Determines if two matrices are equals
-   *
-   * @param obj The other object to compare
-   * @return true if the other object is a matrix identical to the current one
-   */
+    * Determines if two matrices are equals
+    *
+    * @param obj The other object to compare
+    * @return true if the other object is a matrix identical to the current one
+    */
   override def equals( obj: Any ): Boolean = obj match {
     case that: NetworkMatrix ⇒ this compare that
     case that: Matrix[Double @unchecked] ⇒ this compare that
@@ -127,24 +127,24 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * The hashCode of the instance
-   *
-   * @return An hashCode based only on the type of the class
-   */
+    * The hashCode of the instance
+    *
+    * @return An hashCode based only on the type of the class
+    */
   override def hashCode =
     43 + this.matrix.hashCode *
       43 * this.inputRoots.hashCode *
       43 * 43 * this.outputRoots.hashCode
 
   /**
-   * Determines if the given adjacency matrix is the same as the current instance
-   *
-   * This method is useful because it does a correct semantic check for Double.NaN
-   * and for the input/output roots
-   *
-   * @param that The other matrix to check
-   * @return true if the two adjacency matrices are equal
-   */
+    * Determines if the given adjacency matrix is the same as the current instance
+    *
+    * This method is useful because it does a correct semantic check for Double.NaN
+    * and for the input/output roots
+    *
+    * @param that The other matrix to check
+    * @return true if the two adjacency matrices are equal
+    */
   private def compare( that: Matrix[Double] ): Boolean = {
     val adMatrix = this.adjacencyOnly
 
@@ -162,14 +162,14 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * Determines if the given biases are the same as the current instance's ones
-   *
-   * This method is useful because it does a correct semantic check for Double.NaN
-   * and for the input/output roots
-   *
-   * @param that The other matrix to check
-   * @return true if the two adjacency matrices are equal
-   */
+    * Determines if the given biases are the same as the current instance's ones
+    *
+    * This method is useful because it does a correct semantic check for Double.NaN
+    * and for the input/output roots
+    *
+    * @param that The other matrix to check
+    * @return true if the two adjacency matrices are equal
+    */
   private def compare( that: Seq[Double] ): Boolean = {
     val biases = this.biases
 
@@ -188,14 +188,14 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * Determines if two NetworkMatrices are the same network.
-   *
-   * This method is useful because it does a correct semantic check for Double.NaN
-   * and for the input/output roots
-   *
-   * @param that The other matrix to check
-   * @return true if the two matrices are equal
-   */
+    * Determines if two NetworkMatrices are the same network.
+    *
+    * This method is useful because it does a correct semantic check for Double.NaN
+    * and for the input/output roots
+    *
+    * @param that The other matrix to check
+    * @return true if the two matrices are equal
+    */
   private def compare( that: NetworkMatrix ): Boolean = {
     ( this compare that.adjacencyOnly ) &&
       ( this compare that.biases ) &&
@@ -204,23 +204,23 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
   }
 
   /**
-   * true if the matrix contains only null values
-   */
+    * true if the matrix contains only null values
+    */
   lazy val isAllNaN = this equals this.toNaN
 
   /**
-   * A Double.NaN matrix of the same size of the current matrix
-   */
+    * A Double.NaN matrix of the same size of the current matrix
+    */
   def toNaN: NetworkMatrix = new NetworkMatrix( this map { _ ⇒ Double.NaN }, inputRoots, outputRoots )
 }
 
 object NetworkMatrix {
 
   /**
-   * A Double.NaN matrix of the same size of the matrix given as parameter
-   *
-   * @return A new matrix of the size of the given matrix and containing only Double.NaN
-   */
+    * A Double.NaN matrix of the same size of the matrix given as parameter
+    *
+    * @return A new matrix of the size of the given matrix and containing only Double.NaN
+    */
   def toNaN( matrix: Matrix[Double] ): Matrix[Double] = new Matrix( matrix map { _ ⇒ Double.NaN } toSeq )
 
 }

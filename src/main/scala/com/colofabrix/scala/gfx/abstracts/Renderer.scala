@@ -17,20 +17,20 @@
 package com.colofabrix.scala.gfx.abstracts
 
 /**
- * A class that renders something to the screen.
- *
- * This "something" is dependent on the implementation and can be anything: a circle, a polygon, text, ...
- */
+  * A class that renders something to the screen.
+  *
+  * This "something" is dependent on the implementation and can be anything: a circle, a polygon, text, ...
+  */
 trait Renderer {
 
   /**
-   * Draw the appropriate things on the screen given a specific drawing context
-   *
-   * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
-   * to do and usually its behaviour is stated in the documentation
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draw the appropriate things on the screen given a specific drawing context
+    *
+    * The parameter `create` might be ignored from the implementation, depending on what the renderer is meant
+    * to do and usually its behaviour is stated in the documentation
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit
 
 }

@@ -19,10 +19,10 @@ package com.colofabrix.scala.neuralnetwork.old
 import com.colofabrix.scala.neuralnetwork.old.layers.{ ElmanFeedbackLayer, InputLayer, OutputLayer }
 
 /**
- * Elman Neural Network
- *
- * A type of Recurrent Neural Network
- */
+  * Elman Neural Network
+  *
+  * A type of Recurrent Neural Network
+  */
 class ElmanNeuralNetwork(
   override val input_layer: InputLayer,
   hidden_layers: Seq[ElmanFeedbackLayer],

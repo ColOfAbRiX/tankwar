@@ -25,23 +25,23 @@ import org.lwjgl.input.Keyboard
 import scala.collection._
 
 /**
- * Manages all of the user interfaces, such as Input and the GUI.
- *
- * @param world A reference to the World
- */
+  * Manages all of the user interfaces, such as Input and the GUI.
+  *
+  * @param world A reference to the World
+  */
 @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
 class UIManager( val world: World ) {
 
   /**
-   * The keyboard manager
-   */
+    * The keyboard manager
+    */
   val KBM = new KeyboardManager()
 
   initializeListeners()
 
   /**
-   * The flags of the user interface
-   */
+    * The flags of the user interface
+    */
   val flags = new mutable.HashMap[String, Any] {
     def getWithDefault[T]( key: String, default: T ): T = {
       if ( !contains( key ) ) return default
@@ -112,15 +112,15 @@ class UIManager( val world: World ) {
   }
 
   /**
-   * The renderers for the User Interface
-   *
-   * @return Returns the renderers for the User Interface
-   */
+    * The renderers for the User Interface
+    *
+    * @return Returns the renderers for the User Interface
+    */
   def renderers: Seq[Renderer] = Seq.empty[Renderer]
 
   /**
-   * Update all of the UI including the KeyBoardManager
-   */
+    * Update all of the UI including the KeyBoardManager
+    */
   def update(): Unit = {
     KBM.update()
   }

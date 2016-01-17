@@ -22,20 +22,20 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import org.lwjgl.opengl.GL11._
 
 /**
- * Renders a polygon to the screen
- *
- * @param polygon The polygon that has to be rendered
- * @param filled True indicated the circle has to be filled. It defaults to false
- * @param defaultFrame The default frame to use when a new drawing context has to be created
- */
+  * Renders a polygon to the screen
+  *
+  * @param polygon The polygon that has to be rendered
+  * @param filled True indicated the circle has to be filled. It defaults to false
+  * @param defaultFrame The default frame to use when a new drawing context has to be created
+  */
 class PolygonRenderer( val polygon: Polygon, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
     extends Renderer {
 
   /**
-   * Draws a polygon on the screen
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draws a polygon on the screen
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   @SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
   def render( create: Boolean = true ): Unit = {
 

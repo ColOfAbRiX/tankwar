@@ -15,18 +15,18 @@
  */
 
 /**
- * Library for Neural Networks
- *
- * Created by Fabrizio on 20/11/2014.
- */
+  * Library for Neural Networks
+  *
+  * Created by Fabrizio on 20/11/2014.
+  */
 package com.colofabrix.scala.neuralnetwork.old.activationfunctions
 
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
 
 /**
- * Softplus function
- * See https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
- */
+  * Softplus function
+  * See https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29
+  */
 class Softplus extends ActivationFunction {
 
   override val UFID = "8772e26c-fe70-483c-96a8-dc4a2aa2f900"

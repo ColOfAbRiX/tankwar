@@ -23,10 +23,10 @@ import com.colofabrix.scala.simulation.Tank
 import org.uncommons.watchmaker.framework.{ EvolutionObserver, PopulationData }
 
 /**
- * r
- * Trivial evolution observer to display information about the population at the end
- * of each generation.
- */
+  * r
+  * Trivial evolution observer to display information about the population at the end
+  * of each generation.
+  */
 class EvolutionLogger[T <: Tank] extends EvolutionObserver[T] {
 
   val writer = new PrintWriter( "population.csv" )

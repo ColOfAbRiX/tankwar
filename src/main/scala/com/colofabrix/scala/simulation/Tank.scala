@@ -32,27 +32,27 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /**
- * A Tank that plays in the game
- *
- * A Tank is the main actor of the simulation. Like other objects in the {com.colofabrix.scala.simulation} package it is
- * a stateful and time-depended object.
- * It is made of a defining data part, the {TankChromosome}, a behavioural part which decides how the Tank responds
- * to different situation using the defining data and a simulation part that calculates, step by step, the physical
- * components or actions of the Tank. The behaviour is defined by both a neural network that calculates various outputs
- * given the input values (e.g. where to go in relation of the current position) and by algorithms that take decisions
- * about situation (e.g. if there are multiple targets which one to shoot).
- * Tank's implementations have a certain degree of freedom on how they implement thing, but the {World} makes sure that
- * many constraints are respected (e.g. the maximum allowed speed). Usually a Tank is first informed it is violating
- * a constraint, so that it can take actions like trim its speed, and if the violation persists the Tank is removed from
- * the simulation (check {World} for more information}.
- *
- * NOTE: This object and other in the {com.colofabrix.scala.simulation} package will be the subject of heavy refactoring,
- * so don't rely on their current implementation but check the workstream.
- *
- * @param world Reference to the World. It is uses to calculate parameters, maximums,timings, ...
- * @param initialData The defining data of the Tank in the form of a Chromosome
- * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
- */
+  * A Tank that plays in the game
+  *
+  * A Tank is the main actor of the simulation. Like other objects in the {com.colofabrix.scala.simulation} package it is
+  * a stateful and time-depended object.
+  * It is made of a defining data part, the {TankChromosome}, a behavioural part which decides how the Tank responds
+  * to different situation using the defining data and a simulation part that calculates, step by step, the physical
+  * components or actions of the Tank. The behaviour is defined by both a neural network that calculates various outputs
+  * given the input values (e.g. where to go in relation of the current position) and by algorithms that take decisions
+  * about situation (e.g. if there are multiple targets which one to shoot).
+  * Tank's implementations have a certain degree of freedom on how they implement thing, but the {World} makes sure that
+  * many constraints are respected (e.g. the maximum allowed speed). Usually a Tank is first informed it is violating
+  * a constraint, so that it can take actions like trim its speed, and if the violation persists the Tank is removed from
+  * the simulation (check {World} for more information}.
+  *
+  * NOTE: This object and other in the {com.colofabrix.scala.simulation} package will be the subject of heavy refactoring,
+  * so don't rely on their current implementation but check the workstream.
+  *
+  * @param world Reference to the World. It is uses to calculate parameters, maximums,timings, ...
+  * @param initialData The defining data of the Tank in the form of a Chromosome
+  * @param dataReader A DataReader. If this is specified, the Brain data of the `initialData` is ignored and re-initialised
+  */
 @SuppressWarnings(
   Array(
     "org.brianmckenna.wartremover.warts.MutableDataStructures",
@@ -79,8 +79,8 @@ class Tank private (
   private var _shoot = 0.0
   private var _surviveTime: Long = 0
   /**
-   * Brain of the tank
-   */
+    * Brain of the tank
+    */
   val brain: NeuralNetwork =
     initialData.brainBuilder.buildNetwork(
       BrainInputHelper.count,
@@ -90,12 +90,12 @@ class Tank private (
       )
     )
   /**
-   * The chromosome contains all the data needed to identify uniquely this Tank.
-   *
-   * It is created collecting the main information of the tank in one single place. So, the information
-   * can be obtained in other ways too.
-   * Note that it doesn't contain any status information like the current position or speed
-   */
+    * The chromosome contains all the data needed to identify uniquely this Tank.
+    *
+    * It is created collecting the main information of the tank in one single place. So, the information
+    * can be obtained in other ways too.
+    * Note that it doesn't contain any status information like the current position or speed
+    */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.AsInstanceOf" ) )
   def chromosome = new TankChromosome(
     brain.biases.asInstanceOf[Seq[Seq[Double]]],
@@ -109,8 +109,8 @@ class Tank private (
   val renderer: Renderer = new TankRenderer( this )
 
   /**
-   * Reset the status of a Tank to the initial values
-   */
+    * Reset the status of a Tank to the initial values
+    */
   override def clear(): Unit = {
     _direction = Vector2D.new_xy( 1, 1 )
 
@@ -126,43 +126,43 @@ class Tank private (
   }
 
   /**
-   * A text of the definition of the Tank
-   *
-   * A definition is the minimum set of data that uniquely identify a Tank
-   *
-   * @return A string that identifies the Tank
-   */
+    * A text of the definition of the Tank
+    *
+    * A definition is the minimum set of data that uniquely identify a Tank
+    *
+    * @return A string that identifies the Tank
+    */
   def definition = id + ": " + chromosome
 
   /**
-   * Indicates if the tank is dead
-   */
+    * Indicates if the tank is dead
+    */
   def isDead = _isDead
 
   /**
-   * Physical boundary of the PhysicalObject located in the space
-   */
+    * Physical boundary of the PhysicalObject located in the space
+    */
   override def objectShape: Shape = Circle( _position, 10 )
 
   /**
-   * Position of the center of the PhysicalObject
-   *
-   * At creation time it is initialized as a random value inside the arena
-   */
+    * Position of the center of the PhysicalObject
+    *
+    * At creation time it is initialized as a random value inside the arena
+    */
   _position = world.arena.topRight := { _ * Random.nextDouble() }
 
   /**
-   * Speed of the object relative to the arena
-   *
-   * At creation time it is always zero
-   */
+    * Speed of the object relative to the arena
+    *
+    * At creation time it is always zero
+    */
   _speed = Vector2D.new_xy( 0.0, 0.0 )
 
   /**
-   * Callback function used to signal the object that it has hit another object
-   *
-   * @param that The object that is being hit
-   */
+    * Callback function used to signal the object that it has hit another object
+    *
+    * @param that The object that is being hit
+    */
   override def on_hits( that: PhysicalObject ): Unit = that match {
     case t: Tank ⇒
     // No actions for Tank-Tank collision
@@ -178,15 +178,15 @@ class Tank private (
   }
 
   /**
-   * Number of other tanks killed by the current one
-   */
+    * Number of other tanks killed by the current one
+    */
   def points: Int = _points
 
   /**
-   * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
-   *
-   * When a Tank hits a wall it is bounced back (using a direction vector)
-   */
+    * Callback function used to signal the Tank that it has hit a wall (or it has gone beyond it)
+    *
+    * When a Tank hits a wall it is bounced back (using a direction vector)
+    */
   override def on_hitsWalls(): Unit = {
     // Invert the speed on the axis of impact (used when the output is considered to be the speed
     _direction = _direction := { ( x, i ) ⇒
@@ -198,10 +198,10 @@ class Tank private (
   }
 
   /**
-   * Callback function used to signal the Tank that it has been hit by a bullet
-   *
-   * @param that The object that hit the current instance
-   */
+    * Callback function used to signal the Tank that it has been hit by a bullet
+    *
+    * @param that The object that hit the current instance
+    */
   override def on_isHit( that: PhysicalObject ): Unit = that match {
     case t: Tank ⇒
       // Small penalty if you hit another tank
@@ -214,24 +214,24 @@ class Tank private (
   }
 
   /**
-   * Callback function used to signal the Tank that is revolving faster than the maximum allowed angular speed
-   */
+    * Callback function used to signal the Tank that is revolving faster than the maximum allowed angular speed
+    */
   override def on_maxAngularSpeedReached( maxAngularSpeed: Double ): Unit = {}
 
   /**
-   * Callback function used to signal the Tank that is moving faster than the maximum allowed speed
-   *
-   * When maximum speed is reached, it is trimmed to the maximum
-   */
+    * Callback function used to signal the Tank that is moving faster than the maximum allowed speed
+    *
+    * When maximum speed is reached, it is trimmed to the maximum
+    */
   override def on_maxSpeedReached( maxSpeed: Double ): Unit = {
     _speed = _speed := { x ⇒ min( max( x, -world.max_tank_speed ), world.max_tank_speed ) }
   }
 
   /**
-   * Callback function used to signal the Tank that a bullet is on its sight
-   *
-   * @param that The object that it's in the sight of the current one
-   */
+    * Callback function used to signal the Tank that a bullet is on its sight
+    *
+    * @param that The object that it's in the sight of the current one
+    */
   @SuppressWarnings( Array( "NullParameter" ) )
   override def on_objectOnSight( that: PhysicalObject ): Unit = {
     if ( that == null ) return
@@ -255,8 +255,8 @@ class Tank private (
   }
 
   /**
-   * Callback function used to signal the Tank that it will be respawned in the next step
-   */
+    * Callback function used to signal the Tank that it will be respawned in the next step
+    */
   override def on_respawn(): Unit = {
     // Set speed to zero
     _speed = Vector2D.new_xy( 0, 0 )
@@ -267,43 +267,43 @@ class Tank private (
   }
 
   /**
-   * Callback function used to signal the object that its sight is exceeding the limits
-   */
+    * Callback function used to signal the object that its sight is exceeding the limits
+    */
   override def on_sightExceedingMax( maxAllowedArea: Double ): Unit = {}
 
   /**
-   * Record identifying the step of the Tank
-   *
-   * @return A string in the format of a CSV
-   */
+    * Record identifying the step of the Tank
+    *
+    * @return A string in the format of a CSV
+    */
   override def record = super.record + s",${rotation.t},${_shoot},$isShooting"
 
   /**
-   * Indicates if the tanks is shooting at current time
-   *
-   * @return true if the tank is shooting a bullet
-   */
+    * Indicates if the tanks is shooting at current time
+    *
+    * @return true if the tank is shooting a bullet
+    */
   def isShooting = _isShooting
 
   /**
-   * The list of bullets in the sight of the current instance of tank
-   *
-   * @return A Seq of tuples where the first entry is the position of the bullets and the second its velocity, both relative to the center of the Tank
-   */
+    * The list of bullets in the sight of the current instance of tank
+    *
+    * @return A Seq of tuples where the first entry is the position of the bullets and the second its velocity, both relative to the center of the Tank
+    */
   def seenBullet = _seenBullets.toSeq
 
   /**
-   * The list of tanks in the sight of the current instance of tank
-   *
-   * @return A Seq of tuples where the first entry is the position of the tank and the second its velocity, both relative to the center of the Tank
-   */
+    * The list of tanks in the sight of the current instance of tank
+    *
+    * @return A Seq of tuples where the first entry is the position of the tank and the second its velocity, both relative to the center of the Tank
+    */
   def seenTank = _seenTanks.toSeq
 
   /**
-   * Moves the Tank one step into the future.
-   *
-   * In other words it calculates the position, speed and shooting condition for the current step
-   */
+    * Moves the Tank one step into the future.
+    *
+    * In other words it calculates the position, speed and shooting condition for the current step
+    */
   override def step(): Unit = {
     // Data related to the vision
     val seenTank = calculateTankVision
@@ -345,13 +345,13 @@ class Tank private (
   }
 
   /**
-   * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
-   *
-   * The current implementation is to do a vector-sum of all the threats (their positions and speed). Then the resulting
-   * position vector is used as "seen bullet" and the resulting speed is first projected onto the radial
-   *
-   * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
-   */
+    * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
+    *
+    * The current implementation is to do a vector-sum of all the threats (their positions and speed). Then the resulting
+    * position vector is used as "seen bullet" and the resulting speed is first projected onto the radial
+    *
+    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
+    */
   def calculateClosestBulletVision: ( Vector2D, Vector2D ) = {
     val sightDistance = sight( classOf[Bullet] ) match {
       case c: Circle ⇒ c.radius
@@ -375,14 +375,14 @@ class Tank private (
   }
 
   /**
-   * The sight of the object in relation of a specific object
-   *
-   * It returns a shape that represents the sight that the current instance has towards object of another type
-   *
-   * @param that The class type of the object that we are interested in
-   * @tparam T N/A
-   * @return A {Shape} that represents the sight towards the object type of {that}
-   */
+    * The sight of the object in relation of a specific object
+    *
+    * It returns a shape that represents the sight that the current instance has towards object of another type
+    *
+    * @param that The class type of the object that we are interested in
+    * @tparam T N/A
+    * @return A {Shape} that represents the sight towards the object type of {that}
+    */
   override def sight[T <: PhysicalObject]( that: Class[T] ): Shape = {
     if ( that == classOf[Tank] ) {
       // Tank->Tank sight
@@ -404,13 +404,13 @@ class Tank private (
   }
 
   /**
-   * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
-   *
-   * The current implementation is to do a vector-sum of all the threats (their positions and speed). Then the resulting
-   * position vector is used as "seen bullet" and the resulting speed is first projected onto the radial
-   *
-   * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
-   */
+    * Calculates the data needed to feed the inputs of the {brain} in relation of the bullet vision (a "threat")
+    *
+    * The current implementation is to do a vector-sum of all the threats (their positions and speed). Then the resulting
+    * position vector is used as "seen bullet" and the resulting speed is first projected onto the radial
+    *
+    * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
+    */
   def calculateBulletVision: ( Vector2D, Vector2D ) = {
     val sightDistance = sight( classOf[Bullet] ) match {
       case c: Circle ⇒ c.radius
@@ -442,12 +442,12 @@ class Tank private (
   }
 
   /**
-   * Calculates the data needed to feed the inputs of the {brain} in relation of the tank vision (a "target")
-   *
-   * The code allows for different targeting policies: first match, strongest tank, weakest tank
-   *
-   * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target, both with components normalized to 1.0
-   */
+    * Calculates the data needed to feed the inputs of the {brain} in relation of the tank vision (a "target")
+    *
+    * The code allows for different targeting policies: first match, strongest tank, weakest tank
+    *
+    * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target, both with components normalized to 1.0
+    */
   @SuppressWarnings( Array( "TraversableHead" ) )
   def calculateTankVision: ( Vector2D, Vector2D ) = {
     if ( _seenTanks.isEmpty ) {
@@ -495,21 +495,21 @@ class Tank private (
   }
 
   /**
-   * Number of cycles the Tank has survived
-   */
+    * Number of cycles the Tank has survived
+    */
   def surviveTime = _surviveTime
 
   /**
-   * A text representation of the Tank
-   *
-   * @return A string containing the
-   */
+    * A text representation of the Tank
+    *
+    * @return A string containing the
+    */
   override def toString = id
 }
 
 /**
- * Structural configuration of a tank (usually used at first-time creation)
- */
+  * Structural configuration of a tank (usually used at first-time creation)
+  */
 object Tank {
 
   sealed trait TargetType

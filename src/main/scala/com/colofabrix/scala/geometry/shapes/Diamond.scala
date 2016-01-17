@@ -20,15 +20,15 @@ import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.math.Vector2D
 
 /**
- * TODO: Complete the class
- * @see http://geomalgorithms.com/a08-_containers.html
- */
+  * TODO: Complete the class
+  * @see http://geomalgorithms.com/a08-_containers.html
+  */
 class Diamond( v: Seq[Vector2D] ) extends ConvexPolygon( v ) with Container {
   /**
-   * Determines if the container fully contain a Shape
-   *
-   * @param s The shape to check
-   * @return true if the container fully contain the other shape. Boundaries are included in the container
-   */
+    * Determines if the container fully contain a Shape
+    *
+    * @param s The shape to check
+    * @return true if the container fully contain the other shape. Boundaries are included in the container
+    */
   override def contains( s: Shape ): Boolean = ???
 }

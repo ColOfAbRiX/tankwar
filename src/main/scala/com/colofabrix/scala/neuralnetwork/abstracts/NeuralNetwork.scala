@@ -23,100 +23,100 @@ import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 /**
- * Any Neural Network of any type.
- *
- * A Neural Network is a system with a set of inputs used to calculate a set of outputs. Internally the data
- * is processed using a network that is modeled using a graph and a modified adjacency matrix.
- */
+  * Any Neural Network of any type.
+  *
+  * A Neural Network is a system with a set of inputs used to calculate a set of outputs. Internally the data
+  * is processed using a network that is modeled using a graph and a modified adjacency matrix.
+  */
 trait NeuralNetwork {
 
   /**
-   * Adjacency matrix that defines the Neural Network
-   *
-   * See the description of the adjacency matrix (TKWAR-1) for its definition, structure
-   * and for the nomenclature and assumptions
-   *
-   * @return The adjacency matrix that defines the Neural Network
-   */
+    * Adjacency matrix that defines the Neural Network
+    *
+    * See the description of the adjacency matrix (TKWAR-1) for its definition, structure
+    * and for the nomenclature and assumptions
+    *
+    * @return The adjacency matrix that defines the Neural Network
+    */
   def matrix: NetworkMatrix
 
   /**
-   * Number of inputs of the Neural Network
-   */
+    * Number of inputs of the Neural Network
+    */
   def inputCount: Int = matrix.inputRoots.length
 
   /**
-   * Number of outputs of the Neural Network
-   */
+    * Number of outputs of the Neural Network
+    */
   def outputCount: Int = matrix.outputRoots.length
 
   /**
-   * Activation function associated with the Neural Network
-   *
-   * @return The activation function of the Neural Network
-   */
+    * Activation function associated with the Neural Network
+    *
+    * @return The activation function of the Neural Network
+    */
   def af: ActivationFunction
 
   /**
-   * Calculate the output of the Neural Network
-   *
-   * Given a set of input values it calculates the set of output values
-   *
-   * @param inputs A sequence of T to feed the NN
-   * @return A sequence of T representing the output
-   */
+    * Calculate the output of the Neural Network
+    *
+    * Given a set of input values it calculates the set of output values
+    *
+    * @param inputs A sequence of T to feed the NN
+    * @return A sequence of T representing the output
+    */
   def output( inputs: Seq[Double] ): Seq[Double]
 
   /**
-   * Calculate the output of the Neural Network
-   *
-   * Given an input value it calculates the set of output values
-   *
-   * @param input A numerical value of type T to feed the NN
-   * @return A sequence of T representing the output
-   */
+    * Calculate the output of the Neural Network
+    *
+    * Given an input value it calculates the set of output values
+    *
+    * @param input A numerical value of type T to feed the NN
+    * @return A sequence of T representing the output
+    */
   def output( input: Double ): Seq[Double] = output( Seq( input ) )
 
   /**
-   * Determine if two Neural Network are the same
-   *
-   * The quality of two neural network is and must be only determined by their respective
-   * adjacency matrices, regardless of their implementation.
-   * This is not completely true as there are many equivalent matrices that specifies the same
-   * neural network but imposing this condition ensure a simpler algorithm
-   *
-   * @param other The other object to check
-   */
+    * Determine if two Neural Network are the same
+    *
+    * The quality of two neural network is and must be only determined by their respective
+    * adjacency matrices, regardless of their implementation.
+    * This is not completely true as there are many equivalent matrices that specifies the same
+    * neural network but imposing this condition ensure a simpler algorithm
+    *
+    * @param other The other object to check
+    */
   override final def equals( other: Any ): Boolean = other match {
     case that: NeuralNetwork ⇒ matrix equals that.matrix
     case _ ⇒ false
   }
 
   /**
-   * Hashcode of the Neural Network
-   *
-   * @return A number identifying the network
-   */
+    * Hashcode of the Neural Network
+    *
+    * @return A number identifying the network
+    */
   override def hashCode: Int = matrix.hashCode()
 
   /**
-   * Gets a string representation of the neural network
-   *
-   * @return A string containing the representation of weights and biases of the neural network
-   */
+    * Gets a string representation of the neural network
+    *
+    * @return A string containing the representation of weights and biases of the neural network
+    */
   override def toString = {
     val text = this.getClass.toString + "(" + matrix.toString + ")"
     text.replace( "class ", "" ).replace( "List", "" ).replaceFirst( """(\w+\.)*""", "" )
   }
 
   /**
-   * Tells if the Neural Network is stateless (and the graph acyclic)
-   */
+    * Tells if the Neural Network is stateless (and the graph acyclic)
+    */
   lazy val isAcyclic: Boolean = matrix.isAcyclic
 
   /**
-   * Tells if the Neural Network is forward only (this implies the network is also stateless)
-   */
+    * Tells if the Neural Network is forward only (this implies the network is also stateless)
+    */
   lazy val isForwardOnly: Boolean = matrix.isForwardOnly
 
 }
@@ -124,20 +124,20 @@ trait NeuralNetwork {
 object NeuralNetwork {
 
   /**
-   * Analyse a network and returns its subset of edges as adjacency matrices
-   *
-   * This method works only with one starting point. Thus, if the network is multi-rooted (more than one
-   * input), this function must be called for every input.
-   *
-   * The method returns a tuple containing 3 adjacency matrices:
-   * - Forward edges
-   * - Back edges
-   * - Cross edges
-   *
-   * @param rootIndex The index of the matrix that contain the root of the graph.
-   * @param network Adjacency matrix that represents the network
-   * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
-   */
+    * Analyse a network and returns its subset of edges as adjacency matrices
+    *
+    * This method works only with one starting point. Thus, if the network is multi-rooted (more than one
+    * input), this function must be called for every input.
+    *
+    * The method returns a tuple containing 3 adjacency matrices:
+    * - Forward edges
+    * - Back edges
+    * - Cross edges
+    *
+    * @param rootIndex The index of the matrix that contain the root of the graph.
+    * @param network Adjacency matrix that represents the network
+    * @return A tuple of three adjacency matrices that represents: the forward edges, the back edges and the cross edges
+    */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.MutableDataStructures" ) )
   def analiseNetwork( network: NetworkMatrix, rootIndex: Int ): ( Matrix[Double], Matrix[Double], Matrix[Double] ) = {
     val matrix = network.adjacencyOnly

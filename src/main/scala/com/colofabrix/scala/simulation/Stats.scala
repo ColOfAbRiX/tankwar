@@ -17,8 +17,8 @@
 package com.colofabrix.scala.simulation
 
 /**
- *
- */
+  *
+  */
 class Stats( val tank: Tank ) {
 
   val hits = 0

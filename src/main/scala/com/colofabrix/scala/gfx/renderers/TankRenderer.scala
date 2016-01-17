@@ -29,10 +29,10 @@ import scala.language.reflectiveCalls
 import scala.collection.JavaConverters._
 
 /**
- * Renders a tank to the screen with its properties
- *
- * @param tank The tank that has to be drawn
- */
+  * Renders a tank to the screen with its properties
+  *
+  * @param tank The tank that has to be drawn
+  */
 class TankRenderer( tank: Tank ) extends Renderer {
 
   private val size: Double = tank.objectShape.container match {
@@ -44,10 +44,10 @@ class TankRenderer( tank: Tank ) extends Renderer {
   // scalastyle:off method.length
 
   /**
-   * Draws a Tank n the screen
-   *
-   * @param create This parameter is disabled for this renderer
-   */
+    * Draws a Tank n the screen
+    *
+    * @param create This parameter is disabled for this renderer
+    */
   def render( create: Boolean = true ): Unit = {
     @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Nothing" ) )
     val flags = tank.world.UIManager.flags

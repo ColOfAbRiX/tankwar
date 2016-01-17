@@ -23,12 +23,12 @@ import com.colofabrix.scala.math.Vector2D
 import org.lwjgl.opengl.GL11._
 
 /**
- * Renders a Circle to the screen
- *
- * @param circle The circle to draw
- * @param filled True indicated the circle has to be filled drawn filled. Providing false only the circumference is drawn
- * @param defaultFrame The default frame to use when a new drawing context has to be created
- */
+  * Renders a Circle to the screen
+  *
+  * @param circle The circle to draw
+  * @param filled True indicated the circle has to be filled drawn filled. Providing false only the circumference is drawn
+  * @param defaultFrame The default frame to use when a new drawing context has to be created
+  */
 class CircleRenderer( val circle: Circle, val filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
     extends Renderer {
 
@@ -36,10 +36,10 @@ class CircleRenderer( val circle: Circle, val filled: Boolean = false, defaultFr
   val angularDistance = 2.0 * Math.PI / numSegments.toDouble
 
   /**
-   * Draw a circle on the screen
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Draw a circle on the screen
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit = {
 
     withDefaultContext( create, defaultFrame ) {

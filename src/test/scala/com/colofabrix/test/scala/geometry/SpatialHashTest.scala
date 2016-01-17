@@ -37,7 +37,7 @@ class SpatialHashTest extends WordSpec with Matchers {
     val circle3 = Circle( Vector2D.new_xy( 30, 70 ), 20 )
     val elements = List[Shape]( circle1, circle2, circle3 )
 
-    val newIndexer = new SpatialHash[Shape]( elements, arena, 3, 2 )
+    val newIndexer = SpatialHash[Shape](elements, arena, 4, 4 )
 
     println( newIndexer.buckets )
     newIndexer.buckets

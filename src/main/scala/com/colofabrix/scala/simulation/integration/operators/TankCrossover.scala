@@ -26,10 +26,10 @@ import org.uncommons.watchmaker.framework.operators.AbstractCrossover
 import scala.collection.JavaConverters._
 
 /**
- * Object to perform Tank-Tank crossover
- *
- * Created by Fabrizio on 18/01/2015.
- */
+  * Object to perform Tank-Tank crossover
+  *
+  * Created by Fabrizio on 18/01/2015.
+  */
 class TankCrossover( crossoverPoints: Int, crossoverProbability: Probability )
     extends AbstractCrossover[Tank]( crossoverPoints, crossoverProbability ) {
 

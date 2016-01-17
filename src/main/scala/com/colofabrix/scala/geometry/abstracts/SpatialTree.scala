@@ -22,57 +22,54 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import scala.reflect.ClassTag
 
 /**
- * A generic spatial tree to index object in space and allow fast access
- *
- * A spatial tree is a type of tree used to index object in a 2D space and provide fast search for them
- */
+  * A generic spatial tree to index object in space and allow fast access
+  *
+  * A spatial tree is a type of tree used to index object in a 2D space and provide fast search for them
+  */
 abstract class SpatialTree[T: SpatialIndexable] extends Renderable with SpatialSet[T] {
 
-  @inline
-  protected def shape( t: T ): Shape = implicitly[SpatialIndexable[T]].container( t )
-
   /**
-   * Create 4 quadrants into the node
-   *
-   * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
-   * the new bounds and inserts the contained shapes in the subnodes where they fit
-   *
-   * @return A new Quadtree with 4 new subnodes
-   */
+    * Create 4 quadrants into the node
+    *
+    * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
+    * the new bounds and inserts the contained shapes in the subnodes where they fit
+    *
+    * @return A new Quadtree with 4 new subnodes
+    */
   protected def split(): SpatialTree[T]
 
   /**
-   * Insert a list of objects into the SpatialTree.
-   *
-   * @return A new SpatialTree containing the new list of objects in the appropriate positions
-   */
+    * Insert a list of objects into the SpatialTree.
+    *
+    * @return A new SpatialTree containing the new list of objects in the appropriate positions
+    */
   def ++( pi: List[T] ): SpatialTree[T]
 
   /**
-   * The maximum depth of the Quadtree
-   */
+    * The maximum depth of the Quadtree
+    */
   def depth: Int
 
   /**
-   * The children nodes of the current node, or an empty list if we are on a leaf
-   */
+    * The children nodes of the current node, or an empty list if we are on a leaf
+    */
   def nodes: List[SpatialTree[T]]
 
   /**
-   * The shapes contained by the node.
-   */
+    * The shapes contained by the node.
+    */
   def objects: List[T]
 
   /**
-   * An object responsible to renderer the class where this trait is applied
-   *
-   * @return A renderer that can draw the object where it's applied
-   */
+    * An object responsible to renderer the class where this trait is applied
+    *
+    * @return A renderer that can draw the object where it's applied
+    */
   def renderer: Renderer
 
   /**
-   * The number of items a node can contain before it splits
-   */
+    * The number of items a node can contain before it splits
+    */
   def splitSize: Int
 
 }
@@ -80,15 +77,15 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable with SpatialS
 object SpatialTree {
 
   /**
-   * Creates a new Quadtree
-   *
-   * @param bounds The area that the LinkedQuadtreeTmp will cover
-   * @param initialList The initial data contained by the LinkedQuadtreeTmp
-   * @param splitSize Max size of each node before a split happens
-   * @param depth Depth of the LinkedQuadtreeTmp
-   * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
-   * @return A new instance of LinkedQuadtreeTmp
-   */
+    * Creates a new Quadtree
+    *
+    * @param bounds The area that the LinkedQuadtreeTmp will cover
+    * @param initialList The initial data contained by the LinkedQuadtreeTmp
+    * @param splitSize Max size of each node before a split happens
+    * @param depth Depth of the LinkedQuadtreeTmp
+    * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
+    * @return A new instance of LinkedQuadtreeTmp
+    */
   def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List[T](), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
     LinkedQuadtree[T]( bounds, initialList, splitSize, depth )
   }

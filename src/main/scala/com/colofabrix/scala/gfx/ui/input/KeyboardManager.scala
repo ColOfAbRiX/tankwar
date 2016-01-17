@@ -19,28 +19,28 @@ package com.colofabrix.scala.gfx.ui.input
 import org.lwjgl.input.Keyboard
 
 /**
- * Class to manage all keyboard input, has an array buffer of KeyboardListeners which can listen for keyboard events
- */
+  * Class to manage all keyboard input, has an array buffer of KeyboardListeners which can listen for keyboard events
+  */
 class KeyboardManager {
 
   /**
-   * The ArrayBuffer of listeners
-   */
+    * The ArrayBuffer of listeners
+    */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   var keyboardListeners = Seq.empty[KeyboardListener]
 
   /**
-   * Add a listener to the list
-   *
-   * @param listener The Listener to add
-   */
+    * Add a listener to the list
+    *
+    * @param listener The Listener to add
+    */
   def addListener( listener: KeyboardListener ): Unit = {
     keyboardListeners = listener +: keyboardListeners
   }
 
   /**
-   * Update the keyboard ie poll for input. Called once per frame by the Game
-   */
+    * Update the keyboard ie poll for input. Called once per frame by the Game
+    */
   def update(): Unit = {
 
     while ( Keyboard.next() ) {

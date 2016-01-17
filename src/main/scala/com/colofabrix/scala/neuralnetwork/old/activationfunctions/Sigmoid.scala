@@ -19,9 +19,9 @@ package com.colofabrix.scala.neuralnetwork.old.activationfunctions
 import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
 
 /**
- * Sigmoid function
- * See https://en.wikipedia.org/wiki/Sigmoid_function
- */
+  * Sigmoid function
+  * See https://en.wikipedia.org/wiki/Sigmoid_function
+  */
 class Sigmoid extends ActivationFunction {
 
   override val UFID = "c39f0734-27bc-4dd2-bbbf-bb1128c06692"

@@ -22,21 +22,21 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import org.lwjgl.opengl.GL11._
 
 /**
- * Renders a box to the screen
- *
- * Draw a box on the screen
- * @param box The box to draw on screen
- * @param filled True indicated the circle has to be filled. It defaults to false
- * @param defaultFrame The default frame to use when a new drawing context has to be created
- */
+  * Renders a box to the screen
+  *
+  * Draw a box on the screen
+  * @param box The box to draw on screen
+  * @param filled True indicated the circle has to be filled. It defaults to false
+  * @param defaultFrame The default frame to use when a new drawing context has to be created
+  */
 class BoxRenderer( val box: Box, filled: Boolean = false, defaultFrame: Frame = Frame( Colour.WHITE ) )
     extends Renderer {
 
   /**
-   * Render a box to the screen
-   *
-   * @param create With a value of true a new drawing context will be create, with false nothing is done
-   */
+    * Render a box to the screen
+    *
+    * @param create With a value of true a new drawing context will be create, with false nothing is done
+    */
   def render( create: Boolean = true ): Unit = {
 
     withDefaultContext( create, defaultFrame ) {

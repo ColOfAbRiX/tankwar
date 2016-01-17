@@ -21,23 +21,23 @@ import java.io.PrintWriter
 import com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser
 
 /**
- * Provides a way to visualize the behaviour of a NN
- *
- * This class allows to create CSV files to analyse the various outputs varying specific inputs.
- */
+  * Provides a way to visualize the behaviour of a NN
+  *
+  * This class allows to create CSV files to analyse the various outputs varying specific inputs.
+  */
 final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser( tank.world, tank.brain ) {
 
   /**
-   * First line that will be written to the output stream
-   */
+    * First line that will be written to the output stream
+    */
   override def outputHeader: String = s"${Seq.range( 0, network.n_inputs ).mkString( "", "-input;", "-input" )};Force-X;Force-Y;Rot;Shoot"
 
   /**
-   * Contains the definition of the plots for the network, like the definition of the
-   * input values for a specific input.
-   *
-   * @return A list of tuples constructed like: (input#, start_value, end_value, points_count)
-   */
+    * Contains the definition of the plots for the network, like the definition of the
+    * input values for a specific input.
+    *
+    * @return A list of tuples constructed like: (input#, start_value, end_value, points_count)
+    */
   override val plotDefinitions = List(
     ( 0, 0.0, tank.world.arena.topRight.x, 100.0 ), // Range for the x-position
     ( 1, 0.0, tank.world.arena.topRight.y, 100.0 ), // Range for the y-position
@@ -49,10 +49,10 @@ final class TankBrainTester( val tank: Tank ) extends AbstractNetworkAnalyser( t
   )
 
   /**
-   * Contains the definition of the tests that will be performed during the run.
-   *
-   * @return A list of functions that run the test, each of which are called once
-   */
+    * Contains the definition of the tests that will be performed during the run.
+    *
+    * @return A list of functions that run the test, each of which are called once
+    */
   override val testDefinitions: List[( PrintWriter ⇒ Unit )] = List(
     fullAnalysis( Seq.fill( BrainInputHelper.count )( 0.0 ), 5, 6 )( _ )
   )

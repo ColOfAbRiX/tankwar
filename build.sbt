@@ -126,6 +126,7 @@ SbtScalariform.scalariformSettings ++ Seq(
     .setPreference(SpacesAroundMultiImports, true)
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(CompactControlReadability, true)
+    .setPreference(PlaceScaladocAsterisksBeneathSecondAsterisk, true)
 )
 
 // Code Quality

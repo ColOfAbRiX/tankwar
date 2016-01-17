@@ -20,17 +20,17 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.math.Vector2D
 
 /**
- * A convex polygon
- */
+  * A convex polygon
+  */
 class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
   require( this.isConvex, "The vertices don't define a convex polygon" )
 
   /**
-   * Determines if a shape is inside or on the boundary the current shape
-   *
-   * @param s The shape to be checked
-   * @return True if the given shape is inside the shape or on its boundary
-   */
+    * Determines if a shape is inside or on the boundary the current shape
+    *
+    * @param s The shape to be checked
+    * @return True if the given shape is inside the shape or on its boundary
+    */
   override def contains( s: Shape ): Boolean = s match {
 
     // For ConvexPolygon-Polygon I check if all the vertices are inside it. This follows from the definition of polygon and applies to
@@ -41,11 +41,11 @@ class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
   }
 
   /**
-   * Determines if a shape is inside or on the boundary this shape
-   *
-   * @param that The point to be checked
-   * @return True if the point is inside the shape
-   */
+    * Determines if a shape is inside or on the boundary this shape
+    *
+    * @param that The point to be checked
+    * @return True if the point is inside the shape
+    */
   override def intersects( that: Shape ): Boolean = that match {
 
     /*

@@ -21,19 +21,19 @@ import com.colofabrix.scala.neuralnetwork.old.abstracts.ActivationFunction
 import scala.collection.mutable.ListBuffer
 
 /**
- * Hidden Layer with feedback
- *
- * Every time the function output is called, its return values are memorized and
- * fed into the feedback neurons to be used at the next call.
- *
- * @param activation The activation function used by the neurons
- * @param n_inputs The number of inputs for each neuron
- * @param n_outputs The number of outputs, which equals the number of neurons
- * @param biases The set of bias values, one for each neuron
- * @param weights The set of input weights. Every neuron has n_inputs weights.
- * @param remember Determines if the layer has to remember the output of every call
- * @param contextWeights The weights for the feedback. It is structured as `weights` and the inputs are as `n_output`
- */
+  * Hidden Layer with feedback
+  *
+  * Every time the function output is called, its return values are memorized and
+  * fed into the feedback neurons to be used at the next call.
+  *
+  * @param activation The activation function used by the neurons
+  * @param n_inputs The number of inputs for each neuron
+  * @param n_outputs The number of outputs, which equals the number of neurons
+  * @param biases The set of bias values, one for each neuron
+  * @param weights The set of input weights. Every neuron has n_inputs weights.
+  * @param remember Determines if the layer has to remember the output of every call
+  * @param contextWeights The weights for the feedback. It is structured as `weights` and the inputs are as `n_output`
+  */
 class RecursiveElmanLayer(
   activation: ActivationFunction,
   n_inputs: Int,
@@ -49,10 +49,10 @@ class RecursiveElmanLayer(
   require( contextWeights.length == n_outputs && contextWeights.forall( _.length == n_outputs ), "The size of context weights must match n_output" )
 
   /**
-   * Contains the values used as inputs for the last feedback
-   *
-   * @return
-   */
+    * Contains the values used as inputs for the last feedback
+    *
+    * @return
+    */
   def lastFeedback = _memory.toList
 
   // This memory contains the outputs of the previous call of output
