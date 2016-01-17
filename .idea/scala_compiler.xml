@@ -14,7 +14,7 @@
       <parameter value="-Xmax-classfile-name" />
       <parameter value="72" />
     </parameters>
-    <profile name="SBT 2" modules="root">
+    <profile name="SBT 1" modules="tankwar">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -22,6 +22,35 @@
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
       <parameters>
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\ElmanNeuralNetwork.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\FeedforwardNeuralNetwork.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\NeuralNetworkTester.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\abstracts\ActivationFunction.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\abstracts\DataHelpers.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\abstracts\NeuralNetwork.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\abstracts\NeuronLayer.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\abstracts\Tester.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Linear.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\LinearClipped.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Rectifier.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Sigmoid.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Sin.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Softplus.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Step.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\activationfunctions\Tanh.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\ElmanBuilder.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\FeedforwardBuilder.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\RandomReader.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\SeqReaders.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\ThreeLayerNetwork.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\abstracts\BehaviourBuilder.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\abstracts\Readers.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\builders\abstracts\StructureBuilder.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\layers\ElmanFeedbackLayer.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\layers\HiddenLayer.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\layers\InputLayer.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\layers\OutputLayer.scala" />
+        <parameter value="-P:wartremover:excluded:C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\neuralnetwork\old\layers\RecursiveElmanLayer.scala" />
         <parameter value="-Xmax-classfile-name" />
         <parameter value="72" />
         <parameter value="-encoding" />
@@ -35,10 +64,10 @@
         <parameter value="-Ywarn-dead-code" />
       </parameters>
       <plugins>
-        <plugin path="$USER_HOME$/.ivy2/cache/org.brianmckenna/wartremover_2.11/jars/wartremover_2.11-0.14.jar" />
+        <plugin path="C:\Users\Fabrizio\.ivy2\cache\org.brianmckenna\wartremover_2.11\jars\wartremover_2.11-0.14.jar" />
       </plugins>
     </profile>
-    <profile name="SBT 2" modules="tankwar">
+    <profile name="SBT 2" modules="root">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -46,35 +75,6 @@
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
       <parameters>
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/DataHelpers.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/SeqReaders.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/Readers.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.scala" />
-        <parameter value="-P:wartremover:excluded:/home/fabrizio/IntelliJ/tankwar/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.scala" />
         <parameter value="-Xmax-classfile-name" />
         <parameter value="72" />
         <parameter value="-encoding" />

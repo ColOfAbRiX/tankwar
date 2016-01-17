@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.abstracts.SpatialTree.SpatialIndexable
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
@@ -58,14 +57,26 @@ class LinkedQuadtree[T: SpatialIndexable] protected (
    *
    * @return A new quadtree without the specified Shape.
    */
-  override def -( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList.filter( _ != p ), _quadtree - p )
+  override def -( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T](
+    toList.filter( _ != p ),
+    _quadtree - p match {
+      case t: SpatialTree[T] => t
+      case _ => throw new IllegalArgumentException
+    }
+  )
 
   /**
    * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to their corresponding nodes.
    *
    * @return A new quadtree containing the new Shape in the appropriate position
    */
-  override def +( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T]( p :: toList, _quadtree + p )
+  override def +( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T](
+    p :: toList,
+    _quadtree + p match {
+      case t: SpatialTree[T] => t
+      case _ => throw new IllegalArgumentException
+    }
+  )
 
   /**
    * Insert a list of objects into the SpatialTree.
@@ -84,7 +95,13 @@ class LinkedQuadtree[T: SpatialIndexable] protected (
    *
    * @return A new quadtree, with the same parameters as the current one, but empty
    */
-  override def clear(): LinkedQuadtree[T] = new LinkedQuadtree[T]( List[T](), _quadtree.clear() )
+  override def clear(): LinkedQuadtree[T] = new LinkedQuadtree[T](
+    List[T](),
+    _quadtree.clear() match {
+      case t: SpatialTree[T] => t
+      case _ => throw new IllegalArgumentException
+    }
+  )
 
   /**
    * The maximum depth of the Quadtree
@@ -123,14 +140,25 @@ class LinkedQuadtree[T: SpatialIndexable] protected (
    *
    * @return A new instance of LinkedQuadtree with the updated objects
    */
-  override def refresh(): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree.refresh() )
+  override def refresh(): LinkedQuadtree[T] = new LinkedQuadtree[T](
+    toList,
+    _quadtree.refresh() match {
+      case t: SpatialTree[T] => t
+      case _ => throw new IllegalArgumentException
+    }
+  )
 
   /**
    * An object responsible to renderer the class where this trait is applied
    *
    * @return A renderer that can draw the object where it's applied
    */
-  override def renderer: Renderer = new QuadtreeRenderer( this._quadtree.refresh() )
+  override def renderer: Renderer = new QuadtreeRenderer(
+    _quadtree.refresh() match {
+      case t: SpatialTree[T] => t
+      case _ => throw new IllegalArgumentException
+    }
+  )
 
   /**
    * The number of shapes contained in the quadtree

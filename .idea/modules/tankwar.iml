@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="tankwar" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../target/scala-2.11/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.11/test-classes" />
     <exclude-output />
@@ -18,6 +18,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/test" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../target" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/resolution-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/streams" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/test-reports" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -44,7 +47,17 @@
     <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.2:jar" level="project" />
     <orderEntry type="module-library">
       <library name="SBT: unmanaged-jars">
-        <CLASSES />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../lib/jinput-raw.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/jinput-wintab.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/jinput-dx8.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/lwjgl.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/OpenAL64.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/jinput-dx8_64.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/lwjgl64.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/OpenAL32.dll" />
+          <root url="file://$MODULE_DIR$/../../lib/jinput-raw_64.dll" />
+        </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>

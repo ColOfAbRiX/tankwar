@@ -59,15 +59,19 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   /**
    * Center of the Box
    */
-  val center = bottomLeft + Vector2D.new_xy( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
+  lazy val center = bottomLeft + Vector2D.new_xy( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
   /**
    * Height of the rectangle
    */
-  val height = topRight.y - bottomLeft.y
+  lazy val height = topRight.y - bottomLeft.y
   /**
    * Width of the rectangle
    */
-  val width = topRight.x - bottomLeft.x
+  lazy val width = topRight.x - bottomLeft.x
+  /**
+   * The vertex that is closer to the origin of the axes.
+   */
+  lazy val origin = Seq( topRight, bottomLeft ).minBy( _.r )
 
   /**
    * Constructor that uses width, height and the bottom left corner

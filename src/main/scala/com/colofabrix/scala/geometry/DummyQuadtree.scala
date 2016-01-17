@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.abstracts.SpatialTree.SpatialIndexable
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }

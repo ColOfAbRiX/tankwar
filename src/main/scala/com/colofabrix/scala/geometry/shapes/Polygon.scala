@@ -20,6 +20,7 @@ import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.Vector2D
+
 import scala.language.postfixOps
 
 /**

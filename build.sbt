@@ -31,7 +31,7 @@ name := "TankWar"
 version := "0.2.0"
 scalaVersion := "2.11.7"
 mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
-fork := true
+//fork := true
 
 // Dependencies
 
@@ -81,13 +81,6 @@ javaOptions ++= Seq(
   "-XX:CompressedClassSpaceSize=16M",
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
-  // GC Settings
-  "-XX:+UseConcMarkSweepGC",
-  "-XX:+CMSParallelRemarkEnabled",
-  "-XX:+UseCMSInitiatingOccupancyOnly",
-  "-XX:CMSInitiatingOccupancyFraction=90",
-  "-XX:+ScavengeBeforeFullGC",
-  "-XX:+CMSScavengeBeforeRemark",
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}"
 )
@@ -116,7 +109,13 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
 
 // Code Style
 
+/*
+lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
+compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
+(compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
+
 scalastyleConfig := file( s"${sourceDirectory.value}/main/resources/scalastyle-config.xml" )
+*/
 
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -157,10 +156,6 @@ wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.TryPartial,
   Wart.Var
 )
-
-lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
-compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
-(compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
 
 coverageMinimum := 75
 coverageFailOnMinimum := true

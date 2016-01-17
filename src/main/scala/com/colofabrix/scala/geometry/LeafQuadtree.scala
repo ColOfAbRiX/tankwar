@@ -16,13 +16,11 @@
 
 package com.colofabrix.scala.geometry
 
-import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.abstracts.SpatialTree._
+import com.colofabrix.scala.geometry.abstracts.{ SpatialIndexable, Shape }
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
 
-import scala.annotation.tailrec
 import scala.reflect.ClassTag
 
 /**
@@ -63,9 +61,6 @@ class LeafQuadtree[T: SpatialIndexable] protected (
     case b: Box ⇒ b
     case _ ⇒ throw new IllegalArgumentException( "Variable 'bound' is not of type Box" )
   }
-
-  @inline
-  private def shape( t: T ): Shape = implicitly[SpatialIndexable[T]].container( t )
 
   /**
    * Create 4 quadrants into the node
