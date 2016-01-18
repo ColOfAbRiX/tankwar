@@ -227,7 +227,7 @@ class Polygon( val vertices: Seq[Vector2D] ) extends Shape with Renderable {
     * @param where The vector specifying how to move the polygon
     * @return A new polygon moved of {where}
     */
-  override def move( where: Vector2D ) = new Polygon( vertices.map( v ⇒ v + where ) )
+  override def move( where: Vector2D ): Shape = new Polygon( vertices.map( v ⇒ v + where ) )
 
   /**
     * A renderer for a generic polygon

@@ -127,6 +127,17 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
 object Box {
 
   /**
+    * Returns an instance of a Shape as a Box if it is actually a Box
+    *
+    * @param s The shape to convert type from
+    * @return The same shape as a Box
+    */
+  def getAsBox( s: Shape ): Box = s match {
+    case b: Box ⇒ b
+    case _ ⇒ throw new IllegalArgumentException( "The specified object cannot be taken as Box" )
+  }
+
+  /**
     * Finds the container that best contain a given Shape
     *
     * "Best" means the container that has the minimal area and that fully contains the shape

@@ -34,12 +34,14 @@ mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
 //fork := true
 
 // Dependencies
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
   "org.uncommons.watchmaker" % "watchmaker-framework" % "0.7.1",
   "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
+  "com.storm-enroute" %% "scalameter" % "0.7",
   "org.uncommons" % "uncommons-maths" % "1.2",
   "org.lwjgl.lwjgl" % "lwjgl_util" % "2.9.0"
 )

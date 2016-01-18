@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
   <settings default="Apache License">
     <module2copyright>
-      <element module="Sources + Tests" copyright="Apache License" />
+      <element module="All" copyright="Apache License" />
     </module2copyright>
   </settings>
 </component>

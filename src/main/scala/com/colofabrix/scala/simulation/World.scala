@@ -84,7 +84,7 @@ class World(
     "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets: SpatialSet[Bullet] = LinkedQuadtree[Bullet]( arena, List.empty[Bullet], 3, 4 )
+  private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( arena, List.empty[Bullet], 5, 5 )
   private var _tanks: SpatialSet[Tank] = LinkedQuadtree[Tank]( arena, _initialTanks, 2, 3 )
   private var _time: Long = 0
   /**
@@ -212,7 +212,7 @@ class World(
     _bullets = _bullets.refresh()
 
     // Managing tanks
-    for ( tank ← tanks.par ) {
+    for ( tank ← tanks ) {
       if ( !tank.isDead ) {
         manageAliveTank( tank )
       }
