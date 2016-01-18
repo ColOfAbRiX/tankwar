@@ -16,9 +16,12 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
+import com.colofabrix.scala.simulation.abstracts.PhysicalObject
+
 /**
   * A SpatialSet is a set of objects that can be located in a 2D Space. This trait is used to implement efficient ways
-  * for storing and retrieving objects in the cartesian plan, in particular for collision detection
+  * for storing and retrieving objects in the cartesian plan, in particular for collision detection. Some of its
+  * implementation are the Quadtree, the SpatialHash and also the fake Dummy for testing
   */
 trait SpatialSet[T] {
 
@@ -33,18 +36,16 @@ trait SpatialSet[T] {
   protected def shape[U: SpatialIndexable]( u: U ): Container = implicitly[SpatialIndexable[U]].container( u )
 
   /**
-    * Remove the object from the quadtree.
+    * Remove the object from the collection.
     *
-    * Nothing bad happens if the Shape is not in the Quadtree
-    *
-    * @return A new quadtree without the specified PhysicalObject.
+    * @return A new SpatialSet[T] without the specified object.
     */
   def -( p: T ): SpatialSet[T]
 
   /**
-    * Insert the object into the SpatialSet.
+    * Insert an object into the SpatialSet.
     *
-    * @return A new quadtree containing the new PhysicalObject in the appropriate position
+    * @return A new SpatialSet[T} containing the new object
     */
   def +( p: T ): SpatialSet[T]
 
@@ -54,38 +55,38 @@ trait SpatialSet[T] {
   def bounds: Shape
 
   /**
-    * Reset the status of the Quadtree
+    * Reset the status of the collection
     *
-    * @return A new quadtree, with the same parameters as the current one, but empty
+    * @return A new SpatialSet[T], with the same parameters as the current one, but empty
     */
   def clear(): SpatialSet[T]
 
   /**
-    * Tells if the Quadtree is empty of Shapes
+    * Tells if the collection is empty of Shapes
     *
-    * @return true is the quadtree doesn't contain any Shape
+    * @return true is the SpatialTree doesn't contain any Shape
     */
   def isEmpty: Boolean
 
   /**
-    * Return all PhysicalObjects that could collide with the given Shape
+    * Find all objects that can potentially collide with the given Shape
     *
     * @param s A Shape used to collect other shapes that are spatially near it
-    * @return All PhysicalObjects that could collide with the given object
+    * @return A list of object that can collide with the given Shape
     */
   def lookAround( s: Shape ): List[T]
 
   /**
-    * Updates the quadtree
+    * Updates the collection
     *
-    * The objects inside the quadtree can move and thus their position inside the tree can change
+    * The objects inside the collection can move and thus their internal representation can change
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
   def refresh(): SpatialSet[T]
 
   /**
-    * The number of shapes contained in the quadtree
+    * The number of objects that this collection is containing
     */
   def size: Int
 
@@ -98,8 +99,6 @@ trait SpatialSet[T] {
 
   override def toString: String = this.toList.toString()
 }
-
-import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
   * Typeclass to define object that can be indexed spatially.

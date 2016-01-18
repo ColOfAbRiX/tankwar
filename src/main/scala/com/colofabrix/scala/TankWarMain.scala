@@ -87,7 +87,7 @@ object TankWarMain {
     engine.addEvolutionObserver( new EvolutionLogger )
 
     //engine.evolve( 40, 8, new GenerationCount(1000) )
-    engine.evolve( 40, 2, new GenerationCount( 1000 ) )
+    engine.evolve( 40, 2, new GenerationCount( 30 ) )
 
     return
   }

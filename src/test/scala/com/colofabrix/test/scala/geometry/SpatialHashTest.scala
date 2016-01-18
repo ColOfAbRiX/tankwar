@@ -16,8 +16,8 @@
 
 package com.colofabrix.test.scala.geometry
 
-import com.colofabrix.scala.geometry.SpatialHash
 import com.colofabrix.scala.geometry.abstracts.Shape
+import com.colofabrix.scala.geometry.collections.SpatialHash
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.math.Vector2D
 import org.scalatest.{ Matchers, WordSpec }
@@ -37,7 +37,7 @@ class SpatialHashTest extends WordSpec with Matchers {
     val circle3 = Circle( Vector2D.new_xy( 30, 70 ), 20 )
     val elements = List[Shape]( circle1, circle2, circle3 )
 
-    val newIndexer = SpatialHash[Shape](elements, arena, 4, 4 )
+    val newIndexer = SpatialHash[Shape]( arena, elements, 4, 4 )
 
     println( newIndexer.buckets )
     newIndexer.buckets

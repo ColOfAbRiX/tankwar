@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fabrizio Colonna
+ * Copyright (C) 2016 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,9 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry
+package com.colofabrix.scala.geometry.collections
 
+import com.colofabrix.scala.geometry.abstracts
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
@@ -27,13 +28,10 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
   *
   * Used to do performance tests and comparisons
   */
-@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Null" ) )
 class DummyQuadtree[T: SpatialIndexable] protected (
     override val toList: List[T],
     override val bounds: Box
 ) extends abstracts.SpatialTree[T] {
-
-  require( toList != null, "A shape list must be specified, even empty" )
 
   /**
     * Create 4 quadrants into the node

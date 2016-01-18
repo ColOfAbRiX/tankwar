@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fabrizio Colonna
+ * Copyright (C) 2016 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,10 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry
+package com.colofabrix.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts.{ SpatialIndexable, Shape }
+import com.colofabrix.scala.geometry.abstracts
+import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialIndexable }
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer

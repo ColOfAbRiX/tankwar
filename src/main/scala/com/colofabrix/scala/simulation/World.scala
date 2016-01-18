@@ -16,10 +16,9 @@
 
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.Tools
-import com.colofabrix.scala.geometry.{ LinkedQuadtree, DummyQuadtree, SpatialHash }
+import com.colofabrix.scala.geometry.collections.SpatialHash
 import com.colofabrix.scala.geometry.abstracts.SpatialSet
-import com.colofabrix.scala.geometry.abstracts.SpatialTree
+import com.colofabrix.scala.geometry.collections.LinkedQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -85,8 +84,8 @@ class World(
     "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( List(), arena, 8, 8 )
-  private var _tanks: SpatialSet[Tank] = LinkedQuadtree[Tank]( arena, _initialTanks, 3, 3 )
+  private var _bullets: SpatialSet[Bullet] = LinkedQuadtree[Bullet]( arena, List.empty[Bullet], 3, 4 )
+  private var _tanks: SpatialSet[Tank] = LinkedQuadtree[Tank]( arena, _initialTanks, 2, 3 )
   private var _time: Long = 0
   /**
     * Graphics manager of the simulation
@@ -153,9 +152,7 @@ class World(
     * @param tank The tank that requested to shot
     */
   def on_tankShot( tank: Tank ): Unit = {
-    //Tools.measureTime( s"To add a bullet to a list of ${_bullets.size} it took: @time" ) {
     _bullets = _bullets + new Bullet( this, tank, max_bullet_speed )
-    //}
     incCounter( "shots" )
   }
 
@@ -212,9 +209,7 @@ class World(
 
     // Refresh of the position of the objects in the lists
     _tanks = _tanks.refresh()
-    //Tools.measureTime( s"To refresh ${_bullets.size} bullets it took: @time" ) {
     _bullets = _bullets.refresh()
-    //}
 
     // Managing tanks
     for ( tank ← tanks.par ) {
@@ -227,7 +222,7 @@ class World(
     }
 
     // Managing bullets
-    bullets.par.foreach( manageBullet )
+    bullets.foreach( manageBullet )
 
     // Update the graphic object and render everything
     UIManager.update()
@@ -319,10 +314,6 @@ class World(
         otherTank ⇒
           interactionTankTank( tank, otherTank )
       }
-
-    //Tools.measureTime( s"To to look around a list of ${_bullets.size}: @time" ) {
-    //  _bullets.lookAround( tank.sight( classOf[Bullet] ) )
-    //}
 
     // Tank/Bullet sight (when a bullet crosses the vision area of the current tank)
     _bullets
@@ -438,17 +429,13 @@ class World(
       () ⇒ arena.contains( bullet.position ),
       () ⇒ bullet.on_hitsWalls(),
       () ⇒ {
-        //Tools.measureTime( s"To remove (2) a bullet from a list of ${_bullets.size} it took: @time" ) {
         _bullets = _bullets - bullet
-        //}
       }
     )
 
     // Check the lifespan of a bullet
     if ( bullet.life >= bullet_life || bullet.tank.isDead ) {
-      //Tools.measureTime( s"To remove a bullet (3) from a list of ${_bullets.size} it took: @time" ) {
       _bullets = _bullets - bullet
-      //}
     }
   }
 

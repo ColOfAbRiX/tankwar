@@ -16,10 +16,7 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.geometry.LinkedQuadtree
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
-
-import scala.reflect.ClassTag
 
 /**
   * A generic spatial tree to index object in space and allow fast access
@@ -71,23 +68,5 @@ abstract class SpatialTree[T: SpatialIndexable] extends Renderable with SpatialS
     * The number of items a node can contain before it splits
     */
   def splitSize: Int
-
-}
-
-object SpatialTree {
-
-  /**
-    * Creates a new Quadtree
-    *
-    * @param bounds The area that the LinkedQuadtreeTmp will cover
-    * @param initialList The initial data contained by the LinkedQuadtreeTmp
-    * @param splitSize Max size of each node before a split happens
-    * @param depth Depth of the LinkedQuadtreeTmp
-    * @tparam T Type of `PhysicalObject` that the LinkedQuadtreeTmp will contain
-    * @return A new instance of LinkedQuadtreeTmp
-    */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List[T](), splitSize: Int = 1, depth: Int = 5 )( implicit ct: ClassTag[T] ) = {
-    LinkedQuadtree[T]( bounds, initialList, splitSize, depth )
-  }
 
 }
