@@ -20,10 +20,10 @@ import com.colofabrix.scala.math.{ CartesianCoord, PolarCoord }
 import org.scalatest.{ Matchers, WordSpec }
 
 /**
- * Unit testing for coordinate systems
- *
- * Created by Fabrizio on 06/01/2015.
- */
+  * Unit testing for coordinate systems
+  *
+  * Created by Fabrizio on 06/01/2015.
+  */
 class CoordinatesTest extends WordSpec with Matchers {
 
   val tolerance = 1E-5

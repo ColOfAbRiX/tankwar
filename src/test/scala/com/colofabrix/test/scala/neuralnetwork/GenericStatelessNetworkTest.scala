@@ -23,10 +23,10 @@ import org.scalatest.{ Matchers, WordSpec }
 import scala.util.Random
 
 /**
- * Unit testing for the class {AbstractStatelessNetwork}
- *
- * Created by Fabrizio on 06/05/2015.
- */
+  * Unit testing for the class {AbstractStatelessNetwork}
+  *
+  * Created by Fabrizio on 06/05/2015.
+  */
 class GenericStatelessNetworkTest extends WordSpec with Matchers {
 
   import scala.Double._
@@ -36,15 +36,15 @@ class GenericStatelessNetworkTest extends WordSpec with Matchers {
   private val activation = ActivationFunction( "tanh" )
 
   /**
-   * This function tests all the inputs of a NN
-   *
-   * It runs the NN and checks against a given function that the results are correct
-   *
-   * @param nI The number of inputs
-   * @param nO The number of outputs
-   * @param matrix The matrix that defines the NN
-   * @param expectedOutputs A function that manually calculate the output of {matrix}
-   */
+    * This function tests all the inputs of a NN
+    *
+    * It runs the NN and checks against a given function that the results are correct
+    *
+    * @param nI The number of inputs
+    * @param nO The number of outputs
+    * @param matrix The matrix that defines the NN
+    * @param expectedOutputs A function that manually calculate the output of {matrix}
+    */
   private def executeTest( nI: Int, nO: Int, matrix: NetworkMatrix, expectedOutputs: Seq[Double] ⇒ Seq[Double] ): Unit = {
 
     val testNetwork = new GenericStatelessNetwork( matrix, activation )

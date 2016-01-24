@@ -18,7 +18,7 @@ package com.colofabrix.scala.gfx
 
 import java.awt.Font
 
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.Vect
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
@@ -44,7 +44,7 @@ object OpenGL {
     * @param _position The position of the reference frame relative to the absolute frame
     * @param _rotation The rotation vector of the reference frame relative to the absolute frame
     */
-  final case class Frame( private val _colour: Colour = null, private val _position: Vector2D = null, private val _rotation: Vector2D = null ) {
+  final case class Frame( private val _colour: Colour = null, private val _position: Vect = null, private val _rotation: Vect = null ) {
     /**
       * The colour of the brush
       */
@@ -187,7 +187,7 @@ object OpenGL {
 
     // Set position, rotation and colour
     for ( p ← frame.position ) glTranslated( p.x, p.y, 0.0 )
-    for ( r ← frame.rotation ) glRotated( r.t * DEG2RAD, 0, 0, 1 )
+    for ( r ← frame.rotation ) glRotated( r.ϑ * DEG2RAD, 0, 0, 1 )
     for ( c ← frame.colour ) glColor3d( c.r, c.g, c.b )
 
     // Call the actions
@@ -205,7 +205,7 @@ object OpenGL {
     *
     * @param vertex The vector identifying the vertex
     */
-  def drawVertex( vertex: Vector2D ): Unit = {
+  def drawVertex( vertex: Vect ): Unit = {
     glVertex2d( vertex.x, vertex.y )
   }
 

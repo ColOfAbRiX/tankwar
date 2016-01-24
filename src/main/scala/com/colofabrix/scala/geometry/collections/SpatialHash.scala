@@ -18,7 +18,7 @@ package com.colofabrix.scala.geometry.collections
 
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
   * An object to index shapes in space. It implements the concept of Spatial Hashing, Spatial hashing is a process by
@@ -39,8 +39,8 @@ class SpatialHash[T: SpatialIndexable] private (
     val hSplit: Int,
     val vSplit: Int,
     val buckets: Map[Box, Seq[T]],
-    private val _objects: List[T],
-    private val _bucketList: Seq[Box]
+    protected val _objects: List[T],
+    protected val _bucketList: Seq[Box]
 ) extends SpatialSet[T] {
 
   /**
@@ -84,9 +84,14 @@ class SpatialHash[T: SpatialIndexable] private (
     * @return A new SpatialSet[T} containing the new object
     */
   override def +( p: T ): SpatialSet[T] = {
+    // Never add twice the same object
+    if ( _objects.contains( p ) ) {
+      return this
+    }
+
     val newObjects = p +: _objects
 
-    // For this operation there is only one scan that goes through the buckets to find the ones which contains
+    // For this operation there is only one scan that goes through the buckets to find the ones which contain
     // the shape
     val newBuckets = for ( b ← buckets ) yield {
       if ( b._1.intersects( shape( p ) ) ) ( b._1, p +: b._2 ) else ( b._1, b._2 )
@@ -149,7 +154,7 @@ object SpatialHash {
       s ← objects if b.intersects( shape( s ) )
     ) yield ( b, s )
 
-    // Clean the format of the association above
+    // Clean the format of the association above, from (Box, (Box, Shape)) -> (Box, Shape)
     assigned
       .groupBy( _._1 )
       .map { x ⇒
@@ -172,12 +177,12 @@ object SpatialHash {
 
     // This list of buckets is created only once per SpatialHash to save time and memory
     val bucketList = for ( j ← 0 until vSplit; i ← 0 until hSplit ) yield {
-      val templateBox = new Box(
-        Vector2D.origin,
-        Vector2D.new_xy( box.width / hSplit, box.height / vSplit )
+      val templateBox = Box(
+        Vect.origin,
+        XYVect( box.width / hSplit, box.height / vSplit )
       )
 
-      Box.getAsBox( templateBox.move( Vector2D.new_xy( templateBox.width * i, templateBox.height * j ) ) )
+      Box.getAsBox( templateBox.move( XYVect( templateBox.width * i, templateBox.height * j ) ) )
     }
 
     new SpatialHash[T]( box, hSplit, vSplit, assignToBuckets( bucketList, objects ), objects, bucketList )

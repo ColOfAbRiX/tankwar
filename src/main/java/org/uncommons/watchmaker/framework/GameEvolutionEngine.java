@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fabrizio Colonna
+ * Copyright (C) 2016 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.simulation.integration;
-
-import org.uncommons.watchmaker.framework.*;
+package org.uncommons.watchmaker.framework;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,19 +27,25 @@ import java.util.Random;
  *
  * @param <T> Type of object to evolve
  */
-public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvolutionEngine<T> {
+public abstract class GameEvolutionEngine<T> extends OpenGenerationalEvolutionEngine<T> {
 
-    public GameEvolutionEngine(CandidateFactory<T> candidateFactory, EvolutionaryOperator<T> evolutionScheme, FitnessEvaluator<? super T> fitnessEvaluator, SelectionStrategy<? super T> selectionStrategy, Random rng) {
+    public GameEvolutionEngine(CandidateFactory<T> candidateFactory,
+                               EvolutionaryOperator<T> evolutionScheme,
+                               FitnessEvaluator<? super T> fitnessEvaluator,
+                               SelectionStrategy<? super T> selectionStrategy, Random rng) {
         super(candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng);
     }
 
     @Override
-    public List<EvaluatedCandidate<T>> evolvePopulation(int populationSize, int eliteCount, Collection<T> seedCandidates, TerminationCondition... conditions) {
-        if (eliteCount < 0 || eliteCount >= populationSize) {
+    public List<EvaluatedCandidate<T>> evolvePopulation(int populationSize,
+                                                        int eliteCount,
+                                                        Collection<T> seedCandidates,
+                                                        TerminationCondition... conditions) {
+        if( eliteCount < 0 || eliteCount >= populationSize ) {
             throw new IllegalArgumentException("Elite count must be non-negative and less than population size.");
         }
 
-        if (conditions.length == 0) {
+        if( conditions.length == 0 ) {
             throw new IllegalArgumentException("At least one TerminationCondition must be specified.");
         }
 
@@ -50,35 +54,58 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
         int currentGenerationIndex = 0;
         long startTime = System.currentTimeMillis();
 
-        List<T> population = candidateFactory.generateInitialPopulation(populationSize, seedCandidates, rng);
+        List<T> population = candidateFactory.generateInitialPopulation( populationSize, seedCandidates, rng );
 
         // The competition is first run here
         population = runCompetition(population);
         // Check that there are still individuals after the population
-        if (population.size() <= 1)
+        if( population.size() <= 1 ) {
             throw new IllegalArgumentException("The population after the competition is too small");
+        }
 
         // Calculate the fitness scores for each member of the initial population.
-        List<EvaluatedCandidate<T>> evaluatedPopulation = evaluatePopulation(population);
-        EvolutionUtils.sortEvaluatedPopulation(evaluatedPopulation, fitnessEvaluator.isNatural());
-        PopulationData<T> data = EvolutionUtils.getPopulationData(evaluatedPopulation, fitnessEvaluator.isNatural(), eliteCount, currentGenerationIndex, startTime);
+        List<EvaluatedCandidate<T>> evaluatedPopulation = evaluatePopulation( population );
+
+        EvolutionUtils.sortEvaluatedPopulation(
+                evaluatedPopulation,
+                fitnessEvaluator.isNatural()
+        );
+
+        PopulationData<T> data = EvolutionUtils.getPopulationData(
+                evaluatedPopulation,
+                fitnessEvaluator.isNatural(),
+                eliteCount,
+                currentGenerationIndex,
+                startTime
+        );
 
         // Notify observers of the state of the population.
-        notifyPopulationChange(data);
+        notifyPopulationChange( data );
 
-        List<TerminationCondition> satisfiedConditions = EvolutionUtils.shouldContinue(data, conditions);
-        while (satisfiedConditions == null) {
+        List<TerminationCondition> satisfiedConditions = EvolutionUtils.shouldContinue( data, conditions );
+        while( satisfiedConditions == null ) {
             ++currentGenerationIndex;
 
-            evaluatedPopulation = nextEvolutionStep(evaluatedPopulation, eliteCount, rng);
+            evaluatedPopulation = nextEvolutionStep( evaluatedPopulation, eliteCount, rng );
 
             // Competition is run again
-            evaluatedPopulation = runCompetitionInternal(evaluatedPopulation);
-            if (population.size() <= 1)
+            evaluatedPopulation = runCompetitionInternal( evaluatedPopulation );
+            if( population.size() <= 1 ) {
                 throw new IllegalArgumentException("The population after the competition is too small");
+            }
 
-            EvolutionUtils.sortEvaluatedPopulation(evaluatedPopulation, fitnessEvaluator.isNatural());
-            data = EvolutionUtils.getPopulationData(evaluatedPopulation, fitnessEvaluator.isNatural(), eliteCount, currentGenerationIndex, startTime);
+            EvolutionUtils.sortEvaluatedPopulation(
+                    evaluatedPopulation,
+                    fitnessEvaluator.isNatural()
+            );
+
+            data = EvolutionUtils.getPopulationData(
+                    evaluatedPopulation,
+                    fitnessEvaluator.isNatural(),
+                    eliteCount,
+                    currentGenerationIndex,
+                    startTime
+            );
 
             // Notify observers of the state of the population.
             notifyPopulationChange(data);
@@ -94,12 +121,13 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
     private List<EvaluatedCandidate<T>> runCompetitionInternal(List<EvaluatedCandidate<T>> population) {
         List<T> work = new ArrayList<>(population.size());
 
-        for (EvaluatedCandidate<T> candidate : population)
+        for( EvaluatedCandidate<T> candidate : population ) {
             work.add(candidate.getCandidate());
+        }
 
-        work = runCompetition(work);
+        work = runCompetition( work );
 
-        return this.evaluatePopulation(work);
+        return this.evaluatePopulation( work );
     }
 
     /**
@@ -108,5 +136,5 @@ public abstract class GameEvolutionEngine<T> extends ModifiedGenerationalEvoluti
      * @param population The population of individuals
      * @return The population of individuals after the competition
      */
-    protected abstract List<T> runCompetition(List<T> population);
+    protected abstract List<T> runCompetition( List<T> population );
 }

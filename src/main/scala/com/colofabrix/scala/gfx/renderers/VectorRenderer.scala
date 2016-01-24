@@ -18,7 +18,7 @@ package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.Vect
 import org.lwjgl.opengl.GL11._
 
 /**
@@ -32,8 +32,8 @@ import org.lwjgl.opengl.GL11._
   * @param defaultFrame The default frame to use when a new drawing context has to be created
   */
 class VectorRenderer(
-    val vector: Vector2D,
-    val apply: Vector2D = Vector2D.zero,
+    val vector: Vect,
+    val apply: Vect = Vect.zero,
     size: Double = 5,
     defaultFrame: Frame = Frame( Colour.WHITE )
 ) extends Renderer {
@@ -57,7 +57,7 @@ class VectorRenderer(
         }
 
         // Draw the arrow of the vector
-        val arrowSize = Math.min( size, vector.r / 4 )
+        val arrowSize = Math.min( size, vector.ρ / 4 )
         drawOpenGL( GL_TRIANGLES, Frame( _position = vector, _rotation = vector ) ) {
           glVertex2d( arrowSize, 0.0 )
           glVertex2d( -0.866025 * arrowSize, 0.5 * arrowSize )

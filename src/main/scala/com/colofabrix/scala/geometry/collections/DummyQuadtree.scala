@@ -58,7 +58,13 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( p :: toList, bounds )
+  override def +( p: T ): DummyQuadtree[T] = {
+    if ( toList.contains( p ) ) {
+      return this
+    }
+
+    new DummyQuadtree[T]( p :: toList, bounds )
+  }
 
   /**
     * Insert a list of objects into the SpatialTree.
@@ -92,7 +98,13 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return All Shapes that could collide with the given object
     */
-  override def lookAround( s: Shape ): List[T] = toList
+  override def lookAround( s: Shape ): List[T] = {
+    if ( !bounds.intersects( s ) ) {
+      return Nil
+    }
+
+    toList
+  }
 
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf

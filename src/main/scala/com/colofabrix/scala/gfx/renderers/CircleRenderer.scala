@@ -19,7 +19,7 @@ package com.colofabrix.scala.gfx.renderers
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.RTVect
 import org.lwjgl.opengl.GL11._
 
 /**
@@ -50,7 +50,7 @@ class CircleRenderer( val circle: Circle, val filled: Boolean = false, defaultFr
         drawOpenGL( mode ) {
           // Go around the vertices of a regular polygon, using polar coordinates
           for ( i ← 0 until numSegments ) {
-            drawVertex( Vector2D.new_rt( circle.radius, angularDistance * i ) )
+            drawVertex( RTVect( circle.radius, angularDistance * i ) )
           }
         }
 

@@ -20,10 +20,10 @@ import com.colofabrix.scala.math.Matrix
 import org.scalatest.{ Matchers, WordSpec }
 
 /**
- * Unit test for the {Matrix} class
- *
- * Created by Fabrizio on 07/05/2015.
- */
+  * Unit test for the {Matrix} class
+  *
+  * Created by Fabrizio on 07/05/2015.
+  */
 class MatrixTest extends WordSpec with Matchers {
 
   val test = new Matrix[Int]( Seq.tabulate( 3, 5 )( _ * _ ) )

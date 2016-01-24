@@ -18,7 +18,7 @@ package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis
@@ -31,20 +31,16 @@ import com.colofabrix.scala.math.Vector2D
   *
   * @see http://geomalgorithms.com/a08-_containers.html
   * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
-  * @param topRight Rectangle right-top point, in any quadrant of the plane
+  * @param topRight   Rectangle right-top point, in any quadrant of the plane
   */
-final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
-    extends ConvexPolygon(
-      Seq(
-        bottomLeft,
-        Vector2D.new_xy( bottomLeft.x, topRight.y ),
-        topRight,
-        Vector2D.new_xy( topRight.x, bottomLeft.y )
-      )
-    )
-    with Container {
-
-  require( bottomLeft.x < topRight.x && bottomLeft.y < topRight.y, "The points of the rectangle must respect their spatial meaning" )
+final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
+  Seq(
+    bottomLeft,
+    XYVect( bottomLeft.x, topRight.y ),
+    topRight,
+    XYVect( topRight.x, bottomLeft.y )
+  )
+) with Container {
 
   /**
     * Area of the box
@@ -59,33 +55,27 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
   /**
     * Center of the Box
     */
-  lazy val center = bottomLeft + Vector2D.new_xy( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
+  lazy val center = bottomLeft + XYVect( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
   /**
     * Height of the rectangle
     */
-  lazy val height = topRight.y - bottomLeft.y
+  val height = topRight.y - bottomLeft.y
   /**
     * Width of the rectangle
     */
-  lazy val width = topRight.x - bottomLeft.x
+  val width = topRight.x - bottomLeft.x
   /**
     * The vertex that is closer to the origin of the axes.
     */
-  lazy val origin = Seq( topRight, bottomLeft ).minBy( _.r )
+  lazy val origin = Seq( topRight, bottomLeft ).minBy( _.ρ )
 
   /**
-    * Constructor that uses width, height and the bottom left corner
+    * Moves a polygon shifting all its vertices by a vector quantity
     *
-    * @param center Center of the box
-    * @param width Width of the box
-    * @param height Height of the box
+    * @param where The vector specifying how to move the polygon
+    * @return A new polygon moved of {where}
     */
-  def this( center: Vector2D, width: Double, height: Double ) {
-    this(
-      Vector2D.new_xy( center.x - width / 2.0, center.y - height / 2.0 ),
-      Vector2D.new_xy( center.x + width / 2.0, center.y + height / 2.0 )
-    )
-  }
+  override def move( where: Vect ): Box = Box( bottomLeft + where, topRight + where )
 
   /**
     * Determines if a point is inside or on the boundary the shape
@@ -93,7 +83,7 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
     * @param p The point to be checked
     * @return True if the point is inside the shape
     */
-  override def contains( p: Vector2D ) =
+  override def contains( p: Vect ) =
     p.x >= bottomLeft.x &&
       p.x <= topRight.x &&
       p.y >= bottomLeft.y &&
@@ -110,6 +100,9 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
     // Box-circle case I use the code in Circle, as it's already present, and the commutative property of intersection
     case c: Circle ⇒ c.intersects( this )
 
+    // Box-box case I use a faster check
+    case b: Box ⇒ this.vertices.foldLeft( false )( _ && this.contains( _ ) )
+
     // For other comparisons I fell back to the parent
     case _ ⇒ super.intersects( that )
 
@@ -122,9 +115,56 @@ final case class Box( bottomLeft: Vector2D, topRight: Vector2D )
     */
   override def renderer = new BoxRenderer( this )
 
+  override def toString = s"Box($bottomLeft, $topRight)"
+
 }
 
 object Box {
+
+  /**
+    * Constructor that uses width, height and centers the Box at a specific point
+    *
+    * TODO: Fix the "can be negative" part as now there is no checking for this
+    *
+    * @param center Center of the box
+    * @param width  Width of the box
+    * @param height Height of the box
+    */
+  def apply( center: Vect, width: Double, height: Double ): Box = {
+    require( width > 0.0, "The Box width can't be negative" )
+    require( height > 0.0, "The Box height can't be negative" )
+
+    new Box(
+      XYVect( center.x - width / 2.0, center.y - height / 2.0 ),
+      XYVect( center.x + width / 2.0, center.y + height / 2.0 )
+    )
+  }
+
+  /**
+    * Constructor that uses width, height and starts the box at the origin of the axis.
+    *
+    * The widht and height can be negative, so it's possible to create a Box on all the quadrants of the plane
+    *
+    * @param width  Width of the box, can be negative
+    * @param height Height of the box, can be negative
+    */
+  def apply( width: Double, height: Double ): Box = Box( Vect.origin, XYVect( width, height ) )
+
+  /**
+    * Creates a new Box using the two opposite vertices
+    *
+    * @param p0 The first vertex of the Box
+    * @param p1 The second vertex of the Box opposite to p0
+    * @return
+    */
+  def apply( p0: Vect, p1: Vect ): Box = {
+    val topX = Math.max( p0.x, p1.x )
+    val topY = Math.max( p0.y, p1.y )
+    val bottomX = Math.min( p0.x, p1.x )
+    val bottomY = Math.min( p0.y, p1.y )
+
+    new Box( XYVect( bottomX, bottomY ), XYVect( topX, topY ) )
+  }
 
   /**
     * Returns an instance of a Shape as a Box if it is actually a Box
@@ -134,7 +174,7 @@ object Box {
     */
   def getAsBox( s: Shape ): Box = s match {
     case b: Box ⇒ b
-    case _ ⇒ throw new IllegalArgumentException( "The specified object cannot be taken as Box" )
+    case _ ⇒ throw new IllegalArgumentException( "The specified object cannot be used as Box" )
   }
 
   /**
@@ -152,7 +192,7 @@ object Box {
     case b: Box ⇒ b
 
     // If it's a circle, it's simple to find the enclosing box - O(1)
-    case c: Circle ⇒ new Box( c.center, c.radius * 2, c.radius * 2 )
+    case c: Circle ⇒ Box( c.center, c.radius * 2, c.radius * 2 )
 
     // If it's a polygon, find its limits - O(n)
     case p: Polygon ⇒
@@ -168,10 +208,10 @@ object Box {
       }
 
       // Creates the Box
-      val bottomLeft = Vector2D.new_xy( minX, minY )
-      val topRight = Vector2D.new_xy( maxX, maxY )
+      val bottomLeft = XYVect( minX, minY )
+      val topRight = XYVect( maxX, maxY )
 
-      new Box( bottomLeft, topRight )
+      Box( bottomLeft, topRight )
 
     // Other cases, error
     case _ ⇒ throw new IllegalArgumentException

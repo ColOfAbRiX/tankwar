@@ -17,13 +17,13 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.Vect
 
 /**
   * TODO: Complete the class
   * @see http://geomalgorithms.com/a08-_containers.html
   */
-class Diamond( v: Seq[Vector2D] ) extends ConvexPolygon( v ) with Container {
+class Diamond( v: Seq[Vect] ) extends ConvexPolygon( v ) with Container {
   /**
     * Determines if the container fully contain a Shape
     *

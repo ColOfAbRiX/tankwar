@@ -16,15 +16,14 @@
 
 package com.colofabrix.scala.simulation
 
-import com.colofabrix.scala.geometry.collections.SpatialHash
 import com.colofabrix.scala.geometry.abstracts.SpatialSet
-import com.colofabrix.scala.geometry.collections.LinkedQuadtree
+import com.colofabrix.scala.geometry.collections.{ LinkedQuadtree, SpatialHash }
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.{ EnvironmentRenderer, _ }
 import com.colofabrix.scala.gfx.ui.UIManager
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.XYVect
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 
 import scala.collection.mutable.ArrayBuffer
@@ -54,7 +53,7 @@ import scala.util.Random
   )
 )
 class World(
-    val arena: Box = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( 1280, 800 ) ),
+    val arena: Box = Box( XYVect( 0, 0 ), XYVect( 1280, 800 ) ),
     val max_tank_speed: Double = 5,
     val max_tank_rotation: Double = 15 * 2.0 * Math.PI / 360,
     val max_bullet_speed: Double = 4,
@@ -84,8 +83,8 @@ class World(
     "seenBullets" → 0
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
-  private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( arena, List.empty[Bullet], 5, 5 )
-  private var _tanks: SpatialSet[Tank] = LinkedQuadtree[Tank]( arena, _initialTanks, 2, 3 )
+  private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( arena, List.empty[Bullet], 6, 6 )
+  private var _tanks: SpatialSet[Tank] = LinkedQuadtree( arena, _initialTanks, 1, 3 )
   private var _time: Long = 0
   /**
     * Graphics manager of the simulation
@@ -212,7 +211,7 @@ class World(
     _bullets = _bullets.refresh()
 
     // Managing tanks
-    for ( tank ← tanks ) {
+    for ( tank ← tanks.par ) {
       if ( !tank.isDead ) {
         manageAliveTank( tank )
       }
@@ -222,7 +221,7 @@ class World(
     }
 
     // Managing bullets
-    bullets.foreach( manageBullet )
+    bullets.par.foreach( manageBullet )
 
     // Update the graphic object and render everything
     UIManager.update()

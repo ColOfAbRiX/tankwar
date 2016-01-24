@@ -16,25 +16,24 @@
 
 package com.colofabrix.test.scala.math
 
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ RTVect, XYVect }
 import org.scalatest.{ Matchers, WordSpec }
+
 import scala.language.postfixOps
 
 /**
- * Unit testing for Vector2D
- *
- * Created by Fabrizio on 06/01/2015.
- */
-class Vector2DTest extends WordSpec with Matchers {
-
-  import com.colofabrix.scala.math.Vector2DImplicits._
+  * Unit testing for Vect
+  *
+  * Created by Fabrizio on 06/01/2015.
+  */
+class VectTest extends WordSpec with Matchers {
 
   val tolerance = 1E-5
 
   "Apply method" must {
 
     "Return the correct sequence of coordinates" in {
-      val test = Vector2D.new_xy( 10, -10 )
+      val test = XYVect( 10, -10 )
 
       test( 0 ) should equal( 10.0 )
       test( 1 ) should equal( -10.0 )
@@ -48,10 +47,10 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Equality" must {
 
-      val cartesian1 = Vector2D.new_xy( 10.000000000000002, 10 )
-      val cartesian2 = Vector2D.new_xy( 10.000000000000002, 10 )
-      val polar1 = Vector2D.new_rt( 14.142135623730951, Math.PI / 4 )
-      val polar2 = Vector2D.new_rt( 14.142135623730951, Math.PI / 4 )
+      val cartesian1 = XYVect( 10.000000000000002, 10 )
+      val cartesian2 = XYVect( 10.000000000000002, 10 )
+      val polar1 = RTVect( 14.142135623730951, Math.PI / 4 )
+      val polar2 = RTVect( 14.142135623730951, Math.PI / 4 )
 
       assert( cartesian1 == cartesian2 )
       assert( polar1 == polar2 )
@@ -61,8 +60,8 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Are addition/subtraction" must {
 
-      val vec1 = Vector2D.new_xy( 10, 20 )
-      val vec2 = Vector2D.new_xy( 30, 40 )
+      val vec1 = XYVect( 10, 20 )
+      val vec2 = XYVect( 30, 40 )
 
       val addition = vec1 + vec2
       val subtraction = vec1 - vec2
@@ -76,8 +75,9 @@ class Vector2DTest extends WordSpec with Matchers {
     }
 
     "Is scalar product" must {
+      import com.colofabrix.scala.math.VectConversions._
 
-      val vector = Vector2D.new_xy( 15, 25 )
+      val vector = XYVect( 15, 25 )
       val scalar: Double = 12.345
 
       val result1 = vector * scalar
@@ -92,13 +92,12 @@ class Vector2DTest extends WordSpec with Matchers {
 
       result3.x should equal( 15 / 12.345 +- tolerance )
       result3.y should equal( 25 / 12.345 +- tolerance )
-
     }
 
     "Is inner product" must {
 
-      val vector1 = Vector2D.new_xy( 5, 10 )
-      val vector2 = Vector2D.new_xy( 15, 20 )
+      val vector1 = XYVect( 5, 10 )
+      val vector2 = XYVect( 15, 20 )
 
       val result = vector1 x vector2
 
@@ -108,8 +107,8 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Is vector product" must {
 
-      val vector1 = Vector2D.new_xy( 15, 25 )
-      val vector2 = Vector2D.new_xy( 30, 35 )
+      val vector1 = XYVect( 15, 25 )
+      val vector2 = XYVect( 30, 35 )
 
       val result = vector1 ^ vector2
 
@@ -124,8 +123,8 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Map" must {
 
-      val vector = Vector2D.new_xy( 12, 34 )
-      val map = Vector2D.new_xy( 56, 78 )
+      val vector = XYVect( 12, 34 )
+      val map = XYVect( 56, 78 )
       val projection = vector := map
 
       projection.x should equal( 12 * 56 )
@@ -135,8 +134,8 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Projection" must {
 
-      val vector = Vector2D.new_xy( 100, 100 )
-      val axis = Vector2D.new_xy( 10, 0 )
+      val vector = XYVect( 100, 100 )
+      val axis = XYVect( 10, 0 )
       val projection = vector → axis
 
       projection.x should equal( 100.0 +- tolerance )
@@ -146,7 +145,7 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Rotation" must {
 
-      val vector = Vector2D.new_xy( 10, 10 )
+      val vector = XYVect( 10, 10 )
       // Rotation half a turn
       val rotation1 = vector ¬ Math.PI
       // Rotation of 3 turns
@@ -162,7 +161,7 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Perpendicular" must {
 
-      val vector = Vector2D.new_xy( 10, 10 )
+      val vector = XYVect( 10, 10 )
 
       val ccw_perpendicular = vector -|
       val cw_perpendicular = vector |-
@@ -177,21 +176,21 @@ class Vector2DTest extends WordSpec with Matchers {
 
     "Normal" must {
 
-      val vector = Vector2D.new_xy( 25, 25 )
+      val vector = XYVect( 25, 25 )
       val result = vector n
 
-      result.r should equal( 1.0 )
-      result.t should equal( Math.PI / 4 + Math.PI / 2 +- tolerance )
+      result.ρ should equal( 1.0 )
+      result.ϑ should equal( Math.PI / 4 + Math.PI / 2 +- tolerance )
 
     }
 
     "Unit vector" must {
 
-      val vector = Vector2D.new_xy( 78, 78 )
+      val vector = XYVect( 78, 78 )
       val result = vector v
 
-      result.r should equal( 1.0 )
-      result.t should equal( Math.PI / 4 )
+      result.ρ should equal( 1.0 )
+      result.ϑ should equal( Math.PI / 4 )
 
     }
 

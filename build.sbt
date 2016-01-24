@@ -18,12 +18,13 @@
  * Ref: http://www.scala-sbt.org/0.13.0/docs/Examples/Quick-Configuration-Examples.html
  */
 
+import com.typesafe.sbt.SbtScalariform._
 import de.johoop.cpd4sbt.CopyPasteDetector._
 import sbt.File
 import sbt.Keys._
 import wartremover.WartRemover.autoImport._
+
 import scalariform.formatter.preferences._
-import com.typesafe.sbt.SbtScalariform._
 
 // Project Definition
 
@@ -31,7 +32,7 @@ name := "TankWar"
 version := "0.2.0"
 scalaVersion := "2.11.7"
 mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
-//fork := true
+fork := true
 
 // Dependencies
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -39,6 +40,7 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
+  "com.github.wookietreiber" %% "scala-chart" % "latest.integration",
   "org.uncommons.watchmaker" % "watchmaker-framework" % "0.7.1",
   "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
   "com.storm-enroute" %% "scalameter" % "0.7",

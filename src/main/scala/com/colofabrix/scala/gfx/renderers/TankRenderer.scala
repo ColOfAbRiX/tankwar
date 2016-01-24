@@ -16,17 +16,16 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.shapes.Circle
-import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ Vect, XYVect }
 import com.colofabrix.scala.simulation.integration.TankEvaluator
 import com.colofabrix.scala.simulation.{ Bullet, Tank }
 import org.lwjgl.opengl.GL11._
-import scala.language.reflectiveCalls
 
 import scala.collection.JavaConverters._
+import scala.language.reflectiveCalls
 
 /**
   * Renders a tank to the screen with its properties
@@ -68,17 +67,17 @@ class TankRenderer( tank: Tank ) extends Renderer {
         }
 
         // Draw a circle corresponding to its actual size
-        new Circle( Vector2D.zero, size ).renderer.render( false )
+        new Circle( Vect.zero, size ).renderer.render( false )
 
       }
 
       if ( flags.getWithDefault( "tkinfo", true ) ) {
 
         // Write information about the tank
-        applyContext( Frame( Colour.WHITE, Vector2D.new_xy( 10, 10 ) ) ) {
+        applyContext( Frame( Colour.WHITE, XYVect( 10, 10 ) ) ) {
           val fitness = TankEvaluator.fitness( tank ).toString
           val tankName = tank.toString.replaceFirst( "^\\w+@", "" )
-          val tmp = tank.calculateBulletVision._1.r.toString
+          val tmp = tank.calculateBulletVision._1.ρ.toString
           new TextRenderer( List( tankName, fitness ), interline = 1.0 ).render( false )
         }
 

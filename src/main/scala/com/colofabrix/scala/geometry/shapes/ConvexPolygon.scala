@@ -17,12 +17,12 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.Vect
 
 /**
   * A convex polygon
   */
-class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
+class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
   require( this.isConvex, "The vertices don't define a convex polygon" )
 
   /**
@@ -59,8 +59,8 @@ class ConvexPolygon( private val v: Seq[Vector2D] ) extends Polygon( v ) {
         // Chosen an edge of this polygon...
         forall { edge_normal ⇒
           // ...I get the projections of all vertices on the normal of the edge
-          val prVxThis = vertices.map( v ⇒ ( v → edge_normal ).r )
-          val prVxThat = cp.vertices.map( v ⇒ ( v → edge_normal ).r )
+          val prVxThis = vertices.map( v ⇒ ( v → edge_normal ).ρ )
+          val prVxThat = cp.vertices.map( v ⇒ ( v → edge_normal ).ρ )
 
           // Then I check if the extremities of the projections of the two polygons overlaps
           if ( prVxThis.min < prVxThat.min ) {

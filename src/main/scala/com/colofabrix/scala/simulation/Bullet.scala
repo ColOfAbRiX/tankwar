@@ -20,7 +20,7 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.BulletRenderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.RTVect
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
 /**
@@ -40,6 +40,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
   /**
     * Resets the status of the `PhysicalObject
     * `
+    *
     * @return A new `PhysicalObject` where its internal status has been reset
     */
   override def clear(): Unit = {}
@@ -65,7 +66,7 @@ class Bullet( override val world: World, val tank: Tank, val properSpeed: Double
     *
     * @return The current speed of a bullet
     */
-  _speed = Vector2D.new_rt( properSpeed, tank.rotation.t ) + tank.speed
+  _speed = RTVect( properSpeed, tank.rotation.ϑ ) + tank.speed
   _speed = _speed := { x ⇒ max( min( x, world.max_bullet_speed ), -world.max_bullet_speed ) }
 
   /**

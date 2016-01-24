@@ -20,7 +20,7 @@ import java.awt.GraphicsEnvironment
 import java.io.File
 
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.XYVect
 import com.colofabrix.scala.simulation.integration._
 import com.colofabrix.scala.simulation.integration.operators.{ TankCrossover, TankDriftMutation, TankFullMutation }
 import com.colofabrix.scala.simulation.{ Tank, World }
@@ -50,11 +50,11 @@ object TankWarMain {
     // Create a new world where to run the Tanks
     val world = new World(
       max_rounds = 3000,
-      arena = Box( Vector2D.new_xy( 0, 0 ), Vector2D.new_xy( gd.getWidth - 60.0, gd.getHeight - 60.0 ) ),
-      dead_time = 1.0 / 5.0,
+      arena = Box( XYVect( 0, 0 ), XYVect( gd.getWidth - 60.0, gd.getHeight - 60.0 ) ),
+      dead_time = 0.6,
       //dead_time = 1.0 / 3.0,
-      max_bullet_speed = 5,
-      bullet_life = 20
+      max_bullet_speed = 3,
+      bullet_life = 30
     )
 
     // Mutation pipeline
@@ -87,7 +87,7 @@ object TankWarMain {
     engine.addEvolutionObserver( new EvolutionLogger )
 
     //engine.evolve( 40, 8, new GenerationCount(1000) )
-    engine.evolve( 40, 2, new GenerationCount( 30 ) )
+    engine.evolve( 40, 2, new GenerationCount( 200 ) )
 
     return
   }

@@ -21,26 +21,26 @@ import java.lang.Math._
 /**
   * Vector with Cartesian Coordinates as preferential coordinates system
   *
-  * @param x Position on the X-Axis
-  * @param y Position on the Y-Axis
+  * @param _x Position on the X-Axis
+  * @param _y Position on the Y-Axis
   */
-case class XYVect(
-  override val x: Double,
-  override val y: Double
-) extends Vect( Right( CartesianCoord( x, y ) ) ) {
+final case class XYVect(
+    private val _x: Double,
+    private val _y: Double
+) extends Vect( Right[PolarCoord, CartesianCoord]( CartesianCoord( _x, _y ) ) ) {
   override def toString: String = s"Vec(x: $x, y: $y)"
 }
 
 /**
   * Vector with Polar Coordinates as preferential coordinates system
   *
-  * @param ρ Distance of the vector from the origin of the axis
-  * @param ϑ Angle formed between the positive side of the X-Asis and the vector in radians
+  * @param _ρ Distance of the vector from the origin of the axis
+  * @param _ϑ Angle formed between the positive side of the X-Asis and the vector in radians
   */
-case class RTVect(
-  override val ρ: Double,
-  override val ϑ: Double
-) extends Vect( Left( PolarCoord( ρ, ϑ ) ) ) {
+final case class RTVect(
+    private val _ρ: Double,
+    private val _ϑ: Double
+) extends Vect( Left[PolarCoord, CartesianCoord]( PolarCoord( _ρ, _ϑ ) ) ) {
   override def toString: String = s"Vec(ρ: $ρ, ϑ: $ϑ)"
 }
 
@@ -53,7 +53,7 @@ case class RTVect(
   *
   * @param value The vector representation in either cartesian or polar coordinates
   */
-sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) {
+sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord] ) {
   import com.colofabrix.scala.math.VectConversions._
 
   /**
@@ -121,7 +121,7 @@ sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) 
     * @return A new point which is a transformation of the current one
     */
   @inline
-  def :=( t: (Double, Int) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
+  def :=( t: ( Double, Int ) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
 
   /**
     * Map a point through another one
@@ -155,7 +155,7 @@ sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) 
     * @return A new point which is a transformation of the current one
     */
   @inline
-  def @=( t: (Double, Int) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
+  def @=( t: ( Double, Int ) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
 
   /**
     * Map a point through another one
@@ -174,7 +174,7 @@ sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) 
     * @param that The vector identifying the projection axis
     */
   @inline
-  def →( that: Vect ): Vect = this.ρ * cos( this.ϑ - that.ϑ ) * that.v
+  def → ( that: Vect ): Vect = this.ρ * cos( this.ϑ - that.ϑ ) * that.v
 
   /**
     * Rotates the vector of a given angle
@@ -259,7 +259,7 @@ sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) 
 
   @inline
   def *( alpha: Vect ): Vect = {
-    require( (this.x - this.y).abs <= Double.MinPositiveValue )
+    require( ( this.x - this.y ).abs <= Double.MinPositiveValue )
     this := alpha
   }
 
@@ -381,6 +381,16 @@ sealed abstract class Vect private( value: Either[PolarCoord, CartesianCoord] ) 
     */
   @inline
   def >( distance: Double ): Boolean = this.ρ > distance
+
+  /**
+    * The Cartesian Plane quadrant where the vector lies
+    */
+  def quadrant: Int = {
+    if ( x > 0.0 && y >= 0.0 ) 1
+    else if ( x <= 0.0 && y > 0.0 ) 2
+    else if ( x <= 0.0 && y < 0.0 ) 3
+    else 4
+  }
 
   override def toString: String
 }

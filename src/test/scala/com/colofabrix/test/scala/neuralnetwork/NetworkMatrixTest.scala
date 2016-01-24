@@ -24,8 +24,8 @@ import scala.Double._
 import scala.collection.mutable
 
 /**
- * Unit Testing for `NetworkMatrix`
- */
+  * Unit Testing for `NetworkMatrix`
+  */
 class NetworkMatrixTest extends WordSpec with Matchers {
 
   "Constructor" must {

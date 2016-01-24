@@ -53,6 +53,7 @@ object TankEvaluator {
     */
   def fitness( t: Tank ): Double = {
     val ( w, ts ) = ( t.world, t.world.tanks )
+    if ( t.isDead ) return 0.0
     max( t.points.toDouble, 0.0 )
   }
 

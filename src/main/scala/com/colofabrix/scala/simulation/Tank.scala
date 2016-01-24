@@ -20,7 +20,7 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.TankRenderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ RTVect, Vect, XYVect }
 import com.colofabrix.scala.neuralnetwork.old.abstracts.NeuralNetwork
 import com.colofabrix.scala.neuralnetwork.old.builders.abstracts.DataReader
 import com.colofabrix.scala.neuralnetwork.old.builders.{ FeedforwardBuilder, RandomReader, SeqDataReader, ThreeLayerNetwork }
@@ -68,14 +68,14 @@ class Tank private (
 
   import java.lang.Math._
 
-  private val _maxSight = Circle.fromArea( Vector2D.origin, world.max_sight )
+  private val _maxSight = Circle.fromArea( Vect.origin, world.max_sight )
   private val _rotReference = initialData.rotationRef
-  private var _direction = Vector2D.new_xy( 1, 1 )
+  private var _direction: Vect = XYVect( 1, 1 )
   private var _isDead = false
   private var _isShooting: Boolean = false
   private var _points: Int = 0
-  private var _seenBullets: ArrayBuffer[( Bullet, Vector2D, Vector2D )] = ArrayBuffer()
-  private var _seenTanks: ArrayBuffer[( Tank, Vector2D, Vector2D )] = ArrayBuffer()
+  private var _seenBullets: ArrayBuffer[( Bullet, Vect, Vect )] = ArrayBuffer()
+  private var _seenTanks: ArrayBuffer[( Tank, Vect, Vect )] = ArrayBuffer()
   private var _shoot = 0.0
   private var _surviveTime: Long = 0
   /**
@@ -112,7 +112,7 @@ class Tank private (
     * Reset the status of a Tank to the initial values
     */
   override def clear(): Unit = {
-    _direction = Vector2D.new_xy( 1, 1 )
+    _direction = XYVect( 1, 1 )
 
     _seenTanks = ArrayBuffer()
     _seenBullets = ArrayBuffer()
@@ -156,7 +156,7 @@ class Tank private (
     *
     * At creation time it is always zero
     */
-  _speed = Vector2D.new_xy( 0.0, 0.0 )
+  _speed = XYVect( 0.0, 0.0 )
 
   /**
     * Callback function used to signal the object that it has hit another object
@@ -240,7 +240,7 @@ class Tank private (
     val speed = _speed - that.speed
 
     // We don't like objects that precisely overlaps the tank... Infinities can happen
-    if ( direction == Vector2D.zero ) return
+    if ( direction == Vect.zero ) return
 
     // Memorize the direction of all the targets or threats (one at a time)
     that match {
@@ -259,7 +259,7 @@ class Tank private (
     */
   override def on_respawn(): Unit = {
     // Set speed to zero
-    _speed = Vector2D.new_xy( 0, 0 )
+    _speed = XYVect( 0, 0 )
     // Choose a random place in the arena (so I don't appear in front of the tank that killed me and that's still shooting)
     _position = world.arena.topRight := { _ * Random.nextDouble() }
     // I'm not dead anymore!
@@ -276,7 +276,7 @@ class Tank private (
     *
     * @return A string in the format of a CSV
     */
-  override def record = super.record + s",${rotation.t},${_shoot},$isShooting"
+  override def record = super.record + s",${rotation.ϑ},${_shoot},$isShooting"
 
   /**
     * Indicates if the tanks is shooting at current time
@@ -322,14 +322,14 @@ class Tank private (
     // The output of the NN is the speed (mapped to the max allowed speed)
     //_speed = (output.speed * world.max_tank_speed) := _direction
     val newSpeed = output.speed * world.max_tank_speed
-    _speed = Vector2D.new_rt( newSpeed.r, min( newSpeed.t, _speed.t + world.max_tank_rotation ) )
+    _speed = RTVect( newSpeed.ρ, min( newSpeed.ϑ, _speed.ϑ + world.max_tank_rotation ) )
     _position = _position + ( _speed := _direction )
     _speed = _speed := _direction
 
     // The rotation is found using directly the output of the NN (mapped to a circle). World's maximum is applied
     val newAngle = output.rotation * PI * 2.0 + _rotReference
-    _angularSpeed = min( newAngle - _rotation.t, world.max_tank_rotation )
-    _rotation = Vector2D.new_rt( 1, _rotation.t + _angularSpeed )
+    _angularSpeed = min( newAngle - _rotation.ϑ, world.max_tank_rotation )
+    _rotation = RTVect( 1, _rotation.ϑ + _angularSpeed )
 
     // It shoots when the function is increasing
     _isShooting = output.shoot - _shoot > 0.02
@@ -352,7 +352,7 @@ class Tank private (
     *
     * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
     */
-  def calculateClosestBulletVision: ( Vector2D, Vector2D ) = {
+  def calculateClosestBulletVision: ( Vect, Vect ) = {
     val sightDistance = sight( classOf[Bullet] ) match {
       case c: Circle ⇒ c.radius
       case b: Box ⇒ max( b.width, b.height )
@@ -360,18 +360,18 @@ class Tank private (
     }
 
     if ( _seenBullets.isEmpty ) {
-      return ( Vector2D.zero, Vector2D.zero )
+      return ( Vect.zero, Vect.zero )
     }
 
-    val closestBullet = _seenBullets.minBy( _._2.r <= sightDistance / 2.0 )
-    val closestBulletPosition = Vector2D.new_rt(
-      max( 1.0 - closestBullet._2.r / _maxSight.radius, 0 ),
-      closestBullet._2.t
+    val closestBullet = _seenBullets.minBy( _._2.ρ <= sightDistance / 2.0 )
+    val closestBulletPosition = RTVect(
+      max( 1.0 - closestBullet._2.ρ / _maxSight.radius, 0 ),
+      closestBullet._2.ϑ
     )
-    val closestBulleSpeed = closestBullet._3
+    val closestBulletSpeed = closestBullet._3
 
     // Final position seen by the tank
-    ( closestBulletPosition, closestBulleSpeed )
+    ( closestBulletPosition, closestBulletSpeed )
   }
 
   /**
@@ -411,7 +411,7 @@ class Tank private (
     *
     * @return A tuple containing 1) the position vector of a threat and 2) the speed vector of the threat
     */
-  def calculateBulletVision: ( Vector2D, Vector2D ) = {
+  def calculateBulletVision: ( Vect, Vect ) = {
     val sightDistance = sight( classOf[Bullet] ) match {
       case c: Circle ⇒ c.radius
       case b: Box ⇒ max( b.width, b.height )
@@ -419,20 +419,20 @@ class Tank private (
     }
 
     if ( _seenBullets.isEmpty ) {
-      return ( Vector2D.zero, Vector2D.zero )
+      return ( Vect.zero, Vect.zero )
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
     _seenBullets = _seenBullets.filter( _ != null )
 
     // Average position and speed of all the seen bullets
-    val bulletsPositionsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._2 ) / _seenBullets.size.toDouble
-    val bulletsSpeedsSum = _seenBullets.foldLeft( Vector2D.zero )( _ + _._3 ) / _seenBullets.size.toDouble
+    val bulletsPositionsSum = _seenBullets.foldLeft( Vect.zero )( _ + _._2 ) / _seenBullets.size.toDouble
+    val bulletsSpeedsSum = _seenBullets.foldLeft( Vect.zero )( _ + _._3 ) / _seenBullets.size.toDouble
 
     // Final position seen by the tank
-    val seenPosition = Vector2D.new_rt(
-      sqrt( _seenBullets.size.toDouble ) * max( 1.0 - bulletsPositionsSum.r / _maxSight.radius, 0 ),
-      bulletsPositionsSum.t
+    val seenPosition = RTVect(
+      sqrt( _seenBullets.size.toDouble ) * max( 1.0 - bulletsPositionsSum.ρ / _maxSight.radius, 0 ),
+      bulletsPositionsSum.ϑ
     )
 
     // Final speed seen by the tank
@@ -449,9 +449,9 @@ class Tank private (
     * @return A tuple containing 1) the position vector of a target and 2) the speed vector of the target, both with components normalized to 1.0
     */
   @SuppressWarnings( Array( "TraversableHead" ) )
-  def calculateTankVision: ( Vector2D, Vector2D ) = {
+  def calculateTankVision: ( Vect, Vect ) = {
     if ( _seenTanks.isEmpty ) {
-      return ( Vector2D.zero, Vector2D.zero )
+      return ( Vect.zero, Vect.zero )
     }
 
     // For some (unknown) reasons it can happen that the array contains null values
@@ -481,7 +481,7 @@ class Tank private (
 
       case SlowestTarget ⇒
         // I target the slowest tank on sight (for an easy kill)
-        _seenTanks.minBy( t ⇒ t._3.r )
+        _seenTanks.minBy( t ⇒ t._3.ρ )
     }
 
     // Final position seen by the tank
@@ -536,10 +536,10 @@ object Tank {
   /** Default targeting strategy for targets */
   val defaultTargetType: TargetType = HighPointsTarget
   /** Max amount af point that a Tank can gain */
-  val maxGainK = 2.0
+  val maxGainK = 4.0
   //val maxGainK = 10.0
   /** Penalty that applies when there is a Tank-Bullet collision (a Tank is hit) */
-  val tankBulletPenalty = 0.8
+  val tankBulletPenalty = 0.5
   //val tankBulletPenalty = 0.5
   /** Penalty that applies when there is a Tank-Tank collision */
   val tankTankPenalty = 0.95

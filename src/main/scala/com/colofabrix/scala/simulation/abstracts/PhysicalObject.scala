@@ -17,7 +17,7 @@
 package com.colofabrix.scala.simulation.abstracts
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ RTVect, Vect, XYVect }
 import com.colofabrix.scala.simulation.World
 
 /**
@@ -46,6 +46,7 @@ trait PhysicalObject {
   /**
     * Resets the status of the `PhysicalObject
     * `
+    *
     * @return A new `PhysicalObject` where its internal status has been reset
     */
   def clear(): Unit
@@ -57,9 +58,9 @@ trait PhysicalObject {
     *
     * @return The point on the world where is the center of the {PhysicalObject}
     */
-  final def position: Vector2D = _position
+  final def position: Vect = _position
 
-  protected var _position: Vector2D = Vector2D.new_xy( 0, 0 )
+  protected var _position: Vect = XYVect( 0, 0 )
 
   /**
     * Speed of the {position} of the object, relative to the arena.
@@ -70,9 +71,9 @@ trait PhysicalObject {
     *
     * @return The current speed of the object
     */
-  final def speed: Vector2D = _speed
+  final def speed: Vect = _speed
 
-  protected var _speed: Vector2D = Vector2D.new_xy( 0, 0 )
+  protected var _speed: Vect = XYVect( 0, 0 )
 
   /**
     * Rotation of the object relative to the X-axis
@@ -82,9 +83,9 @@ trait PhysicalObject {
     *
     * @return A versor indicating the angle formed by the object's main axis and the X-axis, in radians
     */
-  final def rotation: Vector2D = _rotation
+  final def rotation: Vect = _rotation
 
-  protected var _rotation: Vector2D = Vector2D.new_rt( 1, 0 )
+  protected var _rotation: Vect = RTVect( 1, 0 )
 
   /**
     * Angular speed of the object's main axis
@@ -117,12 +118,12 @@ trait PhysicalObject {
   /**
     * Determines if a point lies inside the Shape
     *
-    * This is a shortcut to {objectShape.intersects} with a {Vector2D} as argument
+    * This is a shortcut to {objectShape.intersects} with a {Vect} as argument
     *
     * @param that The point to check
     * @return true if the point is inside or on the boundary of the shape
     */
-  def intersects( that: Vector2D ): Boolean = objectShape.contains( that )
+  def intersects( that: Vect ): Boolean = objectShape.contains( that )
 
   /**
     * Determines if a shape touches this one

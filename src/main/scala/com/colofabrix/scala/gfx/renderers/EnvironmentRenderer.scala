@@ -18,8 +18,9 @@ package com.colofabrix.scala.gfx.renderers
 
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.XYVect
 import com.colofabrix.scala.simulation.World
+
 import scala.language.reflectiveCalls
 
 /**
@@ -36,7 +37,7 @@ class EnvironmentRenderer( val world: World ) extends Renderer {
 
     if ( flags.getWithDefault( "details", true ) ) {
 
-      applyContext( Frame( Colour.CYAN, Vector2D.new_xy( 10, 10 ) ) ) {
+      applyContext( Frame( Colour.CYAN, XYVect( 10, 10 ) ) ) {
 
         List(
           "Max Simulation Speed: " + flags.getWithDefault( "sync", 25 ) + "fps",

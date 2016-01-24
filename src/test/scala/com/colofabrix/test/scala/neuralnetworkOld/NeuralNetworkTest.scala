@@ -24,10 +24,10 @@ import org.scalatest._
 import scala.util.Random
 
 /**
- * Unit test for `GenericNeuralNetwork`
- *
- * Created by Fabrizio on 30/12/2014.
- */
+  * Unit test for `GenericNeuralNetwork`
+  *
+  * Created by Fabrizio on 30/12/2014.
+  */
 class NeuralNetworkTest extends WordSpec with Matchers {
 
   // Range of test values

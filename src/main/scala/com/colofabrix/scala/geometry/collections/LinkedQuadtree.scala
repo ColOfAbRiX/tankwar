@@ -68,13 +68,19 @@ class LinkedQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T](
-    p :: toList,
-    _quadtree + p match {
-      case t: SpatialTree[T] ⇒ t
-      case _ ⇒ throw new IllegalArgumentException
+  override def +( p: T ): LinkedQuadtree[T] = {
+    if ( toList.contains( p ) ) {
+      return this
     }
-  )
+
+    new LinkedQuadtree[T](
+      p :: toList,
+      _quadtree + p match {
+        case t: SpatialTree[T] ⇒ t
+        case _ ⇒ throw new IllegalArgumentException( "Illegal value found for the tree" )
+      }
+    )
+  }
 
   /**
     * Insert a list of objects into the SpatialTree.

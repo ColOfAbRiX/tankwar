@@ -23,15 +23,15 @@ import com.colofabrix.scala.neuralnetwork.old.activationfunctions.{ Linear, Sigm
 import org.scalatest._
 
 /**
- * Unit testing for `NeuronLayer`
- *
- * Created by Fabrizio on 17/12/2014.
- */
+  * Unit testing for `NeuronLayer`
+  *
+  * Created by Fabrizio on 17/12/2014.
+  */
 class LayerTest extends WordSpec with Matchers {
 
   /**
-   * Concrete Layer class to test Layer functionality
-   */
+    * Concrete Layer class to test Layer functionality
+    */
   private[LayerTest] class ConcreteNeuronLayer(
     n_inputs: Int = 1, n_outputs: Int = 1,
     bias: Seq[Double] = Seq( 0.0 ),

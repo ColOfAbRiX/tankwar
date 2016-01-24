@@ -23,7 +23,7 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
   *
   * A spatial tree is a type of tree used to index object in a 2D space and provide fast search for them
   */
-abstract class SpatialTree[T: SpatialIndexable] extends Renderable with SpatialSet[T] {
+abstract class SpatialTree[T: SpatialIndexable] extends SpatialSet[T] with Renderable {
 
   /**
     * Create 4 quadrants into the node

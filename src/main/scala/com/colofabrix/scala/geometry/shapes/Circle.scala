@@ -19,7 +19,7 @@ package com.colofabrix.scala.geometry.shapes
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.CircleRenderer
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.Vect
 
 /**
   * Circle shape
@@ -30,7 +30,7 @@ import com.colofabrix.scala.math.Vector2D
   * @param center Center of the circle
   * @param radius Radius of the circle. Must be non-negative
   */
-final case class Circle( center: Vector2D, radius: Double ) extends Shape with Container with Renderable {
+final case class Circle( center: Vect, radius: Double ) extends Shape with Container with Renderable {
   // If the radius is 0... it's a point!
   require( radius > 0, "The circle must have a non-zero radius" )
 
@@ -54,7 +54,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
   override def contains( s: Shape ): Boolean = s match {
 
     // For the case Circle-Circle I check that the center and the points on the circumference are inside this one - O(1)
-    case c: Circle ⇒ ( this.center - c.center ).r + c.radius <= this.radius
+    case c: Circle ⇒ ( this.center - c.center ).ρ + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
     case p: Polygon ⇒ p.vertices.forall( this.contains )
@@ -69,7 +69,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
     * @param p The point to be checked
     * @return True if the point is inside the shape or on its boundary
     */
-  override def contains( p: Vector2D ): Boolean = ( p - center ).r <= radius
+  override def contains( p: Vect ): Boolean = ( p - center ).ρ <= radius
 
   /**
     * Compute the distance between a line and the circle
@@ -78,7 +78,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
     * @param p1 The second point that defines the line
     * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( p0: Vector2D, p1: Vector2D ): ( Vector2D, Vector2D ) = {
+  override def distance( p0: Vect, p1: Vect ): ( Vect, Vect ) = {
     val nearestSegmentPoint = center + distance( p0, p1, center )
     distance( nearestSegmentPoint )
   }
@@ -89,7 +89,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
     * @param p The point to check
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( p: Vector2D ): ( Vector2D, Vector2D ) = {
+  override def distance( p: Vect ): ( Vect, Vect ) = {
     // The distance of the point from the center of the circle. This vector is not related to the origin of axes
     val distanceFromCenter = p - center
     // A radius (segment that starts in the center of the circle and ends on a point in the circumference) directed towards p.
@@ -112,7 +112,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
     * @param p1 The second point that defines the line segment
     * @return True if the line intersects the shape
     */
-  override def intersects( p0: Vector2D, p1: Vector2D ): Boolean = distance( p0, p1, center ) <= radius
+  override def intersects( p0: Vect, p1: Vect ): Boolean = distance( p0, p1, center ) <= radius
 
   /**
     * Determines if a shape touches this one
@@ -149,7 +149,7 @@ final case class Circle( center: Vector2D, radius: Double ) extends Shape with C
     * @param where The vector specifying how to move the shape
     * @return A new shape moved of {where}
     */
-  override def move( where: Vector2D ): Shape = new Circle( center + where, radius )
+  override def move( where: Vect ): Shape = new Circle( center + where, radius )
 
   /**
     * An object responsible to renderer the class where this trait is applied
@@ -193,7 +193,7 @@ object Circle {
     * @param area Area of the circle. Must be non-negative
     * @return A new instance of Circle with an area equals to the specified one
     */
-  def fromArea( center: Vector2D, area: Double ) = {
+  def fromArea( center: Vect, area: Double ) = {
     require( area > 0, "The area specified for a circle must be positive" )
     new Circle( center, Math.sqrt( area / Math.PI ) )
   }

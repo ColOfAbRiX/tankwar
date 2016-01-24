@@ -23,7 +23,7 @@ import com.colofabrix.scala.simulation.abstracts.PhysicalObject
   * for storing and retrieving objects in the cartesian plan, in particular for collision detection. Some of its
   * implementation are the Quadtree, the SpatialHash and also the fake Dummy for testing
   */
-trait SpatialSet[T] {
+abstract class SpatialSet[T: SpatialIndexable] {
 
   /**
     * This function is a commodity used to find the Container of a shape

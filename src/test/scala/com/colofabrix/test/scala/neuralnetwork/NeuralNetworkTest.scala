@@ -24,8 +24,8 @@ import org.scalatest.{ Matchers, WordSpec }
 import scala.Double._
 
 /**
- * Unit testing for the trait {NeuralNetwork}
- */
+  * Unit testing for the trait {NeuralNetwork}
+  */
 class NeuralNetworkTest extends WordSpec with Matchers {
 
   "Network analysis" must {

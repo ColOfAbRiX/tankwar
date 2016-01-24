@@ -21,7 +21,7 @@ import java.util.Random
 
 import com.colofabrix.scala.Tools._
 import com.colofabrix.scala.simulation.Tank
-import org.uncommons.watchmaker.framework.{ CandidateFactory, EvolutionaryOperator, FitnessEvaluator, SelectionStrategy }
+import org.uncommons.watchmaker.framework._
 
 //import scala.collection.JavaConversions
 import scala.collection.JavaConverters._
@@ -31,13 +31,12 @@ import scala.collection.JavaConverters._
   * all the Tanks after a new generation is created
   */
 class TankEvolutionEngine(
-  candidateFactory: CandidateFactory[Tank],
-  evolutionScheme: EvolutionaryOperator[Tank],
-  fitnessEvaluator: FitnessEvaluator[_ >: Tank],
-  selectionStrategy: SelectionStrategy[_ >: Tank],
-  rng: Random
-)
-    extends GameEvolutionEngine[Tank]( candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng ) {
+    candidateFactory: CandidateFactory[Tank],
+    evolutionScheme: EvolutionaryOperator[Tank],
+    fitnessEvaluator: FitnessEvaluator[_ >: Tank],
+    selectionStrategy: SelectionStrategy[_ >: Tank],
+    rng: Random
+) extends GameEvolutionEngine[Tank]( candidateFactory, evolutionScheme, fitnessEvaluator, selectionStrategy, rng ) {
 
   /**
     * This method runs the competition between the individuals of the population
@@ -58,7 +57,7 @@ class TankEvolutionEngine(
     val world = population.asScala( 0 ).world
 
     // Clean the world for a new start
-    world.resetWorld( population.asScala.to )
+    world.resetWorld( population.asScala.filter( !_.isDead ).to )
 
     // Runs the competition
     measureTime( "Time for a round: @time" ) {

@@ -21,6 +21,7 @@ import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialIndexable }
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
+import com.colofabrix.scala.math.XYVect
 
 import scala.reflect.ClassTag
 
@@ -72,28 +73,27 @@ class LeafQuadtree[T: SpatialIndexable] protected (
     * @return A new LeafQuadtree with 4 new subnodes
     */
   override protected def split() = {
-    import com.colofabrix.scala.math.Vector2D._
 
     val quadLookup = List(
-      new Box(
+      Box(
         // Top-Right quadrant
-        new_xy( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height / 2 ),
+        XYVect( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height / 2 ),
         box.topRight
       ),
-      new Box(
+      Box(
         // Top-Left quadrant
-        new_xy( box.bottomLeft.x, box.bottomLeft.y + box.height / 2 ),
-        new_xy( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height )
+        XYVect( box.bottomLeft.x, box.bottomLeft.y + box.height / 2 ),
+        XYVect( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height )
       ),
-      new Box(
+      Box(
         // Bottom-Left quadrant
         box.bottomLeft,
-        new_xy( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height / 2 )
+        XYVect( box.bottomLeft.x + box.width / 2, box.bottomLeft.y + box.height / 2 )
       ),
-      new Box(
+      Box(
         // Bottom-Right quadrant
-        new_xy( box.bottomLeft.x + box.width / 2, box.bottomLeft.y ),
-        new_xy( box.bottomLeft.x + box.width, box.bottomLeft.y + box.height / 2 )
+        XYVect( box.bottomLeft.x + box.width / 2, box.bottomLeft.y ),
+        XYVect( box.bottomLeft.x + box.width, box.bottomLeft.y + box.height / 2 )
       )
     )
 

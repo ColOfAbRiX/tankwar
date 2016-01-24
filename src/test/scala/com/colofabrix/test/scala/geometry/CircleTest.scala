@@ -17,14 +17,14 @@
 package com.colofabrix.test.scala.geometry
 
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
-import com.colofabrix.scala.math.Vector2D
+import com.colofabrix.scala.math.{ RTVect, XYVect }
 import org.scalatest.{ Matchers, WordSpec }
 
 /**
- * Unit testing for Circle Shape
- *
- * Created by Fabrizio on 11/01/2015.
- */
+  * Unit testing for Circle Shape
+  *
+  * Created by Fabrizio on 11/01/2015.
+  */
 class CircleTest extends WordSpec with Matchers {
 
   "A Circle" must {
@@ -33,9 +33,9 @@ class CircleTest extends WordSpec with Matchers {
 
       "Matched with another circle" in {
 
-        val circle1 = Circle( Vector2D.new_xy( 10, 10 ), 50 )
-        val circle2 = Circle( Vector2D.new_xy( -60, 80 ), 20 )
-        val circle3 = Circle( Vector2D.new_xy( 20, 20 ), 20 )
+        val circle1 = Circle( XYVect( 10, 10 ), 50 )
+        val circle2 = Circle( XYVect( -60, 80 ), 20 )
+        val circle3 = Circle( XYVect( 20, 20 ), 20 )
 
         // Check circle1
         circle1.intersects( circle1 ) should equal( true )
@@ -53,10 +53,10 @@ class CircleTest extends WordSpec with Matchers {
 
       "Matched with a point" must {
 
-        val insidePoint = Vector2D.new_rt( 50, Math.PI / 4 )
-        val outsidePoint = Vector2D.new_rt( 100, -Math.PI )
-        val centered = Circle( Vector2D.new_xy( 0, 0 ), 50 )
-        val offCenter = Circle( Vector2D.new_xy( 50, 50 ), 50 )
+        val insidePoint = RTVect( 50, Math.PI / 4 )
+        val outsidePoint = RTVect( 100, -Math.PI )
+        val centered = Circle( XYVect( 0, 0 ), 50 )
+        val offCenter = Circle( XYVect( 50, 50 ), 50 )
 
         // The point is on the circumference
         centered.contains( insidePoint ) should equal( true )
@@ -73,16 +73,16 @@ class CircleTest extends WordSpec with Matchers {
     "Check containment" when {
 
       "Shape is a polygon" in {
-        val circle = new Circle( Vector2D.new_xy( 50, 50 ), 50 )
+        val circle = new Circle( XYVect( 50, 50 ), 50 )
 
         // Overlaps the vertices
-        val contained1 = new Box( Vector2D.new_xy( 50, 50 ), Math.sqrt( 2 ) * circle.radius, Math.sqrt( 2 ) * circle.radius )
+        val contained1 = Box( XYVect( 50, 50 ), Math.sqrt( 2 ) * circle.radius, Math.sqrt( 2 ) * circle.radius )
         // Fully inside the box
-        val contained2 = new Box( Vector2D.new_xy( 50, 50 ), 10, 10 )
+        val contained2 = Box( XYVect( 50, 50 ), 10, 10 )
         // Partially inside the box
-        val notContained1 = new Box( Vector2D.new_xy( -10, -10 ), Vector2D.new_xy( 75, 75 ) )
+        val notContained1 = Box( XYVect( -10, -10 ), XYVect( 75, 75 ) )
         // Fully outside the box
-        val notContained2 = new Box( Vector2D.new_xy( -100, 0 ), Vector2D.new_xy( -50, 50 ) )
+        val notContained2 = Box( XYVect( -100, 0 ), XYVect( -50, 50 ) )
 
         circle.contains( contained1 ) should equal( true )
         circle.contains( contained2 ) should equal( true )
@@ -92,16 +92,16 @@ class CircleTest extends WordSpec with Matchers {
       }
 
       "Shape is a circle" in {
-        val circle = new Circle( Vector2D.new_xy( 50, 50 ), 50 )
+        val circle = new Circle( XYVect( 50, 50 ), 50 )
 
         // Overlaps one border
-        val contained1 = new Circle( Vector2D.new_xy( 50, 50 ), 10 )
+        val contained1 = new Circle( XYVect( 50, 50 ), 10 )
         // Fully inside the box
-        val contained2 = new Circle( Vector2D.new_xy( 50, 50 ), 50 )
+        val contained2 = new Circle( XYVect( 50, 50 ), 50 )
         // Partially inside the box
-        val notContained1 = new Circle( Vector2D.new_xy( 75, 50 ), 50 )
+        val notContained1 = new Circle( XYVect( 75, 50 ), 50 )
         // Fully outside the box
-        val notContained2 = new Circle( Vector2D.new_xy( 150, 150 ), 10 )
+        val notContained2 = new Circle( XYVect( 150, 150 ), 10 )
 
         circle.contains( contained1 ) should equal( true )
         circle.contains( contained2 ) should equal( true )

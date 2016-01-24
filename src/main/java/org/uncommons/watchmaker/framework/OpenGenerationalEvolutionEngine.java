@@ -1,19 +1,18 @@
-/*
- * Copyright (C) 2015 Fabrizio Colonna
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
-
+//=============================================================================
+// Copyright 2006-2010 Daniel W. Dyer
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//=============================================================================
 package org.uncommons.watchmaker.framework;
 
 import org.uncommons.watchmaker.framework.interactive.InteractiveSelection;
@@ -34,8 +33,8 @@ import java.util.Random;
  * machine there will be four fitness evaluation worker threads).</p>
  * <p>
  * <p>If multi-threading is disabled, all work is performed synchronously on the
- * request thread. This strategy is suitable for restricted/managed environments where
- * it is not permitted for applications to manage their own threads. If there are no
+ * request thread.  This strategy is suitable for restricted/managed environments where
+ * it is not permitted for applications to manage their own threads.  If there are no
  * restrictions on concurrency, applications should enable multi-threading for improved
  * performance.</p>
  *
@@ -44,10 +43,9 @@ import java.util.Random;
  * @see SteadyStateEvolutionEngine
  * @see EvolutionStrategyEngine
  */
-@SuppressWarnings("ALL")
-public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvolutionEngine<T> {
-    protected final EvolutionaryOperator<T> evolutionScheme;
+public class OpenGenerationalEvolutionEngine<T> extends OpenAbstractEvolutionEngine<T> {
     protected final FitnessEvaluator<? super T> fitnessEvaluator;
+    protected final EvolutionaryOperator<T> evolutionScheme;
     protected final SelectionStrategy<? super T> selectionStrategy;
 
     /**
@@ -65,19 +63,20 @@ public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvol
      * @param rng               The source of randomness used by all stochastic processes (including
      *                          evolutionary operators and selection strategies).
      */
-    public ModifiedGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
-                                               EvolutionaryOperator<T> evolutionScheme,
-                                               FitnessEvaluator<? super T> fitnessEvaluator,
-                                               SelectionStrategy<? super T> selectionStrategy,
-                                               Random rng) {
+    public OpenGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
+                                           EvolutionaryOperator<T> evolutionScheme,
+                                           FitnessEvaluator<? super T> fitnessEvaluator,
+                                           SelectionStrategy<? super T> selectionStrategy,
+                                           Random rng) {
         super(candidateFactory, fitnessEvaluator, rng);
         this.evolutionScheme = evolutionScheme;
         this.fitnessEvaluator = fitnessEvaluator;
         this.selectionStrategy = selectionStrategy;
     }
 
+
     /**
-     * Creates a new evolution engine for an interactive evolutionary algorithm. It
+     * Creates a new evolution engine for an interactive evolutionary algorithm.  It
      * is not necessary to specify a fitness evaluator for interactive evolution.
      *
      * @param candidateFactory  Factory used to create the initial population that is
@@ -89,16 +88,17 @@ public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvol
      * @param rng               The source of randomness used by all stochastic processes (including
      *                          evolutionary operators and selection strategies).
      */
-    public ModifiedGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
-                                               EvolutionaryOperator<T> evolutionScheme,
-                                               InteractiveSelection<T> selectionStrategy,
-                                               Random rng) {
+    public OpenGenerationalEvolutionEngine(CandidateFactory<T> candidateFactory,
+                                           EvolutionaryOperator<T> evolutionScheme,
+                                           InteractiveSelection<T> selectionStrategy,
+                                           Random rng) {
         this(candidateFactory,
                 evolutionScheme,
                 new NullFitnessEvaluator(), // No fitness evaluations to perform.
                 selectionStrategy,
                 rng);
     }
+
 
     /**
      * {@inheritDoc}
@@ -108,6 +108,7 @@ public class ModifiedGenerationalEvolutionEngine<T> extends ModifiedAbstractEvol
                                                             int eliteCount,
                                                             Random rng) {
         List<T> population = new ArrayList<T>(evaluatedPopulation.size());
+
         // First perform any elitist selection.
         List<T> elite = new ArrayList<T>(eliteCount);
         Iterator<EvaluatedCandidate<T>> iterator = evaluatedPopulation.iterator();
