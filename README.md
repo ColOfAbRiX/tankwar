@@ -79,21 +79,13 @@ state-of-the-art practices. I will be pleased to receive corrections and suggest
 
 ##Quick Start
 
-_NOT UPDATED - Jan 2016_
+### Run the simulation
 
 The quick start assumes you are using the [Reccomended Settings][CONTRIBUTING.md]
 
-* Download the project from Github
-* Import it in Intellij IDEA making sure that the project references the correct Scala JDK in your system
-
-You can now either build the JAR and simply run the simulation:
-
-* Build the JAR from `Build -> Build Artfacts` 
-* Open a command line shell
-* Locate your JAR file on the system, default in `project output/artifacts/TankWar.jar`
-* Run `java -jar <path to the JAR>`
-
-or you can start it inside Intellij IDEA and work with it.
+* Clone the repository from Github `git clone git@github.com:ColOfAbRiX/tankwar.git`
+* Open the command line and browse to the repository directory
+* Run `sbt run`
 
 ##Topics touched by the project
 

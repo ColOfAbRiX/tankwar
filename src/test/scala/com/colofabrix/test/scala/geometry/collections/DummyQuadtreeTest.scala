@@ -19,12 +19,12 @@ package com.colofabrix.test.scala.geometry.collections
 import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialTree }
 import com.colofabrix.scala.geometry.collections.DummyQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeAbstractTest
+import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeBaseTest
 
 /**
   * Unit testing the class [[DummyQuadtree]]
   */
-class DummyQuadtreeTest extends SpatialTreeAbstractTest[DummyQuadtree[Shape]] {
+class DummyQuadtreeTest extends SpatialTreeBaseTest[DummyQuadtree[Shape]] {
   /**
     * Creates a new object of type T to test
     *

@@ -7,21 +7,25 @@ together.
 
 ###Reccomended settings
 
-_NOT UPDATED - Jan 2016_
+To run the project is needed at least:
 
-The project was developed using:
-
-* Intellij IDEA 14
-* the Scala Plugin
-* Oracle JDK 1.8
-* On a Windows platform (OpenGL libraries are for Windows)
+* Oracle HotSpot JRE + JDK 1.7 or OpenJDK 7
+* Scala 2.11.7
+* SBT 0.13.8
+* Either Windows or Linux (not tested on MAC)
 
 To maximise the compatibility and to have a quick start, that setup is recommended but in no way I want to enforce your
 coding habits.
 
 ## Getting Started
 
-_NOT UPDATED - Jan 2016_
+### Prerequistes
+
+* Download and install your favoure JDK
+* Download and install Scala
+* Download an install SBT
+
+### Steps to contribute
 
 * Make sure you have a [GitHub account](https://github.com/signup/free)
 * Submit a ticket for your issue, assuming one does not already exist.

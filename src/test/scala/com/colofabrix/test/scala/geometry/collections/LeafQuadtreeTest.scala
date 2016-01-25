@@ -19,15 +19,12 @@ package com.colofabrix.test.scala.geometry.collections
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.collections.LeafQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeAbstractTest
+import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeBaseTest
 
 /**
   * Unit testing specific for the [[LeafQuadtree]] class
   */
-class LeafQuadtreeTest extends SpatialTreeAbstractTest[LeafQuadtree[Shape]] {
-
-  private val _splitSize = 2
-  private val _maxDepth = 3
+class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
 
   /**
     * Creates a new object of type T to test
@@ -37,5 +34,5 @@ class LeafQuadtreeTest extends SpatialTreeAbstractTest[LeafQuadtree[Shape]] {
     * @return A new instance of a SpatialSet[T]
     */
   override protected def getNewSpatialSet( bounds: Box, objects: List[Shape] ): LeafQuadtree[Shape] =
-    LeafQuadtree( bounds, objects, _splitSize, _maxDepth )
+    LeafQuadtree( bounds, objects, splitSize, maxDepth )
 }

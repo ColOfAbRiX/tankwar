@@ -18,7 +18,6 @@ package com.colofabrix.scala.geometry.collections
 
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
   * An object to index shapes in space. It implements the concept of Spatial Hashing, Spatial hashing is a process by
@@ -26,22 +25,25 @@ import com.colofabrix.scala.math.{ Vect, XYVect }
   * The data structure has been implemented to be as efficient as possible and from my measurements it can be twice as
   * fast as the plain brute force collision detection.
   *
-  * @param _objects    The list of the objects to include in the SpatialHash
-  * @param bounds      The boundary of the area covered by the SpatialHash
-  * @param hSplit      The number of buckets in the horizontal axis
-  * @param vSplit      The number of buckets in the vertical axis
-  * @param _bucketList The list of the predefined buckets, used as a lookup
-  * @param buckets     A sequence of the bucket where each contains the list of the objects that contains
+  * @param objects    The list of the objects to include in the SpatialHash
+  * @param bounds     The boundary of the area covered by the SpatialHash
+  * @param hSplit     The number of buckets in the horizontal axis
+  * @param vSplit     The number of buckets in the vertical axis
+  * @param bucketList The list of the predefined buckets, used as a lookup
+  * @param buckets    A sequence of the bucket where each contains the list of the objects that contains
   * @tparam T The type of object that this collection will contain. Must have a conversion to SpatialIndexable
   */
-class SpatialHash[T: SpatialIndexable] private (
-    val bounds: Box,
-    val hSplit: Int,
-    val vSplit: Int,
-    val buckets: Map[Box, Seq[T]],
-    protected val _objects: List[T],
-    protected val _bucketList: Seq[Box]
+class SpatialHash[T: SpatialIndexable] protected(
+  val bounds: Box,
+  val hSplit: Int,
+  val vSplit: Int,
+  val buckets: Map[Box, Seq[T]],
+  objects: Option[List[T]],
+  bucketList: Option[List[Box]]
 ) extends SpatialSet[T] {
+
+  protected val _objects = objects.getOrElse( List.empty[T] )
+  protected val _bucketList = bucketList.getOrElse( List.empty[Box] )
 
   /**
     * Remove the object from the collection.
@@ -51,9 +53,9 @@ class SpatialHash[T: SpatialIndexable] private (
   override def -( p: T ): SpatialSet[T] = {
     // The list of the objects, the buckets and their lists are scanned once
     val newObjects = _objects.filter( _ != p )
-    val newBuckets = buckets.map { b ⇒ ( b._1, b._2.filter( _ != p ) ) }
+    val newBuckets = buckets.map { b ⇒ (b._1, b._2.filter( _ != p )) }
 
-    new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, newObjects, _bucketList )
+    new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
   }
 
   /**
@@ -70,8 +72,8 @@ class SpatialHash[T: SpatialIndexable] private (
     *
     * @return A new SpatialSet[T], with the same parameters as the current one, but empty
     */
-  override def clear(): SpatialSet[T] =
-    new SpatialHash[T]( bounds, hSplit, vSplit, Map.empty[Box, List[T]], List.empty[T], _bucketList )
+  override def clear( ): SpatialSet[T] =
+    new SpatialHash[T]( bounds, hSplit, vSplit, Map.empty[Box, List[T]], Some( List.empty[T] ), Some( _bucketList ) )
 
   /**
     * The number of objects that this collection is containing
@@ -85,7 +87,7 @@ class SpatialHash[T: SpatialIndexable] private (
     */
   override def +( p: T ): SpatialSet[T] = {
     // Never add twice the same object
-    if ( _objects.contains( p ) ) {
+    if( _objects.contains( p ) ) {
       return this
     }
 
@@ -93,11 +95,11 @@ class SpatialHash[T: SpatialIndexable] private (
 
     // For this operation there is only one scan that goes through the buckets to find the ones which contain
     // the shape
-    val newBuckets = for ( b ← buckets ) yield {
-      if ( b._1.intersects( shape( p ) ) ) ( b._1, p +: b._2 ) else ( b._1, b._2 )
+    val newBuckets = for( b ← buckets ) yield {
+      if( b._1.intersects( shape( p ) ) ) (b._1, p +: b._2) else (b._1, b._2)
     }
 
-    new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, newObjects, _bucketList )
+    new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
   }
 
   /**
@@ -107,8 +109,12 @@ class SpatialHash[T: SpatialIndexable] private (
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
-  override def refresh(): SpatialSet[T] =
-    new SpatialHash[T]( bounds, hSplit, vSplit, SpatialHash.assignToBuckets( _bucketList, _objects ), _objects, _bucketList )
+  override def refresh( ): SpatialSet[T] =
+    new SpatialHash[T](
+      bounds, hSplit, vSplit,
+      SpatialHash.assignToBuckets( _bucketList, _objects ),
+      Some( _objects ), Some( _bucketList )
+    )
 
   /**
     * Tells if the collection is empty of Shapes
@@ -149,16 +155,16 @@ object SpatialHash {
     */
   protected def assignToBuckets[T: SpatialIndexable]( rawBuckets: Seq[Box], objects: List[T] ): Map[Box, Seq[T]] = {
     // I create the pairs (object, box that intersects)
-    val assigned = for (
+    val assigned = for(
       b ← rawBuckets;
       s ← objects if b.intersects( shape( s ) )
-    ) yield ( b, s )
+    ) yield (b, s)
 
     // Clean the format of the association above, from (Box, (Box, Shape)) -> (Box, Shape)
     assigned
       .groupBy( _._1 )
       .map { x ⇒
-        ( x._1, x._2.map( _._2 ) )
+        (x._1, x._2.map( _._2 ))
       }
   }
 
@@ -174,18 +180,13 @@ object SpatialHash {
     */
   def apply[T: SpatialIndexable]( bounds: Shape, objects: List[T], hSplit: Int, vSplit: Int ) = {
     val box = Box.getAsBox( bounds )
+    val bucketList = Box.splitBox( box, hSplit, vSplit ).toList
 
-    // This list of buckets is created only once per SpatialHash to save time and memory
-    val bucketList = for ( j ← 0 until vSplit; i ← 0 until hSplit ) yield {
-      val templateBox = Box(
-        Vect.origin,
-        XYVect( box.width / hSplit, box.height / vSplit )
-      )
-
-      Box.getAsBox( templateBox.move( XYVect( templateBox.width * i, templateBox.height * j ) ) )
-    }
-
-    new SpatialHash[T]( box, hSplit, vSplit, assignToBuckets( bucketList, objects ), objects, bucketList )
+    new SpatialHash[T](
+      box, hSplit, vSplit,
+      assignToBuckets( bucketList, objects ),
+      Some( objects ),
+      Some( bucketList )
+    )
   }
-
 }

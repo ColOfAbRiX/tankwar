@@ -33,7 +33,7 @@ import com.colofabrix.scala.math.{ Vect, XYVect }
   * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
   * @param topRight   Rectangle right-top point, in any quadrant of the plane
   */
-final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
+final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
   Seq(
     bottomLeft,
     XYVect( bottomLeft.x, topRight.y ),
@@ -46,24 +46,29 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
     * Area of the box
     */
   override lazy val area = width * height
+
   /**
     * Find a containing box for the current shape.
     *
     * @return A Box that is the same as the current one (as it's always the minimal container for this Shape)
     */
   override lazy val container: Container = this
+
   /**
     * Center of the Box
     */
-  lazy val center = bottomLeft + XYVect( ( topRight.x - bottomLeft.x ) / 2.0, ( topRight.y - bottomLeft.y ) / 2.0 )
+  lazy val center = bottomLeft + XYVect( (topRight.x - bottomLeft.x) / 2.0, (topRight.y - bottomLeft.y) / 2.0 )
+
   /**
     * Height of the rectangle
     */
   val height = topRight.y - bottomLeft.y
+
   /**
     * Width of the rectangle
     */
   val width = topRight.x - bottomLeft.x
+
   /**
     * The vertex that is closer to the origin of the axes.
     */
@@ -197,14 +202,14 @@ object Box {
     // If it's a polygon, find its limits - O(n)
     case p: Polygon ⇒
       // Finds the minimum and maximum coordinates for the points
-      var ( minX, minY ) = ( Double.MaxValue, Double.MaxValue )
-      var ( maxX, maxY ) = ( Double.MinValue, Double.MinValue )
+      var (minX, minY) = (Double.MaxValue, Double.MaxValue)
+      var (maxX, maxY) = (Double.MinValue, Double.MinValue)
 
-      for ( v ← p.vertices ) {
-        minX = if ( minX > v.x ) v.x else minX
-        minY = if ( minY > v.y ) v.y else minY
-        maxX = if ( maxX < v.x ) v.x else maxX
-        maxY = if ( maxY < v.y ) v.y else maxY
+      for( v ← p.vertices ) {
+        minX = if( minX > v.x ) v.x else minX
+        minY = if( minY > v.y ) v.y else minY
+        maxX = if( maxX < v.x ) v.x else maxX
+        maxY = if( maxY < v.y ) v.y else maxY
       }
 
       // Creates the Box
@@ -217,4 +222,24 @@ object Box {
     case _ ⇒ throw new IllegalArgumentException
   }
 
+  /**
+    * Splits a rectangular area in different boxes
+    *
+    * The area is divided in equal parts as specified by the parameters
+    *
+    * @param area   The area to split as a Box
+    * @param hSplit Number of horizontal divisions
+    * @param vSplit Number of vertical divisions
+    * @return A list of Box that cover the area
+    */
+  def splitBox( area: Box, hSplit: Int, vSplit: Int ) = {
+    val width = area.width / hSplit
+    val height = area.height / vSplit
+
+    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
+      Box( Vect.origin, XYVect( width, height ) )
+        .move( area.bottomLeft )
+        .move( XYVect( width * i, height * j ) )
+    }
+  }
 }

@@ -16,8 +16,6 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.simulation.abstracts.PhysicalObject
-
 /**
   * A SpatialSet is a set of objects that can be located in a 2D Space. This trait is used to implement efficient ways
   * for storing and retrieving objects in the cartesian plan, in particular for collision detection. Some of its
@@ -98,44 +96,4 @@ abstract class SpatialSet[T: SpatialIndexable] {
   def toList: List[T]
 
   override def toString: String = this.toList.toString()
-}
-
-/**
-  * Typeclass to define object that can be indexed spatially.
-  *
-  * A container for the object is the minimum requirement to allow to index spatially.
-  *
-  * @tparam T The type of object we want to convert
-  */
-trait SpatialIndexable[-T] {
-
-  /**
-    * Gets the container of the object
-    *
-    * @return A new Container instance that fully contains the object
-    */
-  def container( t: T ): Container
-
-}
-
-object SpatialIndexable {
-
-  /**
-    * Converter `Shape` -> `SpatialIndexable[T]`
-    *
-    * @return A new instance of SpatialIndexable that can extract information from a `Shape`
-    */
-  implicit def indexableShape[T <: Shape] = new SpatialIndexable[T] {
-    override def container( that: T ): Container = that.container
-  }
-
-  /**
-    * Converter `PhysicalObject` -> `SpatialIndexable[T]`
-    *
-    * @return A new instance of SpatialIndexable that can extract information from a `PhysicalObject`
-    */
-  implicit def indexablePhysicalObject[T <: PhysicalObject] = new SpatialIndexable[T] {
-    override def container( that: T ): Container = that.objectShape.container
-  }
-
 }

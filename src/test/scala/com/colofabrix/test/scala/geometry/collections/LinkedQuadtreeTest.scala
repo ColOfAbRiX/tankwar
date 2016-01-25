@@ -19,12 +19,12 @@ package com.colofabrix.test.scala.geometry.collections
 import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialTree }
 import com.colofabrix.scala.geometry.collections.LinkedQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeAbstractTest
+import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeBaseTest
 
 /**
   *
   */
-class LinkedQuadtreeTest extends SpatialTreeAbstractTest[LinkedQuadtree[Shape]] {
+class LinkedQuadtreeTest extends SpatialTreeBaseTest[LinkedQuadtree[Shape]] {
   private val _splitSize = 2
   private val _maxDepth = 3
 

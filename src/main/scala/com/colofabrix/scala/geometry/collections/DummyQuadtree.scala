@@ -58,13 +58,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): DummyQuadtree[T] = {
-    if ( toList.contains( p ) ) {
-      return this
-    }
-
-    new DummyQuadtree[T]( p :: toList, bounds )
-  }
+  override def +( p: T ): DummyQuadtree[T] = if( toList.contains( p ) ) this else new DummyQuadtree[T]( p :: toList, bounds )
 
   /**
     * Insert a list of objects into the SpatialTree.
@@ -98,13 +92,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return All Shapes that could collide with the given object
     */
-  override def lookAround( s: Shape ): List[T] = {
-    if ( !bounds.intersects( s ) ) {
-      return Nil
-    }
-
-    toList
-  }
+  override def lookAround( s: Shape ): List[T] = if( !bounds.intersects( s ) ) Nil else toList
 
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
@@ -148,18 +136,12 @@ object DummyQuadtree {
   /**
     * Creates a new DummyQuadtree
     *
-    * @param bounds The area that the DummyQuadtree will cover
-    * @param initialList The initial data contained by the DummyQuadtree
+    * @param bounds  The area that the DummyQuadtree will cover
+    * @param objects The initial data contained by the DummyQuadtree
     * @tparam T Type of `PhysicalObject` that the DummyQuadtree will contain
     * @return A new instance of DummyQuadtree
     */
-  def apply[T: SpatialIndexable]( bounds: Shape, initialList: List[T] = List[T]() ): DummyQuadtree[T] =
-    new DummyQuadtree[T](
-      initialList,
-      bounds match {
-        case b: Box ⇒ b
-        case _ ⇒ throw new IllegalArgumentException( "Variable 'bound' is not of type Box" )
-      }
-    )
+  def apply[T: SpatialIndexable]( bounds: Shape, objects: List[T] = List[T]( ) ): DummyQuadtree[T] =
+    new DummyQuadtree[T]( objects, Box.getAsBox( bounds ) )
 
 }
