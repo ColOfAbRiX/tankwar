@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.gfx.OpenGL.{ Colour, Frame }
@@ -31,7 +30,7 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
 class DummyQuadtree[T: SpatialIndexable] protected (
     override val toList: List[T],
     override val bounds: Box
-) extends abstracts.SpatialTree[T] {
+) extends SpatialTree[T] {
 
   /**
     * Create 4 quadrants into the node
@@ -58,7 +57,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): DummyQuadtree[T] = if( toList.contains( p ) ) this else new DummyQuadtree[T]( p :: toList, bounds )
+  override def +( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( p :: toList, bounds )
 
   /**
     * Insert a list of objects into the SpatialTree.
@@ -97,7 +96,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
     */
-  override def nodes: List[abstracts.SpatialTree[T]] = List()
+  override def nodes: List[SpatialTree[T]] = List( )
 
   /**
     * The shapes contained by the node.
@@ -129,6 +128,11 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     * The number of items a node can contain before it splits
     */
   override def splitSize: Int = 0
+
+  /**
+    * The level of the root of the quadtree. If the quadtree is not a subtree of any other node, this parameter is 0
+    */
+  override protected[geometry] val level: Int = 0
 }
 
 object DummyQuadtree {
@@ -138,10 +142,12 @@ object DummyQuadtree {
     *
     * @param bounds  The area that the DummyQuadtree will cover
     * @param objects The initial data contained by the DummyQuadtree
-    * @tparam T Type of `PhysicalObject` that the DummyQuadtree will contain
+    * @tparam T Type of [[com.colofabrix.scala.simulation.abstracts.PhysicalObject]] that the DummyQuadtree will contain
     * @return A new instance of DummyQuadtree
     */
-  def apply[T: SpatialIndexable]( bounds: Shape, objects: List[T] = List[T]( ) ): DummyQuadtree[T] =
-    new DummyQuadtree[T]( objects, Box.getAsBox( bounds ) )
+  def apply[T: SpatialIndexable](
+    bounds: Shape,
+    objects: List[T] = List[T]( )
+  ) = new DummyQuadtree[T]( objects, Box.getAsBox( bounds ) )
 
 }

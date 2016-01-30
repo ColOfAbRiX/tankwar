@@ -32,7 +32,7 @@ object ShapeUtils {
     * @param area The area where the new vector must lie
     * @return A new instance of Vect
     */
-  def randomVector( area: Box ) = XYVect(
+  def rndVect( area: Box ) = XYVect(
     Rnd.nextDouble * area.width + area.bottomLeft.x,
     Rnd.nextDouble * area.height + area.bottomLeft.y
   )
@@ -43,7 +43,7 @@ object ShapeUtils {
     * @param area The area where the new box must lie
     * @return A new instance of Box
     */
-  def randomBox( area: Box ): Box = Box( randomVector( area ), randomVector( area ) )
+  def rndBox( area: Box ): Box = Box( rndVect( area ), rndVect( area ) )
 
   /**
     * Create a Polygon of random position, size and number of vertices inside the specified area
@@ -51,9 +51,9 @@ object ShapeUtils {
     * @param area The area where the new Polygon must lie
     * @return A new instance of Polygon
     */
-  def randomPolygon( area: Box ): Polygon = {
+  def rndPolygon( area: Box ): Polygon = {
     val rndVertices = Rnd.nextInt(10) + 2
-    val vertices = (0 until rndVertices).map( _ => randomVector(area) )
+    val vertices = (0 until rndVertices).map( _ => rndVect( area ) )
     new Polygon( vertices )
   }
 
@@ -63,10 +63,10 @@ object ShapeUtils {
     * @param area The area where the new circle must lie
     * @return A new instance of Circle
     */
-  def randomCircle( area: Box ): Circle = {
+  def rndCircle( area: Box ): Circle = {
     val radius = Rnd.nextDouble * 0.999 * Math.min( area.width, area.height ) / 2.0
     val safeArea = Box( area.width - 2.0 * radius, area.height - 2.0 * radius ).move( area.bottomLeft + radius )
-    val center = randomVector( safeArea )
+    val center = rndVect( safeArea )
 
     Circle( center, radius )
   }

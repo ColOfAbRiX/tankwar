@@ -22,8 +22,10 @@ import com.colofabrix.scala.math.Vect
 /**
   * Represents a geometric closed shape on a geometric space
   *
-  * This train contains definitions of basic geometric operations like distance to a point of a check to see if
-  * a line segment intersects the Shape. Upon this elementary operation the derived shapes will build their behaviour
+  * This train contains definitions of basic geometric operations like distance from
+  * a point or a check to see if a line segment intersects the [[Shape]]. Upon this
+  * elementary operation the derived shapes will build their behaviour and specialize
+  * the implementation to take advantage of their properties for a faster access
   */
 trait Shape extends Renderable {
   /**
@@ -65,7 +67,7 @@ trait Shape extends Renderable {
     *
     * A container is used as a faster and simpler way to obtain information or do some
     * actions on a Shape that would otherwise require more computation.
-    * Ideally the computation should take O(n) or less. This trait should be applied
+    * Ideally the computation should take O(n*log n) or less. This trait should be applied
     * to shapes that guarantee this fast computation
     *
     * @return A new Container where the current shape is completely inside its boundaries

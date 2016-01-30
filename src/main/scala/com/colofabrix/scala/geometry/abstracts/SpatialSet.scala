@@ -17,9 +17,16 @@
 package com.colofabrix.scala.geometry.abstracts
 
 /**
-  * A SpatialSet is a set of objects that can be located in a 2D Space. This trait is used to implement efficient ways
-  * for storing and retrieving objects in the cartesian plan, in particular for collision detection. Some of its
-  * implementation are the Quadtree, the SpatialHash and also the fake Dummy for testing
+  * A SpatialSet is a set of objects that can be located in a 2D Space.
+  *
+  * This trait is used to implement efficient ways for storing and retrieving objects
+  * in the cartesian plane, in particular for collision detection. Some of its implementation
+  * implementation are the [[com.colofabrix.scala.geometry.collections.LinkedQuadtree]], the
+  * [[com.colofabrix.scala.geometry.collections.SpatialHash]] and also the fake
+  * [[com.colofabrix.scala.geometry.collections.DummyQuadtree]] for testing.
+  *
+  * @param ev$1 Any conversion from type [[T]] to [[SpatialIndexable]]
+  * @tparam T The type of objects contained in the Set
   */
 abstract class SpatialSet[T: SpatialIndexable] {
 
@@ -36,6 +43,8 @@ abstract class SpatialSet[T: SpatialIndexable] {
   /**
     * Remove the object from the collection.
     *
+    * The function does not throw exceptions if the given object does not exists in the set
+    *
     * @return A new SpatialSet[T] without the specified object.
     */
   def -( p: T ): SpatialSet[T]
@@ -43,13 +52,13 @@ abstract class SpatialSet[T: SpatialIndexable] {
   /**
     * Insert an object into the SpatialSet.
     *
+    * Objects can be added multiple times to the set
+    *
     * @return A new SpatialSet[T} containing the new object
     */
   def +( p: T ): SpatialSet[T]
 
-  /**
-    * Area covered by the quadtree
-    */
+  /** The area covered by the quadtree */
   def bounds: Shape
 
   /**
@@ -60,7 +69,7 @@ abstract class SpatialSet[T: SpatialIndexable] {
   def clear(): SpatialSet[T]
 
   /**
-    * Tells if the collection is empty of Shapes
+    * Tells if the collection is empty
     *
     * @return true is the SpatialTree doesn't contain any Shape
     */
@@ -77,23 +86,28 @@ abstract class SpatialSet[T: SpatialIndexable] {
   /**
     * Updates the collection
     *
-    * The objects inside the collection can move and thus their internal representation can change
+    * The objects inside the collection can move and thus their internal representation
+    * can change. This function is required because there might be objects T that are
+    * mutable in their states.
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
   def refresh(): SpatialSet[T]
 
-  /**
-    * The number of objects that this collection is containing
-    */
+  /** The number of objects that this collection is containing */
   def size: Int
 
   /**
-    * Get the current tree as a list
+    * The current Set as a list
     *
     * @return A new List containing all the elements of the tree
     */
   def toList: List[T]
 
+  /**
+    * String representation of the Set
+    *
+    * @return A string that represents the Set
+    */
   override def toString: String = this.toList.toString()
 }

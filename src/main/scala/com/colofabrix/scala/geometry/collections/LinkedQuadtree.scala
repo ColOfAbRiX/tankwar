@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts
 import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
@@ -30,9 +29,9 @@ import scala.reflect.ClassTag
   * and perform common and useful operations on that
   */
 class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
-    override val toList: List[T],
-  private val _quadtree: LeafQuadtree[T]
-) extends abstracts.SpatialTree[T] {
+  override val toList: List[T],
+  private val _quadtree: SpatialTree[T]
+) extends SpatialTree[T] {
 
   /**
     * Create 4 quadrants into the node
@@ -42,7 +41,7 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
     *
     * @return A new LinkedQuadtree with 4 new subnodes
     */
-  override protected def split( ): LinkedQuadtree[T] = this
+  override protected def split( ): SpatialTree[T] = this
 
   /**
     * Remove the object from the quadtree.
@@ -51,21 +50,21 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
     *
     * @return A new quadtree without the specified Shape.
     */
-  override def -( p: T ): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList.filter( _ != p ), _quadtree - p )
+  override def -( p: T ): SpatialTree[T] = new LinkedQuadtree[T]( toList.filter( _ != p ), _quadtree - p )
 
   /**
     * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to their corresponding nodes.
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): LinkedQuadtree[T] = if( toList.contains( p ) ) this else new LinkedQuadtree[T]( p :: toList, _quadtree + p )
+  override def +( p: T ): SpatialTree[T] = new LinkedQuadtree[T]( p :: toList, _quadtree + p )
 
   /**
     * Insert a list of objects into the SpatialTree.
     *
     * @return A new quadtree containing the new PhysicalObject in the appropriate position
     */
-  override def ++( pi: List[T] ): LinkedQuadtree[T] = new LinkedQuadtree( pi ::: toList, _quadtree ++ pi )
+  override def ++( pi: List[T] ): SpatialTree[T] = new LinkedQuadtree( pi ::: toList, _quadtree ++ pi )
 
   /**
     * Area covered by the quadtree
@@ -77,7 +76,7 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
     *
     * @return A new quadtree, with the same parameters as the current one, but empty
     */
-  override def clear( ): LinkedQuadtree[T] = new LinkedQuadtree[T]( List[T]( ), _quadtree )
+  override def clear( ): SpatialTree[T] = new LinkedQuadtree[T]( List[T]( ), _quadtree )
 
   /**
     * The maximum depth of the Quadtree
@@ -102,7 +101,7 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
     */
-  override def nodes: List[abstracts.SpatialTree[T]] = _quadtree.nodes
+  override def nodes: List[SpatialTree[T]] = _quadtree.nodes
 
   /**
     * The shapes contained by the node.
@@ -116,7 +115,7 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
     *
     * @return A new instance of LinkedQuadtree with the updated objects
     */
-  override def refresh( ): LinkedQuadtree[T] = new LinkedQuadtree[T]( toList, _quadtree.refresh( ) )
+  override def refresh( ): SpatialTree[T] = new LinkedQuadtree[T]( toList, _quadtree.refresh( ) )
 
   /**
     * An object responsible to renderer the class where this trait is applied
@@ -141,6 +140,11 @@ class LinkedQuadtree[T: SpatialIndexable : ClassTag] protected(
     * @return A new string containing a textual representation of the tree
     */
   override def toString: String = s"Tree list content: ${toList.size }\n" + _quadtree.toString
+
+  /**
+    * The level of the root of the quadtree. If the quadtree is not a subtree of any other node, this parameter is 0
+    */
+  protected[geometry] override val level: Int = 0
 }
 
 object LinkedQuadtree {

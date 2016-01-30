@@ -16,9 +16,11 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.geometry.abstracts.{ Container, Shape, SpatialIndexable }
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
 import com.colofabrix.scala.math.{ Vect, XYVect }
+
+import scala.annotation.tailrec
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis
@@ -114,6 +116,26 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   }
 
   /**
+    * Splits a rectangular area in different boxes
+    *
+    * The area is divided in equal parts as specified by the parameters
+    *
+    * @param hSplit Number of horizontal divisions
+    * @param vSplit Number of vertical divisions
+    * @return A list of Box that cover the area
+    */
+  def split( hSplit: Int, vSplit: Int ) = {
+    val width = this.width / hSplit
+    val height = this.height / vSplit
+
+    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
+      Box( Vect.origin, XYVect( width, height ) )
+        .move( this.bottomLeft )
+        .move( XYVect( width * i, height * j ) )
+    }
+  }
+
+  /**
     * A renderer for a box
     *
     * @return A new instance of BoxRenderer for the current polygon
@@ -121,7 +143,6 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   override def renderer = new BoxRenderer( this )
 
   override def toString = s"Box($bottomLeft, $topRight)"
-
 }
 
 object Box {
@@ -223,23 +244,41 @@ object Box {
   }
 
   /**
-    * Splits a rectangular area in different boxes
+    * Distributes the objects in the buckets that contain it.
     *
-    * The area is divided in equal parts as specified by the parameters
+    * It is the most expensive function of the data structure, use it with care!
     *
-    * @param area   The area to split as a Box
-    * @param hSplit Number of horizontal divisions
-    * @param vSplit Number of vertical divisions
-    * @return A list of Box that cover the area
+    * @param nodes      The list of all the buckets that cover the whole area
+    * @param objects    The objects to assign
+    * @param compact    If true the function will not include in the output Boxes with empty content
+    * @param duplicates Allow objects to be placed in multiple nodes
+    * @tparam T Type of the object that must have a conversion to SpatialIndexable
+    * @return A Map that connects the boxes with a list of objects that contains. Objects can be present in multiple buckets
     */
-  def splitBox( area: Box, hSplit: Int, vSplit: Int ) = {
-    val width = area.width / hSplit
-    val height = area.height / vSplit
+  def spreadAcross[T: SpatialIndexable]( nodes: Seq[Box], objects: List[T], duplicates: Boolean = true, compact: Boolean = true ): Map[Box, Seq[T]] = {
+    def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container( o ) )
 
-    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
-      Box( Vect.origin, XYVect( width, height ) )
-        .move( area.bottomLeft )
-        .move( XYVect( width * i, height * j ) )
+    @tailrec
+    def loop( boxes: Seq[Box], obj: Seq[T], acc: Map[Box, Seq[T]] ): Map[Box, Seq[T]] = boxes match {
+
+      case Nil => acc
+
+      case b :: bs =>
+        val (objInBox, objLeft) =
+          if( duplicates ) {
+            Tuple2( obj filter { intersects( b, _ ) }, obj )
+          }
+          else {
+            obj partition { intersects( b, _ ) }
+          }
+
+        loop(
+          bs, objLeft,
+          if( objInBox.isEmpty && compact ) acc else acc + ((b, objInBox))
+        )
     }
+
+    val result = loop( nodes, objects, Map.empty[Box, Seq[T]] )
+    result
   }
 }

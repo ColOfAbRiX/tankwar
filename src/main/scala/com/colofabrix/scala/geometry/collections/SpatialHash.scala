@@ -86,11 +86,6 @@ class SpatialHash[T: SpatialIndexable] protected(
     * @return A new SpatialSet[T} containing the new object
     */
   override def +( p: T ): SpatialSet[T] = {
-    // Never add twice the same object
-    if( _objects.contains( p ) ) {
-      return this
-    }
-
     val newObjects = p +: _objects
 
     // For this operation there is only one scan that goes through the buckets to find the ones which contain
@@ -112,7 +107,7 @@ class SpatialHash[T: SpatialIndexable] protected(
   override def refresh( ): SpatialSet[T] =
     new SpatialHash[T](
       bounds, hSplit, vSplit,
-      SpatialHash.assignToBuckets( _bucketList, _objects ),
+      Box.spreadAcross( _bucketList, _objects ),
       Some( _objects ), Some( _bucketList )
     )
 
@@ -144,31 +139,6 @@ object SpatialHash {
   protected def shape[U: SpatialIndexable]( u: U ): Container = implicitly[SpatialIndexable[U]].container( u )
 
   /**
-    * Distributes the objects in the buckets that contain it.
-    *
-    * It is the most expensive function of the data structure, use it with care!
-    *
-    * @param rawBuckets The list of all the buckets that cover the whole area
-    * @param objects    The objects to assign
-    * @tparam T Type of the object that must have a conversion to SpatialIndexable
-    * @return A Map that connects the boxes with a list of objects that contains. Objects can be present in multiple buckets
-    */
-  protected def assignToBuckets[T: SpatialIndexable]( rawBuckets: Seq[Box], objects: List[T] ): Map[Box, Seq[T]] = {
-    // I create the pairs (object, box that intersects)
-    val assigned = for(
-      b ← rawBuckets;
-      s ← objects if b.intersects( shape( s ) )
-    ) yield (b, s)
-
-    // Clean the format of the association above, from (Box, (Box, Shape)) -> (Box, Shape)
-    assigned
-      .groupBy( _._1 )
-      .map { x ⇒
-        (x._1, x._2.map( _._2 ))
-      }
-  }
-
-  /**
     * Creates a new SpatialHash object
     *
     * @param objects The list of the objects to include in the SpatialHash
@@ -180,11 +150,11 @@ object SpatialHash {
     */
   def apply[T: SpatialIndexable]( bounds: Shape, objects: List[T], hSplit: Int, vSplit: Int ) = {
     val box = Box.getAsBox( bounds )
-    val bucketList = Box.splitBox( box, hSplit, vSplit ).toList
+    val bucketList = box.split( hSplit, vSplit ).toList
 
     new SpatialHash[T](
       box, hSplit, vSplit,
-      assignToBuckets( bucketList, objects ),
+      Box.spreadAcross( bucketList, objects ),
       Some( objects ),
       Some( bucketList )
     )

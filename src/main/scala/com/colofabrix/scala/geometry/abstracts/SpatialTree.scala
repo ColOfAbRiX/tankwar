@@ -36,11 +36,45 @@ abstract class SpatialTree[T: SpatialIndexable] extends SpatialSet[T] with Rende
   protected def split(): SpatialTree[T]
 
   /**
+    * The level of the root of the quadtree. If the quadtree is not a subtree of any other node, this parameter is 0
+    */
+  protected[geometry] def level: Int
+
+  /**
+    * Insert an object into the SpatialSet.
+    *
+    * Objects can be added multiple times to the set
+    *
+    * @return A new SpatialSet[T} containing the new object
+    */
+  override def +( p: T ): SpatialTree[T]
+
+  /**
+    * Remove the object from the collection.
+    *
+    * The function does not throw exceptions if the given object does not exists in the set
+    *
+    * @return A new SpatialTree[T] without the specified object.
+    */
+  override def -( p: T ): SpatialTree[T]
+
+  /**
     * Insert a list of objects into the SpatialTree.
     *
-    * @return A new SpatialTree containing the new list of objects in the appropriate positions
+    * @return A new SpatialTree[T] containing the new list of objects in the appropriate positions
     */
   def ++( pi: List[T] ): SpatialTree[T]
+
+  /**
+    * Updates the collection
+    *
+    * The objects inside the collection can move and thus their internal representation
+    * can change. This function is required because there might be objects T that are
+    * mutable in their states.
+    *
+    * @return A new instance of a SpatialSet with the updated objects
+    */
+  override def refresh( ): SpatialTree[T]
 
   /**
     * The maximum depth of the Quadtree

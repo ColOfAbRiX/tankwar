@@ -16,7 +16,7 @@
 
 package com.colofabrix.test.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialTree }
+import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.collections.DummyQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeBaseTest
@@ -32,6 +32,8 @@ class DummyQuadtreeTest extends SpatialTreeBaseTest[DummyQuadtree[Shape]] {
     * @param objects The objects to add to the list
     * @return A new instance of a SpatialSet[T]
     */
-  override protected def getNewSpatialSet( bounds: Box, objects: List[Shape] ): SpatialTree[Shape] =
+  override
+  protected
+  def getNewSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     DummyQuadtree( bounds, objects )
 }

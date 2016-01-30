@@ -23,7 +23,7 @@ import com.colofabrix.scala.geometry.shapes._
   *
   * A container is used as a faster and simpler way to obtain information or do some
   * actions on a Shape that would otherwise require more computation.
-  * Ideally the computation should take O(n) or O(n*log(n)). This trait should be applied
+  * Ideally the computations should take less than O(n*log(n)). This trait should be applied
   * to shapes that guarantee this fast computation
   */
 trait Container extends Shape {
@@ -41,13 +41,13 @@ trait Container extends Shape {
 object Container {
 
   /**
-    * Finds the container that best contain a given Shape
+    * Finds the container that best contains a given Shape
     *
     * "Best" means the container that has the minimal area and that fully contains the shape. This function will
     * try all the available (and registered) containers so it might not be very efficient
     *
     * @param s The shape that must be surrounded by a container
-    * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
+    * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
     */
   def bestFit( s: Shape ): Container = {
     // I use a List so I can apply a method on it. For Shapes that are also Containers each `bestFix` is already

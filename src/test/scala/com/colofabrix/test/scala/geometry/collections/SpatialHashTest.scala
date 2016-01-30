@@ -31,7 +31,7 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
 
   private val _hSplit = 2
   private val _vSplit = 2
-  private val _bucketList = Box.splitBox( defaultBox, _hSplit, _vSplit )
+  private val _bucketList = testArea.split( _hSplit, _vSplit )
 
   /**
     * Creates a new object of type T to test
@@ -40,7 +40,9 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
     * @param objects The objects to add to the list
     * @return A new instance of a SpatialSet[T]
     */
-  override protected def getNewSpatialSet( bounds: Box, objects: List[Shape] ): SpatialHash[Shape] =
+  override
+  protected
+  def getNewSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     SpatialHash( bounds, objects, _hSplit, _vSplit )
 
   //
@@ -51,10 +53,10 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
     val shapesPerBucket = 5
 
     val filledBuckets = for( b <- _bucketList ) yield {
-      List.fill( shapesPerBucket )( ShapeUtils.randomCircle( b ) )
+      List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = getNewSpatialSet( defaultBox, filledBuckets.flatMap( x => x ).toList )
+    val set1 = getNewSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
 
     for( b <- filledBuckets; s <- b ) {
       set1.lookAround( s ).size should equal( shapesPerBucket )
@@ -65,10 +67,10 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
     val shapesPerBucket = 5
 
     val filledBuckets = for( b <- _bucketList ) yield {
-      List.fill( shapesPerBucket )( ShapeUtils.randomCircle( b ) )
+      List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = getNewSpatialSet( defaultBox, filledBuckets.flatMap( x => x ).toList )
+    val set1 = getNewSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
 
     for( b <- filledBuckets;
          s <- b;
@@ -79,13 +81,13 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
   }
 
   "The lookAround member" must "return the same Shape twice when the Shape overlaps buckets" in {
-    val center = XYVect( defaultBox.width / _hSplit, defaultBox.height / _vSplit ) + defaultBox.bottomLeft
+    val center = XYVect( testArea.width / _hSplit, testArea.height / _vSplit ) + testArea.bottomLeft
 
     val shape = new Circle( center, 10.0 )
     val checkShape1 = new Circle( center - 10.0, 5.0 )
     val checkShape2 = new Circle( center + 10.0, 5.0 )
 
-    val result = getNewSpatialSet( defaultBox, List( shape ) )
+    val result = getNewSpatialSet( testArea, List( shape ) )
 
     result.lookAround( checkShape1 ).contains( shape ) should equal( true )
     result.lookAround( checkShape2 ).contains( shape ) should equal( true )

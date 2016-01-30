@@ -16,8 +16,7 @@
 
 package com.colofabrix.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts
-import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialIndexable }
+import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 import com.colofabrix.scala.gfx.renderers.QuadtreeRenderer
@@ -41,12 +40,12 @@ import scala.reflect.ClassTag
   */
 class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
   override val bounds: Box,
-  val level: Int,
+  override val level: Int,
   _nodes: Option[List[LeafQuadtree[T]]],
   _objects: Option[List[T]],
   override val splitSize: Int,
   override val depth: Int
-) extends abstracts.SpatialTree[T] {
+) extends SpatialTree[T] {
 
   require( splitSize > 0, "The bucket size must be an integer greater than zero" )
   require( depth > 0, "The number of levels must be an integer greater than zero" )
@@ -56,12 +55,17 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
     */
-  val nodes: List[LeafQuadtree[T]] = _nodes.getOrElse( List.empty[LeafQuadtree[T]] )
+  val nodes = _nodes.getOrElse( List.empty[LeafQuadtree[T]] )
 
   /**
     * The shapes contained by the node.
     */
   val objects: List[T] = _objects.getOrElse( List.empty[T] )
+
+  /**
+    * List of the boxes that cover the subnodes
+    */
+  protected lazy val quadLookup = box.split( 2, 2 ).toList
 
   /**
     * Create 4 quadrants into the node
@@ -72,16 +76,17 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
     * @return A new LeafQuadtree with 4 new subnodes
     */
   override protected def split( ) = {
-    val quadLookup = Box.splitBox( box, 2, 2 ).toList
+    val tmp = Box.spreadAcross( quadLookup, objects, compact = false )
 
     // Create a LeafQuadtree on each quadrant and insert in each one of the the Shapes that it's able to contain
-    val quads = quadLookup map { q ⇒
-      val shapesInNode = objects.filter( s ⇒ q.intersects( shape( s ) ) )
-      new LeafQuadtree[T]( q, level + 1, None, Some( shapesInNode ), splitSize, depth )
-    }
+    val quads =
+      tmp map {
+        case (box, shapes) =>
+          new LeafQuadtree[T]( box, level + 1, None, Some( shapes.toList ), splitSize, depth )
+      }
 
     // And return a whole new LeafQuadtree as a result of the split
-    new LeafQuadtree[T]( box, level, Some( quads ), None, splitSize, depth )
+    new LeafQuadtree[T]( box, level, Some( quads.toList ), None, splitSize, depth )
   }
 
   /**
@@ -127,13 +132,8 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
     // Treats the case of the node not being a leaf
     if( nodes.nonEmpty ) {
       // Try to add the object to every node (the + method itself checks if the object belongs to its)
-      val newNodes = nodes map { _ + p }
+      val newNodes = nodes map { n => n + p }
       return new LeafQuadtree[T]( bounds, level, Some( newNodes ), None, splitSize, depth )
-    }
-
-    // Never add twice the same object
-    if( objects.contains( p ) ) {
-      return this
     }
 
     // Check if it has to split or not
@@ -169,16 +169,13 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
       return new LeafQuadtree[T]( bounds, level, Some( newNodes ), None, splitSize, depth )
     }
 
-    // Never add twice the same object in the node
-    val uniqueObjects = shapesInNode.filter( !objects.contains( _ ) )
-
     // Check if it has to split or not
     if( level < depth - 1 && objects.length >= splitSize ) {
-      return split( ) ++ uniqueObjects
+      return split( ) ++ shapesInNode
     }
 
     // Leaf case, add the objects and exit
-    return new LeafQuadtree[T]( bounds, level, None, Some( uniqueObjects ::: objects ), splitSize, depth )
+    return new LeafQuadtree[T]( bounds, level, None, Some( shapesInNode ::: objects ), splitSize, depth )
   }
 
   /**
@@ -245,7 +242,7 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
       // Objects that didn't move from their node
       var stillObjects = List[T]( )
       // Subnodes that have been refreshed
-      var refreshedNodes = List[LeafQuadtree[T]]( )
+      var refreshedNodes = List.empty[LeafQuadtree[T]]
 
       // Intermediate nodes case
       for( n ← q.nodes ) {
@@ -269,7 +266,7 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
         }
       }
 
-      (movedFromNodes, new LeafQuadtree[T]( q.bounds, q.level, Some( tmp._2 ), Some( stillObjects ), q.splitSize, q.depth ))
+      (movedFromNodes, new LeafQuadtree[T]( Box.getAsBox( q.bounds ), q.level, Some( tmp._2 ), Some( stillObjects ), q.splitSize, q.depth ))
     }
 
     // Refresh all the nodes and collect the moved objects. Then inserts back the moved object to where they belong
@@ -313,25 +310,25 @@ class LeafQuadtree[T: SpatialIndexable : ClassTag] protected(
       .stripMargin
   }
 
+
   /**
     * Un-splits a set of nodes if they are empty
     *
     * @param q The list of subnodes to check for un-splitting
-    * @return
+    * @return A tuple containing 1) the merged objects and 2) the list of unmerged nodes. There can be either 1) or 2), not both
     */
   @inline
-  def unsplit( q: List[LeafQuadtree[T]] ): (List[T], List[LeafQuadtree[T]]) = {
-    val objectsInSubnodes = q.flatMap( _.objects )
+  protected def unsplit( q: List[LeafQuadtree[T]] ): (List[T], List[LeafQuadtree[T]]) = {
+    if( q.nonEmpty ) {
+      val objectsInSubnodes = q.flatMap( _.objects )
 
-    if( objectsInSubnodes.size < splitSize &&
-      q.nonEmpty &&
-      q.forall( _.nodes.isEmpty ) ) {
-      return (objectsInSubnodes, List.empty[LeafQuadtree[T]])
+      if( objectsInSubnodes.size < splitSize && q.forall( _.nodes.isEmpty ) ) {
+        return (objectsInSubnodes, List.empty[LeafQuadtree[T]])
+      }
     }
 
     (List.empty[T], q)
   }
-
 }
 
 object LeafQuadtree {
@@ -343,17 +340,26 @@ object LeafQuadtree {
     * @param objects   The initial data contained by the LinkedLeafQuadtreeTmp
     * @param splitSize Max size of each node before a split happens
     * @param maxDepth  Depth of the LinkedLeafQuadtreeTmp
-    * @tparam T Type of `PhysicalObject` that the LinkedLeafQuadtreeTmp will contain
+    * @tparam T Type of [[com.colofabrix.scala.simulation.abstracts.PhysicalObject]] that the LinkedLeafQuadtreeTmp will contain
     * @return A new instance of LinkedLeafQuadtreeTmp
     */
-  def apply[T: SpatialIndexable : ClassTag]( bounds: Shape, objects: List[T] = List[T]( ), splitSize: Int = 1, maxDepth: Int = 1 ) = {
+  def apply[T: SpatialIndexable : ClassTag](
+    bounds: Shape,
+    objects: List[T] = List[T]( ),
+    splitSize: Int = 1,
+    maxDepth: Int = 1
+  ): LeafQuadtree[T] = {
     val emptySet = new LeafQuadtree[T](
       Box.getAsBox( bounds ), 0,
       None, None,
       splitSize, maxDepth
     )
 
-    if( objects.isEmpty ) emptySet else emptySet ++ objects
+    val tree = if( objects.isEmpty ) emptySet else emptySet ++ objects
+    tree match {
+      case lq: LeafQuadtree[T] => lq
+      case _ => throw new IllegalArgumentException
+    }
   }
 
 }
