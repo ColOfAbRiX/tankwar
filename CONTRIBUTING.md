@@ -21,9 +21,29 @@ coding habits.
 
 ### Prerequistes
 
-* Download and install your favoure JDK
+* Download and install your favoure JDK (7 and up)
 * Download and install Scala
 * Download an install SBT
+
+### Run the simulation
+
+* Clone the repository from Github `git clone git@github.com:ColOfAbRiX/tankwar.git`
+* Open the command line and browse to the repository directory
+* Run `sbt run`
+
+###Using Vangrant and/or Ansible
+
+With the probject are included some files to provision a development virtual machine with Vagrant and configured with an
+Ansible script. The steps to follow are
+
+* Make sure you have a virtualization tools (at the moment only VirtualBox is supported)
+* Make sure you have Vagrant installed
+* On the command line go to `<project_root>/env/dev-linux`
+* Start Vagrant with `vagrant up`
+
+A new VM will be provisioned and get redy to work on the project. If you don't want a new virtual machine to be spawned
+another Ansible script named `ansible-local.yml` is provided that will install only the bare minimum to run TankWar on
+you current installation.
 
 ### Steps to contribute
 

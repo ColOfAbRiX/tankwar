@@ -79,13 +79,7 @@ state-of-the-art practices. I will be pleased to receive corrections and suggest
 
 ##Quick Start
 
-### Run the simulation
-
-The quick start assumes you are using the [Reccomended Settings][CONTRIBUTING.md]
-
-* Clone the repository from Github `git clone git@github.com:ColOfAbRiX/tankwar.git`
-* Open the command line and browse to the repository directory
-* Run `sbt run`
+For quick start read the [Getting Started](CONTRIBUTING.md) section in the CONTRIBUTING.md file
 
 ##Topics touched by the project
 
