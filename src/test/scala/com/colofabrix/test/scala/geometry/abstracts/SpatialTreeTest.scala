@@ -18,11 +18,12 @@ package com.colofabrix.test.scala.geometry.abstracts
 
 import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialTree }
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.test.scala.geometry.ShapeUtils
 
 /**
   * Abstract class to define tests for [[SpatialTree]] implementations
   */
-trait SpatialTreeBaseTest[T <: SpatialTree[Shape]] extends SpatialSetBaseTest[T] {
+trait SpatialTreeTest[T <: SpatialTree[Shape]] extends SpatialSetTest[T] {
   protected val splitSize = 2
   protected val maxDepth = 3
 
@@ -43,7 +44,7 @@ trait SpatialTreeBaseTest[T <: SpatialTree[Shape]] extends SpatialSetBaseTest[T]
     val smallestUnit = Box( testArea.width / smallestSplit, testArea.height / smallestSplit )
 
     val shapes = List.fill( splitSize * maxDepth )( ShapeUtils.rndCircle( smallestUnit ) )
-    val set: SpatialTree[Shape] = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set: SpatialTree[Shape] = newSpatialSet( testArea, List.empty[Shape] )
 
     val result = shapes.foldLeft( set )( _ + _ )
 
@@ -59,7 +60,7 @@ trait SpatialTreeBaseTest[T <: SpatialTree[Shape]] extends SpatialSetBaseTest[T]
 
   "The add-list member" must "add more than one Shape at the time" in {
     val shapes = List.fill( 5 )( ShapeUtils.rndCircle( testArea ) )
-    val set = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set = newSpatialSet( testArea, List.empty[Shape] )
 
     val result = set ++ shapes
 
@@ -67,8 +68,8 @@ trait SpatialTreeBaseTest[T <: SpatialTree[Shape]] extends SpatialSetBaseTest[T]
   }
 
   "The add-list member" must "add duplicate elements" in {
-    val set = getNewSpatialSet( testArea, List.empty[Shape] )
-    val shapes = List.fill( 5 )( ShapeUtils.rndCircle( testArea ) )
+    val set = newSpatialSet( testArea, List.empty[Shape] )
+    val shapes = List.fill( 2 )( ShapeUtils.rndCircle( testArea ) )
 
     val intermediateResult = set ++ shapes
     val result = intermediateResult ++ shapes

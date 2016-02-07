@@ -26,3 +26,6 @@
 .idea/dbnavigator.xml
 .idea/excludeFromValidation.xml
 .idea/play2_compiler_settings.xml
+
+# Vagrant
+.vagrant

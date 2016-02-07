@@ -35,7 +35,7 @@ import scala.annotation.tailrec
   * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
   * @param topRight   Rectangle right-top point, in any quadrant of the plane
   */
-final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
+final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
   Seq(
     bottomLeft,
     XYVect( bottomLeft.x, topRight.y ),
@@ -59,7 +59,7 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   /**
     * Center of the Box
     */
-  lazy val center = bottomLeft + XYVect( (topRight.x - bottomLeft.x) / 2.0, (topRight.y - bottomLeft.y) / 2.0 )
+  lazy val center = bottomLeft + XYVect( width / 2.0, height / 2.0 )
 
   /**
     * Height of the rectangle
@@ -74,7 +74,7 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   /**
     * The vertex that is closer to the origin of the axes.
     */
-  lazy val origin = Seq( topRight, bottomLeft ).minBy( _.ρ )
+  lazy val origin = vertices.minBy( _.ρ )
 
   /**
     * Moves a polygon shifting all its vertices by a vector quantity
@@ -104,11 +104,14 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
     */
   override def intersects( that: Shape ): Boolean = that match {
 
-    // Box-circle case I use the code in Circle, as it's already present, and the commutative property of intersection
-    case c: Circle ⇒ c.intersects( this )
+    // Box-box case - Ref: https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
+    case c: Circle ⇒ this.contains( c.center ) ||
+      this.verticesIterator.foldLeft( false ) {
+        case ( r, p1 +: p0 +: Nil ) ⇒ c.intersects( p0, p1 )
+      }
 
     // Box-box case I use a faster check
-    case b: Box ⇒ this.vertices.foldLeft( false )( _ && this.contains( _ ) )
+    case b: Box ⇒ b.vertices.foldLeft( false ) { _ || this.contains( _ ) }
 
     // For other comparisons I fell back to the parent
     case _ ⇒ super.intersects( that )
@@ -127,11 +130,10 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   def split( hSplit: Int, vSplit: Int ) = {
     val width = this.width / hSplit
     val height = this.height / vSplit
+    val templateBox = Box( Vect.origin, XYVect( width, height ) ).move( this.bottomLeft )
 
-    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
-      Box( Vect.origin, XYVect( width, height ) )
-        .move( this.bottomLeft )
-        .move( XYVect( width * i, height * j ) )
+    for ( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
+      templateBox.move( XYVect( width * i, height * j ) )
     }
   }
 
@@ -143,14 +145,24 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   override def renderer = new BoxRenderer( this )
 
   override def toString = s"Box($bottomLeft, $topRight)"
+
+  override def equals( other: Any ): Boolean = other match {
+    case that: Box ⇒
+      bottomLeft == that.bottomLeft &&
+        topRight == that.topRight
+    case _ ⇒ false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq( bottomLeft, topRight )
+    state.map( _.hashCode() ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+  }
 }
 
 object Box {
 
   /**
     * Constructor that uses width, height and centers the Box at a specific point
-    *
-    * TODO: Fix the "can be negative" part as now there is no checking for this
     *
     * @param center Center of the box
     * @param width  Width of the box
@@ -223,14 +235,14 @@ object Box {
     // If it's a polygon, find its limits - O(n)
     case p: Polygon ⇒
       // Finds the minimum and maximum coordinates for the points
-      var (minX, minY) = (Double.MaxValue, Double.MaxValue)
-      var (maxX, maxY) = (Double.MinValue, Double.MinValue)
+      var ( minX, minY ) = ( Double.MaxValue, Double.MaxValue )
+      var ( maxX, maxY ) = ( Double.MinValue, Double.MinValue )
 
-      for( v ← p.vertices ) {
-        minX = if( minX > v.x ) v.x else minX
-        minY = if( minY > v.y ) v.y else minY
-        maxX = if( maxX < v.x ) v.x else maxX
-        maxY = if( maxY < v.y ) v.y else maxY
+      for ( v ← p.vertices ) {
+        minX = if ( minX > v.x ) v.x else minX
+        minY = if ( minY > v.y ) v.y else minY
+        maxX = if ( maxX < v.x ) v.x else maxX
+        maxY = if ( maxY < v.y ) v.y else maxY
       }
 
       // Creates the Box
@@ -248,37 +260,31 @@ object Box {
     *
     * It is the most expensive function of the data structure, use it with care!
     *
-    * @param nodes      The list of all the buckets that cover the whole area
-    * @param objects    The objects to assign
-    * @param compact    If true the function will not include in the output Boxes with empty content
-    * @param duplicates Allow objects to be placed in multiple nodes
+    * @param nodes   The list of all the buckets that cover the whole area
+    * @param objects The objects to assign
+    * @param compact If true the function will not include in the output Boxes with empty content
     * @tparam T Type of the object that must have a conversion to SpatialIndexable
     * @return A Map that connects the boxes with a list of objects that contains. Objects can be present in multiple buckets
     */
-  def spreadAcross[T: SpatialIndexable]( nodes: Seq[Box], objects: List[T], duplicates: Boolean = true, compact: Boolean = true ): Map[Box, Seq[T]] = {
+  def spreadAcross[T: SpatialIndexable](
+    nodes: Seq[Box],
+    objects: Seq[T],
+    compact: Boolean = true
+  ) = {
+    @inline
     def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container( o ) )
 
     @tailrec
-    def loop( boxes: Seq[Box], obj: Seq[T], acc: Map[Box, Seq[T]] ): Map[Box, Seq[T]] = boxes match {
-
-      case Nil => acc
-
-      case b :: bs =>
-        val (objInBox, objLeft) =
-          if( duplicates ) {
-            Tuple2( obj filter { intersects( b, _ ) }, obj )
-          }
-          else {
-            obj partition { intersects( b, _ ) }
-          }
-
+    def loop( boxes: Seq[Box], acc: Map[Box, Seq[T]] ): Map[Box, Seq[T]] = boxes match {
+      case Nil ⇒ acc
+      case b +: bs ⇒
+        val objInBox = objects filter { intersects( b, _ ) }
         loop(
-          bs, objLeft,
-          if( objInBox.isEmpty && compact ) acc else acc + ((b, objInBox))
+          bs,
+          if ( objInBox.isEmpty && compact ) acc else acc + ( ( b, objInBox ) )
         )
     }
 
-    val result = loop( nodes, objects, Map.empty[Box, Seq[T]] )
-    result
+    loop( nodes, Map.empty[Box, Seq[T]] )
   }
 }

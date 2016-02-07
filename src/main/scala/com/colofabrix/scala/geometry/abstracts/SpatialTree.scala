@@ -63,7 +63,7 @@ abstract class SpatialTree[T: SpatialIndexable] extends SpatialSet[T] with Rende
     *
     * @return A new SpatialTree[T] containing the new list of objects in the appropriate positions
     */
-  def ++( pi: List[T] ): SpatialTree[T]
+  def ++( pi: Seq[T] ): SpatialTree[T]
 
   /**
     * Updates the collection
@@ -74,7 +74,7 @@ abstract class SpatialTree[T: SpatialIndexable] extends SpatialSet[T] with Rende
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
-  override def refresh( ): SpatialTree[T]
+  override def refresh(): SpatialTree[T]
 
   /**
     * The maximum depth of the Quadtree
@@ -84,12 +84,12 @@ abstract class SpatialTree[T: SpatialIndexable] extends SpatialSet[T] with Rende
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
     */
-  def nodes: List[SpatialTree[T]]
+  def nodes: Seq[SpatialTree[T]]
 
   /**
     * The shapes contained by the node.
     */
-  def objects: List[T]
+  def objects: Seq[T]
 
   /**
     * An object responsible to renderer the class where this trait is applied

@@ -52,7 +52,8 @@ object Container {
   def bestFit( s: Shape ): Container = {
     // I use a List so I can apply a method on it. For Shapes that are also Containers each `bestFix` is already
     // optimized and it will not consume much time, so I can leave all the calls here
-    val tries = Box.bestFit( s ) :: Circle.bestFit( s ) :: Nil
+    // FIXME: As the A Fast Approximate Bounding Ball is not implemented, Circle.bestFix() must be kept out
+    val tries = Box.bestFit( s ) :: Nil //Circle.bestFit( s ) :: Nil
 
     // Return the Container with the smaller area
     tries.minBy( _.area )

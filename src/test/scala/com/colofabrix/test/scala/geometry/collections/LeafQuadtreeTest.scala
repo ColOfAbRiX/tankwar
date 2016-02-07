@@ -19,12 +19,13 @@ package com.colofabrix.test.scala.geometry.collections
 import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialSet, SpatialTree }
 import com.colofabrix.scala.geometry.collections.LeafQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.{ ShapeUtils, SpatialTreeBaseTest }
+import com.colofabrix.test.scala.geometry.ShapeUtils
+import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeTest
 
 /**
   * Unit testing specific for the [[LeafQuadtree]] class
   */
-class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
+class LeafQuadtreeTest extends SpatialTreeTest[LeafQuadtree[Shape]] {
 
   /**
     * Creates a new object of type T to test
@@ -35,7 +36,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
     */
   override
   protected
-  def getNewSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
+  def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     LeafQuadtree( bounds, objects, splitSize, maxDepth )
 
   //
@@ -43,7 +44,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
   //
 
   "The nodes member" must "remain empty when adding less than splitSize items" in {
-    val set = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set = newSpatialSet( testArea, List.empty[Shape] )
     val shapes = List.fill( splitSize - 1 )( ShapeUtils.rndCircle( testArea ) )
 
     val result = shapes.foldLeft( set )( _ + _ )
@@ -52,7 +53,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
   }
 
   "The nodes member" must "be filled when adding more than splitSize items" in {
-    val set = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set = newSpatialSet( testArea, List.empty[Shape] )
     val shapes = List.fill( splitSize + 1 )( ShapeUtils.rndCircle( testArea ) )
 
     val result = shapes.foldLeft( set )( _ + _ )
@@ -64,7 +65,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
     val shapes1 = List.fill( splitSize - 1 )( ShapeUtils.rndCircle( testArea ) )
     val shapes2 = List.fill( 2 )( ShapeUtils.rndCircle( testArea ) )
 
-    val set: SpatialSet[Shape] = getNewSpatialSet( testArea, shapes1 ::: shapes2 )
+    val set: SpatialSet[Shape] = newSpatialSet( testArea, shapes1 ::: shapes2 )
     val result = shapes2.foldLeft( set )( _ - _ ) match {
       case st: SpatialTree[Shape] => st
       case _ => fail( )
@@ -78,7 +79,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
   //
 
   "The objects member" must "fill when less than splitSize items are added" in {
-    val set: SpatialSet[Shape] = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set: SpatialSet[Shape] = newSpatialSet( testArea, List.empty[Shape] )
     val shapes = List.fill( splitSize - 1 )( ShapeUtils.rndCircle( testArea ) )
 
     val result = shapes.foldLeft( set )( _ + _ ) match {
@@ -90,7 +91,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
   }
 
   "The objects member" must "empty when more than splitSize items are added" in {
-    val set: SpatialSet[Shape] = getNewSpatialSet( testArea, List.empty[Shape] )
+    val set: SpatialSet[Shape] = newSpatialSet( testArea, List.empty[Shape] )
     val shapes = List.fill( splitSize + 1 )( ShapeUtils.rndCircle( testArea ) )
 
     val result = shapes.foldLeft( set )( _ + _ ) match {
@@ -104,7 +105,7 @@ class LeafQuadtreeTest extends SpatialTreeBaseTest[LeafQuadtree[Shape]] {
   "The objects member" must "fill when enough items are removed from the subnodes" in {
     val shapes1 = List.fill( splitSize - 1 )( ShapeUtils.rndCircle( testArea ) )
     val shapes2 = List.fill( 2 )( ShapeUtils.rndCircle( testArea ) )
-    val set: SpatialSet[Shape] = getNewSpatialSet( testArea, shapes1 ::: shapes2 )
+    val set: SpatialSet[Shape] = newSpatialSet( testArea, shapes1 ::: shapes2 )
 
     val result = shapes2.foldLeft( set )( _ - _ ) match {
       case st: SpatialTree[Shape] => st

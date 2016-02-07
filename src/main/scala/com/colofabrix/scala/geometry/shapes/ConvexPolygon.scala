@@ -75,4 +75,13 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     case _ ⇒ super.intersects( that )
 
   }
+
+  /**
+    * Moves a polygon shifting all its vertices by a vector quantity
+    *
+    * @param where The vector specifying how to move the polygon
+    * @return A new polygon moved of {where}
+    */
+  override def move( where: Vect ) = new ConvexPolygon( vertices.map( v ⇒ v + where ) )
+
 }

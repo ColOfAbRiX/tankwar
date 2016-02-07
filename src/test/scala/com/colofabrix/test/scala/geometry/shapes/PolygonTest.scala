@@ -16,8 +16,6 @@
 
 package com.colofabrix.test.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.shapes.{ ConvexPolygon, Polygon }
-import com.colofabrix.scala.math.XYVect
 import org.scalatest.{ Matchers, WordSpec }
 
 /**
@@ -27,6 +25,7 @@ import org.scalatest.{ Matchers, WordSpec }
   */
 class PolygonTest extends WordSpec with Matchers {
 
+  /*
   "A generic polygon" when {
 
     "Matched with a point" must {
@@ -153,4 +152,47 @@ class PolygonTest extends WordSpec with Matchers {
 
   }
 
+
+  "Check containment" when {
+
+    "Shape is a polygon" in {
+      val box = Box( Vect.zero, XYVect( 100, 100 ) )
+
+      // Overlaps one border
+      val contained1 = Box( XYVect( 50, 50 ), XYVect( 100, 100 ) )
+      // Fully inside the box
+      val contained2 = Box( XYVect( 25, 25 ), XYVect( 75, 75 ) )
+      // Partially inside the box
+      val notContained1 = Box( XYVect( -10, -10 ), XYVect( 75, 75 ) )
+      // Fully outside the box
+      val notContained2 = Box( XYVect( -100, 0 ), XYVect( -50, 50 ) )
+
+      box.contains( contained1 ) should equal( true )
+      box.contains( contained2 ) should equal( true )
+
+      box.contains( notContained1 ) should equal( false )
+      box.contains( notContained2 ) should equal( false )
+    }
+
+    "Shape is a circle" in {
+      val box = Box( Vect.zero, XYVect( 100, 100 ) )
+
+      // Overlaps one border
+      val contained1 = new Circle( XYVect( 50, 50 ), 10 )
+      // Fully inside the box
+      val contained2 = new Circle( XYVect( 50, 50 ), 50 )
+      // Partially inside the box
+      val notContained1 = new Circle( XYVect( 150, 50 ), 100 )
+      // Fully outside the box
+      val notContained2 = new Circle( XYVect( 150, 50 ), 10 )
+
+      box.contains( contained1 ) should equal( true )
+      box.contains( contained2 ) should equal( true )
+
+      box.contains( notContained1 ) should equal( false )
+      box.contains( notContained2 ) should equal( false )
+    }
+
+  }
+  */
 }

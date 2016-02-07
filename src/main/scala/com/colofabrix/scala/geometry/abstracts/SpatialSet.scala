@@ -25,7 +25,6 @@ package com.colofabrix.scala.geometry.abstracts
   * [[com.colofabrix.scala.geometry.collections.SpatialHash]] and also the fake
   * [[com.colofabrix.scala.geometry.collections.DummyQuadtree]] for testing.
   *
-  * @param ev$1 Any conversion from type [[T]] to [[SpatialIndexable]]
   * @tparam T The type of objects contained in the Set
   */
 abstract class SpatialSet[T: SpatialIndexable] {
@@ -81,7 +80,7 @@ abstract class SpatialSet[T: SpatialIndexable] {
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return A list of object that can collide with the given Shape
     */
-  def lookAround( s: Shape ): List[T]
+  def lookAround( s: Shape ): Seq[T]
 
   /**
     * Updates the collection

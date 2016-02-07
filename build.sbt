@@ -75,6 +75,7 @@ scalacOptions ++= Seq(
 
 javaOptions ++= Seq(
   "-server",
+  "-Xverify:none",
   // Memory settings
   "-XX:InitialHeapSize=1G",
   "-XX:MaxHeapSize=1G",

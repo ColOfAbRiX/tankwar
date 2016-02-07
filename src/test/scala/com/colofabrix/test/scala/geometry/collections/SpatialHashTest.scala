@@ -20,14 +20,15 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.collections.SpatialHash
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.math.XYVect
-import com.colofabrix.test.scala.geometry.abstracts.{ ShapeUtils, SpatialSetBaseTest }
+import com.colofabrix.test.scala.geometry.ShapeUtils
+import com.colofabrix.test.scala.geometry.abstracts.SpatialSetTest
 
 import scala.language.implicitConversions
 
 /**
   * Unit testing specific for the [[SpatialHash]] class
   */
-final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
+final class SpatialHashTest extends SpatialSetTest[SpatialHash[Shape]] {
 
   private val _hSplit = 2
   private val _vSplit = 2
@@ -42,7 +43,7 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
     */
   override
   protected
-  def getNewSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
+  def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     SpatialHash( bounds, objects, _hSplit, _vSplit )
 
   //
@@ -56,7 +57,7 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = getNewSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
+    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
 
     for( b <- filledBuckets; s <- b ) {
       set1.lookAround( s ).size should equal( shapesPerBucket )
@@ -70,7 +71,7 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = getNewSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
+    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
 
     for( b <- filledBuckets;
          s <- b;
@@ -87,7 +88,7 @@ final class SpatialHashTest extends SpatialSetBaseTest[SpatialHash[Shape]] {
     val checkShape1 = new Circle( center - 10.0, 5.0 )
     val checkShape2 = new Circle( center + 10.0, 5.0 )
 
-    val result = getNewSpatialSet( testArea, List( shape ) )
+    val result = newSpatialSet( testArea, List( shape ) )
 
     result.lookAround( checkShape1 ).contains( shape ) should equal( true )
     result.lookAround( checkShape2 ).contains( shape ) should equal( true )

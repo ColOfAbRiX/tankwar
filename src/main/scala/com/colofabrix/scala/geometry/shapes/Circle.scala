@@ -129,12 +129,10 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     case c: Circle ⇒ center - c.center < radius + c.radius
 
     // For Boxes I exploit its property to be parallel to the axis
-    case b: Box ⇒ b.contains( center ) || (
-      center.x + radius <= b.topRight.x &&
-      center.x - radius >= b.bottomLeft.y &&
-      center.y + radius <= b.topRight.y &&
-      center.y - radius >= b.topRight.y
-    )
+    case b: Box ⇒ b.contains( center ) ||
+      b.verticesIterator.foldLeft( false ) {
+        case ( r, p1 +: p0 +: Nil ) ⇒ intersects( p0, p1 )
+      }
 
     // For polygons I check the distance from the nearest edge
     case p: Polygon ⇒ p.distance( center )._1 <= radius
@@ -190,7 +188,7 @@ object Circle {
     * Creates a Circle known its area
     *
     * @param center Center of the circle
-    * @param area Area of the circle. Must be non-negative
+    * @param area   Area of the circle. Must be non-negative
     * @return A new instance of Circle with an area equals to the specified one
     */
   def fromArea( center: Vect, area: Double ) = {

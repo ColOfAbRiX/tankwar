@@ -42,24 +42,29 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return A shape that fully contains this shape
     */
   override lazy val container: Container = Container.bestFit( this )
+
   /**
     * Area of the polygon
     *
     * @see http://geomalgorithms.com/a01-_area.html
     */
+
   lazy val area = {
     ( vertices :+ vertices.head ).sliding( 3 ).map {
       case v0 :: v1 :: v2 :: Nil ⇒ v1.x * ( v2.y - v0.y )
     }.sum / 2.0
   }
+
   /**
     * Edges of the shape, built from the vertices. Edges are {Vect} from one vertex to its adjacent one
     */
   val edges: Seq[Vect] = ( vertices :+ vertices.head ).sliding( 2 ) map { v ⇒ v( 1 ) - v( 0 ) } toList
+
   /**
     * List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
     */
   val edgesIterator = ( edges :+ edges.head ).sliding( 2 ).toSeq
+
   /**
     * Checks if a polygon is convex
     *
@@ -82,6 +87,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
         Math.signum( r ).toInt == direction || r.abs <= Double.MinPositiveValue
     }
   }
+
   /**
     * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
     */

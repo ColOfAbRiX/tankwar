@@ -19,12 +19,12 @@ package com.colofabrix.test.scala.geometry.collections
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.collections.DummyQuadtree
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeBaseTest
+import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeTest
 
 /**
   * Unit testing the class [[DummyQuadtree]]
   */
-class DummyQuadtreeTest extends SpatialTreeBaseTest[DummyQuadtree[Shape]] {
+class DummyQuadtreeTest extends SpatialTreeTest[DummyQuadtree[Shape]] {
   /**
     * Creates a new object of type T to test
     *
@@ -34,6 +34,6 @@ class DummyQuadtreeTest extends SpatialTreeBaseTest[DummyQuadtree[Shape]] {
     */
   override
   protected
-  def getNewSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
+  def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     DummyQuadtree( bounds, objects )
 }

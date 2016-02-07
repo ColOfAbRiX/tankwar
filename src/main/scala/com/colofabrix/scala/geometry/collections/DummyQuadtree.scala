@@ -64,14 +64,14 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new PhysicalObject in the appropriate position
     */
-  override def ++( pi: List[T] ): SpatialTree[T] = new DummyQuadtree[T]( pi ::: toList, bounds )
+  override def ++( pi: Seq[T] ): SpatialTree[T] = new DummyQuadtree[T]( pi ++: toList, bounds )
 
   /**
     * Reset the status of the DummyQuadtree
     *
     * @return A new quadtree, with the same parameters as the current one, but empty
     */
-  override def clear(): DummyQuadtree[T] = new DummyQuadtree[T]( List[T](), bounds )
+  override def clear(): DummyQuadtree[T] = new DummyQuadtree[T]( List.empty[T], bounds )
 
   /**
     * The maximum depth of the Quadtree
@@ -91,17 +91,17 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return All Shapes that could collide with the given object
     */
-  override def lookAround( s: Shape ): List[T] = if( !bounds.intersects( s ) ) Nil else toList
+  override def lookAround( s: Shape ): Seq[T] = if ( !bounds.intersects( s ) ) Nil else toList
 
   /**
     * The children nodes of the current node, or an empty list if we are on a leaf
     */
-  override def nodes: List[SpatialTree[T]] = List( )
+  override def nodes: Seq[SpatialTree[T]] = List()
 
   /**
     * The shapes contained by the node.
     */
-  override def objects: List[T] = toList
+  override def objects: Seq[T] = toList
 
   /**
     * Updates the quadtree
@@ -147,7 +147,7 @@ object DummyQuadtree {
     */
   def apply[T: SpatialIndexable](
     bounds: Shape,
-    objects: List[T] = List[T]( )
+    objects: List[T] = List.empty[T]
   ) = new DummyQuadtree[T]( objects, Box.getAsBox( bounds ) )
 
 }

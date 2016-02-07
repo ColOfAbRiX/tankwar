@@ -33,16 +33,19 @@ import com.colofabrix.scala.geometry.shapes.Box
   * @param buckets    A sequence of the bucket where each contains the list of the objects that contains
   * @tparam T The type of object that this collection will contain. Must have a conversion to SpatialIndexable
   */
-class SpatialHash[T: SpatialIndexable] protected(
-  val bounds: Box,
-  val hSplit: Int,
-  val vSplit: Int,
-  val buckets: Map[Box, Seq[T]],
-  objects: Option[List[T]],
-  bucketList: Option[List[Box]]
+class SpatialHash[T: SpatialIndexable] protected (
+    val bounds: Box,
+    val hSplit: Int,
+    val vSplit: Int,
+    val buckets: Map[Box, Seq[T]],
+    objects: Option[Seq[T]],
+    bucketList: Option[Seq[Box]]
 ) extends SpatialSet[T] {
 
+  /** The raw list of objects contained by the SpatialHash */
   protected val _objects = objects.getOrElse( List.empty[T] )
+
+  /** The list of buckets used to cover the bounds */
   protected val _bucketList = bucketList.getOrElse( List.empty[Box] )
 
   /**
@@ -53,7 +56,7 @@ class SpatialHash[T: SpatialIndexable] protected(
   override def -( p: T ): SpatialSet[T] = {
     // The list of the objects, the buckets and their lists are scanned once
     val newObjects = _objects.filter( _ != p )
-    val newBuckets = buckets.map { b ⇒ (b._1, b._2.filter( _ != p )) }
+    val newBuckets = buckets.map { b ⇒ ( b._1, b._2.filter( _ != p ) ) }
 
     new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
   }
@@ -64,7 +67,7 @@ class SpatialHash[T: SpatialIndexable] protected(
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return A list of object that can collide with the given Shape
     */
-  override def lookAround( s: Shape ): List[T] =
+  override def lookAround( s: Shape ): Seq[T] =
     buckets.filter( x ⇒ s.intersects( x._1 ) ).flatMap( _._2 ).toList
 
   /**
@@ -72,8 +75,8 @@ class SpatialHash[T: SpatialIndexable] protected(
     *
     * @return A new SpatialSet[T], with the same parameters as the current one, but empty
     */
-  override def clear( ): SpatialSet[T] =
-    new SpatialHash[T]( bounds, hSplit, vSplit, Map.empty[Box, List[T]], Some( List.empty[T] ), Some( _bucketList ) )
+  override def clear(): SpatialSet[T] =
+    new SpatialHash[T]( bounds, hSplit, vSplit, Map.empty[Box, Seq[T]], Some( Seq.empty[T] ), Some( _bucketList ) )
 
   /**
     * The number of objects that this collection is containing
@@ -90,8 +93,8 @@ class SpatialHash[T: SpatialIndexable] protected(
 
     // For this operation there is only one scan that goes through the buckets to find the ones which contain
     // the shape
-    val newBuckets = for( b ← buckets ) yield {
-      if( b._1.intersects( shape( p ) ) ) (b._1, p +: b._2) else (b._1, b._2)
+    val newBuckets = for ( b ← buckets ) yield {
+      if ( b._1.intersects( shape( p ) ) ) ( b._1, p +: b._2 ) else ( b._1, b._2 )
     }
 
     new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
@@ -104,10 +107,10 @@ class SpatialHash[T: SpatialIndexable] protected(
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
-  override def refresh( ): SpatialSet[T] =
+  override def refresh(): SpatialSet[T] =
     new SpatialHash[T](
       bounds, hSplit, vSplit,
-      Box.spreadAcross( _bucketList, _objects ),
+      Box.spreadAcross[T]( _bucketList, _objects ),
       Some( _objects ), Some( _bucketList )
     )
 
@@ -123,21 +126,10 @@ class SpatialHash[T: SpatialIndexable] protected(
     *
     * @return A new List containing all the elements of the SpatialSet
     */
-  override def toList: List[T] = _objects
+  override def toList: List[T] = _objects.toList
 }
 
 object SpatialHash {
-
-  /**
-    * This function is a commodity used to find the Container of a shape
-    *
-    * @param u The object we want to find the container of
-    * @tparam U Thy type of the object that must be convertible into a SpatialIndexable
-    * @return A Container that fully encircle the given object in the plane
-    */
-  @inline
-  protected def shape[U: SpatialIndexable]( u: U ): Container = implicitly[SpatialIndexable[U]].container( u )
-
   /**
     * Creates a new SpatialHash object
     *
@@ -148,13 +140,13 @@ object SpatialHash {
     * @tparam T The type of object that this collection will contain. Must have a conversion to SpatialIndexable
     * @return A new SpatialHash containing the specified objects
     */
-  def apply[T: SpatialIndexable]( bounds: Shape, objects: List[T], hSplit: Int, vSplit: Int ) = {
+  def apply[T: SpatialIndexable]( bounds: Shape, objects: Seq[T], hSplit: Int, vSplit: Int ) = {
     val box = Box.getAsBox( bounds )
     val bucketList = box.split( hSplit, vSplit ).toList
 
     new SpatialHash[T](
       box, hSplit, vSplit,
-      Box.spreadAcross( bucketList, objects ),
+      Box.spreadAcross[T]( bucketList, objects ),
       Some( objects ),
       Some( bucketList )
     )
