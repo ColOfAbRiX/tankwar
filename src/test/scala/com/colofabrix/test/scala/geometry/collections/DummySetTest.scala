@@ -17,17 +17,14 @@
 package com.colofabrix.test.scala.geometry.collections
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.collections.LinkedQuadtree
+import com.colofabrix.scala.geometry.collections.DummySet
 import com.colofabrix.scala.geometry.shapes.Box
-import com.colofabrix.test.scala.geometry.abstracts.SpatialTreeTest
+import com.colofabrix.test.scala.geometry.abstracts.SpatialSetTest
 
 /**
-  *
+  * Unit testing the class [[DummySet]]
   */
-class LinkedQuadtreeTest extends SpatialTreeTest[LinkedQuadtree[Shape]] {
-  private val _splitSize = 2
-  private val _maxDepth = 3
-
+class DummySetTest extends SpatialSetTest[DummySet[Shape]] {
   /**
     * Creates a new object of type T to test
     *
@@ -38,5 +35,5 @@ class LinkedQuadtreeTest extends SpatialTreeTest[LinkedQuadtree[Shape]] {
   override
   protected
   def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
-    LinkedQuadtree( bounds, objects, _splitSize, _maxDepth )
+    DummySet( bounds, objects )
 }

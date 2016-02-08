@@ -27,20 +27,10 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
   *
   * Used to do performance tests and comparisons
   */
-class DummyQuadtree[T: SpatialIndexable] protected (
+class DummySet[T: SpatialIndexable] protected (
     override val toList: List[T],
     override val bounds: Box
-) extends SpatialTree[T] {
-
-  /**
-    * Create 4 quadrants into the node
-    *
-    * Split the node into four subnodes by dividing the node info four equal parts, initialising the four subnodes with
-    * the new bounds and inserts the contained shapes in the subnodes where they fit
-    *
-    * @return A new DummyQuadtree with 4 new subnodes
-    */
-  protected override def split(): DummyQuadtree[T] = this
+) extends SpatialSet[T] {
 
   /**
     * Remove the object from the quadtree.
@@ -49,7 +39,7 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree without the specified Shape.
     */
-  override def -( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( toList.filter( _ != p ), bounds )
+  override def -( p: T ): DummySet[T] = new DummySet[T]( toList.filter( _ != p ), bounds )
 
   /**
     * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to
@@ -57,26 +47,30 @@ class DummyQuadtree[T: SpatialIndexable] protected (
     *
     * @return A new quadtree containing the new Shape in the appropriate position
     */
-  override def +( p: T ): DummyQuadtree[T] = new DummyQuadtree[T]( p :: toList, bounds )
+  override def +( p: T ): DummySet[T] =
+    if ( toList.contains( p ) ) {
+      this
+    }
+    else {
+      new DummySet[T]( p :: toList, bounds )
+    }
 
   /**
     * Insert a list of objects into the SpatialTree.
     *
     * @return A new quadtree containing the new PhysicalObject in the appropriate position
     */
-  override def ++( pi: Seq[T] ): SpatialTree[T] = new DummyQuadtree[T]( pi ++: toList, bounds )
+  def ++( pi: Seq[T] ): DummySet[T] = {
+    val newObjects = pi.filterNot( toList.contains )
+    new DummySet[T]( newObjects ++: toList, bounds )
+  }
 
   /**
     * Reset the status of the DummyQuadtree
     *
     * @return A new quadtree, with the same parameters as the current one, but empty
     */
-  override def clear(): DummyQuadtree[T] = new DummyQuadtree[T]( List.empty[T], bounds )
-
-  /**
-    * The maximum depth of the Quadtree
-    */
-  override def depth: Int = 0
+  override def clear(): DummySet[T] = new DummySet[T]( List.empty[T], bounds )
 
   /**
     * Tells if the DummyQuadtree is empty of Shapes
@@ -94,48 +88,28 @@ class DummyQuadtree[T: SpatialIndexable] protected (
   override def lookAround( s: Shape ): Seq[T] = if ( !bounds.intersects( s ) ) Nil else toList
 
   /**
-    * The children nodes of the current node, or an empty list if we are on a leaf
-    */
-  override def nodes: Seq[SpatialTree[T]] = List()
-
-  /**
-    * The shapes contained by the node.
-    */
-  override def objects: Seq[T] = toList
-
-  /**
     * Updates the quadtree
     *
     * The objects inside the quadtree can move and thus their position inside the tree can change
     *
     * @return A new instance of DummyQuadtree with the updated objects
     */
-  override def refresh(): DummyQuadtree[T] = this
+  override def refresh(): DummySet[T] = this
 
   /**
     * An object responsible to renderer the class where this trait is applied
     *
     * @return A renderer that can draw the object where it's applied
     */
-  override def renderer: Renderer = new BoxRenderer( bounds, defaultFrame = Frame( Colour.DARK_GREY ) )
+  def renderer: Renderer = new BoxRenderer( bounds, defaultFrame = Frame( Colour.DARK_GREY ) )
 
   /**
     * The number of shapes contained in the quadtree
     */
   override def size: Int = toList.size
-
-  /**
-    * The number of items a node can contain before it splits
-    */
-  override def splitSize: Int = 0
-
-  /**
-    * The level of the root of the quadtree. If the quadtree is not a subtree of any other node, this parameter is 0
-    */
-  override protected[geometry] val level: Int = 0
 }
 
-object DummyQuadtree {
+object DummySet {
 
   /**
     * Creates a new DummyQuadtree
@@ -148,6 +122,6 @@ object DummyQuadtree {
   def apply[T: SpatialIndexable](
     bounds: Shape,
     objects: List[T] = List.empty[T]
-  ) = new DummyQuadtree[T]( objects, Box.getAsBox( bounds ) )
+  ) = new DummySet[T]( objects, Box.getAsBox( bounds ) )
 
 }

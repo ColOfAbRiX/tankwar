@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.gfx.renderers
 
-import com.colofabrix.scala.geometry.abstracts.SpatialTree
+import com.colofabrix.scala.geometry.collections.SpatialTree
 import com.colofabrix.scala.gfx.OpenGL._
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
@@ -37,7 +37,7 @@ class QuadtreeRenderer( val quadtree: SpatialTree[_] ) extends Renderer {
 
       // Renders the current boundaries
       quadtree.bounds.renderer.render()
-      for ( n ← quadtree.nodes )
+      for ( n ← quadtree.children )
         new QuadtreeRenderer( n ).render( false )
 
     }

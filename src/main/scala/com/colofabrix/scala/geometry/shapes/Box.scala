@@ -50,13 +50,6 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
   override lazy val area = width * height
 
   /**
-    * Find a containing box for the current shape.
-    *
-    * @return A Box that is the same as the current one (as it's always the minimal container for this Shape)
-    */
-  override lazy val container: Container = this
-
-  /**
     * Center of the Box
     */
   lazy val center = bottomLeft + XYVect( width / 2.0, height / 2.0 )

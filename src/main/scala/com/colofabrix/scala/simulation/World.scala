@@ -17,7 +17,7 @@
 package com.colofabrix.scala.simulation
 
 import com.colofabrix.scala.geometry.abstracts.SpatialSet
-import com.colofabrix.scala.geometry.collections.{ LinkedQuadtree, SpatialHash }
+import com.colofabrix.scala.geometry.collections.SpatialHash
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.GFXManager
 import com.colofabrix.scala.gfx.abstracts.Renderer
@@ -84,7 +84,7 @@ class World(
   )
   private val _envRenderer: EnvironmentRenderer = new EnvironmentRenderer( this )
   private var _bullets: SpatialSet[Bullet] = SpatialHash[Bullet]( arena, List.empty[Bullet], 6, 6 )
-  private var _tanks: SpatialSet[Tank] = LinkedQuadtree( arena, _initialTanks, 1, 3 )
+  private var _tanks: SpatialSet[Tank] = SpatialHash[Tank]( arena, _initialTanks, 3, 3 )
   private var _time: Long = 0
   /**
     * Graphics manager of the simulation

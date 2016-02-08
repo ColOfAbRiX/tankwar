@@ -36,8 +36,8 @@ coding habits.
 With the probject are included some files to provision a development virtual machine with Vagrant and configured with an
 Ansible script. The steps to follow are
 
-* Make sure you have a virtualization tools (at the moment only VirtualBox is supported)
-* Make sure you have Vagrant installed
+* Make sure you have a virtualization tools (at the moment only [VirtualBox](https://www.virtualbox.org/) is supported)
+* Make sure you have [Vagrant](https://www.vagrantup.com/) installed
 * On the command line go to `<project_root>/env/dev-linux`
 * Start Vagrant with `vagrant up`
 

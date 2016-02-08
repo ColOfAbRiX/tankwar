@@ -38,12 +38,6 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * Area of the circle
     */
   override lazy val area: Double = Math.PI * Math.pow( radius, 2.0 )
-  /**
-    * Find a containing box for the current shape.
-    *
-    * @return A Circle that is the same as the current one (as it's always the minimal container for this Shape)
-    */
-  override lazy val container: Container = this
 
   /**
     * Determines if the container fully contain a Shape
@@ -167,6 +161,7 @@ object Circle {
     * @param s The shape that must be surrounded by a container
     * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
     */
+  @inline
   def bestFit( s: Shape ): Container = s match {
 
     // If the shape it's a circle I simply return it - O(1)

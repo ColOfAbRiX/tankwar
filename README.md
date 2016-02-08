@@ -3,7 +3,7 @@
 ##A study on Neuroevolution
 
 > "Neuroevolution, or neuro-evolution, is a form of machine learning that uses evolutionary algorithms to train artificial
-neural networks. It is most commonly applied in artificial life, computer games, and evolutionary robotics." � Wikipedia
+neural networks. It is most commonly applied in artificial life, computer games, and evolutionary robotics." - Wikipedia
 
 ##The TankWar Project
 
@@ -79,7 +79,7 @@ state-of-the-art practices. I will be pleased to receive corrections and suggest
 
 ##Quick Start
 
-For quick start read the [Getting Started](CONTRIBUTING.md) section in the CONTRIBUTING.md file
+For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CONTRIBUTING.md** file
 
 ##Topics touched by the project
 

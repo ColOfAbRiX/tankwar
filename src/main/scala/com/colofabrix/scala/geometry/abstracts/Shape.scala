@@ -40,6 +40,7 @@ trait Shape extends Renderable {
     * @param p Point to check
     * @return A distance vector from the point to the segment or one of its ends
     */
+  @inline
   protected def distance( v0: Vect, v1: Vect, p: Vect ): Vect = {
     val v = v1 - v0
     val w = p - v0
@@ -72,7 +73,7 @@ trait Shape extends Renderable {
     *
     * @return A new Container where the current shape is completely inside its boundaries
     */
-  def container: Container
+  lazy val container: Container = Container.bestFit( this )
 
   /**
     * Determines if a point is inside or on the boundary the shape

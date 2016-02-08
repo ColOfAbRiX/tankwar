@@ -49,11 +49,32 @@ class SpatialHash[T: SpatialIndexable] protected (
   protected val _bucketList = bucketList.getOrElse( List.empty[Box] )
 
   /**
+    * Insert an object into the SpatialSet.
+    *
+    * @return A new SpatialSet[T} containing the new object
+    */
+  override def +( p: T ): SpatialHash[T] =
+    if ( !_objects.contains( p ) ) {
+      val newObjects = p +: _objects
+
+      // For this operation there is only one scan that goes through the buckets to find the ones which contain
+      // the shape
+      val newBuckets = for ( b ← buckets ) yield {
+        if ( b._1.intersects( shape( p ) ) ) ( b._1, p +: b._2 ) else ( b._1, b._2 )
+      }
+
+      new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
+    }
+    else {
+      this
+    }
+
+  /**
     * Remove the object from the collection.
     *
     * @return A new SpatialSet[T] without the specified object.
     */
-  override def -( p: T ): SpatialSet[T] = {
+  override def -( p: T ): SpatialHash[T] = {
     // The list of the objects, the buckets and their lists are scanned once
     val newObjects = _objects.filter( _ != p )
     val newBuckets = buckets.map { b ⇒ ( b._1, b._2.filter( _ != p ) ) }
@@ -75,7 +96,7 @@ class SpatialHash[T: SpatialIndexable] protected (
     *
     * @return A new SpatialSet[T], with the same parameters as the current one, but empty
     */
-  override def clear(): SpatialSet[T] =
+  override def clear(): SpatialHash[T] =
     new SpatialHash[T]( bounds, hSplit, vSplit, Map.empty[Box, Seq[T]], Some( Seq.empty[T] ), Some( _bucketList ) )
 
   /**
@@ -84,30 +105,13 @@ class SpatialHash[T: SpatialIndexable] protected (
   override def size: Int = _objects.size
 
   /**
-    * Insert an object into the SpatialSet.
-    *
-    * @return A new SpatialSet[T} containing the new object
-    */
-  override def +( p: T ): SpatialSet[T] = {
-    val newObjects = p +: _objects
-
-    // For this operation there is only one scan that goes through the buckets to find the ones which contain
-    // the shape
-    val newBuckets = for ( b ← buckets ) yield {
-      if ( b._1.intersects( shape( p ) ) ) ( b._1, p +: b._2 ) else ( b._1, b._2 )
-    }
-
-    new SpatialHash[T]( bounds, hSplit, vSplit, newBuckets, Some( newObjects ), Some( _bucketList ) )
-  }
-
-  /**
     * Updates the collection
     *
     * The objects inside the collection can move and thus their internal representation can change
     *
     * @return A new instance of a SpatialSet with the updated objects
     */
-  override def refresh(): SpatialSet[T] =
+  override def refresh(): SpatialHash[T] =
     new SpatialHash[T](
       bounds, hSplit, vSplit,
       Box.spreadAcross[T]( _bucketList, _objects ),

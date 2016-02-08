@@ -39,24 +39,21 @@ trait Container extends Shape {
 }
 
 object Container {
-
   /**
     * Finds the container that best contains a given Shape
     *
-    * "Best" means the container that has the minimal area and that fully contains the shape. This function will
-    * try all the available (and registered) containers so it might not be very efficient
+    * In this method is possible to choose the best fitting policy, which can be the fastest, the most accurate,
+    * the minimal area or whatever.
+    * The current implementation points at being the fastest using only Box or Circle
     *
     * @param s The shape that must be surrounded by a container
     * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
     */
-  def bestFit( s: Shape ): Container = {
-    // I use a List so I can apply a method on it. For Shapes that are also Containers each `bestFix` is already
-    // optimized and it will not consume much time, so I can leave all the calls here
-    // FIXME: As the A Fast Approximate Bounding Ball is not implemented, Circle.bestFix() must be kept out
-    val tries = Box.bestFit( s ) :: Nil //Circle.bestFit( s ) :: Nil
-
-    // Return the Container with the smaller area
-    tries.minBy( _.area )
+  @inline
+  def bestFit( s: Shape ): Container = s match {
+    case b: Box ⇒ Circle.bestFit( b )
+    case c: Circle ⇒ Circle.bestFit( c )
+    case cp: ConvexPolygon ⇒ Circle.bestFit( cp )
+    case p: Polygon ⇒ Circle.bestFit( p )
   }
-
 }

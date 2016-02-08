@@ -21,9 +21,9 @@ package com.colofabrix.scala.geometry.abstracts
   *
   * This trait is used to implement efficient ways for storing and retrieving objects
   * in the cartesian plane, in particular for collision detection. Some of its implementation
-  * implementation are the [[com.colofabrix.scala.geometry.collections.LinkedQuadtree]], the
+  * implementation are the [[com.colofabrix.scala.geometry.collections.SpatialTree]], the
   * [[com.colofabrix.scala.geometry.collections.SpatialHash]] and also the fake
-  * [[com.colofabrix.scala.geometry.collections.DummyQuadtree]] for testing.
+  * [[com.colofabrix.scala.geometry.collections.DummySet]] for testing.
   *
   * @tparam T The type of objects contained in the Set
   */

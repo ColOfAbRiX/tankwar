@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.abstracts.{ Container, Shape }
+import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.{ Vect, XYVect }
@@ -32,16 +32,6 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
 
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
-
-  /**
-    * Find a containing box for the current shape.
-    *
-    * For simplicity the current implementation always returns a {Box}
-    *
-    * @see http://geomalgorithms.com/a08-_containers.html
-    * @return A shape that fully contains this shape
-    */
-  override lazy val container: Container = Container.bestFit( this )
 
   /**
     * Area of the polygon
