@@ -6,13 +6,10 @@
     # JDK 8
     #
 
-  - name: Look if JDK 8 is available
-    command: apt-cache search openjdk-8
-    register: jdk8_check
-
   - name: Add JDK 8 Repository
-    apt_repository: repo="ppa:openjdk-r/ppa" validate_certs=no state=present
-    when: jdk8_check.stdout == ""
+    apt_repository: repo="ppa:openjdk-r/ppa"
+        validate_certs=no
+        state=present
 
   - name: Install JDK 8
     apt: name=openjdk-8-jdk state=latest
@@ -25,7 +22,9 @@
     apt: name=scala state=latest
 
   - name: Add SBT Repository
-    apt_repository: repo="deb https://dl.bintray.com/sbt/debian /" validate_certs=no state=present
+    apt_repository: repo="deb https://dl.bintray.com/sbt/debian /"
+        validate_certs=no
+        state=present
 
   - name: Install SBT
     apt: name=sbt force=yes state=latest
@@ -38,4 +37,5 @@
   #
 
   - name: Clone TankWar Repository
-    git: repo=https://github.com/ColOfAbRiX/tankwar.git dest=~/Desktop/tankwar_github
+    git: repo=https://github.com/ColOfAbRiX/tankwar.git
+        dest=~/Desktop/tankwar_github

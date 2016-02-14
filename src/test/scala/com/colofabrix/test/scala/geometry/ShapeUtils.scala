@@ -16,6 +16,7 @@
 
 package com.colofabrix.test.scala.geometry
 
+import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle, ConvexPolygon, Polygon }
 import com.colofabrix.scala.math.{ RTVect, XYVect }
 
@@ -67,7 +68,7 @@ object ShapeUtils {
     */
   def rndPolygon( area: Box ): Polygon = {
     val rndVertices = Rnd.nextInt( 10 ) + 3
-    val vertices = (0 until rndVertices).map( _ => rndVect( area ) )
+    val vertices = ( 0 until rndVertices ).map( _ ⇒ rndVect( area ) )
     new Polygon( vertices )
   }
 
@@ -85,10 +86,25 @@ object ShapeUtils {
 
     val angularDistance = 2.0 * Math.PI / numVertices.toDouble
 
-    val vertices = Seq.tabulate( numVertices ) { i =>
+    val vertices = Seq.tabulate( numVertices ) { i ⇒
       RTVect( encircling.radius, angularDistance * i ) + encircling.center
     }
 
     new ConvexPolygon( vertices )
+  }
+
+  /**
+    * Create a list of random shapes returning an element for each type of shapes
+    *
+    * @param area The area where the new Polygon must lie
+    * @return A new instance of List containing a random shape of each possible type
+    */
+  def rndSequence( area: Box ): Seq[Shape] = {
+    List(
+      rndCircle( area ),
+      rndPolygon( area ),
+      rndConvexPolygon( area ),
+      rndBox( area )
+    )
   }
 }

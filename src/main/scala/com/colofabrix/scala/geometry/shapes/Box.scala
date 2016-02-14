@@ -16,11 +16,13 @@
 
 package com.colofabrix.scala.geometry.shapes
 
+import java.util.concurrent.ConcurrentHashMap
+
 import com.colofabrix.scala.geometry.abstracts.{ Container, Shape, SpatialIndexable }
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
-import scala.annotation.tailrec
+import scala.collection.JavaConverters._
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis
@@ -96,11 +98,10 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
     * @return True if the point is inside the shape
     */
   override def intersects( that: Shape ): Boolean = that match {
-
     // Box-box case - Ref: https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
     case c: Circle ⇒ this.contains( c.center ) ||
       this.verticesIterator.foldLeft( false ) {
-        case ( r, p1 +: p0 +: Nil ) ⇒ c.intersects( p0, p1 )
+        case ( r, p1 +: p0 +: Nil ) ⇒ c.intersects( Seg( p0, p1 ) )
       }
 
     // Box-box case I use a faster check
@@ -108,7 +109,6 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
 
     // For other comparisons I fell back to the parent
     case _ ⇒ super.intersects( that )
-
   }
 
   /**
@@ -174,7 +174,7 @@ object Box {
   /**
     * Constructor that uses width, height and starts the box at the origin of the axis.
     *
-    * The widht and height can be negative, so it's possible to create a Box on all the quadrants of the plane
+    * The width and height can be negative, so it's possible to create a Box on all the quadrants of the plane
     *
     * @param width  Width of the box, can be negative
     * @param height Height of the box, can be negative
@@ -214,7 +214,7 @@ object Box {
     * "Best" means the container that has the minimal area and that fully contains the shape
     *
     * @param s The shape that must be surrounded by a container
-    * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
+    * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
     */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def bestFit( s: Shape ): Container = s match {
@@ -227,10 +227,11 @@ object Box {
 
     // If it's a polygon, find its limits - O(n)
     case p: Polygon ⇒
-      // Finds the minimum and maximum coordinates for the points
+      // Using VARs to optimize performance
       var ( minX, minY ) = ( Double.MaxValue, Double.MaxValue )
       var ( maxX, maxY ) = ( Double.MinValue, Double.MinValue )
 
+      // Finds the minimum and maximum coordinates for the points
       for ( v ← p.vertices ) {
         minX = if ( minX > v.x ) v.x else minX
         minY = if ( minY > v.y ) v.y else minY
@@ -259,25 +260,23 @@ object Box {
     * @tparam T Type of the object that must have a conversion to SpatialIndexable
     * @return A Map that connects the boxes with a list of objects that contains. Objects can be present in multiple buckets
     */
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def spreadAcross[T: SpatialIndexable](
     nodes: Seq[Box],
     objects: Seq[T],
     compact: Boolean = true
-  ) = {
+  ): Map[Box, Seq[T]] = {
+    // Using VAR to optimize performance
+    val acc = new ConcurrentHashMap[Box, Seq[T]].asScala
+
     @inline
     def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container( o ) )
 
-    @tailrec
-    def loop( boxes: Seq[Box], acc: Map[Box, Seq[T]] ): Map[Box, Seq[T]] = boxes match {
-      case Nil ⇒ acc
-      case b +: bs ⇒
-        val objInBox = objects filter { intersects( b, _ ) }
-        loop(
-          bs,
-          if ( objInBox.isEmpty && compact ) acc else acc + ( ( b, objInBox ) )
-        )
+    for ( b ← nodes.par ) {
+      val objInBox = objects.filter( intersects( b, _ ) )
+      if ( objInBox.nonEmpty || !compact ) acc += ( ( b, objInBox ) )
     }
 
-    loop( nodes, Map.empty[Box, Seq[T]] )
+    acc.toMap
   }
 }

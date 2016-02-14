@@ -6,7 +6,6 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  #config.vm.box = "puphpet/ubuntu1404-x64"
   config.vm.box = "box-cutter/ubuntu1404-desktop"
 
   # Create a forwarded port mapping which allows access to a specific port

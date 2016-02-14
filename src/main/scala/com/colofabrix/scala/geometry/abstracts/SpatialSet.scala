@@ -97,16 +97,23 @@ abstract class SpatialSet[T: SpatialIndexable] {
   def size: Int
 
   /**
-    * The current Set as a list
+    * The current Set as a Seq
     *
     * @return A new List containing all the elements of the tree
     */
-  def toList: List[T]
+  def toSeq: Seq[T]
+
+  /**
+    * The current Set as a Iterable
+    *
+    * @return A new List containing all the elements of the tree
+    */
+  //def toSet: Iterable[T]
 
   /**
     * String representation of the Set
     *
     * @return A string that represents the Set
     */
-  override def toString: String = this.toList.toString()
+  override def toString: String = this.toSeq.toString()
 }

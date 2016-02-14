@@ -23,6 +23,10 @@ import com.colofabrix.scala.gfx.abstracts.Renderer
 import scala.language.postfixOps
 
 /**
+  * An object to index shapes in space. It implements the concept of Spatial Hashing, Spatial hashing is a process by
+  * which a 3D or 2D domain space is projected into a 1D hash table.
+  * The data structure has been implemented to be as efficient as possible and from my measurements it can be twice as
+  * fast as the plain brute force collision detection.
   *
   * @param splitSize
   * @param maxDepth
@@ -191,7 +195,7 @@ class SpatialTree[T: SpatialIndexable] protected (
     *
     * @return A new List containing all the elements of the tree
     */
-  def toList: List[T] = toSeq.toList
+  //def toSeq: List[T] = toSeq.toList
 
   /**
     * Tells if the collection is empty

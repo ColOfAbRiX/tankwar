@@ -41,9 +41,7 @@ final class SpatialHashTest extends SpatialSetTest[SpatialHash[Shape]] {
     * @param objects The objects to add to the list
     * @return A new instance of a SpatialSet[T]
     */
-  override
-  protected
-  def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
+  override protected def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     SpatialHash( bounds, objects, _hSplit, _vSplit )
 
   //
@@ -53,13 +51,13 @@ final class SpatialHashTest extends SpatialSetTest[SpatialHash[Shape]] {
   "The lookAround member" must "return all the Shapes in the same bucket" in {
     val shapesPerBucket = 5
 
-    val filledBuckets = for( b <- _bucketList ) yield {
+    val filledBuckets = for ( b ← _bucketList ) yield {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
+    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x ⇒ x ).toList )
 
-    for( b <- filledBuckets; s <- b ) {
+    for ( b ← filledBuckets; s ← b ) {
       set1.lookAround( s ).size should equal( shapesPerBucket )
     }
   }
@@ -67,16 +65,18 @@ final class SpatialHashTest extends SpatialSetTest[SpatialHash[Shape]] {
   "The lookAround member" must "not return any Shape from other buckets" in {
     val shapesPerBucket = 5
 
-    val filledBuckets = for( b <- _bucketList ) yield {
+    val filledBuckets = for ( b ← _bucketList ) yield {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x => x ).toList )
+    val set1 = newSpatialSet( testArea, filledBuckets.flatMap( x ⇒ x ).toList )
 
-    for( b <- filledBuckets;
-         s <- b;
-         ob <- filledBuckets if ob != b;
-         os <- ob ) {
+    for (
+      b ← filledBuckets;
+      s ← b;
+      ob ← filledBuckets if ob != b;
+      os ← ob
+    ) {
       set1.lookAround( s ).contains( os ) should equal( false )
     }
   }

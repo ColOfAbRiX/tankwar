@@ -231,12 +231,12 @@ class World(
   /**
     * List of tanks present in the world
     */
-  def tanks = _tanks.toList
+  def tanks = _tanks.toSeq
 
   /**
     * List of bullets running through the world
     */
-  def bullets = _bullets.toList
+  def bullets = _bullets.toSeq
 
   /**
     * Handles any dead tank in the world

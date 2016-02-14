@@ -48,15 +48,15 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
     */
   protected def validateSize( result: SpatialSet[Shape], expected: Int ): Unit = {
     result.isEmpty should equal( expected == 0 )
-    val test = result.toList
+    val test = result.toSeq
     val size = result.size
     size should equal( expected )
-    result.toList.size should equal( expected )
+    result.toSeq.size should equal( expected )
   }
 
   private def getAsT[U]( t: U ): T = t match {
-    case x: T => x
-    case _ => throw new IllegalArgumentException
+    case x: T ⇒ x
+    case _ ⇒ throw new IllegalArgumentException
   }
 
   //
@@ -87,7 +87,7 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
     val result = set + testShape
 
     validateSize( result, 1 )
-    result.toList.contains( testShape ) should equal( true )
+    result.toSeq.contains( testShape ) should equal( true )
   }
 
   "The add member" must "not add a duplicate Shape" in {
@@ -98,14 +98,14 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
     val result = intermediateResult + testShape
 
     validateSize( result, 1 )
-    result.toList.contains( testShape ) should equal( true )
+    result.toSeq.contains( testShape ) should equal( true )
   }
 
   "The add member" must "add many shapes" in {
     val set = newSpatialSet( testArea, List.empty[Shape] )
     val shapes = List.fill( 10 )( ShapeUtils.rndCircle( testArea ) )
 
-    val result = shapes.foldLeft( set )( ( a, x ) => getAsT( a + x ) )
+    val result = shapes.foldLeft( set )( ( a, x ) ⇒ getAsT( a + x ) )
 
     validateSize( result, shapes.size )
   }
@@ -123,7 +123,7 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
       validateSize( result, 0 )
     }
     catch {
-      case e: Exception ⇒ fail( )
+      case e: Exception ⇒ fail()
     }
   }
 
@@ -137,7 +137,7 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
       validateSize( result, 1 )
     }
     catch {
-      case e: Exception ⇒ fail( )
+      case e: Exception ⇒ fail()
     }
   }
 
@@ -149,18 +149,18 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
       val result = set - testShape
 
       validateSize( result, 0 )
-      result.toList.contains( testShape ) should equal( false )
+      result.toSeq.contains( testShape ) should equal( false )
     }
     catch {
-      case e: Exception ⇒ fail( )
+      case e: Exception ⇒ fail()
     }
   }
 
   "The remove member" must "remove many shapes" in {
-    val shapes = List.fill( 100 )( ShapeUtils.rndCircle( testArea ) )
+    val shapes = List.fill( 25 )( ShapeUtils.rndCircle( testArea ) )
     val set = newSpatialSet( testArea, shapes )
 
-    val result = shapes.foldLeft( set )( ( a, x ) => getAsT( a - x ) )
+    val result = shapes.foldLeft( set )( ( a, x ) ⇒ getAsT( a - x ) )
 
     validateSize( result, 0 )
   }
@@ -172,7 +172,7 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
   "The clear member" must "return an empty set" in {
     val testShape = ShapeUtils.rndCircle( testArea )
     val step1 = newSpatialSet( testArea, testShape :: Nil )
-    val result = step1.clear( )
+    val result = step1.clear()
 
     validateSize( result, 0 )
   }
@@ -231,7 +231,7 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
       set1.lookAround( ShapeUtils.rndPolygon( testArea ) )
     }
     catch {
-      case e: Exception ⇒ fail( )
+      case e: Exception ⇒ fail()
     }
   }
 
@@ -243,19 +243,19 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
     val shapes = List.fill( 3 )( ShapeUtils.rndCircle( testArea ) )
     val set1 = newSpatialSet( testArea, shapes )
 
-    val result = set1.refresh( )
+    val result = set1.refresh()
 
-    result.toList.forall( s => shapes.contains( s ) ) should equal( true )
+    result.toSeq.forall( s ⇒ shapes.contains( s ) ) should equal( true )
   }
 
   "The refresh member" must "work for empty sets" in {
     val set1 = newSpatialSet( testArea, List.empty[Shape] )
 
     try {
-      set1.refresh( )
+      set1.refresh()
     }
     catch {
-      case e: Exception ⇒ fail( )
+      case e: Exception ⇒ fail()
     }
   }
 
@@ -282,6 +282,6 @@ trait SpatialSetTest[T <: SpatialSet[Shape]] extends FlatSpec with Matchers {
     val shapes = List.fill( 3 )( ShapeUtils.rndCircle( testArea ) )
     val result = newSpatialSet( testArea, shapes )
 
-    result.toList.toSet should equal( shapes.toSet )
+    result.toSeq.toSet should equal( shapes.toSet )
   }
 }

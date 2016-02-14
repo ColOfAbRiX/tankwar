@@ -26,6 +26,9 @@ import com.colofabrix.test.scala.geometry.abstracts.ShapeTest
   */
 class BoxTest extends ShapeTest[Box] {
 
+  private val _hSplit = 2
+  private val _vSplit = 3
+
   /**
     * Creates a new object of type T to test
     *
@@ -33,6 +36,14 @@ class BoxTest extends ShapeTest[Box] {
     * @return A new instance of a SpatialSet[T]
     */
   override protected def testShape( bounds: Box ): Box = bounds
+
+  private def split( cont: Box ) = cont.split( _hSplit, _vSplit )
+
+  private def rawTestShapes( cont: Box ) = Seq(
+    ShapeUtils.rndBox( split( cont ).head ),
+    ShapeUtils.rndCircle( split( cont ).head ),
+    ShapeUtils.rndConvexPolygon( split( cont ).head )
+  )
 
   //
   // Width, height, center, origin, topRight/bottomLeft members
@@ -126,7 +137,7 @@ class BoxTest extends ShapeTest[Box] {
       new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil )
     )
 
-    testShapes.foreach { s =>
+    testShapes.foreach { s ⇒
       Box.bestFit( s ) should equal( container )
     }
   }
@@ -135,23 +146,12 @@ class BoxTest extends ShapeTest[Box] {
   // Companion spreadAcross apply member
   //
 
-  private val _hSplit = 2
-  private val _vSplit = 3
-
-  private def split( cont: Box ) = cont.split( _hSplit, _vSplit )
-
-  private def rawTestShapes( cont: Box ) = Seq(
-    ShapeUtils.rndBox( split( cont ).head ),
-    ShapeUtils.rndCircle( split( cont ).head ),
-    ShapeUtils.rndConvexPolygon( split( cont ).head )
-  )
-
   "The spreadAcross member" must "position each Shape in a different Box" in {
     val container = Box( 100, 300 )
     val splitContainer = this.split( container )
 
     // I create a new Shape from the raw ones for every box in splitContainer
-    val testShapes = for( s <- rawTestShapes( container ); b <- splitContainer ) yield {
+    val testShapes = for ( s ← rawTestShapes( container ); b ← splitContainer ) yield {
       s.move( b.center - splitContainer.head.center )
     }
 
@@ -159,7 +159,7 @@ class BoxTest extends ShapeTest[Box] {
 
     result.size should equal( _hSplit * _vSplit )
     result.foreach {
-      case (b, s) => s.size should equal( rawTestShapes( container ).size )
+      case ( b, s ) ⇒ s.size should equal( rawTestShapes( container ).size )
     }
   }
 
@@ -171,7 +171,7 @@ class BoxTest extends ShapeTest[Box] {
     val result = Box.spreadAcross( splitContainer, testShape :: Nil, compact = false )
 
     result.foreach {
-      case (b, s) => s.size should equal( 1 )
+      case ( b, s ) ⇒ s.size should equal( 1 )
     }
   }
 

@@ -32,8 +32,6 @@ class DummySetTest extends SpatialSetTest[DummySet[Shape]] {
     * @param objects The objects to add to the list
     * @return A new instance of a SpatialSet[T]
     */
-  override
-  protected
-  def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
+  override protected def newSpatialSet[U <: Shape]( bounds: Box, objects: List[U] ) =
     DummySet( bounds, objects )
 }

@@ -43,9 +43,7 @@ final class SpatialTreeTest extends SpatialSetTest[SpatialTree[Shape]] {
     * @param toSeq The toSeq to add to the list
     * @return A new instance of a SpatialSet[T]
     */
-  override
-  protected
-  def newSpatialSet[U <: Shape]( bounds: Box, toSeq: List[U] ) =
+  override protected def newSpatialSet[U <: Shape]( bounds: Box, toSeq: List[U] ) =
     SpatialTree( _splitSize, _maxDepth, bounds, toSeq, _hSplit, _vSplit )
 
   //
@@ -62,7 +60,7 @@ final class SpatialTreeTest extends SpatialSetTest[SpatialTree[Shape]] {
     val result = shapes.foldLeft( set )( _ + _ )
 
     def depth( t: SpatialTree[Shape] ): Int =
-      if( t.children.isEmpty ) 0 else t.children.map( n => 1 + depth( n ) ).max
+      if ( t.children.isEmpty ) 0 else t.children.map( n ⇒ 1 + depth( n ) ).max
 
     depth( result ) <= _maxDepth should equal( true )
   }
@@ -74,13 +72,13 @@ final class SpatialTreeTest extends SpatialSetTest[SpatialTree[Shape]] {
   "The lookAround member" must "return all the Shapes in the same bucket" in {
     val shapesPerBucket = 5
 
-    val filledBuckets = for( b <- _bucketList ) yield {
+    val filledBuckets = for ( b ← _bucketList ) yield {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val result = SpatialTree( 2, 1, testArea, filledBuckets.flatMap( x => x ).toList, _hSplit, _vSplit )
+    val result = SpatialTree( 2, 1, testArea, filledBuckets.flatMap( x ⇒ x ).toList, _hSplit, _vSplit )
 
-    for( b <- filledBuckets; s <- b ) {
+    for ( b ← filledBuckets; s ← b ) {
       result.lookAround( s ).size should equal( shapesPerBucket )
     }
   }
@@ -88,16 +86,18 @@ final class SpatialTreeTest extends SpatialSetTest[SpatialTree[Shape]] {
   "The lookAround member" must "not return any Shape from other buckets" in {
     val shapesPerBucket = 5
 
-    val filledBuckets = for( b <- _bucketList ) yield {
+    val filledBuckets = for ( b ← _bucketList ) yield {
       List.fill( shapesPerBucket )( ShapeUtils.rndCircle( b ) )
     }
 
-    val result = SpatialTree( 2, 1, testArea, filledBuckets.flatMap( x => x ).toList, _hSplit, _vSplit )
+    val result = SpatialTree( 2, 1, testArea, filledBuckets.flatMap( x ⇒ x ).toList, _hSplit, _vSplit )
 
-    for( b <- filledBuckets;
-         s <- b;
-         ob <- filledBuckets if ob != b;
-         os <- ob ) {
+    for (
+      b ← filledBuckets;
+      s ← b;
+      ob ← filledBuckets if ob != b;
+      os ← ob
+    ) {
       result.lookAround( s ).contains( os ) should equal( false )
     }
   }
@@ -114,7 +114,6 @@ final class SpatialTreeTest extends SpatialSetTest[SpatialTree[Shape]] {
     result.lookAround( checkShape1 ).contains( shape ) should equal( true )
     result.lookAround( checkShape2 ).contains( shape ) should equal( true )
   }
-
 
   //
   // children member

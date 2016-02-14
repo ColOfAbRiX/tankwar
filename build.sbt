@@ -32,7 +32,7 @@ name := "TankWar"
 version := "0.2.0"
 scalaVersion := "2.11.7"
 mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
-//fork := true
+fork := false
 
 // Dependencies
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -40,7 +40,7 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
-  "com.github.wookietreiber" %% "scala-chart" % "latest.integration",
+  //"com.github.wookietreiber" %% "scala-chart" % "latest.integration",
   "org.uncommons.watchmaker" % "watchmaker-framework" % "0.7.1",
   "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
   "com.storm-enroute" %% "scalameter" % "0.7",
@@ -87,7 +87,8 @@ javaOptions ++= Seq(
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
   // Other settings
-  s"-Djava.library.path=${unmanagedBase.value}"
+  s"-Djava.library.path=${unmanagedBase.value}",
+   "-Dfile.encoding=UTF-8"
 )
 
 // Scaladoc configuration
@@ -112,15 +113,24 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
   Seq.empty[File]
 })
 
+// Scalameter
+
+testFrameworks += new TestFramework(
+  "org.scalameter.ScalaMeterFramework")
+
+logBuffered := false
+parallelExecution in Test := false
+
 // Code Style
 
 /*
+// UTF-8 support is broken?
 lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
 compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
 (compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
+*/
 
 scalastyleConfig := file( s"${sourceDirectory.value}/main/resources/scalastyle-config.xml" )
-*/
 
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value

@@ -28,7 +28,7 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
   * Used to do performance tests and comparisons
   */
 class DummySet[T: SpatialIndexable] protected (
-    override val toList: List[T],
+    override val toSeq: List[T],
     override val bounds: Box
 ) extends SpatialSet[T] {
 
@@ -39,7 +39,7 @@ class DummySet[T: SpatialIndexable] protected (
     *
     * @return A new quadtree without the specified Shape.
     */
-  override def -( p: T ): DummySet[T] = new DummySet[T]( toList.filter( _ != p ), bounds )
+  override def -( p: T ): DummySet[T] = new DummySet[T]( toSeq.filter( _ != p ), bounds )
 
   /**
     * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add all objects to
@@ -48,11 +48,11 @@ class DummySet[T: SpatialIndexable] protected (
     * @return A new quadtree containing the new Shape in the appropriate position
     */
   override def +( p: T ): DummySet[T] =
-    if ( toList.contains( p ) ) {
+    if ( toSeq.contains( p ) ) {
       this
     }
     else {
-      new DummySet[T]( p :: toList, bounds )
+      new DummySet[T]( p :: toSeq, bounds )
     }
 
   /**
@@ -61,8 +61,8 @@ class DummySet[T: SpatialIndexable] protected (
     * @return A new quadtree containing the new PhysicalObject in the appropriate position
     */
   def ++( pi: Seq[T] ): DummySet[T] = {
-    val newObjects = pi.filterNot( toList.contains )
-    new DummySet[T]( newObjects ++: toList, bounds )
+    val newObjects = pi.filterNot( toSeq.contains )
+    new DummySet[T]( newObjects ++: toSeq, bounds )
   }
 
   /**
@@ -77,7 +77,7 @@ class DummySet[T: SpatialIndexable] protected (
     *
     * @return true is the quadtree doesn't contain any Shape
     */
-  override def isEmpty: Boolean = toList.isEmpty
+  override def isEmpty: Boolean = toSeq.isEmpty
 
   /**
     * Return all Shapes that could collide with the given object
@@ -85,7 +85,7 @@ class DummySet[T: SpatialIndexable] protected (
     * @param s A Shape used to collect other shapes that are spatially near it
     * @return All Shapes that could collide with the given object
     */
-  override def lookAround( s: Shape ): Seq[T] = if ( !bounds.intersects( s ) ) Nil else toList
+  override def lookAround( s: Shape ): Seq[T] = if ( !bounds.intersects( s ) ) Nil else toSeq
 
   /**
     * Updates the quadtree
@@ -106,7 +106,7 @@ class DummySet[T: SpatialIndexable] protected (
   /**
     * The number of shapes contained in the quadtree
     */
-  override def size: Int = toList.size
+  override def size: Int = toSeq.size
 }
 
 object DummySet {
