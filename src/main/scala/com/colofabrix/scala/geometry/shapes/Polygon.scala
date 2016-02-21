@@ -21,7 +21,7 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
 import com.colofabrix.scala.math.Vect
 
-import scala.language.postfixOps
+import scala.language.{ postfixOps, reflectiveCalls }
 
 /**
   * A generic two-dimensional polygon
@@ -29,37 +29,34 @@ import scala.language.postfixOps
   * This class is not meant to be efficient but only to provide generic algorithms and
   * to study how they work. Don't use this class in production code
   */
-@SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
+//@SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
 class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
+
+  /** To represent corners between two edges */
+  final case class Corner( e0: Seg, e1: Seg ) {val edges = e0 :: e1 :: Nil}
 
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
 
+  /** Edges of the Polygon, built from the vertices. Edges are {Vect} from one vertex to its adjacent one */
+  lazy val edges: Seq[Seg] = (vertices :+ vertices.head).sliding( 2 ).map( Seg( _ ) ).toSeq
+
+  /** Corners of the Polygon */
+  lazy val corners: Seq[Corner] = (edges :+ edges.head).sliding( 2 ).map( { case e0 +: e1 +: Nil => Corner( e0, e1 ) } ).toSeq
+
   /**
     * Area of the polygon
-    *
-    * @see http://geomalgorithms.com/a01-_area.html
+    * Ref: http://geomalgorithms.com/a01-_area.html
     */
   lazy val area = {
-    val partials =
-      (vertices :+ vertices.head)
-        .sliding( 3 )
-        .map {
-          case v0 :: v1 :: v2 :: Nil ⇒ v1.x * (v2.y - v0.y)
-        }
+    val partials = (vertices :+ vertices.head)
+      .sliding( 3 )
+      .map {
+        case v0 +: v1 +: v2 +: Nil ⇒ v1.x * (v2.y - v0.y)
+      }
 
     partials.sum / 2.0
   }
-
-  /**
-    * Edges of the shape, built from the vertices. Edges are {Vect} from one vertex to its adjacent one
-    */
-  val edges: Seq[Vect] = (vertices :+ vertices.head).sliding( 2 ) map { v ⇒ v( 1 ) - v( 0 ) } toList
-
-  /**
-    * List of all adjacent edges of the polygon. An iterator to go from the first to the last edge
-    */
-  val edgesIterator = (edges :+ edges.head).sliding( 2 ).toSeq
 
   /**
     * Checks if a polygon is convex
@@ -68,41 +65,20 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
     * edge compared to the first.
     *
-    * @see https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
+    * Ref: https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
+    *
     * @return true if the polygon is convex
     */
   lazy val isConvex = {
     // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
     // direction of the first edge as a reference.
-    val direction = Math.signum( edges( 1 ) ^ edges( 0 ) ).toInt
+    val direction = Math.signum( corners.head.e0.vect ^ corners.head.e1.vect ).toInt
 
-    // Check the condition on all edges
-    this.edgesIterator.tail forall {
-      case u +: v +: Nil ⇒
-        val r = v ^ u
-        Math.signum( r ).toInt == direction || r.abs <= Double.MinPositiveValue
+    corners.forall { c =>
+      val r = c.e0.vect ^ c.e1.vect
+      Math.signum( r ).toInt == direction || r.abs <= Double.MinPositiveValue
     }
   }
-
-  /**
-    * List of all adjacent vertexes of the polygon. An iterator to go from the first to the last vertex
-    */
-  val verticesIterator = (vertices :+ vertices.head).sliding( 2 ).toList
-
-  /**
-    * Tests if a point is Left|On|Right of an infinite line.
-    *
-    * This is a faster version (less calculations) of the vector product of two vectors
-    * defined by three points.
-    *
-    * @see http://algs4.cs.princeton.edu/91primitives/
-    * @param v0 First segment point
-    * @param v1 Second segment point
-    * @param p  Point to check
-    * @return >0 for P2 left of the line through P0 and P1, =0 for P2  on the line, <0 for P2  right of the line
-    */
-  private def checkTurn( v0: Vect, v1: Vect, p: Vect ): Double =
-    (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   /**
     * Determines if a point is inside or on the boundary the shape
@@ -111,25 +87,16 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @param p The point to be checked
     * @return True if the point is inside the shape
     */
-  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   override def contains( p: Vect ): Boolean = {
-    var wn = 0
-
-    verticesIterator foreach {
-      case v0 +: v1 +: Nil ⇒
-        if( v0.y <= p.y ) {
-          if( v1.y > p.y ) {
-            if( checkTurn( v0, v1, p ) > 0.0 ) wn += 1
-          }
-        }
-        else {
-          if( v1.y <= p.y ) {
-            if( checkTurn( v0, v1, p ) < 0.0 ) wn -= 1
-          }
-        }
+    val wind = edges.foldLeft( 0 ) { ( a, e ) =>
+      if( e.v0.y <= p.y ) {
+        if( e.v1.y > p.y && e.checkTurn( p ) > 0.0 ) a + 1 else a
+      }
+      else {
+        if( e.v1.y <= p.y && e.checkTurn( p ) < 0.0 ) a - 1 else a
+      }
     }
-
-    wn != 0
+    wind != 0
   }
 
   /**
@@ -139,33 +106,19 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return True if the given shape is inside the shape or on its boundary
     */
   override def contains( s: Shape ): Boolean = s match {
-    // How horrible block...
-    case p: Polygon ⇒ p.vertices.forall( this.contains ) ||
-      this.edgesIterator.forall {
-        case v0 +: v1 +: Nil => p.edgesIterator.forall {
-          case u0 +: u1 +: Nil =>
-            Shape.intersects( Seg( v0, v1 ), Seg( u0, u1 ) ) match {
-              case None => true
-              case _ => false
-            }
-        }
-      }
+    case p: Polygon ⇒
+      p.vertices.forall( this.contains ) &&
+        !p.edges.exists( e => edges.exists( e.intersects ) )
 
-    // How horrible block...
-    case g: Seg => g.endpoints.forall( this.contains ) ||
-      this.edgesIterator.forall {
-        case v0 +: v1 +: Nil =>
-          Shape.intersects( Seg( v0, v1 ), g ) match {
-            case None => true
-            case _ => false
-          }
-      }
+    case g: Seg ⇒
+      g.endpoints.forall( this.contains ) &&
+        !edges.exists( _.intersects( g ) )
 
-    // For Polygon-Circles I check that each vertex is outside the circle
-    case c: Circle ⇒ vertices.forall( !c.contains( _ ) )
+    case c: Circle ⇒
+      !vertices.exists( c.contains ) &&
+        !edges.exists( _.intersects( c ) )
 
-    // Other comparisons are not possible
-    case _ ⇒ false
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
 
   /**
@@ -177,15 +130,13 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
     */
   def distance( p: Vect ): (Vect, Vect) = {
-    // If the point is inside the polygon....
-    if( contains( p ) ) return (Vect.origin, Vect.origin)
-
-    // Check all the vertices and return the nearest one.
-    val distances = verticesIterator map {
-      case v0 +: v1 +: Nil ⇒ (Shape.distance( Seg( v0, v1 ), p ), Seg( v0, v1 ).vect)
+    if( contains( p ) ) {
+      (Vect.origin, Vect.origin)
     }
-
-    distances.minBy( _._1.ρ )
+    else {
+      // Check all the vertices and return the nearest one.
+      edges.map( _.distance( p ) ).minBy( _._1.ρ )
+    }
   }
 
   /**
@@ -195,17 +146,13 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
     */
   override def distance( s: Seg ): (Vect, Vect) = {
-    // If the segment is inside the polygon....
     if( intersects( s ) ) {
-      return (Vect.zero, Vect.zero)
+      (Vect.zero, Vect.zero)
     }
-
-    // Check all the vertices and return the nearest one.
-    val distances = vertices.map(
-      v ⇒ (Shape.distance( s, v ), v)
-    )
-
-    distances.minBy( _._1.ρ )
+    else {
+      // Check all the vertices and return the nearest one.
+      edges.map( _.distance( s ) ).minBy( _._1.ρ )
+    }
   }
 
   /**
@@ -215,13 +162,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return True if the point is inside the shape
     */
   override def intersects( s: Seg ): Boolean =
-    s.endpoints.exists( this.contains ) ||
-      this.edgesIterator.exists {
-        case v0 +: v1 +: Nil => Shape.intersects( Seg( v0, v1 ), s ) match {
-          case None => false
-          case _ => true
-        }
-      }
+    s.endpoints.exists( contains ) || edges.exists( _.intersects( s ) )
 
   /**
     * Determines if a shape is inside or on the boundary this shape
@@ -230,27 +171,20 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return True if the point is inside the shape
     */
   override def intersects( that: Shape ): Boolean = that match {
-
     // With circles I find the nearest edge to the center and then I compare it to the radius to see if it's inside
     case c: Circle ⇒ distance( c.center )._1 <= c.radius
 
     case p: Polygon ⇒
-      false
-      // Simple brute force...
-      //vertices.exists( this.contains ) ||
-      //vertices.exists( p.contains ) ||
-      this.verticesIterator.exists {
-        // intersecting edges
-        case v0 +: v1 +: Nil ⇒ p.verticesIterator.exists {
-          case u0 +: u1 +: Nil ⇒
-            val d = Shape.distance( Seg( v0, v1 ), Seg( u0, u1 ) )
-            println( s"Distance from ($v0, $v1) - ($u0, $u1): $d" )
-            d == Vect.zero
+      vertices.exists( p.contains ) ||
+        p.vertices.exists( this.contains ) ||
+        edges.exists { e =>
+          p.edges.exists( e.intersects )
         }
-      }
 
-    // Other comparisons are not possible
-    case _ ⇒ false
+    case g: Seg => intersects( g )
+
+    // Other comparisons are not possible, including Seg with its own method
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
 
   /**

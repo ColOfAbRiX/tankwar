@@ -51,6 +51,7 @@ object Container {
     */
   @inline
   def bestFit( s: Shape ): Container = s match {
+    case g: Seg => Circle.bestFit( g )
     case b: Box ⇒ Circle.bestFit( b )
     case c: Circle ⇒ Circle.bestFit( c )
     case cp: ConvexPolygon ⇒ Circle.bestFit( cp )

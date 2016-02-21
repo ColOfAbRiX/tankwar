@@ -17,6 +17,8 @@ package com.colofabrix.scala.geometry.abstracts
 
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
 
+import scala.reflect.runtime.universe._
+
 /**
   * Typeclass to define object that can be indexed spatially.
   *
@@ -31,8 +33,7 @@ trait SpatialIndexable[-T] {
     *
     * @return A new Container instance that fully contains the object
     */
-  def container( t: T ): Container
-
+  def container[A <: Container : TypeTag]( t: T ): Container
 }
 
 object SpatialIndexable {
@@ -40,19 +41,25 @@ object SpatialIndexable {
   /**
     * Converter [[Shape]] -> [[SpatialIndexable]]
     *
-    * @return A new instance of SpatialIndexable that can extract information from a `Shape`
+    * @return A new instance of SpatialIndexable that can extract information from a [[Shape]]
     */
-  implicit def indexableShape[T <: Shape] = new SpatialIndexable[T] {
-    override def container( that: T ): Container = that.container
-  }
+  implicit def indexableShape[T <: Shape] =
+    new SpatialIndexable[T] {
+      override
+      def container[A <: Container : TypeTag]( t: T ): Container =
+        t.container[A]
+    }
 
   /**
     * Converter [[PhysicalObject]] -> [[SpatialIndexable]]
     *
-    * @return A new instance of SpatialIndexable that can extract information from a `PhysicalObject`
+    * @return A new instance of SpatialIndexable that can extract information from a [[PhysicalObject]]
     */
-  implicit def indexablePhysicalObject[T <: PhysicalObject] = new SpatialIndexable[T] {
-    override def container( that: T ): Container = that.objectShape.container
-  }
+  implicit def indexablePhysicalObject[T <: PhysicalObject] =
+    new SpatialIndexable[T] {
+      override
+      def container[A <: Container : TypeTag]( that: T ): Container =
+        that.objectShape.container[A]
+    }
 
 }

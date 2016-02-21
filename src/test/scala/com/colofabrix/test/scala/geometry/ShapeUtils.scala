@@ -17,7 +17,7 @@
 package com.colofabrix.test.scala.geometry
 
 import com.colofabrix.scala.geometry.abstracts.Shape
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle, ConvexPolygon, Polygon }
+import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math.{ RTVect, XYVect }
 
 import scala.util.{ Random => Rnd }
@@ -37,6 +37,16 @@ object ShapeUtils {
     Rnd.nextDouble * maxArea.width + maxArea.bottomLeft.x,
     Rnd.nextDouble * maxArea.height + maxArea.bottomLeft.y
   )
+
+  /**
+    * Creates a Seg in a random position inside the specified area
+    *
+    * @param area The area where the new circle must lie
+    * @return A new instance of Seg
+    */
+  def rndSeg( area: Box ): Seg = {
+    Seg( rndVect( area ), rndVect( area ) )
+  }
 
   /**
     * Creates a Circle in a random position and with a random radius inside the specified area

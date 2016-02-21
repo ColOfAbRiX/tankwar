@@ -16,7 +16,7 @@
 
 package com.colofabrix.test.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle, Polygon }
+import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math.XYVect
 import com.colofabrix.test.scala.geometry.abstracts.ShapeTest
 
@@ -42,20 +42,26 @@ class CircleTest extends ShapeTest[Circle] {
 
   "The fromArea member" must "create a Circle given its area" in {
     val test = Circle.fromArea( XYVect( 10, 10 ), Math.PI * Math.pow( 100, 2.0 ) )
-    test.radius should equal(100)
+    test.radius should equal( 100 )
   }
 
-  "The bestFit member" must "find the minimum-area Circle that contains a Shape" in {
-    val container = Box( XYVect( 50, 60 ), XYVect( 150, 160 ) )
+  //
+  // Companion object bestFit member
+  //
+
+  "The bestFit member" must "find the minimum-area Box that contains a Shape" in {
+    val container = Circle( XYVect( 10, 10 ), 20 )
 
     val testShapes = Seq(
+      Seg( XYVect( 50, 60 ), XYVect( 150, 160 ) ),
       container,
-      Circle( container.center, container.width / 2 ),
-      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil )
+      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil ),
+      new ConvexPolygon( Seq( XYVect( 50, 60 ), XYVect( 150, 60 ), XYVect( 150, 160 ), XYVect( 50, 160 ) ) ),
+      Box( XYVect( 50, 60 ), XYVect( 150, 160 ) )
     )
 
     testShapes.foreach { s ⇒
-      Box.bestFit( s ) should equal( container )
+      Circle.bestFit( s ).contains( s ) should equal( true )
     }
   }
 

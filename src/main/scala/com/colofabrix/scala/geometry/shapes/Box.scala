@@ -37,7 +37,7 @@ import scala.collection.JavaConverters._
   * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
   * @param topRight   Rectangle right-top point, in any quadrant of the plane
   */
-final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
+final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
   Seq(
     bottomLeft,
     XYVect( bottomLeft.x, topRight.y ),
@@ -99,15 +99,8 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
     */
   override def intersects( that: Shape ): Boolean = that match {
     // Box-box case - Ref: https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
-    case c: Circle ⇒ this.contains( c.center ) ||
-      this.verticesIterator.foldLeft( false ) {
-        case ( r, p1 +: p0 +: Nil ) ⇒ c.intersects( Seg( p0, p1 ) )
-      }
-
-    // Box-box case I use a faster check
-    case b: Box ⇒ b.vertices.foldLeft( false ) { _ || this.contains( _ ) }
-
-    // For other comparisons I fell back to the parent
+    case c: Circle ⇒
+      this.contains( c.center ) || edges.exists( c.intersects )
     case _ ⇒ super.intersects( that )
   }
 
@@ -125,7 +118,7 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
     val height = this.height / vSplit
     val templateBox = Box( Vect.origin, XYVect( width, height ) ).move( this.bottomLeft )
 
-    for ( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
+    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
       templateBox.move( XYVect( width * i, height * j ) )
     }
   }
@@ -141,14 +134,13 @@ final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends Con
 
   override def equals( other: Any ): Boolean = other match {
     case that: Box ⇒
-      bottomLeft == that.bottomLeft &&
-        topRight == that.topRight
+      bottomLeft == that.bottomLeft && topRight == that.topRight
     case _ ⇒ false
   }
 
-  override def hashCode(): Int = {
+  override def hashCode( ): Int = {
     val state = Seq( bottomLeft, topRight )
-    state.map( _.hashCode() ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+    state.map( _.hashCode( ) ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
   }
 }
 
@@ -217,7 +209,8 @@ object Box {
     * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
     */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
-  def bestFit( s: Shape ): Container = s match {
+  def bestFit( s: Shape ): Box = s match {
+    case g: Seg => Box( g.v0, g.v1 )
 
     // If it's a box, return it - O(1)
     case b: Box ⇒ b
@@ -228,25 +221,25 @@ object Box {
     // If it's a polygon, find its limits - O(n)
     case p: Polygon ⇒
       // Using VARs to optimize performance
-      var ( minX, minY ) = ( Double.MaxValue, Double.MaxValue )
-      var ( maxX, maxY ) = ( Double.MinValue, Double.MinValue )
+      var xMin, yMin = Double.MaxValue
+      var xMax, yMax = Double.MinValue
 
       // Finds the minimum and maximum coordinates for the points
-      for ( v ← p.vertices ) {
-        minX = if ( minX > v.x ) v.x else minX
-        minY = if ( minY > v.y ) v.y else minY
-        maxX = if ( maxX < v.x ) v.x else maxX
-        maxY = if ( maxY < v.y ) v.y else maxY
+      for( v ← p.vertices ) {
+        xMin = Math.min( xMin, v.x )
+        yMin = Math.min( yMin, v.y )
+        xMax = Math.max( xMax, v.x )
+        yMax = Math.max( yMax, v.y )
       }
 
       // Creates the Box
-      val bottomLeft = XYVect( minX, minY )
-      val topRight = XYVect( maxX, maxY )
+      val bottomLeft = XYVect( xMin, yMin )
+      val topRight = XYVect( xMax, yMax )
 
       Box( bottomLeft, topRight )
 
     // Other cases, error
-    case _ ⇒ throw new IllegalArgumentException
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
 
   /**
@@ -270,11 +263,11 @@ object Box {
     val acc = new ConcurrentHashMap[Box, Seq[T]].asScala
 
     @inline
-    def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container( o ) )
+    def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container[Box]( o ) )
 
-    for ( b ← nodes.par ) {
+    for( b ← nodes ) {
       val objInBox = objects.filter( intersects( b, _ ) )
-      if ( objInBox.nonEmpty || !compact ) acc += ( ( b, objInBox ) )
+      if( objInBox.nonEmpty || !compact ) acc += ((b, objInBox))
     }
 
     acc.toMap

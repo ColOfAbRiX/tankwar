@@ -19,11 +19,18 @@ package com.colofabrix.scala.geometry.shapes
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.math.Vect
 
+import scala.language.reflectiveCalls
+
 /**
   * A convex polygon
   */
 class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
   require( this.isConvex, "The vertices don't define a convex polygon" )
+
+  private def containsCondition(
+    f: {def contains( a: Vect ): Boolean},
+    it: Iterable[Vect]
+  ) = it.forall( f.contains )
 
   /**
     * Determines if a shape is inside or on the boundary the current shape
@@ -32,11 +39,12 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     * @return True if the given shape is inside the shape or on its boundary
     */
   override def contains( s: Shape ): Boolean = s match {
-
-    // For ConvexPolygon-Polygon I check if all the vertices are inside it. This follows from the definition of polygon and applies to
-    case p: Polygon ⇒ p.vertices.forall( contains )
-
-    // For other comparisons I fell back to the parent
+    case g: Seg ⇒ containsCondition( this, g.endpoints )
+    case p: Polygon ⇒ containsCondition( this, p.vertices )
+    case c: Circle ⇒
+      this.contains( c.center ) && edges.forall { e =>
+        !c.intersects( e ) || c.distance( e )._1 == Vect.zero
+      }
     case _ ⇒ super.contains( s )
   }
 
@@ -47,7 +55,6 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     * @return True if the point is inside the shape
     */
   override def intersects( that: Shape ): Boolean = that match {
-
     /*
     * Implementation of the Separating Axes Theorem. This is faster than the default {Polygon} implementation and
     * valid only for convex polygons
@@ -55,21 +62,20 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     * @see http://www.sevenson.com.au/actionscript/sat/
     */
     case cp: ConvexPolygon ⇒
-      this.edges.map( edge ⇒ edge.n ).
-        // Chosen an edge of this polygon...
-        forall { edge_normal ⇒
-          // ...I get the projections of all vertices on the normal of the edge
-          val prVxThis = vertices.map( v ⇒ ( v → edge_normal ).ρ )
-          val prVxThat = cp.vertices.map( v ⇒ ( v → edge_normal ).ρ )
+      this.edges.map( _.vect.n ).forall { edge_normal ⇒
+        // Chosen an edge of this polygon I get the projections of all
+        // vertices on the normal of the edge
+        val prVxThis = vertices.map( v ⇒ (v → edge_normal).ρ )
+        val prVxThat = cp.vertices.map( v ⇒ (v → edge_normal).ρ )
 
-          // Then I check if the extremities of the projections of the two polygons overlaps
-          if ( prVxThis.min < prVxThat.min ) {
-            prVxThis.max >= prVxThat.min
-          }
-          else {
-            prVxThat.max >= prVxThis.min
-          }
+        // Then I check if the extremities of the projections of the two polygons overlaps
+        if( prVxThis.min < prVxThat.min ) {
+          prVxThis.max >= prVxThat.min
         }
+        else {
+          prVxThat.max >= prVxThis.min
+        }
+      }
 
     // For other comparisons I fell back to the parent
     case _ ⇒ super.intersects( that )

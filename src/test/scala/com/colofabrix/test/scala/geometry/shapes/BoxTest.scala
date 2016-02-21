@@ -40,9 +40,11 @@ class BoxTest extends ShapeTest[Box] {
   private def split( cont: Box ) = cont.split( _hSplit, _vSplit )
 
   private def rawTestShapes( cont: Box ) = Seq(
+    ShapeUtils.rndSeg( split( cont ).head ),
     ShapeUtils.rndBox( split( cont ).head ),
     ShapeUtils.rndCircle( split( cont ).head ),
-    ShapeUtils.rndConvexPolygon( split( cont ).head )
+    ShapeUtils.rndConvexPolygon( split( cont ).head ),
+    ShapeUtils.rndPolygon( split( cont ).head )
   )
 
   //
@@ -132,13 +134,18 @@ class BoxTest extends ShapeTest[Box] {
     val container = Box( XYVect( 50, 60 ), XYVect( 150, 160 ) )
 
     val testShapes = Seq(
-      container,
-      Circle( container.center, container.width / 2 ),
-      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil )
+      Circle( container.center, container.width / 2.0 ),
+      Seg( XYVect( 50, 60 ), XYVect( 150, 160 ) ),
+      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil ),
+      new ConvexPolygon( Seq( XYVect( 50, 60 ), XYVect( 150, 60 ), XYVect( 150, 160 ), XYVect( 50, 160 ) ) ),
+      container
     )
 
     testShapes.foreach { s ⇒
-      Box.bestFit( s ) should equal( container )
+      val result = Box.bestFit( s )
+
+      result should equal( container )
+      result.contains( s ) should equal( true )
     }
   }
 
@@ -151,7 +158,7 @@ class BoxTest extends ShapeTest[Box] {
     val splitContainer = this.split( container )
 
     // I create a new Shape from the raw ones for every box in splitContainer
-    val testShapes = for ( s ← rawTestShapes( container ); b ← splitContainer ) yield {
+    val testShapes = for( s ← rawTestShapes( container ); b ← splitContainer ) yield {
       s.move( b.center - splitContainer.head.center )
     }
 
@@ -159,19 +166,19 @@ class BoxTest extends ShapeTest[Box] {
 
     result.size should equal( _hSplit * _vSplit )
     result.foreach {
-      case ( b, s ) ⇒ s.size should equal( rawTestShapes( container ).size )
+      case (b, s) ⇒ s.size should equal( rawTestShapes( container ).size )
     }
   }
 
   "The spreadAcross member" must "place the same Shape in multiple boxes when it spans more than one" in {
-    val container = Box( 100, 300 )
+    val container = Box( 100, 100 )
     val splitContainer = this.split( container )
-    val testShape = Circle( container.center, Math.max( container.width, container.height ) )
+    val testShape = Circle( container.center, Math.max( container.width, container.height ) / 2.0 )
 
     val result = Box.spreadAcross( splitContainer, testShape :: Nil, compact = false )
 
     result.foreach {
-      case ( b, s ) ⇒ s.size should equal( 1 )
+      case (b, s) ⇒ s.size should equal( 1 )
     }
   }
 

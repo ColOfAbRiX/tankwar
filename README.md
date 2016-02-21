@@ -133,10 +133,11 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
 
 ###Topics of Computer Graphics
 
-* Plane geometry
+* Computational Geometry
   * Collision detection
   * Measurement of distance
   * Polygons and algorithms to determine some of their properties
+  * Algorithms Complexity
 * OpenGL APIs
 * Vectors and Matrices implementation and optimizations 
 

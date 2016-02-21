@@ -41,7 +41,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     * @return A Seq of different Shapes, one for each type
     */
   private def testShapesSet( where: Box ) = Seq(
-    Seg( XYVect( 30, 50 ), XYVect( 70, 150 ) ),
+    Seg( XYVect( 90, 20 ), XYVect( 10, 190 ) ),
     Box( XYVect( 30, 50 ), XYVect( 70, 150 ) ),
     Circle( where.center, 20 ),
     new ConvexPolygon( XYVect( 50, 150 ) :: XYVect( 30, 90 ) :: XYVect( 35, 50 ) :: XYVect( 70, 110 ) :: Nil ),
@@ -69,7 +69,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   "The container member" must "fully contain the shape" in {
     val test = testShapesSet( Box( 100, 200 ) )
 
-    test.foreach { s =>
+    test.foreach { s ⇒
       s.container.contains( s ) should equal( true )
     }
   }
@@ -91,7 +91,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val where = Box( 100, 200 )
     val test = testShape( where )
 
-    testShapesSet( where ) foreach { s =>
+    testShapesSet( where ) foreach { s ⇒
       test.intersects( s.move( XYVect( 50, 0 ) ) ) should equal( true )
     }
   }
@@ -100,23 +100,23 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val where = Box( 100, 200 )
     val test = testShape( where )
 
-    testShapesSet( where ) foreach { s =>
+    testShapesSet( where ) foreach { s ⇒
       test.intersects( s.move( XYVect( 100, 0 ) ) ) should equal( false )
     }
   }
 
   "The intersects member" must "return true when given intersecting segments" in {
-    val samples = XYVect( 100, 90 ) :: XYVect( 100, 100 ) :: XYVect( 90, 100 ) :: XYVect( 120, 120 ) :: Nil
-    val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    //val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    val ref = testShape( Box( 100, 200 ) )
 
-    samples.sliding( 2 ).foreach {
-      case p0 :: p1 :: Nil =>
-        Shape.intersects( ref, Seg( p0, p1 ) ) should equal( true )
-    }
+    ref.intersects( Seg( XYVect( 100, 90 ), XYVect( 100, 100 ) ) ) should equal( true )
+    ref.intersects( Seg( XYVect( 100, 100 ), XYVect( 90, 100 ) ) ) should equal( true )
+    ref.intersects( Seg( XYVect( 90, 100 ), XYVect( 120, 120 ) ) ) should equal( true )
   }
 
   "The intersects member" must "return false when given non-intersecting segments" in {
-    val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    //val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    val ref = testShape( Box( 100, 200 ) )
 
     ref.intersects( Seg( XYVect( 110, 90 ), XYVect( 110, 30 ) ) ) should equal( false )
     ref.intersects( Seg( XYVect( 110, 90 ), XYVect( 130, 90 ) ) ) should equal( false )
@@ -144,9 +144,9 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The contains member" must "return true when given a Shape inside or on the boundary of the Shape" in {
-    val test = testShape( Box( 500, 500 ) )
+    val test = testShape( Box( 300, 300 ).move( XYVect( -100, -100 ) ) )
 
-    testShapesSet( Box( 100, 200 ) ) foreach { s =>
+    testShapesSet( Box( 100, 200 ) ) foreach { s ⇒
       test.contains( s ) should equal( true )
     }
   }
@@ -154,11 +154,10 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   "The contains member" must "return false when given a Shape outside the Shape" in {
     val test = testShape( Box( 100, 200 ) )
 
-    testShapesSet( Box( 100, 200 ) ) foreach { s =>
+    testShapesSet( Box( 100, 200 ) ) foreach { s ⇒
       test.contains( s.move( XYVect( 101, 201 ) ) ) should equal( false )
     }
   }
-
 
   //
   // move() member
@@ -193,7 +192,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val reference = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
 
     testSegments.sliding( 2 ).foreach {
-      case p0 :: p1 :: Nil => Shape.intersects( reference, Seg( p0, p1 ) )
+      case p0 :: p1 :: Nil ⇒ reference.intersects( Seg( p0, p1 ) )
     }
   }
 
@@ -225,5 +224,4 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
     test1 == test2 should equal( false )
   }
-
 }

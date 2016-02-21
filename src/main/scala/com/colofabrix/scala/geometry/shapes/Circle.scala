@@ -21,8 +21,6 @@ import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.CircleRenderer
 import com.colofabrix.scala.math.Vect
 
-import scala.annotation.tailrec
-
 /**
   * Circle shape
   *
@@ -48,15 +46,15 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @return true if the container fully contain the other shape. Boundaries are included in the container
     */
   override def contains( s: Shape ): Boolean = s match {
+    case g: Seg => g.endpoints.forall( contains )
 
     // For the case Circle-Circle I check that the center and the points on the circumference are inside this one - O(1)
-    case c: Circle ⇒ ( this.center - c.center ).ρ + c.radius <= this.radius
+    case c: Circle ⇒ (this.center - c.center).ρ + c.radius <= this.radius
 
     // For the case Polygon-Circle I check that all the vertices of the polygon lie inside the circle - O(n)
-    case p: Polygon ⇒ p.vertices.forall( this.contains )
+    case p: Polygon ⇒ p.vertices.forall( contains )
 
-    // Other cases are a false
-    case _ ⇒ false
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
 
   /**
@@ -65,7 +63,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @param p The point to be checked
     * @return True if the point is inside the shape or on its boundary
     */
-  override def contains( p: Vect ): Boolean = ( p - center ).ρ <= radius
+  override def contains( p: Vect ): Boolean = (p - center).ρ <= radius
 
   /**
     * Compute the distance between a line and the circle
@@ -73,9 +71,10 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @param s The line segment to check
     * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( s: Seg ): ( Vect, Vect ) = {
+  override def distance( s: Seg ): (Vect, Vect) = {
     // Distance from the point on the segment nearest to the circle
-    distance( center + Shape.distance( s, center ) )
+    val pSeg = s.distance( center )._1
+    distance( center + pSeg )
   }
 
   /**
@@ -84,9 +83,13 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @param p The point to check
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( p: Vect ): ( Vect, Vect ) = {
+  override def distance( p: Vect ): (Vect, Vect) = {
     // The distance of the point from the center of the circle. This vector is not related to the origin of axes
     val distanceFromCenter = p - center
+    if( distanceFromCenter <= radius ) {
+      return (Vect.zero, Vect.zero)
+    }
+
     // A radius (segment that starts in the center of the circle and ends on a point in the circumference) directed towards p.
     // This vector is not related to the origin of axes
     val radiusTowardsPoint = distanceFromCenter.v * radius
@@ -97,7 +100,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     // The couching point is point on the circumference closer to p, but this time related to the origin of axes
     val touchingPoint = center + radiusTowardsPoint
 
-    ( distance, touchingPoint )
+    (distance, touchingPoint)
   }
 
   /**
@@ -106,7 +109,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @param s The line segment to check
     * @return True if the line intersects the shape
     */
-  override def intersects( s: Seg ): Boolean = Shape.distance( s, center ) <= radius
+  override def intersects( s: Seg ): Boolean = s.distance( center )._1 <= radius
 
   /**
     * Determines if a shape touches this one
@@ -119,24 +122,20 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     */
   override def intersects( that: Shape ): Boolean = that match {
     // For segments I check the two endpoints
-    case s: Seg ⇒
-      val d = distance( s )._1
-      d == Vect.zero
+    case g: Seg ⇒ intersects( g )
 
     // For circles is enough to check the distance from the two centers
     case c: Circle ⇒ center - c.center < radius + c.radius
 
     // For Boxes I exploit its property to be parallel to the axis
-    case b: Box ⇒ b.contains( center ) ||
-      b.verticesIterator.foldLeft( false ) {
-        case s ⇒ s._1 || intersects( Seg( s._2 ) )
-      }
+    case b: Box ⇒
+      b.contains( center ) ||
+        b.edges.exists( this.intersects )
 
     // For polygons I check the distance from the nearest edge
     case p: Polygon ⇒ p.distance( center )._1 <= radius
 
-    // Other comparisons are not possible
-    case _ ⇒ false
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
 
   /**
@@ -163,29 +162,53 @@ object Circle {
     * "Best" means the container that has the minimal area and that fully contains the shape
     *
     * @param s The shape that must be surrounded by a container
-    * @return A new `Container` that contains the Shape and that has the minimal area between the available containers
+    * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
     */
   @inline
-  @tailrec
-  def bestFit( s: Shape ): Container = s match {
+  def bestFit( s: Shape ): Circle = s match {
+    // The segment becomes the diameter of a new Circle
+    case g: Seg =>
+      val center = g.v0 + (g.vect / 2.0)
+      // I use Math.max because there can be floating number roundings
+      val radius = Math.max( (g.v0 - center).ρ, (center - g.v1).ρ )
+      Circle( center, radius )
 
     // If the shape it's a circle I simply return it - O(1)
     case c: Circle ⇒ c
 
     // A Box is a very easy case, so I take advantage of this - O(1)
-    case b: Box ⇒ new Circle( b.center, b.width / 2.0 )
-
-    // For a ConvexPolygon I first step on a Box.
-    // FIXME: This should use the Polygon case below
-    case cp: ConvexPolygon ⇒ bestFit( Box.bestFit( cp ) )
+    case b: Box ⇒ new Circle( b.center, (b.topRight - b.bottomLeft).ρ / 2.0 )
 
     // Generic Polygon - O(n)
-    // TODO: See "A Fast Approximate Bounding Ball",  http://geomalgorithms.com/a08-_containers.html
-    case p: Polygon ⇒ ???
+    case p: Polygon ⇒ boundingBall( p )
 
-    // All other cases, I throw an Exception
-    case _ ⇒ throw new IllegalArgumentException
+    case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
+  }
 
+  /**
+    * Implementation of the Fast Approximate Bounding Ball algorithm
+    *
+    * Ref: http://geomalgorithms.com/a08-_containers.html
+    *
+    * @param p A Polygon to encircle
+    * @return A new instance of Circle that contains all the vertices of the polygon and has minimal area
+    */
+  private def boundingBall( p: Polygon ): Circle = {
+    // As stated by Ritter, the starting point is a Box
+    val bBox = Box.bestFit( p )
+    // Connecting line between the most distant points
+    val line = (bBox.topRight - bBox.bottomLeft) / 2.0
+
+    // Check if all points are included and if not, increase the ball
+    p.vertices.foldLeft( Circle( bBox.origin + line, line.ρ ) ) { ( a, v ) =>
+      if( !a.contains( v ) ) {
+        val d = (a.center - v) / 2.0
+        Circle( a.center + d, a.radius + d.ρ )
+      }
+      else {
+        a
+      }
+    }
   }
 
   /**
@@ -199,5 +222,4 @@ object Circle {
     require( area > 0, "The area specified for a circle must be positive" )
     new Circle( center, Math.sqrt( area / Math.PI ) )
   }
-
 }
