@@ -19,9 +19,10 @@ package com.colofabrix.test.scala.geometry
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes.Box
 import org.scalameter._
-import org.scalameter.api.LoggingReporter
+import org.scalameter.api.{ LoggingReporter, exec }
 import org.scalameter.execution.LocalExecutor
 import org.scalameter.picklers.Implicits._
+import org.scalameter.reporting.HtmlReporter
 
 /**
   *
@@ -34,13 +35,16 @@ class GeometryPTest extends Bench[Double] {
 
   override def executor = LocalExecutor(
     new Executor.Warmer.Default,
-    Aggregator.min[Double],
+    Aggregator.median,
     measurer
   )
 
   override def measurer = new Measurer.Default
 
-  override def reporter = new LoggingReporter[Double]
+  override def reporter = Reporter.Composite(
+    new LoggingReporter[Double],
+    new HtmlReporter[Double]( true )
+  )
 
   override def persistor = Persistor.None
 
@@ -58,18 +62,36 @@ class GeometryPTest extends Bench[Double] {
 
   protected def boxes( generator: Gen[Int], area: Box ) = shapes( ShapeUtils.rndBox )( generator, area )
 
+  protected def polygon( generator: Gen[Int], area: Box ) =
+    for( s ← generator ) yield List.fill( s ) {
+      ShapeUtils.rndPolygon( area, Some( s ) )
+    }
+
   private val testArea = Box( 600, 300 )
 
   //
   // Tests
   //
 
-  performance of "Box" in {
+  performance of "Box" config(
+    exec.maxWarmupRuns → 20,
+    exec.benchRuns → 18
+    ) in {
     val testBuckets = testArea.split( 3, 2 )
 
     measure method "spreadAcross" in {
-      using( boxes( logarithmic( 4, 10 ), testArea ) ) in { s ⇒
+      using( boxes( logarithmic( 3, 10 ), testArea ) ) in { s ⇒
         Box.spreadAcross( testBuckets, s, compact = false )
+      }
+    }
+
+    measure method "intersects with Boxes" in {
+      using( boxes( logarithmic( 3, 10 ), testArea ) ) in { s ⇒
+        s.foreach( b ⇒ testArea.intersects( b ) )
+      }
+
+      using( polygon( Gen.range( "vertices" )( 3, 250, 1 ), testArea ) ) in { s ⇒
+        s.foreach( b ⇒ testArea.intersects( b ) )
       }
     }
 

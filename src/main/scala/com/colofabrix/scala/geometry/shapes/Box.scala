@@ -18,11 +18,12 @@ package com.colofabrix.scala.geometry.shapes
 
 import java.util.concurrent.ConcurrentHashMap
 
-import com.colofabrix.scala.geometry.abstracts.{ Container, Shape, SpatialIndexable }
+import com.colofabrix.scala.geometry.abstracts._
 import com.colofabrix.scala.gfx.renderers.BoxRenderer
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
 import scala.collection.JavaConverters._
+import scala.language.postfixOps
 
 /**
   * Rectangle shape with edges parallel to the cartesian axis
@@ -72,6 +73,11 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
   lazy val origin = vertices.minBy( _.ρ )
 
   /**
+    * The vertex that is farther to the origin of the axes.
+    */
+  lazy val opposite = vertices.maxBy( _.ρ )
+
+  /**
     * Moves a polygon shifting all its vertices by a vector quantity
     *
     * @param where The vector specifying how to move the polygon
@@ -99,8 +105,8 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
     */
   override def intersects( that: Shape ): Boolean = that match {
     // Box-box case - Ref: https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
-    case c: Circle ⇒
-      this.contains( c.center ) || edges.exists( c.intersects )
+    case c: Circle ⇒ contains( c.center ) || edges.exists( c.intersects )
+    case b: Box ⇒ b.vertices.exists( contains ) || vertices.exists( b.contains )
     case _ ⇒ super.intersects( that )
   }
 
@@ -153,15 +159,11 @@ object Box {
     * @param width  Width of the box
     * @param height Height of the box
     */
-  def apply( center: Vect, width: Double, height: Double ): Box = {
-    require( width > 0.0, "The Box width can't be negative" )
-    require( height > 0.0, "The Box height can't be negative" )
-
-    new Box(
+  def apply( center: Vect, width: Double, height: Double ): Box =
+    Box(
       XYVect( center.x - width / 2.0, center.y - height / 2.0 ),
       XYVect( center.x + width / 2.0, center.y + height / 2.0 )
     )
-  }
 
   /**
     * Constructor that uses width, height and starts the box at the origin of the axis.
@@ -185,6 +187,9 @@ object Box {
     val topY = Math.max( p0.y, p1.y )
     val bottomX = Math.min( p0.x, p1.x )
     val bottomY = Math.min( p0.y, p1.y )
+
+    require( topX - bottomX > 0.0, "A Box must have a width greater than zero" )
+    require( topY - bottomY > 0.0, "A Box must have a height greater than zero" )
 
     new Box( XYVect( bottomX, bottomY ), XYVect( topX, topY ) )
   }
@@ -210,7 +215,7 @@ object Box {
     */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def bestFit( s: Shape ): Box = s match {
-    case g: Seg => Box( g.v0, g.v1 )
+    case g: Seg ⇒ Box( g.v0, g.v1 )
 
     // If it's a box, return it - O(1)
     case b: Box ⇒ b
@@ -253,20 +258,24 @@ object Box {
     * @tparam T Type of the object that must have a conversion to SpatialIndexable
     * @return A Map that connects the boxes with a list of objects that contains. Objects can be present in multiple buckets
     */
-  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
-  def spreadAcross[T: SpatialIndexable](
+  def spreadAcross[T: HasContainer](
     nodes: Seq[Box],
     objects: Seq[T],
     compact: Boolean = true
   ): Map[Box, Seq[T]] = {
-    // Using VAR to optimize performance
     val acc = new ConcurrentHashMap[Box, Seq[T]].asScala
 
-    @inline
-    def intersects( b: Box, o: T ) = b.intersects( implicitly[SpatialIndexable[T]].container[Box]( o ) )
+    // Extract the containers once for all the shapes
+    val containers = objects.par.map { o ⇒
+      val container = implicitly[HasContainer[T]].boxContainer( o )
+      Tuple2( container, o )
+    } toList
 
     for( b ← nodes ) {
-      val objInBox = objects.filter( intersects( b, _ ) )
+      val objInBox = containers.flatMap { s ⇒
+        if( b.intersects( s._1 ) ) Seq( s._2 ) else Nil
+      }
+
       if( objInBox.nonEmpty || !compact ) acc += ((b, objInBox))
     }
 

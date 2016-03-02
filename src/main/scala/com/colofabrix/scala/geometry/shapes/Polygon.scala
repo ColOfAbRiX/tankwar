@@ -42,7 +42,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
   lazy val edges: Seq[Seg] = (vertices :+ vertices.head).sliding( 2 ).map( Seg( _ ) ).toSeq
 
   /** Corners of the Polygon */
-  lazy val corners: Seq[Corner] = (edges :+ edges.head).sliding( 2 ).map( { case e0 +: e1 +: Nil => Corner( e0, e1 ) } ).toSeq
+  lazy val corners: Seq[Corner] = (edges :+ edges.head).sliding( 2 ).map( { case e0 +: e1 +: Nil ⇒ Corner( e0, e1 ) } ).toSeq
 
   /**
     * Area of the polygon
@@ -74,9 +74,9 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     // direction of the first edge as a reference.
     val direction = Math.signum( corners.head.e0.vect ^ corners.head.e1.vect ).toInt
 
-    corners.forall { c =>
+    corners.forall { c ⇒
       val r = c.e0.vect ^ c.e1.vect
-      Math.signum( r ).toInt == direction || r.abs <= Double.MinPositiveValue
+      Math.signum( r ).toInt == direction || r.abs <= 1E-10
     }
   }
 
@@ -88,12 +88,12 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * @return True if the point is inside the shape
     */
   override def contains( p: Vect ): Boolean = {
-    val wind = edges.foldLeft( 0 ) { ( a, e ) =>
+    val wind = edges.foldLeft( 0 ) { ( a, e ) ⇒
       if( e.v0.y <= p.y ) {
-        if( e.v1.y > p.y && e.checkTurn( p ) > 0.0 ) a + 1 else a
+        if( e.v1.y > p.y && e.orientation( p ) > 0.0 ) a + 1 else a
       }
       else {
-        if( e.v1.y <= p.y && e.checkTurn( p ) < 0.0 ) a - 1 else a
+        if( e.v1.y <= p.y && e.orientation( p ) < 0.0 ) a - 1 else a
       }
     }
     wind != 0
@@ -108,7 +108,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
   override def contains( s: Shape ): Boolean = s match {
     case p: Polygon ⇒
       p.vertices.forall( this.contains ) &&
-        !p.edges.exists( e => edges.exists( e.intersects ) )
+        !p.edges.exists( e ⇒ edges.exists( e.intersects ) )
 
     case g: Seg ⇒
       g.endpoints.forall( this.contains ) &&
@@ -177,11 +177,11 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     case p: Polygon ⇒
       vertices.exists( p.contains ) ||
         p.vertices.exists( this.contains ) ||
-        edges.exists { e =>
+        edges.exists { e ⇒
           p.edges.exists( e.intersects )
         }
 
-    case g: Seg => intersects( g )
+    case g: Seg ⇒ intersects( g )
 
     // Other comparisons are not possible, including Seg with its own method
     case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )

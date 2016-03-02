@@ -15,9 +15,8 @@
  */
 package com.colofabrix.scala.geometry.abstracts
 
+import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.simulation.abstracts.PhysicalObject
-
-import scala.reflect.runtime.universe._
 
 /**
   * Typeclass to define object that can be indexed spatially.
@@ -26,40 +25,46 @@ import scala.reflect.runtime.universe._
   *
   * @tparam T The type of object we want to convert
   */
-trait SpatialIndexable[-T] {
-
+trait HasContainer[T] {
   /**
     * Gets the container of the object
     *
-    * @return A new Container instance that fully contains the object
+    * @param t The object for which a container should be found
+    * @return A new [[HasContainer]] instance that fully contains the object
     */
-  def container[A <: Container : TypeTag]( t: T ): Container
-}
-
-object SpatialIndexable {
+  def container( t: T ): Container
 
   /**
-    * Converter [[Shape]] -> [[SpatialIndexable]]
+    * Gets the Box container of the object
+    *
+    * @param t The object for which a container should be found
+    * @return A new Box instance that fully contains the object
+    */
+  def boxContainer( t: T ): Box
+}
+
+object HasContainer {
+
+  /**
+    * Converter [[Shape]] -> [[HasContainer]] with a generic Container
     *
     * @return A new instance of SpatialIndexable that can extract information from a [[Shape]]
     */
-  implicit def indexableShape[T <: Shape] =
-    new SpatialIndexable[T] {
-      override
-      def container[A <: Container : TypeTag]( t: T ): Container =
-        t.container[A]
-    }
+  implicit def iShapeCont[T <: Shape] = new HasContainer[T] {
+    def container( t: T ) = t.container
+
+    def boxContainer( t: T ) = Box.bestFit( t )
+  }
 
   /**
-    * Converter [[PhysicalObject]] -> [[SpatialIndexable]]
+    * Converter [[PhysicalObject]] -> [[HasContainer]]
     *
     * @return A new instance of SpatialIndexable that can extract information from a [[PhysicalObject]]
     */
-  implicit def indexablePhysicalObject[T <: PhysicalObject] =
-    new SpatialIndexable[T] {
-      override
-      def container[A <: Container : TypeTag]( that: T ): Container =
-        that.objectShape.container[A]
-    }
+  implicit def iPhysicalObjectCont[T <: PhysicalObject] = new HasContainer[T] {
+    def container( t: T ) = t.objectShape.container
+
+    def boxContainer( t: T ) = Box.bestFit( t.objectShape )
+  }
 
 }

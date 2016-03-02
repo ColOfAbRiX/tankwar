@@ -76,8 +76,8 @@ object ShapeUtils {
     * @param area The area where the new Polygon must lie
     * @return A new instance of Polygon
     */
-  def rndPolygon( area: Box ): Polygon = {
-    val rndVertices = Rnd.nextInt( 10 ) + 3
+  def rndPolygon( area: Box, vs: Option[Int] = None ): Polygon = {
+    val rndVertices = vs.getOrElse( Rnd.nextInt( 10 ) + 3 )
     val vertices = ( 0 until rndVertices ).map( _ ⇒ rndVect( area ) )
     new Polygon( vertices )
   }

@@ -115,8 +115,7 @@ compile in Compile <<= (compile in Compile).dependsOn(Def.task {
 
 // Scalameter
 
-testFrameworks += new TestFramework(
-  "org.scalameter.ScalaMeterFramework")
+testFrameworks += new TestFramework( "org.scalameter.ScalaMeterFramework" )
 
 logBuffered := false
 parallelExecution in Test := false

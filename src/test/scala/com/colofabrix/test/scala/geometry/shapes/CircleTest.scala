@@ -50,17 +50,7 @@ class CircleTest extends ShapeTest[Circle] {
   //
 
   "The bestFit member" must "find the minimum-area Box that contains a Shape" in {
-    val container = Circle( XYVect( 10, 10 ), 20 )
-
-    val testShapes = Seq(
-      Seg( XYVect( 50, 60 ), XYVect( 150, 160 ) ),
-      container,
-      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil ),
-      new ConvexPolygon( Seq( XYVect( 50, 60 ), XYVect( 150, 60 ), XYVect( 150, 160 ), XYVect( 50, 160 ) ) ),
-      Box( XYVect( 50, 60 ), XYVect( 150, 160 ) )
-    )
-
-    testShapes.foreach { s ⇒
+    testShapesSet( Box( 100, 200 ) ).foreach { s ⇒
       Circle.bestFit( s ).contains( s ) should equal( true )
     }
   }

@@ -19,6 +19,7 @@ package com.colofabrix.test.scala.geometry.abstracts
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.test.scala.geometry.ShapeUtils
 import org.scalatest.{ FlatSpec, Matchers }
 
 /**
@@ -35,32 +36,38 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   protected def testShape( bounds: Box ): T
 
   /**
-    * Creates a list of shapes to be used as tests
+    * Different kind of shapes to test against.
+    *
+    * Test shapes must cover as much "where" as possible, specifically its
+    * bottom-right diagonal and right edge without exiting it
     *
     * @param where The Box that delimits where the Shapes will be created
-    * @return A Seq of different Shapes, one for each type
+    * @return A list of random shapes, one for each type
     */
-  private def testShapesSet( where: Box ) = Seq(
-    Seg( XYVect( 90, 20 ), XYVect( 10, 190 ) ),
-    Box( XYVect( 30, 50 ), XYVect( 70, 150 ) ),
-    Circle( where.center, 20 ),
-    new ConvexPolygon( XYVect( 50, 150 ) :: XYVect( 30, 90 ) :: XYVect( 35, 50 ) :: XYVect( 70, 110 ) :: Nil ),
-    new Polygon( XYVect( 50, 90 ) :: XYVect( 72, 96 ) :: XYVect( 61, 120 ) :: XYVect( 41, 85 ) :: Nil )
+  protected def testShapesSet( where: Box ) = Seq(
+    Seg( where.topRight, where.bottomLeft ),
+    where,
+    Circle( where.center, Math.min( where.width, where.height ) ),
+    new ConvexPolygon( where.vertices ),
+    new Polygon(
+      Seq(
+        where.bottomLeft + XYVect( where.width * 0.5, where.height * 0.5 ),
+        where.bottomLeft + XYVect( where.width * 1.0, where.height * 0.5 ),
+        where.bottomLeft + XYVect( where.width * 1.0, where.height * 1.0 ),
+        where.bottomLeft + XYVect( where.width * 0.25, where.height * 0.67 ),
+        where.bottomLeft + XYVect( where.width * 0.1, where.height * 0.25 ),
+        where.bottomLeft + XYVect( where.width * 0.75, where.height * 0.1 )
+      )
+    )
   )
 
-  //
-  // Properties
-  //
-
-  "The area member" must "represent the area of the Shape" in {
-    val test = testShapesSet( Box( 100, 200 ) )
-
-    test( 0 ).area should equal( 0.0 )
-    test( 1 ).area should equal( (70 - 30) * (150 - 50) )
-    test( 2 ).area should equal( Math.pow( 20, 2 ) * Math.PI )
-    test( 3 ).area should equal( 2350.0 )
-    test( 4 ).area should equal( 129.5 )
-  }
+  protected def rndTestShapeSet( cont: Box ) = Seq(
+    ShapeUtils.rndSeg( cont ),
+    ShapeUtils.rndBox( cont ),
+    ShapeUtils.rndCircle( cont ),
+    ShapeUtils.rndConvexPolygon( cont ),
+    ShapeUtils.rndPolygon( cont )
+  )
 
   //
   // container member
@@ -88,11 +95,20 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The intersects member" must "return true when given a Shape partially inside the test Shape" in {
-    val where = Box( 100, 200 )
+    val where = Box( XYVect( 50, 100 ), XYVect( 100, 200 ) )
     val test = testShape( where )
 
     testShapesSet( where ) foreach { s ⇒
-      test.intersects( s.move( XYVect( 50, 0 ) ) ) should equal( true )
+      test.intersects( s.move( XYVect( where.width / 2.0, where.height / 2.0 ) ) ) should equal( true )
+    }
+  }
+
+  "The intersects member" must "return true when is the given a Shape that contains the object" in {
+    val where = Box( 100, 200 )
+    val test = testShape( Box( where.center, where.width / 2.0, where.height / 2.0 ) )
+
+    testShapesSet( where ) foreach { s ⇒
+      test.intersects( s ) should equal( true )
     }
   }
 
@@ -101,12 +117,11 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val test = testShape( where )
 
     testShapesSet( where ) foreach { s ⇒
-      test.intersects( s.move( XYVect( 100, 0 ) ) ) should equal( false )
+      test.intersects( s.move( XYVect( where.width * 2.0, where.height * 2.0 ) ) ) should equal( false )
     }
   }
 
   "The intersects member" must "return true when given intersecting segments" in {
-    //val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
     val ref = testShape( Box( 100, 200 ) )
 
     ref.intersects( Seg( XYVect( 100, 90 ), XYVect( 100, 100 ) ) ) should equal( true )
@@ -115,7 +130,6 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The intersects member" must "return false when given non-intersecting segments" in {
-    //val ref = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
     val ref = testShape( Box( 100, 200 ) )
 
     ref.intersects( Seg( XYVect( 110, 90 ), XYVect( 110, 30 ) ) ) should equal( false )
@@ -144,9 +158,10 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The contains member" must "return true when given a Shape inside or on the boundary of the Shape" in {
-    val test = testShape( Box( 300, 300 ).move( XYVect( -100, -100 ) ) )
+    val where = Box( XYVect( -50, -50 ), XYVect( 150, 250 ) )
+    val test = testShape( where )
 
-    testShapesSet( Box( 100, 200 ) ) foreach { s ⇒
+    testShapesSet( Box( where.center, where.width / 2.0, where.height / 2.0 ) ) foreach { s ⇒
       test.contains( s ) should equal( true )
     }
   }
@@ -156,6 +171,15 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
     testShapesSet( Box( 100, 200 ) ) foreach { s ⇒
       test.contains( s.move( XYVect( 101, 201 ) ) ) should equal( false )
+    }
+  }
+
+  "The contains member" must "return false when is the given a Shape that contains the object" in {
+    val where = Box( 100, 200 )
+    val test = testShape( Box( where.center, where.width / 2.0, where.height / 2.0 ) )
+
+    testShapesSet( where ).filterNot( _.isInstanceOf[Seg] ) foreach { s ⇒
+      test.contains( s ) should equal( false )
     }
   }
 

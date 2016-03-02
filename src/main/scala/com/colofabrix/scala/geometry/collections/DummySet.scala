@@ -27,7 +27,7 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
   *
   * Used to do performance tests and comparisons
   */
-class DummySet[T: SpatialIndexable] protected (
+class DummySet[T: HasContainer] protected(
     override val toSeq: List[T],
     override val bounds: Box
 ) extends SpatialSet[T] {
@@ -119,7 +119,7 @@ object DummySet {
     * @tparam T Type of [[com.colofabrix.scala.simulation.abstracts.PhysicalObject]] that the DummyQuadtree will contain
     * @return A new instance of DummyQuadtree
     */
-  def apply[T: SpatialIndexable](
+  def apply[T: HasContainer](
     bounds: Shape,
     objects: List[T] = List.empty[T]
   ) = new DummySet[T]( objects, Box.getAsBox( bounds ) )

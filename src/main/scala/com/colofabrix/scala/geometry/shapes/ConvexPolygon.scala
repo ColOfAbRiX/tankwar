@@ -40,10 +40,10 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     */
   override def contains( s: Shape ): Boolean = s match {
     case g: Seg ⇒ containsCondition( this, g.endpoints )
-    case p: Polygon ⇒ containsCondition( this, p.vertices )
+    case p: Polygon ⇒ p.vertices.forall( this.contains )
     case c: Circle ⇒
-      this.contains( c.center ) && edges.forall { e =>
-        !c.intersects( e ) || c.distance( e )._1 == Vect.zero
+      this.contains( c.center ) && edges.forall { e ⇒
+        !c.intersects( e ) || c.circumferenceDistance( e )._1 == Vect.zero
       }
     case _ ⇒ super.contains( s )
   }

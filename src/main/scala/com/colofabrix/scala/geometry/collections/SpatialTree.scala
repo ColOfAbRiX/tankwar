@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.collections
 
-import com.colofabrix.scala.geometry.abstracts.{ Shape, SpatialIndexable, SpatialSet }
+import com.colofabrix.scala.geometry.abstracts.{ HasContainer, Shape, SpatialSet }
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.abstracts.Renderer
 
@@ -38,7 +38,7 @@ import scala.language.postfixOps
   * @param toSeq
   * @tparam T The type of objects contained in the Set
   */
-class SpatialTree[T: SpatialIndexable] protected (
+class SpatialTree[T: HasContainer] protected(
     val splitSize: Int,
     val maxDepth: Int,
     val hSplit: Int,
@@ -136,7 +136,7 @@ class SpatialTree[T: SpatialIndexable] protected (
     * @return A new SpatialSet[T} containing the new object
     */
   def +( p: T ): SpatialTree[T] = {
-    if ( bounds.intersects( super.shape( p ) ) && !toSeq.contains( p ) ) {
+    if( bounds.intersects( super.container( p ) ) && !toSeq.contains( p ) ) {
       updateObjects( p +: toSeq )
     }
     else {
@@ -152,7 +152,7 @@ class SpatialTree[T: SpatialIndexable] protected (
     * @return A new SpatialTree[T] without the specified object.
     */
   def -( p: T ): SpatialTree[T] = {
-    if ( bounds.intersects( super.shape( p ) ) && toSeq.contains( p ) ) {
+    if( bounds.intersects( super.container( p ) ) && toSeq.contains( p ) ) {
       updateObjects( toSeq.filterNot( _ == p ) )
     }
     else {
@@ -167,7 +167,7 @@ class SpatialTree[T: SpatialIndexable] protected (
     * @return A list of object that can collide with the given Shape
     */
   def lookAround( s: Shape ): Seq[T] = {
-    if ( bounds.intersects( super.shape( s ) ) ) {
+    if( bounds.intersects( super.container( s ) ) ) {
       if ( children.isEmpty ) {
         toSeq
       }
@@ -216,7 +216,7 @@ object SpatialTree {
     * @tparam T
     * @return
     */
-  def apply[T: SpatialIndexable](
+  def apply[T: HasContainer](
     splitSize: Int,
     maxDepth: Int,
     bounds: Box,
@@ -240,7 +240,7 @@ object SpatialTree {
     * @tparam T
     * @return
     */
-  protected def apply[T: SpatialIndexable](
+  protected def apply[T: HasContainer](
     splitSize: Int,
     maxDepth: Int,
     hSplit: Int,

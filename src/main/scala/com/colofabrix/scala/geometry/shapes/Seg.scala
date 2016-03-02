@@ -116,9 +116,9 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @return True if the given shape is inside the shape or on its boundary
     */
   override def contains( s: Shape ): Boolean = s match {
-    case g: Seg => g.endpoints.forall( contains )
+    case g: Seg ⇒ g.endpoints.forall( contains )
     // A Seg cannot contain any kind of Shape, possibly only another Seg
-    case _ => false
+    case _ ⇒ false
   }
 
   /**
@@ -127,9 +127,13 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @param s The line segment to check
     * @return True if the line intersects the shape
     */
-  override def intersects( s: Seg ): Boolean = intersection( s ) match {
+  override def intersects( s: Seg ): Boolean = intersectionPoint( s ) match {
     case None ⇒ false
     case Some( _ ) ⇒ true
+  }
+
+  def intersects( s: Iterable[Seg] ): Boolean = {
+    false
   }
 
   /**
@@ -140,7 +144,11 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     */
   override def intersects( s: Shape ): Boolean = s match {
     case c: Circle ⇒ c.distance( this )._1 == Vect.zero
-    case p: Polygon ⇒ p.edges.exists( intersects )
+    case p: Polygon ⇒
+      p.edges.exists { e ⇒
+        val res = intersects( e )
+        res
+      }
     case g: Seg ⇒ intersects( g )
     case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
   }
@@ -151,10 +159,11 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * Ref: http://geomalgorithms.com/a05-_intersect-1.html
     *
     * @param s The second segment to check
-    * @return An option to indicate if the two segments intersects. If they do a tuple containing 1) The intersection point and 2) and Option with a possible ending intersegtion point
+    * @return An option to indicate if the two segments intersects. If they do the result is the intersection point
     */
   @inline
-  def intersection( s: Seg ): Option[(Vect, Option[Vect])] = {
+  @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
+  def intersectionPoint( s: Seg ): Option[Vect] = {
     import Math._
 
     import com.colofabrix.scala.math.VectConversions._
@@ -165,7 +174,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     val D = u ^ v
 
     // Test if  they are parallel (includes either being a point)
-    if( abs( D ) <= Double.MinPositiveValue ) {
+    if( abs( D ) <= 1E-10 ) {
       if( (u ^ w) != 0.0 || (v ^ w) != 0.0 ) {
         // S1 and S2 are parallel
         return None
@@ -182,7 +191,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
           // They are distinct  points
           return None
         }
-        return Some( (s.v0, None) )
+        return Some( s.v0 )
       }
 
       if( du == 0.0 ) {
@@ -191,7 +200,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
           // But is not in S2
           return None
         }
-        return Some( (s.v0, None) )
+        return Some( s.v0 )
       }
 
       if( dv == 0.0 ) {
@@ -200,7 +209,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
           // But is not in S1
           return None
         }
-        return Some( (this.v0, None) )
+        return Some( this.v0 )
       }
 
       // They are collinear segments - get overlap (or not)
@@ -236,11 +245,11 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
 
       if( t0 == t1 ) {
         // Intersect is a point
-        return Some( (this.v0 + t0 * v, None) )
+        return Some( this.v0 + t0 * v )
       }
 
       // They overlap in a valid subsegment
-      return Some( (this.v0 + t0 * v, Some( this.v0 + t1 * v )) )
+      return Some( this.v0 + t0 * v )
     }
 
     // The segments are skew and may intersect in a point.
@@ -259,20 +268,22 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
       return None
     }
 
-    return Some( (s.v0 + sI * u, None) )
+    return Some( s.v0 + sI * u )
   }
 
   /**
-    * Tests if a point is Left|On|Right of the Seg
+    * Find the orientation of ordered triplets
     *
     * This is a faster version (less calculations) of the vector product of two vectors
-    * defined by three points.
+    * defined by three points. Given 3 vectors P, Q, R this is equivalent to:
+    * |Q × R| + |R × Q| + |P × R|
     *
-    * @see http://algs4.cs.princeton.edu/91primitives/
+    * [[http://algs4.cs.princeton.edu/91primitives/ Reference]]
+    *
     * @param p Point to check
     * @return >0 for P left of the line, =0 for P on the line, <0 for P right of the line
     */
-  def checkTurn( p: Vect ): Double = (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
+  def orientation( p: Vect ): Double = (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
 
   override def toString = s"Seg(${v0.x }, ${v0.y } -> ${v1.x }, ${v1.y })"
 }

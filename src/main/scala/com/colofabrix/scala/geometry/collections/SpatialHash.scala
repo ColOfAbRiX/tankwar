@@ -36,7 +36,7 @@ import scala.collection.immutable.HashSet
   * @param buckets     A sequence of the bucket where each contains the list of the objects that contains
   * @tparam T The type of object that this collection will contain. Must have a conversion to SpatialIndexable
   */
-class SpatialHash[T: SpatialIndexable] protected (
+class SpatialHash[T: HasContainer] protected(
     val bounds: Box,
     val hSplit: Int,
     val vSplit: Int,
@@ -91,7 +91,7 @@ class SpatialHash[T: SpatialIndexable] protected (
       // For this operation there is only one scan that goes through the buckets to find the ones
       // that contain the shape
       val newBuckets = for ( b ← buckets ) yield {
-        if ( b._1.intersects( shape( p ) ) ) {
+        if( b._1.intersects( container( p ) ) ) {
           Tuple2( b._1, p +: b._2 )
         }
         else {
@@ -148,7 +148,7 @@ object SpatialHash {
     * @tparam T The type of object that this collection will contain. Must have a conversion to SpatialIndexable
     * @return A new SpatialHash containing the specified objects
     */
-  def apply[T: SpatialIndexable]( bounds: Shape, objects: Seq[T], hSplit: Int, vSplit: Int ) = {
+  def apply[T: HasContainer]( bounds: Shape, objects: Seq[T], hSplit: Int, vSplit: Int ) = {
     val box = Box.getAsBox( bounds )
     val bucketList = box.split( hSplit, vSplit ).toList
 

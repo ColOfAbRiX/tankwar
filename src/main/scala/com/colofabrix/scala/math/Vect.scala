@@ -87,11 +87,13 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * Length of the vector, modulus
     */
   lazy val ϑ: Double = polar.t
+  lazy val t: Double = polar.t
 
   /**
     * Rotation relative to the X-Axis, in radians
     */
   lazy val ρ: Double = polar.r
+  lazy val r: Double = polar.r
 
   /**
     * Gets one of the cartesian components of the point position
@@ -112,6 +114,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   @inline
   def :=( t: Double ⇒ Double ): Vect = XYVect( t( this.x ), t( this.y ) )
 
+  @inline
+  def ⟹( t: Double ⇒ Double ): Vect = XYVect( t( this.x ), t( this.y ) )
+
   /**
     * Apply a transformation to the point
     *
@@ -124,6 +129,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   @inline
   def :=( t: (Double, Int) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
 
+  @inline
+  def ⟹( t: (Double, Int) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
+
   /**
     * Map a point through another one
     *
@@ -135,6 +143,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   @inline
   def :=( that: Vect ): Vect = this := { _ * that( _ ) }
 
+  @inline
+  def ⟹( that: Vect ): Vect = this := { _ * that( _ ) }
+
   /**
     * Apply a transformation to the point
     *
@@ -145,6 +156,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     */
   @inline
   def @=( t: Double ⇒ Double ): Vect = RTVect( t( this.ρ ), t( this.ϑ ) )
+
+  @inline
+  def ↝( t: Double ⇒ Double ): Vect = RTVect( t( this.ρ ), t( this.ϑ ) )
 
   /**
     * Apply a transformation to the point
@@ -158,6 +172,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   @inline
   def @=( t: (Double, Int) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
 
+  @inline
+  def ↝( t: (Double, Int) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
+
   /**
     * Map a point through another one
     *
@@ -168,6 +185,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     */
   @inline
   def @=( that: Vect ): Vect = this @= { _ * that( _ ) }
+
+  @inline
+  def ↝( that: Vect ): Vect = this @= { _ * that( _ ) }
 
   /**
     * Projects a vector onto another
@@ -185,17 +205,26 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   @inline
   def ¬( angle: Double ): Vect = RTVect( this.ρ, this.ϑ + angle )
 
+  @inline
+  def ↺( angle: Double ): Vect = RTVect( this.ρ, this.ϑ + angle )
+
   /**
     * Finds the ccw perpendicular vector, rotated CCW
     */
   @inline
   def -| : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2 )
 
+  @inline
+  def ⊣ : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2 )
+
   /**
     * Finds the cw perpendicular vector, rotated CW
     */
   @inline
   def |- : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2 )
+
+  @inline
+  def ⊢ : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2 )
 
   /**
     * Finds the normal to this vector
@@ -260,7 +289,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
 
   @inline
   def *( alpha: Vect ): Vect = {
-    require( (this.x - this.y).abs <= Double.MinPositiveValue )
+    require( (this.x - this.y).abs <= 1E-10 )
     this := alpha
   }
 
@@ -272,6 +301,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     */
   @inline
   def x( that: Vect ): Double = this.x * that.x + this.y * that.y
+
+  @inline
+  def ∙( that: Vect ): Double = this.x * that.x + this.y * that.y
 
   /**
     * Vector or Cross product
@@ -285,6 +317,9 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     */
   @inline
   def ^( that: Vect ): Double = this.x * that.y - this.y * that.x
+
+  @inline
+  def ×( that: Vect ): Double = this.x * that.y - this.y * that.x
 
   /**
     * By-Scalar division
@@ -402,6 +437,16 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
   }
 
   override def toString: String
+
+  override def equals( other: Any ): Boolean = other match {
+    case that: Vect ⇒ cartesian == that.cartesian || polar == that.polar
+    case _ ⇒ false
+  }
+
+  override def hashCode( ): Int = {
+    val state = Seq( x, y )
+    state.map( _.hashCode( ) ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+  }
 }
 
 object Vect {

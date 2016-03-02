@@ -37,16 +37,6 @@ class BoxTest extends ShapeTest[Box] {
     */
   override protected def testShape( bounds: Box ): Box = bounds
 
-  private def split( cont: Box ) = cont.split( _hSplit, _vSplit )
-
-  private def rawTestShapes( cont: Box ) = Seq(
-    ShapeUtils.rndSeg( split( cont ).head ),
-    ShapeUtils.rndBox( split( cont ).head ),
-    ShapeUtils.rndCircle( split( cont ).head ),
-    ShapeUtils.rndConvexPolygon( split( cont ).head ),
-    ShapeUtils.rndPolygon( split( cont ).head )
-  )
-
   //
   // Width, height, center, origin, topRight/bottomLeft members
   //
@@ -72,6 +62,13 @@ class BoxTest extends ShapeTest[Box] {
     Box( -10, 20 ).origin should equal( Vect.origin )
     Box( -10, -20 ).origin should equal( Vect.origin )
     Box( 10, -20 ).origin should equal( Vect.origin )
+  }
+
+  "The opposite member" must "be the farthest vertex to the origin of axis" in {
+    Box( 10, 20 ).opposite should equal( XYVect( 10, 20 ) )
+    Box( -10, 20 ).opposite should equal( XYVect( -10, 20 ) )
+    Box( -10, -20 ).opposite should equal( XYVect( -10, -20 ) )
+    Box( 10, -20 ).opposite should equal( XYVect( 10, -20 ) )
   }
 
   "The topRight member" must "always be the top-right vertex of the Box" in {
@@ -133,19 +130,8 @@ class BoxTest extends ShapeTest[Box] {
   "The bestFit member" must "find the minimum-area Box that contains a Shape" in {
     val container = Box( XYVect( 50, 60 ), XYVect( 150, 160 ) )
 
-    val testShapes = Seq(
-      Circle( container.center, container.width / 2.0 ),
-      Seg( XYVect( 50, 60 ), XYVect( 150, 160 ) ),
-      new Polygon( XYVect( 50, 60 ) :: XYVect( 132, 116 ) :: XYVect( 121, 140 ) :: XYVect( 150, 160 ) :: Nil ),
-      new ConvexPolygon( Seq( XYVect( 50, 60 ), XYVect( 150, 60 ), XYVect( 150, 160 ), XYVect( 50, 160 ) ) ),
-      container
-    )
-
-    testShapes.foreach { s ⇒
-      val result = Box.bestFit( s )
-
-      result should equal( container )
-      result.contains( s ) should equal( true )
+    testShapesSet( container ).foreach { s ⇒
+      Box.bestFit( s ).contains( s ) should equal( true )
     }
   }
 
@@ -155,27 +141,30 @@ class BoxTest extends ShapeTest[Box] {
 
   "The spreadAcross member" must "position each Shape in a different Box" in {
     val container = Box( 100, 300 )
-    val splitContainer = this.split( container )
+    val splitContainer = container.split( _hSplit, _vSplit )
 
     // I create a new Shape from the raw ones for every box in splitContainer
-    val testShapes = for( s ← rawTestShapes( container ); b ← splitContainer ) yield {
-      s.move( b.center - splitContainer.head.center )
-    }
+    val testShapes =
+      for {s ← rndTestShapeSet( splitContainer.head )
+           b ← splitContainer
+      } yield {
+        s.move( b.center - splitContainer.head.center )
+      }
 
     val result = Box.spreadAcross( splitContainer, testShapes, compact = false )
 
     result.size should equal( _hSplit * _vSplit )
     result.foreach {
-      case (b, s) ⇒ s.size should equal( rawTestShapes( container ).size )
+      case (b, s) ⇒ s.size should equal( rndTestShapeSet( container ).size )
     }
   }
 
   "The spreadAcross member" must "place the same Shape in multiple boxes when it spans more than one" in {
-    val container = Box( 100, 100 )
-    val splitContainer = this.split( container )
+    val container = Box( 100 * _hSplit, 100 * _vSplit )
+    val splitContainer = container.split( _hSplit, _vSplit )
     val testShape = Circle( container.center, Math.max( container.width, container.height ) / 2.0 )
 
-    val result = Box.spreadAcross( splitContainer, testShape :: Nil, compact = false )
+    val result = Box.spreadAcross( splitContainer, Seq( testShape ), compact = false )
 
     result.foreach {
       case (b, s) ⇒ s.size should equal( 1 )
@@ -184,8 +173,8 @@ class BoxTest extends ShapeTest[Box] {
 
   "The spreadAcross member" must "include boxes with empty content when the option is false" in {
     val container = Box( 100, 300 )
-    val splitContainer = this.split( container )
-    val testShapes = ShapeUtils.rndCircle( splitContainer( 0 ) ) :: ShapeUtils.rndCircle( splitContainer( 1 ) ) :: Nil
+    val splitContainer = container.split( _hSplit, _vSplit )
+    val testShapes = Seq( ShapeUtils.rndCircle( splitContainer( 0 ) ), ShapeUtils.rndCircle( splitContainer( 1 ) ) )
 
     val result = Box.spreadAcross( splitContainer, testShapes, compact = false )
 
@@ -194,7 +183,7 @@ class BoxTest extends ShapeTest[Box] {
 
   "The spreadAcross member" must "not include boxes with empty content when the option is true" in {
     val container = Box( 100, 300 )
-    val splitContainer = this.split( container )
+    val splitContainer = container.split( _hSplit, _vSplit )
     val testShapes = ShapeUtils.rndCircle( splitContainer( 0 ) ) :: ShapeUtils.rndCircle( splitContainer( 1 ) ) :: Nil
 
     val result = Box.spreadAcross( splitContainer, testShapes, compact = true )

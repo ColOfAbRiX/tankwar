@@ -33,6 +33,14 @@ class SegTest extends ShapeTest[Seg] {
   override protected def testShape( bounds: Box ): Seg = Seg( bounds.topRight, bounds.bottomLeft )
 
   //
+  //
+  //
+
+  "The area member" must "be always zero" in {
+    testShape( Box( 10, 20 ) ).area should equal( 0.0 )
+  }
+
+  //
   // vect member
   //
 

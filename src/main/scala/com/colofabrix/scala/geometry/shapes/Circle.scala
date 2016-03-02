@@ -46,7 +46,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @return true if the container fully contain the other shape. Boundaries are included in the container
     */
   override def contains( s: Shape ): Boolean = s match {
-    case g: Seg => g.endpoints.forall( contains )
+    case g: Seg ⇒ g.endpoints.forall( contains )
 
     // For the case Circle-Circle I check that the center and the points on the circumference are inside this one - O(1)
     case c: Circle ⇒ (this.center - c.center).ρ + c.radius <= this.radius
@@ -84,11 +84,37 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
   override def distance( p: Vect ): (Vect, Vect) = {
-    // The distance of the point from the center of the circle. This vector is not related to the origin of axes
-    val distanceFromCenter = p - center
-    if( distanceFromCenter <= radius ) {
+    val distance = circumferenceDistance( p )
+
+    if( distance._1 <= radius ) {
       return (Vect.zero, Vect.zero)
     }
+    else {
+      distance
+    }
+  }
+
+  /**
+    * Compute the distance between a line and the circumference of the Circle
+    *
+    * @param s The line segment to check
+    * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
+    */
+  def circumferenceDistance( s: Seg ): (Vect, Vect) = {
+    // Distance from the point on the segment nearest to the circle
+    val pSeg = s.distance( center )._1
+    circumferenceDistance( center + pSeg )
+  }
+
+  /**
+    * Compute the distance between a point and the circumference of the Circle
+    *
+    * @param p The point to check
+    * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
+    */
+  def circumferenceDistance( p: Vect ): (Vect, Vect) = {
+    // The distance of the point from the center of the circle. This vector is not related to the origin of axes
+    val distanceFromCenter = p - center
 
     // A radius (segment that starts in the center of the circle and ends on a point in the circumference) directed towards p.
     // This vector is not related to the origin of axes
@@ -128,9 +154,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     case c: Circle ⇒ center - c.center < radius + c.radius
 
     // For Boxes I exploit its property to be parallel to the axis
-    case b: Box ⇒
-      b.contains( center ) ||
-        b.edges.exists( this.intersects )
+    case b: Box ⇒ b.contains( center ) || b.edges.exists( this.intersects )
 
     // For polygons I check the distance from the nearest edge
     case p: Polygon ⇒ p.distance( center )._1 <= radius
@@ -167,7 +191,7 @@ object Circle {
   @inline
   def bestFit( s: Shape ): Circle = s match {
     // The segment becomes the diameter of a new Circle
-    case g: Seg =>
+    case g: Seg ⇒
       val center = g.v0 + (g.vect / 2.0)
       // I use Math.max because there can be floating number roundings
       val radius = Math.max( (g.v0 - center).ρ, (center - g.v1).ρ )
@@ -200,7 +224,7 @@ object Circle {
     val line = (bBox.topRight - bBox.bottomLeft) / 2.0
 
     // Check if all points are included and if not, increase the ball
-    p.vertices.foldLeft( Circle( bBox.origin + line, line.ρ ) ) { ( a, v ) =>
+    p.vertices.foldLeft( Circle( bBox.origin + line, line.ρ ) ) { ( a, v ) ⇒
       if( !a.contains( v ) ) {
         val d = (a.center - v) / 2.0
         Circle( a.center + d, a.radius + d.ρ )

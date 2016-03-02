@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.geometry.abstracts
 
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle, Seg }
+import com.colofabrix.scala.geometry.shapes.Seg
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.math.Vect
 
@@ -29,8 +29,6 @@ import com.colofabrix.scala.math.Vect
   * the implementation to take advantage of their properties for a faster access
   */
 trait Shape extends Renderable {
-
-  import scala.reflect.runtime.universe._
 
   /**
     * The surface area of the Shape
@@ -45,15 +43,9 @@ trait Shape extends Renderable {
     * Ideally the computation should take O(n*log n) or less. This trait should be applied
     * to shapes that guarantee this fast computation
     *
-    * @tparam A The type of the Container that we want as output
     * @return A new instance of a Container A where the current shape is completely inside its boundaries
     */
-  def container[A <: Container : TypeTag]: Container =
-    typeOf[A] match {
-      case t if t =:= typeOf[Box] => Box.bestFit( this )
-      case t if t =:= typeOf[Circle] => Circle.bestFit( this )
-      case _ => Container.bestFit( this )
-    }
+  def container: Container = Container.bestFit( this )
 
   /**
     * Determines if a point is inside or on the boundary the shape

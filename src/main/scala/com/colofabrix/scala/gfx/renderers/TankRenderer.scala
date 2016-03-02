@@ -52,7 +52,7 @@ class TankRenderer( tank: Tank ) extends Renderer {
     val flags = tank.world.UIManager.flags
 
     val fitness: Double = new TankEvaluator().getFitness( tank, List[Tank]().asJava )
-    val colour = Colour( 1.0, fitness / Math.max( Double.MinPositiveValue, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
+    val colour = Colour( 1.0, fitness / Math.max( 1E-10, TankEvaluator.higherFitness( tank.world ) ), 0.0 )
 
     applyContext( Frame( _position = tank.position ) ) {
 

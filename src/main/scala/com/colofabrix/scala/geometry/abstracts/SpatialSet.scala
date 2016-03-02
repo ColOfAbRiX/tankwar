@@ -27,7 +27,7 @@ package com.colofabrix.scala.geometry.abstracts
   *
   * @tparam T The type of objects contained in the Set
   */
-abstract class SpatialSet[T: SpatialIndexable] {
+abstract class SpatialSet[T: HasContainer] {
 
   /**
     * This function is a commodity used to find the Container of a shape
@@ -37,7 +37,7 @@ abstract class SpatialSet[T: SpatialIndexable] {
     * @return A Container that fully encircle the given object in the plane
     */
   @inline
-  protected def shape[U: SpatialIndexable]( u: U ): Container = implicitly[SpatialIndexable[U]].container( u )
+  protected def container[U: HasContainer]( u: U ): Container = implicitly[HasContainer[U]].container( u )
 
   /**
     * Remove the object from the collection.
@@ -102,13 +102,6 @@ abstract class SpatialSet[T: SpatialIndexable] {
     * @return A new List containing all the elements of the tree
     */
   def toSeq: Seq[T]
-
-  /**
-    * The current Set as a Iterable
-    *
-    * @return A new List containing all the elements of the tree
-    */
-  //def toSet: Iterable[T]
 
   /**
     * String representation of the Set

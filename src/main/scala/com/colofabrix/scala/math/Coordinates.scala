@@ -17,6 +17,7 @@
 package com.colofabrix.scala.math
 
 import com.colofabrix.scala.geometry.abstracts.Coordinates
+
 import scala.language.implicitConversions
 
 /**
@@ -36,9 +37,7 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case cc: CartesianCoord ⇒
-      ( this.x - cc.x ).abs <= Double.MinPositiveValue &&
-        ( this.y - cc.y ).abs <= Double.MinPositiveValue
+    case cc: CartesianCoord ⇒ (this.x - cc.x).abs <= 1E-10 && (this.y - cc.y).abs <= 1E-10
 
     // For polar coordinates I first transform them in polar form
     case pc: PolarCoord ⇒ CartesianCoord( pc ) == this
@@ -95,9 +94,7 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case pc: PolarCoord ⇒
-      ( this.r - pc.r ) <= Double.MinPositiveValue &&
-        ( this.t - pc.t ) <= Double.MinPositiveValue
+    case pc: PolarCoord ⇒ (this.r - pc.r).abs <= 1E-10 && (this.t - pc.t).abs <= 1E-10
 
     // For cartesian coordinates I first transform them in polar form
     case cc: CartesianCoord ⇒ PolarCoord( cc ) == this
