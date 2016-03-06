@@ -266,12 +266,12 @@ object Box {
     val acc = new ConcurrentHashMap[Box, Seq[T]].asScala
 
     // Extract the containers once for all the shapes
-    val containers = objects.par.map { o ⇒
+    val containers = objects.map { o ⇒
       val container = implicitly[HasContainer[T]].boxContainer( o )
       Tuple2( container, o )
     } toList
 
-    for( b ← nodes ) {
+    for( b ← nodes.par ) {
       val objInBox = containers.flatMap { s ⇒
         if( b.intersects( s._1 ) ) Seq( s._2 ) else Nil
       }

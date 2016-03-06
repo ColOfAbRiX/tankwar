@@ -212,19 +212,19 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * Finds the ccw perpendicular vector, rotated CCW
     */
   @inline
-  def -| : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2 )
+  def -| : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
 
   @inline
-  def ⊣ : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2 )
+  def ⊣ : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
 
   /**
     * Finds the cw perpendicular vector, rotated CW
     */
   @inline
-  def |- : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2 )
+  def |- : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
 
   @inline
-  def ⊢ : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2 )
+  def ⊢ : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
 
   /**
     * Finds the normal to this vector
@@ -240,7 +240,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return A unit vector with the same direction as the current vector
     */
   @inline
-  def v: Vect = RTVect( 1, this.ϑ )
+  def v: Vect = RTVect( 1.0, this.ϑ )
 
   /**
     * Adds a scalar to both the cartesian coordinates of the vector
@@ -286,12 +286,6 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     */
   @inline
   def *( alpha: Double ): Vect = XYVect( this.x * alpha, this.y * alpha )
-
-  @inline
-  def *( alpha: Vect ): Vect = {
-    require( (this.x - this.y).abs <= 1E-10 )
-    this := alpha
-  }
 
   /**
     * Inner or Dot product
@@ -339,7 +333,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is shorter than {that}, false otherwise
     */
   @inline
-  def <( that: Vect ): Boolean = this.ρ < that.ρ
+  def <( that: Vect ): Boolean = this.ρ - that.ρ < -FP_PRECISION
 
   /**
     * Compare the current vector with a number and determine if is less than it
@@ -350,7 +344,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is shorter than the number {distance}, false otherwise
     */
   @inline
-  def <( distance: Double ): Boolean = this.ρ < distance
+  def <( distance: Double ): Boolean = this.ρ - distance < -FP_PRECISION
 
   /**
     * Compare the current vector with a given one and determine if it is less or equal than the other
@@ -361,7 +355,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is shorter or equal than {that}, false otherwise
     */
   @inline
-  def <=( that: Vect ): Boolean = this.ρ <= that.ρ
+  def <=( that: Vect ): Boolean = this.ρ - that.ρ < FP_PRECISION || (this.ρ - that.ρ).abs <= FP_PRECISION
 
   /**
     * Compare the current vector with a number and determine if is less or equal than it
@@ -372,7 +366,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is shorter or equal than the number {distance}, false otherwise
     */
   @inline
-  def <=( distance: Double ): Boolean = this.ρ <= distance
+  def <=( distance: Double ): Boolean = this.ρ - distance < FP_PRECISION || (this.ρ - distance).abs <= FP_PRECISION
 
   /**
     * Compare the current vector with a given one and determine if it is greater or equal than the other
@@ -383,7 +377,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is longer or equal than {that}, false otherwise
     */
   @inline
-  def >=( that: Vect ): Boolean = this.ρ >= that.ρ
+  def >=( that: Vect ): Boolean = this.ρ - that.ρ > FP_PRECISION || (this.ρ - that.ρ).abs <= FP_PRECISION
 
   /**
     * Compare the current vector with a number and determine if is less than it
@@ -394,7 +388,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is longer or equal than the number {distance}, false otherwise
     */
   @inline
-  def >=( distance: Double ): Boolean = this.ρ >= distance
+  def >=( distance: Double ): Boolean = this.ρ - distance > FP_PRECISION || (this.ρ - distance).abs <= FP_PRECISION
 
   /**
     * Compare the current vector with a given one and determine if it is greater than the other
@@ -405,7 +399,7 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is longer than {that}, false otherwise
     */
   @inline
-  def >( that: Vect ): Boolean = this.ρ > that.ρ
+  def >( that: Vect ): Boolean = this.ρ - that.ρ > FP_PRECISION
 
   /**
     * Compare the current vector with a number and determine if is greater than it
@@ -416,19 +410,19 @@ sealed abstract class Vect protected( value: Either[PolarCoord, CartesianCoord] 
     * @return true if the current instance is longer than the number {distance}, false otherwise
     */
   @inline
-  def >( distance: Double ): Boolean = this.ρ > distance
+  def >( distance: Double ): Boolean = this.ρ - distance > FP_PRECISION
 
   /**
     * The Cartesian Plane quadrant where the vector lies
     */
   def quadrant: Int = {
-    if( x > 0.0 && y >= 0.0 ) {
+    if( x.trim > 0.0 && y.trim >= 0.0 ) {
       1
     }
-    else if( x <= 0.0 && y > 0.0 ) {
+    else if( x.trim <= 0.0 && y.trim > 0.0 ) {
       2
     }
-    else if( x <= 0.0 && y < 0.0 ) {
+    else if( x.trim <= 0.0 && y.trim < 0.0 ) {
       3
     }
     else {
@@ -457,7 +451,7 @@ object Vect {
     *
     * @return A vector with both coordinates equals to zero
     */
-  def origin: Vect = XYVect( 0, 0 )
+  def origin: Vect = XYVect( 0.0, 0.0 )
 
   /**
     * Zero vector
@@ -492,16 +486,19 @@ object VectConversions {
     def *( v: Vect ): Vect = XYVect( v.x * _number, v.y * _number )
 
     @inline
-    def <( v: Vect ): Boolean = _number < v.ρ
+    def <( v: Vect ): Boolean = v > _number
 
     @inline
-    def <=( v: Vect ): Boolean = _number <= v.ρ
+    def <=( v: Vect ): Boolean = v >= _number
 
     @inline
-    def >=( v: Vect ): Boolean = _number >= v.ρ
+    def >=( v: Vect ): Boolean = v <= _number
 
     @inline
-    def >( v: Vect ): Boolean = _number > v.ρ
+    def >( v: Vect ): Boolean = v < _number
+
+    /** Trim a number smaller to FP_TOLERANCE precision */
+    def trim = if( _number.abs <= FP_PRECISION ) 0.0 else _number
   }
 
   implicit def doubleTuple2Vect( x: (Double, Double) ): Vect = XYVect( x._1, x._2 )

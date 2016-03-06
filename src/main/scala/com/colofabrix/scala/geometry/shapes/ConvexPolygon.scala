@@ -27,11 +27,6 @@ import scala.language.reflectiveCalls
 class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
   require( this.isConvex, "The vertices don't define a convex polygon" )
 
-  private def containsCondition(
-    f: {def contains( a: Vect ): Boolean},
-    it: Iterable[Vect]
-  ) = it.forall( f.contains )
-
   /**
     * Determines if a shape is inside or on the boundary the current shape
     *
@@ -39,11 +34,11 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
     * @return True if the given shape is inside the shape or on its boundary
     */
   override def contains( s: Shape ): Boolean = s match {
-    case g: Seg ⇒ containsCondition( this, g.endpoints )
+    case g: Seg ⇒ g.endpoints.forall( this.contains )
     case p: Polygon ⇒ p.vertices.forall( this.contains )
     case c: Circle ⇒
       this.contains( c.center ) && edges.forall { e ⇒
-        !c.intersects( e ) || c.circumferenceDistance( e )._1 == Vect.zero
+        !c.intersects( e ) || c.boundaryDistance( e )._1 == Vect.zero
       }
     case _ ⇒ super.contains( s )
   }

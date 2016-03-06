@@ -46,6 +46,34 @@ class CircleTest extends ShapeTest[Circle] {
   }
 
   //
+  // boundaryDistance() member
+  //
+
+  "The member boundaryDistance" must "return a non-zero distance when given a Vect inside the Circle" in {
+    val test = Circle( XYVect( 10, 10 ), 100 )
+    val reference = XYVect( -test.radius / 2.0, -test.radius / 2.0 )
+    val distance = test.boundaryDistance( test.center + (reference.v * test.radius) + reference )
+
+    distance._1 should equal( reference )
+  }
+
+  "The member boundaryDistance" must "return a non-zero distance when given a Seg inside the Circle" in {
+    val test = Circle( XYVect( 100, 150 ), 100 )
+
+    val expDistance = XYVect( -test.radius / 2.0, 0.0 )
+    val expPoint = test.center - expDistance.v * test.radius
+
+    val reference = Seg(
+      test.center + XYVect( 0.0, test.radius ) - expDistance,
+      test.center + XYVect( 0.0, -test.radius ) - expDistance
+    )
+    val distance = test.boundaryDistance( reference )
+
+    distance._1 should equal( expDistance )
+    distance._2 should equal( expPoint )
+  }
+
+  //
   // Companion object bestFit member
   //
 

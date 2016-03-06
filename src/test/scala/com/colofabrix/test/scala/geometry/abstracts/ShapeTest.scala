@@ -200,9 +200,18 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   //
 
   "The distance member" must "return a non-zero distance when given a Vect that doesn't lie on it" in {
+    /*val where = Box( 100, 200 )
+    val test = testShape( where )
+
+    val expectedDistance = XYVect( 50, 0 )    // Distance from the test shape to the segment
+
+    val ref1 = rightEdge.move( expectedDistance )
+    val distance1 = test.distance( ref1 )
+
+    distance1._1 should equal( expectedDistance )*/
   }
 
-  "The distance member" must "return a zero distance when given a Vect that does lie on it" in {
+  "The distance member" must "return a zero distance when given a Vect that lies on it" in {
     val where = Box( 100, 200 )
     val test = testShape( where )
 
@@ -212,12 +221,16 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The distance member" must "return a proper distance when given a Seg outside it" in {
-    val testSegments = XYVect( 100, 90 ) :: XYVect( 100, 100 ) :: XYVect( 90, 100 ) :: XYVect( 120, 120 ) :: XYVect( 120, 80 ) :: Nil
-    val reference = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    val where = Box( 100, 200 )
+    val test = testShape( where )
 
-    testSegments.sliding( 2 ).foreach {
-      case p0 :: p1 :: Nil ⇒ reference.intersects( Seg( p0, p1 ) )
-    }
+    val rightEdge = Seg( where.topRight, XYVect( where.topRight.x, where.bottomLeft.y ) )
+    val expectedDistance = XYVect( 50, 0 ) // Distance from the test shape to the segment
+
+    val ref1 = rightEdge.move( expectedDistance )
+    val distance1 = test.distance( ref1 )
+
+    distance1._1 should equal( expectedDistance )
   }
 
   "The distance member" must "return a zero distance when given a Seg that intersects it" in {
