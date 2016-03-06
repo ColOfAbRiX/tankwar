@@ -37,6 +37,17 @@ class BoxTest extends ShapeTest[Box] {
     */
   override protected def testShape( bounds: Box ): Box = bounds
 
+  /**
+    * Creates a new object of type T to test that must have at least one
+    * point of its boundary known. The known point will lie on the right
+    * edge of boundary and a `touch` distance from the topRight vertex.
+    *
+    * @param bounds The area covered by the object
+    * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
+    * @return A new instance of a SpatialSet[T]
+    */
+  override protected def testShape( bounds: Box, touch: Double ): Box = bounds
+
   //
   // Width, height, center, origin, topRight/bottomLeft members
   //

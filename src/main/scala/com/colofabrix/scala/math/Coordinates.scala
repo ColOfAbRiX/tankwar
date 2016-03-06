@@ -37,7 +37,7 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case cc: CartesianCoord ⇒ (this.x - cc.x).abs <= 1E-10 && (this.y - cc.y).abs <= 1E-10
+    case cc: CartesianCoord ⇒ (this.x - cc.x).abs <= FP_PRECISION && (this.y - cc.y).abs <= FP_PRECISION
 
     // For polar coordinates I first transform them in polar form
     case pc: PolarCoord ⇒ CartesianCoord( pc ) == this
@@ -84,7 +84,7 @@ object CartesianCoord {
   * @param r Rotation relative to the X-Axis, in radians. It's always non-negative or converted in a non-negative angle
   */
 final class PolarCoord private ( val r: Double, val t: Double ) extends Coordinates {
-  require( r >= 0, "The length of the vector must not be negative" )
+  require( r >= 0.0, "The length of the vector must not be negative" )
 
   /**
     * Equality check between coordinates
@@ -94,10 +94,11 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case pc: PolarCoord ⇒ (this.r - pc.r).abs <= 1E-10 && (this.t - pc.t).abs <= 1E-10
+    case pc: PolarCoord ⇒ (this.r - pc.r).abs <= FP_PRECISION && (this.t - pc.t).abs <= FP_PRECISION
 
     // For cartesian coordinates I first transform them in polar form
-    case cc: CartesianCoord ⇒ PolarCoord( cc ) == this
+    case cc: CartesianCoord ⇒
+      PolarCoord( cc ) == this
 
     // Comparison not possible with other types
     case _ ⇒ false
@@ -136,7 +137,7 @@ object PolarCoord {
     */
   def apply( r: Double, t: Double ): PolarCoord =
     new PolarCoord(
-      r, if ( t >= 0 ) t % ( 2 * Math.PI ) else trimAngles( t )
+      r, if( t >= 0.0 ) t % (2.0 * Math.PI) else trimAngles( t )
     )
 
   /**
@@ -146,7 +147,7 @@ object PolarCoord {
     * @return An equivalent angle that is always non-negative and less than 2 * PI
     */
   @inline
-  def trimAngles( t: Double ): Double = t % ( -2 * Math.PI ) + 2 * Math.PI
+  def trimAngles( t: Double ): Double = t % (-2.0 * Math.PI) + 2.0 * Math.PI
 }
 
 /**
@@ -166,7 +167,7 @@ object CoordinatesImplicits {
   @inline
   implicit def Cartesian2Polar( c: CartesianCoord ): PolarCoord =
     PolarCoord(
-      sqrt( pow( c.x, 2 ) + pow( c.y, 2 ) ),
+      hypot( c.x, c.y ),
       PolarCoord.trimAngles( atan2( c.y, c.x ) )
     )
 

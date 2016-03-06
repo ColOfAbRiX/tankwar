@@ -35,6 +35,41 @@ class CircleTest extends ShapeTest[Circle] {
     */
   override protected def testShape( bounds: Box ): Circle = Circle( bounds.center, Math.min( bounds.width, bounds.height ) / 2.0 )
 
+  /**
+    * Creates a new object of type T to test that must have at least one
+    * point of its boundary known. The known point will lie on the right
+    * edge of boundary and a `touch` distance from the topRight vertex.
+    *
+    * @param bounds The area covered by the object
+    * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
+    * @return A new instance of a SpatialSet[T]
+    */
+  override protected def testShape( bounds: Box, touch: Double ): Circle = {
+    require( touch >= 0.0 && touch <= 1.0 )
+
+    val maxRadius = Math.min( bounds.width, bounds.height )
+    val validBounds = Box( bounds.center, maxRadius, maxRadius )
+
+    if( touch <= 0.5 ) {
+      val possibleCenters = validBounds.bottomLeft - validBounds.topRight
+      val touchPoint = (validBounds.bottomRight - validBounds.topRight) * touch
+
+      val center = possibleCenters * touch
+      val radius = (touchPoint - center).ρ
+
+      Circle( validBounds.topRight + center, radius )
+    }
+    else {
+      val possibleCenters = validBounds.bottomRight - validBounds.topLeft
+      val touchPoint = (validBounds.bottomRight - validBounds.topRight) * touch
+
+      val center = possibleCenters * touch + (validBounds.topLeft - validBounds.topRight)
+      val radius = (touchPoint - center).ρ
+
+      Circle( validBounds.topRight + center, radius )
+    }
+  }
+
   "The area member" must "be a valid area" in {
     val test = Circle( XYVect( 10, 10 ), 100 )
     test.area should equal( Math.PI * Math.pow( 100, 2.0 ) )
@@ -43,6 +78,34 @@ class CircleTest extends ShapeTest[Circle] {
   "The fromArea member" must "create a Circle given its area" in {
     val test = Circle.fromArea( XYVect( 10, 10 ), Math.PI * Math.pow( 100, 2.0 ) )
     test.radius should equal( 100 )
+  }
+
+  //
+  // boundaryDistance() member
+  //
+
+  "The member boundaryDistance" must "return a non-zero distance when given a Vect inside the Circle" in {
+    val test = Circle( XYVect( 10, 10 ), 100 )
+    val reference = XYVect( -test.radius / 2.0, -test.radius / 2.0 )
+    val distance = test.boundaryDistance( test.center + (reference.v * test.radius) + reference )
+
+    distance._1 should equal( reference )
+  }
+
+  "The member boundaryDistance" must "return a non-zero distance when given a Seg inside the Circle" in {
+    val test = Circle( XYVect( 100, 150 ), 100 )
+
+    val expDistance = XYVect( -test.radius / 2.0, 0.0 )
+    val expPoint = test.center - expDistance.v * test.radius
+
+    val reference = Seg(
+      test.center + XYVect( 0.0, test.radius ) - expDistance,
+      test.center + XYVect( 0.0, -test.radius ) - expDistance
+    )
+    val distance = test.boundaryDistance( reference )
+
+    distance._1 should equal( expDistance )
+    distance._2 should equal( expPoint )
   }
 
   //

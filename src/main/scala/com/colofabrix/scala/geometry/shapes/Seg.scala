@@ -18,7 +18,7 @@ package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.gfx.abstracts.Renderer
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.math.{ Vect, _ }
 
 /**
   * An object that represents a line segment with two endpoints
@@ -81,7 +81,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     }
 
     val pb = this.v0 + v * (c1 / c2)
-    (pb - p, pb)
+    ((pb - p) * -1.0, pb)
   }
 
   /**
@@ -156,7 +156,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
   /**
     * Determines if two line segments intersects and where they do so
     *
-    * Ref: http://geomalgorithms.com/a05-_intersect-1.html
+    * [[http://geomalgorithms.com/a05-_intersect-1.html Reference]]
     *
     * @param s The second segment to check
     * @return An option to indicate if the two segments intersects. If they do the result is the intersection point
@@ -174,7 +174,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     val D = u ^ v
 
     // Test if  they are parallel (includes either being a point)
-    if( abs( D ) <= 1E-10 ) {
+    if( D.abs <= FP_PRECISION ) {
       if( (u ^ w) != 0.0 || (v ^ w) != 0.0 ) {
         // S1 and S2 are parallel
         return None

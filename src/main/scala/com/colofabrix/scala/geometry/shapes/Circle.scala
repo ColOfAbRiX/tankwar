@@ -72,9 +72,9 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
     */
   override def distance( s: Seg ): (Vect, Vect) = {
-    // Distance from the point on the segment nearest to the circle
-    val pSeg = s.distance( center )._1
-    distance( center + pSeg )
+    // Closest point on the segment to the circle
+    val closest = (center - s.v0) → s.vect
+    distance( s.v0 + closest )
   }
 
   /**
@@ -84,35 +84,33 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
   override def distance( p: Vect ): (Vect, Vect) = {
-    val distance = circumferenceDistance( p )
-
-    if( distance._1 <= radius ) {
-      return (Vect.zero, Vect.zero)
+    if( (center - p) <= radius ) {
+      (Vect.zero, Vect.zero)
     }
     else {
-      distance
+      boundaryDistance( p )
     }
   }
 
   /**
-    * Compute the distance between a line and the circumference of the Circle
+    * Compute the distance between a line and the boundary of the Circle
     *
     * @param s The line segment to check
     * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  def circumferenceDistance( s: Seg ): (Vect, Vect) = {
-    // Distance from the point on the segment nearest to the circle
-    val pSeg = s.distance( center )._1
-    circumferenceDistance( center + pSeg )
+  def boundaryDistance( s: Seg ): (Vect, Vect) = {
+    // Closest point on the segment to the circle
+    val closest = (center - s.v0) → s.vect
+    boundaryDistance( s.v0 + closest )
   }
 
   /**
-    * Compute the distance between a point and the circumference of the Circle
+    * Compute the distance between a point and the boundary of the Circle
     *
     * @param p The point to check
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
-  def circumferenceDistance( p: Vect ): (Vect, Vect) = {
+  def boundaryDistance( p: Vect ): (Vect, Vect) = {
     // The distance of the point from the center of the circle. This vector is not related to the origin of axes
     val distanceFromCenter = p - center
 
@@ -123,6 +121,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     // Distance of the point from the circumference calculated subtracting the two above vectors. This vector is not
     // related to the origin of axes
     val distance = distanceFromCenter - radiusTowardsPoint
+
     // The couching point is point on the circumference closer to p, but this time related to the origin of axes
     val touchingPoint = center + radiusTowardsPoint
 

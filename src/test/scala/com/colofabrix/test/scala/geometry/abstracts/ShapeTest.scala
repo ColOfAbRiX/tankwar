@@ -36,6 +36,17 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   protected def testShape( bounds: Box ): T
 
   /**
+    * Creates a new object of type T to test that must have at least one
+    * point of its boundary known. The known point will lie on the right
+    * edge of boundary and a `touch` distance from the topRight vertex.
+    *
+    * @param bounds The area covered by the object
+    * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
+    * @return A new instance of a SpatialSet[T]
+    */
+  protected def testShape( bounds: Box, touch: Double ): T
+
+  /**
     * Different kind of shapes to test against.
     *
     * Test shapes must cover as much "where" as possible, specifically its
@@ -200,9 +211,20 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   //
 
   "The distance member" must "return a non-zero distance when given a Vect that doesn't lie on it" in {
+    val where = Box( 100, 200 )
+    val test = testShape( where, 0.5 )
+
+    val expDistance = XYVect( 50, 0 ) // Distance from the test shape to the segment
+    val expPoint = XYVect( where.topRight.x, where.center.y )
+
+    val point = expPoint + expDistance
+    val distance = test.distance( point )
+
+    distance._1 should equal( expDistance )
+    distance._2 should equal( expPoint )
   }
 
-  "The distance member" must "return a zero distance when given a Vect that does lie on it" in {
+  "The distance member" must "return a zero distance when given a Vect that lies on it" in {
     val where = Box( 100, 200 )
     val test = testShape( where )
 
@@ -212,12 +234,16 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The distance member" must "return a proper distance when given a Seg outside it" in {
-    val testSegments = XYVect( 100, 90 ) :: XYVect( 100, 100 ) :: XYVect( 90, 100 ) :: XYVect( 120, 120 ) :: XYVect( 120, 80 ) :: Nil
-    val reference = Seg( XYVect( 100, 200 ), XYVect( 100, 0 ) )
+    val where = Box( 100, 200 )
+    val test = testShape( where )
 
-    testSegments.sliding( 2 ).foreach {
-      case p0 :: p1 :: Nil ⇒ reference.intersects( Seg( p0, p1 ) )
-    }
+    val rightEdge = Seg( where.topRight, XYVect( where.topRight.x, where.bottomLeft.y ) )
+    val expDistance = XYVect( 50, 0 ) // Distance from the test shape to the segment
+
+    val ref1 = rightEdge.move( expDistance )
+    val distance1 = test.distance( ref1 )
+
+    distance1._1 should equal( expDistance )
   }
 
   "The distance member" must "return a zero distance when given a Seg that intersects it" in {

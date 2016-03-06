@@ -19,7 +19,7 @@ package com.colofabrix.scala.geometry.shapes
 import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.gfx.abstracts.{ Renderable, Renderer }
 import com.colofabrix.scala.gfx.renderers.PolygonRenderer
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.math.{ Vect, _ }
 
 import scala.language.{ postfixOps, reflectiveCalls }
 
@@ -76,7 +76,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
 
     corners.forall { c ⇒
       val r = c.e0.vect ^ c.e1.vect
-      Math.signum( r ).toInt == direction || r.abs <= 1E-10
+      Math.signum( r ).toInt == direction || r.abs <= FP_PRECISION
     }
   }
 
@@ -151,7 +151,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     }
     else {
       // Check all the vertices and return the nearest one.
-      edges.map( _.distance( s ) ).minBy( _._1.ρ )
+      edges.map( s.distance ).minBy( _._1.ρ )
     }
   }
 
