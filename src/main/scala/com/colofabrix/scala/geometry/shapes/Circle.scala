@@ -71,11 +71,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * @param s The line segment to check
     * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( s: Seg ): (Vect, Vect) = {
-    // Closest point on the segment to the circle
-    val closest = (center - s.v0) → s.vect
-    distance( s.v0 + closest )
-  }
+  override def distance( s: Seg ): (Vect, Vect) = distance( s.closestPoint( center ) )
 
   /**
     * Compute the distance between a point and the circle
@@ -96,13 +92,9 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     * Compute the distance between a line and the boundary of the Circle
     *
     * @param s The line segment to check
-    * @return A tuple containing 1) the distance vector from the line to the perimeter and 2) the edge or the point from which the distance is calculated
+    * @return A tuple containing 1) the distance vector from the line to the boundary and 2) the edge or the point from which the distance is calculated
     */
-  def boundaryDistance( s: Seg ): (Vect, Vect) = {
-    // Closest point on the segment to the circle
-    val closest = (center - s.v0) → s.vect
-    boundaryDistance( s.v0 + closest )
-  }
+  def boundaryDistance( s: Seg ): (Vect, Vect) = boundaryDistance( s.closestPoint( center ) )
 
   /**
     * Compute the distance between a point and the boundary of the Circle
@@ -125,7 +117,7 @@ final case class Circle( center: Vect, radius: Double ) extends Shape with Conta
     // The couching point is point on the circumference closer to p, but this time related to the origin of axes
     val touchingPoint = center + radiusTowardsPoint
 
-    (distance, touchingPoint)
+    (distance * -1.0, touchingPoint)
   }
 
   /**

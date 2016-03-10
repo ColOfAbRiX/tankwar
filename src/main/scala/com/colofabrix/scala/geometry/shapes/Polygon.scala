@@ -151,7 +151,8 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     }
     else {
       // Check all the vertices and return the nearest one.
-      edges.map( s.distance ).minBy( _._1.ρ )
+      val distance = edges.map( s.distance ).minBy( _._1.ρ )
+      (distance._1 * -1.0, distance._2)
     }
   }
 

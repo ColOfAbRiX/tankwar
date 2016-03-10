@@ -31,7 +31,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     * Creates a new object of type T to test
     *
     * @param bounds The area covered by the object
-    * @return A new instance of a SpatialSet[T]
+    * @return A new instance of a T
     */
   protected def testShape( bounds: Box ): T
 
@@ -42,9 +42,9 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     *
     * @param bounds The area covered by the object
     * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
-    * @return A new instance of a SpatialSet[T]
+    * @return A tuple with 1) a new instance of a T and 2) The point that must be touched
     */
-  protected def testShape( bounds: Box, touch: Double ): T
+  protected def testShape( bounds: Box, touch: Double ): (T, Vect)
 
   /**
     * Different kind of shapes to test against.
@@ -119,7 +119,10 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val test = testShape( Box( where.center, where.width / 2.0, where.height / 2.0 ) )
 
     testShapesSet( where ) foreach { s ⇒
-      test.intersects( s ) should equal( true )
+      // TODO: Complete the test with Seg-Seg case
+      if( !test.isInstanceOf[Seg] && !s.isInstanceOf[Seg] ) {
+        test.intersects( s ) should equal( true )
+      }
     }
   }
 
@@ -128,12 +131,12 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val test = testShape( where )
 
     testShapesSet( where ) foreach { s ⇒
-      test.intersects( s.move( XYVect( where.width * 2.0, where.height * 2.0 ) ) ) should equal( false )
+      test.intersects( s.move( XYVect( where.width * 3.0, where.height * 3.0 ) ) ) should equal( false )
     }
   }
 
   "The intersects member" must "return true when given intersecting segments" in {
-    val ref = testShape( Box( 100, 200 ) )
+    val ref = testShape( Box( 100, 200 ), 0.5 )._1
 
     ref.intersects( Seg( XYVect( 100, 90 ), XYVect( 100, 100 ) ) ) should equal( true )
     ref.intersects( Seg( XYVect( 100, 100 ), XYVect( 90, 100 ) ) ) should equal( true )
@@ -141,7 +144,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   }
 
   "The intersects member" must "return false when given non-intersecting segments" in {
-    val ref = testShape( Box( 100, 200 ) )
+    val ref = testShape( Box( 100, 200 ), 0.5 )._1
 
     ref.intersects( Seg( XYVect( 110, 90 ), XYVect( 110, 30 ) ) ) should equal( false )
     ref.intersects( Seg( XYVect( 110, 90 ), XYVect( 130, 90 ) ) ) should equal( false )
@@ -212,12 +215,12 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
   "The distance member" must "return a non-zero distance when given a Vect that doesn't lie on it" in {
     val where = Box( 100, 200 )
-    val test = testShape( where, 0.5 )
+    val test = testShape( where, 0.5 )._1
 
-    val expDistance = XYVect( 50, 0 ) // Distance from the test shape to the segment
+    val expDistance = XYVect( -50, 0 ) // Distance from the test shape to the segment
     val expPoint = XYVect( where.topRight.x, where.center.y )
 
-    val point = expPoint + expDistance
+    val point = expPoint - expDistance
     val distance = test.distance( point )
 
     distance._1 should equal( expDistance )
@@ -226,21 +229,26 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
   "The distance member" must "return a zero distance when given a Vect that lies on it" in {
     val where = Box( 100, 200 )
-    val test = testShape( where )
+    val (test, point) = testShape( where, 0.5 )
 
-    val dist = test.distance( where.center )
+    val dist = test.distance( point )
     dist._1 should equal( Vect.zero )
-    dist._2 should equal( Vect.zero )
+
+    // Additional test for non-segments
+    if( !test.isInstanceOf[Seg] ) {
+      val dist = test.distance( point - XYVect( 10, 10 ) )
+      dist._1 should equal( Vect.zero )
+    }
   }
 
   "The distance member" must "return a proper distance when given a Seg outside it" in {
     val where = Box( 100, 200 )
-    val test = testShape( where )
+    val test = testShape( where, 0.5 )._1
 
     val rightEdge = Seg( where.topRight, XYVect( where.topRight.x, where.bottomLeft.y ) )
-    val expDistance = XYVect( 50, 0 ) // Distance from the test shape to the segment
+    val expDistance = XYVect( -50, 0 ) // Distance from the test shape to the segment
 
-    val ref1 = rightEdge.move( expDistance )
+    val ref1 = rightEdge.move( expDistance * -1.0 )
     val distance1 = test.distance( ref1 )
 
     distance1._1 should equal( expDistance )
@@ -248,12 +256,21 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
   "The distance member" must "return a zero distance when given a Seg that intersects it" in {
     val where = Box( 100, 200 )
-    val test = testShape( where )
-    val seg = Seg( where.center - XYVect( -10, -10 ), where.center - XYVect( 10, 10 ) )
+    val (test, point) = testShape( where, 0.5 )
+    val seg = Seg( point - XYVect( 10, 0 ), point + XYVect( 10, 0 ) )
 
     val dist = test.distance( seg )
+
     dist._1 should equal( Vect.zero )
     dist._2 should equal( Vect.zero )
+
+    // Additional test for non-segments
+    if( !test.isInstanceOf[Seg] ) {
+      val dist = test.distance( seg.move( XYVect( -10, -10 ) ) )
+
+      dist._1 should equal( Vect.zero )
+      dist._2 should equal( Vect.zero )
+    }
   }
 
   //
@@ -266,6 +283,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
 
     test1 == test1 should equal( true )
     test1 == test2 should equal( true )
+    test2 == test1 should equal( true )
   }
 
   "The equal member" must "return false when given different Shapes" in {
@@ -273,5 +291,6 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val test2 = testShape( Box( XYVect( 1, 5 ), XYVect( 5, 3 ) ) )
 
     test1 == test2 should equal( false )
+    test2 == test1 should equal( false )
   }
 }

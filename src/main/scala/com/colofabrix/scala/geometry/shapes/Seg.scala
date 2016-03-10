@@ -62,7 +62,8 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * This is a problem of geometry and not directly related to the Shape, but it's something that it is used by many
     * other methods.
     *
-    * @see http://geomalgorithms.com/a02-_lines.html
+    * [[http://geomalgorithms.com/a02-_lines.html Reference]]
+    *
     * @param p Point to check
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
@@ -81,7 +82,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     }
 
     val pb = this.v0 + v * (c1 / c2)
-    ((pb - p) * -1.0, pb)
+    (pb - p, pb)
   }
 
   /**
@@ -92,7 +93,14 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @param s The second segment to check
     * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( s: Seg ): (Vect, Vect) = Seq( distance( s.v0 ), distance( s.v1 ) ).minBy( _._1.ρ )
+  override def distance( s: Seg ): (Vect, Vect) = {
+    if( intersects( s ) ) {
+      (Vect.zero, Vect.zero)
+    }
+    else {
+      Seq( distance( s.v0 ), distance( s.v1 ) ).minBy( _._1.ρ )
+    }
+  }
 
   /**
     * An object responsible to renderer the class where this trait is applied
@@ -144,13 +152,21 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     */
   override def intersects( s: Shape ): Boolean = s match {
     case c: Circle ⇒ c.distance( this )._1 == Vect.zero
-    case p: Polygon ⇒
-      p.edges.exists { e ⇒
-        val res = intersects( e )
-        res
-      }
+    case p: Polygon ⇒ p.edges.exists( intersects ) || endpoints.exists( p.contains )
     case g: Seg ⇒ intersects( g )
     case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
+  }
+
+  /**
+    * Return the position of the point on the Seg closest to the given point p
+    *
+    * @param p The point to look for
+    * @return The point on the segment that is closest to the given point p
+    */
+  def closestPoint( p: Vect ) = {
+    val cp = p - v0
+    val ratio = cp.r / vect.r * Math.cos( cp.t - vect.t )
+    if( ratio - 1.0 >= FP_PRECISION ) v1 else if( ratio <= FP_PRECISION ) v0 else v0 + vect * ratio
   }
 
   /**

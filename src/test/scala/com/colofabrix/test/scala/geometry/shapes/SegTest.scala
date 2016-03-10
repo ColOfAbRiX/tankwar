@@ -17,7 +17,7 @@
 package com.colofabrix.test.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.shapes.{ Box, Seg }
-import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.math.{ Vect, XYVect }
 import com.colofabrix.test.scala.geometry.abstracts.ShapeTest
 
 /**
@@ -39,10 +39,12 @@ class SegTest extends ShapeTest[Seg] {
     *
     * @param bounds The area covered by the object
     * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
-    * @return A new instance of a SpatialSet[T]
+    * @return A tuple with 1) a new instance of a T and 2) The point that must be touched
     */
-  override protected def testShape( bounds: Box, touch: Double ): Seg =
-    Seg( bounds.topRight, XYVect( bounds.topRight.x, bounds.bottomLeft.y ) )
+  override protected def testShape( bounds: Box, touch: Double ): (Seg, Vect) = (
+    Seg( bounds.topRight, bounds.bottomRight ),
+    bounds.topRight + (bounds.bottomRight - bounds.topRight) * touch
+    )
 
   //
   // area member

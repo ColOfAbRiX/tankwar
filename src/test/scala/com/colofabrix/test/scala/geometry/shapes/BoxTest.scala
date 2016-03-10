@@ -33,7 +33,7 @@ class BoxTest extends ShapeTest[Box] {
     * Creates a new object of type T to test
     *
     * @param bounds The area covered by the object
-    * @return A new instance of a SpatialSet[T]
+    * @return A new instance of a T
     */
   override protected def testShape( bounds: Box ): Box = bounds
 
@@ -44,9 +44,10 @@ class BoxTest extends ShapeTest[Box] {
     *
     * @param bounds The area covered by the object
     * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
-    * @return A new instance of a SpatialSet[T]
+    * @return A tuple with 1) a new instance of a T and 2) The point that must be touched
     */
-  override protected def testShape( bounds: Box, touch: Double ): Box = bounds
+  override protected def testShape( bounds: Box, touch: Double ): (Box, Vect) =
+    (bounds, bounds.topRight + (bounds.bottomRight - bounds.topRight) * touch)
 
   //
   // Width, height, center, origin, topRight/bottomLeft members
@@ -89,11 +90,25 @@ class BoxTest extends ShapeTest[Box] {
     Box( 10, -20 ).topRight should equal( XYVect( 10, 0 ) )
   }
 
+  "The topLeft member" must "always be the top-left vertex of the Box" in {
+    Box( 10, 20 ).topLeft should equal( XYVect( 0, 20 ) )
+    Box( -10, 20 ).topLeft should equal( XYVect( -10, 20 ) )
+    Box( -10, -20 ).topLeft should equal( XYVect( -10, 0 ) )
+    Box( 10, -20 ).topLeft should equal( XYVect( 0, 0 ) )
+  }
+
   "The bottomLeft member" must "always be the bottom-left vertex of the Box" in {
     Box( 10, 20 ).bottomLeft should equal( XYVect( 0, 0 ) )
     Box( -10, 20 ).bottomLeft should equal( XYVect( -10, 0 ) )
     Box( -10, -20 ).bottomLeft should equal( XYVect( -10, -20 ) )
     Box( 10, -20 ).bottomLeft should equal( XYVect( 0, -20 ) )
+  }
+
+  "The bottomRight member" must "always be the bottom-right vertex of the Box" in {
+    Box( 10, 20 ).bottomRight should equal( XYVect( 10, 0 ) )
+    Box( -10, 20 ).bottomRight should equal( XYVect( 0, 0 ) )
+    Box( -10, -20 ).bottomRight should equal( XYVect( 0, -20 ) )
+    Box( 10, -20 ).bottomRight should equal( XYVect( 10, -20 ) )
   }
 
   //

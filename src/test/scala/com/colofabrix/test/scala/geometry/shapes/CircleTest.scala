@@ -17,7 +17,7 @@
 package com.colofabrix.test.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.shapes._
-import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.math.{ Vect, XYVect }
 import com.colofabrix.test.scala.geometry.abstracts.ShapeTest
 
 /**
@@ -42,9 +42,9 @@ class CircleTest extends ShapeTest[Circle] {
     *
     * @param bounds The area covered by the object
     * @param touch  A parameter between 0.0 and 1.0 that tells the desired point on the right edge of bounds
-    * @return A new instance of a SpatialSet[T]
+    * @return A tuple with 1) a new instance of a T and 2) The point that must be touched
     */
-  override protected def testShape( bounds: Box, touch: Double ): Circle = {
+  override protected def testShape( bounds: Box, touch: Double ): (Circle, Vect) = {
     require( touch >= 0.0 && touch <= 1.0 )
 
     val maxRadius = Math.min( bounds.width, bounds.height )
@@ -57,7 +57,10 @@ class CircleTest extends ShapeTest[Circle] {
       val center = possibleCenters * touch
       val radius = (touchPoint - center).ρ
 
-      Circle( validBounds.topRight + center, radius )
+      Tuple2(
+        Circle( validBounds.topRight + center, radius ),
+        validBounds.topRight + touchPoint
+      )
     }
     else {
       val possibleCenters = validBounds.bottomRight - validBounds.topLeft
@@ -66,7 +69,10 @@ class CircleTest extends ShapeTest[Circle] {
       val center = possibleCenters * touch + (validBounds.topLeft - validBounds.topRight)
       val radius = (touchPoint - center).ρ
 
-      Circle( validBounds.topRight + center, radius )
+      Tuple2(
+        Circle( validBounds.topRight + center, radius ),
+        validBounds.topRight + touchPoint
+      )
     }
   }
 
@@ -86,21 +92,21 @@ class CircleTest extends ShapeTest[Circle] {
 
   "The member boundaryDistance" must "return a non-zero distance when given a Vect inside the Circle" in {
     val test = Circle( XYVect( 10, 10 ), 100 )
-    val reference = XYVect( -test.radius / 2.0, -test.radius / 2.0 )
-    val distance = test.boundaryDistance( test.center + (reference.v * test.radius) + reference )
+    val expDistance = XYVect( test.radius / 2.0, test.radius / 2.0 )
+    val distance = test.boundaryDistance( test.center + (expDistance.v * test.radius) - expDistance )
 
-    distance._1 should equal( reference )
+    distance._1 should equal( expDistance )
   }
 
   "The member boundaryDistance" must "return a non-zero distance when given a Seg inside the Circle" in {
     val test = Circle( XYVect( 100, 150 ), 100 )
 
-    val expDistance = XYVect( -test.radius / 2.0, 0.0 )
-    val expPoint = test.center - expDistance.v * test.radius
+    val expDistance = XYVect( test.radius / 2.0, 0.0 )
+    val expPoint = test.center + expDistance.v * test.radius
 
     val reference = Seg(
-      test.center + XYVect( 0.0, test.radius ) - expDistance,
-      test.center + XYVect( 0.0, -test.radius ) - expDistance
+      test.center + XYVect( 0.0, test.radius ) + expDistance,
+      test.center + XYVect( 0.0, -test.radius ) + expDistance
     )
     val distance = test.boundaryDistance( reference )
 
