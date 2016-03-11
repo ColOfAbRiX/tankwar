@@ -16,21 +16,21 @@
 
 package com.colofabrix.test.scala.geometry.shapes
 
-import com.colofabrix.scala.geometry.shapes.{ Box, Polygon }
-import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.scala.geometry.shapes.{ Box, ConvexPolygon, Polygon }
+import com.colofabrix.scala.math.Vect
 import com.colofabrix.test.scala.geometry.abstracts.ShapeTest
 
 /**
   * Unit testing for Polygons
   */
-class PolygonTest extends ShapeTest[Polygon] {
+class ConvexPolygonTest extends ShapeTest[Polygon] {
   /**
     * Creates a new object of type T to test
     *
     * @param bounds The area covered by the object
     * @return A new instance of a T
     */
-  override protected def testShape( bounds: Box ): Polygon = Polygon( bounds.vertices )
+  override protected def testShape( bounds: Box ): Polygon = new ConvexPolygon( bounds.vertices )
 
   /**
     * Creates a new object of type T to test that must have at least one
@@ -42,37 +42,5 @@ class PolygonTest extends ShapeTest[Polygon] {
     * @return A tuple with 1) a new instance of a T and 2) The point that must be touched
     */
   override protected def testShape( bounds: Box, touch: Double ): (Polygon, Vect) =
-    (Polygon( bounds.vertices ), bounds.topRight + (bounds.bottomRight - bounds.topRight) * touch)
-
-  //
-  // area member
-  //
-
-  "The area member" must "be a valid area" in {
-    val where = Box( 100, 200 )
-    Polygon( where.vertices ).area should equal( where.area )
-  }
-
-  //
-  // isConvex member
-  //
-
-  "The isConvex member" must "return true when given a convex polygon definition" in {
-    Polygon( Box( 100, 200 ).vertices ).isConvex should equal( true )
-  }
-
-  "The isConvex member" must "return false when given a concave polygon definition" in {
-    val where = Box( 100, 200 )
-
-    val test = Polygon(
-      Seq(
-        where.bottomLeft + XYVect( where.width * 0.5, where.height * 0.5 ),
-        where.bottomLeft + XYVect( where.width * 1.0, where.height * 0.5 ),
-        where.bottomLeft + XYVect( where.width * 0.25, where.height * 0.67 ),
-        where.bottomLeft + XYVect( where.width * 0.75, where.height * 0.1 )
-      )
-    )
-
-    test.isConvex should equal( false )
-  }
+    (new ConvexPolygon( bounds.vertices ), bounds.topRight + (bounds.bottomRight - bounds.topRight) * touch)
 }

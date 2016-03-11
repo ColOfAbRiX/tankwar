@@ -295,6 +295,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * |Q × R| + |R × Q| + |P × R|
     *
     * [[http://algs4.cs.princeton.edu/91primitives/ Reference]]
+    * [[http://geomalgorithms.com/a01-_area.html Reference]]
     *
     * @param p Point to check
     * @return >0 for P left of the line, =0 for P on the line, <0 for P right of the line

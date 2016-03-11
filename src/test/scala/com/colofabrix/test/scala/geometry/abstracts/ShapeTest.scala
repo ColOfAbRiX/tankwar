@@ -20,6 +20,7 @@ import com.colofabrix.scala.geometry.abstracts.Shape
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math.{ Vect, XYVect }
 import com.colofabrix.test.scala.geometry.ShapeUtils
+import com.colofabrix.test.scala.geometry.shapes.SegTest
 import org.scalatest.{ FlatSpec, Matchers }
 
 /**
@@ -60,7 +61,7 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     where,
     Circle( where.center, Math.min( where.width, where.height ) ),
     new ConvexPolygon( where.vertices ),
-    new Polygon(
+    Polygon(
       Seq(
         where.bottomLeft + XYVect( where.width * 0.5, where.height * 0.5 ),
         where.bottomLeft + XYVect( where.width * 1.0, where.height * 0.5 ),
@@ -156,12 +157,17 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
   //
 
   "The contains member" must "return true when given a Vect inside or on the boundary of the Shape" in {
-    val insidePoint1 = XYVect( 5, 5 )
-    val insidePoint2 = XYVect( 10, 5 )
-    val test = testShape( Box( 10, 10 ) )
+    val test = testShape( Box( 10, 10 ), 0.5 )._1
 
-    test.contains( insidePoint1 ) should equal( true )
-    test.contains( insidePoint2 ) should equal( true )
+    val (point1, point2) = if( this.isInstanceOf[SegTest] ) {
+      (XYVect( 10, 10 ), XYVect( 10, 5 ))
+    }
+    else {
+      (XYVect( 5, 5 ), XYVect( 10, 5 ))
+    }
+
+    test.contains( point1 ) should equal( true )
+    test.contains( point2 ) should equal( true )
   }
 
   "The contains member" must "return false when given a Vect outside the Shape" in {
@@ -175,8 +181,11 @@ trait ShapeTest[T <: Shape] extends FlatSpec with Matchers {
     val where = Box( XYVect( -50, -50 ), XYVect( 150, 250 ) )
     val test = testShape( where )
 
-    testShapesSet( Box( where.center, where.width / 2.0, where.height / 2.0 ) ) foreach { s ⇒
-      test.contains( s ) should equal( true )
+    if( !this.isInstanceOf[SegTest] ) {
+      testShapesSet( Box( where.center, where.width / 3.0, where.height / 3.0 ) ) foreach { s ⇒
+        val res = test.contains( s )
+        res should equal( true )
+      }
     }
   }
 

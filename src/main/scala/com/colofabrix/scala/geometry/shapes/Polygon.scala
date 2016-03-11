@@ -30,7 +30,7 @@ import scala.language.{ postfixOps, reflectiveCalls }
   * to study how they work. Don't use this class in production code
   */
 //@SuppressWarnings( Array( "TraversableHead" ) ) // A polygon has always got at least 3 edges
-class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
+case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
 
   /** To represent corners between two edges */
   final case class Corner( e0: Seg, e1: Seg ) {val edges = e0 :: e1 :: Nil}
@@ -46,16 +46,14 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
 
   /**
     * Area of the polygon
-    * Ref: http://geomalgorithms.com/a01-_area.html
+    *
+    * [[http://geomalgorithms.com/a01-_area.html Reference]]
     */
   lazy val area = {
-    val partials = (vertices :+ vertices.head)
-      .sliding( 3 )
-      .map {
-        case v0 +: v1 +: v2 +: Nil ⇒ v1.x * (v2.y - v0.y)
-      }
-
-    partials.sum / 2.0
+    val partial = corners.map { c =>
+      c.e0.v1.x * (c.e1.v1.y - c.e0.v0.y)
+    }
+    partial.sum.abs / 2.0
   }
 
   /**
@@ -65,38 +63,47 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
     * checked calculating, for every adjacent edges, their rotation, given by the cross product, of the second
     * edge compared to the first.
     *
-    * Ref: https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex
+    * [[https://stackoverflow.com/questions/471962/how-do-determine-if-a-polygon-is-complex-convex-nonconvex Reference]]
     *
     * @return true if the polygon is convex
     */
   lazy val isConvex = {
-    // The direction or rotation can be either CW or CCW as far as it is always the same or zero. This is the
-    // direction of the first edge as a reference.
-    val direction = Math.signum( corners.head.e0.vect ^ corners.head.e1.vect ).toInt
+    val partial = corners.map { c ⇒
+      c.e0.orientation( c.e1.v1 )
+    }
 
-    corners.forall { c ⇒
-      val r = c.e0.vect ^ c.e1.vect
-      Math.signum( r ).toInt == direction || r.abs <= FP_PRECISION
+    val side = Math.signum( partial.head )
+
+    partial.forall { a ⇒
+      (Math.signum( a ) - side).abs <= FP_PRECISION
     }
   }
 
   /**
     * Determines if a point is inside or on the boundary the shape
     *
-    * @see http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29
+    * [[http://geomalgorithms.com/a03-_inclusion.html#cn_PinPolygon%28%29 Reference]]
+    *
     * @param p The point to be checked
     * @return True if the point is inside the shape
     */
   override def contains( p: Vect ): Boolean = {
     val wind = edges.foldLeft( 0 ) { ( a, e ) ⇒
       if( e.v0.y <= p.y ) {
-        if( e.v1.y > p.y && e.orientation( p ) > 0.0 ) a + 1 else a
+        if( e.v1.y > p.y && e.orientation( p ) > FP_PRECISION ) a + 1 else a
       }
       else {
-        if( e.v1.y <= p.y && e.orientation( p ) < 0.0 ) a - 1 else a
+        if( e.v1.y <= p.y && e.orientation( p ) < -FP_PRECISION ) a - 1 else a
       }
     }
-    wind != 0
+
+    // The above algorithm doesn't check if a point is on the boundary
+    if( wind == 0 ) {
+      edges.exists( _.contains( p ) )
+    }
+    else {
+      true
+    }
   }
 
   /**
@@ -115,7 +122,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
         !edges.exists( _.intersects( g ) )
 
     case c: Circle ⇒
-      !vertices.exists( c.contains ) &&
+      contains( c.center ) &&
         !edges.exists( _.intersects( c ) )
 
     case _ ⇒ throw new IllegalArgumentException( "Unexpected Shape type" )
@@ -134,7 +141,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
       (Vect.origin, Vect.origin)
     }
     else {
-      // Check all the vertices and return the nearest one.
+      // Check all the edges and return the nearest one.
       edges.map( _.distance( p ) ).minBy( _._1.ρ )
     }
   }
@@ -150,7 +157,7 @@ class Polygon( val vertices: Seq[Vect] ) extends Shape with Renderable {
       (Vect.zero, Vect.zero)
     }
     else {
-      // Check all the vertices and return the nearest one.
+      // Check all the edges and return the nearest one.
       val distance = edges.map( s.distance ).minBy( _._1.ρ )
       (distance._1 * -1.0, distance._2)
     }
