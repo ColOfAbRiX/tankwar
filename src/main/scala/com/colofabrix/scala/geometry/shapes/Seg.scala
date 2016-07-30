@@ -68,21 +68,21 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @return A tuple containing 1) the distance vector from the point to the boundary and 2) the edge or the point from which the distance is calculated
     */
   @inline
-  override def distance( p: Vect ): (Vect, Vect) = {
+  override def distance( p: Vect ): ( Vect, Vect ) = {
     val v = this.v1 - this.v0
     val w = p - this.v0
     val c1 = v x w
     val c2 = v x v
 
-    if( c1 <= 0.0 ) {
-      return (this.v0 - p, this.v0)
+    if ( c1 <= 0.0 ) {
+      return ( this.v0 - p, this.v0 )
     }
-    else if( c2 <= c1 ) {
-      return (this.v1 - p, this.v1)
+    else if ( c2 <= c1 ) {
+      return ( this.v1 - p, this.v1 )
     }
 
-    val pb = this.v0 + v * (c1 / c2)
-    (pb - p, pb)
+    val pb = this.v0 + v * ( c1 / c2 )
+    ( pb - p, pb )
   }
 
   /**
@@ -93,9 +93,9 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @param s The second segment to check
     * @return A tuple containing 1) the distance vector from the point to the perimeter and 2) the edge or the point from which the distance is calculated
     */
-  override def distance( s: Seg ): (Vect, Vect) = {
-    if( intersects( s ) ) {
-      (Vect.zero, Vect.zero)
+  override def distance( s: Seg ): ( Vect, Vect ) = {
+    if ( intersects( s ) ) {
+      ( Vect.zero, Vect.zero )
     }
     else {
       Seq( distance( s.v0 ), distance( s.v1 ) ).minBy( _._1.ρ )
@@ -166,7 +166,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
   def closestPoint( p: Vect ) = {
     val cp = p - v0
     val ratio = cp.r / vect.r * Math.cos( cp.t - vect.t )
-    if( ratio - 1.0 >= FP_PRECISION ) v1 else if( ratio <= FP_PRECISION ) v0 else v0 + vect * ratio
+    if ( ratio - 1.0 >= FP_PRECISION ) v1 else if ( ratio <= FP_PRECISION ) v0 else v0 + vect * ratio
   }
 
   /**
@@ -190,8 +190,8 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     val D = u ^ v
 
     // Test if  they are parallel (includes either being a point)
-    if( D.abs <= FP_PRECISION ) {
-      if( (u ^ w) != 0.0 || (v ^ w) != 0.0 ) {
+    if ( D.abs <= FP_PRECISION ) {
+      if ( ( u ^ w ) != 0.0 || ( v ^ w ) != 0.0 ) {
         // S1 and S2 are parallel
         return None
       }
@@ -201,27 +201,27 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
 
       // They are collinear or degenerate check if they are degenerate points
 
-      if( du == 0.0 && dv == 0.0 ) {
+      if ( du == 0.0 && dv == 0.0 ) {
         // Both segments are points
-        if( s.v0.x != this.v0.x ) {
+        if ( s.v0.x != this.v0.x ) {
           // They are distinct  points
           return None
         }
         return Some( s.v0 )
       }
 
-      if( du == 0.0 ) {
+      if ( du == 0.0 ) {
         // S1 is a single point
-        if( !contains( s.v0 ) ) {
+        if ( !contains( s.v0 ) ) {
           // But is not in S2
           return None
         }
         return Some( s.v0 )
       }
 
-      if( dv == 0.0 ) {
+      if ( dv == 0.0 ) {
         // S2 a single point
-        if( !s.contains( this.v0 ) ) {
+        if ( !s.contains( this.v0 ) ) {
           // But is not in S1
           return None
         }
@@ -235,7 +235,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
       var t1 = 0.0
       val w2 = s.v1 - this.v0
 
-      if( v.x != 0.0 ) {
+      if ( v.x != 0.0 ) {
         t0 = w.x / v.x
         t1 = w2.x / v.x
       }
@@ -244,14 +244,14 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
         t1 = w2.y / v.y
       }
 
-      if( t0 > t1 ) {
+      if ( t0 > t1 ) {
         // Must have t0 smaller than t1, swap if not
         val tmp = t0
         t0 = t1
         t1 = tmp
       }
 
-      if( t0 > 1.0 || t1 < 0.0 ) {
+      if ( t0 > 1.0 || t1 < 0.0 ) {
         // NO overlap
         return None
       }
@@ -259,7 +259,7 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
       t0 = max( 0.0, t0 )
       t1 = min( 1.0, t1 )
 
-      if( t0 == t1 ) {
+      if ( t0 == t1 ) {
         // Intersect is a point
         return Some( this.v0 + t0 * v )
       }
@@ -271,15 +271,15 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     // The segments are skew and may intersect in a point.
 
     // Get the intersect parameter for S1
-    val sI = (v ^ w) / D
-    if( sI < 0.0 || sI > 1.0 ) {
+    val sI = ( v ^ w ) / D
+    if ( sI < 0.0 || sI > 1.0 ) {
       // No intersect with S1
       return None
     }
 
     // Get the intersect parameter for S2
-    val tI = (u ^ w) / D
-    if( tI < 0.0 || tI > 1.0 ) {
+    val tI = ( u ^ w ) / D
+    if ( tI < 0.0 || tI > 1.0 ) {
       // No intersect with S2
       return None
     }
@@ -300,14 +300,14 @@ final case class Seg( v0: Vect, v1: Vect ) extends Shape {
     * @param p Point to check
     * @return >0 for P left of the line, =0 for P on the line, <0 for P right of the line
     */
-  def orientation( p: Vect ): Double = (v1.x - v0.x) * (p.y - v0.y) - (p.x - v0.x) * (v1.y - v0.y)
+  def orientation( p: Vect ): Double = ( v1.x - v0.x ) * ( p.y - v0.y ) - ( p.x - v0.x ) * ( v1.y - v0.y )
 
-  override def toString = s"Seg(${v0.x }, ${v0.y } -> ${v1.x }, ${v1.y })"
+  override def toString = s"Seg(${v0.x}, ${v0.y} -> ${v1.x}, ${v1.y})"
 }
 
 object Seg {
   /**
-    * Creates a segment using a sequence of [[Vect]].
+    * Creates a segment using a sequence of Vect.
     *
     * @param vertices A [[Seq]] of exactly 2 Vect. If more elements are provided, they are discarded
     * @return A new instance of Seg
@@ -317,5 +317,5 @@ object Seg {
     case _ ⇒ throw new IllegalArgumentException( "A segment is specified from only and only 2 vertices" )
   }
 
-  implicit def doubleVect2Seg( x: (Vect, Vect) ): Seg = Seg( x._1, x._2 )
+  implicit def doubleVect2Seg( x: ( Vect, Vect ) ): Seg = Seg( x._1, x._2 )
 }

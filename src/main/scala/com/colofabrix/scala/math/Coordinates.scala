@@ -37,7 +37,7 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case cc: CartesianCoord ⇒ (this.x - cc.x).abs <= FP_PRECISION && (this.y - cc.y).abs <= FP_PRECISION
+    case cc: CartesianCoord ⇒ ( this.x - cc.x ).abs <= FP_PRECISION && ( this.y - cc.y ).abs <= FP_PRECISION
 
     // For polar coordinates I first transform them in polar form
     case pc: PolarCoord ⇒ CartesianCoord( pc ) == this
@@ -94,7 +94,7 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case pc: PolarCoord ⇒ (this.r - pc.r).abs <= FP_PRECISION && (this.t - pc.t).abs <= FP_PRECISION
+    case pc: PolarCoord ⇒ ( this.r - pc.r ).abs <= FP_PRECISION && ( this.t - pc.t ).abs <= FP_PRECISION
 
     // For cartesian coordinates I first transform them in polar form
     case cc: CartesianCoord ⇒
@@ -137,7 +137,7 @@ object PolarCoord {
     */
   def apply( r: Double, t: Double ): PolarCoord =
     new PolarCoord(
-      r, if( t >= 0.0 ) t % (2.0 * Math.PI) else trimAngles( t )
+      r, if ( t >= 0.0 ) t % ( 2.0 * Math.PI ) else trimAngles( t )
     )
 
   /**
@@ -147,7 +147,7 @@ object PolarCoord {
     * @return An equivalent angle that is always non-negative and less than 2 * PI
     */
   @inline
-  def trimAngles( t: Double ): Double = t % (-2.0 * Math.PI) + 2.0 * Math.PI
+  def trimAngles( t: Double ): Double = t % ( -2.0 * Math.PI ) + 2.0 * Math.PI
 }
 
 /**

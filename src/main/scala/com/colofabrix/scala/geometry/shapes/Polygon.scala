@@ -33,16 +33,16 @@ import scala.language.{ postfixOps, reflectiveCalls }
 case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
 
   /** To represent corners between two edges */
-  final case class Corner( e0: Seg, e1: Seg ) {val edges = e0 :: e1 :: Nil}
+  final case class Corner( e0: Seg, e1: Seg ) { val edges = e0 :: e1 :: Nil }
 
   // The smallest polygon is a triangle!!
   require( vertices.length > 2 )
 
   /** Edges of the Polygon, built from the vertices. Edges are {Vect} from one vertex to its adjacent one */
-  lazy val edges: Seq[Seg] = (vertices :+ vertices.head).sliding( 2 ).map( Seg( _ ) ).toSeq
+  lazy val edges: Seq[Seg] = ( vertices :+ vertices.head ).sliding( 2 ).map( Seg( _ ) ).toSeq
 
   /** Corners of the Polygon */
-  lazy val corners: Seq[Corner] = (edges :+ edges.head).sliding( 2 ).map( { case e0 +: e1 +: Nil ⇒ Corner( e0, e1 ) } ).toSeq
+  lazy val corners: Seq[Corner] = ( edges :+ edges.head ).sliding( 2 ).map( { case e0 +: e1 +: Nil ⇒ Corner( e0, e1 ) } ).toSeq
 
   /**
     * Area of the polygon
@@ -50,8 +50,8 @@ case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
     * [[http://geomalgorithms.com/a01-_area.html Reference]]
     */
   lazy val area = {
-    val partial = corners.map { c =>
-      c.e0.v1.x * (c.e1.v1.y - c.e0.v0.y)
+    val partial = corners.map { c ⇒
+      c.e0.v1.x * ( c.e1.v1.y - c.e0.v0.y )
     }
     partial.sum.abs / 2.0
   }
@@ -75,7 +75,7 @@ case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
     val side = Math.signum( partial.head )
 
     partial.forall { a ⇒
-      (Math.signum( a ) - side).abs <= FP_PRECISION
+      ( Math.signum( a ) - side ).abs <= FP_PRECISION
     }
   }
 
@@ -89,16 +89,16 @@ case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
     */
   override def contains( p: Vect ): Boolean = {
     val wind = edges.foldLeft( 0 ) { ( a, e ) ⇒
-      if( e.v0.y <= p.y ) {
-        if( e.v1.y > p.y && e.orientation( p ) > FP_PRECISION ) a + 1 else a
+      if ( e.v0.y <= p.y ) {
+        if ( e.v1.y > p.y && e.orientation( p ) > FP_PRECISION ) a + 1 else a
       }
       else {
-        if( e.v1.y <= p.y && e.orientation( p ) < -FP_PRECISION ) a - 1 else a
+        if ( e.v1.y <= p.y && e.orientation( p ) < -FP_PRECISION ) a - 1 else a
       }
     }
 
     // The above algorithm doesn't check if a point is on the boundary
-    if( wind == 0 ) {
+    if ( wind == 0 ) {
       edges.exists( _.contains( p ) )
     }
     else {
@@ -136,9 +136,9 @@ case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
     * @param p Point to check
     * @return A tuple containing 1) the distance vector from the point to the polygon and 2) the edge from which the distance is calculated
     */
-  def distance( p: Vect ): (Vect, Vect) = {
-    if( contains( p ) ) {
-      (Vect.origin, Vect.origin)
+  def distance( p: Vect ): ( Vect, Vect ) = {
+    if ( contains( p ) ) {
+      ( Vect.origin, Vect.origin )
     }
     else {
       // Check all the edges and return the nearest one.
@@ -152,14 +152,14 @@ case class Polygon( vertices: Seq[Vect] ) extends Shape with Renderable {
     * @param s The line segment to check
     * @return A distance vector from the point to polygon and the edge or point from which the distance is calculated
     */
-  override def distance( s: Seg ): (Vect, Vect) = {
-    if( intersects( s ) ) {
-      (Vect.zero, Vect.zero)
+  override def distance( s: Seg ): ( Vect, Vect ) = {
+    if ( intersects( s ) ) {
+      ( Vect.zero, Vect.zero )
     }
     else {
       // Check all the edges and return the nearest one.
       val distance = edges.map( s.distance ).minBy( _._1.ρ )
-      (distance._1 * -1.0, distance._2)
+      ( distance._1 * -1.0, distance._2 )
     }
   }
 

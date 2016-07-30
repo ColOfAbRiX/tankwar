@@ -38,7 +38,7 @@ import scala.language.postfixOps
   * @param bottomLeft Rectangle left-bottom-most point, in any quadrant of the plane
   * @param topRight   Rectangle right-top point, in any quadrant of the plane
   */
-final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
+final class Box private ( val bottomLeft: Vect, val topRight: Vect ) extends ConvexPolygon(
   Seq(
     bottomLeft,
     XYVect( bottomLeft.x, topRight.y ),
@@ -134,7 +134,7 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
     val height = this.height / vSplit
     val templateBox = Box( Vect.origin, XYVect( width, height ) ).move( this.bottomLeft )
 
-    for( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
+    for ( j ← 0 until hSplit; i ← 0 until vSplit ) yield {
       templateBox.move( XYVect( width * i, height * j ) )
     }
   }
@@ -154,9 +154,9 @@ final class Box private( val bottomLeft: Vect, val topRight: Vect ) extends Conv
     case _ ⇒ false
   }
 
-  override def hashCode( ): Int = {
+  override def hashCode(): Int = {
     val state = Seq( bottomLeft, topRight )
-    state.map( _.hashCode( ) ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+    state.map( _.hashCode() ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
   }
 }
 
@@ -221,7 +221,7 @@ object Box {
     * "Best" means the container that has the minimal area and that fully contains the shape
     *
     * @param s The shape that must be surrounded by a container
-    * @return A new [[Container]] that contains the Shape and that has the minimal area between the available containers
+    * @return A new [[HasContainer]] that contains the Shape and that has the minimal area between the available containers
     */
   @SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
   def bestFit( s: Shape ): Box = s match {
@@ -240,7 +240,7 @@ object Box {
       var xMax, yMax = Double.MinValue
 
       // Finds the minimum and maximum coordinates for the points
-      for( v ← p.vertices ) {
+      for ( v ← p.vertices ) {
         xMin = Math.min( xMin, v.x )
         yMin = Math.min( yMin, v.y )
         xMax = Math.max( xMax, v.x )
@@ -281,12 +281,12 @@ object Box {
       Tuple2( container, o )
     } toList
 
-    for( b ← nodes.par ) {
+    for ( b ← nodes.par ) {
       val objInBox = containers.flatMap { s ⇒
-        if( b.intersects( s._1 ) ) Seq( s._2 ) else Nil
+        if ( b.intersects( s._1 ) ) Seq( s._2 ) else Nil
       }
 
-      if( objInBox.nonEmpty || !compact ) acc += ((b, objInBox))
+      if ( objInBox.nonEmpty || !compact ) acc += ( ( b, objInBox ) )
     }
 
     acc.toMap

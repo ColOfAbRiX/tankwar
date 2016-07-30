@@ -154,7 +154,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
 
     // Check element by element that they are the equal also in respect to NaN values
     val values = for ( i ← ( 0 until adMatrix.rows ).par; j ← ( 0 until adMatrix.cols ).par ) yield {
-      (adMatrix( (i, j) ) - that( (i, j) )) <= FP_PRECISION || (adMatrix( (i, j) ).isNaN && that( (i, j) ).isNaN)
+      ( adMatrix( ( i, j ) ) - that( ( i, j ) ) ) <= FP_PRECISION || ( adMatrix( ( i, j ) ).isNaN && that( ( i, j ) ).isNaN )
     }
 
     values.forall( _ == true ) // scalastyle:ignore
@@ -180,7 +180,7 @@ class NetworkMatrix( override val matrix: Seq[Seq[Double]], val inputRoots: Seq[
     // Check element by element that they are the equal also in respect to NaN values
     val values = ( biases zip that ) map {
       case ( x, y ) ⇒
-        (x - y) <= FP_PRECISION || (x.isNaN && y.isNaN)
+        ( x - y ) <= FP_PRECISION || ( x.isNaN && y.isNaN )
     }
 
     values.forall( _ == true ) // scalastyle:ignore
