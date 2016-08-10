@@ -28,17 +28,17 @@ import scala.language.postfixOps
   * The data structure has been implemented to be as efficient as possible and from my measurements it can be twice as
   * fast as the plain brute force collision detection.
   *
-  * @param splitSize
-  * @param maxDepth
-  * @param hSplit
-  * @param vSplit
-  * @param bounds
-  * @param level
-  * @param children
-  * @param toSeq
+  * @param splitSize The size after which a node will split
+  * @param maxDepth The maximum depth of the tree
+  * @param hSplit The number of horizontal slices
+  * @param vSplit The number of vertical slices
+  * @param bounds The boundary of the area covered by the SpatialTree
+  * @param level The level of the specific instance of the SpatialTree
+  * @param children The SpatialTree children of the current node
+  * @param toSeq The content of the node as a Seq
   * @tparam T The type of objects contained in the Set
   */
-class SpatialTree[T: HasContainer] protected(
+class SpatialTree[T: HasContainer] protected (
     val splitSize: Int,
     val maxDepth: Int,
     val hSplit: Int,
@@ -86,11 +86,17 @@ class SpatialTree[T: HasContainer] protected(
     quickCreate( bounds, level, Seq.empty[SpatialTree[T]], objs )
 
   /**
+    * Adjust the current node structure, given a new set of objects
     *
-    * @param objs
-    * @return
+    * It is assumed that new set of objects differs by only one element
+    * to the current instance
+    *
+    * @param objs The new set of objects to use
+    * @return A new instance of SpatialTree adjusted for the new set of objects
     */
   protected def updateObjects( objs: Seq[T] ): SpatialTree[T] = {
+    require( ( objs.length - toSeq.size ).abs <= 1 )
+
     if ( objs.size != toSeq.size ) {
       if ( objs.size > splitSize && level < maxDepth ) {
         // Quadtree is growing
@@ -136,7 +142,7 @@ class SpatialTree[T: HasContainer] protected(
     * @return A new SpatialSet[T} containing the new object
     */
   def +( p: T ): SpatialTree[T] = {
-    if( bounds.intersects( super.container( p ) ) && !toSeq.contains( p ) ) {
+    if ( bounds.intersects( super.container( p ) ) && !toSeq.contains( p ) ) {
       updateObjects( p +: toSeq )
     }
     else {
@@ -152,7 +158,7 @@ class SpatialTree[T: HasContainer] protected(
     * @return A new SpatialTree[T] without the specified object.
     */
   def -( p: T ): SpatialTree[T] = {
-    if( bounds.intersects( super.container( p ) ) && toSeq.contains( p ) ) {
+    if ( bounds.intersects( super.container( p ) ) && toSeq.contains( p ) ) {
       updateObjects( toSeq.filterNot( _ == p ) )
     }
     else {
@@ -167,7 +173,7 @@ class SpatialTree[T: HasContainer] protected(
     * @return A list of object that can collide with the given Shape
     */
   def lookAround( s: Shape ): Seq[T] = {
-    if( bounds.intersects( super.container( s ) ) ) {
+    if ( bounds.intersects( super.container( s ) ) ) {
       if ( children.isEmpty ) {
         toSeq
       }
@@ -191,13 +197,6 @@ class SpatialTree[T: HasContainer] protected(
   def size: Int = toSeq.size
 
   /**
-    * The current Set as a list
-    *
-    * @return A new List containing all the elements of the tree
-    */
-  //def toSeq: List[T] = toSeq.toList
-
-  /**
     * Tells if the collection is empty
     *
     * @return true is the SpatialTree doesn't contain any Shape
@@ -208,13 +207,15 @@ class SpatialTree[T: HasContainer] protected(
 object SpatialTree {
 
   /**
+    * Creates a new SpatialTree
     *
-    * @param bounds
-    * @param splitSize
-    * @param maxDepth
-    * @param objects
-    * @tparam T
-    * @return
+    * @param splitSize The size after which a node will split
+    * @param maxDepth The maximum depth of the tree
+    * @param hSplit The number of horizontal slices
+    * @param vSplit The number of vertical slices
+    * @param bounds The boundary of the area covered by the SpatialTree
+    * @tparam T The type of objects contained in the Set
+    * @return A new instance of SpatialTree
     */
   def apply[T: HasContainer](
     splitSize: Int,
@@ -228,17 +229,17 @@ object SpatialTree {
   }
 
   /**
+    * Creates a new SpatialTree starting from a set of initial objects
     *
-    * @param splitSize
-    * @param maxDepth
-    * @param hSplit
-    * @param vSplit
-    * @param bounds
-    * @param level
-    * @param containers
-    * @param objects
-    * @tparam T
-    * @return
+    * @param splitSize The size after which a node will split
+    * @param maxDepth The maximum depth of the tree
+    * @param hSplit The number of horizontal slices
+    * @param vSplit The number of vertical slices
+    * @param bounds The boundary of the area covered by the SpatialTree
+    * @param level The level of the specific instance of the SpatialTree
+    * @param children The SpatialTree children of the current node
+    * @tparam T The type of objects contained in the Set
+    * @return A new instance of SpatialTree containing the set of specified objects
     */
   protected def apply[T: HasContainer](
     splitSize: Int,
@@ -248,10 +249,10 @@ object SpatialTree {
   )(
     bounds: Box,
     level: Int,
-    containers: Seq[SpatialTree[T]],
+    children: Seq[SpatialTree[T]],
     objects: Seq[T]
   ): SpatialTree[T] = {
-    val zero = new SpatialTree( splitSize, maxDepth, hSplit, vSplit )( bounds, level, containers, Seq.empty[T] )
+    val zero = new SpatialTree( splitSize, maxDepth, hSplit, vSplit )( bounds, level, children, Seq.empty[T] )
     objects.foldLeft( zero ) { case ( r, o ) ⇒ r + o }
   }
 }

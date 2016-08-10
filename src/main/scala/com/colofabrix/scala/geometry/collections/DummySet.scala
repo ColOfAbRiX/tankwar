@@ -27,7 +27,7 @@ import com.colofabrix.scala.gfx.renderers.BoxRenderer
   *
   * Used to do performance tests and comparisons
   */
-class DummySet[T: HasContainer] protected(
+class DummySet[T: HasContainer] protected (
     override val toSeq: List[T],
     override val bounds: Box
 ) extends SpatialSet[T] {

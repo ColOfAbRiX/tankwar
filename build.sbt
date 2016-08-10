@@ -32,7 +32,7 @@ name := "TankWar"
 version := "0.2.0"
 scalaVersion := "2.11.7"
 mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
-fork := false
+fork := true
 
 // Dependencies
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"

@@ -1,0 +1,401 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>simulation - com.colofabrix.scala.simulation</title>
+          <meta name="description" content="simulation - com.colofabrix.scala.simulation" />
+          <meta name="keywords" content="simulation com.colofabrix.scala.simulation" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.colofabrix.scala.simulation.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.colofabrix">colofabrix</a>.<a href="../package.html" class="extype" name="com.colofabrix.scala">scala</a></p>
+        <h1>simulation</h1><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">simulation</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.colofabrix.scala.simulation.BrainInputHelper" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BrainInputHelperextendsInputHelper[Double]"></a>
+      <a id="BrainInputHelper:BrainInputHelper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="BrainInputHelper.html"><span class="name">BrainInputHelper</span></a><span class="result"> extends <a href="../neuralnetwork/old/abstracts/InputHelper.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.InputHelper">InputHelper</a>[<span class="extype" name="scala.Double">Double</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@BrainInputHelperextendsInputHelper[Double]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Support class used as an interface between the <code>Tank</code> and the input of the NN</p><div class="fullcomment"><div class="comment cmt"><p>Support class used as an interface between the <code>Tank</code> and the input of the NN</p><p>It provides a nicer access for the network inputs. It makes also sure that the data that is fed to the
+network is homogeneous between the different inputs or, in other words, that all inputs read data in
+the range [-1.0, -1.0] (with few exceptions, like the seen bullets and tanks that can have higher values)
+</p></div></div>
+    </li><li name="com.colofabrix.scala.simulation.BrainOutputHelper" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BrainOutputHelperextendsOutputHelper[Double]"></a>
+      <a id="BrainOutputHelper:BrainOutputHelper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="BrainOutputHelper.html"><span class="name">BrainOutputHelper</span></a><span class="result"> extends <a href="../neuralnetwork/old/abstracts/OutputHelper.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.abstracts.OutputHelper">OutputHelper</a>[<span class="extype" name="scala.Double">Double</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@BrainOutputHelperextendsOutputHelper[Double]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Support class used as an interface between the output of the NN and the <code>Tank</code></p><div class="fullcomment"><div class="comment cmt"><p>Support class used as an interface between the output of the NN and the <code>Tank</code></p><p>It provides a nicer access to the network outputs:
+- Speed
+- Rotation
+- Shoot-or-not
+</p></div></div>
+    </li><li name="com.colofabrix.scala.simulation.Bullet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BulletextendsPhysicalObjectwithRenderable"></a>
+      <a id="Bullet:Bullet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Bullet.html"><span class="name">Bullet</span></a><span class="result"> extends <a href="abstracts/PhysicalObject.html" class="extype" name="com.colofabrix.scala.simulation.abstracts.PhysicalObject">PhysicalObject</a> with <a href="../gfx/abstracts/Renderable.html" class="extype" name="com.colofabrix.scala.gfx.abstracts.Renderable">Renderable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@BulletextendsPhysicalObjectwithRenderable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents a bullet shot by a Tank</p><div class="fullcomment"><div class="comment cmt"><p>Represents a bullet shot by a Tank</p><p>Bullets are {PhysicalObject}s but they don't actively interact with other object, instead they are the subject
+of Tank's interactions. This means that they don't implement {InteractiveObject}.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.colofabrix.scala.simulation.Causality" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Causality[+T&lt;:com.colofabrix.scala.simulation.abstracts.PhysicalObject]extendsPhysicalObject"></a>
+      <a id="Causality[+T&lt;:PhysicalObject]:Causality[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Causality.html"><span class="name">Causality</span></a><span class="tparams">[<span name="T">+T &lt;: <a href="abstracts/PhysicalObject.html" class="extype" name="com.colofabrix.scala.simulation.abstracts.PhysicalObject">PhysicalObject</a></span>]</span><span class="result"> extends <a href="abstracts/PhysicalObject.html" class="extype" name="com.colofabrix.scala.simulation.abstracts.PhysicalObject">PhysicalObject</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@Causality[+T&lt;:com.colofabrix.scala.simulation.abstracts.PhysicalObject]extendsPhysicalObject" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Object that allow casuality</p><div class="fullcomment"><div class="comment cmt"><p>Object that allow casuality</p><p>In the simulation only a direct collision is allowed and it's not possible to simulate something like &quot;a tank
+that hits another tank by an intermediate object (a bullet)&quot; because this resultant collision is mediated by bullets.
+This objects is, by all means, a <code>PhysicalObject</code> but it encapsulate the original object that gave start to the
+sequence of events that ultimately led to the collision.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>The type of object for <code>T</code></p></dd></dl></div>
+    </li><li name="com.colofabrix.scala.simulation.Stats" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StatsextendsAnyRef"></a>
+      <a id="Stats:Stats"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Stats.html"><span class="name">Stats</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@StatsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p>
+    </li><li name="com.colofabrix.scala.simulation.Tank" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TankextendsPhysicalObjectwithInteractiveObjectwithRenderable"></a>
+      <a id="Tank:Tank"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Tank.html"><span class="name">Tank</span></a><span class="result"> extends <a href="abstracts/PhysicalObject.html" class="extype" name="com.colofabrix.scala.simulation.abstracts.PhysicalObject">PhysicalObject</a> with <a href="abstracts/InteractiveObject.html" class="extype" name="com.colofabrix.scala.simulation.abstracts.InteractiveObject">InteractiveObject</a> with <a href="../gfx/abstracts/Renderable.html" class="extype" name="com.colofabrix.scala.gfx.abstracts.Renderable">Renderable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@TankextendsPhysicalObjectwithInteractiveObjectwithRenderable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A Tank that plays in the game</p><div class="fullcomment"><div class="comment cmt"><p>A Tank that plays in the game</p><p>A Tank is the main actor of the simulation. Like other objects in the {com.colofabrix.scala.simulation} package it is
+a stateful and time-depended object.
+It is made of a defining data part, the {TankChromosome}, a behavioural part which decides how the Tank responds
+to different situation using the defining data and a simulation part that calculates, step by step, the physical
+components or actions of the Tank. The behaviour is defined by both a neural network that calculates various outputs
+given the input values (e.g. where to go in relation of the current position) and by algorithms that take decisions
+about situation (e.g. if there are multiple targets which one to shoot).
+Tank's implementations have a certain degree of freedom on how they implement thing, but the {World} makes sure that
+many constraints are respected (e.g. the maximum allowed speed). Usually a Tank is first informed it is violating
+a constraint, so that it can take actions like trim its speed, and if the violation persists the Tank is removed from
+the simulation (check {World} for more information}.</p><p>NOTE: This object and other in the {com.colofabrix.scala.simulation} package will be the subject of heavy refactoring,
+so don't rely on their current implementation but check the workstream.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.colofabrix.scala.simulation.TankBrainTester" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TankBrainTesterextendsAbstractNetworkAnalyser"></a>
+      <a id="TankBrainTester:TankBrainTester"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="TankBrainTester.html"><span class="name">TankBrainTester</span></a><span class="result"> extends <a href="../neuralnetwork/abstracts/AbstractNetworkAnalyser.html" class="extype" name="com.colofabrix.scala.neuralnetwork.abstracts.AbstractNetworkAnalyser">AbstractNetworkAnalyser</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@TankBrainTesterextendsAbstractNetworkAnalyser" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Provides a way to visualize the behaviour of a NN</p><div class="fullcomment"><div class="comment cmt"><p>Provides a way to visualize the behaviour of a NN</p><p>This class allows to create CSV files to analyse the various outputs varying specific inputs.
+</p></div></div>
+    </li><li name="com.colofabrix.scala.simulation.TankChromosome" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TankChromosomeextendsProductwithSerializable"></a>
+      <a id="TankChromosome:TankChromosome"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TankChromosome.html"><span class="name">TankChromosome</span></a><span class="params">(<span name="biases">biases: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Double">Double</span>]]</span>, <span name="weights">weights: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Double">Double</span>]]]</span>, <span name="rotationRef">rotationRef: <span class="extype" name="scala.Double">Double</span></span>, <span name="sightRatio">sightRatio: <span class="extype" name="scala.Double">Double</span></span>, <span name="valueRange">valueRange: <span class="extype" name="scala.Double">Double</span></span>, <span name="activationFunction">activationFunction: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="brainBuilder">brainBuilder: <a href="../neuralnetwork/old/builders/abstracts/StructureBuilder.html" class="extype" name="com.colofabrix.scala.neuralnetwork.old.builders.abstracts.StructureBuilder">StructureBuilder</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@TankChromosomeextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A TankChromosome contains all the data needed to uniquely identify a Tank from another.</p><div class="fullcomment"><div class="comment cmt"><p>A TankChromosome contains all the data needed to uniquely identify a Tank from another.
+Tank with identical chromosomes behave in the same way
+</p></div></div>
+    </li><li name="com.colofabrix.scala.simulation.World" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="WorldextendsAnyRef"></a>
+      <a id="World:World"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="World.html"><span class="name">World</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@WorldextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The world of the simulation</p><div class="fullcomment"><div class="comment cmt"><p>The world of the simulation</p><p>This object represents the world where Tanks fight and provides a simulation for it. It also enforces rules
+and limits that the participants must follow
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@SuppressWarnings</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.colofabrix.scala.simulation.BrainInputHelper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BrainInputHelper"></a>
+      <a id="BrainInputHelper:BrainInputHelper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BrainInputHelper$.html"><span class="name">BrainInputHelper</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@BrainInputHelper" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Support class used as an interface between the <code>Tank</code> and the input of the NN
+</p>
+    </li><li name="com.colofabrix.scala.simulation.BrainOutputHelper" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BrainOutputHelper"></a>
+      <a id="BrainOutputHelper:BrainOutputHelper"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BrainOutputHelper$.html"><span class="name">BrainOutputHelper</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@BrainOutputHelper" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Support class used as an interface between the output of the NN and the <code>Tank</code>
+</p>
+    </li><li name="com.colofabrix.scala.simulation.Tank" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Tank"></a>
+      <a id="Tank:Tank"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Tank$.html"><span class="name">Tank</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@Tank" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Structural configuration of a tank (usually used at first-time creation)
+</p>
+    </li><li name="com.colofabrix.scala.simulation.TankChromosome" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TankChromosome"></a>
+      <a id="TankChromosome:TankChromosome"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TankChromosome$.html"><span class="name">TankChromosome</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@TankChromosome" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.colofabrix.scala.simulation.abstracts" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="abstracts"></a>
+      <a id="abstracts:abstracts"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="abstracts/package.html"><span class="name">abstracts</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@abstracts" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.colofabrix.scala.simulation.integration" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="integration"></a>
+      <a id="integration:integration"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="integration/package.html"><span class="name">integration</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.colofabrix.scala.simulation.package@integration" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

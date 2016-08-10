@@ -44,19 +44,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize [
       "modifyvm", :id,
       "--cpuexecutioncap", "90",
-      "--draganddrop", "bidirectional",
       "--accelerate3d", "on",
-      "--clipboard", "bidirectional",
       "--vram", "64",
+      "--draganddrop", "bidirectional",
+      "--clipboard", "bidirectional",
       "--usb", "on",
-      "--usbehci", "on" ]
+      "--usbehci", "on",
+      "--nic3", "intnet",
+      "--intnet3", "internal"
+    ]
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt-get install --reinstall ca-certificates
+    sudo -E apt-add-repository -y ppa:ansible/ansible
     sudo apt-get update -qq
     sudo apt-get install -qy software-properties-common ansible
   SHELL
@@ -64,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Run Ansible from the Vagrant Host
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
-    ansible.playbook = "ansible-playbook.yml"
+    ansible.playbook = "ansible-vagrant.yml"
   end
 
 end

@@ -5,10 +5,299 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f588c826-046e-45e2-a7b8-8f4c961dd02a" name="Default" comment="Applied Scalastyle rules">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/package.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/atlassian-ide-plugin.xml" afterPath="$PROJECT_DIR$/.idea/atlassian-ide-plugin.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/arrow-down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/arrow-right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/class.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/class_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/class_diagram.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/class_to_object_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/constructorsbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/conversionbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/defbg-blue.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/defbg-green.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filter_box_left.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filter_box_left2.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filter_box_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filterbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filterboxbarbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filterboxbarbg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/filterboxbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/fullcommenttopbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/navigation-li-a.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/navigation-li.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object_diagram.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object_to_class_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object_to_trait_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/object_to_type_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/ownderbg2.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/ownerbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/ownerbg2.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/package.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/package_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/packagesbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/permalink.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/remove.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected-implicits.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected-right-implicits.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected-right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected2-right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/selected2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/signaturebg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/signaturebg2.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/trait.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/trait_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/trait_diagram.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/trait_to_object_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/type.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/type_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/type_diagram.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/type_to_object_big.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/typebg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/unselected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/valuemembersbg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/TankWarMain$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomClass.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$$CustomNumeric.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/Tools$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Container.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Coordinates.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/HasContainer$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/HasContainer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/Shape.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/SpatialSet.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/DummySet$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/DummySet.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/SpatialHash$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/SpatialHash.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/SpatialTree$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/SpatialTree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/collections/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Box.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Circle.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/ConvexPolygon.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon$Corner.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Polygon.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Seg$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/Seg.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/geometry/shapes/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/GFXManager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Colour.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$$Frame.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/OpenGL$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderable.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/Renderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BGRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BoxRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/BulletRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/CircleRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/PolygonRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TankRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/TextRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/VectorRenderer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/renderers/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/UIManager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/BooleanToggleKListener.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardListener.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/KeyboardManager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/NumUpdateKListener.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/input/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/gfx/ui/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CartesianCoord.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/CoordinatesImplicits$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Matrix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/PolarCoord.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/RTVect.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vect$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/Vect.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/VectConversions$$Support.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/VectConversions$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/XYVect.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/math/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/NetworkMatrix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/activationfunctions/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/InputHelper.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/OutputHelper.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/activationfunctions/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqDataReader.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/SeqLayerReader.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/DataReader.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/LayerReader.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/builders/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/layers/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/old/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/neuralnetwork/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainInputHelper.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/BrainOutputHelper.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Bullet.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Causality.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Stats.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FirstTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$FittestTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$HighPointsTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LessFitTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$LowPointsTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$SlowestTarget$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$$TargetType.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/Tank.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankBrainTester.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/TankChromosome.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/World.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/InteractiveObject.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/PhysicalObject.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/abstracts/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/EvolutionLogger.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator$.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvaluator.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/TankFactory.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankCrossover.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/operators/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/integration/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/colofabrix/scala/simulation/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/com/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/deprecated-list.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-_.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-a.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-b.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-c.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-d.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-e.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-f.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-g.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-h.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-i.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-k.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-l.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-m.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-n.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-o.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-p.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-q.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-r.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-s.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-t.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-u.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-v.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-w.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-x.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-y.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-z.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-ρ.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/index/index-ϑ.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/diagrams.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/diagrams.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/index.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/jquery-ui.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/jquery.layout.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/modernizr.custom.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/ref-index.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/scheduler.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/template.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/template.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/lib/tools.tooltip.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/GameEvolutionEngine.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/OpenAbstractEvolutionEngine.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/OpenGenerationalEvolutionEngine.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/framework/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/org/uncommons/watchmaker/package.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/package.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/package.scala" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/tankwar.iml" afterPath="$PROJECT_DIR$/.idea/modules/tankwar.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sbt.xml" afterPath="$PROJECT_DIR$/.idea/sbt.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/env/dev-linux/Vagrantfile" afterPath="$PROJECT_DIR$/env/dev-linux/Vagrantfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/HasContainer.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/HasContainer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/DummySet.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/DummySet.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialHash.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialHash.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialTree.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialTree.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Seg.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Seg.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" />
     </list>
     <ignored path="TankWar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,7 +374,7 @@
     <favorites_list name="TankWar" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -166,7 +455,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -218,9 +507,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -239,8 +525,69 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,8 +640,66 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
       <envs />
       <method />
     </configuration>
@@ -402,7 +807,7 @@
     </configuration>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1452645060577" />
+    <option name="lastUpdateTimestamp" value="1470846490965" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -480,40 +885,40 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271605" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38244852" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38244852" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271605" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32502708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32580644" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23454158" sideWeight="0.4814815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23720682" sideWeight="0.4814815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4452871" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23484848" sideWeight="0.5185185" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39814815" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39814815" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32419354" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -566,14 +971,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -866,6 +1263,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="148" column="26" selection-start-line="148" selection-start-column="26" selection-end-line="148" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/package.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
           <folding />
         </state>
       </provider>

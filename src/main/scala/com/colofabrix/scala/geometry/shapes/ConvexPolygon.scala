@@ -60,11 +60,11 @@ class ConvexPolygon( private val v: Seq[Vect] ) extends Polygon( v ) {
       this.edges.map( _.vect.n ).forall { edge_normal ⇒
         // Chosen an edge of this polygon I get the projections of all
         // vertices on the normal of the edge
-        val prVxThis = vertices.map( v ⇒ (v → edge_normal).ρ )
-        val prVxThat = cp.vertices.map( v ⇒ (v → edge_normal).ρ )
+        val prVxThis = vertices.map( v ⇒ ( v → edge_normal ).ρ )
+        val prVxThat = cp.vertices.map( v ⇒ ( v → edge_normal ).ρ )
 
         // Then I check if the extremities of the projections of the two polygons overlaps
-        if( prVxThis.min < prVxThat.min ) {
+        if ( prVxThis.min < prVxThat.min ) {
           prVxThis.max >= prVxThat.min
         }
         else {

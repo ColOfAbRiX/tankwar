@@ -48,6 +48,7 @@ object HasContainer {
   /**
     * Converter [[Shape]] -> [[HasContainer]] with a generic Container
     *
+    * @tparam T The type of Shape to convert
     * @return A new instance of SpatialIndexable that can extract information from a [[Shape]]
     */
   implicit def iShapeCont[T <: Shape] = new HasContainer[T] {
@@ -57,10 +58,12 @@ object HasContainer {
   }
 
   /**
-    * Converter [[PhysicalObject]] -> [[HasContainer]]
+    * Converter PhysicalObject -> HasContainer
     *
-    * @return A new instance of SpatialIndexable that can extract information from a [[PhysicalObject]]
+    * @tparam T The type of PhysicalObject to convert
+    * @return A new instance of SpatialIndexable that can extract information from a PhysicalObject
     */
+
   implicit def iPhysicalObjectCont[T <: PhysicalObject] = new HasContainer[T] {
     def container( t: T ) = t.objectShape.container
 
