@@ -29,23 +29,41 @@ import scalariform.formatter.preferences._
 // Project Definition
 
 name := "TankWar"
-version := "0.2.0"
-scalaVersion := "2.11.7"
-mainClass in Compile := Some("com.colofabrix.scala.TankWarMain")
+version := "2.0.0"
+scalaVersion := "2.11.8"
+mainClass in Compile := Some("com.colofabrix.scala.tankwar.Main")
 fork := true
 
 // Dependencies
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+resolvers ++= Seq(
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+)
 
 libraryDependencies ++= Seq(
-  "org.lwjgl.lwjgl" % "lwjgl-platform" % "2.9.0" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
-  "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
-  //"com.github.wookietreiber" %% "scala-chart" % "latest.integration",
-  "org.uncommons.watchmaker" % "watchmaker-framework" % "0.7.1",
-  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
-  "com.storm-enroute" %% "scalameter" % "0.7",
+  "org.scalaz" %% "scalaz-core" % "7.2.6",
+
+  // Genetic Algorithms (A fork of the Watchmaker framework is included in another file)
   "org.uncommons" % "uncommons-maths" % "1.2",
-  "org.lwjgl.lwjgl" % "lwjgl_util" % "2.9.0"
+
+  // Linear Algebra
+  "org.scalanlp" %% "breeze" % "latest.integration",
+
+  // OpenGL libraries
+  "org.lwjgl.lwjgl" % "lwjgl-platform" % "latest.integration" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
+  "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
+  "org.lwjgl.lwjgl" % "lwjgl_util" % "latest.integration",
+
+  // Charts
+  "com.github.wookietreiber" %% "scala-chart" % "latest.integration",
+
+  // Utilities
+  "org.scala-lang.modules" %% "scala-pickling" % "latest.integration",
+  "com.typesafe" % "config" % "latest.integration",
+  "com.github.scopt" %% "scopt" % "latest.integration",
+
+  // Testing
+  "org.scalatest" % "scalatest_2.11" % "latest.integration" % "test",
+  "com.storm-enroute" %% "scalameter" % "latest.integration"
 )
 
 // Scala compiler options.
@@ -72,8 +90,8 @@ scalacOptions ++= Seq(
 
 // JVM Options.
 // See: http://blog.sokolenko.me/2014/11/javavm-options-production.html
-
 javaOptions ++= Seq(
+/*
   "-server",
   "-Xverify:none",
   // Memory settings
@@ -86,6 +104,7 @@ javaOptions ++= Seq(
   "-XX:CompressedClassSpaceSize=16M",
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
+*/
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}",
    "-Dfile.encoding=UTF-8"
@@ -122,8 +141,8 @@ parallelExecution in Test := false
 
 // Code Style
 
-/*
 // UTF-8 support is broken?
+/*
 lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
 compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
 (compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
@@ -152,7 +171,7 @@ wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.EitherProjectionPartial,
   Wart.IsInstanceOf,
   Wart.ListOps,
-  Wart.Nothing,
+  //Wart.Nothing,
   Wart.Null,
   Wart.OptionPartial,
   Wart.Product,

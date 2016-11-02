@@ -14,19 +14,25 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala
+package com.colofabrix.scala.tankwar
 
-/**
-  * Mathematical constants and functions
-  */
-package object math {
+import breeze.linalg.DenseVector
+import com.typesafe.config.ConfigFactory
 
-  /** The absolute value where a smaller, floating point number is considered zero */
-  val FP_PRECISION = 1E-9
+object Configuration {
+  private val conf = ConfigFactory.load()
 
-  /** Implicit approximate comparison between two Doubles - necessary for numerical computations */
-  implicit class DoubleWithAlmostEquals( val d: Double ) extends AnyVal {
-    def ~==( d2: Double ) = ( d - d2 ).abs < FP_PRECISION
+  object Global {
+    object Arena {
+      val size = DenseVector( Seq(
+        conf.getInt( "world.arena.width" ),
+        conf.getInt( "world.arena.height" )
+      ) )
+    }
+
+    val arena = Arena
+    val tanks = conf.getInt( "world.tankCount" )
+    val rounds = conf.getInt( "world.rounds" )
   }
 
 }

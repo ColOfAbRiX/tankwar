@@ -14,19 +14,19 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala
+package com.colofabrix.scala.tankwar.simulation
+
+import com.colofabrix.scala.math.Vect
 
 /**
-  * Mathematical constants and functions
+  *
   */
-package object math {
-
-  /** The absolute value where a smaller, floating point number is considered zero */
-  val FP_PRECISION = 1E-9
-
-  /** Implicit approximate comparison between two Doubles - necessary for numerical computations */
-  implicit class DoubleWithAlmostEquals( val d: Double ) extends AnyVal {
-    def ~==( d2: Double ) = ( d - d2 ).abs < FP_PRECISION
-  }
+class Tank (
+  val position: Vect,
+  val speed: Vect,
+  val rotation: Double,
+  val angularSpeed: Double,
+  val mass: Double
+) extends PhysicalObject {
 
 }

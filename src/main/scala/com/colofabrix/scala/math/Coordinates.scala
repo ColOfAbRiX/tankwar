@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Fabrizio Colonna
+ * Copyright (C) 2016 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,13 @@
 
 package com.colofabrix.scala.math
 
-import com.colofabrix.scala.geometry.abstracts.Coordinates
-
 import scala.language.implicitConversions
+import com.colofabrix.scala.math.CoordinatesImplicits._
+
+/**
+  * Generic coordinate system for geometrical objects
+  */
+trait Coordinates
 
 /**
   * Cartesian Coordinate representation
@@ -37,7 +41,7 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case cc: CartesianCoord ⇒ ( this.x - cc.x ).abs <= FP_PRECISION && ( this.y - cc.y ).abs <= FP_PRECISION
+    case cc: CartesianCoord ⇒ ( this.x ~== cc.x ) && ( this.y ~== cc.y )
 
     // For polar coordinates I first transform them in polar form
     case pc: PolarCoord ⇒ CartesianCoord( pc ) == this
@@ -50,8 +54,6 @@ final class CartesianCoord private ( val x: Double, val y: Double ) extends Coor
 }
 
 object CartesianCoord {
-
-  import com.colofabrix.scala.math.CoordinatesImplicits._
 
   /**
     * Cartesian Coordinate representation
@@ -94,11 +96,10 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
     */
   override def equals( that: Any ) = that match {
     // With the same type I check the single coordinates
-    case pc: PolarCoord ⇒ ( this.r - pc.r ).abs <= FP_PRECISION && ( this.t - pc.t ).abs <= FP_PRECISION
+    case pc: PolarCoord ⇒ ( this.r ~== pc.r ) && ( this.t ~== pc.t )
 
     // For cartesian coordinates I first transform them in polar form
-    case cc: CartesianCoord ⇒
-      PolarCoord( cc ) == this
+    case cc: CartesianCoord ⇒ PolarCoord( cc ) == this
 
     // Comparison not possible with other types
     case _ ⇒ false
@@ -113,8 +114,6 @@ final class PolarCoord private ( val r: Double, val t: Double ) extends Coordina
 }
 
 object PolarCoord {
-
-  import com.colofabrix.scala.math.CoordinatesImplicits._
 
   /**
     * Polar Coordinate representation
@@ -141,7 +140,7 @@ object PolarCoord {
     )
 
   /**
-    * Trim an angle making sure that the resulting angle is always non-negative and less than 2 * PI
+    * Trim an angle making sure that  the resulting angle is always non-negative and less than 2 * PI
     *
     * @param t The angle to trim
     * @return An equivalent angle that is always non-negative and less than 2 * PI

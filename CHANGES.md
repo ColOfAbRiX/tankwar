@@ -1,19 +1,23 @@
 #Changes
 
+##2.0.0 - 31/10/2016
+
+
+
 ##0.2.0 - 13/01/2016
 
 ###New Features
 
 * TKWAR-4	- Graphic backend for Geometry
-* TKWAR-7	- Graphic controls	
-* TKWAR-11 - Quadtree on collision detection	
+* TKWAR-7	- Graphic controls
+* TKWAR-11 - Quadtree on collision detection
 * TKWAR-18 - Migrate to SBT
 * TKWAR-22 - Add specific controls
-* TKWAR-37 - UI Manager Implementation	
+* TKWAR-37 - UI Manager Implementation
 * TKWAR-38 - Implement KeyBoard Manager
-* TKWAR-41 - Show Simulation Information	
+* TKWAR-41 - Show Simulation Information
 * TKWAR-42 - Implement Text Renderer
-* TKWAR-48 - Add commit constraints for GIT and code analysis	
+* TKWAR-48 - Add commit constraints for GIT and code analysis
 
 ###Bugs
 

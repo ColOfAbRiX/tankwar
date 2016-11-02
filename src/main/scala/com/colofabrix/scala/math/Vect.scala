@@ -18,6 +18,9 @@ package com.colofabrix.scala.math
 
 import java.lang.Math._
 
+import breeze.linalg.DenseVector
+import com.colofabrix.scala.math.VectConversions._
+
 /**
   * Vector with Cartesian Coordinates as preferential coordinates system
   *
@@ -54,8 +57,6 @@ final case class RTVect(
   * @param value The vector representation in either cartesian or polar coordinates
   */
 sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord] ) {
-
-  import com.colofabrix.scala.math.VectConversions._
 
   /** Cartesian representation of this vectors */
   lazy val cartesian: CartesianCoord = value match {
@@ -94,142 +95,6 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @return The specified coordinate
     */
   def apply( i: Int ): Double = Seq( x, y, ρ, ϑ )( i )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (x, y) is applied the transformation T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def :=( t: Double ⇒ Double ): Vect = XYVect( t( this.x ), t( this.y ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (x, y) is applied the transformation T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def ⟹( t: Double ⇒ Double ): Vect = XYVect( t( this.x ), t( this.y ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (x, y) is applied the transformation T. The current component
-    * is given through the Int parameter of T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def :=( t: ( Double, Int ) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (x, y) is applied the transformation T. The current component
-    * is given through the Int parameter of T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def ⟹( t: ( Double, Int ) ⇒ Double ): Vect = XYVect( t( this.x, 0 ), t( this.y, 1 ) )
-
-  /**
-    * Map a point through another one
-    *
-    * Each cartesian component is multiplied by each cartesian component of the other vector
-    *
-    * @param that The point to use as a map
-    * @return A new point which is a point-to-point multiplication with `that`
-    */
-  @inline
-  def :=( that: Vect ): Vect = this := { _ * that( _ ) }
-
-  /**
-    * Map a point through another one
-    *
-    * Each cartesian component is multiplied by each cartesian component of the other vector
-    *
-    * @param that The point to use as a map
-    * @return A new point which is a point-to-point multiplication with `that`
-    */
-  @inline
-  def ⟹( that: Vect ): Vect = this := { _ * that( _ ) }
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (r, t) is applied the transformation T.
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def @=( t: Double ⇒ Double ): Vect = RTVect( t( this.ρ ), t( this.ϑ ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (r, t) is applied the transformation T.
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def ↝( t: Double ⇒ Double ): Vect = RTVect( t( this.ρ ), t( this.ϑ ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (r, t) is applied the transformation T. The current component
-    * is given through the Int parameter of T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def @=( t: ( Double, Int ) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
-
-  /**
-    * Apply a transformation to the point
-    *
-    * To each component (r, t) is applied the transformation T. The current component
-    * is given through the Int parameter of T
-    *
-    * @param t A function that transform a coordinate of the point
-    * @return A new point which is a transformation of the current one
-    */
-  @inline
-  def ↝( t: ( Double, Int ) ⇒ Double ): Vect = RTVect( t( this.ρ, 2 ), t( this.ϑ, 3 ) )
-
-  /**
-    * Map a point through another one
-    *
-    * Each cartesian component is multiplied by each cartesian component of the other vector
-    *
-    * @param that The point to use as a map
-    * @return A new point which is a point-to-point multiplication with `that`
-    */
-  @inline
-  def @=( that: Vect ): Vect = this @= { _ * that( _ ) }
-
-  /**
-    * Map a point through another one
-    *
-    * Each cartesian component is multiplied by each cartesian component of the other vector
-    *
-    * @param that The point to use as a map
-    * @return A new point which is a point-to-point multiplication with `that`
-    */
-  @inline
-  def ↝( that: Vect ): Vect = this @= { _ * that( _ ) }
 
   /**
     * Projects a vector onto another
@@ -277,7 +142,7 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @return The unit vector of the ccw rotation of the current vector
     */
   @inline
-  def n: Vect = this.-|.v
+  def n: Vect = this.⊣.v
 
   /**
     * Gets this vector's versor
@@ -385,94 +250,6 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
   @inline
   def /( alpha: Double ): Vect = this * ( 1.0 / alpha )
 
-  /**
-    * Compare the current vector with a given one and determine if it is less than the other
-    *
-    * The comparison is made between the length of the two vectors
-    *
-    * @param that The vector to compare
-    * @return true if the current instance is shorter than {that}, false otherwise
-    */
-  @inline
-  def <( that: Vect ): Boolean = this.ρ - that.ρ < -FP_PRECISION
-
-  /**
-    * Compare the current vector with a number and determine if is less than it
-    *
-    * The comparison is made with the length of the vector and the number itself
-    *
-    * @param distance The number
-    * @return true if the current instance is shorter than the number {distance}, false otherwise
-    */
-  @inline
-  def <( distance: Double ): Boolean = this.ρ - distance < -FP_PRECISION
-
-  /**
-    * Compare the current vector with a given one and determine if it is less or equal than the other
-    *
-    * The comparison is made between the length of the two vectors
-    *
-    * @param that The vector to compare
-    * @return true if the current instance is shorter or equal than {that}, false otherwise
-    */
-  @inline
-  def <=( that: Vect ): Boolean = this.ρ - that.ρ < FP_PRECISION || ( this.ρ - that.ρ ).abs <= FP_PRECISION
-
-  /**
-    * Compare the current vector with a number and determine if is less or equal than it
-    *
-    * The comparison is made with the length of the vector and the number itself
-    *
-    * @param distance The number
-    * @return true if the current instance is shorter or equal than the number {distance}, false otherwise
-    */
-  @inline
-  def <=( distance: Double ): Boolean = this.ρ - distance < FP_PRECISION || ( this.ρ - distance ).abs <= FP_PRECISION
-
-  /**
-    * Compare the current vector with a given one and determine if it is greater or equal than the other
-    *
-    * The comparison is made between the length of the two vectors
-    *
-    * @param that The vector to compare
-    * @return true if the current instance is longer or equal than {that}, false otherwise
-    */
-  @inline
-  def >=( that: Vect ): Boolean = this.ρ - that.ρ > FP_PRECISION || ( this.ρ - that.ρ ).abs <= FP_PRECISION
-
-  /**
-    * Compare the current vector with a number and determine if is less than it
-    *
-    * The comparison is made with the length of the vector and the number itself
-    *
-    * @param distance The number
-    * @return true if the current instance is longer or equal than the number {distance}, false otherwise
-    */
-  @inline
-  def >=( distance: Double ): Boolean = this.ρ - distance > FP_PRECISION || ( this.ρ - distance ).abs <= FP_PRECISION
-
-  /**
-    * Compare the current vector with a given one and determine if it is greater than the other
-    *
-    * The comparison is made between the length of the two vectors
-    *
-    * @param that The vector to compare
-    * @return true if the current instance is longer than {that}, false otherwise
-    */
-  @inline
-  def >( that: Vect ): Boolean = this.ρ - that.ρ > FP_PRECISION
-
-  /**
-    * Compare the current vector with a number and determine if is greater than it
-    *
-    * The comparison is made with the length of the vector and the number itself
-    *
-    * @param distance The number
-    * @return true if the current instance is longer than the number {distance}, false otherwise
-    */
-  @inline
-  def >( distance: Double ): Boolean = this.ρ - distance > FP_PRECISION
-
   /** The Cartesian Plane quadrant where the vector lies */
   def quadrant: Int = {
     if ( x.trim > 0.0 && y.trim >= 0.0 ) {
@@ -488,6 +265,12 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
       4
     }
   }
+
+  /** Converts the Vect to a Seq of cartesian coordinates */
+  def toSeq: Seq[Double] = Seq( x, y )
+
+  /** Converts the Vect to a DenseVector of cartesian coordinates */
+  def toDenseVector: DenseVector[Double] = DenseVector( Array( x, y ) )
 
   override def toString: String
 
@@ -544,20 +327,8 @@ object VectConversions {
     @inline
     def *( v: Vect ): Vect = XYVect( v.x * _number, v.y * _number )
 
-    @inline
-    def <( v: Vect ): Boolean = v > _number
-
-    @inline
-    def <=( v: Vect ): Boolean = v >= _number
-
-    @inline
-    def >=( v: Vect ): Boolean = v <= _number
-
-    @inline
-    def >( v: Vect ): Boolean = v < _number
-
     /** Trim a number smaller to FP_TOLERANCE precision */
-    def trim = if ( _number.abs <= FP_PRECISION ) 0.0 else _number
+    def trim = if ( _number ~== 0.0 ) 0.0 else _number
   }
 
   implicit def doubleTuple2Vect( x: ( Double, Double ) ): Vect = XYVect( x._1, x._2 )

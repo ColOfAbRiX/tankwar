@@ -22,11 +22,6 @@ package com.colofabrix.scala
 package object math {
 
   /** The absolute value where a smaller, floating point number is considered zero */
-  val FP_PRECISION = 1E-9
-
-  /** Implicit approximate comparison between two Doubles - necessary for numerical computations */
-  implicit class DoubleWithAlmostEquals( val d: Double ) extends AnyVal {
-    def ~==( d2: Double ) = ( d - d2 ).abs < FP_PRECISION
-  }
+  val FP_PRECISION = 1E-10
 
 }
