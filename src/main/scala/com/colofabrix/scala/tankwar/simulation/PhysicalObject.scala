@@ -26,7 +26,6 @@ import scala.pickling.json._
   * A PhysicalObject can easily fall in the category of stateful objects. For this reason some members are provided as
   * internally read-write but read-only for clients.
   */
-@SuppressWarnings( Array( "org.brianmckenna.wartremover.warts.Var" ) )
 trait PhysicalObject {
 
   /**

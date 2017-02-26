@@ -16,34 +16,42 @@
 
 package com.colofabrix.scala.math
 
-import java.lang.Math._
-
-import breeze.linalg.DenseVector
+import breeze.linalg.{ DenseVector, Vector }
 import com.colofabrix.scala.math.VectConversions._
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 
 /**
-  * Vector with Cartesian Coordinates as preferential coordinates system
+  * Vector with Cartesian Coordinates (X-Y) as preferential coordinates system
   *
-  * @param _x Position on the X-Axis
-  * @param _y Position on the Y-Axis
+  * @param x Position on the X-Axis
+  * @param y Position on the Y-Axis
   */
-final case class XYVect(
-    private val _x: Double,
-    private val _y: Double
-) extends Vect( Right[PolarCoord, CartesianCoord]( CartesianCoord( _x, _y ) ) ) {
+final case class XYVect( override val x: Double, override val y: Double ) extends Vect {
+  override def ρ: Double = Math.hypot( x, y )
+
+  override def ϑ: Double =
+    restrictAngle(
+      Math.atan2( y, x )
+    )
+
   override def toString: String = s"Vec(x: $x, y: $y)"
 }
 
 /**
-  * Vector with Polar Coordinates as preferential coordinates system
+  * Vector with Polar Coordinates (R-T) as preferential coordinates system
   *
-  * @param _ρ Distance of the vector from the origin of the axis
+  * @param ρ  Distance of the vector from the origin of the axis
   * @param _ϑ Angle formed between the positive side of the X-Axis and the vector in radians
   */
-final case class RTVect(
-    private val _ρ: Double,
-    private val _ϑ: Double
-) extends Vect( Left[PolarCoord, CartesianCoord]( PolarCoord( _ρ, _ϑ ) ) ) {
+final case class RTVect( override val ρ: Double, _ϑ: Double ) extends Vect {
+  require( ρ >= 0, "Distance of the vector from the origin must be non-negative" )
+
+  override def ϑ: Double = restrictAngle( _ϑ )
+
+  override def x: Double = ρ * Math.cos( ϑ )
+
+  override def y: Double = ρ * Math.sin( ϑ )
+
   override def toString: String = s"Vec(ρ: $ρ, ϑ: $ϑ)"
 }
 
@@ -53,48 +61,19 @@ final case class RTVect(
   * The vectors represented here are generic, thus they are non applied vectors. This means that there isn't a convention
   * to interpret them. It can either be that they are indicating a point related to the origin of the axes or they can
   * represents a difference vector with origin not in the origin of axes.
-  *
-  * @param value The vector representation in either cartesian or polar coordinates
   */
-sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord] ) {
-
-  /** Cartesian representation of this vectors */
-  lazy val cartesian: CartesianCoord = value match {
-    case Left( p ) ⇒ CartesianCoord( p )
-    case Right( c ) ⇒ c
-  }
-
-  /** Polar representation of this vectors */
-  lazy val polar: PolarCoord = value match {
-    case Left( p ) ⇒ p
-    case Right( c ) ⇒ PolarCoord( c )
-  }
-
+sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   /** Distance on the X-Axis */
-  lazy val x: Double = cartesian.x
+  def x: Double
 
   /** Distance on the Y-Axis */
-  lazy val y: Double = cartesian.y
+  def y: Double
 
   /** Length of the vector, modulus */
-  lazy val ϑ: Double = polar.t
-
-  /** Length of the vector, modulus */
-  lazy val t: Double = polar.t
+  def ρ: Double
 
   /** Rotation relative to the X-Axis, in radians */
-  lazy val ρ: Double = polar.r
-
-  /** Rotation relative to the X-Axis, in radians */
-  lazy val r: Double = polar.r
-
-  /**
-    * Gets one of the cartesian components of the point position
-    *
-    * @param i 0: x coordinate, 1: y coordinate, 2: Theta, 3: Rho
-    * @return The specified coordinate
-    */
-  def apply( i: Int ): Double = Seq( x, y, ρ, ϑ )( i )
+  def ϑ: Double
 
   /**
     * Projects a vector onto another
@@ -102,7 +81,16 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @param that The vector identifying the projection axis
     */
   @inline
-  def → ( that: Vect ): Vect = this.ρ * cos( this.ϑ - that.ϑ ) * that.v
+  def →( that: Vect ): Vect =
+  if( this == Vect.zero ) {
+    this
+  }
+  else if( that == Vect.zero ) {
+    that
+  }
+  else {
+    this.ρ * Math.cos( this.ϑ - that.ϑ ) * that.v
+  }
 
   /**
     * Rotates the vector of a given angle
@@ -110,39 +98,44 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @param angle The angle of rotation, in radians
     */
   @inline
-  def ¬( angle: Double ): Vect = RTVect( this.ρ, this.ϑ + angle )
-
-  /**
-    * Rotates the vector of a given angle
-    *
-    * @param angle The angle of rotation, in radians
-    */
-  @inline
-  def ↺( angle: Double ): Vect = RTVect( this.ρ, this.ϑ + angle )
-
-  /** The CCW perpendicular vector, rotated CCW */
-  @inline
-  def -| : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
+  def ↺( angle: Double ): Vect = this match {
+    case _: RTVect =>
+      RTVect( this.ρ, this.ϑ + angle )
+    case _: XYVect => XYVect(
+      this.x * Math.cos( angle ) - this.y * Math.sin( angle ),
+      this.x * Math.sin( angle ) - this.y * Math.cos( angle )
+    )
+  }
 
   /** The CCW perpendicular vector, rotated CCW */
   @inline
-  def ⊣ : Vect = RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
+  def ⊣ : Vect = this match {
+    case _: XYVect => this match {
+      case XYVect( 0, 0 ) =>
+        throw new ValueException( "Finding the CCW perpendicular of the zero vector has no meaning." )
+      case _ => XYVect( this.y, -this.x )
+    }
+    case _: RTVect => this match {
+      case RTVect( 0, 0 ) =>
+        throw new ValueException( "Finding the CCW perpendicular of the zero vector has no meaning." )
+      case _ => RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
+    }
+  }
 
   /** Finds the CW perpendicular vector, rotated CW */
   @inline
-  def |- : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
-
-  /** Finds the CW perpendicular vector, rotated CW */
-  @inline
-  def ⊢ : Vect = RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
-
-  /**
-    * Finds the normal to this vector
-    *
-    * @return The unit vector of the ccw rotation of the current vector
-    */
-  @inline
-  def n: Vect = this.⊣.v
+  def ⊢ : Vect = this match {
+    case _: XYVect => this match {
+      case XYVect( 0, 0 ) =>
+        throw new ValueException( "Finding the CW perpendicular of the zero vector has no meaning." )
+      case _ => XYVect( -this.y, this.x )
+    }
+    case _: RTVect => this match {
+      case RTVect( 0, 0 ) =>
+        throw new ValueException( "Finding the CW perpendicular of the zero vector has no meaning." )
+      case _ => RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
+    }
+  }
 
   /**
     * Gets this vector's versor
@@ -150,34 +143,41 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @return A unit vector with the same direction as the current vector
     */
   @inline
-  def v: Vect = RTVect( 1.0, this.ϑ )
+  def v: Vect = this match {
+    case _: XYVect => this match {
+      case XYVect( 0, 0 ) =>
+        throw new ValueException( "The zero vector has no versor, as it is a point." )
+      case _ => this / this.ρ
+    }
+    case _: RTVect => this match {
+      case RTVect( 0, 0 ) =>
+        throw new ValueException( "The zero vector has no versor, as it is a point." )
+      case _ => RTVect( 1, this.ϑ )
+    }
+  }
 
   /**
-    * Adds a scalar to both the cartesian coordinates of the vector
+    * Finds the normal to this vector
     *
-    * @param that The quantity to add
-    * @return A new vector moved of that quantity
+    * @return The unit vector of the ccw rotation of the current vector
     */
   @inline
-  def +( that: Double ): Vect = XYVect( this.x + that, this.y + that )
+  def n: Vect = this match {
+    case XYVect( 0, 0 ) =>
+      throw new ValueException( "The normal is not defined for a point." )
+    case RTVect( 0, 0 ) =>
+      throw new ValueException( "The normal is not defined for a point." )
+    case _ => this.⊣.v
+  }
 
   /**
     * Adds two vectors
     *
     * @param that The vector to add to the current one
-    * @return A new vector which is the sum between the current and the given vectors
+    * @return A new vector which s the sum between the current and the given vectors
     */
   @inline
   def +( that: Vect ): Vect = XYVect( this.x + that.x, this.y + that.y )
-
-  /**
-    * Subtracts a scalar to both the cartesian coordinates of the vector
-    *
-    * @param that The quantity to add
-    * @return A new vector moved of that quantity
-    */
-  @inline
-  def -( that: Double ): Vect = XYVect( this.x - that, this.y - that )
 
   /**
     * Subtracts two vectors
@@ -189,13 +189,16 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
   def -( that: Vect ): Vect = XYVect( this.x - that.x, this.y - that.y )
 
   /**
-    * Scalar product (scaling)
+    * Scalar multiplication (scaling)
     *
     * @param alpha Scalar value to multiply by
     * @return A new vector following the scalar multiplication rules
     */
   @inline
-  def *( alpha: Double ): Vect = XYVect( this.x * alpha, this.y * alpha )
+  def *( alpha: Double ): Vect = this match {
+    case _: XYVect => XYVect( this.x * alpha, this.y * alpha )
+    case _: RTVect => RTVect( this.ρ * alpha, this.ϑ )
+  }
 
   /**
     * Inner or Dot product
@@ -204,16 +207,10 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @return A new vector following the inner product rules
     */
   @inline
-  def x( that: Vect ): Double = this.x * that.x + this.y * that.y
-
-  /**
-    * Inner or Dot product
-    *
-    * @param that Vector to multiply by
-    * @return A new vector following the inner product rules
-    */
-  @inline
-  def ∙( that: Vect ): Double = this.x * that.x + this.y * that.y
+  def ∙( that: Vect ): Double = this match {
+    case _: XYVect => this.x * that.x + this.y * that.y
+    case _: RTVect => this.ρ * that.ρ * Math.cos( this.ϑ - that.ϑ )
+  }
 
   /**
     * Vector or Cross product
@@ -226,43 +223,43 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
     * @return A number over the Z axis
     */
   @inline
-  def ^( that: Vect ): Double = this.x * that.y - this.y * that.x
+  def ×( that: Vect ): Double = this match {
+    case _: XYVect => this.x * that.y - this.y * that.x
+    case _: RTVect => this.ρ * that.ρ * Math.sin( that.ϑ - this.ϑ )
+  }
 
   /**
-    * Vector or Cross product
-    *
-    * As we are treating a special case where our input vectors are always lying
-    * in the XY plane, the resultant vector will always be parallel to the Z axis
-    * and in this case there's no need of a vector as output
-    *
-    * @param that Vector to multiply by
-    * @return A number over the Z axis
-    */
-  @inline
-  def ×( that: Vect ): Double = this.x * that.y - this.y * that.x
-
-  /**
-    * By-Scalar division
+    * Scalar division
     *
     * @param alpha Scalar value to divide by
     * @return A new vector following the by-scalar multiplication rules
     */
   @inline
-  def /( alpha: Double ): Vect = this * ( 1.0 / alpha )
+  def /( alpha: Double ): Vect = this * (1.0 / alpha)
 
   /** The Cartesian Plane quadrant where the vector lies */
-  def quadrant: Int = {
-    if ( x.trim > 0.0 && y.trim >= 0.0 ) {
-      1
-    }
-    else if ( x.trim <= 0.0 && y.trim > 0.0 ) {
-      2
-    }
-    else if ( x.trim <= 0.0 && y.trim < 0.0 ) {
-      3
+  def quadrant: Int = this match {
+    case _: XYVect =>
+      if( x ~> 0.0 && y ~> 0.0 ) {
+        1
+      }
+      else if( x ~< 0.0 && y ~> 0.0 ) {
+        2
+      }
+      else if( x ~< 0.0 && y ~< 0.0 ) {
+        3
+      }
+      else if( x ~> 0.0 && y ~< 0.0 ) {
+        4
+      }
+      else {
+        0
+      }
+    case _: RTVect => if( this.ϑ % (Math.PI / 2.0) ~== 0.0 ) {
+      0
     }
     else {
-      4
+      Math.floor( this.ϑ / (Math.PI / 2.0) ).toInt + 1
     }
   }
 
@@ -270,39 +267,94 @@ sealed abstract class Vect protected ( value: Either[PolarCoord, CartesianCoord]
   def toSeq: Seq[Double] = Seq( x, y )
 
   /** Converts the Vect to a DenseVector of cartesian coordinates */
-  def toDenseVector: DenseVector[Double] = DenseVector( Array( x, y ) )
+  def toVector: Vector[Double] = DenseVector( Array( x, y ) )
 
   override def toString: String
 
-  override def equals( other: Any ): Boolean = other match {
-    case that: Vect ⇒ cartesian == that.cartesian || polar == that.polar
-    case _ ⇒ false
+  override def equals( that: Any ): Boolean = that match {
+    case xy: XYVect => (this.x ~== xy.x) && (this.y ~== xy.y)
+    case rt: RTVect => (this.ϑ ~== rt.ϑ) && (this.ρ ~== rt.ρ)
+    case _ => return false
   }
 
-  override def hashCode(): Int = {
-    val state = Seq( x, y )
-    state.map( _.hashCode() ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+  override def hashCode( ): Int =
+    Seq( x, y )
+      .map( _.hashCode( ) )
+      .foldLeft( 0 ) {
+        ( a, b ) ⇒ 31 * a + b
+      }
+
+  /**
+    * Trim an angle making sure that 0 <= α < 2π
+    *
+    * @param angle The angle to trim
+    * @return An equivalent angle that is always 0 <= α < 2π
+    */
+  @inline
+  protected def restrictAngle( angle: Double ): Double = {
+    if( angle ~>= 2.0 * Math.PI ) {
+      angle % (-2.0 * Math.PI)
+    }
+    else if( angle ~< 0.0 ) {
+      angle % (-2.0 * Math.PI) + 2.0 * Math.PI
+    }
+    else {
+      angle
+    }
   }
+
+  override def equal( v1: Vect, v2: Vect ): Boolean = v1.equals( v2 )
 }
 
 object Vect {
   /**
-    * Vector Origin
-    *
-    * It's a null vector
+    * Zero vector. It's a null vector
     *
     * @return A vector with both coordinates equals to zero
     */
-  def origin: Vect = XYVect( 0.0, 0.0 )
+  def zero = XYVect.zero
 
   /**
-    * Zero vector
+    * Arbitrary unit vector
     *
-    * It's a null vector, alias for {origin}
+    * @param t The angle of the unit vector
+    * @return A vector of magnitude 1.0 and angle specified
+    */
+  def unit( t: Double ) = RTVect.unit( t )
+}
+
+object XYVect {
+  /**
+    * Zero vector. It's a null vector
     *
     * @return A vector with both coordinates equals to zero
     */
-  def zero = origin
+  def zero = XYVect( 0.0, 0.0 )
+
+  /**
+    * Arbitrary unit vector
+    *
+    * @param t The angle of the unit vector
+    * @return A vector of magnitude 1.0 and angle specified
+    */
+  def unit( t: Double ) = XYVect( Math.cos( t ), Math.sin( t ) )
+}
+
+object RTVect {
+  /**
+    * Zero vector. It's a null vector
+    *
+    * @return A vector with both coordinates equals to zero
+    */
+  def zero = RTVect( 0.0, 0.0 )
+
+  /**
+    * Arbitrary unit vector
+    *
+    * @param t The angle of the unit vector
+    * @return A vector of magnitude 1.0 and angle specified
+    */
+  def unit( t: Double ) = RTVect( 1.0, t )
 }
 
 object VectConversions {
@@ -318,18 +370,16 @@ object VectConversions {
   implicit final class Support[T: Numeric]( number: T ) {
     private val _number = implicitly[Numeric[T]].toDouble( number )
 
-    @inline
-    def +( v: Vect ): Vect = XYVect( v.x + _number, v.y + _number )
-
-    @inline
-    def -( v: Vect ): Vect = XYVect( v.x - _number, v.y - _number )
-
-    @inline
-    def *( v: Vect ): Vect = XYVect( v.x * _number, v.y * _number )
-
-    /** Trim a number smaller to FP_TOLERANCE precision */
-    def trim = if ( _number ~== 0.0 ) 0.0 else _number
+    def *( v: Vect ): Vect = v * _number
   }
 
-  implicit def doubleTuple2Vect( x: ( Double, Double ) ): Vect = XYVect( x._1, x._2 )
+  implicit def breezeVector2Vect( v: Vector[Double] ): Vect = XYVect( v( 0 ), v( 1 ) )
+
+  /**
+    * Converts a Vect into a Vector[Double] from Breeze
+    *
+    * @param v The vector to convert
+    * @return A
+    */
+  implicit def vect2BreezeVect( v: Vect ): Vector[Double] = DenseVector( v.x, v.y )
 }

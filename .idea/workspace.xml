@@ -4,258 +4,21 @@
     <option name="ANALYZE_TEST_SOURCES" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f588c826-046e-45e2-a7b8-8f4c961dd02a" name="Default" comment="Applied Scalastyle rules">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/java/org/uncommons/watchmaker/framework/GameEvolutionEngine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/java/org/uncommons/watchmaker/framework/OpenAbstractEvolutionEngine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/java/org/uncommons/watchmaker/framework/OpenGenerationalEvolutionEngine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/resources/scalastyle-config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/TankWarMain.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/Tools.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/Container.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/Coordinates.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/HasContainer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/Shape.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialSet.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/collections/DummySet.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/collections/SpatialHash.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/collections/SpatialTree.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/shapes/Seg.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/GFXManager.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/OpenGL.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/abstracts/Renderable.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/abstracts/Renderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/BGRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/BoxRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/BulletRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/CircleRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/PolygonRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/TextRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/UIManager.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardListener.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Coordinates.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Vect.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/math.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/DataHelpers.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/SeqReaders.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/Readers.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Bullet.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Causality.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Stats.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Tank.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/TankBrainTester.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/TankSupport.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/World.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/InteractiveObject.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/TankFactory.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/operators/TankCrossover.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/GeometryPTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/ShapeUtils.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/abstracts/ShapeTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/abstracts/SpatialSetTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/collections/DummySetTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/collections/SpatialHashTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/collections/SpatialTreeTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/BoxTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/CircleTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/ConvexPolygonTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/PolygonTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/SegTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/CoordinatesTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/MatrixTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/VectTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/neuralnetwork/GenericStatelessNetworkTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/neuralnetwork/NetworkMatrixTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/neuralnetwork/NeuralNetworkTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/neuralnetworkOld/LayerTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/neuralnetworkOld/NeuralNetworkTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/Tank.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/VectTest.scala" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/org/uncommons/watchmaker/framework/GameEvolutionEngine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/org/uncommons/watchmaker/framework/OpenAbstractEvolutionEngine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/org/uncommons/watchmaker/framework/OpenGenerationalEvolutionEngine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/TankWarMain.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/Tools.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/Container.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/Coordinates.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/HasContainer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/Shape.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialSet.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/DummySet.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialHash.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/collections/SpatialTree.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Box.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Circle.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/ConvexPolygon.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Polygon.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/shapes/Seg.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/GFXManager.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/OpenGL.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/abstracts/Renderable.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/abstracts/Renderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/BGRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/BoxRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/BulletRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/CircleRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/PolygonRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/QuadtreeRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TextRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/UIManager.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardListener.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/GenericStatelessNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/NetworkMatrix.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/ActivationFunction.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NetworkAnalyser.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Linear.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/LinearClipped.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Rectifier.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Sigmoid.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Sin.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Softplus.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Step.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/activationfunctions/Tanh.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/ElmanNeuralNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/FeedforwardNeuralNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/NeuralNetworkTester.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/ActivationFunction.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/DataHelpers.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuralNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/NeuronLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/abstracts/Tester.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Linear.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/LinearClipped.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Rectifier.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sigmoid.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Sin.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Softplus.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Step.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/activationfunctions/Tanh.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ElmanBuilder.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/FeedforwardBuilder.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/RandomReader.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/SeqReaders.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/ThreeLayerNetwork.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/BehaviourBuilder.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/Readers.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/builders/abstracts/StructureBuilder.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/ElmanFeedbackLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/HiddenLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/InputLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/OutputLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/old/layers/RecursiveElmanLayer.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Bullet.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Causality.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Stats.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/Tank.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/TankBrainTester.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/TankSupport.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/World.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/abstracts/InteractiveObject.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/TankEvaluator.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/TankEvolutionEngine.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/TankFactory.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/operators/AbstractTankMutation.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/operators/TankCrossover.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/operators/TankDriftMutation.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/operators/TankFullMutation.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/GeometryPTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/ShapeUtils.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/abstracts/ShapeTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/abstracts/SpatialSetTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/collections/DummySetTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/collections/SpatialHashTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/collections/SpatialTreeTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/shapes/BoxTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/shapes/CircleTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/shapes/ConvexPolygonTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/shapes/PolygonTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/geometry/shapes/SegTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/CoordinatesTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/MatrixTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/VectTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/neuralnetwork/GenericStatelessNetworkTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/neuralnetwork/NetworkMatrixTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/neuralnetwork/NeuralNetworkTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/neuralnetworkOld/LayerTest.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/neuralnetworkOld/NeuralNetworkTest.scala" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Matrix.scala" afterPath="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Matrix.scala" />
+    <list default="true" id="f588c826-046e-45e2-a7b8-8f4c961dd02a" name="Default" comment="Imported main function, vector, coordinates and their tests, imported new libraries">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/MathTest.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/VectTest.scala" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/math/Coordinates.scala" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/VectTest.scala" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/tankwar.iml" afterPath="$PROJECT_DIR$/.idea/modules/tankwar.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_settings.xml" afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGES.md" afterPath="$PROJECT_DIR$/CHANGES.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala" />
     </list>
     <ignored path="TankWar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -270,6 +33,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/TankWar$All_tests.coverage" NAME="All tests Coverage Results" MODIFIED="1488123114014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -300,24 +66,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Vect.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala">
+      <file leaf-file-name="VectTest.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/VectTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
+            <state relative-caret-position="649">
+              <caret line="297" column="3" selection-start-line="297" selection-start-column="3" selection-end-line="297" selection-end-column="3" />
               <folding>
-                <element signature="e#631#654#0" expanded="true" />
+                <element signature="e#636#692#0" expanded="true" />
+                <element signature="e#1286#1599#0" expanded="false" />
+                <element signature="e#1656#2123#0" expanded="false" />
+                <element signature="e#2185#2467#0" expanded="false" />
+                <element signature="e#2541#3421#0" expanded="false" />
+                <element signature="e#3488#4267#0" expanded="false" />
+                <element signature="e#4334#4897#0" expanded="false" />
+                <element signature="e#5043#5185#0" expanded="false" />
+                <element signature="e#5248#5762#0" expanded="false" />
+                <element signature="e#5816#5975#0" expanded="false" />
+                <element signature="e#6054#6232#0" expanded="false" />
+                <element signature="e#6310#6370#0" expanded="false" />
+                <element signature="e#6439#6486#0" expanded="false" />
+                <element signature="e#6529#6686#0" expanded="false" />
+                <element signature="e#6728#6884#0" expanded="false" />
+                <element signature="e#6961#7106#0" expanded="false" />
+                <element signature="e#7190#7343#0" expanded="false" />
+                <element signature="e#7421#7650#0" expanded="false" />
+                <element signature="e#7728#7958#0" expanded="false" />
+                <element signature="e#8019#8258#0" expanded="false" />
+                <element signature="e#8318#8476#0" expanded="false" />
+                <element signature="e#8533#8706#0" expanded="false" />
+                <element signature="e#8777#8990#0" expanded="false" />
+                <element signature="e#9059#9271#0" expanded="false" />
+                <element signature="e#9330#9475#0" expanded="false" />
+                <element signature="e#9534#9680#0" expanded="false" />
+                <element signature="e#9727#10089#0" expanded="false" />
+                <element signature="e#10156#10605#0" expanded="false" />
+                <element signature="e#10661#10726#0" expanded="false" />
+                <element signature="e#10782#10847#0" expanded="false" />
+                <element signature="e#10922#10982#0" expanded="false" />
+                <element signature="e#11124#11288#0" expanded="false" />
+                <element signature="e#11355#11846#0" expanded="false" />
+                <element signature="e#11965#12038#0" expanded="false" />
+                <element signature="e#12092#12251#0" expanded="false" />
+                <element signature="e#12330#12522#0" expanded="false" />
+                <element signature="e#12600#12660#0" expanded="false" />
+                <element signature="e#12729#12775#0" expanded="false" />
+                <element signature="e#12818#12985#0" expanded="false" />
+                <element signature="e#13027#13182#0" expanded="false" />
+                <element signature="e#13259#13397#0" expanded="false" />
+                <element signature="e#13481#13633#0" expanded="false" />
+                <element signature="e#13711#13952#0" expanded="false" />
+                <element signature="e#14030#14271#0" expanded="false" />
+                <element signature="e#14332#14590#0" expanded="false" />
+                <element signature="e#14650#14818#0" expanded="false" />
+                <element signature="e#14875#15046#0" expanded="false" />
+                <element signature="e#15117#15368#0" expanded="false" />
+                <element signature="e#15437#15684#0" expanded="false" />
+                <element signature="e#15743#15853#0" expanded="false" />
+                <element signature="e#15912#16052#0" expanded="false" />
+                <element signature="e#16099#16500#0" expanded="false" />
+                <element signature="e#16567#17108#0" expanded="false" />
+                <element signature="e#17273#17338#0" expanded="false" />
+                <element signature="e#17273#17338#0" expanded="false" />
+                <element signature="e#17413#17473#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Coordinates.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -335,11 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/TankSupport.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractStatelessNetwork.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/simulation/integration/EvolutionLogger.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/TankWarMain.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/geometry/abstracts/SpatialTree.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/EnvironmentRenderer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/gfx/renderers/TankRenderer.scala" />
@@ -370,7 +176,6 @@
         <option value="$PROJECT_DIR$/CHANGES.md" />
         <option value="$PROJECT_DIR$/project/Build.scala" />
         <option value="$PROJECT_DIR$/project/ColOfAbRiX_Watchmaker.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/geometry/shapes/Box.scala" />
         <option value="$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/math/Vect.scala" />
@@ -378,14 +183,20 @@
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/math/Coordinates.scala" />
         <option value="$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/GeometryPTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/VectTest.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/Tank.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/VectTest.scala" />
+        <option value="$PROJECT_DIR$/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.conf" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/vacanze.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/MathTest.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/VectTest.scala" />
       </list>
     </option>
   </component>
@@ -416,10 +227,97 @@
             <id />
           </State>
           <State>
+            <id>CollectionsScala</id>
+          </State>
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Assignment issuesJava</id>
+          </State>
+          <State>
+            <id>Class metricsJava</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>Comparing CollectionsScala</id>
+          </State>
+          <State>
+            <id>Concurrency annotation issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Encapsulation issuesJava</id>
+          </State>
+          <State>
+            <id>Error handlingJava</id>
+          </State>
+          <State>
+            <id>GeneralScala</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Internationalization issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Javadoc issuesJava</id>
+          </State>
+          <State>
+            <id>Memory issuesJava</id>
+          </State>
+          <State>
+            <id>Method metricsJava</id>
+          </State>
+          <State>
+            <id>Naming conventionsJava</id>
+          </State>
+          <State>
+            <id>Numeric issuesJava</id>
+          </State>
+          <State>
+            <id>Performance issuesJava</id>
+          </State>
+          <State>
+            <id>Portability issuesJava</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
             <id>Scala</id>
           </State>
           <State>
             <id>ScaladocScala</id>
+          </State>
+          <State>
+            <id>Security issuesJava</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+          <State>
+            <id>Simplifications: other CollectionsScala</id>
+          </State>
+          <State>
+            <id>Size CollectionsScala</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
           </State>
         </expanded-state>
         <selected-state>
@@ -455,7 +353,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -487,12 +384,34 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TankWar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tankwar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -523,6 +442,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tankwar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -607,59 +530,12 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="math" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Coordinates.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TankWar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -672,9 +548,9 @@
     <property name="options.lastSelected" value="org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15107362" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -682,35 +558,19 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/NeuralNetwork.scala" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\tankwar" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\resources" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="C:\Users\Fabrizio\IdeaProjects\TankWar\project" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.colofabrix.test.scala.math" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Fabrizio\IdeaProjects\TankWar\src\main\scala\com\colofabrix\scala\tankwar" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.colofabrix.scala.tankwar.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.colofabrix.scala.tankwar.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="tankwar" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.All tests">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -822,7 +682,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <setting name="path" value="" />
-      <setting name="package" value="com.colofabrix.test" />
+      <setting name="package" value="com.colofabrix.test.scala" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -863,6 +723,26 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="Main" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.colofabrix.scala.tankwar.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.colofabrix.scala.tankwar.Main" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="tankwar" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="Compile" type="SbtRunConfiguration" factoryName="SBT Task">
       <setting name="tasks" value="compile" />
       <setting name="vmparams" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled" />
@@ -884,33 +764,28 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="All tests" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+    <configuration default="false" name="All tests" type="ScalaTestRunConfiguration" factoryName="ScalaTest" singleton="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="tankwar" />
-      <setting name="path" value="com.colofabrix.test.scala.math.CoordinatesTest" />
+      <setting name="path" value="" />
       <setting name="package" value="com.colofabrix.test.scala" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
+      <setting name="testKind" value="All in package" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="SBT Task.Scala Style" />
-      <item index="2" class="java.lang.String" itemvalue="SBT Task.Run" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.All tests" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="1" class="java.lang.String" itemvalue="SBT Task.Compile" />
+      <item index="2" class="java.lang.String" itemvalue="SBT Task.Scala Style" />
+      <item index="3" class="java.lang.String" itemvalue="SBT Task.Run" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.All tests" />
     </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -922,7 +797,7 @@
     </configuration>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1478122362382" />
+    <option name="lastUpdateTimestamp" value="1486683702972" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -958,9 +833,13 @@
       </map>
     </option>
     <option name="searchAllSymbols" value="true" />
+    <option name="showArgumentsToByNameParams" value="true" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_SORTER_IGNORING_TEST_NODES" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -987,14 +866,45 @@
       <option name="project" value="LOCAL" />
       <updated>1450651908470</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Imported main function, vector, coordinates and their tests, imported new libraries">
+      <created>1478123757727</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1478123757727</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_tests - 2016.11.02 at 00h 29m 05s.xml">
+    <history-entry file="All_tests - 2017.02.26 at 15h 25m 38s.xml">
       <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="All_tests - 2016.11.02 at 00h 31m 45s.xml">
+    <history-entry file="All_tests - 2017.02.26 at 15h 26m 32s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 26m 41s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 28m 12s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 28m 48s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 29m 01s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 30m 32s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 31m 16s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 31m 47s.xml">
+      <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="All_tests - 2017.02.26 at 15h 31m 58s.xml">
       <configuration name="All tests" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
@@ -1013,35 +923,37 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261105" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38244852" sideWeight="0.4904051" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19989339" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38244852" sideWeight="0.50959486" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38244852" sideWeight="0.50959486" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32580644" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20309168" sideWeight="0.4814815" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4452871" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23484848" sideWeight="0.5185185" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33586133" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="1" width="1920" height="520" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32502708" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2196162" sideWeight="0.4864572" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4452871" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2196162" sideWeight="0.5135428" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.2979415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="0" y="519" width="1920" height="521" />
+      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Byte Code Viewer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="2012" y="92" width="1736" height="856" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39761648" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38244852" sideWeight="0.4904051" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32502708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32394367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1060,23 +972,21 @@
     <MESSAGE value="Refinements to SBT" />
     <MESSAGE value="Added ScalaStyle, code checks still to run" />
     <MESSAGE value="Applied Scalastyle rules" />
-    <option name="LAST_COMMIT_MESSAGE" value="Applied Scalastyle rules" />
+    <MESSAGE value="Imported main function, vector, coordinates and their tests, imported new libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Imported main function, vector, coordinates and their tests, imported new libraries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala</url>
-          <line>98</line>
-          <properties />
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="14" />
+      <option name="time" value="157" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="ScalaTestRunConfiguration">
-        <watch expression="Double.MinPositiveValue * 10" language="Scala" />
+        <watch expression="vect3.⊢" language="Scala" />
+      </configuration>
+      <configuration name="Application">
+        <watch expression="angle % (-2.0 * Math.PI)" language="Scala" />
+        <watch expression="restrictAngle( 1.0 )" language="Scala" />
+        <watch expression="(angle ~&lt; 0.0) || (angle ~&gt;= 2.0 * Math.PI)" language="Scala" />
       </configuration>
     </watches-manager>
   </component>
@@ -1106,184 +1016,10 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/copyright/Apache_License.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/modules/root.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="14" column="75" selection-start-line="14" selection-start-column="75" selection-end-line="14" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/package.scala" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/uncommons/watchmaker/framework/OpenGenerationalEvolutionEngine.java" />
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/World.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="58" column="37" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/TankBrainTester.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="39" column="6" selection-start-line="39" selection-start-column="6" selection-end-line="39" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Tank.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="79" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGES.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CONTRIBUTING.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Coordinates.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="150" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/Shape.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-841">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/geometry/shapes/Box.scala" />
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/OpenGL.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3653">
-          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/GFXManager.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardManager.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/input/KeyboardListener.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/ui/UIManager.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/VectorRenderer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/BGRenderer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/math.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Vect.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1495">
-          <caret line="524" column="7" selection-start-line="524" selection-start-column="7" selection-end-line="524" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/ColOfAbRiX_Watchmaker.scala" />
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/geometry/abstracts/Coordinates.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="21" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/math/math.scala" />
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/math/Vect.scala" />
     <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/CoordinatesTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-271">
           <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/VectTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1715">
-          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="29" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1302,31 +1038,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/abstracts/ShapeTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NOTICE">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-956">
           <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/VectTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1358,42 +1073,276 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala" />
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/math/Vect.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="109" column="14" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+        <state relative-caret-position="739">
+          <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/tankwar/math/CoordinatesTest.scala" />
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.1-SNAP1-sources.jar!/org/scalatest/OutcomeOf.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="92" column="5" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalaz/scalaz-core_2.11/srcs/scalaz-core_2.11-7.2.6-sources.jar!/scalaz/package.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="133" column="30" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/shapes/ConvexPolygonTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/abstracts/SpatialSetTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="266" column="61" selection-start-line="266" selection-start-column="61" selection-end-line="266" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/geometry/abstracts/ShapeTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4334">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/test/scala/com/colofabrix/test/scala/math/VectTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="174" column="5" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/vacanze.scala" />
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/OpenGL.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="144" column="23" selection-start-line="144" selection-start-column="23" selection-end-line="144" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/gfx/renderers/BoxRenderer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/simulation/PhysicalObject.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="88" column="38" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+        <state relative-caret-position="-461">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala">
+    <entry file="file://$PROJECT_DIR$/NOTICE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/Engine.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="288" column="6" selection-start-line="288" selection-start-column="6" selection-end-line="288" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/TestSuite.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/Matchers.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="6674" column="62" selection-start-line="6674" selection-start-column="62" selection-end-line="6674" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.2.0-SNAP3-sources.jar!/org/scalactic/DefaultEquality.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/runtime/BoxesRunTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/FlatSpecLike.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="1697" column="8" selection-start-line="1697" selection-start-column="8" selection-end-line="1698" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.2.0-SNAP3-sources.jar!/org/scalactic/source/Position.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/OutcomeOf.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/collection/immutable/List.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1368">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Tank.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-918">
+          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/Bullet.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/InteractiveObject.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-176">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/simulation/abstracts/PhysicalObject.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-682">
+          <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old/main/scala/com/colofabrix/scala/neuralnetwork/abstracts/AbstractNetworkAnalyser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-708">
+          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.sbt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+        <state relative-caret-position="644">
+          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.2.0-SNAP3-sources.jar!/org/scalactic/Equality.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="204" column="2" selection-start-line="204" selection-start-column="2" selection-end-line="204" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGES.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CONTRIBUTING.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.2.0-SNAP3-sources.jar!/org/scalatest/words/MatcherWords.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="293" column="39" selection-start-line="293" selection-start-column="39" selection-end-line="293" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/MathTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Configuration.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding>
-            <element signature="e#634#666#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="266">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1405,29 +1354,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/tankwar/Main.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/math.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Vect.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
-          <folding>
-            <element signature="e#631#654#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-5458">
+          <caret line="58" column="30" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/colofabrix/scala/math/Coordinates.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/com/colofabrix/test/scala/math/VectTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="649">
+          <caret line="297" column="3" selection-start-line="297" selection-start-column="3" selection-end-line="297" selection-end-column="3" />
+          <folding>
+            <element signature="e#636#692#0" expanded="true" />
+            <element signature="e#1286#1599#0" expanded="false" />
+            <element signature="e#1656#2123#0" expanded="false" />
+            <element signature="e#2185#2467#0" expanded="false" />
+            <element signature="e#2541#3421#0" expanded="false" />
+            <element signature="e#3488#4267#0" expanded="false" />
+            <element signature="e#4334#4897#0" expanded="false" />
+            <element signature="e#5043#5185#0" expanded="false" />
+            <element signature="e#5248#5762#0" expanded="false" />
+            <element signature="e#5816#5975#0" expanded="false" />
+            <element signature="e#6054#6232#0" expanded="false" />
+            <element signature="e#6310#6370#0" expanded="false" />
+            <element signature="e#6439#6486#0" expanded="false" />
+            <element signature="e#6529#6686#0" expanded="false" />
+            <element signature="e#6728#6884#0" expanded="false" />
+            <element signature="e#6961#7106#0" expanded="false" />
+            <element signature="e#7190#7343#0" expanded="false" />
+            <element signature="e#7421#7650#0" expanded="false" />
+            <element signature="e#7728#7958#0" expanded="false" />
+            <element signature="e#8019#8258#0" expanded="false" />
+            <element signature="e#8318#8476#0" expanded="false" />
+            <element signature="e#8533#8706#0" expanded="false" />
+            <element signature="e#8777#8990#0" expanded="false" />
+            <element signature="e#9059#9271#0" expanded="false" />
+            <element signature="e#9330#9475#0" expanded="false" />
+            <element signature="e#9534#9680#0" expanded="false" />
+            <element signature="e#9727#10089#0" expanded="false" />
+            <element signature="e#10156#10605#0" expanded="false" />
+            <element signature="e#10661#10726#0" expanded="false" />
+            <element signature="e#10782#10847#0" expanded="false" />
+            <element signature="e#10922#10982#0" expanded="false" />
+            <element signature="e#11124#11288#0" expanded="false" />
+            <element signature="e#11355#11846#0" expanded="false" />
+            <element signature="e#11965#12038#0" expanded="false" />
+            <element signature="e#12092#12251#0" expanded="false" />
+            <element signature="e#12330#12522#0" expanded="false" />
+            <element signature="e#12600#12660#0" expanded="false" />
+            <element signature="e#12729#12775#0" expanded="false" />
+            <element signature="e#12818#12985#0" expanded="false" />
+            <element signature="e#13027#13182#0" expanded="false" />
+            <element signature="e#13259#13397#0" expanded="false" />
+            <element signature="e#13481#13633#0" expanded="false" />
+            <element signature="e#13711#13952#0" expanded="false" />
+            <element signature="e#14030#14271#0" expanded="false" />
+            <element signature="e#14332#14590#0" expanded="false" />
+            <element signature="e#14650#14818#0" expanded="false" />
+            <element signature="e#14875#15046#0" expanded="false" />
+            <element signature="e#15117#15368#0" expanded="false" />
+            <element signature="e#15437#15684#0" expanded="false" />
+            <element signature="e#15743#15853#0" expanded="false" />
+            <element signature="e#15912#16052#0" expanded="false" />
+            <element signature="e#16099#16500#0" expanded="false" />
+            <element signature="e#16567#17108#0" expanded="false" />
+            <element signature="e#17273#17338#0" expanded="false" />
+            <element signature="e#17273#17338#0" expanded="false" />
+            <element signature="e#17413#17473#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1510,7 +1514,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>SBT: com.google.collections:google-collections:1.0:jar</last-edited>
+          <last-edited>SBT: com.chuusai:shapeless_2.11:2.3.2:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

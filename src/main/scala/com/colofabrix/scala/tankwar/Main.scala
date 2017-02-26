@@ -16,12 +16,15 @@
 
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.math.{ Vect, XYVect }
-
 /**
   *
   */
 object Main {
+
   def main( args: Array[String] ): Unit = {
+
   }
+
 }
+
+

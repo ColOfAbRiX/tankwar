@@ -7,5 +7,6 @@
       </map>
     </option>
     <option name="searchAllSymbols" value="true" />
+    <option name="showArgumentsToByNameParams" value="true" />
   </component>
 </project>

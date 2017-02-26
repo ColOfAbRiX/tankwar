@@ -22,11 +22,42 @@ package com.colofabrix.scala
 package object math {
 
   /** The absolute value where a smaller, floating point number is considered zero */
-  val FP_PRECISION = 1E-9
+  val FP_EPSILON = 1E-12
 
-  /** Implicit approximate comparison between two Doubles - necessary for numerical computations */
-  implicit class DoubleWithAlmostEquals( val d: Double ) extends AnyVal {
-    def ~==( d2: Double ) = ( d - d2 ).abs < FP_PRECISION
+  /**
+    * Implicit approximate comparison between two Doubles - necessary for numerical computations
+    * See: http://stackoverflow.com/questions/4915462/how-should-i-do-floating-point-comparison
+    **/
+  implicit class DoubleWithAlmostEquals( val d1: Double ) extends AnyVal {
+    def ~==( d2: Double ): Boolean = {
+      // See: http://www.programgo.com/article/4441958781/
+      val dd1 = d1 + 0.0
+      val dd2 = d2 + 0.0
+
+      val diff = Math.abs( dd1 - dd2 )
+
+      if( dd1 == dd2 ) {
+        // Shortcut, handles infinities
+        return true
+      }
+      else if( dd1 == 0 || dd2 == 0 || diff < FP_EPSILON ) {
+        // d1 or d2 is zero or both are extremely close to it
+        // The relative error is less meaningful here
+        return diff < FP_EPSILON
+      }
+      else {
+        // Use relative error
+        return diff / (dd1.abs + dd2.abs) < FP_EPSILON
+      }
+    }
+
+    def ~<( d2: Double ): Boolean = (d1 - d2) < FP_EPSILON && !(d1 ~== d2)
+
+    def ~<=( d2: Double ): Boolean = (d1 - d2) < FP_EPSILON || (d1 ~== d2)
+
+    def ~>=( d2: Double ): Boolean = (d1 - d2) > FP_EPSILON || (d1 ~== d2)
+
+    def ~>( d2: Double ): Boolean = (d1 - d2) > FP_EPSILON && !(d1 ~== d2)
   }
 
 }

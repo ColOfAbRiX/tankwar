@@ -16,23 +16,15 @@
 
 package com.colofabrix.scala.tankwar
 
-import breeze.linalg.DenseVector
 import com.typesafe.config.ConfigFactory
 
+import scalaz.\/
+
+
 object Configuration {
-  private val conf = ConfigFactory.load()
+  private val conf = ConfigFactory.load( )
 
-  object Global {
-    object Arena {
-      val size = DenseVector( Seq(
-        conf.getInt( "world.arena.width" ),
-        conf.getInt( "world.arena.height" )
-      ) )
-    }
+  def tanks = conf.getInt( "world.tankCount" )
 
-    val arena = Arena
-    val tanks = conf.getInt( "world.tankCount" )
-    val rounds = conf.getInt( "world.rounds" )
-  }
-
+  def rounds = conf.getInt( "world.rounds" )
 }
