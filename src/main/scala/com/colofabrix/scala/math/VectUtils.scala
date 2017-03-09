@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,22 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.math
 
-import com.typesafe.config.ConfigFactory
-
-
-object Configuration {
-  private val conf = ConfigFactory.load()
-
-  object World {
-    def tankCount: Int = conf.getInt("world.tank_count")
-
-    def rounds: Int = conf.getInt("world.rounds")
-
-    def width: Int = conf.getInt("world.arena_width")
-
-    def height: Int = conf.getInt("world.arena_height")
+/**
+  *
+  */
+object VectUtils {
+  /**
+    * Enrichment for numeric types to allow commuting of the operations
+    *
+    * This class implements the same operation of Vect for verse order
+    *
+    * @param number The object to apply the conversion
+    * @tparam T The type of the object that must be convertible in a Numeric
+    */
+  implicit final class Support[T: Numeric]( number: T ) {
+    private val _number = implicitly[Numeric[T]].toDouble( number )
+    def *( v: Vect ): Vect = v * _number
   }
-
-  object Simulation {
-    def timeStep: Double = conf.getDouble("simulation.time_step")
-  }
-
 }

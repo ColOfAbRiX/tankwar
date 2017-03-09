@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,24 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.tankwar.physics
 
-import com.typesafe.config.ConfigFactory
+import com.colofabrix.scala.math.{ Vect, XYVect }
 
+object PhysicsUtils {
 
-object Configuration {
-  private val conf = ConfigFactory.load()
+  /**
+    * Enrichment for Vect to make some Physical calculations easier
+    *
+    * @param vector The vector to apply the conversion
+    * @tparam T The type of vector
+    */
+  implicit final class VectUtils[T <: Vect](vector: T) {
+    def xy = Seq(vector.x, vector.y)
 
-  object World {
-    def tankCount: Int = conf.getInt("world.tank_count")
+    def map(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
 
-    def rounds: Int = conf.getInt("world.rounds")
-
-    def width: Int = conf.getInt("world.arena_width")
-
-    def height: Int = conf.getInt("world.arena_height")
-  }
-
-  object Simulation {
-    def timeStep: Double = conf.getDouble("simulation.time_step")
+    def **(t: (Double, Double)): Vect = XYVect(vector.x * t._1, vector.y * t._2)
   }
 
 }

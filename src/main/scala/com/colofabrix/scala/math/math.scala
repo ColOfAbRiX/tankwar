@@ -51,6 +51,8 @@ package object math {
       }
     }
 
+    def ~!=( d2: Double ): Boolean = !(d1 ~== d2)
+
     def ~<( d2: Double ): Boolean = (d1 - d2) < FP_EPSILON && !(d1 ~== d2)
 
     def ~<=( d2: Double ): Boolean = (d1 - d2) < FP_EPSILON || (d1 ~== d2)

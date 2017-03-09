@@ -46,24 +46,28 @@ libraryDependencies ++= Seq(
   "org.uncommons" % "uncommons-maths" % "1.2",
 
   // Linear Algebra
-  "org.scalanlp" %% "breeze" % "latest.integration",
+  //"org.scalanlp" %% "breeze" % "latest.integration",
 
-  // OpenGL libraries
+  // LWJGL OpenGL libraries
   "org.lwjgl.lwjgl" % "lwjgl-platform" % "latest.integration" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",
   "org.lwjgl.lwjgl" % "lwjgl_util" % "latest.integration",
 
   // Charts
-  "com.github.wookietreiber" %% "scala-chart" % "latest.integration",
+  //"com.github.wookietreiber" %% "scala-chart" % "latest.integration",
+
+  // Logging
+  "ch.qos.logback" % "logback-classic" % "1.1.7",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
 
   // Utilities
   "org.scala-lang.modules" %% "scala-pickling" % "latest.integration",
   "com.typesafe" % "config" % "latest.integration",
-  "com.github.scopt" %% "scopt" % "latest.integration",
+  //"com.github.scopt" %% "scopt" % "latest.integration",
 
   // Testing
-  "org.scalatest" % "scalatest_2.11" % "latest.integration" % "test",
-  "com.storm-enroute" %% "scalameter" % "latest.integration"
+  "org.scalatest" % "scalatest_2.11" % "latest.integration" % "test"
+  //"com.storm-enroute" %% "scalameter" % "latest.integration"
 )
 
 // Scala compiler options.

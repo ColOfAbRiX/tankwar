@@ -26,46 +26,52 @@
     apt: name=vim state=present
 
   - name: Create VIM config directories
-    file: path=~/.vim/{{ item }} state=directory
+    file: path="~/.vim/{{ item }}" state=directory
     with_items:
-      - ftdetect
-      - indent
-      - syntax
+     - ftdetect
+     - indent
+     - syntax
 
   - name: Apply VIM configuration for Scala
-    get_url: url="https://raw.githubusercontent.com/derekwyatt/vim-scala/master/syntax/scala.vim"
-        dest=~/.vim/{{ item }}
-        mode=0644
+    get_url:
+      url:  "https://raw.githubusercontent.com/derekwyatt/vim-scala/master/syntax/scala.vim"
+      dest: "~/.vim/{{ item }}"
+      mode: "0644"
     with_items:
-      - ftdetect
-      - indent
-      - syntax
+     - ftdetect
+     - indent
+     - syntax
 
     #
     # Sublime Text configuration
     #
 
   - name: Add Subilme Text Repository
-    apt_repository: repo="ppa:webupd8team/sublime-text-3"
-        validate_certs=no
-        state=present
+    apt_repository:
+      state: present
+      repo:  "ppa:webupd8team/sublime-text-3"
+      validate_certs: no
 
   - name: Install Sublime Text
     apt: name=sublime-text-installer state=present
 
   - name: Make Sublime Text the default editor
-    lineinfile: dest=/etc/gnome/defaults.list
-        state=present
-        regexp='gedit.desktop'
-        line='sublime-text-3.desktop'
-        backup=yes
+    lineinfile:
+      state:  present
+      dest:   /etc/gnome/defaults.list
+      regexp: 'gedit.desktop'
+      line:   'sublime-text-3.desktop'
+      backup: yes
 
     #
     # JDK 8
     #
 
   - name: Add JDK 8 Repository
-    apt_repository: repo="ppa:openjdk-r/ppa" validate_certs=no state=present
+    apt_repository:
+      state: present
+      repo:  "ppa:openjdk-r/ppa"
+      validate_certs: no
 
   - name: Install JDK 8
     apt: name=openjdk-8-jdk state=latest
@@ -78,9 +84,10 @@
     apt: name=scala state=latest
 
   - name: Add SBT Repository
-    apt_repository: repo="deb https://dl.bintray.com/sbt/debian /"
-        validate_certs=no
-        state=present
+    apt_repository:
+      state: present
+      repo:  "deb https://dl.bintray.com/sbt/debian /"
+      validate_certs: no
 
   - name: Install SBT
     apt: name=sbt force=yes state=latest
@@ -93,5 +100,6 @@
   #
 
   - name: Clone TankWar Repository
-    git: repo=https://github.com/ColOfAbRiX/tankwar.git
-        dest=~/Desktop/tankwar_github
+    git:
+      repo: "https://github.com/ColOfAbRiX/tankwar.git"
+      dest: "~/Desktop/tankwar_github"

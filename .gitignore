@@ -2,13 +2,14 @@
 /out/
 /lib/
 /doc/
+/old/
 *.class
 *.log
 *.csv
 
 # SBT Specific
-/project/plugins/project/
-/project/project/target/
+/project/project/*
+/project/plugins/*
 /project/target/
 /project/boot/
 /lib_managed/
@@ -20,12 +21,14 @@
 /.history
 
 # IDE Specific
-.idea/libraries/
-.idea/scopes/
-.idea/uiDesigner.xml
-.idea/dbnavigator.xml
-.idea/excludeFromValidation.xml
-.idea/play2_compiler_settings.xml
+.idea/*.iws
+/.idea/libraries/
+/.idea/scopes/
+/.idea/workspace.xml
+/.idea/uiDesigner.xml
+/.idea/dbnavigator.xml
+/.idea/excludeFromValidation.xml
+/.idea/play2_compiler_settings.xml
 
 # Vagrant
 .vagrant

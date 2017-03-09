@@ -16,12 +16,19 @@
 
 package com.colofabrix.scala.tankwar
 
+import com.colofabrix.scala.tankwar.simulation.World
+
 /**
   *
   */
 object Main {
 
   def main( args: Array[String] ): Unit = {
+
+    var world = World()
+    while(world.iteration < Configuration.World.rounds) {
+      world = world.step()
+    }
 
   }
 

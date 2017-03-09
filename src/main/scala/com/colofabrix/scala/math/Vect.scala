@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.math
 
-import breeze.linalg.{ DenseVector, Vector }
-import com.colofabrix.scala.math.VectConversions._
+import com.colofabrix.scala.math.VectUtils._
+
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 
 /**
@@ -81,15 +81,16 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     * @param that The vector identifying the projection axis
     */
   @inline
-  def →( that: Vect ): Vect =
-  if( this == Vect.zero ) {
-    this
-  }
-  else if( that == Vect.zero ) {
-    that
-  }
-  else {
-    this.ρ * Math.cos( this.ϑ - that.ϑ ) * that.v
+  def →( that: Vect ): Vect = {
+    if( this == Vect.zero ) {
+      this
+    }
+    else if( that == Vect.zero ) {
+      that
+    }
+    else {
+      this.ρ * Math.cos( this.ϑ - that.ϑ ) * that.v
+    }
   }
 
   /**
@@ -263,12 +264,6 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     }
   }
 
-  /** Converts the Vect to a Seq of cartesian coordinates */
-  def toSeq: Seq[Double] = Seq( x, y )
-
-  /** Converts the Vect to a DenseVector of cartesian coordinates */
-  def toVector: Vector[Double] = DenseVector( Array( x, y ) )
-
   override def toString: String
 
   override def equals( that: Any ): Boolean = that match {
@@ -355,31 +350,4 @@ object RTVect {
     * @return A vector of magnitude 1.0 and angle specified
     */
   def unit( t: Double ) = RTVect( 1.0, t )
-}
-
-object VectConversions {
-
-  /**
-    * Enrichment for numeric types to allow commuting of the operations
-    *
-    * This class implements the same operation of Vect for verse order
-    *
-    * @param number The object to apply the conversion
-    * @tparam T The type of the object that must be convertible in a Numeric
-    */
-  implicit final class Support[T: Numeric]( number: T ) {
-    private val _number = implicitly[Numeric[T]].toDouble( number )
-
-    def *( v: Vect ): Vect = v * _number
-  }
-
-  implicit def breezeVector2Vect( v: Vector[Double] ): Vect = XYVect( v( 0 ), v( 1 ) )
-
-  /**
-    * Converts a Vect into a Vector[Double] from Breeze
-    *
-    * @param v The vector to convert
-    * @return A
-    */
-  implicit def vect2BreezeVect( v: Vect ): Vector[Double] = DenseVector( v.x, v.y )
 }

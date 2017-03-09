@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,53 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.scala.tankwar.physics.PhysxObject
+import com.typesafe.scalalogging.LazyLogging
 
 /**
-  *
+  * A Tank that plays in the game
   */
-class Tank (
+class Tank private(
+  val mass: Double,
   val position: Vect,
-  val speed: Vect,
-  val rotation: Double,
+  val velocity: Vect,
+  val angle: Double,
   val angularSpeed: Double,
-  val mass: Double
-) extends PhysicalObject {
+  _id: Option[String] = None,
+  _force: Option[Vect] = None,
+  _torque: Option[Double] = None
+) extends PhysxObject with LazyLogging {
 
+  /** A unique identifier for the object */
+  override val id: String = _id.getOrElse(java.util.UUID.randomUUID().toString)
+
+  /** The force that the object is generating */
+  override def internalForce: Vect = _force.getOrElse(XYVect(1.0, 1.0))
+
+  /** Angular speed of the object's main axis */
+  override def torque: Double = _torque.getOrElse(0.0)
+
+  /** Updates the status of the object */
+  override def update(position: Vect, velocity: Vect, angle: Double, angularSpeed: Double): Tank = {
+    logger.info(s"Updating with new info: Pos: $position, Vel: $velocity")
+
+    return new Tank(
+      mass, position, velocity, angle, angularSpeed,
+      Some(id), Some(internalForce), Some(torque)
+    )
+  }
+}
+
+
+object Tank {
+  def apply(
+    mass: Double = 1.0,
+    position: Vect = Vect.zero,
+    velocity: Vect = Vect.zero,
+    angle: Double = 0.0,
+    angularSpeed: Double = 0.0
+  ): Tank = {
+    return new Tank(mass, position, velocity, angle, angularSpeed)
+  }
 }

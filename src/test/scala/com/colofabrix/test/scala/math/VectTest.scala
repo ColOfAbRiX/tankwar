@@ -16,7 +16,7 @@
 
 package com.colofabrix.test.scala.math
 
-import com.colofabrix.scala.math.VectConversions.Support
+import com.colofabrix.scala.math.VectUtils.Support
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, RTVect, Vect, XYVect }
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 import org.scalatest.{ FlatSpec, Matchers }
@@ -333,10 +333,6 @@ class XYVectTest extends VectTest {
   "Method toString" should "represent the XYVect" in {
     XYVect(1, 1).toString shouldEqual "Vec(x: 1.0, y: 1.0)"
   }
-
-  "Method toSeq" should "create a Seq from the cartesian coordinates" in {
-    XYVect( 5, 10 ).toSeq shouldEqual Seq( 5.0, 10.0 )
-  }
 }
 
 /**
@@ -545,9 +541,5 @@ class RTVectTest extends VectTest {
 
   "Method toString" should "represent the RTVect" in {
     RTVect(1, 1).toString shouldEqual "Vec(ρ: 1.0, ϑ: 1.0)"
-  }
-
-  "Method toSeq" should "create a Seq from the cartesian coordinates" in {
-    RTVect( 10, 0 ).toSeq shouldEqual Seq( 10.0, 0.0 )
   }
 }
