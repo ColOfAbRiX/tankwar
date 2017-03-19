@@ -14,12 +14,9 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.physics
+package com.colofabrix.scala.physix
 
 import com.colofabrix.scala.math.Vect
-
-import scala.pickling.Defaults._
-import scala.pickling.json._
 
 /**
   * Represents a physical objects in the physical space with some physical details.
@@ -27,12 +24,23 @@ import scala.pickling.json._
   * A PhysicalObject can easily fall in the category of stateful objects. For this reason some members are provided as
   * internally read-write but read-only for clients.
   */
-trait PhysxObject {
+trait RigidBody {
+  /* Generic information */
+
   /** A unique identifier for the object */
   def id: String
 
   /** Mass of the Object. */
   def mass: Double
+
+  /** Identifier of the instance. */
+  override def toString: String = this.getClass.toString.replace("class ", "").replaceFirst( """(\w+\.)*""", "") +
+    "@" + this.id
+
+  /** Record identifying the step of the PhysicalObject */
+  def record = s"ID: $id, Pos: $position, Vel: $velocity"
+
+  /* Linear values */
 
   /** Position of the center of mass of the object, relative to the origin of axes. */
   def position: Vect
@@ -43,6 +51,8 @@ trait PhysxObject {
   /** The force that the object is generating internally. */
   def internalForce: Vect
 
+  /* Rotation values */
+
   /** Rotation of the object's center of mass, relative to the origin of the axes. */
   def angle: Double
 
@@ -52,15 +62,16 @@ trait PhysxObject {
   /** The torque that the object is generating internally. */
   def torque: Double
 
+  /* OO Interaction values */
+
+  /** A number (0.0, 1.0) that represent the amount of friction at the surface of the object. */
+  def friction: Double
+
+  /** A number (0.0, 1.0) that represent the elasticity at the surface of the object. */
+  def bounciness: Double
+
+  /* Actions */
+
   /** Updates the status of the object */
-  def update(p: Vect, v: Vect, a: Double, as: Double): PhysxObject
-
-  /** Identifier of the instance. */
-  override def toString: String = this.getClass.toString.replace( "class ", "" ).replaceFirst( """(\w+\.)*""", "" ) + "@" + this.id
-
-  /** Record identifying the step of the PhysicalObject */
-  def record = s"ID: $id, Pos: $position, Vel: $velocity"
-
-  /** Serialization for the object */
-  def serialize = this.pickle
+  def update(p: Vect, v: Vect, a: Double, as: Double): RigidBody
 }

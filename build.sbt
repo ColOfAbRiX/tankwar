@@ -40,7 +40,9 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalaz" %% "scalaz-core" % "7.2.6",
+  // Scalaz
+  "org.scalaz" %% "scalaz-core" % "7.2.10",
+  "org.scalaz" %% "scalaz-effect" % "7.2.10",
 
   // Genetic Algorithms (A fork of the Watchmaker framework is included in another file)
   "org.uncommons" % "uncommons-maths" % "1.2",

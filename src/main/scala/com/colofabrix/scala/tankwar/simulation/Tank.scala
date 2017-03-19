@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
-import com.colofabrix.scala.math.{ Vect, XYVect }
-import com.colofabrix.scala.tankwar.physics.PhysxObject
+import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.physix.RigidBody
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -29,16 +29,18 @@ class Tank private(
   val velocity: Vect,
   val angle: Double,
   val angularSpeed: Double,
+  val friction: Double,
+  val bounciness: Double,
   _id: Option[String] = None,
   _force: Option[Vect] = None,
   _torque: Option[Double] = None
-) extends PhysxObject with LazyLogging {
+) extends RigidBody with LazyLogging {
 
   /** A unique identifier for the object */
   override val id: String = _id.getOrElse(java.util.UUID.randomUUID().toString)
 
   /** The force that the object is generating */
-  override def internalForce: Vect = _force.getOrElse(XYVect(1.0, 1.0))
+  override def internalForce: Vect = _force.getOrElse(Vect.zero)
 
   /** Angular speed of the object's main axis */
   override def torque: Double = _torque.getOrElse(0.0)
@@ -49,11 +51,11 @@ class Tank private(
 
     return new Tank(
       mass, position, velocity, angle, angularSpeed,
+      friction, bounciness,
       Some(id), Some(internalForce), Some(torque)
     )
   }
 }
-
 
 object Tank {
   def apply(
@@ -61,8 +63,10 @@ object Tank {
     position: Vect = Vect.zero,
     velocity: Vect = Vect.zero,
     angle: Double = 0.0,
-    angularSpeed: Double = 0.0
+    angularSpeed: Double = 0.0,
+    friction: Double = 0.0,
+    bounciness: Double = 1.0
   ): Tank = {
-    return new Tank(mass, position, velocity, angle, angularSpeed)
+    return new Tank(mass, position, velocity, angle, angularSpeed, friction, bounciness)
   }
 }

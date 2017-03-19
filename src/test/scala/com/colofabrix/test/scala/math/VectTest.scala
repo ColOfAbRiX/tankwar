@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package com.colofabrix.test.scala.math
 
 import com.colofabrix.scala.math.VectUtils.Support
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, RTVect, Vect, XYVect }
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 import org.scalatest.{ FlatSpec, Matchers }
 
 /**
@@ -275,7 +274,7 @@ class XYVectTest extends VectTest {
 
     vect1.⊣ shouldEqual XYVect( 10, -10 )
     vect2.⊣ shouldEqual XYVect( 0, -10 )
-    an[ValueException] should be thrownBy XYVect( 0, 0 ).⊣
+    an[UnsupportedOperationException] should be thrownBy XYVect(0, 0).⊣
   }
 
   "Operator ⊢" should "find the CW perpendicular of the vector" in {
@@ -284,17 +283,17 @@ class XYVectTest extends VectTest {
 
     vect1.⊢ shouldEqual XYVect( -10, 10 )
     vect2.⊢ shouldEqual XYVect( 0, 10 )
-    an[ValueException] should be thrownBy XYVect( 0, 0 ).⊢
+    an[UnsupportedOperationException] should be thrownBy XYVect(0, 0).⊢
   }
 
   "Operator v" should "find the versor of the vector" in {
     XYVect( 10, 10 ).v shouldEqual XYVect( 0.7071067811865475, 0.7071067811865475 )
-    an[ValueException] should be thrownBy XYVect.zero.v
+    an[UnsupportedOperationException] should be thrownBy XYVect.zero.v
   }
 
   "Operator n" should "find the normal of the vector" in {
     XYVect( 10, 10 ).n shouldEqual XYVect( 0.7071067811865475, -0.7071067811865475 )
-    an[ValueException] should be thrownBy XYVect.zero.n
+    an[UnsupportedOperationException] should be thrownBy XYVect.zero.n
   }
 
   "Operator ↺" should "rotate the vector" in {
@@ -484,7 +483,7 @@ class RTVectTest extends VectTest {
 
     vect1.⊣ shouldEqual RTVect( 10, 3.0 * Math.PI / 4.0 )
     vect2.⊣ shouldEqual RTVect( 10, Math.PI / 2.0 )
-    an[ValueException] should be thrownBy RTVect( 0, 0 ).⊣
+    an[UnsupportedOperationException] should be thrownBy RTVect(0, 0).⊣
   }
 
   "Operator ⊢" should "find the CW perpendicular of the vector" in {
@@ -493,17 +492,17 @@ class RTVectTest extends VectTest {
 
     vect1.⊢ shouldEqual RTVect( 10, -Math.PI / 4.0 )
     vect2.⊢ shouldEqual RTVect( 10, -Math.PI / 2.0 )
-    an[ValueException] should be thrownBy RTVect( 0, 0 ).⊢
+    an[UnsupportedOperationException] should be thrownBy RTVect(0, 0).⊢
   }
 
   "Operator v" should "find the versor of the vector" in {
     RTVect( 10, 1 ).v shouldEqual RTVect( 1, 1 )
-    an[ValueException] should be thrownBy RTVect.zero.v
+    an[UnsupportedOperationException] should be thrownBy RTVect.zero.v
   }
 
   "Operator n" should "find the normal of the vector" in {
     RTVect( 10, Math.PI / 4.0 ).n shouldEqual RTVect( 1, 3.0 * Math.PI / 4.0 )
-    an[ValueException] should be thrownBy RTVect.zero.n
+    an[UnsupportedOperationException] should be thrownBy RTVect.zero.n
   }
 
   "Operator ↺" should "rotate the vector" in {

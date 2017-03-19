@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,18 @@ package com.colofabrix.scala.math
 
 import com.colofabrix.scala.math.VectUtils._
 
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
-
 /**
   * Vector with Cartesian Coordinates (X-Y) as preferential coordinates system
   *
   * @param x Position on the X-Axis
   * @param y Position on the Y-Axis
   */
-final case class XYVect( override val x: Double, override val y: Double ) extends Vect {
-  override def ρ: Double = Math.hypot( x, y )
+final case class XYVect(override val x: Double, override val y: Double) extends Vect {
+  override def ρ: Double = Math.hypot(x, y)
 
   override def ϑ: Double =
     restrictAngle(
-      Math.atan2( y, x )
+      Math.atan2(y, x)
     )
 
   override def toString: String = s"Vec(x: $x, y: $y)"
@@ -43,14 +41,14 @@ final case class XYVect( override val x: Double, override val y: Double ) extend
   * @param ρ  Distance of the vector from the origin of the axis
   * @param _ϑ Angle formed between the positive side of the X-Axis and the vector in radians
   */
-final case class RTVect( override val ρ: Double, _ϑ: Double ) extends Vect {
-  require( ρ >= 0, "Distance of the vector from the origin must be non-negative" )
+final case class RTVect(override val ρ: Double, _ϑ: Double) extends Vect {
+  require(ρ >= 0, "Distance of the vector from the origin must be non-negative")
 
-  override def ϑ: Double = restrictAngle( _ϑ )
+  override def ϑ: Double = restrictAngle(_ϑ)
 
-  override def x: Double = ρ * Math.cos( ϑ )
+  override def x: Double = ρ * Math.cos(ϑ)
 
-  override def y: Double = ρ * Math.sin( ϑ )
+  override def y: Double = ρ * Math.sin(ϑ)
 
   override def toString: String = s"Vec(ρ: $ρ, ϑ: $ϑ)"
 }
@@ -58,7 +56,8 @@ final case class RTVect( override val ρ: Double, _ϑ: Double ) extends Vect {
 /**
   * A generic Cartesian Vector
   *
-  * The vectors represented here are generic, thus they are non applied vectors. This means that there isn't a convention
+  * The vectors represented here are generic, thus they are non applied vectors. This means that there isn't a
+  * convention
   * to interpret them. It can either be that they are indicating a point related to the origin of the axes or they can
   * represents a difference vector with origin not in the origin of axes.
   */
@@ -81,17 +80,12 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     * @param that The vector identifying the projection axis
     */
   @inline
-  def →( that: Vect ): Vect = {
-    if( this == Vect.zero ) {
-      this
-    }
-    else if( that == Vect.zero ) {
-      that
-    }
-    else {
-      this.ρ * Math.cos( this.ϑ - that.ϑ ) * that.v
-    }
+  def →(that: Vect): Vect = {
+    if( this == Vect.zero ) this
+    else if( that == Vect.zero ) that
+    else this.ρ * Math.cos(this.ϑ - that.ϑ) * that.v
   }
+
 
   /**
     * Rotates the vector of a given angle
@@ -99,12 +93,12 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     * @param angle The angle of rotation, in radians
     */
   @inline
-  def ↺( angle: Double ): Vect = this match {
+  def ↺(angle: Double): Vect = this match {
     case _: RTVect =>
-      RTVect( this.ρ, this.ϑ + angle )
+      RTVect(this.ρ, this.ϑ + angle)
     case _: XYVect => XYVect(
-      this.x * Math.cos( angle ) - this.y * Math.sin( angle ),
-      this.x * Math.sin( angle ) - this.y * Math.cos( angle )
+      this.x * Math.cos(angle) - this.y * Math.sin(angle),
+      this.x * Math.sin(angle) - this.y * Math.cos(angle)
     )
   }
 
@@ -112,14 +106,14 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   @inline
   def ⊣ : Vect = this match {
     case _: XYVect => this match {
-      case XYVect( 0, 0 ) =>
-        throw new ValueException( "Finding the CCW perpendicular of the zero vector has no meaning." )
-      case _ => XYVect( this.y, -this.x )
+      case XYVect(0, 0) =>
+        throw new UnsupportedOperationException("Finding the CCW perpendicular of the zero vector has no meaning.")
+      case _ => XYVect(this.y, -this.x)
     }
     case _: RTVect => this match {
-      case RTVect( 0, 0 ) =>
-        throw new ValueException( "Finding the CCW perpendicular of the zero vector has no meaning." )
-      case _ => RTVect( this.ρ, this.ϑ + Math.PI / 2.0 )
+      case RTVect(0, 0) =>
+        throw new UnsupportedOperationException("Finding the CCW perpendicular of the zero vector has no meaning.")
+      case _ => RTVect(this.ρ, this.ϑ + Math.PI / 2.0)
     }
   }
 
@@ -127,14 +121,14 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   @inline
   def ⊢ : Vect = this match {
     case _: XYVect => this match {
-      case XYVect( 0, 0 ) =>
-        throw new ValueException( "Finding the CW perpendicular of the zero vector has no meaning." )
-      case _ => XYVect( -this.y, this.x )
+      case XYVect(0, 0) =>
+        throw new UnsupportedOperationException("Finding the CW perpendicular of the zero vector has no meaning.")
+      case _ => XYVect(-this.y, this.x)
     }
     case _: RTVect => this match {
-      case RTVect( 0, 0 ) =>
-        throw new ValueException( "Finding the CW perpendicular of the zero vector has no meaning." )
-      case _ => RTVect( this.ρ, this.ϑ - Math.PI / 2.0 )
+      case RTVect(0, 0) =>
+        throw new UnsupportedOperationException("Finding the CW perpendicular of the zero vector has no meaning.")
+      case _ => RTVect(this.ρ, this.ϑ - Math.PI / 2.0)
     }
   }
 
@@ -146,14 +140,14 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   @inline
   def v: Vect = this match {
     case _: XYVect => this match {
-      case XYVect( 0, 0 ) =>
-        throw new ValueException( "The zero vector has no versor, as it is a point." )
+      case XYVect(0, 0) =>
+        throw new UnsupportedOperationException("The zero vector has no versor, as it is a point.")
       case _ => this / this.ρ
     }
     case _: RTVect => this match {
-      case RTVect( 0, 0 ) =>
-        throw new ValueException( "The zero vector has no versor, as it is a point." )
-      case _ => RTVect( 1, this.ϑ )
+      case RTVect(0, 0) =>
+        throw new UnsupportedOperationException("The zero vector has no versor, as it is a point.")
+      case _ => RTVect(1, this.ϑ)
     }
   }
 
@@ -164,10 +158,10 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     */
   @inline
   def n: Vect = this match {
-    case XYVect( 0, 0 ) =>
-      throw new ValueException( "The normal is not defined for a point." )
-    case RTVect( 0, 0 ) =>
-      throw new ValueException( "The normal is not defined for a point." )
+    case XYVect(0, 0) =>
+      throw new UnsupportedOperationException("The normal is not defined for a point.")
+    case RTVect(0, 0) =>
+      throw new UnsupportedOperationException("The normal is not defined for a point.")
     case _ => this.⊣.v
   }
 
@@ -175,42 +169,46 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     * Adds two vectors
     *
     * @param that The vector to add to the current one
+    *
     * @return A new vector which s the sum between the current and the given vectors
     */
   @inline
-  def +( that: Vect ): Vect = XYVect( this.x + that.x, this.y + that.y )
+  def +(that: Vect): Vect = XYVect(this.x + that.x, this.y + that.y)
 
   /**
     * Subtracts two vectors
     *
     * @param that The vector to subtract to the current one
+    *
     * @return A new vector which is the difference between the current and the given vectors
     */
   @inline
-  def -( that: Vect ): Vect = XYVect( this.x - that.x, this.y - that.y )
+  def -(that: Vect): Vect = XYVect(this.x - that.x, this.y - that.y)
 
   /**
     * Scalar multiplication (scaling)
     *
     * @param alpha Scalar value to multiply by
+    *
     * @return A new vector following the scalar multiplication rules
     */
   @inline
-  def *( alpha: Double ): Vect = this match {
-    case _: XYVect => XYVect( this.x * alpha, this.y * alpha )
-    case _: RTVect => RTVect( this.ρ * alpha, this.ϑ )
+  def *(alpha: Double): Vect = this match {
+    case _: XYVect => XYVect(this.x * alpha, this.y * alpha)
+    case _: RTVect => RTVect(this.ρ * alpha, this.ϑ)
   }
 
   /**
-    * Inner or Dot product
+    * Scalar or Dot product
     *
     * @param that Vector to multiply by
+    *
     * @return A new vector following the inner product rules
     */
   @inline
-  def ∙( that: Vect ): Double = this match {
+  def ∙(that: Vect): Double = this match {
     case _: XYVect => this.x * that.x + this.y * that.y
-    case _: RTVect => this.ρ * that.ρ * Math.cos( this.ϑ - that.ϑ )
+    case _: RTVect => this.ρ * that.ρ * Math.cos(this.ϑ - that.ϑ)
   }
 
   /**
@@ -221,72 +219,64 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     * and in this case there's no need of a vector as output
     *
     * @param that Vector to multiply by
+    *
     * @return A number over the Z axis
     */
   @inline
-  def ×( that: Vect ): Double = this match {
+  def ×(that: Vect): Double = this match {
     case _: XYVect => this.x * that.y - this.y * that.x
-    case _: RTVect => this.ρ * that.ρ * Math.sin( that.ϑ - this.ϑ )
+    case _: RTVect => this.ρ * that.ρ * Math.sin(that.ϑ - this.ϑ)
   }
 
   /**
     * Scalar division
     *
     * @param alpha Scalar value to divide by
+    *
     * @return A new vector following the by-scalar multiplication rules
     */
   @inline
-  def /( alpha: Double ): Vect = this * (1.0 / alpha)
+  def /(alpha: Double): Vect = this * (1.0 / alpha)
 
   /** The Cartesian Plane quadrant where the vector lies */
   def quadrant: Int = this match {
     case _: XYVect =>
-      if( x ~> 0.0 && y ~> 0.0 ) {
-        1
-      }
-      else if( x ~< 0.0 && y ~> 0.0 ) {
-        2
-      }
-      else if( x ~< 0.0 && y ~< 0.0 ) {
-        3
-      }
-      else if( x ~> 0.0 && y ~< 0.0 ) {
-        4
-      }
-      else {
-        0
-      }
-    case _: RTVect => if( this.ϑ % (Math.PI / 2.0) ~== 0.0 ) {
-      0
-    }
-    else {
-      Math.floor( this.ϑ / (Math.PI / 2.0) ).toInt + 1
-    }
+      if( x ~> 0.0 && y ~> 0.0 ) 1
+      else if( x ~< 0.0 && y ~> 0.0 ) 2
+      else if( x ~< 0.0 && y ~< 0.0 ) 3
+      else if( x ~> 0.0 && y ~< 0.0 ) 4
+      else 0
+
+    case _: RTVect =>
+      if( this.ϑ % (Math.PI / 2.0) ~== 0.0 ) 0
+      else Math.floor(this.ϑ / (Math.PI / 2.0)).toInt + 1
   }
 
   override def toString: String
 
-  override def equals( that: Any ): Boolean = that match {
+  override def equals(that: Any): Boolean = that match {
     case xy: XYVect => (this.x ~== xy.x) && (this.y ~== xy.y)
     case rt: RTVect => (this.ϑ ~== rt.ϑ) && (this.ρ ~== rt.ρ)
     case _ => return false
   }
 
-  override def hashCode( ): Int =
-    Seq( x, y )
-      .map( _.hashCode( ) )
-      .foldLeft( 0 ) {
-        ( a, b ) ⇒ 31 * a + b
+  override def hashCode(): Int = {
+    Seq(x, y)
+      .map(_.hashCode())
+      .foldLeft(0) {
+        (a, b) ⇒ 31 * a + b
       }
+  }
 
   /**
     * Trim an angle making sure that 0 <= α < 2π
     *
     * @param angle The angle to trim
+    *
     * @return An equivalent angle that is always 0 <= α < 2π
     */
   @inline
-  protected def restrictAngle( angle: Double ): Double = {
+  protected def restrictAngle(angle: Double): Double = {
     if( angle ~>= 2.0 * Math.PI ) {
       angle % (-2.0 * Math.PI)
     }
@@ -298,7 +288,7 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     }
   }
 
-  override def equal( v1: Vect, v2: Vect ): Boolean = v1.equals( v2 )
+  override def equal(v1: Vect, v2: Vect): Boolean = v1.equals(v2)
 }
 
 object Vect {
@@ -313,41 +303,36 @@ object Vect {
     * Arbitrary unit vector
     *
     * @param t The angle of the unit vector
+    *
     * @return A vector of magnitude 1.0 and angle specified
     */
-  def unit( t: Double ) = RTVect.unit( t )
+  def unit(t: Double) = RTVect.unit(t)
 }
 
 object XYVect {
-  /**
-    * Zero vector. It's a null vector
-    *
-    * @return A vector with both coordinates equals to zero
-    */
-  def zero = XYVect( 0.0, 0.0 )
+  /** Zero vector. */
+  def zero = XYVect(0.0, 0.0)
 
   /**
     * Arbitrary unit vector
     *
     * @param t The angle of the unit vector
+    *
     * @return A vector of magnitude 1.0 and angle specified
     */
-  def unit( t: Double ) = XYVect( Math.cos( t ), Math.sin( t ) )
+  def unit(t: Double) = XYVect(Math.cos(t), Math.sin(t))
 }
 
 object RTVect {
-  /**
-    * Zero vector. It's a null vector
-    *
-    * @return A vector with both coordinates equals to zero
-    */
-  def zero = RTVect( 0.0, 0.0 )
+  /** Zero vector. */
+  def zero = RTVect(0.0, 0.0)
 
   /**
     * Arbitrary unit vector
     *
     * @param t The angle of the unit vector
+    *
     * @return A vector of magnitude 1.0 and angle specified
     */
-  def unit( t: Double ) = RTVect( 1.0, t )
+  def unit(t: Double) = RTVect(1.0, t)
 }

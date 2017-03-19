@@ -14,24 +14,16 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.physics
+package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
-object PhysicsUtils {
+/**
+  * A Canvas is reverse Box
+  */
+class Canvas protected(bottomLeft: Vect, topRight: Vect) extends Box(bottomLeft, topRight)
 
-  /**
-    * Enrichment for Vect to make some Physical calculations easier
-    *
-    * @param vector The vector to apply the conversion
-    * @tparam T The type of vector
-    */
-  implicit final class VectUtils[T <: Vect](vector: T) {
-    def xy = Seq(vector.x, vector.y)
-
-    def map(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
-
-    def **(t: (Double, Double)): Vect = XYVect(vector.x * t._1, vector.y * t._2)
-  }
-
+object Canvas {
+  /** Constructor that uses width, height and starts the box at the origin of the axis. */
+  def apply(width: Double, height: Double): Canvas = new Canvas(Vect.zero, XYVect(width, height))
 }

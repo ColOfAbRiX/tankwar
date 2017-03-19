@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,21 @@ package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.tankwar.simulation.World
 
+import scala.annotation.tailrec
+
 /**
   *
   */
 object Main {
 
-  def main( args: Array[String] ): Unit = {
-
-    var world = World()
-    while(world.iteration < Configuration.World.rounds) {
-      world = world.step()
+  def main(args: Array[String]): Unit = {
+    @tailrec
+    def run(w: Option[World]): Unit = w match {
+      case Some(x) ⇒ run(x.step())
+      case _ ⇒
     }
 
+    run(Some(World()))
   }
 
 }

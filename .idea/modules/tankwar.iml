@@ -26,13 +26,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.11:3.2.0-SNAP4:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-core_2.11:7.2.10:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.21:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.11.8:jar" level="project" />
     <orderEntry type="library" name="SBT: com.typesafe.scala-logging:scala-logging_2.11:3.5.0:jar" level="project" />
     <orderEntry type="library" name="SBT: ch.qos.logback:logback-core:1.1.7:jar" level="project" />
     <orderEntry type="library" name="SBT: ch.qos.logback:logback-classic:1.1.7:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalactic:scalactic_2.11:3.2.0-SNAP4:jar" level="project" />
-    <orderEntry type="library" name="SBT: org.scalaz:scalaz-core_2.11:7.2.6:jar" level="project" />
     <orderEntry type="library" name="SBT: org.uncommons:uncommons-maths:1.2:jar" level="project" />
     <orderEntry type="library" name="SBT: org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-windows:jar" level="project" />
     <orderEntry type="library" name="SBT: org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-osx:jar" level="project" />
@@ -71,5 +71,6 @@
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.2:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-pickling_2.11:0.11.0-M2:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.4:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-effect_2.11:7.2.10:jar" level="project" />
   </component>
 </module>

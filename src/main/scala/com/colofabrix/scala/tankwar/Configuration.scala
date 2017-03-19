@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Fabrizio
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@ package com.colofabrix.scala.tankwar
 
 import com.typesafe.config.ConfigFactory
 
+import scalaz.effect._
 
 object Configuration {
-  private val conf = ConfigFactory.load()
+  private val conf = IO(ConfigFactory.load).unsafePerformIO()
 
   object World {
     def tankCount: Int = conf.getInt("world.tank_count")

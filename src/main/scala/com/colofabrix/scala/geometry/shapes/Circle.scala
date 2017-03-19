@@ -14,10 +14,10 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.geometry.shapes
+package com.colofabrix.scala.geometry.shapes
 
+import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect }
-import com.colofabrix.scala.tankwar.geometry.Shape
 
 /**
   * Circle shape
@@ -33,29 +33,6 @@ case class Circle(center: Vect, radius: Double) extends Shape {
   require(radius ~> 0.0, "The circle must have a non-zero radius")
 
   override lazy val area: Double = Math.PI * Math.pow(radius, 2.0)
-
-  override def border(p: Vect): Boolean = (p - center).ρ ~== radius
-
-  override def inside(p: Vect): Boolean = (p - center).ρ ~< radius
-
-  override def distance(p: Vect): Option[Vect] = {
-    if( this.borderOrInside(p) ) {
-      None
-    }
-    else {
-      // The distance of the point from the center of the circle. This vector is not related to the origin of axes
-      val distanceFromCenter = p - center
-
-      // A radius (segment that starts in the center of the circle and ends on a point in the circumference) directed
-      // towards p.
-      // This vector is not related to the origin of axes
-      val radiusTowardsPoint = distanceFromCenter.v * radius
-
-      // Distance of the point from the circumference calculated subtracting the two above vectors. This vector is not
-      // related to the origin of axes
-      Some(distanceFromCenter - radiusTowardsPoint)
-    }
-  }
 
   override def move(where: Vect): Shape = new Circle(center + where, radius)
 }
