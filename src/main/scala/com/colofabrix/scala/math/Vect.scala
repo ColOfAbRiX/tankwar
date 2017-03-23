@@ -264,7 +264,7 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
     Seq(x, y)
       .map(_.hashCode())
       .foldLeft(0) {
-        (a, b) ⇒ 31 * a + b
+        (a, b) => 31 * a + b
       }
   }
 

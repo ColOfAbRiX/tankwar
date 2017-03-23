@@ -15,9 +15,7 @@
  */
 
 package com.colofabrix.scala.tankwar
-
 import com.typesafe.config.ConfigFactory
-
 import scalaz.effect._
 
 object Configuration {

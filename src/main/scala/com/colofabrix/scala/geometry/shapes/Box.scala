@@ -75,13 +75,13 @@ class Box protected(val bottomLeft: Vect, val topRight: Vect) extends Shape {
   override def toString = s"Box($bottomLeft -> $topRight)"
 
   override def equals(other: Any): Boolean = other match {
-    case that: Box ⇒
+    case that: Box =>
       bottomLeft == that.bottomLeft && topRight == that.topRight
 
-    case _ ⇒ false
+    case _ => false
   }
 
-  override def hashCode(): Int = vertices.map(_.hashCode()).foldLeft(0)((a, b) ⇒ 31 * a + b)
+  override def hashCode(): Int = vertices.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
 }
 
 object Box {

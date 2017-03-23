@@ -35,7 +35,7 @@ trait Shape {
   def collide(s: Shape): Boolean = Collision.collide(this, s)
 
   /** Returns collision information if two Shapes collide */
-  def collisionInfo(s: Shape, pos1: Vect, pos2: Vect): Option[Collision] = Collision.info(this, s, pos1, pos2)
+  def collisionInfo(s: Shape, pos1: Vect, pos2: Vect): Collision = Collision.info(this, s, pos1, pos2)
 
   /** Moves a shape of the given vector. */
   def move(v: Vect): Shape

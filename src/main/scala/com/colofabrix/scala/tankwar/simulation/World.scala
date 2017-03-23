@@ -19,7 +19,7 @@ package com.colofabrix.scala.tankwar.simulation
 import com.colofabrix.scala.geometry.shapes.Canvas
 import com.colofabrix.scala.math._
 import com.colofabrix.scala.physix._
-import com.colofabrix.scala.tankwar.Configuration.{ World ⇒ WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 
@@ -34,7 +34,14 @@ class World private(
   /* Configuration */
 
   /** Commodity variable that defines the Arena */
-  protected val arena = Canvas(WorldConfig.width.toDouble, WorldConfig.height.toDouble)
+  //protected val arena = Canvas(WorldConfig.width.toDouble, WorldConfig.height.toDouble)
+  protected val arena = Seq(
+    (XYVect(1, 0), 1.0),
+    (XYVect(0, -1), 1.0),
+    (XYVect(-1, 0), 1.0),
+    (XYVect(1, 1), 1.0)
+  )
+
 
   /** The force field present on the arena, point by point */
   protected def forceField(position: Vect) = XYVect(0.0, -9.81)
@@ -43,15 +50,15 @@ class World private(
 
   /** Information about all tanks */
   val tanks: Seq[Physix] = _tanks match {
-    case Some(t) ⇒ t
-    case None ⇒ initTankList().map { t ⇒
+    case Some(t) => t
+    case None => initTankList().map { t =>
       PosVerletEngine(t, forceField(t.position))
     }
   }
 
   /** Creates the initial list of Tanks */
   def initTankList(): Seq[Tank] = Seq.tabulate(WorldConfig.tankCount) { _ =>
-    Tank(velocity = XYVect(15.0, 15.0))
+    Tank(position = XYVect(20.0, 0.0), velocity = XYVect(20.0, 20.0))
   }
 
   /* State change */
@@ -61,18 +68,29 @@ class World private(
 
   /** Advances the world of one step until the last allowed iteration */
   def step(): Option[World] = {
+    logger.info(s"World iteration #$iteration.")
+
     if( iteration == WorldConfig.rounds ) {
-      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds }. No more iterations allowed.")
+      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds }.")
       return None
     }
 
-    val newTanks = tanks.map { t ⇒
-      val t2 = t.motion(forceField(t.physicalObject.position))
-      val t3 = t2.borders(Seq(arena))
-      t3.collision(Seq())
+    // Resolve collisions
+    val step1 = for {
+      t <- tanks
+    } yield  {
+      //val distance = (t.body.position ∙ p._1) + p._2
+      t
     }
 
-    return Some(new World(iteration + 1, Some(newTanks)))
+    // Integrate
+    val step2 = for {
+      t <- step1
+    } yield {
+      t.integrate(forceField(t.body.position))
+    }
+
+    return Some(new World(iteration + 1, Some(step2)))
   }
 }
 

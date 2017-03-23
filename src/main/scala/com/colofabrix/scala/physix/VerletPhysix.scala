@@ -16,11 +16,9 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.math.VectUtils._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
-import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Störmer–Verlet integration, position version
@@ -31,45 +29,41 @@ import com.typesafe.scalalogging.LazyLogging
   *  - http://stackoverflow.com/tags/verlet-integration/info
   *  - http://lonesock.net/article/verlet.html
   *  - http://gafferongames.com/game-physics/integration-basics/
-  *
-  * @param body         Reference to the object
-  * @param lastPosition The position of the previous step, used by the Verlet integrator
   */
-class PosVerletEngine private(
-  val body: RigidBody, private val lastPosition: Vect
-) extends Physix with LazyLogging {
+trait VerletPhysix {
+  self: RigidBody =>
 
-  override def integrate(extForces: Vect = Vect.zero): PosVerletEngine = {
+  /** Position of the object at the last time step */
+  protected def lastPosition: Vect
+
+  /** Updates the status of the object */
+  protected def update(p: Vect, pLast: Vect, v: Vect, a: Double, as: Double): RigidBody
+
+  override def update(extForces: Vect, obstacles: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody = {
     // Total forces acting on the object (internal + external)
-    val forces = body.internalForce + extForces
+    val forces = this.internalForce + extForces
     // Acceleration
-    val acc = forces.map(_ / body.mass)
+    val acc = forces.map(_ / this.mass)
     // Position
-    val pos = 2.0 * body.position - lastPosition + acc * Math.pow(SimConfig.timeStep, 2.0)
+    val pos = 2.0 * this.position - lastPosition + acc * Math.pow(SimConfig.timeStep, 2.0)
     // Velocity, calculated as half step behind the current
-    val vel = (pos - body.position) / SimConfig.timeStep
+    val vel = (pos - this.position) / SimConfig.timeStep
 
-    return new PosVerletEngine(body.update(pos, vel, 0.0, 0.0), body.position)
+    return this.update(pos, this.position, vel, 0.0, 0.0)
   }
-
-  override def collision(colliding: Seq[RigidBody]): PosVerletEngine = {
-    return this
-  }
-
-  override def borders(constraints: Seq[Shape]): Physix = ???
 }
 
-object PosVerletEngine {
-  def apply(physicalObject: RigidBody, extForces: Vect = Vect.zero): PosVerletEngine = {
+object VerletPhysix {
+  def apply(body: RigidBody, extForces: Vect = Vect.zero): PosVerletEngine = {
     // Position Verlet needs the last 2 positions to calculate the next one
-    val forces = physicalObject.internalForce + extForces
-    val acc = forces.map(_ / physicalObject.mass)
+    val forces = body.internalForce + extForces
+    val acc = forces.map(_ / body.mass)
 
     // Position at the step before initialization
-    val lastPos = physicalObject.position -
-      physicalObject.velocity * SimConfig.timeStep -
+    val lastPosition = body.position -
+      body.velocity * SimConfig.timeStep -
       0.5 * acc * Math.pow(SimConfig.timeStep, 2.0)
 
-    return new PosVerletEngine(physicalObject, lastPos)
+    return new VerletPhysix(body, lastPosition)
   }
 }

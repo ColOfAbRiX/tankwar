@@ -21,7 +21,11 @@ import com.colofabrix.scala.math.{ Vect, XYVect }
 /**
   * A Canvas is reverse Box
   */
-class Canvas protected(bottomLeft: Vect, topRight: Vect) extends Box(bottomLeft, topRight)
+class Canvas protected(bottomLeft: Vect, topRight: Vect) extends Box(bottomLeft, topRight) {
+
+  override def toString = s"Canvas($bottomLeft -> $topRight)"
+
+}
 
 object Canvas {
   /** Constructor that uses width, height and starts the box at the origin of the axis. */

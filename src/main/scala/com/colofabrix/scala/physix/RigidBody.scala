@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.physix
 
+import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.Vect
 
 /**
@@ -24,7 +25,8 @@ import com.colofabrix.scala.math.Vect
   * A PhysicalObject can easily fall in the category of stateful objects. For this reason some members are provided as
   * internally read-write but read-only for clients.
   */
-trait RigidBody {
+trait RigidBody extends Physix {
+
   /* Generic information */
 
   /** A unique identifier for the object */
@@ -33,11 +35,16 @@ trait RigidBody {
   /** Mass of the Object. */
   def mass: Double
 
-  /** Identifier of the instance. */
-  override def toString: String = this.getClass.toString.replace("class ", "").replaceFirst( """(\w+\.)*""", "") +
-    "@" + this.id
+  /** A geometric shape that defines the Body */
+  def shape: Shape
 
-  /** Record identifying the step of the PhysicalObject */
+  /** The object that will make calculations about the physics */
+  protected def physix: Physix
+
+  /** Identifier of the instance. */
+  override def toString: String = "Tank@" + this.id.substring(6)
+
+  /** Record identifying the step of the RigidBody */
   def record = s"ID: $id, Pos: $position, Vel: $velocity"
 
   /* Linear values */
@@ -62,16 +69,16 @@ trait RigidBody {
   /** The torque that the object is generating internally. */
   def torque: Double
 
-  /* OO Interaction values */
+  /* Body/body Interaction values */
 
   /** A number (0.0, 1.0) that represent the amount of friction at the surface of the object. */
   def friction: Double
 
   /** A number (0.0, 1.0) that represent the elasticity at the surface of the object. */
-  def bounciness: Double
+  def elasticity: Double
 
   /* Actions */
 
-  /** Updates the status of the object */
-  def update(p: Vect, v: Vect, a: Double, as: Double): RigidBody
+  /** Updates the object */
+  def update(extForces: Vect = Vect.zero, obstacles: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody
 }

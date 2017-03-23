@@ -23,24 +23,6 @@ import com.colofabrix.scala.math.Vect
   * Extended simulation information for the objects in the world
   */
 trait Physix {
-
-  /**
-    * The object referenced by the PhysixEngine
-    */
-  def physicalObject: RigidBody
-
-  /**
-    * Calculates the motion of the object given the external forces
-    */
-  def motion(extForces: Vect = Vect.zero): Physix
-
-  /**
-    * Calculates the interactions with borders given the stapes that compose it
-    */
-  def borders(constraints: Seq[Shape]): Physix
-
-  /**
-    * Calculates the effects of collision with other objects
-    */
-  def collision(colliding: Seq[RigidBody]): Physix
+  /** Updates the object */
+  def update(extForces: Vect = Vect.zero, obstacles: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody
 }

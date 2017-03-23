@@ -45,7 +45,7 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-effect" % "7.2.10",
 
   // Genetic Algorithms (A fork of the Watchmaker framework is included in another file)
-  "org.uncommons" % "uncommons-maths" % "1.2",
+  //"org.uncommons" % "uncommons-maths" % "1.2",
 
   // Linear Algebra
   //"org.scalanlp" %% "breeze" % "latest.integration",
@@ -63,8 +63,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
 
   // Utilities
-  "org.scala-lang.modules" %% "scala-pickling" % "latest.integration",
   "com.typesafe" % "config" % "latest.integration",
+  //"org.scala-lang.modules" %% "scala-pickling" % "latest.integration",
   //"com.github.scopt" %% "scopt" % "latest.integration",
 
   // Testing
@@ -97,7 +97,6 @@ scalacOptions ++= Seq(
 // JVM Options.
 // See: http://blog.sokolenko.me/2014/11/javavm-options-production.html
 javaOptions ++= Seq(
-/*
   "-server",
   "-Xverify:none",
   // Memory settings
@@ -110,7 +109,6 @@ javaOptions ++= Seq(
   "-XX:CompressedClassSpaceSize=16M",
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
-*/
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}",
    "-Dfile.encoding=UTF-8"

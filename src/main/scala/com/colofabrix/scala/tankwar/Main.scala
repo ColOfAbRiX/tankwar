@@ -28,8 +28,8 @@ object Main {
   def main(args: Array[String]): Unit = {
     @tailrec
     def run(w: Option[World]): Unit = w match {
-      case Some(x) ⇒ run(x.step())
-      case _ ⇒
+      case Some(x) => run(x.step())
+      case _ =>
     }
 
     run(Some(World()))
