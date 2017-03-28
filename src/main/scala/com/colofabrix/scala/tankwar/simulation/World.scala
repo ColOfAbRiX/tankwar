@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,7 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
-import com.colofabrix.scala.geometry.shapes.Canvas
 import com.colofabrix.scala.math._
-import com.colofabrix.scala.physix._
 import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 
@@ -28,12 +26,12 @@ import com.typesafe.scalalogging.LazyLogging
   */
 class World private(
   val iteration: Int,
-  _tanks: Option[Seq[Physix]]
+  _tanks: Option[Seq[Tank]]
 ) extends LazyLogging {
 
   /* Configuration */
 
-  /** Commodity variable that defines the Arena */
+  /** The walls of the arena */
   //protected val arena = Canvas(WorldConfig.width.toDouble, WorldConfig.height.toDouble)
   protected val arena = Seq(
     (XYVect(1, 0), 1.0),
@@ -42,23 +40,20 @@ class World private(
     (XYVect(1, 1), 1.0)
   )
 
-
   /** The force field present on the arena, point by point */
   protected def forceField(position: Vect) = XYVect(0.0, -9.81)
 
-  /* Internal status */
+  /* State */
 
-  /** Information about all tanks */
-  val tanks: Seq[Physix] = _tanks match {
-    case Some(t) => t
-    case None => initTankList().map { t =>
-      PosVerletEngine(t, forceField(t.position))
-    }
+  /** List of tanks in the World */
+  val tanks = _tanks match {
+    case Some(ts) => ts
+    case None => initTankList()
   }
 
-  /** Creates the initial list of Tanks */
-  def initTankList(): Seq[Tank] = Seq.tabulate(WorldConfig.tankCount) { _ =>
-    Tank(position = XYVect(20.0, 0.0), velocity = XYVect(20.0, 20.0))
+  /** Initialized the list of tanks */
+  protected def initTankList() = Seq.tabulate(WorldConfig.tankCount) { i =>
+    new Tank(velocity = XYVect(0.0, 20.0), initialExternalForce = forceField(Vect.zero))
   }
 
   /* State change */
@@ -70,28 +65,19 @@ class World private(
   def step(): Option[World] = {
     logger.info(s"World iteration #$iteration.")
 
-    if( iteration == WorldConfig.rounds ) {
+    if( iteration >= WorldConfig.rounds ) {
       logger.warn(s"Reached max iteration number of ${WorldConfig.rounds }.")
       return None
     }
 
-    // Resolve collisions
-    val step1 = for {
-      t <- tanks
-    } yield  {
-      //val distance = (t.body.position ∙ p._1) + p._2
-      t
+    val newTanks = tanks map { t =>
+      t.step(forceField(t.position), Seq(), Seq())
     }
 
-    // Integrate
-    val step2 = for {
-      t <- step1
-    } yield {
-      t.integrate(forceField(t.body.position))
-    }
-
-    return Some(new World(iteration + 1, Some(step2)))
+    Some(new World(iteration + 1, Some(newTanks)))
   }
 }
 
-object World {def apply() = new World(0, None)}
+object World {
+  def apply() = new World(0, None)
+}

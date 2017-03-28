@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,45 +25,45 @@ import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
   *
   * External references:
   *  - https://en.wikipedia.org/wiki/Verlet_integration
+  *  - http://lonesock.net/article/verlet.html
   *  - https://www.gamedev.net/resources/_/technical/math-and-physics/a-verlet-based-approach-for-2d-game-physics-r2714
   *  - http://stackoverflow.com/tags/verlet-integration/info
-  *  - http://lonesock.net/article/verlet.html
-  *  - http://gafferongames.com/game-physics/integration-basics/
   */
-trait VerletPhysix {
-  self: RigidBody =>
+abstract class VerletPhysix(
+  override val mass: Double,
+  private var _position: Vect,
+  private var _velocity: Vect,
+  private var _angle: Double,
+  private var _angularSpeed: Double,
+  initialExternalForce: Vect
+) extends RigidBody {
 
-  /** Position of the object at the last time step */
-  protected def lastPosition: Vect
+  /** Position of the object at the last step. */
+  final def lastPosition = _lastPosition
 
-  /** Updates the status of the object */
-  protected def update(p: Vect, pLast: Vect, v: Vect, a: Double, as: Double): RigidBody
-
-  override def update(extForces: Vect, obstacles: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody = {
-    // Total forces acting on the object (internal + external)
-    val forces = this.internalForce + extForces
-    // Acceleration
-    val acc = forces.map(_ / this.mass)
-    // Position
-    val pos = 2.0 * this.position - lastPosition + acc * Math.pow(SimConfig.timeStep, 2.0)
-    // Velocity, calculated as half step behind the current
-    val vel = (pos - this.position) / SimConfig.timeStep
-
-    return this.update(pos, this.position, vel, 0.0, 0.0)
-  }
-}
-
-object VerletPhysix {
-  def apply(body: RigidBody, extForces: Vect = Vect.zero): PosVerletEngine = {
-    // Position Verlet needs the last 2 positions to calculate the next one
-    val forces = body.internalForce + extForces
-    val acc = forces.map(_ / body.mass)
-
+  private var _lastPosition: Vect = {
     // Position at the step before initialization
-    val lastPosition = body.position -
-      body.velocity * SimConfig.timeStep -
-      0.5 * acc * Math.pow(SimConfig.timeStep, 2.0)
-
-    return new VerletPhysix(body, lastPosition)
+    val acc = (initialExternalForce + internalForce).comp(_ / mass)
+    position - velocity * SimConfig.timeStep - 0.5 * acc * Math.pow(SimConfig.timeStep, 2.0)
   }
+
+  override def step(extForces: Vect, walls: Seq[RigidBody], bodies: Seq[RigidBody]): VerletPhysix = {
+    val lastPos = position
+
+    val forces = this.internalForce + extForces
+    val acc = forces.comp(_ / this.mass)
+    _position = 2.0 * this.position - lastPosition + acc * Math.pow(SimConfig.timeStep, 2.0)
+    _velocity = (position - lastPos) / SimConfig.timeStep
+
+    _lastPosition = lastPos
+    return this
+  }
+
+  final override def position: Vect = _position
+
+  final override def velocity: Vect = _velocity
+
+  final override def angle: Double = _angle
+
+  final override def angularSpeed: Double = _angularSpeed
 }

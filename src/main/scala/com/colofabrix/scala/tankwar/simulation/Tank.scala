@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,61 +16,49 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.physix.{ RigidBody, VerletPhysix }
+import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * A Tank that plays in the game
   */
-class Tank private(
-  val mass: Double,
-  val position: Vect,
-  val velocity: Vect,
-  val angle: Double,
-  val angularSpeed: Double,
-  val friction: Double,
-  val elasticity: Double,
-  _id: Option[String] = None,
-  _force: Option[Vect] = None,
-  _torque: Option[Double] = None
-) extends RigidBody with VerletPhysix with LazyLogging {
+final class Tank(
 
-  /** A unique identifier for the object */
-  override val id: String = _id.getOrElse(java.util.UUID.randomUUID().toString)
+  position: Vect = Vect.zero,
+  velocity: Vect = Vect.zero,
+  angle: Double = 0.0,
+  angularSpeed: Double = 0.0,
+  initialExternalForce: Vect
 
-  /** The force that the object is generating */
-  override def internalForce: Vect = _force.getOrElse(Vect.zero)
+) extends VerletPhysix(
 
-  /** Angular speed of the object's main axis */
-  override def torque: Double = _torque.getOrElse(0.0)
+  TanksConfig.defaultMass,
+  position,
+  velocity,
+  angle,
+  angularSpeed,
+  initialExternalForce
 
-  override def shape: Shape = Circle(position, 10.0)
+) with LazyLogging {
 
-  /** Updates the status of the object */
-  override def update(position: Vect, lastPosition: Vect, velocity: Vect, angle: Double, angularSpeed: Double): Tank = {
-    logger.info(s"Updating with new info: Pos: $position, Vel: $velocity")
+  logger.info(s"Initialzed($id): " + summary)
 
-    return new Tank(
-      mass, position, velocity, angle, angularSpeed,
-      friction, elasticity,
-      Some(id), Some(internalForce), Some(torque)
-    )
+  override def step(extForces: Vect, walls: Seq[RigidBody], bodies: Seq[RigidBody]): Tank = {
+    val newTank = super.step(extForces, walls, bodies).asInstanceOf[Tank]
+    logger.info(s"Step($id): " + newTank.summary)
+    return newTank
   }
-}
 
-object Tank {
-  def apply(
-    mass: Double = 1.0,
-    position: Vect = Vect.zero,
-    velocity: Vect = Vect.zero,
-    angle: Double = 0.0,
-    angularSpeed: Double = 0.0,
-    friction: Double = 0.0,
-    elasticity: Double = 1.0
-  ): Tank = {
-    return new Tank(mass, position, velocity, angle, angularSpeed, friction, elasticity)
-  }
+  override def internalForce = Vect.zero
+
+  override def torque = 0.0
+
+  override val shape = Circle(position, 10.0)
+
+  override val friction = 0.0
+
+  override val elasticity = 1.0
 }

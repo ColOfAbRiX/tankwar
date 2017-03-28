@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ final case class XYVect(override val x: Double, override val y: Double) extends 
       Math.atan2(y, x)
     )
 
-  override def toString: String = s"Vec(x: $x, y: $y)"
+  override def toString: String = s"Vec(x: ${x.sig() }, y: ${y.sig() }"
 }
 
 /**
@@ -50,7 +50,7 @@ final case class RTVect(override val ρ: Double, _ϑ: Double) extends Vect {
 
   override def y: Double = ρ * Math.sin(ϑ)
 
-  override def toString: String = s"Vec(ρ: $ρ, ϑ: $ϑ)"
+  override def toString: String = s"Vec(ρ: ${ρ.sig() }, ϑ: ${ϑ.sig() })"
 }
 
 /**

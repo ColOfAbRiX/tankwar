@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.colofabrix.scala.math
 
 /**
-  *
+  * Utilities for Vect
   */
 object VectUtils {
 
@@ -25,46 +25,28 @@ object VectUtils {
     * Enrichment for numeric types to allow commuting of the operations
     *
     * This class implements the same operation of Vect for verse order
-    *
-    * @param number The object to apply the conversion
-    * @tparam T The type of the object that must be convertible in a Numeric
     */
   implicit final class Support[T: Numeric](number: T) {
     private val _number = implicitly[Numeric[T]].toDouble(number)
 
+    /** Allows "num * vect" and "vect * num" forms */
     def *(v: Vect): Vect = v * _number
   }
 
   /**
     * Enrichment for Vect to make some Physical calculations easier
-    *
-    * @param vector The vector to apply the conversion
-    * @tparam T The type of vector
     */
   implicit final class VectUtils[T <: Vect](vector: T) {
-    /**
-      * Cartesian coordinates as a list
-      */
+    /** Cartesian coordinates as a list */
     def xy = Seq(vector.x, vector.y)
 
-    /**
-      * Mapping of one cartesian component at the time
-      *
-      * @param f The function to apply, where the argument is the value of the coordinate
-      *
-      * @return A vector where its components have been modified by @param f
-      */
-    def map(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
+    /** Mapping of one cartesian component at the time */
+    def comp(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
 
-    /**
-      * Mapping of one cartesian component at the time
-      *
-      * @param f The function to apply
-      *
-      * @return A vector where its components have been modified by @param f
-      */
-    def map(f: (Double, Int) => Double): Vect = XYVect(f(vector.x, 0), f(vector.y, 1))
+    /** Mapping of one cartesian component at the time */
+    def comp(f: (Double, Int) => Double): Vect = XYVect(f(vector.x, 0), f(vector.y, 1))
 
+    /** Multiplies each component of a vector with the corresponding component of the other vector */
     def **(v: Vect): Vect = XYVect(vector.x * v.x, vector.y * v.y)
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,33 +21,31 @@ import com.colofabrix.scala.math.Vect
 
 /**
   * Represents a physical objects in the physical space with some physical details.
-  *
-  * A PhysicalObject can easily fall in the category of stateful objects. For this reason some members are provided as
-  * internally read-write but read-only for clients.
   */
-trait RigidBody extends Physix {
+trait RigidBody {
 
   /* Generic information */
 
-  /** A unique identifier for the object */
-  def id: String
-
-  /** Mass of the Object. */
+  /** The mass of the rigid body */
   def mass: Double
 
   /** A geometric shape that defines the Body */
   def shape: Shape
 
-  /** The object that will make calculations about the physics */
-  protected def physix: Physix
+  /** A unique identifier for the object */
+  val id: String = {
+    val className = getClass.toString.replace("class ", "").replaceFirst("(\\w+\\.)*", "")
+    val uuid = java.util.UUID.randomUUID().toString.substring(0, 6)
+    s"$className@$uuid"
+  }
 
   /** Identifier of the instance. */
-  override def toString: String = "Tank@" + this.id.substring(6)
+  override def toString: String = this.id
 
-  /** Record identifying the step of the RigidBody */
-  def record = s"ID: $id, Pos: $position, Vel: $velocity"
+  /** Summary of the state of the object */
+  def summary = s"Pos=$position, Vel=$velocity, Ang=$angle, AngSped=$angularSpeed"
 
-  /* Linear values */
+  /* Linear physics values */
 
   /** Position of the center of mass of the object, relative to the origin of axes. */
   def position: Vect
@@ -58,7 +56,7 @@ trait RigidBody extends Physix {
   /** The force that the object is generating internally. */
   def internalForce: Vect
 
-  /* Rotation values */
+  /* Rotational physics values */
 
   /** Rotation of the object's center of mass, relative to the origin of the axes. */
   def angle: Double
@@ -79,6 +77,6 @@ trait RigidBody extends Physix {
 
   /* Actions */
 
-  /** Updates the object */
-  def update(extForces: Vect = Vect.zero, obstacles: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody
+  /** Calculates the RigidBody for the next step */
+  def step(extForces: Vect = Vect.zero, walls: Seq[RigidBody], bodies: Seq[RigidBody]): RigidBody
 }
