@@ -16,54 +16,73 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.math.Vect
-import com.colofabrix.scala.math.VectUtils._
+import com.colofabrix.scala.geometry.Shape
+import com.colofabrix.scala.math._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
+import com.typesafe.scalalogging.LazyLogging
 
 /**
-  * Störmer–Verlet integration, position version
-  *
-  * External references:
-  *  - https://en.wikipedia.org/wiki/Verlet_integration
-  *  - http://lonesock.net/article/verlet.html
-  *  - https://www.gamedev.net/resources/_/technical/math-and-physics/a-verlet-based-approach-for-2d-game-physics-r2714
-  *  - http://stackoverflow.com/tags/verlet-integration/info
+  * Verlet integration, position version
   */
 abstract class VerletPhysix(
+
   override val mass: Double,
   private var _position: Vect,
   private var _velocity: Vect,
   private var _angle: Double,
   private var _angularSpeed: Double,
   initialExternalForce: Vect
-) extends RigidBody {
+
+) extends RigidBody with LazyLogging {
+
+  import com.colofabrix.scala.math.VectUtils._
 
   /** Position of the object at the last step. */
-  final def lastPosition = _lastPosition
+  final
+  protected
+  def lastVelocity = _lastVelocity
 
-  private var _lastPosition: Vect = {
-    // Position at the step before initialization
-    val acc = (initialExternalForce + internalForce).comp(_ / mass)
-    position - velocity * SimConfig.timeStep - 0.5 * acc * Math.pow(SimConfig.timeStep, 2.0)
-  }
+  private
+  var _lastVelocity: Vect = Vect.zero
 
-  override def step(extForces: Vect, walls: Seq[RigidBody], bodies: Seq[RigidBody]): VerletPhysix = {
-    val lastPos = position
+  override
+  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): VerletPhysix = ???
 
-    val forces = this.internalForce + extForces
-    val acc = forces.comp(_ / this.mass)
-    _position = 2.0 * this.position - lastPosition + acc * Math.pow(SimConfig.timeStep, 2.0)
-    _velocity = (position - lastPos) / SimConfig.timeStep
+  def test(walls: Seq[(Vect, Double)], extForces: Vect): VerletPhysix = {
+    this._lastVelocity = this.velocity
 
-    _lastPosition = lastPos
+    val acceleration = (this.internalForce + extForces).comp(_ / this.mass)
+    this._velocity += acceleration * SimConfig.timeStep
+    val tmpPosition = this.position + 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
+
+    for( w <- walls ) {
+      val (wNormal, wDistance) = w
+      val distance = (tmpPosition ∙ wNormal) + wDistance
+      val wVelocity = this.velocity ∙ wNormal
+
+      if( (distance ~< 0.0) && (wVelocity ~< 0.0) ) {
+        this._velocity -= 2.0 * wVelocity * wNormal
+        logger.info(s"Collision detected with $w and Tank position $tmpPosition. New velocity: $velocity")
+      }
+    }
+
+    this._position += 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
     return this
   }
 
-  final override def position: Vect = _position
+  final
+  override
+  def position: Vect = _position
 
-  final override def velocity: Vect = _velocity
+  final
+  override
+  def velocity: Vect = _velocity
 
-  final override def angle: Double = _angle
+  final
+  override
+  def angle: Double = _angle
 
-  final override def angularSpeed: Double = _angularSpeed
+  final
+  override
+  def angularSpeed: Double = _angularSpeed
 }

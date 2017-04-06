@@ -22,23 +22,24 @@ package com.colofabrix.scala.math
 object VectUtils {
 
   /**
-    * Enrichment for numeric types to allow commuting of the operations
-    *
-    * This class implements the same operation of Vect for verse order
+    * Enrichment for numeric types against Vect
     */
-  implicit final class Support[T: Numeric](number: T) {
-    private val _number = implicitly[Numeric[T]].toDouble(number)
+  implicit class Support[T: Numeric](number: T) {
+    private val num = implicitly[Numeric[T]].toDouble(number)
 
     /** Allows "num * vect" and "vect * num" forms */
-    def *(v: Vect): Vect = v * _number
+    def *(v: Vect): Vect = v * num
   }
 
   /**
     * Enrichment for Vect to make some Physical calculations easier
     */
-  implicit final class VectUtils[T <: Vect](vector: T) {
+  implicit class VectUtils[T <: Vect](vector: T) {
     /** Cartesian coordinates as a list */
     def xy = Seq(vector.x, vector.y)
+
+    /** Polar coordinates as a list */
+    def rt = Seq(vector.ρ, vector.ϑ)
 
     /** Mapping of one cartesian component at the time */
     def comp(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))

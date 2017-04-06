@@ -33,10 +33,10 @@ object Configuration {
     def rounds: Int = conf.getInt("world.rounds")
 
     /** Width of the arena */
-    def width: Int = conf.getInt("world.arena_width")
+    def width: Double = conf.getDouble("world.arena_width")
 
     /** Height of the arena */
-    def height: Int = conf.getInt("world.arena_height")
+    def height: Double = conf.getDouble("world.arena_height")
   }
 
   object Simulation {

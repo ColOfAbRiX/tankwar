@@ -34,10 +34,10 @@ class World private(
   /** The walls of the arena */
   //protected val arena = Canvas(WorldConfig.width.toDouble, WorldConfig.height.toDouble)
   protected val arena = Seq(
-    (XYVect(1, 0), 1.0),
-    (XYVect(0, -1), 1.0),
-    (XYVect(-1, 0), 1.0),
-    (XYVect(1, 1), 1.0)
+    (XYVect(0, -1), WorldConfig.height), // Top side
+    (XYVect(1, 0), 0.0), // Left side
+    (XYVect(0, 1), 0.0), // Bottom side
+    (XYVect(-1, 0), WorldConfig.width) // Right side
   )
 
   /** The force field present on the arena, point by point */
@@ -71,7 +71,8 @@ class World private(
     }
 
     val newTanks = tanks map { t =>
-      t.step(forceField(t.position), Seq(), Seq())
+      //t.step(forceField(t.position), Seq(), Seq())
+      t.test(arena, forceField(t.position))
     }
 
     Some(new World(iteration + 1, Some(newTanks)))

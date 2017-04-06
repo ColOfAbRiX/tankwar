@@ -32,7 +32,7 @@ final case class XYVect(override val x: Double, override val y: Double) extends 
       Math.atan2(y, x)
     )
 
-  override def toString: String = s"Vec(x: ${x.sig() }, y: ${y.sig() }"
+  override def toString: String = s"Vec(x: ${x.sig() }, y: ${y.sig() })"
 }
 
 /**

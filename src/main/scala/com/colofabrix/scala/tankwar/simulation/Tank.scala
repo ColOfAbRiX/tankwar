@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
+import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.physix.{ RigidBody, VerletPhysix }
@@ -46,19 +47,32 @@ final class Tank(
 
   logger.info(s"Initialzed($id): " + summary)
 
-  override def step(extForces: Vect, walls: Seq[RigidBody], bodies: Seq[RigidBody]): Tank = {
-    val newTank = super.step(extForces, walls, bodies).asInstanceOf[Tank]
+  override
+  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
+    val newTank = super.step(walls, bodies, extForces).asInstanceOf[Tank]
     logger.info(s"Step($id): " + newTank.summary)
     return newTank
   }
 
-  override def internalForce = Vect.zero
+  override
+  def test(walls: Seq[(Vect, Double)], extForces: Vect): Tank = {
+    val newTank = super.test(walls, extForces).asInstanceOf[Tank]
+    logger.info(s"Step($id): " + newTank.summary)
+    return newTank
+  }
 
-  override def torque = 0.0
+  override
+  def internalForce = Vect.zero
 
-  override val shape = Circle(position, 10.0)
+  override
+  def torque = 0.0
 
-  override val friction = 0.0
+  override
+  val shape = Circle(position, 10.0)
 
-  override val elasticity = 1.0
+  override
+  val friction = 0.0
+
+  override
+  val elasticity = 1.0
 }
