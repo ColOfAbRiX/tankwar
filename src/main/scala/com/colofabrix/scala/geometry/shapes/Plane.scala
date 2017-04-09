@@ -16,18 +16,27 @@
 
 package com.colofabrix.scala.geometry.shapes
 
-import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.scala.geometry.Shape
+import com.colofabrix.scala.math.Vect
 
 /**
-  * A Canvas is reverse Box
+  * Plane shape
   */
-class Canvas protected(bottomLeft: Vect, topRight: Vect) extends Box(bottomLeft, topRight) {
+case class Plane(
+  normal: Vect,
+  distance: Double
+) extends Shape {
 
-  override def toString = s"Canvas($bottomLeft -> $topRight)"
+  lazy
+  override
+  val area: Double = 0.0
 
-}
+  override
+  def moveOf(where: Vect): Plane = ???
 
-object Canvas {
-  /** Constructor that uses width, height and starts the box at the origin of the axis. */
-  def apply(width: Double, height: Double): Canvas = new Canvas(Vect.zero, XYVect(width, height))
+  override
+  def moveTo(where: Vect): Plane = ???
+
+  override
+  def toString = s"Plane((${normal.x }, ${normal.y }) / $distance)"
 }

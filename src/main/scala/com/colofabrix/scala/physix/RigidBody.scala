@@ -40,7 +40,8 @@ trait RigidBody {
   }
 
   /** Identifier of the instance. */
-  override def toString: String = this.id
+  override
+  def toString: String = this.id
 
   /** Summary of the state of the object */
   def summary = s"Pos=$position, Vel=$velocity, Ang=$angle, AngSped=$angularSpeed"

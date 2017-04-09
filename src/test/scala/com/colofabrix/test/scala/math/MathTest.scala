@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio
+ * Copyright (C) 2017 Fabrizio Colonna
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package com.colofabrix.test.scala.math
 import org.scalatest.{ FlatSpec, Matchers }
 
 /**
-  *
+  * Tests for the com.colofabrix.scala.math package
   */
 class MathTest extends FlatSpec with Matchers {
 

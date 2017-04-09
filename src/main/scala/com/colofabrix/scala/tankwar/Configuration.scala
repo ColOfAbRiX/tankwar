@@ -17,12 +17,16 @@
 package com.colofabrix.scala.tankwar
 
 import scalaz.effect._
+import com.colofabrix.scala.geometry.Shape
+import com.colofabrix.scala.geometry.shapes.Plane
+import com.colofabrix.scala.math.XYVect
 import com.typesafe.config.ConfigFactory
 
 /**
   * Global Tankwar Configuration
   */
 object Configuration {
+
   private val conf = IO(ConfigFactory.load).unsafePerformIO()
 
   object World {
@@ -32,11 +36,33 @@ object Configuration {
     /** Number of steps the World will run for */
     def rounds: Int = conf.getInt("world.rounds")
 
-    /** Width of the arena */
-    def width: Double = conf.getDouble("world.arena_width")
+    /**
+      * Builder of the arena
+      */
+    object Arena {
 
-    /** Height of the arena */
-    def height: Double = conf.getDouble("world.arena_height")
+      /** Width of the arena */
+      def width: Double = conf.getDouble("world.arena_width")
+
+      /** Height of the arena */
+      def height: Double = conf.getDouble("world.arena_height")
+
+      def apply(): Seq[Shape] = Seq(
+        // Top side
+        Plane(XYVect(0, -1), height),
+
+        // Left side
+        Plane(XYVect(1, 0), 0.0),
+
+        // Bottom side
+        Plane(XYVect(0, 1), 0.0),
+
+        // Right side
+        Plane(XYVect(-1, 0), height)
+      )
+
+    }
+
   }
 
   object Simulation {
@@ -48,4 +74,5 @@ object Configuration {
     /** Default mass of a tank */
     def defaultMass: Double = conf.getDouble("tanks.default_mass")
   }
+
 }

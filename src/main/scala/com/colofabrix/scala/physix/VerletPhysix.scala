@@ -16,7 +16,8 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.geometry.Shape
+import scalaz.{ -\/, \/- }
+import com.colofabrix.scala.geometry.{ Collision, Shape }
 import com.colofabrix.scala.math._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
 import com.typesafe.scalalogging.LazyLogging
@@ -46,24 +47,29 @@ abstract class VerletPhysix(
   var _lastVelocity: Vect = Vect.zero
 
   override
-  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): VerletPhysix = ???
-
-  def test(walls: Seq[(Vect, Double)], extForces: Vect): VerletPhysix = {
+  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): VerletPhysix = {
     this._lastVelocity = this.velocity
 
-    val acceleration = (this.internalForce + extForces).comp(_ / this.mass)
-    this._velocity += acceleration * SimConfig.timeStep
-    val tmpPosition = this.position + 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
+    val acc = (this.internalForce + extForces) comp (_ / this.mass)
+    this._velocity += acc * SimConfig.timeStep
+
+    val checkShape = this.shape.moveOf(
+      0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
+    )
 
     for( w <- walls ) {
-      val (wNormal, wDistance) = w
-      val distance = (tmpPosition ∙ wNormal) + wDistance
-      val wVelocity = this.velocity ∙ wNormal
 
-      if( (distance ~< 0.0) && (wVelocity ~< 0.0) ) {
-        this._velocity -= 2.0 * wVelocity * wNormal
-        logger.info(s"Collision detected with $w and Tank position $tmpPosition. New velocity: $velocity")
+      w.collision(checkShape) match {
+        case -\/(Collision(n, d)) =>
+          val v = this.velocity ∙ n
+          if( (d ~< 0.0) && (v ~< 0.0) ) {
+            this._velocity -= 2.0 * v * n
+            logger.info(s"Collision detected with $w and Tank position $checkShape. New velocity: $velocity")
+          }
+
+        case \/-(Collision(n, d)) =>
       }
+
     }
 
     this._position += 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep

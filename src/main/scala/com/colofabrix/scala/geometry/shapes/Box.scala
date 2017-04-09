@@ -20,12 +20,20 @@ import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
-  * Rectangle shape with edges parallel to the cartesian axis
+  * Axis Aligned Bounding Box
   */
-class Box protected(val bottomLeft: Vect, val topRight: Vect) extends Shape {
+class Box protected(
+  val bottomLeft: Vect,
+  val topRight: Vect
+) extends Shape {
 
   /** The vertices of the Box */
-  val vertices = Seq(bottomLeft, XYVect(bottomLeft.x, topRight.y), topRight, XYVect(topRight.x, bottomLeft.y))
+  val vertices = Seq(
+    bottomLeft,
+    XYVect(bottomLeft.x, topRight.y),
+    topRight,
+    XYVect(topRight.x, bottomLeft.y)
+  )
 
   /** Edges of the Box, built from the vertices. Edges are {Vect} from one vertex to its adjacent one */
   val edges: Seq[(Vect, Vect)] = Seq(
@@ -41,16 +49,22 @@ class Box protected(val bottomLeft: Vect, val topRight: Vect) extends Shape {
   /** Width of the rectangle */
   val width = topRight.x - bottomLeft.x
 
-  override val area = width * height
+  require(width > 0.0, "Box width must be positive.")
+  require(width > 0.0, "Box height must be positive.")
+
+  override
+  val area = width * height
 
   /** Center of the Box */
   val center = bottomLeft + XYVect(width / 2.0, height / 2.0)
 
   /** The vertex that is closest to the origin of the axes. */
-  lazy val origin = vertices.minBy(_.ρ)
+  lazy
+  val origin = vertices.minBy(_.ρ)
 
   /** The vertex that is farthest to the origin of the axes. */
-  lazy val opposite = vertices.maxBy(_.ρ)
+  lazy
+  val opposite = vertices.maxBy(_.ρ)
 
   /** Rectangle top-left-most point, in any quadrant of the plane */
   val topLeft = XYVect(bottomLeft.x, topRight.y)
@@ -70,18 +84,24 @@ class Box protected(val bottomLeft: Vect, val topRight: Vect) extends Shape {
   /** Rectangle right-most X */
   val right = topRight.x
 
-  override def move(where: Vect): Box = Box(bottomLeft + where, topRight + where)
+  override
+  def moveOf(where: Vect): Box = Box(bottomLeft + where, topRight + where)
 
-  override def toString = s"Box($bottomLeft -> $topRight)"
+  override
+  def moveTo(where: Vect): Box = Box(where, width, height)
 
-  override def equals(other: Any): Boolean = other match {
+  override
+  def toString = s"Box($bottomLeft -> $topRight)"
+
+  override
+  def equals(other: Any): Boolean = other match {
     case that: Box =>
       bottomLeft == that.bottomLeft && topRight == that.topRight
-
     case _ => false
   }
 
-  override def hashCode(): Int = vertices.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  override
+  def hashCode(): Int = vertices.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
 }
 
 object Box {
@@ -101,11 +121,9 @@ object Box {
   def apply(p0: Vect, p1: Vect): Box = {
     val topX = Math.max(p0.x, p1.x)
     val topY = Math.max(p0.y, p1.y)
+
     val bottomX = Math.min(p0.x, p1.x)
     val bottomY = Math.min(p0.y, p1.y)
-
-    require(topX - bottomX > 0.0, "A Box must have a width greater than zero")
-    require(topY - bottomY > 0.0, "A Box must have a height greater than zero")
 
     return new Box(XYVect(bottomX, bottomY), XYVect(topX, topY))
   }

@@ -26,21 +26,22 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * A Tank that plays in the game
   */
-final class Tank(
+final
+class Tank(
 
-  position: Vect = Vect.zero,
-  velocity: Vect = Vect.zero,
-  angle: Double = 0.0,
-  angularSpeed: Double = 0.0,
+  initialPosition: Vect = Vect.zero,
+  initialVelocity: Vect = Vect.zero,
+  initialAngle: Double = 0.0,
+  initialAngularSpeed: Double = 0.0,
   initialExternalForce: Vect
 
 ) extends VerletPhysix(
 
   TanksConfig.defaultMass,
-  position,
-  velocity,
-  angle,
-  angularSpeed,
+  initialPosition,
+  initialVelocity,
+  initialAngle,
+  initialAngularSpeed,
   initialExternalForce
 
 ) with LazyLogging {
@@ -50,14 +51,9 @@ final class Tank(
   override
   def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
     val newTank = super.step(walls, bodies, extForces).asInstanceOf[Tank]
-    logger.info(s"Step($id): " + newTank.summary)
-    return newTank
-  }
 
-  override
-  def test(walls: Seq[(Vect, Double)], extForces: Vect): Tank = {
-    val newTank = super.test(walls, extForces).asInstanceOf[Tank]
     logger.info(s"Step($id): " + newTank.summary)
+
     return newTank
   }
 
@@ -68,7 +64,7 @@ final class Tank(
   def torque = 0.0
 
   override
-  val shape = Circle(position, 10.0)
+  def shape = Circle(this.position, 10.0)
 
   override
   val friction = 0.0

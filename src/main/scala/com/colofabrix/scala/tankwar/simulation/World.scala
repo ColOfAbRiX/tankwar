@@ -32,13 +32,7 @@ class World private(
   /* Configuration */
 
   /** The walls of the arena */
-  //protected val arena = Canvas(WorldConfig.width.toDouble, WorldConfig.height.toDouble)
-  protected val arena = Seq(
-    (XYVect(0, -1), WorldConfig.height), // Top side
-    (XYVect(1, 0), 0.0), // Left side
-    (XYVect(0, 1), 0.0), // Bottom side
-    (XYVect(-1, 0), WorldConfig.width) // Right side
-  )
+  protected val arena = WorldConfig.Arena()
 
   /** The force field present on the arena, point by point */
   protected def forceField(position: Vect) = XYVect(0.0, -9.81)
@@ -48,12 +42,14 @@ class World private(
   /** List of tanks in the World */
   val tanks = _tanks match {
     case Some(ts) => ts
-    case None => initTankList()
-  }
 
-  /** Initialized the list of tanks */
-  protected def initTankList() = Seq.tabulate(WorldConfig.tankCount) { i =>
-    new Tank(velocity = XYVect(0.0, 20.0), initialExternalForce = forceField(Vect.zero))
+    case None => for( i <- 0 until WorldConfig.tankCount ) yield {
+      new Tank(
+        XYVect(20.0, 20.0),
+        XYVect(-5.0, 20.0),
+        initialExternalForce = forceField(Vect.zero)
+      )
+    }
   }
 
   /* State change */
@@ -70,9 +66,8 @@ class World private(
       return None
     }
 
-    val newTanks = tanks map { t =>
-      //t.step(forceField(t.position), Seq(), Seq())
-      t.test(arena, forceField(t.position))
+    val newTanks = for( t <- tanks ) yield {
+      t.step(arena, Seq(), forceField(t.position))
     }
 
     Some(new World(iteration + 1, Some(newTanks)))
