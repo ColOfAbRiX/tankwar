@@ -35,7 +35,7 @@
         <parameter value="-Ywarn-dead-code" />
       </parameters>
       <plugins>
-        <plugin path="C:\Users\Fabrizio\.ivy2\cache\org.brianmckenna\wartremover_2.11\jars\wartremover_2.11-0.14.jar" />
+        <plugin path="C:\Users\Freddie\.ivy2\cache\org.brianmckenna\wartremover_2.11\jars\wartremover_2.11-0.14.jar" />
       </plugins>
     </profile>
     <profile name="SBT 2" modules="root">

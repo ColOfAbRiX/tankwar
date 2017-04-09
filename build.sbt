@@ -100,15 +100,15 @@ javaOptions ++= Seq(
   "-server",
   "-Xverify:none",
   // Memory settings
-  "-XX:InitialHeapSize=1G",
-  "-XX:MaxHeapSize=1G",
-  "-XX:NewRatio=1",
-  "-XX:MetaspaceSize=32M",
-  "-XX:MaxMetaspaceSize=32M",
-  "-XX:SurvivorRatio=10",
-  "-XX:CompressedClassSpaceSize=16M",
-  "-XX:+UseCompressedOops",
-  "-XX:+UseCompressedClassPointers",
+  //"-XX:InitialHeapSize=1G",
+  //"-XX:MaxHeapSize=1G",
+  //"-XX:NewRatio=1",
+  //"-XX:MetaspaceSize=32M",
+  //"-XX:MaxMetaspaceSize=32M",
+  //"-XX:SurvivorRatio=10",
+  //"-XX:CompressedClassSpaceSize=16M",
+  //"-XX:+UseCompressedOops",
+  //"-XX:+UseCompressedClassPointers",
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}",
    "-Dfile.encoding=UTF-8"
@@ -168,6 +168,7 @@ SbtScalariform.scalariformSettings ++ Seq(
 
 // Code Quality
 
+/*
 wartremoverExcluded ++= (sourceDirectory.value ** "*old*" ** "*.scala").get
 wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.Any2StringAdd,
@@ -176,7 +177,7 @@ wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.IsInstanceOf,
   Wart.ListOps,
   //Wart.Nothing,
-  Wart.Null,
+  //Wart.Null,
   Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable
@@ -194,6 +195,7 @@ wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.TryPartial,
   Wart.Var
 )
+*/
 
 coverageMinimum := 75
 coverageFailOnMinimum := true

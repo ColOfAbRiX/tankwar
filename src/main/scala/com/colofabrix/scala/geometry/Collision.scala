@@ -20,9 +20,8 @@ import scalaz.{ -\/, \/, \/- }
 import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math._
 
-
 /** Information about a collision between objects  */
-case class Collision(normal: Vect, distance: Double)
+case class Collision( normal: Vect, distance: Double )
 
 object Collision {
 
@@ -30,43 +29,43 @@ object Collision {
     * Detects if two shapes collide
     * http://www.wildbunny.co.uk/blog/2011/04/20/collision-detection-for-dummies/#
     */
-  def collide(s1: Shape, s2: Shape): \/[Collision, Collision] = s1 match {
-    case c1: Circle => collide(c1, s2)
-    case b1: Box => collide(b1, s2)
-    case w1: Plane => collide(w1, s2)
+  def collide( s1: Shape, s2: Shape ): \/[Collision, Collision] = s1 match {
+    case c1: Circle ⇒ collide( c1, s2 )
+    case b1: Box ⇒ collide( b1, s2 )
+    case w1: Plane ⇒ collide( w1, s2 )
   }
 
   /** Detects if a Circle is colliding with another shape */
-  def collide(c1: Circle, s2: Shape): \/[Collision, Collision] = {
+  def collide( c1: Circle, s2: Shape ): \/[Collision, Collision] = {
     val collision = s2 match {
-      case c2: Circle =>
+      case c2: Circle ⇒
         val c2c = c1.center - c2.center
-        val d = c2c.ρ - (c1.radius + c2.radius)
+        val d = c2c.ρ - ( c1.radius + c2.radius )
 
-        Collision(c2c.v, d)
+        Collision( c2c.v, d )
 
-      case b2: Box =>
+      case b2: Box ⇒
         val c2c = b2.center - c1.center
         val b2c = XYVect(
-          Math.max(c2c.x, b2.width / 2.0),
-          Math.max(c2c.y, b2.height / 2.0)
+          Math.max( c2c.x, b2.width / 2.0 ),
+          Math.max( c2c.y, b2.height / 2.0 )
         )
         val d = b2c.ρ - c1.radius
 
-        Collision(b2c.n, d)
+        Collision( b2c.n, d )
 
-      case p2: Plane =>
-        val c2p = (c1.center ∙ p2.normal) + p2.distance
+      case p2: Plane ⇒
+        val c2p = ( c1.center ∙ p2.normal ) + p2.distance
         val d = c2p - c1.radius
 
-        Collision(p2.normal, d)
+        Collision( p2.normal, d )
     }
 
-    if( collision.distance ~<= 0.0 ) -\/(collision) else \/-(collision)
+    if ( collision.distance ~<= 0.0 ) -\/( collision ) else \/-( collision )
   }
 
   /** Detects if a Box is colliding with another shape */
-  def collide(b1: Box, s2: Shape): \/[Collision, Collision] = ??? /*s2 match {
+  def collide( b1: Box, s2: Shape ): \/[Collision, Collision] = ??? /*s2 match {
     case c2: Circle => collide(c2, b1)
 
     case b2: Box =>
@@ -77,9 +76,9 @@ object Collision {
   }*/
 
   /** Detects if a Plane is colliding with another shape */
-  def collide(p1: Plane, s2: Shape): \/[Collision, Collision] = s2 match {
-    case c2: Circle => collide(c2, p1)
-    case b2: Box => ???
-    case p2: Plane => ???
+  def collide( p1: Plane, s2: Shape ): \/[Collision, Collision] = s2 match {
+    case c2: Circle ⇒ collide( c2, p1 )
+    case b2: Box ⇒ ???
+    case p2: Plane ⇒ ???
   }
 }

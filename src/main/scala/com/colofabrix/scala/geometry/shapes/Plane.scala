@@ -23,20 +23,15 @@ import com.colofabrix.scala.math.Vect
   * Plane shape
   */
 case class Plane(
-  normal: Vect,
-  distance: Double
+    normal: Vect,
+    distance: Double
 ) extends Shape {
 
-  lazy
-  override
-  val area: Double = 0.0
+  lazy override val area: Double = 0.0
 
-  override
-  def moveOf(where: Vect): Plane = ???
+  override def moveOf( where: Vect ): Plane = ???
 
-  override
-  def moveTo(where: Vect): Plane = ???
+  override def moveTo( where: Vect ): Plane = ???
 
-  override
-  def toString = s"Plane((${normal.x }, ${normal.y }) / $distance)"
+  override def toString = s"Plane((${normal.x}, ${normal.y}) / $distance)"
 }

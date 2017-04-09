@@ -24,34 +24,31 @@ object VectUtils {
   /**
     * Enrichment for numeric types against Vect
     */
-  implicit
-  class Support[T: Numeric](number: T) {
-    private
-    val num = implicitly[Numeric[T]].toDouble(number)
+  implicit class Support[T: Numeric]( number: T ) {
+    private val num = implicitly[Numeric[T]].toDouble( number )
 
     /** Allows "num * vect" and "vect * num" forms */
-    def *(v: Vect): Vect = v * num
+    def *( v: Vect ): Vect = v * num
   }
 
   /**
     * Enrichment for Vect to make some Physical calculations easier
     */
-  implicit
-  class VectUtils[T <: Vect](vector: T) {
+  implicit class VectUtils[T <: Vect]( vector: T ) {
     /** Cartesian coordinates as a list */
-    def xy = Seq(vector.x, vector.y)
+    def xy = Seq( vector.x, vector.y )
 
     /** Polar coordinates as a list */
-    def rt = Seq(vector.ρ, vector.ϑ)
+    def rt = Seq( vector.ρ, vector.ϑ )
 
     /** Mapping of one cartesian component at the time */
-    def comp(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
+    def comp( f: Double ⇒ Double ): Vect = XYVect( f( vector.x ), f( vector.y ) )
 
     /** Mapping of one cartesian component at the time */
-    def comp(f: (Double, Int) => Double): Vect = XYVect(f(vector.x, 0), f(vector.y, 1))
+    def comp( f: ( Double, Int ) ⇒ Double ): Vect = XYVect( f( vector.x, 0 ), f( vector.y, 1 ) )
 
     /** Multiplies each component of a vector with the corresponding component of the other vector */
-    def **(v: Vect): Vect = XYVect(vector.x * v.x, vector.y * v.y)
+    def **( v: Vect ): Vect = XYVect( vector.x * v.x, vector.y * v.y )
   }
 
 }

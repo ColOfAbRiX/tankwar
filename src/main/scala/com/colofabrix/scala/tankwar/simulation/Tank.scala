@@ -20,14 +20,13 @@ import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.physix.{ RigidBody, VerletPhysix }
-import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Tanks ⇒ TanksConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * A Tank that plays in the game
   */
-final
-class Tank(
+final class Tank(
 
   initialPosition: Vect = Vect.zero,
   initialVelocity: Vect = Vect.zero,
@@ -46,29 +45,26 @@ class Tank(
 
 ) with LazyLogging {
 
-  logger.info(s"Initialzed($id): " + summary)
+  logger.info( s"Initialzed($id): " + summary )
 
-  override
-  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
-    val newTank = super.step(walls, bodies, extForces).asInstanceOf[Tank]
+  override def step( walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect ): Tank = {
+    val newTank = super.step( walls, bodies, extForces ) match {
+      case t: Tank ⇒ t
+      case _ ⇒ throw new IllegalArgumentException()
+    }
 
-    logger.info(s"Step($id): " + newTank.summary)
+    logger.info( s"Step($id): " + newTank.summary )
 
     return newTank
   }
 
-  override
-  def internalForce = Vect.zero
+  override def internalForce = Vect.zero
 
-  override
-  def torque = 0.0
+  override def torque = 0.0
 
-  override
-  def shape = Circle(this.position, 10.0)
+  override def shape = Circle( this.position, 10.0 )
 
-  override
-  val friction = 0.0
+  override val friction = 0.0
 
-  override
-  val elasticity = 1.0
+  override val elasticity = 1.0
 }

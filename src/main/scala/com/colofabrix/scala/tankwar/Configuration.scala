@@ -27,14 +27,14 @@ import com.typesafe.config.ConfigFactory
   */
 object Configuration {
 
-  private val conf = IO(ConfigFactory.load).unsafePerformIO()
+  private val conf = IO( ConfigFactory.load ).unsafePerformIO()
 
   object World {
     /** Number of tanks in the World */
-    def tankCount: Int = conf.getInt("world.tank_count")
+    def tankCount: Int = conf.getInt( "world.tank_count" )
 
     /** Number of steps the World will run for */
-    def rounds: Int = conf.getInt("world.rounds")
+    def rounds: Int = conf.getInt( "world.rounds" )
 
     /**
       * Builder of the arena
@@ -42,23 +42,23 @@ object Configuration {
     object Arena {
 
       /** Width of the arena */
-      def width: Double = conf.getDouble("world.arena_width")
+      def width: Double = conf.getDouble( "world.arena_width" )
 
       /** Height of the arena */
-      def height: Double = conf.getDouble("world.arena_height")
+      def height: Double = conf.getDouble( "world.arena_height" )
 
       def apply(): Seq[Shape] = Seq(
         // Top side
-        Plane(XYVect(0, -1), height),
+        Plane( XYVect( 0, -1 ), height ),
 
         // Left side
-        Plane(XYVect(1, 0), 0.0),
+        Plane( XYVect( 1, 0 ), 0.0 ),
 
         // Bottom side
-        Plane(XYVect(0, 1), 0.0),
+        Plane( XYVect( 0, 1 ), 0.0 ),
 
         // Right side
-        Plane(XYVect(-1, 0), height)
+        Plane( XYVect( -1, 0 ), height )
       )
 
     }
@@ -67,12 +67,12 @@ object Configuration {
 
   object Simulation {
     /** dt (time step) for every World step */
-    def timeStep: Double = conf.getDouble("simulation.time_step")
+    def timeStep: Double = conf.getDouble( "simulation.time_step" )
   }
 
   object Tanks {
     /** Default mass of a tank */
-    def defaultMass: Double = conf.getDouble("tanks.default_mass")
+    def defaultMass: Double = conf.getDouble( "tanks.default_mass" )
   }
 
 }

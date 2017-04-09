@@ -34,11 +34,11 @@ trait Shape {
     * there is a collision, the right disjunction if there is no
     * collision.
     */
-  def collision(s: Shape): \/[Collision, Collision] = Collision.collide(this, s)
+  def collision( s: Shape ): \/[Collision, Collision] = Collision.collide( this, s )
 
   /** Moves a shape of the given vector. */
-  def moveOf(v: Vect): Shape
+  def moveOf( v: Vect ): Shape
 
   /** Moves a shape to the given position. */
-  def moveTo(v: Vect): Shape
+  def moveTo( v: Vect ): Shape
 }

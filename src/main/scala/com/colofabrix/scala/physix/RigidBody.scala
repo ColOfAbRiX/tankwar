@@ -34,14 +34,13 @@ trait RigidBody {
 
   /** A unique identifier for the object */
   val id: String = {
-    val className = getClass.toString.replace("class ", "").replaceFirst("(\\w+\\.)*", "")
-    val uuid = java.util.UUID.randomUUID().toString.substring(0, 6)
+    val className = getClass.toString.replace( "class ", "" ).replaceFirst( "(\\w+\\.)*", "" )
+    val uuid = java.util.UUID.randomUUID().toString.substring( 0, 6 )
     s"$className@$uuid"
   }
 
   /** Identifier of the instance. */
-  override
-  def toString: String = this.id
+  override def toString: String = this.id
 
   /** Summary of the state of the object */
   def summary = s"Pos=$position, Vel=$velocity, Ang=$angle, AngSped=$angularSpeed"
@@ -79,5 +78,5 @@ trait RigidBody {
   /* Actions */
 
   /** Calculates the RigidBody for the next step */
-  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): RigidBody
+  def step( walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero ): RigidBody
 }
