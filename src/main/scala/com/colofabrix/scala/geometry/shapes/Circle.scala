@@ -27,13 +27,13 @@ case class Circle(
     radius: Double
 ) extends Shape {
 
-  require( radius ~> 0.0, "The circle must have a non-zero radius." )
+  require(radius ~> 0.0, "The circle must have a non-zero radius.")
 
-  lazy override val area: Double = Math.PI * Math.pow( radius, 2.0 )
+  lazy override val area: Double = Math.PI * Math.pow(radius, 2.0)
 
-  override def moveOf( where: Vect ): Circle = new Circle( center + where, radius )
+  override def moveOf(where: Vect): Circle = new Circle(center + where, radius)
 
-  override def moveTo( where: Vect ): Circle = new Circle( where, radius )
+  override def moveTo(where: Vect): Circle = new Circle(where, radius)
 
   override def toString = s"Circle(c=$center, r=$radius)"
 

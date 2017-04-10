@@ -14,31 +14,24 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry
+package com.colofabrix.scala.geometry.shapes
 
-import scalaz.\/
+import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.Vect
 
 /**
-  * Represents a geometric closed shape on a geometric space
+  * Plane shape
   */
-trait Shape {
+case class Line(
+    normal: Vect,
+    distance: Double
+) extends Shape {
 
-  /** The surface area of the Shape */
-  def area: Double
+  lazy override val area: Double = 0.0
 
-  /**
-    * Returns collision information if two Shapes collide.
-    *
-    * The left disjunction contains the collision information if
-    * there is a collision, the right disjunction if there is no
-    * collision.
-    */
-  def collision(s: Shape): \/[Collision, Collision] = Collision.collide(this, s)
+  override def moveOf(where: Vect): Line = ???
 
-  /** Moves a shape of the given vector. */
-  def moveOf(v: Vect): Shape
+  override def moveTo(where: Vect): Line = ???
 
-  /** Moves a shape to the given position. */
-  def moveTo(v: Vect): Shape
+  override def toString = s"Plane((${normal.x}, ${normal.y}) / $distance)"
 }

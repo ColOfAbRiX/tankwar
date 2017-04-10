@@ -43,32 +43,32 @@ abstract class VerletPhysix(
 
   private var _lastVelocity: Vect = Vect.zero
 
-  override def step( walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero ): VerletPhysix = {
+  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): VerletPhysix = {
     this._lastVelocity = this.velocity
 
-    val acc = ( this.internalForce + extForces ) comp ( _ / this.mass )
+    val acc = (this.internalForce + extForces) comp (_ / this.mass)
     this._velocity += acc * SimConfig.timeStep
 
     val checkShape = this.shape.moveOf(
-      0.5 * ( this.lastVelocity + this.velocity ) * SimConfig.timeStep
+      0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
     )
 
-    for ( w ← walls ) {
+    for (w ← walls) {
 
-      w.collision( checkShape ) match {
-        case -\/( Collision( n, d ) ) ⇒
+      w.collision(checkShape) match {
+        case -\/(Collision(n, d)) ⇒
           val v = this.velocity ∙ n
-          if ( ( d ~< 0.0 ) && ( v ~< 0.0 ) ) {
+          if ((d ~< 0.0) && (v ~< 0.0)) {
             this._velocity -= 2.0 * v * n
-            logger.info( s"Collision detected with $w and Tank position $checkShape. New velocity: $velocity" )
+            logger.info(s"Collision detected with $w and Tank position $checkShape. New velocity: $velocity")
           }
 
-        case \/-( Collision( n, d ) ) ⇒
+        case \/-(Collision(n, d)) ⇒
       }
 
     }
 
-    this._position += 0.5 * ( this.lastVelocity + this.velocity ) * SimConfig.timeStep
+    this._position += 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
     return this
   }
 

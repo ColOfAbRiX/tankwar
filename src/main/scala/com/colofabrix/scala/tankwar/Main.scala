@@ -17,6 +17,7 @@
 package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
+import com.colofabrix.scala.gfx.opengl._
 import com.colofabrix.scala.tankwar.simulation.World
 
 /**
@@ -24,14 +25,26 @@ import com.colofabrix.scala.tankwar.simulation.World
   */
 object Main {
 
-  def main( args: Array[String] ): Unit = {
+  def main(args: Array[String]): Unit = {
+    val renderState: Frame = OpenGL.init(1000, 800, "Tankwar V2")
+
     @tailrec
-    def run( w: Option[World] ): Unit = w match {
-      case Some( x ) ⇒ run( x.step() )
+    def run(w: Option[World]): Unit = w match {
+      case Some(x) ⇒
+        OpenGL.applyContext(renderState) {
+          for (t ← x.tanks) {
+            Drawers.drawCircle(t.shape)
+          }
+        }
+        val delta = Sync.sync(20).run(Sync.init())._2
+        OpenGL.clearUp()
+
+        run(x.step())
+
       case _ ⇒
     }
 
-    run( Some( World() ) )
+    run(Some(World()))
   }
 
 }

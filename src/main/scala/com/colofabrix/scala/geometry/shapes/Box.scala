@@ -30,17 +30,17 @@ class Box protected (
   /** The vertices of the Box */
   val vertices = Seq(
     bottomLeft,
-    XYVect( bottomLeft.x, topRight.y ),
+    XYVect(bottomLeft.x, topRight.y),
     topRight,
-    XYVect( topRight.x, bottomLeft.y )
+    XYVect(topRight.x, bottomLeft.y)
   )
 
   /** Edges of the Box, built from the vertices. Edges are {Vect} from one vertex to its adjacent one */
-  val edges: Seq[( Vect, Vect )] = Seq(
-    ( vertices( 0 ), vertices( 1 ) ),
-    ( vertices( 1 ), vertices( 2 ) ),
-    ( vertices( 2 ), vertices( 3 ) ),
-    ( vertices( 3 ), vertices( 0 ) )
+  val edges: Seq[(Vect, Vect)] = Seq(
+    (vertices(0), vertices(1)),
+    (vertices(1), vertices(2)),
+    (vertices(2), vertices(3)),
+    (vertices(3), vertices(0))
   )
 
   /** Height of the rectangle */
@@ -49,25 +49,25 @@ class Box protected (
   /** Width of the rectangle */
   val width = topRight.x - bottomLeft.x
 
-  require( width > 0.0, "Box width must be positive." )
-  require( width > 0.0, "Box height must be positive." )
+  require(width > 0.0, "Box width must be positive.")
+  require(width > 0.0, "Box height must be positive.")
 
   override val area = width * height
 
   /** Center of the Box */
-  val center = bottomLeft + XYVect( width / 2.0, height / 2.0 )
+  val center = bottomLeft + XYVect(width / 2.0, height / 2.0)
 
   /** The vertex that is closest to the origin of the axes. */
-  lazy val origin = vertices.minBy( _.ρ )
+  lazy val origin = vertices.minBy(_.ρ)
 
   /** The vertex that is farthest to the origin of the axes. */
-  lazy val opposite = vertices.maxBy( _.ρ )
+  lazy val opposite = vertices.maxBy(_.ρ)
 
   /** Rectangle top-left-most point, in any quadrant of the plane */
-  val topLeft = XYVect( bottomLeft.x, topRight.y )
+  val topLeft = XYVect(bottomLeft.x, topRight.y)
 
   /** Rectangle bottom-right-most point, in any quadrant of the plane */
-  val bottomRight = XYVect( topRight.x, bottomLeft.y )
+  val bottomRight = XYVect(topRight.x, bottomLeft.y)
 
   /** Rectangle top-most Y */
   val top = topRight.y
@@ -81,42 +81,42 @@ class Box protected (
   /** Rectangle right-most X */
   val right = topRight.x
 
-  override def moveOf( where: Vect ): Box = Box( bottomLeft + where, topRight + where )
+  override def moveOf(where: Vect): Box = Box(bottomLeft + where, topRight + where)
 
-  override def moveTo( where: Vect ): Box = Box( where, width, height )
+  override def moveTo(where: Vect): Box = Box(where, width, height)
 
   override def toString = s"Box($bottomLeft -> $topRight)"
 
-  override def equals( other: Any ): Boolean = other match {
+  override def equals(other: Any): Boolean = other match {
     case that: Box ⇒
       bottomLeft == that.bottomLeft && topRight == that.topRight
     case _ ⇒ false
   }
 
-  override def hashCode(): Int = vertices.map( _.hashCode() ).foldLeft( 0 )( ( a, b ) ⇒ 31 * a + b )
+  override def hashCode(): Int = vertices.map(_.hashCode()).foldLeft(0)((a, b) ⇒ 31 * a + b)
 }
 
 object Box {
 
   /** Constructor that uses width, height and centers the Box at a specific point */
-  def apply( center: Vect, width: Double, height: Double ): Box = {
+  def apply(center: Vect, width: Double, height: Double): Box = {
     Box(
-      XYVect( center.x - width / 2.0, center.y - height / 2.0 ),
-      XYVect( center.x + width / 2.0, center.y + height / 2.0 )
+      XYVect(center.x - width / 2.0, center.y - height / 2.0),
+      XYVect(center.x + width / 2.0, center.y + height / 2.0)
     )
   }
 
   /** Constructor that uses width, height and starts the box at the origin of the axis. */
-  def apply( width: Double, height: Double ): Box = Box( Vect.zero, XYVect( width, height ) )
+  def apply(width: Double, height: Double): Box = Box(Vect.zero, XYVect(width, height))
 
   /** Creates a new Box using any two opposite vertices */
-  def apply( p0: Vect, p1: Vect ): Box = {
-    val topX = Math.max( p0.x, p1.x )
-    val topY = Math.max( p0.y, p1.y )
+  def apply(p0: Vect, p1: Vect): Box = {
+    val topX = Math.max(p0.x, p1.x)
+    val topY = Math.max(p0.y, p1.y)
 
-    val bottomX = Math.min( p0.x, p1.x )
-    val bottomY = Math.min( p0.y, p1.y )
+    val bottomX = Math.min(p0.x, p1.x)
+    val bottomY = Math.min(p0.y, p1.y)
 
-    return new Box( XYVect( bottomX, bottomY ), XYVect( topX, topY ) )
+    return new Box(XYVect(bottomX, bottomY), XYVect(topX, topY))
   }
 }

@@ -16,20 +16,16 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
-import com.colofabrix.scala.gfx.{ OpenGl, Sync }
-import com.colofabrix.scala.gfx.OpenGl.GlobalFrame
 import com.colofabrix.scala.math._
 import com.colofabrix.scala.tankwar.Configuration.{ World ⇒ WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
-import org.lwjgl.opengl.Display
 
 /**
   * The world where the simulation takes place.
   */
 class World private (
     val iteration: Int,
-    _tanks: Option[Seq[Tank]],
-    _gfx: Option[GlobalFrame]
+    _tanks: Option[Seq[Tank]]
 ) extends LazyLogging {
 
   /* Configuration */
@@ -38,26 +34,19 @@ class World private (
   protected val arena = WorldConfig.Arena()
 
   /** The force field present on the arena, point by point */
-  protected def forceField( position: Vect ) = XYVect( Math.pow( position.x / 10, 2.0 ), -9.81 )
-
-  val renderState: GlobalFrame = _gfx match {
-    case None ⇒ OpenGl.initOpenGl( 1000, 800, "Tankwar V.2" )
-    case Some( gfx ) ⇒ gfx
-  }
-
-  val stepSync: Sync[Unit, Option[World]] = new Sync( 60, step _ )
+  protected def forceField(position: Vect) = XYVect(0.0, -9.81)
 
   /* State */
 
   /** List of tanks in the World */
   val tanks = _tanks match {
-    case Some( ts ) ⇒ ts
+    case Some(ts) ⇒ ts
 
-    case None ⇒ for ( i ← 0 until WorldConfig.tankCount ) yield {
+    case None ⇒ for (i ← 0 until WorldConfig.tankCount) yield {
       new Tank(
-        XYVect( 20.0, 20.0 ),
-        XYVect( -5.0, 20.0 ),
-        initialExternalForce = forceField( Vect.zero )
+        XYVect(20.0, 20.0),
+        XYVect(-5.0, 20.0),
+        initialExternalForce = forceField(Vect.zero)
       )
     }
   }
@@ -65,39 +54,25 @@ class World private (
   /* State change */
 
   /** Resets the world to the initial state */
-  def reset(): World = new World( 0, None, Some( GlobalFrame() ) )
+  def reset(): World = new World(0, None)
 
   /** Advances the world of one step until the last allowed iteration */
   def step(): Option[World] = {
-    logger.info( "Running step" )
-    stepSync.call().getOrElse( Some( this ) )
-  }
+    logger.info(s"World iteration #$iteration.")
 
-  def stepActions(): Option[World] = {
-    logger.info( s"World iteration #$iteration." )
-
-    if ( iteration >= WorldConfig.rounds ) {
-      logger.warn( s"Reached max iteration number of ${WorldConfig.rounds}." )
+    if (iteration >= WorldConfig.rounds) {
+      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds}.")
       return None
     }
 
-    val newTanks = for ( t ← tanks ) yield {
-      t.step( arena, Seq(), forceField( t.position ) )
+    val newTanks = for (t ← tanks) yield {
+      t.step(arena, Seq(), forceField(t.position))
     }
 
-    OpenGl.applyContext( renderState ) {
-      for ( t ← tanks ) {
-        OpenGl.drawCircle( t.shape )
-      }
-    }
-
-    OpenGl.frameClearUp()
-
-    Some( new World( iteration + 1, Some( newTanks ), Some( renderState ) ) )
+    Some(new World(iteration + 1, Some(newTanks)))
   }
-
 }
 
 object World {
-  def apply() = new World( 0, None, None )
+  def apply() = new World(0, None)
 }

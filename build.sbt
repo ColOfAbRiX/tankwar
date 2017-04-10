@@ -100,15 +100,15 @@ javaOptions ++= Seq(
   "-server",
   "-Xverify:none",
   // Memory settings
-  //"-XX:InitialHeapSize=1G",
-  //"-XX:MaxHeapSize=1G",
-  //"-XX:NewRatio=1",
-  //"-XX:MetaspaceSize=32M",
-  //"-XX:MaxMetaspaceSize=32M",
-  //"-XX:SurvivorRatio=10",
-  //"-XX:CompressedClassSpaceSize=16M",
-  //"-XX:+UseCompressedOops",
-  //"-XX:+UseCompressedClassPointers",
+  "-XX:InitialHeapSize=512M",
+  "-XX:MaxHeapSize=512M",
+  "-XX:NewRatio=1",
+  "-XX:MetaspaceSize=16M",
+  "-XX:MaxMetaspaceSize=16M",
+  "-XX:SurvivorRatio=10",
+  "-XX:CompressedClassSpaceSize=8M",
+  "-XX:+UseCompressedOops",
+  "-XX:+UseCompressedClassPointers",
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}",
    "-Dfile.encoding=UTF-8"
@@ -156,10 +156,7 @@ scalastyleConfig := file( s"${sourceDirectory.value}/main/resources/scalastyle-c
 
 SbtScalariform.scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
-    .setPreference(RewriteArrowSymbols, true)
     .setPreference(DoubleIndentClassDeclaration, true)
-    .setPreference(SpaceInsideParentheses, true)
-    .setPreference(SpacesWithinPatternBinders, true)
     .setPreference(SpacesAroundMultiImports, true)
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(CompactControlReadability, true)
@@ -168,7 +165,6 @@ SbtScalariform.scalariformSettings ++ Seq(
 
 // Code Quality
 
-/*
 wartremoverExcluded ++= (sourceDirectory.value ** "*old*" ** "*.scala").get
 wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.Any2StringAdd,
@@ -177,7 +173,7 @@ wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.IsInstanceOf,
   Wart.ListOps,
   //Wart.Nothing,
-  //Wart.Null,
+  Wart.Null,
   Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable
@@ -192,10 +188,9 @@ wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.Option2Iterable,
   Wart.Serializable,
   Wart.ToString,
-  Wart.TryPartial,
-  Wart.Var
+  Wart.TryPartial
+  //Wart.Var
 )
-*/
 
 coverageMinimum := 75
 coverageFailOnMinimum := true

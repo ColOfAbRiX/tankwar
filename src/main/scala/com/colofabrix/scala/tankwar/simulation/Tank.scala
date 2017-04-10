@@ -20,7 +20,7 @@ import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.physix.{ RigidBody, VerletPhysix }
-import com.colofabrix.scala.tankwar.Configuration.{ Tanks ⇒ TanksConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -45,15 +45,12 @@ final class Tank(
 
 ) with LazyLogging {
 
-  logger.info( s"Initialzed($id): " + summary )
+  logger.info(s"Initialzed($id): " + summary)
 
-  override def step( walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect ): Tank = {
-    val newTank = super.step( walls, bodies, extForces ) match {
-      case t: Tank ⇒ t
-      case _ ⇒ throw new IllegalArgumentException()
-    }
+  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
+    val newTank = super.step(walls, bodies, extForces) match { case t: Tank => t }
 
-    logger.info( s"Step($id): " + newTank.summary )
+    logger.info(s"Step($id): " + newTank.summary)
 
     return newTank
   }
@@ -62,7 +59,7 @@ final class Tank(
 
   override def torque = 0.0
 
-  override def shape = Circle( this.position, 10.0 )
+  override def shape = Circle(this.position, 10.0)
 
   override val friction = 0.0
 

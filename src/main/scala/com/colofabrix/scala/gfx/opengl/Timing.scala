@@ -14,24 +14,31 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.gfx.opengl
 
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.math.Vect
+import scalaz.State
+import org.lwjgl.Sys
+import org.lwjgl.opengl.Display
+
+sealed case class SyncState(last: Double)
 
 /**
-  * Plane shape
+  * OpenGL timing
   */
-case class Plane(
-    normal: Vect,
-    distance: Double
-) extends Shape {
+object Sync {
+  /** Get the time in milliseconds */
+  def time(): Double = (Sys.getTime * 1000 / Sys.getTimerResolution).toDouble
 
-  lazy override val area: Double = 0.0
+  /** Initial state */
+  def init() = SyncState(time())
 
-  override def moveOf( where: Vect ): Plane = ???
+  /** Synchronizes the FPS to the specified rate and returns the delta time */
+  def sync(fps: Int): State[SyncState, Double] = State { s ⇒
+    Display.sync(fps)
 
-  override def moveTo( where: Vect ): Plane = ???
+    val now = time()
+    val delta = now - s.last
 
-  override def toString = s"Plane((${normal.x}, ${normal.y}) / $distance)"
+    (SyncState(now), delta)
+  }
 }
