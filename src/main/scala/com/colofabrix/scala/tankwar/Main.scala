@@ -17,34 +17,38 @@
 package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
+import com.colofabrix.scala.gfx.opengl.OpenGL._
 import com.colofabrix.scala.gfx.opengl._
 import com.colofabrix.scala.tankwar.simulation.World
+import org.lwjgl.opengl.Display
+import org.lwjgl.opengl.GL11._
 
 /**
   *
   */
 object Main {
 
-  def main(args: Array[String]): Unit = {
-    val renderState: Frame = OpenGL.init(1000, 800, "Tankwar V2")
+  @tailrec
+  def run(ow: Option[World]): Unit = ow match {
+    case Some(w) => if( !Display.isCloseRequested ) {
+      OpenGL.clear()
 
-    @tailrec
-    def run(w: Option[World]): Unit = w match {
-      case Some(x) ⇒
-        OpenGL.applyContext(renderState) {
-          for (t ← x.tanks) {
-            Drawers.drawCircle(t.shape)
-          }
-        }
-        val delta = Sync.sync(20).run(Sync.init())._2
-        OpenGL.clearUp()
+      for( t <- w.tanks ) {
+        Drawers.drawCircle(t.shape)
+      }
 
-        run(x.step())
+      OpenGL.update()
+      Sync.sync(30).run(Sync.init())._2
 
-      case _ ⇒
+      run(w.step())
     }
 
-    run(Some(World()))
+    case _ =>
   }
 
+  def main(args: Array[String]): Unit = {
+    OpenGL.init(800, 600)
+    run(Some(World()))
+    OpenGL.destroy()
+  }
 }

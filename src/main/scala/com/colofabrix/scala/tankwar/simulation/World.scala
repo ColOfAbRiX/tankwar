@@ -16,8 +16,9 @@
 
 package com.colofabrix.scala.tankwar.simulation
 
+import scala.util.Random
 import com.colofabrix.scala.math._
-import com.colofabrix.scala.tankwar.Configuration.{ World ⇒ WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -34,7 +35,9 @@ class World private (
   protected val arena = WorldConfig.Arena()
 
   /** The force field present on the arena, point by point */
-  protected def forceField(position: Vect) = XYVect(0.0, -9.81)
+  protected def forceField(position: Vect) = XYVect(-(position.x - 400) / 20.0 * Random.nextDouble(), -9.81 +
+    Random
+    .nextDouble())
 
   /* State */
 
@@ -44,8 +47,8 @@ class World private (
 
     case None ⇒ for (i ← 0 until WorldConfig.tankCount) yield {
       new Tank(
-        XYVect(20.0, 20.0),
-        XYVect(-5.0, 20.0),
+        XYVect(100.0 + Random.nextDouble() * 100.0, 20.0 + Random.nextDouble() * 100.0),
+        XYVect(-10.0 + Random.nextDouble() * 10.0,  75.0 + Random.nextDouble() * 10.0),
         initialExternalForce = forceField(Vect.zero)
       )
     }

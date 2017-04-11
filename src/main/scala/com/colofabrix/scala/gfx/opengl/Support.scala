@@ -52,8 +52,21 @@ object Colour {
   * colour of its brush
   */
 case class Frame(
-  colour: Option[Colour] = None,
-  position: Option[Vect] = None,
-  rotation: Option[Vect] = None,
-  scale: Option[Double] = Some(1.0)
+  colour: Option[Colour],
+  position: Option[Vect],
+  rotation: Option[Vect],
+  scale: Option[Double]
 )
+
+object Frame {
+  def apply(
+    colour: Colour = null,
+    position: Vect = null,
+    rotation: Vect = null
+  ): Frame = Frame(
+    Option(colour),
+    Option(position),
+    Option(rotation),
+    Some(1.0)
+  )
+}

@@ -20,12 +20,12 @@ import scalaz.State
 import org.lwjgl.Sys
 import org.lwjgl.opengl.Display
 
-sealed case class SyncState(last: Double)
-
 /**
-  * OpenGL timing
+  * OpenGL timing and synchronization
   */
 object Sync {
+  sealed case class SyncState(last: Double)
+
   /** Get the time in milliseconds */
   def time(): Double = (Sys.getTime * 1000 / Sys.getTimerResolution).toDouble
 

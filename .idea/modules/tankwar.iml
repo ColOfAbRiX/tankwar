@@ -66,5 +66,15 @@
     <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.11.8:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.21:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scalaz:scalaz-core_2.11:7.2.10:jar" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES />
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../lib" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
