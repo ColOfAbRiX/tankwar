@@ -16,8 +16,9 @@
 
 <configuration>
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- Format reference: https://logback.qos.ch/manual/layouts.html -->
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} - %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -31,7 +32,7 @@
   </appender>
   -->
 
-  <logger name="com.colofabrix.scala" level="trace">
+  <logger name="com.colofabrix.scala" level="info">
     <appender-ref ref="STDOUT"/>
   </logger>
 </configuration>

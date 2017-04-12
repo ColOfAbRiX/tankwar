@@ -49,15 +49,16 @@ object OpenGL {
   }
 
   /** Terminates OpenGL */
-  def destroy() = {
+  def destroy(): Unit = {
     Display.destroy()
   }
 
-  def update() = {
+  /** Updates a display */
+  def update(): Unit = {
     Display.update()
   }
 
-    /** Initialize a drawing action */
+  /** Initialize a drawing action */
   def draw(mode: Int)(actions: => Unit): Unit = {
     glBegin(mode)
     actions
@@ -69,25 +70,25 @@ object OpenGL {
     val colourBuffer = BufferUtils.createFloatBuffer(16)
 
     // Save the current settings (only if needed)
-    if( frame.colour.isDefined )
+    if (frame.colour.isDefined)
       glGetFloat(GL_CURRENT_COLOR, colourBuffer)
-    if( frame.position.isDefined || frame.rotation.isDefined )
+    if (frame.position.isDefined || frame.rotation.isDefined)
       glPushMatrix()
 
     // Set position, rotation and colour
-    for( p <- frame.position )
+    for (p <- frame.position)
       glTranslated(p.x, p.y, 0.0)
-    for( r <- frame.rotation )
+    for (r <- frame.rotation)
       glRotated(r.ϑ * DEG2RAD, 0, 0, 1)
-    for( c <- frame.colour )
+    for (c <- frame.colour)
       glColor3d(c.r, c.g, c.b)
 
     actions
 
     // Restore the previous settings
-    if( frame.position.isDefined || frame.rotation.isDefined )
+    if (frame.position.isDefined || frame.rotation.isDefined)
       glPopMatrix()
-    if( frame.colour.isDefined )
+    if (frame.colour.isDefined)
       glColor3d(
         colourBuffer.get(0).toDouble,
         colourBuffer.get(1).toDouble,

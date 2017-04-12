@@ -19,7 +19,7 @@ package com.colofabrix.scala.physix
 import scalaz.{ -\/, \/- }
 import com.colofabrix.scala.geometry.{ Collision, Shape }
 import com.colofabrix.scala.math._
-import com.colofabrix.scala.tankwar.Configuration.{ Simulation ⇒ SimConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -60,10 +60,12 @@ abstract class VerletPhysix(
           val v = this.velocity ∙ n
           if ((d ~< 0.0) && (v ~< 0.0)) {
             this._velocity -= 2.0 * v * n
-            logger.info(s"Collision detected with $w and Tank position $checkShape. New velocity: $velocity")
+
+            logger.info(s"Tank[${this.id}] - Collision with $w at position ${this.position} and distance ${d * n}.")
+            logger.info(s"Tank[${this.id}] - Velocity reflected: ${this._lastVelocity} -> ${this.velocity}.")
           }
 
-        case \/-(Collision(n, d)) ⇒
+        case \/-(_) ⇒
       }
 
     }

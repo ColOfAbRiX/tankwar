@@ -18,7 +18,6 @@ package com.colofabrix.scala.gfx.opengl
 
 import java.awt.Font
 import scala.collection.immutable.HashMap
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle }
 import com.colofabrix.scala.gfx.opengl.OpenGL._
 import com.colofabrix.scala.math.Vect
 import org.lwjgl.BufferUtils
@@ -31,7 +30,7 @@ object Drawers {
 
   /** Get a TrueTypeFont from a cache */
   private def getTTFont(awtFont: Font): TrueTypeFont = {
-    if( !fontMap.contains(awtFont.hashCode) ) {
+    if (!fontMap.contains(awtFont.hashCode)) {
       val ttfont = new TrueTypeFont(awtFont, false)
       fontMap = fontMap + (awtFont.hashCode → ttfont)
       return ttfont
@@ -45,26 +44,32 @@ object Drawers {
     glVertex2d(vertex.x, vertex.y)
   }
 
-  def drawCircle(circle: Circle, filled: Boolean = false, precision: Double = 0.1): Unit = {
-    apply(Frame(position = circle.center)) {
+  /** Draw a Box */
+  def drawPolygon(vertices: Seq[Vect], filled: Boolean = false): Unit = {
+    val mode = if (filled) GL_POLYGON
+    else GL_QUADS
+    draw(mode) {
+      for (v <- vertices) { glVertex2d(v.x, v.y) }
+    }
+  }
 
-      val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
-      draw(mode) {
+  def drawCircle(center: Vect, radius: Double, filled: Boolean = false, precision: Double = 0.1): Unit = {
+    val mode = if (filled) GL_TRIANGLE_FAN
+    else GL_LINE_LOOP
+    draw(mode) {
 
-        for( angle ← 0d to (2d * Math.PI) by precision ) {
-          glVertex2d(
-            Math.sin(angle) * circle.radius,
-            Math.cos(angle) * circle.radius
-          )
-        }
-
+      for (angle ← 0d to (2d * Math.PI) by precision) {
+        glVertex2d(
+          Math.sin(angle) * radius + center.x,
+          Math.cos(angle) * radius + center.y
+        )
       }
 
     }
   }
 
   /** Draw some text on the screen. */
-  def drawText(text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame()) = {
+  def drawText(text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame()): Unit = {
     val font = getTTFont(awtFont)
 
     // Slick fonts don't work like OpenGL. I retrieve the current colour from the OpenGL
@@ -82,20 +87,10 @@ object Drawers {
     // Draw all the lines of text
     draw(GL_QUADS) {
       apply(frame) {
-        for( (t, i) ← text.zipWithIndex ) {
+        for ((t, i) ← text.zipWithIndex) {
           font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
         }
       }
-    }
-  }
-
-  /** Draw a Box */
-  def drawBox(box: Box) = {
-    draw(GL_QUADS) {
-      glVertex2d(0, 0)
-      glVertex2d(box.width, 0)
-      glVertex2d(box.width, box.height)
-      glVertex2d(0, box.height)
     }
   }
 }

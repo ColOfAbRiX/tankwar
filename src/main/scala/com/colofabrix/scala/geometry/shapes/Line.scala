@@ -33,5 +33,5 @@ case class Line(
 
   override def moveTo(where: Vect): Line = ???
 
-  override def toString = s"Plane((${normal.x}, ${normal.y}) / $distance)"
+  override def toString = s"Line((${normal.x}, ${normal.y}) / $distance)"
 }

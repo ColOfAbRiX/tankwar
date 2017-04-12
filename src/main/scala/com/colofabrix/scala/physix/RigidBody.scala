@@ -34,8 +34,15 @@ trait RigidBody {
 
   /** A unique identifier for the object */
   val id: String = {
-    val className = getClass.toString.replace("class ", "").replaceFirst("(\\w+\\.)*", "")
-    val uuid = java.util.UUID.randomUUID().toString.substring(0, 6)
+    val className = getClass
+      .toString
+      .replace("class ", "")
+      .replaceFirst("(\\w+\\.)*", "")
+
+    val uuid = java.util.UUID.randomUUID()
+      .toString
+      .substring(0, 6)
+
     s"$className@$uuid"
   }
 

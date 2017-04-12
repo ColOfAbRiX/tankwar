@@ -52,12 +52,10 @@ object Configuration {
         Line(XYVect(0, -1), height),
         // Left side
         Line(XYVect(1, 0), 0.0),
-
         // Bottom side
         Line(XYVect(0, 1), 0.0),
-
         // Right side
-        Line(XYVect(-1, 0), height)
+        Line(XYVect(-1, 0), width)
       )
 
     }
@@ -70,6 +68,9 @@ object Configuration {
 
     /** Target Framerate */
     def fps: Double = conf.getDouble("simulation.fps")
+
+    /** If to display graphics or not */
+    def gxfEnabled: Boolean = conf.getBoolean("simulation.gfx_enabled")
   }
 
   object Tanks {

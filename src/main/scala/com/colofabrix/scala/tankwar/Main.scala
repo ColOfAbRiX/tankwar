@@ -17,38 +17,47 @@
 package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
-import com.colofabrix.scala.gfx.opengl.OpenGL._
+import com.colofabrix.scala.gfx.opengl.Sync.SyncState
 import com.colofabrix.scala.gfx.opengl._
 import com.colofabrix.scala.tankwar.simulation.World
 import org.lwjgl.opengl.Display
-import org.lwjgl.opengl.GL11._
 
 /**
-  *
+  * Main Application
   */
 object Main {
 
   @tailrec
   def run(ow: Option[World]): Unit = ow match {
-    case Some(w) => if( !Display.isCloseRequested ) {
+    case Some(w) => run(w.step())
+    case _ =>
+  }
+
+  @tailrec
+  def run_gfx(ow: Option[World], state: SyncState): Unit = ow match {
+    case Some(w) => if (!Display.isCloseRequested) {
       OpenGL.clear()
 
-      for( t <- w.tanks ) {
-        Drawers.drawCircle(t.shape)
+      for (t <- w.tanks) {
+        Drawers.drawCircle(t.shape.center, t.shape.radius)
       }
 
       OpenGL.update()
-      Sync.sync(30).run(Sync.init())._2
-
-      run(w.step())
+      val (nextState, timeDelta) = Sync.sync(30).run(state)
+      run_gfx(w.step(), nextState)
     }
 
     case _ =>
   }
 
   def main(args: Array[String]): Unit = {
-    OpenGL.init(800, 600)
-    run(Some(World()))
-    OpenGL.destroy()
+    if (Configuration.Simulation.gxfEnabled) {
+      OpenGL.init(800, 600)
+      run_gfx(Some(World()), Sync.init())
+      OpenGL.destroy()
+    }
+    else {
+      run(Some(World()))
+    }
   }
 }

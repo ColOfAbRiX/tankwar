@@ -100,13 +100,13 @@ javaOptions ++= Seq(
   "-server",
   "-Xverify:none",
   // Memory settings
-  "-XX:InitialHeapSize=512M",
-  "-XX:MaxHeapSize=512M",
+  "-XX:InitialHeapSize=64M",
+  "-XX:MaxHeapSize=128M",
   "-XX:NewRatio=1",
-  "-XX:MetaspaceSize=16M",
+  "-XX:MetaspaceSize=4M",
   "-XX:MaxMetaspaceSize=16M",
-  "-XX:SurvivorRatio=10",
-  "-XX:CompressedClassSpaceSize=8M",
+  "-XX:SurvivorRatio=5",
+  "-XX:CompressedClassSpaceSize=2M",
   "-XX:+UseCompressedOops",
   "-XX:+UseCompressedClassPointers",
   // Other settings
@@ -173,7 +173,7 @@ wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.IsInstanceOf,
   Wart.ListOps,
   //Wart.Nothing,
-  Wart.Null,
+  //Wart.Null,
   Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable

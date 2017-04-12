@@ -64,13 +64,11 @@ package object math {
     def ~>(d2: Double): Boolean = (d1 - d2) > FP_EPSILON && !(d1 ~== d2)
   }
 
+  /**
+    * Visualization styles for numbers
+    */
   implicit final class NumberDisplay[T: Numeric](number: T) {
     private val _number = implicitly[Numeric[T]].toDouble(number)
-
-    /** Rounds a number to N significant figures */
-    def sig(significantFigures: Int = SIG_FIGURES): Double = {
-      BigDecimal(_number).round(new MathContext(3)).doubleValue()
-    }
 
     private val prefixes = Map(
       -12 -> "p", -9 -> "n", -6 -> "µ", -3 -> "m",
@@ -78,8 +76,15 @@ package object math {
       3 -> "K", 6 -> "M", 9 -> "G", 12 -> "T"
     )
 
+    /** Rounds a number to N significant figures */
+    def sig(significantFigures: Int = SIG_FIGURES): Double = {
+      BigDecimal(_number)
+        .round(new MathContext(3))
+        .doubleValue()
+    }
+
     /** Normalize a number to be between 1 and 1000 and applies a metric prefix to the unit */
-    def autoEng(unit: String = "", startingExp: Int = 0): (Double, String) = {
+    def eng(unit: String = "", startingExp: Int = 0): (Double, String) = {
 
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
 
@@ -95,7 +100,7 @@ package object math {
     }
 
     /** Convert a number to a specific metric prefix */
-    def fixedEng(unit: String = "", targetPrefix: Int = 0, startingExp: Int = 0): (Double, String) = {
+    def fixEng(unit: String = "", targetPrefix: Int = 0, startingExp: Int = 0): (Double, String) = {
 
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
 

@@ -45,12 +45,12 @@ final class Tank(
 
 ) with LazyLogging {
 
-  logger.info(s"Initialzed($id): " + summary)
+  logger.info(s"Initialzed($id): $summary")
 
   override def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
     val newTank = super.step(walls, bodies, extForces) match { case t: Tank => t }
 
-    logger.info(s"Step($id): " + newTank.summary)
+    logger.trace(s"Step($id): ${newTank.summary}")
 
     return newTank
   }
