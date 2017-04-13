@@ -72,7 +72,7 @@ class World private (
     }
 
     val newTanks = for (t ← tanks) yield {
-      t.step(arena, Seq(), forceField(t.position))
+      t.step(arena, tanks, forceField(t.position))
     }
 
     Some(new World(iteration + 1, Some(newTanks)))

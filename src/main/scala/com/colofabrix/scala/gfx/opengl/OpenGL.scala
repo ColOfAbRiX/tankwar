@@ -41,7 +41,7 @@ object OpenGL {
     // Setting up the projection matrix
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(0, width, height, 0, 1, -1)
+    glOrtho(0, width, 0, height, 1, -1)
 
     // Set matrix for running mode
     glMatrixMode(GL_MODELVIEW)

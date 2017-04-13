@@ -14,16 +14,32 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.gfx.opengl
 
-import com.colofabrix.scala.tankwar.simulation.Manager
+import org.lwjgl.input.{ Keyboard => GLK }
 
 /**
-  * Main Application
+  * Representation of the Keyboard
   */
-object Main {
+object Keyboard {
 
-  def main(args: Array[String]): Unit = {
-    val state = Manager.init()
+  /**
+    * Handler of keyboard events
+    */
+  trait KeyboardHandler {
+    def onKeyPress(key: Int): Unit
+
+    def onKeyRelease(key: Int): Unit
   }
+
+  /** Handle the events occurred on the keyboard. */
+  def handle(handler: KeyboardHandler): Unit = {
+    while (GLK.next()) {
+      if (GLK.getEventKeyState)
+        handler.onKeyPress(GLK.getEventKey)
+      else
+        handler.onKeyRelease(GLK.getEventKey)
+    }
+  }
+
 }

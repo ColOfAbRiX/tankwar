@@ -24,7 +24,7 @@ import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
 
-object Drawers {
+object Drawing {
 
   private var fontMap = HashMap[Int, TrueTypeFont]()
 
