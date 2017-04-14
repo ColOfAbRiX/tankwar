@@ -43,14 +43,14 @@ abstract class VerletPhysix(
 
   private var _lastVelocity: Vect = Vect.zero
 
-  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): VerletPhysix = {
+  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], timeStep: Double, extForces: Vect = Vect.zero): VerletPhysix = {
     this._lastVelocity = this.velocity
 
     val acc = (this.internalForce + extForces) comp (_ / this.mass)
-    this._velocity += acc * SimConfig.timeStep
+    this._velocity += acc * timeStep
 
     val checkShape = this.shape.moveOf(
-      0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
+      0.5 * (this.lastVelocity + this.velocity) * timeStep
     )
 
     for( w <- walls ) {
@@ -84,7 +84,7 @@ abstract class VerletPhysix(
       }
     }
 
-    this._position += 0.5 * (this.lastVelocity + this.velocity) * SimConfig.timeStep
+    this._position += 0.5 * (this.lastVelocity + this.velocity) * timeStep
     return this
   }
 

@@ -14,14 +14,19 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.gfx.drawing
+
+import com.colofabrix.scala.geometry.Shape
+import com.colofabrix.scala.geometry.shapes.{ Box, Circle, Line }
+import com.colofabrix.scala.gfx.Drawing
 
 /**
-  * Main Application
+  * Any object that can be drawn
   */
-object Main {
-
-  def main(args: Array[String]): Unit = {
-    Manager.start()
+object ShapeRenderer {
+  def drawShape(s: Shape): Unit = s match {
+    case c: Circle => Drawing.drawCircle(c.center, c.radius)
+    case b: Box => Drawing.drawPolygon(b.vertices)
+    case l: Line => ???
   }
 }

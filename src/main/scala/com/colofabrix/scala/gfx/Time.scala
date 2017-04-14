@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.opengl
+package com.colofabrix.scala.gfx
 
 import scalaz.State
 import org.lwjgl.Sys
@@ -23,14 +23,14 @@ import org.lwjgl.opengl.Display
 /**
   * OpenGL timing and synchronization
   */
-object Sync {
-  sealed case class SyncState(last: Double)
+object Time {
+  sealed case class SyncState(last: Double, total: Double)
 
-  /** Get the time in milliseconds */
-  def time(): Double = (Sys.getTime * 1000 / Sys.getTimerResolution).toDouble
+  /** Get the time in seconds */
+  def time(): Double = Sys.getTime.toDouble / Sys.getTimerResolution.toDouble
 
   /** Initial state */
-  def init() = SyncState(time())
+  def init() = SyncState(time(), 0.0)
 
   /** Synchronizes the FPS to the specified rate and returns the delta time */
   def sync(fps: Int): State[SyncState, Double] = State { s ⇒
@@ -39,6 +39,6 @@ object Sync {
     val now = time()
     val delta = now - s.last
 
-    (SyncState(now), delta)
+    (SyncState(now, s.total + delta), delta)
   }
 }

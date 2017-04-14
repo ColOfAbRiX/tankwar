@@ -47,8 +47,8 @@ final class Tank(
 
   logger.info(s"Initialzed($id): $summary")
 
-  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect): Tank = {
-    val newTank = super.step(walls, bodies, extForces) match { case t: Tank => t }
+  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], timeStep: Double, extForces: Vect): Tank = {
+    val newTank = super.step(walls, bodies, timeStep, extForces) match { case t: Tank => t }
 
     logger.trace(s"Step($id): ${newTank.summary}")
 

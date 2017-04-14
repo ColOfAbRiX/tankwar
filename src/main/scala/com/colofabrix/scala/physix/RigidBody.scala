@@ -85,5 +85,5 @@ trait RigidBody {
   /* Actions */
 
   /** Calculates the RigidBody for the next step */
-  def step(walls: Seq[Shape], bodies: Seq[RigidBody], extForces: Vect = Vect.zero): RigidBody
+  def step(walls: Seq[Shape], bodies: Seq[RigidBody], timeStep: Double, extForces: Vect = Vect.zero): RigidBody
 }

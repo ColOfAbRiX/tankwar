@@ -64,7 +64,7 @@ object Configuration {
 
   object Simulation {
     /** dt (time step) for every World step */
-    def timeStep: Double = conf.getDouble("simulation.time_step")
+    def timeStepMultiplier: Double = conf.getDouble("simulation.time_step_multiplier")
 
     /** Target Framerate */
     def fps: Int = conf.getInt("simulation.fps")

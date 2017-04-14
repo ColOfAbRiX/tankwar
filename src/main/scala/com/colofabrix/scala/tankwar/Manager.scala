@@ -14,15 +14,14 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.simulation
+package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
-import com.colofabrix.scala.gfx.opengl.Sync.SyncState
-import com.colofabrix.scala.gfx.opengl._
-import com.colofabrix.scala.tankwar.Configuration
+import com.colofabrix.scala.gfx.Time.SyncState
+import com.colofabrix.scala.gfx.{ Drawing, Keyboard, OpenGL, Time }
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
+import com.colofabrix.scala.tankwar.simulation.World
 import com.typesafe.scalalogging.LazyLogging
-import org.lwjgl.input.Keyboard._
 import org.lwjgl.opengl.Display
 
 /**
@@ -32,18 +31,18 @@ object Manager extends LazyLogging {
 
   sealed
   case class SimulationState(
-    timing: SyncState,
+    syncState: SyncState,
     world: Option[World],
-    fps: Int,
-    timeDelta: Double
+    timeStepMultiplier: Double,
+    cycleTimeDelta: Double
   )
 
   /** Start the simulation. */
   def start(): Unit = {
     val initial_state = SimulationState(
-      Sync.init(),
+      Time.init(),
       Some(World()),
-      SimConfig.fps,
+      SimConfig.timeStepMultiplier,
       0.0
     )
 
@@ -69,14 +68,16 @@ object Manager extends LazyLogging {
 
   @tailrec
   private
-  def run_gfx(state: SimulationState): SimulationState =
+  def run_gfx(state: SimulationState): SimulationState = {
+    logger.info(s"Manager state: $state")
+    
     state.world match {
       case Some(w) => if( !Display.isCloseRequested ) {
         val state2 = manageMouse(state)
         val state3 = manageKeyboard(state2)
         val state4 = manageGraphics(state3)
         val state5 = state4.copy(
-          world = w.step(state4.timeDelta)
+          world = w.step(state4.timeStepMultiplier * state4.cycleTimeDelta)
         )
         run_gfx(state5)
       }
@@ -86,17 +87,29 @@ object Manager extends LazyLogging {
 
       case _ => state.copy(world = None)
     }
+  }
 
   private
   def manageKeyboard(state: SimulationState): SimulationState = {
+    import org.lwjgl.input.Keyboard._
+
     Keyboard.events().foldLeft(state) {
       case (s, Keyboard.KeyPressed(k)) =>
-        if( k == KEY_P )
-          s.copy(fps = s.fps + 5)
-        else if( k == KEY_Q )
-          s.copy(fps = Math.max(1, s.fps - 5))
-        else
-          s
+        if( k == KEY_ADD ) {
+          // Key "Numpad +": Increase simulation speed
+          logger.info("KEY_ADD pressed: increase simulation speed.")
+          s.copy(
+            timeStepMultiplier = Math.min(10.0, s.timeStepMultiplier * 1.2)
+          )
+        }
+        else if( k == KEY_SUBTRACT ) {
+          // Key "Numpad -": Decrease simulation speed
+          logger.info("KEY_SUBTRACT pressed: decrease simulation speed.")
+          s.copy(
+            timeStepMultiplier = Math.max(0.1, s.timeStepMultiplier * 0.8)
+          )
+        }
+        else s
 
       case (s, _) => s
     }
@@ -115,9 +128,9 @@ object Manager extends LazyLogging {
         Drawing.drawCircle(t.shape.center, t.shape.radius)
       }
       OpenGL.update()
-      val (ns, td) = Sync.sync(state.fps).run(state.timing)
+      val (ns, td) = Time.sync(SimConfig.fps).run(state.syncState)
 
-      state.copy(timing = ns, timeDelta = td)
+      state.copy(syncState = ns, cycleTimeDelta = td)
 
     case _ => state
   }

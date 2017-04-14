@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.opengl
+package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.math.{ Vect, XYVect }
 import org.lwjgl.input.{ Mouse => GLM }

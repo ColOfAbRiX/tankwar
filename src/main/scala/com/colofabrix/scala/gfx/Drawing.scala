@@ -14,11 +14,10 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.gfx.opengl
+package com.colofabrix.scala.gfx
 
 import java.awt.Font
 import scala.collection.immutable.HashMap
-import com.colofabrix.scala.gfx.opengl.OpenGL._
 import com.colofabrix.scala.math.Vect
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
@@ -48,7 +47,7 @@ object Drawing {
   def drawPolygon(vertices: Seq[Vect], filled: Boolean = false): Unit = {
     val mode = if (filled) GL_POLYGON
     else GL_QUADS
-    draw(mode) {
+    OpenGL.draw(mode) {
       for (v <- vertices) { glVertex2d(v.x, v.y) }
     }
   }
@@ -56,7 +55,7 @@ object Drawing {
   def drawCircle(center: Vect, radius: Double, filled: Boolean = false, precision: Double = 0.1): Unit = {
     val mode = if (filled) GL_TRIANGLE_FAN
     else GL_LINE_LOOP
-    draw(mode) {
+    OpenGL.draw(mode) {
 
       for (angle ← 0d to (2d * Math.PI) by precision) {
         glVertex2d(
@@ -85,8 +84,8 @@ object Drawing {
     val slickColor = new Color(color.r.toFloat, color.g.toFloat, color.b.toFloat, 1)
 
     // Draw all the lines of text
-    draw(GL_QUADS) {
-      apply(frame) {
+    OpenGL.draw(GL_QUADS) {
+      OpenGL.apply(frame) {
         for ((t, i) ← text.zipWithIndex) {
           font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
         }
