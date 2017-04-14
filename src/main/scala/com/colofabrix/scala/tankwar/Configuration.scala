@@ -67,7 +67,7 @@ object Configuration {
     def timeStep: Double = conf.getDouble("simulation.time_step")
 
     /** Target Framerate */
-    def fps: Double = conf.getDouble("simulation.fps")
+    def fps: Int = conf.getInt("simulation.fps")
 
     /** If to display graphics or not */
     def gxfEnabled: Boolean = conf.getBoolean("simulation.gfx_enabled")

@@ -23,23 +23,27 @@ import org.lwjgl.input.{ Keyboard => GLK }
   */
 object Keyboard {
 
-  /**
-    * Handler of keyboard events
-    */
-  trait KeyboardHandler {
-    def onKeyPress(key: Int): Unit
+  trait KeyAction
 
-    def onKeyRelease(key: Int): Unit
-  }
+  final case class KeyPressed(key: Int) extends KeyAction
 
-  /** Handle the events occurred on the keyboard. */
-  def handle(handler: KeyboardHandler): Unit = {
-    while (GLK.next()) {
-      if (GLK.getEventKeyState)
-        handler.onKeyPress(GLK.getEventKey)
-      else
-        handler.onKeyRelease(GLK.getEventKey)
-    }
+  final case class KeyReleased(key: Int) extends KeyAction
+
+  final case class State(keyEvents: Seq[KeyAction])
+
+  /** Return  information about the mouse buttons. */
+  def state(): State = State(events())
+
+  /** Gets all the events occured since the last execution. */
+  def events(): Seq[KeyAction] = {
+    if( GLK.next() )
+      if( GLK.getEventKeyState ) {
+        KeyPressed(GLK.getEventKey) +: events()
+      }
+      else {
+        KeyReleased(GLK.getEventKey) +: events()
+      }
+    else Nil
   }
 
 }

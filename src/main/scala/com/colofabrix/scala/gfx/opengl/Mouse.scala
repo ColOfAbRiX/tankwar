@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.gfx.opengl
 
-import scalaz.{ -\/, \/, \/- }
 import com.colofabrix.scala.math.{ Vect, XYVect }
 import org.lwjgl.input.{ Mouse => GLM }
 
@@ -25,41 +24,29 @@ import org.lwjgl.input.{ Mouse => GLM }
   */
 object Mouse {
 
-  /**
-    * Handler of keyboard events
-    */
-  trait MouseHandler {
-    def onButtonPress(button: Int): Unit
+  trait BtnAction
 
-    def onButtonRelease(button: Int): Unit
-  }
+  final case class BtnPressed(button: Int, position: Vect) extends BtnAction
 
-  /** Handle the events occurred on the mouse. */
-  def handle(handler: MouseHandler): Unit = {
-    while (GLM.next()) {
-      if (GLM.getEventButtonState)
-        handler.onButtonPress(GLM.getEventButton)
+  final case class BtnReleased(button: Int, position: Vect) extends BtnAction
 
-      else
-        handler.onButtonRelease(GLM.getEventButton)
-    }
-  }
+  final case class State(cursor: Vect, btnEvents: Seq[BtnAction], wheel: Int)
 
   /** Return the position of the pointer. */
-  def pointer(): Vect = XYVect(GLM.getX(), GLM.getY())
-
-  /** Returns information about the mouse wheel. */
-  def wheel(): Option[Int] = if (GLM.getDWheel != 0) Some(GLM.getDWheel) else None
+  def cursor(): Vect = XYVect(GLM.getX(), GLM.getY())
 
   /** Return  information about the mouse buttons. */
-  def buttons(): Option[\/[Vect, Vect]] = {
-    if (GLM.isButtonDown(0))
-      Some(-\/(this.pointer()))
+  def state(): State = State(cursor(), events(), GLM.getDWheel)
 
-    else if (GLM.isButtonDown(1))
-      Some(\/-(this.pointer()))
-
-    else
-      None
+  /** Gets all the events occured since the last execution. */
+  def events(): Seq[BtnAction] = {
+    if( GLM.next() )
+      if( GLM.getEventButtonState ) {
+        BtnPressed(GLM.getEventButton, cursor()) +: events()
+      }
+      else {
+        BtnReleased(GLM.getEventButton, cursor()) +: events()
+      }
+    else Nil
   }
 }

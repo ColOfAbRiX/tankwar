@@ -24,9 +24,9 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * The world where the simulation takes place.
   */
-class World private (
-    val iteration: Int,
-    _tanks: Option[Seq[Tank]]
+class World private(
+  val iteration: Int,
+  _tanks: Option[Seq[Tank]]
 ) extends LazyLogging {
 
   /* Configuration */
@@ -46,7 +46,7 @@ class World private (
   val tanks = _tanks match {
     case Some(ts) ⇒ ts
 
-    case None ⇒ for (i ← 0 until WorldConfig.tankCount) yield {
+    case None ⇒ for( i ← 0 until WorldConfig.tankCount ) yield {
       def rnd(d: Double) = d * Random.nextDouble()
 
       new Tank(
@@ -63,15 +63,15 @@ class World private (
   def reset(): World = new World(0, None)
 
   /** Advances the world of one step until the last allowed iteration */
-  def step(): Option[World] = {
+  def step(timeDelta: Double): Option[World] = {
     logger.info(s"World iteration #$iteration.")
 
-    if (iteration >= WorldConfig.rounds) {
-      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds}.")
+    if( iteration >= WorldConfig.rounds ) {
+      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds }.")
       return None
     }
 
-    val newTanks = for (t ← tanks) yield {
+    val newTanks = for( t ← tanks ) yield {
       t.step(arena, tanks, forceField(t.position))
     }
 

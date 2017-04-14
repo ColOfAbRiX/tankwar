@@ -24,6 +24,6 @@ import com.colofabrix.scala.tankwar.simulation.Manager
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val state = Manager.init()
+    Manager.start()
   }
 }

@@ -21,60 +21,105 @@ import com.colofabrix.scala.gfx.opengl.Sync.SyncState
 import com.colofabrix.scala.gfx.opengl._
 import com.colofabrix.scala.tankwar.Configuration
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
+import com.typesafe.scalalogging.LazyLogging
+import org.lwjgl.input.Keyboard._
 import org.lwjgl.opengl.Display
-
-final
-case class SimulationState(
-  timing: SyncState,
-  openGl: Boolean,
-  world: World,
-  fps: Double
-)
 
 /**
   * Simulation manager
   */
-object Manager {
+object Manager extends LazyLogging {
+
+  sealed
+  case class SimulationState(
+    timing: SyncState,
+    world: Option[World],
+    fps: Int,
+    timeDelta: Double
+  )
 
   /** Start the simulation. */
-  def start(state: SimulationState): Unit = {
-    val state = SimulationState(
+  def start(): Unit = {
+    val initial_state = SimulationState(
       Sync.init(),
-      Configuration.Simulation.gxfEnabled,
-      World(),
-      SimConfig.fps
+      Some(World()),
+      SimConfig.fps,
+      0.0
     )
 
     if( Configuration.Simulation.gxfEnabled ) {
+      // Run with graphics
       OpenGL.init(800, 600)
+      run_gfx(initial_state)
+      OpenGL.destroy()
+    }
+    else {
+      // Quick run without graphics
+      run(initial_state)
     }
   }
 
   @tailrec
   private
-  def run(ow: Option[World]): Unit = ow match {
-    case Some(w) => run(w.step())
-    case _ =>
-  }
+  def run(state: SimulationState): SimulationState =
+    state.world match {
+      case Some(w) => run(state.copy(world = w.step(1.0)))
+      case _ => state.copy(world = None)
+    }
 
   @tailrec
   private
-  def run_gfx(ow: Option[World], state: SyncState): Unit = ow match {
-    case Some(w) => if( !Display.isCloseRequested ) {
-      OpenGL.clear()
-
-      OpenGL.apply(Frame(colour = Colour.RED)) {
-        for( t <- w.tanks ) {
-          Drawing.drawCircle(t.shape.center, t.shape.radius)
-        }
+  def run_gfx(state: SimulationState): SimulationState =
+    state.world match {
+      case Some(w) => if( !Display.isCloseRequested ) {
+        val state2 = manageMouse(state)
+        val state3 = manageKeyboard(state2)
+        val state4 = manageGraphics(state3)
+        val state5 = state4.copy(
+          world = w.step(state4.timeDelta)
+        )
+        run_gfx(state5)
+      }
+      else {
+        state.copy(world = None)
       }
 
-      OpenGL.update()
-      val (nextState, timeDelta) = Sync.sync(30).run(state)
-      run_gfx(w.step(), nextState)
+      case _ => state.copy(world = None)
     }
 
-    case _ =>
+  private
+  def manageKeyboard(state: SimulationState): SimulationState = {
+    Keyboard.events().foldLeft(state) {
+      case (s, Keyboard.KeyPressed(k)) =>
+        if( k == KEY_P )
+          s.copy(fps = s.fps + 5)
+        else if( k == KEY_Q )
+          s.copy(fps = Math.max(1, s.fps - 5))
+        else
+          s
+
+      case (s, _) => s
+    }
+  }
+
+  private
+  def manageMouse(state: SimulationState): SimulationState = state match {
+    case _ => state
+  }
+
+  private
+  def manageGraphics(state: SimulationState): SimulationState = state match {
+    case SimulationState(_, Some(w), _, _) =>
+      OpenGL.clear()
+      for( t <- w.tanks ) {
+        Drawing.drawCircle(t.shape.center, t.shape.radius)
+      }
+      OpenGL.update()
+      val (ns, td) = Sync.sync(state.fps).run(state.timing)
+
+      state.copy(timing = ns, timeDelta = td)
+
+    case _ => state
   }
 
 }
