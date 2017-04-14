@@ -63,19 +63,14 @@ class World private(
   def reset(): World = new World(0, None)
 
   /** Advances the world of one step until the last allowed iteration */
-  def step(timeStep: Double): Option[World] = {
+  def step(timeStep: Double): World = {
     logger.info(s"World iteration #$iteration.")
-
-    if( iteration >= WorldConfig.rounds ) {
-      logger.warn(s"Reached max iteration number of ${WorldConfig.rounds }.")
-      return None
-    }
 
     val newTanks = for( t ← tanks ) yield {
       t.step(arena, tanks, timeStep, forceField(t.position))
     }
 
-    Some(new World(iteration + 1, Some(newTanks)))
+    new World(iteration + 1, Some(newTanks))
   }
 }
 

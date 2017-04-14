@@ -33,9 +33,6 @@ object Configuration {
     /** Number of tanks in the World */
     def tankCount: Int = conf.getInt("world.tank_count")
 
-    /** Number of steps the World will run for */
-    def rounds: Int = conf.getInt("world.rounds")
-
     /**
       * Builder of the arena
       */
@@ -63,6 +60,15 @@ object Configuration {
   }
 
   object Simulation {
+    /** Number of steps the World will run for */
+    def maxIterations: Int = conf.getInt("simulation.max_iterations")
+
+    /** Number of steps the World will run for */
+    def maxTotalTime: Int = conf.getInt("simulation.max_total_time")
+
+    /** Number of steps the World will run for */
+    def maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")
+
     /** dt (time step) for every World step */
     def timeStepMultiplier: Double = conf.getDouble("simulation.time_step_multiplier")
 

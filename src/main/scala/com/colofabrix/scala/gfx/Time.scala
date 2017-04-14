@@ -24,21 +24,21 @@ import org.lwjgl.opengl.Display
   * OpenGL timing and synchronization
   */
 object Time {
-  sealed case class SyncState(last: Double, total: Double)
+  final case class TimeState(last: Double, simulationTime: Double, totalTime: Double)
 
   /** Get the time in seconds */
   def time(): Double = Sys.getTime.toDouble / Sys.getTimerResolution.toDouble
 
   /** Initial state */
-  def init() = SyncState(time(), 0.0)
+  def init() = TimeState(time(), 0.0, 0.0)
 
   /** Synchronizes the FPS to the specified rate and returns the delta time */
-  def sync(fps: Int): State[SyncState, Double] = State { s ⇒
+  def sync(fps: Int, stepMultiplier: Double): State[TimeState, Double] = State { s ⇒
     Display.sync(fps)
 
     val now = time()
     val delta = now - s.last
 
-    (SyncState(now, s.total + delta), delta)
+    (TimeState(now, s.simulationTime + delta * stepMultiplier, s.totalTime + delta), delta)
   }
 }

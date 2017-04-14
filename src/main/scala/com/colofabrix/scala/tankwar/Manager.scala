@@ -17,8 +17,9 @@
 package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
-import com.colofabrix.scala.gfx.Time.SyncState
-import com.colofabrix.scala.gfx.{ Drawing, Keyboard, OpenGL, Time }
+import com.colofabrix.scala.gfx.Time.TimeState
+import com.colofabrix.scala.gfx.drawing.ShapeRenderer
+import com.colofabrix.scala.gfx.{ Keyboard, OpenGL, Time }
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
 import com.colofabrix.scala.tankwar.simulation.World
 import com.typesafe.scalalogging.LazyLogging
@@ -31,8 +32,8 @@ object Manager extends LazyLogging {
 
   sealed
   case class SimulationState(
-    syncState: SyncState,
-    world: Option[World],
+    syncState: TimeState,
+    world: World,
     timeStepMultiplier: Double,
     cycleTimeDelta: Double
   )
@@ -41,7 +42,7 @@ object Manager extends LazyLogging {
   def start(): Unit = {
     val initial_state = SimulationState(
       Time.init(),
-      Some(World()),
+      World(),
       SimConfig.timeStepMultiplier,
       0.0
     )
@@ -60,32 +61,37 @@ object Manager extends LazyLogging {
 
   @tailrec
   private
-  def run(state: SimulationState): SimulationState =
-    state.world match {
-      case Some(w) => run(state.copy(world = w.step(1.0)))
-      case _ => state.copy(world = None)
-    }
+  def run(state: SimulationState): SimulationState = {
+    if( state.world.iteration <= SimConfig.maxIterations )
+      run(state.copy(world = state.world.step(1.0)))
+    else
+      state
+  }
 
   @tailrec
   private
   def run_gfx(state: SimulationState): SimulationState = {
     logger.info(s"Manager state: $state")
-    
-    state.world match {
-      case Some(w) => if( !Display.isCloseRequested ) {
+
+    if( state.world.iteration <= SimConfig.maxIterations &&
+      state.syncState.totalTime <= SimConfig.maxTotalTime &&
+      state.syncState.simulationTime <= SimConfig.maxSimulationTime ) {
+
+      if( !Display.isCloseRequested ) {
         val state2 = manageMouse(state)
         val state3 = manageKeyboard(state2)
         val state4 = manageGraphics(state3)
         val state5 = state4.copy(
-          world = w.step(state4.timeStepMultiplier * state4.cycleTimeDelta)
+          world = state.world.step(state4.timeStepMultiplier * state4.cycleTimeDelta)
         )
         run_gfx(state5)
       }
       else {
-        state.copy(world = None)
+        state
       }
-
-      case _ => state.copy(world = None)
+    }
+    else {
+      state
     }
   }
 
@@ -116,23 +122,21 @@ object Manager extends LazyLogging {
   }
 
   private
-  def manageMouse(state: SimulationState): SimulationState = state match {
-    case _ => state
-  }
+  def manageMouse(state: SimulationState): SimulationState = state
 
   private
-  def manageGraphics(state: SimulationState): SimulationState = state match {
-    case SimulationState(_, Some(w), _, _) =>
-      OpenGL.clear()
-      for( t <- w.tanks ) {
-        Drawing.drawCircle(t.shape.center, t.shape.radius)
-      }
-      OpenGL.update()
-      val (ns, td) = Time.sync(SimConfig.fps).run(state.syncState)
+  def manageGraphics(state: SimulationState): SimulationState = {
+    OpenGL.clear()
+    for( t <- state.world.tanks ) {
+      ShapeRenderer.drawShape(t.shape)
+    }
+    OpenGL.update()
+    val (ns, td) = Time.sync(
+      SimConfig.fps,
+      state.timeStepMultiplier / SimConfig.timeStepMultiplier
+    ).run(state.syncState)
 
-      state.copy(syncState = ns, cycleTimeDelta = td)
-
-    case _ => state
+    state.copy(syncState = ns, cycleTimeDelta = td)
   }
 
 }
