@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.gfx
 
+import scala.annotation.tailrec
 import org.lwjgl.input.{ Keyboard => GLK }
 
 /**
@@ -23,27 +24,33 @@ import org.lwjgl.input.{ Keyboard => GLK }
   */
 object Keyboard {
 
+  final case class State(keyEvents: Seq[KeyAction])
+
   trait KeyAction
 
   final case class KeyPressed(key: Int) extends KeyAction
 
   final case class KeyReleased(key: Int) extends KeyAction
 
-  final case class State(keyEvents: Seq[KeyAction])
 
   /** Return  information about the mouse buttons. */
   def state(): State = State(events())
 
   /** Gets all the events occured since the last execution. */
   def events(): Seq[KeyAction] = {
-    if( GLK.next() )
-      if( GLK.getEventKeyState ) {
-        KeyPressed(GLK.getEventKey) +: events()
-      }
-      else {
-        KeyReleased(GLK.getEventKey) +: events()
-      }
-    else Nil
+    @tailrec
+    def loop(result: Seq[KeyAction]): Seq[KeyAction] = {
+      if( GLK.next() )
+        if( GLK.getEventKeyState ) {
+          loop(KeyPressed(GLK.getEventKey) +: result)
+        }
+        else {
+          loop(KeyReleased(GLK.getEventKey) +: result)
+        }
+      else result
+    }
+
+    return loop(Nil)
   }
 
 }

@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.gfx
 
+import com.colofabrix.scala.geometry.shapes.Box
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.{ Display, DisplayMode }
@@ -63,6 +64,14 @@ object OpenGL {
     glBegin(mode)
     actions
     glEnd()
+  }
+
+  /** Initialize a drawing action */
+  def setViewport(viewport: Box): Unit = {
+    glViewport(
+      viewport.origin.x.toInt, viewport.origin.y.toInt,
+      viewport.opposite.x.toInt, viewport.opposite.y.toInt
+    )
   }
 
   /** Apply a reference frame on top of an existing one */

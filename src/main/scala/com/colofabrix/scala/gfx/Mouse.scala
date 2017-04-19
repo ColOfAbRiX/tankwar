@@ -16,6 +16,7 @@
 
 package com.colofabrix.scala.gfx
 
+import scala.annotation.tailrec
 import com.colofabrix.scala.math.{ Vect, XYVect }
 import org.lwjgl.input.{ Mouse => GLM }
 
@@ -26,11 +27,12 @@ object Mouse {
 
   trait BtnAction
 
+  final case class State(cursor: Vect, btnEvents: Seq[BtnAction], wheel: Int)
+
   final case class BtnPressed(button: Int, position: Vect) extends BtnAction
 
   final case class BtnReleased(button: Int, position: Vect) extends BtnAction
 
-  final case class State(cursor: Vect, btnEvents: Seq[BtnAction], wheel: Int)
 
   /** Return the position of the pointer. */
   def cursor(): Vect = XYVect(GLM.getX(), GLM.getY())
@@ -40,13 +42,18 @@ object Mouse {
 
   /** Gets all the events occured since the last execution. */
   def events(): Seq[BtnAction] = {
-    if( GLM.next() )
-      if( GLM.getEventButtonState ) {
-        BtnPressed(GLM.getEventButton, cursor()) +: events()
-      }
-      else {
-        BtnReleased(GLM.getEventButton, cursor()) +: events()
-      }
-    else Nil
+    @tailrec
+    def loop(result: Seq[BtnAction]): Seq[BtnAction] = {
+      if( GLM.next() )
+        if( GLM.getEventButtonState ) {
+          loop(BtnPressed(GLM.getEventButton, cursor()) +: result)
+        }
+        else {
+          loop(BtnReleased(GLM.getEventButton, cursor()) +: result)
+        }
+      else result
+    }
+
+    return loop(Nil)
   }
 }
