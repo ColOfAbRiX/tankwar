@@ -50,14 +50,10 @@ object OpenGL {
   }
 
   /** Terminates OpenGL */
-  def destroy(): Unit = {
-    Display.destroy()
-  }
+  def destroy(): Unit = Display.destroy()
 
   /** Updates a display */
-  def update(): Unit = {
-    Display.update()
-  }
+  def update(): Unit = Display.update()
 
   /** Initialize a drawing action */
   def draw(mode: Int)(actions: => Unit): Unit = {
@@ -66,12 +62,17 @@ object OpenGL {
     glEnd()
   }
 
-  /** Initialize a drawing action */
-  def setViewport(viewport: Box): Unit = {
-    glViewport(
-      viewport.origin.x.toInt, viewport.origin.y.toInt,
-      viewport.opposite.x.toInt, viewport.opposite.y.toInt
+  /** Set the projection matrix */
+  def projection(viewport: Box): Unit = {
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(
+      viewport.origin.x, viewport.opposite.x,
+      viewport.origin.y, viewport.opposite.y,
+      1, -1
     )
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
   }
 
   /** Apply a reference frame on top of an existing one */

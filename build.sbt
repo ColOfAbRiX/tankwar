@@ -87,7 +87,6 @@ scalacOptions ++= Seq(
   "-language:implicitConversions",
   "-language:existentials",
   "-language:higherKinds",
-  "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
   "-Ywarn-unused-import",
   "-Ywarn-adapted-args",

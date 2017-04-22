@@ -17,14 +17,22 @@
 package com.colofabrix.scala.gfx
 
 import scalaz.State
+import com.colofabrix.scala.math._
 import org.lwjgl.Sys
 import org.lwjgl.opengl.Display
 
 /**
   * OpenGL timing and synchronization
   */
-object Time {
-  final case class TimeState(last: Double, simulationTime: Double, totalTime: Double)
+object Timing {
+
+  final case class TimeState(
+      last: Double,
+      simTime: Double,
+      totalTime: Double
+  ) {
+    override def toString: String = s"last=${last.sig()}, simTime=${simTime.sig()}, totalTime=${totalTime.sig()}"
+  }
 
   /** Get the time in seconds */
   def time(): Double = Sys.getTime.toDouble / Sys.getTimerResolution.toDouble
@@ -39,6 +47,6 @@ object Time {
     val now = time()
     val delta = now - s.last
 
-    (TimeState(now, s.simulationTime + delta * stepMultiplier, s.totalTime + delta), delta)
+    (TimeState(now, s.simTime + delta * stepMultiplier, s.totalTime + delta), delta)
   }
 }

@@ -19,7 +19,7 @@ package com.colofabrix.scala.gfx
 import com.colofabrix.scala.math.Vect
 
 /** A colour in the OpenGL system */
-case class Colour(r: Double = 0.0, g: Double = 0.0, b: Double = 0.0)
+final case class Colour(r: Double = 0.0, g: Double = 0.0, b: Double = 0.0)
 
 /** Predefined colour set */
 object Colour {
@@ -51,11 +51,10 @@ object Colour {
   * An OpenGL reference frame. It holds data about its position to the absolute reference, its rotation and the
   * colour of its brush
   */
-case class Frame(
+final case class Frame(
   colour: Option[Colour],
   position: Option[Vect],
-  rotation: Option[Vect],
-  scale: Option[Double]
+  rotation: Option[Vect]
 )
 
 object Frame {
@@ -66,7 +65,6 @@ object Frame {
   ): Frame = Frame(
     Option(colour),
     Option(position),
-    Option(rotation),
-    Some(1.0)
+    Option(rotation)
   )
 }

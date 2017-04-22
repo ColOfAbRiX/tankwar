@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.simulation
+package com.colofabrix.scala.tankwar.entities
 
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle

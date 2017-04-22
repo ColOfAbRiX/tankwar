@@ -31,10 +31,11 @@ case class Circle(
 
   lazy override val area: Double = Math.PI * Math.pow(radius, 2.0)
 
-  override def moveOf(where: Vect): Circle = new Circle(center + where, radius)
+  override def moveOf(where: Vect): Circle = Circle(center + where, radius)
 
-  override def moveTo(where: Vect): Circle = new Circle(where, radius)
+  override def moveTo(where: Vect): Circle = Circle(where, radius)
+
+  override def scale(k: Double): Shape = Circle(this.center, this.radius * k)
 
   override def toString = s"Circle(c=$center, r=$radius)"
-
 }

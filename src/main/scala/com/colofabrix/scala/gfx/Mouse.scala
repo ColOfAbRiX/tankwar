@@ -33,7 +33,6 @@ object Mouse {
 
   final case class BtnReleased(button: Int, position: Vect) extends BtnAction
 
-
   /** Return the position of the pointer. */
   def cursor(): Vect = XYVect(GLM.getX(), GLM.getY())
 
@@ -44,8 +43,8 @@ object Mouse {
   def events(): Seq[BtnAction] = {
     @tailrec
     def loop(result: Seq[BtnAction]): Seq[BtnAction] = {
-      if( GLM.next() )
-        if( GLM.getEventButtonState ) {
+      if (GLM.next())
+        if (GLM.getEventButtonState) {
           loop(BtnPressed(GLM.getEventButton, cursor()) +: result)
         }
         else {

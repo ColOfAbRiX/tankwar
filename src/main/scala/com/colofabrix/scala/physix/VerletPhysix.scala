@@ -27,12 +27,12 @@ import com.typesafe.scalalogging.LazyLogging
   */
 abstract class VerletPhysix(
 
-  override val mass: Double,
-  private var _position: Vect,
-  private var _velocity: Vect,
-  private var _angle: Double,
-  private var _angularSpeed: Double,
-  initialExternalForce: Vect
+    override val mass: Double,
+    private var _position: Vect,
+    private var _velocity: Vect,
+    private var _angle: Double,
+    private var _angularSpeed: Double,
+    initialExternalForce: Vect
 
 ) extends RigidBody with LazyLogging {
 
@@ -53,31 +53,31 @@ abstract class VerletPhysix(
       0.5 * (this.lastVelocity + this.velocity) * timeStep
     )
 
-    for( w <- walls ) {
+    for (w <- walls) {
       w.collision(checkShape) match {
         case -\/(Collision(n, d)) =>
           val v = this.velocity ∙ n
-          if( (d ~< 0.0) && (v ~< 0.0) ) {
+          if ((d ~< 0.0) && (v ~< 0.0)) {
             this._velocity -= 2.0 * v * n
 
-            logger.info(s"Tank[${this.id }] - Collision with $w at position ${this.position } and distance ${d * n }.")
-            logger.info(s"Tank[${this.id }] - Velocity reflected: ${this._lastVelocity } -> ${this.velocity }.")
+            logger.info(s"Tank[${this.id}] - Collision with $w at position ${this.position} and distance ${d * n}.")
+            logger.info(s"Tank[${this.id}] - Velocity reflected: ${this._lastVelocity} -> ${this.velocity}.")
           }
 
         case _ =>
       }
     }
 
-    for( b <- bodies if b != this ) {
+    for (b <- bodies if b != this) {
       val s = b.shape
       s.collision(checkShape) match {
         case -\/(Collision(n, d)) =>
           val v = this.velocity ∙ n
-          if( d ~< 0.0 ) {
+          if (d ~< 0.0) {
             this._velocity -= 2.0 * v * n
 
-            logger.info(s"Tank[${this.id }] - Collision with $s at position ${this.position } and distance ${d * n }.")
-            logger.info(s"Tank[${this.id }] - Velocity reflected: ${this._lastVelocity } -> ${this.velocity }.")
+            logger.info(s"Tank[${this.id}] - Collision with $s at position ${this.position} and distance ${d * n}.")
+            logger.info(s"Tank[${this.id}] - Velocity reflected: ${this._lastVelocity} -> ${this.velocity}.")
           }
 
         case _ =>

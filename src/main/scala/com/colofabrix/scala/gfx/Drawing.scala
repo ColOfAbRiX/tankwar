@@ -19,7 +19,6 @@ package com.colofabrix.scala.gfx
 import java.awt.Font
 import scala.collection.immutable.HashMap
 import com.colofabrix.scala.math.Vect
-import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
 
@@ -68,27 +67,16 @@ object Drawing {
   }
 
   /** Draw some text on the screen. */
-  def drawText(text: List[String], awtFont: Font, interline: Double = 1.5, frame: Frame = Frame()): Unit = {
+  def drawText(text: List[String], awtFont: Font, interline: Double = 1.5, colour: Colour = Colour.WHITE): Unit = {
     val font = getTTFont(awtFont)
 
     // Slick fonts don't work like OpenGL. I retrieve the current colour from the OpenGL
-    val colourBuffer = BufferUtils.createFloatBuffer(16)
-    glGetFloat(GL_CURRENT_COLOR, colourBuffer)
-
-    val defaultTextColour = Colour(
-      colourBuffer.get(0).toDouble,
-      colourBuffer.get(1).toDouble,
-      colourBuffer.get(2).toDouble
-    )
-    val color = frame.colour.getOrElse(defaultTextColour)
-    val slickColor = new Color(color.r.toFloat, color.g.toFloat, color.b.toFloat, 1)
+    val slickColor = new Color(colour.r.toFloat, colour.g.toFloat, colour.b.toFloat, 1)
 
     // Draw all the lines of text
     OpenGL.draw(GL_QUADS) {
-      OpenGL.apply(frame) {
-        for ((t, i) ← text.zipWithIndex) {
-          font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
-        }
+      for ((t, i) ← text.zipWithIndex) {
+        font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
       }
     }
   }

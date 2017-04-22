@@ -26,12 +26,17 @@ object Keyboard {
 
   final case class State(keyEvents: Seq[KeyAction])
 
+  class KeyStateAction[S](k: Int, f: S => S) {
+    def runWhenDown(state: S): S = if (Keyboard.isKeyDown(k)) f(state) else state
+
+    def runWhenUp(state: S): S = if (!Keyboard.isKeyDown(k)) f(state) else state
+  }
+
   trait KeyAction
 
   final case class KeyPressed(key: Int) extends KeyAction
 
   final case class KeyReleased(key: Int) extends KeyAction
-
 
   /** Return  information about the mouse buttons. */
   def state(): State = State(events())
@@ -40,8 +45,8 @@ object Keyboard {
   def events(): Seq[KeyAction] = {
     @tailrec
     def loop(result: Seq[KeyAction]): Seq[KeyAction] = {
-      if( GLK.next() )
-        if( GLK.getEventKeyState ) {
+      if (GLK.next())
+        if (GLK.getEventKeyState) {
           loop(KeyPressed(GLK.getEventKey) +: result)
         }
         else {
@@ -52,5 +57,7 @@ object Keyboard {
 
     return loop(Nil)
   }
+
+  def isKeyDown(key: Int) = GLK.isKeyDown(key)
 
 }

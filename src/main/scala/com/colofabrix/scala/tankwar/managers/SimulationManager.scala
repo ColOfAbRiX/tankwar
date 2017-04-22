@@ -14,14 +14,11 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.tankwar.managers
 
 /**
-  * Main Application
+  * Representation of a manager for the simulation
   */
-object Main {
-
-  def main(args: Array[String]): Unit = {
-    Manager.start()
-  }
+trait SimulationManager[S] {
+  def manage(state: S): S
 }

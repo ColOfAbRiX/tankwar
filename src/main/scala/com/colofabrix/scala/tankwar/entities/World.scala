@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.simulation
+package com.colofabrix.scala.tankwar.entities
 
 import scala.util.Random
 import com.colofabrix.scala.math._
@@ -24,9 +24,9 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * The world where the simulation takes place.
   */
-class World private(
-  val iteration: Int,
-  _tanks: Option[Seq[Tank]]
+class World private (
+    val iteration: Int,
+    _tanks: Option[Seq[Tank]]
 ) extends LazyLogging {
 
   /* Configuration */
@@ -46,7 +46,7 @@ class World private(
   val tanks = _tanks match {
     case Some(ts) ⇒ ts
 
-    case None ⇒ for( i ← 0 until WorldConfig.tankCount ) yield {
+    case None ⇒ for (i ← 0 until WorldConfig.tankCount) yield {
       def rnd(d: Double) = d * Random.nextDouble()
 
       new Tank(
@@ -66,7 +66,7 @@ class World private(
   def step(timeStep: Double): World = {
     logger.info(s"World iteration #$iteration.")
 
-    val newTanks = for( t ← tanks ) yield {
+    val newTanks = for (t ← tanks) yield {
       t.step(arena, tanks, timeStep, forceField(t.position))
     }
 

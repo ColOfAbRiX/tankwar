@@ -14,26 +14,15 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.tankwar.TankWarMain.SimulationState
 
 /**
-  * An infinite line
+  * Manages mouse actions for the game
   */
-case class Line(
-    normal: Vect,
-    distance: Double
-) extends Shape {
+object MouseManager extends SimulationManager[SimulationState] {
 
-  lazy override val area: Double = 0.0
+  def manage(state: SimulationState): SimulationState = state
 
-  override def moveOf(where: Vect): Line = ???
-
-  override def moveTo(where: Vect): Line = ???
-
-  override def scale(k: Double): Shape = this
-
-  override def toString = s"Line((${normal.x}, ${normal.y}) / $distance)"
 }

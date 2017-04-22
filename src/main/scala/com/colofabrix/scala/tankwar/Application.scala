@@ -14,26 +14,14 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
-
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.math.Vect
+package com.colofabrix.scala.tankwar
 
 /**
-  * An infinite line
+  * Main Application
   */
-case class Line(
-    normal: Vect,
-    distance: Double
-) extends Shape {
+object Application {
 
-  lazy override val area: Double = 0.0
-
-  override def moveOf(where: Vect): Line = ???
-
-  override def moveTo(where: Vect): Line = ???
-
-  override def scale(k: Double): Shape = this
-
-  override def toString = s"Line((${normal.x}, ${normal.y}) / $distance)"
+  def main(args: Array[String]): Unit = {
+    TankWarMain.start()
+  }
 }
