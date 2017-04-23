@@ -16,7 +16,6 @@
 
 package com.colofabrix.scala.tankwar
 
-import scalaz.effect._
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Line
 import com.colofabrix.scala.math.XYVect
@@ -27,7 +26,7 @@ import com.typesafe.config.ConfigFactory
   */
 object Configuration {
 
-  private val conf = IO(ConfigFactory.load).unsafePerformIO()
+  private val conf = ConfigFactory.load
 
   object World {
     /** Number of tanks in the World */
@@ -70,7 +69,7 @@ object Configuration {
     def maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")
 
     /** dt (time step) for every World step */
-    def timeStepMultiplier: Double = conf.getDouble("simulation.time_step_multiplier")
+    def timeMultiplier: Double = conf.getDouble("simulation.time_multiplier")
 
     /** Target Framerate */
     def fps: Int = conf.getInt("simulation.fps")

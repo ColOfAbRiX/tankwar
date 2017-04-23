@@ -16,32 +16,41 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.gfx.drawing.ShapeRenderer
-import com.colofabrix.scala.gfx.{ OpenGL, Timing }
-import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig }
-import com.colofabrix.scala.tankwar.TankWarMain.SimulationState
+import com.colofabrix.scala.drawing.ShapeRenderer
+import com.colofabrix.scala.gfx._
+import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.TankWarMain.SimState
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Manages the display of graphics
   */
-object GraphicManager extends SimulationManager[SimulationState] with LazyLogging {
+object GraphicManager extends SimManager[SimState] with LazyLogging {
 
-  def manage(state: SimulationState): SimulationState = {
+  def manage(state: SimState): SimState = {
     // Viewport
     OpenGL.clear()
     OpenGL.projection(state.viewport)
 
-    // Drawing
-    for (t <- state.world.tanks) {
-      ShapeRenderer.drawShape(t.shape)
+    // Arena
+    for( b <- WorldConfig.Arena() ) {
+      OpenGL.apply(Some(Colour.RED)) {
+        ShapeRenderer.draw(b)
+      }
     }
+
+    // Drawing
+    for( t <- state.world.tanks ) {
+      ShapeRenderer.draw(t.shape)
+    }
+
+    // Update display
     OpenGL.update()
 
     // Time synchronization
     val (ns, td) = Timing.sync(
       SimConfig.fps,
-      state.tsMultiplier / SimConfig.timeStepMultiplier
+      state.tsMultiplier / SimConfig.timeMultiplier
     ).run(state.timing)
 
     // Update

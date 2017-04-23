@@ -17,6 +17,7 @@
 package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.math.Vect
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.{ Display, DisplayMode }
@@ -76,29 +77,36 @@ object OpenGL {
   }
 
   /** Apply a reference frame on top of an existing one */
-  def apply(frame: Frame = Frame())(actions: => Unit): Unit = {
+  //def apply(frame: Frame = Frame())(actions: => Unit): Unit = {
+  def apply(
+    colour: Option[Colour] = None,
+    position: Option[Vect] = None,
+    rotation: Option[Vect] = None,
+    lineWidth: Double = 1.0
+  )(actions: => Unit): Unit = {
     val colourBuffer = BufferUtils.createFloatBuffer(16)
 
     // Save the current settings (only if needed)
-    if (frame.colour.isDefined)
+    if( colour.isDefined )
       glGetFloat(GL_CURRENT_COLOR, colourBuffer)
-    if (frame.position.isDefined || frame.rotation.isDefined)
+    if( position.isDefined || rotation.isDefined )
       glPushMatrix()
 
     // Set position, rotation and colour
-    for (p <- frame.position)
+    for( p <- position )
       glTranslated(p.x, p.y, 0.0)
-    for (r <- frame.rotation)
+    for( r <- rotation )
       glRotated(r.ϑ * DEG2RAD, 0, 0, 1)
-    for (c <- frame.colour)
+    for( c <- colour )
       glColor3d(c.r, c.g, c.b)
+    glLineWidth(lineWidth.toFloat)
 
     actions
 
     // Restore the previous settings
-    if (frame.position.isDefined || frame.rotation.isDefined)
+    if( position.isDefined || rotation.isDefined )
       glPopMatrix()
-    if (frame.colour.isDefined)
+    if( colour.isDefined )
       glColor3d(
         colourBuffer.get(0).toDouble,
         colourBuffer.get(1).toDouble,

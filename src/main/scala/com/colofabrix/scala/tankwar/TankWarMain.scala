@@ -32,64 +32,58 @@ import org.lwjgl.opengl.Display
   */
 object TankWarMain extends LazyLogging {
 
-  sealed case class SimulationState(
-      viewport: Box = Box(WorldConfig.Arena.width, WorldConfig.Arena.height),
-      pause: Boolean = false,
-      world: World = World(),
-      timing: TimeState = Timing.init(),
-      tsMultiplier: Double = SimConfig.timeStepMultiplier,
-      cycleDelta: Double = 0.0
+  sealed case class SimState(
+    viewport: Box = Box(WorldConfig.Arena.width, WorldConfig.Arena.height),
+    pause: Boolean = false,
+    world: World = World(),
+    timing: TimeState = Timing.init(),
+    tsMultiplier: Double = SimConfig.timeMultiplier,
+    cycleDelta: Double = 0.0
   ) {
     override def toString: String = {
       s"viewport=$viewport, " +
         s"pause=$pause, " +
         s"timing=$timing, " +
-        s"tsMultiplier=${tsMultiplier.sig()}, " +
-        s"cycleDelta=${cycleDelta.sig()}"
+        s"tsMultiplier=${tsMultiplier.sig() }, " +
+        s"cycleDelta=${cycleDelta.sig() }"
     }
   }
+
+  type SimAction = SimState => SimState
 
   /** Start the simulation. */
   def start(): Unit = {
-    val initial_state = SimulationState()
-
-    if (Configuration.Simulation.gxfEnabled) {
-      // Run with graphics
+    if( Configuration.Simulation.gxfEnabled ) {
       OpenGL.init(800, 600)
-      run_gfx(initial_state)
+      run_gfx(SimState())
       OpenGL.destroy()
     }
-    else {
-      // Quick run without graphics
-      run(initial_state)
-    }
+    else run(SimState())
   }
 
   @tailrec
-  private def run(state: SimulationState): SimulationState = {
-    if (state.world.iteration <= SimConfig.maxIterations)
+  private def run(state: SimState): SimState = {
+    if( state.world.iteration <= SimConfig.maxIterations )
       run(state.copy(world = state.world.step(1.0)))
     else
       state
   }
 
   @tailrec
-  private def run_gfx(state: SimulationState): SimulationState = {
+  private def run_gfx(state: SimState): SimState = {
     logger.info(s"Manager state: $state")
 
-    if (state.timing.totalTime <= SimConfig.maxTotalTime &&
-      state.timing.simTime <= SimConfig.maxSimulationTime) {
+    if( state.timing.totalTime <= SimConfig.maxTotalTime &&
+      state.timing.simTime <= SimConfig.maxSimulationTime ) {
 
-      if (!Display.isCloseRequested) {
-        val nextState = Seq[SimulationState => SimulationState](
+      if( !Display.isCloseRequested ) {
+        val nextState = Seq[SimAction](
           MouseManager.manage,
           KeyboardManager.manage,
           GraphicManager.manage, {
-          s => if (!s.pause) s.copy(world = state.world.step(s.tsMultiplier * s.cycleDelta)) else s
-        }
-        ).foldLeft(state) { (s, manager) =>
-          manager(s)
-        }
+            s => if( !s.pause ) s.copy(world = state.world.step(s.tsMultiplier * s.cycleDelta)) else s
+          }
+        ).foldLeft(state) { (s, manager) => manager(s) }
 
         run_gfx(nextState)
       }

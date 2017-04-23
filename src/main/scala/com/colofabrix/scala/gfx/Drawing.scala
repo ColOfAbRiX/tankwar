@@ -28,7 +28,7 @@ object Drawing {
 
   /** Get a TrueTypeFont from a cache */
   private def getTTFont(awtFont: Font): TrueTypeFont = {
-    if (!fontMap.contains(awtFont.hashCode)) {
+    if( !fontMap.contains(awtFont.hashCode) ) {
       val ttfont = new TrueTypeFont(awtFont, false)
       fontMap = fontMap + (awtFont.hashCode → ttfont)
       return ttfont
@@ -42,27 +42,34 @@ object Drawing {
     glVertex2d(vertex.x, vertex.y)
   }
 
-  /** Draw a Box */
+  /** Draw a polygon. */
   def drawPolygon(vertices: Seq[Vect], filled: Boolean = false): Unit = {
-    val mode = if (filled) GL_POLYGON
-    else GL_QUADS
+    val mode = if( filled ) GL_POLYGON else GL_QUADS
     OpenGL.draw(mode) {
-      for (v <- vertices) { glVertex2d(v.x, v.y) }
+      for( v <- vertices ) {glVertex2d(v.x, v.y) }
     }
   }
 
+  /** Draw a circle. */
   def drawCircle(center: Vect, radius: Double, filled: Boolean = false, precision: Double = 0.1): Unit = {
-    val mode = if (filled) GL_TRIANGLE_FAN
-    else GL_LINE_LOOP
+    val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
     OpenGL.draw(mode) {
 
-      for (angle ← 0d to (2d * Math.PI) by precision) {
+      for( angle ← 0d to (2d * Math.PI) by precision ) {
         glVertex2d(
           Math.sin(angle) * radius + center.x,
           Math.cos(angle) * radius + center.y
         )
       }
 
+    }
+  }
+
+  /** Draw a line segment. */
+  def drawSegment(p0: Vect, p1: Vect, width: Double = 1.0) = {
+    OpenGL.draw(GL_LINES) {
+      glVertex2d(p0.x, p0.y)
+      glVertex2d(p1.x, p1.y)
     }
   }
 
@@ -75,7 +82,7 @@ object Drawing {
 
     // Draw all the lines of text
     OpenGL.draw(GL_QUADS) {
-      for ((t, i) ← text.zipWithIndex) {
+      for( (t, i) ← text.zipWithIndex ) {
         font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
       }
     }

@@ -16,13 +16,13 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.tankwar.TankWarMain.SimulationState
+import com.colofabrix.scala.tankwar.TankWarMain.SimState
 
 /**
   * Manages mouse actions for the game
   */
-object MouseManager extends SimulationManager[SimulationState] {
+object MouseManager extends SimManager[SimState] {
 
-  def manage(state: SimulationState): SimulationState = state
+  def manage(state: SimState): SimState = state
 
 }

@@ -19,6 +19,6 @@ package com.colofabrix.scala.tankwar.managers
 /**
   * Representation of a manager for the simulation
   */
-trait SimulationManager[S] {
+trait SimManager[S] {
   def manage(state: S): S
 }

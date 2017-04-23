@@ -17,17 +17,38 @@
 package com.colofabrix.scala.geometry.shapes
 
 import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect, XYVect }
 
 /**
   * An infinite line
   */
 case class Line(
-    normal: Vect,
-    distance: Double
+  normal: Vect,
+  distance: Double
 ) extends Shape {
 
-  lazy override val area: Double = 0.0
+  override val area: Double = 0.0
+
+  val drawingNormal: Vect = XYVect(normal.x.abs, normal.y.abs)
+
+  private val p = drawingNormal * distance
+
+  private val m = {
+    val phi = drawingNormal.ϑ - Math.PI / 2.0
+
+    if( phi ~== Math.PI / 2.0 )
+      Double.PositiveInfinity
+    else if( phi ~== -Math.PI / 2.0 )
+      Double.NegativeInfinity
+    else if( (phi ~== 0.0) || (phi ~== Math.PI) )
+      0.0
+    else
+      Math.tan(phi)
+  }
+
+  private val q = p.y - m * p.x
+
+  def drawingEquation(x: Double): Vect = XYVect(x, m * x + q)
 
   override def moveOf(where: Vect): Line = ???
 
@@ -35,5 +56,5 @@ case class Line(
 
   override def scale(k: Double): Shape = this
 
-  override def toString = s"Line((${normal.x}, ${normal.y}) / $distance)"
+  override def toString = s"Line((${normal.x }, ${normal.y }) / $distance)"
 }

@@ -16,8 +16,6 @@
 
 package com.colofabrix.scala.gfx
 
-import com.colofabrix.scala.math.Vect
-
 /** A colour in the OpenGL system */
 final case class Colour(r: Double = 0.0, g: Double = 0.0, b: Double = 0.0)
 
@@ -26,13 +24,13 @@ object Colour {
   val BLACK = Colour(0.0, 0.0, 0.0)
   val BLUE = Colour(0.0, 0.0, 1.0)
   val CYAN = Colour(0.0, 1.0, 1.0)
-  val DARK_BLUE = Colour(0.1, 0.1, 0.3)
-  val DARK_CYAN = Colour(0.0, 0.3, 0.3)
+  val DARK_BLUE = Colour(0.1, 0.1, 0.4)
+  val DARK_CYAN = Colour(0.0, 0.4, 0.4)
   val DARK_GREEN = Colour(0.1, 0.2, 0.1)
   val DARK_GREY = Colour(0.2, 0.2, 0.2)
-  val DARK_MAGENTA = Colour(0.3, 0.0, 0.3)
-  val DARK_RED = Colour(0.3, 0.1, 0.1)
-  val DARK_YELLOW = Colour(0.3, 0.3, 0.0)
+  val DARK_MAGENTA = Colour(0.4, 0.0, 0.4)
+  val DARK_RED = Colour(0.4, 0.0, 0.0)
+  val DARK_YELLOW = Colour(0.4, 0.0, 0.0)
   val GREEN = Colour(0.0, 1.0, 0.0)
   val LIGHT_BLUE = Colour(0.8, 0.8, 1.0)
   val LIGHT_CYAN = Colour(8.0, 1.0, 1.0)
@@ -45,26 +43,4 @@ object Colour {
   val RED = Colour(1.0, 0.0, 0.0)
   val WHITE = Colour(1.0, 1.0, 1.0)
   val YELLOW = Colour(1.0, 1.0, 0.0)
-}
-
-/**
-  * An OpenGL reference frame. It holds data about its position to the absolute reference, its rotation and the
-  * colour of its brush
-  */
-final case class Frame(
-  colour: Option[Colour],
-  position: Option[Vect],
-  rotation: Option[Vect]
-)
-
-object Frame {
-  def apply(
-    colour: Colour = null,
-    position: Vect = null,
-    rotation: Vect = null
-  ): Frame = Frame(
-    Option(colour),
-    Option(position),
-    Option(rotation)
-  )
 }
