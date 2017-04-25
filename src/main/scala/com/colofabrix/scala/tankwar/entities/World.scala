@@ -24,9 +24,9 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * The world where the simulation takes place.
   */
-class World private (
-    val iteration: Int,
-    _tanks: Option[Seq[Tank]]
+class World private(
+  val iteration: Int,
+  _tanks: Option[Seq[Tank]]
 ) extends LazyLogging {
 
   /* Configuration */
@@ -35,8 +35,8 @@ class World private (
   protected val arena = WorldConfig.Arena()
 
   /** The force field present on the arena, point by point */
-  protected def forceField(position: Vect) = XYVect(
-    -Math.pow((position.x - 400) / 100.0, 3.0),
+  def forceField(position: Vect): Vect = XYVect(
+    -Math.sin(position.x / 100) * 40 + Math.exp(position.y / 800 - 0.5) * 10,
     -9.81
   )
 
@@ -46,12 +46,12 @@ class World private (
   val tanks = _tanks match {
     case Some(ts) ⇒ ts
 
-    case None ⇒ for (i ← 0 until WorldConfig.tankCount) yield {
+    case None ⇒ for( i ← 0 until WorldConfig.tankCount ) yield {
       def rnd(d: Double) = d * Random.nextDouble()
 
       new Tank(
         XYVect(50.0 + rnd(500.0), 50.0 + rnd(700.0)),
-        XYVect(30.0 - rnd(60.0), 100.0 - rnd(200.0)),
+        XYVect(30.0 - rnd(60.0), 10.0 - rnd(20.0)),
         initialExternalForce = forceField(Vect.zero)
       )
     }
@@ -66,7 +66,7 @@ class World private (
   def step(timeStep: Double): World = {
     logger.info(s"World iteration #$iteration.")
 
-    val newTanks = for (t ← tanks) yield {
+    val newTanks = for( t ← tanks ) yield {
       t.step(arena, tanks, timeStep, forceField(t.position))
     }
 

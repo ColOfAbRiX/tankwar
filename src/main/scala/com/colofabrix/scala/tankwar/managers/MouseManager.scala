@@ -16,8 +16,6 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.tankwar.TankWarMain.SimState
-
 /**
   * Manages mouse actions for the game
   */

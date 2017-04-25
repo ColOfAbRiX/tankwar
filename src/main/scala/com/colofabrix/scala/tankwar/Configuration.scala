@@ -17,7 +17,7 @@
 package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.geometry.shapes.Line
+import com.colofabrix.scala.geometry.shapes.{ Box, Line }
 import com.colofabrix.scala.math.XYVect
 import com.typesafe.config.ConfigFactory
 
@@ -30,7 +30,7 @@ object Configuration {
 
   object World {
     /** Number of tanks in the World */
-    def tankCount: Int = conf.getInt("world.tank_count")
+    val tankCount: Int = conf.getInt("world.tank_count")
 
     /**
       * Builder of the arena
@@ -38,10 +38,13 @@ object Configuration {
     object Arena {
 
       /** Width of the arena */
-      def width: Double = conf.getDouble("world.arena_width")
+      val width: Double = conf.getDouble("world.arena_width")
 
       /** Height of the arena */
-      def height: Double = conf.getDouble("world.arena_height")
+      val height: Double = conf.getDouble("world.arena_height")
+
+      /** The Arena as a simplified Box. */
+      val asBox: Box = Box(width, height)
 
       def apply(): Seq[Shape] = Seq(
         // Top side
@@ -60,27 +63,27 @@ object Configuration {
 
   object Simulation {
     /** Number of steps the World will run for */
-    def maxIterations: Int = conf.getInt("simulation.max_iterations")
+    val maxIterations: Int = conf.getInt("simulation.max_iterations")
 
     /** Number of steps the World will run for */
-    def maxTotalTime: Int = conf.getInt("simulation.max_total_time")
+    val maxTotalTime: Int = conf.getInt("simulation.max_total_time")
 
     /** Number of steps the World will run for */
-    def maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")
+    val maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")
 
     /** dt (time step) for every World step */
-    def timeMultiplier: Double = conf.getDouble("simulation.time_multiplier")
+    val timeMultiplier: Double = conf.getDouble("simulation.time_multiplier")
 
     /** Target Framerate */
-    def fps: Int = conf.getInt("simulation.fps")
+    val fps: Int = conf.getInt("simulation.fps")
 
     /** If to display graphics or not */
-    def gxfEnabled: Boolean = conf.getBoolean("simulation.gfx_enabled")
+    val gxfEnabled: Boolean = conf.getBoolean("simulation.gfx_enabled")
   }
 
   object Tanks {
     /** Default mass of a tank */
-    def defaultMass: Double = conf.getDouble("tanks.default_mass")
+    val defaultMass: Double = conf.getDouble("tanks.default_mass")
   }
 
 }

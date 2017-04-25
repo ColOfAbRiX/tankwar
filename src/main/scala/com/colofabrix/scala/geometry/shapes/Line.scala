@@ -27,15 +27,17 @@ case class Line(
   distance: Double
 ) extends Shape {
 
-  override val area: Double = 0.0
+  /** Drawing normal. This normal has always positive components. */
+  val dNormal: Vect = XYVect(normal.x.abs, normal.y.abs)
 
-  val drawingNormal: Vect = XYVect(normal.x.abs, normal.y.abs)
+  /** Known point on the line. */
+  val p = dNormal * distance
 
-  private val p = drawingNormal * distance
+  /** Parameter "m" of the line equation y = mx + q */
+  val m = {
+    val phi = dNormal.ϑ - Math.PI / 2.0
 
-  private val m = {
-    val phi = drawingNormal.ϑ - Math.PI / 2.0
-
+    // Use precise values for known points
     if( phi ~== Math.PI / 2.0 )
       Double.PositiveInfinity
     else if( phi ~== -Math.PI / 2.0 )
@@ -46,9 +48,13 @@ case class Line(
       Math.tan(phi)
   }
 
-  private val q = p.y - m * p.x
+  /** Parameter "q" of the line equation y = mx + q */
+  val q = p.y - m * p.x
 
-  def drawingEquation(x: Double): Vect = XYVect(x, m * x + q)
+  /** Drawing equation. */
+  def dEquation(x: Double): Vect = XYVect(x, m * x + q)
+
+  override val area: Double = 0.0
 
   override def moveOf(where: Vect): Line = ???
 

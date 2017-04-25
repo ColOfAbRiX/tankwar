@@ -25,13 +25,15 @@ import org.lwjgl.input.{ Mouse => GLM }
   */
 object Mouse {
 
-  trait BtnAction
-
   final case class State(cursor: Vect, btnEvents: Seq[BtnAction], wheel: Int)
+
+
+  trait BtnAction
 
   final case class BtnPressed(button: Int, position: Vect) extends BtnAction
 
   final case class BtnReleased(button: Int, position: Vect) extends BtnAction
+
 
   /** Return the position of the pointer. */
   def cursor(): Vect = XYVect(GLM.getX(), GLM.getY())
@@ -44,12 +46,10 @@ object Mouse {
     @tailrec
     def loop(result: Seq[BtnAction]): Seq[BtnAction] = {
       if (GLM.next())
-        if (GLM.getEventButtonState) {
+        if (GLM.getEventButtonState)
           loop(BtnPressed(GLM.getEventButton, cursor()) +: result)
-        }
-        else {
+        else
           loop(BtnReleased(GLM.getEventButton, cursor()) +: result)
-        }
       else result
     }
 

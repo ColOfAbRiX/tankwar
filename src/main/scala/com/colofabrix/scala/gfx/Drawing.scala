@@ -17,8 +17,9 @@
 package com.colofabrix.scala.gfx
 
 import java.awt.Font
+import java.lang.Math._
 import scala.collection.immutable.HashMap
-import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.math.{ Vect, XYVect }
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
 
@@ -55,10 +56,10 @@ object Drawing {
     val mode = if( filled ) GL_TRIANGLE_FAN else GL_LINE_LOOP
     OpenGL.draw(mode) {
 
-      for( angle ← 0d to (2d * Math.PI) by precision ) {
+      for( angle ← 0d to (2d * PI) by precision ) {
         glVertex2d(
-          Math.sin(angle) * radius + center.x,
-          Math.cos(angle) * radius + center.y
+          sin(angle) * radius + center.x,
+          cos(angle) * radius + center.y
         )
       }
 
@@ -66,10 +67,22 @@ object Drawing {
   }
 
   /** Draw a line segment. */
-  def drawSegment(p0: Vect, p1: Vect, width: Double = 1.0) = {
+  def drawSegment(p0: Vect, p1: Vect, maxClip: Vect, minClip: Vect = Vect.zero) = {
+    // Clip point p0
+    val p0c = XYVect(
+      min(max(p0.x, minClip.x), maxClip.x),
+      min(max(p0.y, minClip.y), maxClip.y)
+    )
+
+    // Clip point p1
+    val p1c = XYVect(
+      min(max(p1.x, minClip.x), maxClip.x),
+      min(max(p1.y, minClip.y), maxClip.y)
+    )
+
     OpenGL.draw(GL_LINES) {
-      glVertex2d(p0.x, p0.y)
-      glVertex2d(p1.x, p1.y)
+      drawVertex(p0c)
+      drawVertex(p1c)
     }
   }
 
@@ -86,5 +99,27 @@ object Drawing {
         font.drawString(0, (awtFont.getSize * interline * i).toFloat, t, slickColor)
       }
     }
+  }
+
+  /** Draws a vector. */
+  def drawVector(v: Vect, tail: Vect = Vect.zero, size: Double = 5.0) = {
+    OpenGL.apply(position = Some(tail)) {
+      // Main line
+      OpenGL.draw(GL_LINES) {
+        glVertex2d(0.0, 0.0)
+        glVertex2d(v.x, v.y)
+      }
+
+      // Head of the vector
+      val arrowSize = Math.min(size, v.ρ / 4.0)
+      OpenGL.apply(position = Some(v), rotation = Some(v)) {
+        OpenGL.draw(GL_TRIANGLES) {
+          glVertex2d(arrowSize, 0.0)
+          glVertex2d(-0.866025 * arrowSize, 0.5 * arrowSize)
+          glVertex2d(-0.866025 * arrowSize, -0.5 * arrowSize)
+        }
+      }
+    }
+
   }
 }
