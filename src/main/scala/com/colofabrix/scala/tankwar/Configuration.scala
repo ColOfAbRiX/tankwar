@@ -48,13 +48,16 @@ object Configuration {
 
       def apply(): Seq[Shape] = Seq(
         // Top side
-        Line(XYVect(0, -1), height),
+        Line(XYVect(0.0, -1.0), height),
         // Left side
-        Line(XYVect(1, 0), 0.0),
+        Line(XYVect(1.0, 0.0), 0.0),
         // Bottom side
-        Line(XYVect(0, 1), 0.0),
+        Line(XYVect(0.0, 1.0), 0.0),
         // Right side
-        Line(XYVect(-1, 0), width)
+        Line(XYVect(-1.0, 0.0), width),
+        // Test
+        Line(XYVect(1.0, 2.0).v, 200.0),
+        Line(XYVect(-2.0, -1.0).v, 800.0)
       )
 
     }

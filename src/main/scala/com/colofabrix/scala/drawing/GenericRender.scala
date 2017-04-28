@@ -25,7 +25,7 @@ import com.colofabrix.scala.tankwar.Configuration.World.{ Arena => ArenaConfig }
 /**
   * Gateway to draw a variety of things, from simple to complex.
   */
-object Renderer {
+object GenericRender {
   private val arena = ArenaConfig.asBox
 
   /** Draw the shapes of com.colofabrix.scala.geometry.shapes */
@@ -44,7 +44,7 @@ object Renderer {
         l.dEquation(arena.width)
       )
 
-      Drawing.drawSegment(points._1, points._2, arena.opposite)
+      Drawing.drawSegment(points._1, points._2)
   }
 
   /** Draw a vector. */
@@ -54,7 +54,7 @@ object Renderer {
 
   /** Draw a force field using vectors. */
   def draw(ff: (Vect) => Vect): Unit = {
-    val density = 3   // Number of vectors every 100 pixels
+    val density = 4   // Number of vectors every 100 pixels
 
     for {
       i <- 0.0.to(arena.width + 0.01, 100 / density)
@@ -62,7 +62,7 @@ object Renderer {
     } {
       val probePoint = XYVect(i, j)
       OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
-        Renderer.draw(ff(probePoint), probePoint)
+        GenericRender.draw(ff(probePoint), probePoint)
       }
     }
   }

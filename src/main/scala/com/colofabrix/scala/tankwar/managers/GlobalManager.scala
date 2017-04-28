@@ -14,19 +14,19 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.tankwar.managers
 
 import scala.annotation.tailrec
 import com.colofabrix.scala.gfx.OpenGL
+import com.colofabrix.scala.tankwar.Configuration
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
-import com.colofabrix.scala.tankwar.managers.{ GraphicManager, KeyboardManager, MouseManager, SimState }
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.opengl.Display
 
 /**
   * Simulation manager
   */
-object TankWarMain extends LazyLogging {
+object GlobalManager extends LazyLogging {
 
   type SimAction = SimState => SimState
 
@@ -47,6 +47,8 @@ object TankWarMain extends LazyLogging {
 
   @tailrec
   private def run(state: SimState): SimState = {
+    logger.info(s"Manager state: $state")
+
     if( state.world.iteration <= SimConfig.maxIterations )
       run(state.copy(world = state.world.step(1.0)))
     else

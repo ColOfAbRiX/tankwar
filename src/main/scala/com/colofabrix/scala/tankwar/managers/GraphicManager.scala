@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.drawing.Renderer
+import com.colofabrix.scala.drawing.GenericRender
 import com.colofabrix.scala.gfx._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
@@ -29,30 +29,30 @@ object GraphicManager extends SimManager[SimState] with LazyLogging {
   def manage(state: SimState): SimState = {
     // Viewport
     OpenGL.clear()
-    OpenGL.projection(state.viewport)
-
-    // Arena boundaries
-    for( b <- WorldConfig.Arena() ) {
-      OpenGL.apply(Some(Colour.RED)) {
-        Renderer.draw(b)
-      }
-    }
+    OpenGL.projection(state.viewport, WorldConfig.Arena.asBox)
 
     // Force field
     if( state.displayForceField ) {
       OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
-        Renderer.draw(state.world.forceField _)
+        GenericRender.draw(state.world.forceField _)
       }
     }
 
     // Drawing of the world elements
     for( t <- state.world.tanks ) {
       // Tank shape
-      Renderer.draw(t.shape)
+      GenericRender.draw(t.shape)
 
       // Velocity vector
       if( state.displayVectors ) {
-        Renderer.draw(t.velocity, t.position)
+        GenericRender.draw(t.velocity, t.position)
+      }
+    }
+
+    // Arena boundaries
+    for( b <- WorldConfig.Arena() ) {
+      OpenGL.apply(Some(Colour.RED)) {
+        GenericRender.draw(b)
       }
     }
 

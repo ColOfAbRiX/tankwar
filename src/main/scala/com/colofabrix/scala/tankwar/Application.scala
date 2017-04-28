@@ -16,12 +16,14 @@
 
 package com.colofabrix.scala.tankwar
 
+import com.colofabrix.scala.tankwar.managers.GlobalManager
+
 /**
   * Main Application
   */
 object Application {
 
   def main(args: Array[String]): Unit = {
-    TankWarMain.start()
+    GlobalManager.start()
   }
 }

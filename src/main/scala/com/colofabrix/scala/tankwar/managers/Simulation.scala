@@ -24,6 +24,16 @@ import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, Wor
 import com.colofabrix.scala.tankwar.entities.World
 
 
+/**
+  * Representation of a manager for the simulation
+  */
+trait SimManager[S] {
+  def manage(state: S): S
+}
+
+/**
+  * Status of the simulation.
+  */
 final case class SimState(
 
   viewport: Box = Box(WorldConfig.Arena.width, WorldConfig.Arena.height),

@@ -23,6 +23,7 @@ import com.colofabrix.scala.math.XYVect
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.input.Keyboard._
+import Math._
 
 /**
   * Manages keyboard actions for the game

@@ -39,6 +39,7 @@ object OpenGL {
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glViewport(0, 0, width, height)
+    glEnable(GL_SCISSOR_TEST)
 
     // Setting up the projection matrix
     glMatrixMode(GL_PROJECTION)
@@ -54,7 +55,9 @@ object OpenGL {
   def destroy(): Unit = Display.destroy()
 
   /** Updates a display */
-  def update(): Unit = Display.update()
+  def update(): Unit = {
+    Display.update()
+  }
 
   /** Initialize a drawing action */
   def draw(mode: Int)(actions: => Unit): Unit = {
@@ -64,7 +67,7 @@ object OpenGL {
   }
 
   /** Set the projection matrix */
-  def projection(viewport: Box): Unit = {
+  def projection(viewport: Box, arena: Box): Unit = {
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glOrtho(
@@ -72,6 +75,7 @@ object OpenGL {
       viewport.origin.y, viewport.opposite.y,
       1, -1
     )
+
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
   }

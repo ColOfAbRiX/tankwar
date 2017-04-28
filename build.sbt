@@ -50,6 +50,9 @@ libraryDependencies ++= Seq(
   // Linear Algebra
   //"org.scalanlp" %% "breeze" % "latest.integration",
 
+  // Neural network and deep learning
+  //"org.deeplearning4j" % "deeplearning4j-core" % "latest.integration"
+
   // LWJGL OpenGL libraries
   "org.lwjgl.lwjgl" % "lwjgl-platform" % "latest.integration" classifier "natives-windows" classifier "natives-linux" classifier "natives-osx",
   "slick-util" % "slick-util" % "1.0.0" from "http://slick.ninjacave.com/slick-util.jar",

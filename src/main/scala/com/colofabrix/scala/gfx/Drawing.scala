@@ -67,22 +67,10 @@ object Drawing {
   }
 
   /** Draw a line segment. */
-  def drawSegment(p0: Vect, p1: Vect, maxClip: Vect, minClip: Vect = Vect.zero) = {
-    // Clip point p0
-    val p0c = XYVect(
-      min(max(p0.x, minClip.x), maxClip.x),
-      min(max(p0.y, minClip.y), maxClip.y)
-    )
-
-    // Clip point p1
-    val p1c = XYVect(
-      min(max(p1.x, minClip.x), maxClip.x),
-      min(max(p1.y, minClip.y), maxClip.y)
-    )
-
+  def drawSegment(p0: Vect, p1: Vect) = {
     OpenGL.draw(GL_LINES) {
-      drawVertex(p0c)
-      drawVertex(p1c)
+      drawVertex(p0)
+      drawVertex(p1)
     }
   }
 
