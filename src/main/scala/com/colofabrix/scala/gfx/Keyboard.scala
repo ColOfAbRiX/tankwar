@@ -24,17 +24,14 @@ import org.lwjgl.input.{ Keyboard => GLK }
   */
 object Keyboard {
 
-  trait KeyAction
+  trait KeyState
 
-  final case class KeyPressed(key: Int) extends KeyAction
+  final case class KeyDown(key: Int, pressed: Boolean) extends KeyState
 
-  final case class KeyReleased(key: Int) extends KeyAction
-
-
-  final case class State(keyEvents: Seq[KeyAction])
+  final case class KeyUp(key: Int, released: Boolean) extends KeyState
 
 
-  class KeyStateAction[S](k: Int)(f: S => S) {
+  final class KeyStateAction[S](k: Int)(f: S => S) {
     def runWhenDown(state: S): S = {
       if( isKeyDown(k) ) f(state) else state
     }
@@ -45,18 +42,15 @@ object Keyboard {
   }
 
 
-  /** Return  information about the mouse buttons. */
-  def state(): State = State(events())
-
   /** Gets all the events occured since the last execution. */
-  def events(): Seq[KeyAction] = {
+  def events(): Seq[KeyState] = {
     @tailrec
-    def loop(result: Seq[KeyAction]): Seq[KeyAction] = {
+    def loop(result: Seq[KeyState]): Seq[KeyState] = {
       if( GLK.next() )
         if( GLK.getEventKeyState )
-          loop(KeyPressed(GLK.getEventKey) +: result)
+          loop(KeyDown(GLK.getEventKey, pressed = true) +: result)
         else
-          loop(KeyReleased(GLK.getEventKey) +: result)
+          loop(KeyUp(GLK.getEventKey, released = true) +: result)
       else result
     }
 

@@ -28,59 +28,72 @@ import org.lwjgl.opengl.Display
   */
 object GlobalManager extends LazyLogging {
 
-  type SimAction = SimState => SimState
-
   /** Start the simulation. */
   def start(): Unit = {
     if( Configuration.Simulation.gxfEnabled ) {
+      logger.info("Running simulation with graphic interface.")
+
       OpenGL.init(
         WorldConfig.Arena.width.toInt,
         WorldConfig.Arena.height.toInt
       )
 
-      run_gfx(SimState())
+      val finalState = runSimulation(GraphicSimulation())
 
       OpenGL.destroy()
+
+      logger.info(s"Simulation terminated with status: $finalState.")
     }
-    else run(SimState())
+    else {
+      logger.info("Running simulation without graphics.")
+
+      val finalState = runSimulation(BackgroundSimulation())
+
+      logger.info(s"Simulation terminated with status: $finalState.")
+    }
   }
 
   @tailrec
-  private def run(state: SimState): SimState = {
-    logger.info(s"Manager state: $state")
+  private def runSimulation(state: SimulationState): SimulationState = state match {
+    // Simulation with graphics
+    case s: GraphicSimulation =>
+      logger.info(s"Manager state: $s")
 
-    if( state.world.iteration <= SimConfig.maxIterations )
-      run(state.copy(world = state.world.step(1.0)))
-    else
-      state
-  }
-
-  @tailrec
-  private def run_gfx(state: SimState): SimState = {
-    logger.info(s"Manager state: $state")
-
-    if( state.timing.totalTime <= SimConfig.maxTotalTime && state.timing.simTime <= SimConfig.maxSimulationTime ) {
-
-      if( !Display.isCloseRequested ) {
-        val nextState = Seq[SimAction](
-          MouseManager.manage,
-          KeyboardManager.manage,
-          GraphicManager.manage,
-          s => {
-            if( !s.pause )
-              s.copy(world = state.world.step(s.tsMultiplier * s.cycleDelta))
-            else
-              s
-          }
-        ).foldLeft(state) {
-          (s, manager) => manager(s)
-        }
-
-        run_gfx(nextState)
+      // Stop when the simulation time is finished
+      if( s.timing.simTime > SimConfig.maxSimulationTime ) {
+        logger.info(s"Simulation time exceeded maximum time. Terminating.")
+        return s
       }
-      else state
-    }
-    else state
+
+      // Stop when requested
+      if( Display.isCloseRequested ) {
+        logger.info(s"Received close request. Terminating.")
+        return s
+      }
+
+      // Main actions of the simulation
+      val managers = for {
+        s1 <- MouseManager.manage()
+        s2 <- KeyboardManager.manage()
+        s3 <- GraphicManager.manage()
+        s4 <- WorldManager.manage()
+      } yield s4
+
+      // Run and call recursive for next iteration
+      return runSimulation(managers.run(s)._2)
+
+    // Background simulation, no graphics
+    case s: BackgroundSimulation =>
+      // Stop when reached maximum iterations
+      if( s.world.iteration > SimConfig.maxIterations )
+        return s
+
+      return runSimulation(s.copy(world = s.world.step(1.0)))
+
+    // Unexpected cases
+    case s: SimulationState =>
+      logger.info(s"Unexpected state $s. Doing nothing with it.")
+      return s
   }
 
 }

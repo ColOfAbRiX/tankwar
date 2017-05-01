@@ -16,11 +16,29 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-/**
-  * Manages mouse actions for the game
-  */
-object MouseManager extends SimManager[GraphicSimulation] {
+import com.typesafe.scalalogging.LazyLogging
 
-  def manage(): SimAction = scalaz.State(returnState _)
+/**
+  * Manages world and the progressing of the simulation
+  */
+object WorldManager extends SimManager[SimulationState] with LazyLogging {
+
+  def manage(): SimAction = scalaz.State {
+    // Running simulation
+    case state: GraphicSimulation =>
+      val stepTimeDelta = state.tsMultiplier * state.cycleDelta
+
+      val nextWorld = if( !state.pause )
+        state.world.step(stepTimeDelta)
+      else
+        state.world
+
+      returnState(state.copy(world = nextWorld))
+
+    // Unexpected cases
+    case state =>
+      logger.info(s"Unexpected state $state. Doing nothing with it.")
+      returnState(state)
+  }
 
 }

@@ -39,7 +39,6 @@ object OpenGL {
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glViewport(0, 0, width, height)
-    glEnable(GL_SCISSOR_TEST)
 
     // Setting up the projection matrix
     glMatrixMode(GL_PROJECTION)
@@ -81,7 +80,6 @@ object OpenGL {
   }
 
   /** Apply a reference frame on top of an existing one */
-  //def apply(frame: Frame = Frame())(actions: => Unit): Unit = {
   def apply(
     colour: Option[Colour] = None,
     position: Option[Vect] = None,

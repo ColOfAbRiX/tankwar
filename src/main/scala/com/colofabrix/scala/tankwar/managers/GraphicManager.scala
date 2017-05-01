@@ -24,49 +24,53 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * Manages the display of graphics
   */
-object GraphicManager extends SimManager[SimState] with LazyLogging {
+object GraphicManager extends SimManager[SimulationState] with LazyLogging {
 
-  def manage(state: SimState): SimState = {
-    // Viewport
-    OpenGL.clear()
-    OpenGL.projection(state.viewport, WorldConfig.Arena.asBox)
+  def manage(): SimAction = scalaz.State {
+    case state: GraphicSimulation =>
+      // Viewport
+      OpenGL.clear()
+      OpenGL.projection(state.viewport, WorldConfig.Arena.asBox)
 
-    // Force field
-    if( state.displayForceField ) {
-      OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
-        GenericRender.draw(state.world.forceField _)
+      // Draw the world force field
+      if( state.display.forceField )
+        OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
+          GenericRender.draw(state.world.forceField _)
+        }
+
+      // Draw of the world elements
+      for( t <- state.world.tanks ) {
+        // Tank shape
+        GenericRender.draw(t.shape)
+
+        // Velocity vector
+        if( state.display.vectors ) {
+          GenericRender.draw(t.velocity, t.position)
+        }
       }
-    }
 
-    // Drawing of the world elements
-    for( t <- state.world.tanks ) {
-      // Tank shape
-      GenericRender.draw(t.shape)
+      // Draw the boundaries of the arena
+      for( b <- WorldConfig.Arena() )
+        OpenGL.apply(Some(Colour.RED)) {
+          GenericRender.draw(b)
+        }
 
-      // Velocity vector
-      if( state.displayVectors ) {
-        GenericRender.draw(t.velocity, t.position)
-      }
-    }
+      // Update display
+      OpenGL.update()
 
-    // Arena boundaries
-    for( b <- WorldConfig.Arena() ) {
-      OpenGL.apply(Some(Colour.RED)) {
-        GenericRender.draw(b)
-      }
-    }
+      // Time synchronization
+      val (ns, td) = Timing.sync(
+        SimConfig.fps,
+        state.tsMultiplier / SimConfig.timeMultiplier
+      ).run(state.timing)
 
-    // Update display
-    OpenGL.update()
+      // Update
+      returnState(state.copy(timing = ns, cycleDelta = td))
 
-    // Time synchronization
-    val (ns, td) = Timing.sync(
-      SimConfig.fps,
-      state.tsMultiplier / SimConfig.timeMultiplier
-    ).run(state.timing)
-
-    // Update
-    state.copy(timing = ns, cycleDelta = td)
+    // Unexpected cases
+    case state =>
+      logger.info(s"Unexpected state $state. Doing nothing with it.")
+      returnState(state)
   }
 
 }

@@ -19,42 +19,47 @@ package com.colofabrix.scala.tankwar.managers
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Timing
 import com.colofabrix.scala.gfx.Timing.TimeState
-import com.colofabrix.scala.math._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
 import com.colofabrix.scala.tankwar.entities.World
-
 
 /**
   * Representation of a manager for the simulation
   */
-trait SimManager[S] {
-  def manage(state: S): S
+trait SimManager[S <: SimulationState] {
+  type SimAction = scalaz.State[S, S]
+
+  def manage(): SimAction
+
+  def returnState(state: S): (S, S) = (state, state)
 }
 
 /**
   * Status of the simulation.
   */
-final case class SimState(
+sealed trait SimulationState
 
-  viewport: Box = Box(WorldConfig.Arena.width, WorldConfig.Arena.height),
-  pause: Boolean = false,
+/**
+  * Background simulation, without graphics.
+  */
+final case class BackgroundSimulation(world: World = World()) extends SimulationState
+
+/**
+  * Simulation that includes graphics.
+  */
+final case class GraphicSimulation(
   world: World = World(),
+  viewport: Box = Box(WorldConfig.Arena.width, WorldConfig.Arena.height),
   timing: TimeState = Timing.init(),
+  display: DisplayOptions = DisplayOptions(),
   tsMultiplier: Double = SimConfig.timeMultiplier,
   cycleDelta: Double = 0.0,
-  displayForceField: Boolean = false,
-  displayVectors: Boolean = false
+  pause: Boolean = false
+) extends SimulationState
 
-) {
-
-  override def toString: String = {
-    s"viewport=$viewport, " +
-      s"pause=$pause, " +
-      s"timing=$timing, " +
-      s"tsMultiplier=${tsMultiplier.sig() }, " +
-      s"cycleDelta=${cycleDelta.sig() }" +
-      s"displayForceField=$displayForceField" +
-      s"displayForceField=$displayVectors"
-  }
-
-}
+/**
+  * Display options.
+  */
+case class DisplayOptions(
+  forceField: Boolean = false,
+  vectors: Boolean = false
+)
