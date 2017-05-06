@@ -33,8 +33,6 @@ case class Circle(
 
   override def moveOf(where: Vect): Circle = Circle(center + where, radius)
 
-  override def moveTo(where: Vect): Circle = Circle(where, radius)
-
   override def scale(k: Double): Shape = Circle(this.center, this.radius * k)
 
   override def toString = s"Circle(c=$center, r=$radius)"

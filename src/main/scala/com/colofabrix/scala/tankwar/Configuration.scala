@@ -18,7 +18,7 @@ package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.{ Box, Line }
-import com.colofabrix.scala.math.{ RTVect, XYVect }
+import com.colofabrix.scala.math.XYVect
 import com.typesafe.config.ConfigFactory
 
 /**
@@ -54,12 +54,7 @@ object Configuration {
         // Bottom side
         Line(XYVect(0.0, 1.0), 0.0),
         // Right side
-        Line(XYVect(-1.0, 0.0), width),
-        // Test
-        Line(XYVect(1.0, 1.0), -200.0),
-        Line(XYVect(-1.0, 1.0), 600.0),
-        Line(XYVect(-1.0, -1.0), 900.0),
-        Line(XYVect(1.0, -1.0), 200.0)
+        Line(XYVect(-1.0, 0.0), width)
       )
 
     }

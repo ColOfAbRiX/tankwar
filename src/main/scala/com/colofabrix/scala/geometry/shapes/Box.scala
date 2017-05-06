@@ -83,8 +83,6 @@ class Box protected (
 
   override def moveOf(where: Vect): Box = Box(bottomLeft + where, topRight + where)
 
-  override def moveTo(where: Vect): Box = Box(where, width, height)
-
   override def scale(k: Double): Box = Box(this.center, this.width * k, this.height * k)
 
   override def toString = s"Box($bottomLeft -> $topRight)"

@@ -34,9 +34,11 @@ object GenericRender {
 
     case b: Box => Drawing.drawPolygon(b.vertices)
 
+    case Segment(p0, p1) => Drawing.drawSegment(p0, p1)
+
     case l: Line =>
       l.clip(arena) match {
-        case Some(Segment(p0, p1)) => Drawing.drawSegment(p0, p1)
+        case Some(s: Segment) => draw(s)
         case None =>
       }
   }

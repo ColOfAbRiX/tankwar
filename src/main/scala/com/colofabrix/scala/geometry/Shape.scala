@@ -39,9 +39,6 @@ trait Shape {
   /** Moves a shape of the given vector. */
   def moveOf(v: Vect): Shape
 
-  /** Moves a shape to the given position. */
-  def moveTo(v: Vect): Shape
-
   /** Scales the size of the shape. */
   def scale(k: Double): Shape
 }

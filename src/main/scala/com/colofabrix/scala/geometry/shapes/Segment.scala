@@ -92,8 +92,6 @@ case class Segment(p0: Vect, p1: Vect) extends Shape {
 
   override def moveOf(v: Vect): Shape = Segment(p0 + v, p1 + v)
 
-  override def moveTo(v: Vect): Shape = ???
-
   override def scale(k: Double): Shape = ???
 
   override def toString = s"Segment($p0 -> $p1)"

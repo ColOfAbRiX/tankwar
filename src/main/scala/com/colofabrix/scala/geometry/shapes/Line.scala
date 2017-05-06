@@ -41,32 +41,24 @@ class Line private(
   /** Line equation. */
   def equation(x: Double): Vect = XYVect(x, m * x + q)
 
-  /** Inverse line equation. */
-  def noitauqe(y: Double): Vect = XYVect((y - q) / m, y)
-
   /** Known point on the line. */
   val p = equation(0.0)
 
   /** Clip the line into a segment fully contained in a Box. */
   def clip(frame: Box): Option[Segment] = {
-    // Horizontal line
-    if( m ==~ 0.0 )
-      Some(Segment(XYVect(0.0, p.y), XYVect(frame.width, p.y)))
-
-    // Vertical line
+    val seg = if( m ==~ 0.0 )
+      Segment(XYVect(frame.left, p.y), XYVect(frame.right, p.y))
     else if( m.abs ==~ Double.PositiveInfinity )
-      Some(Segment(XYVect(p.x, 0.0), XYVect(p.x, frame.height)))
-
-    // Other cases
+      Segment(XYVect(distance, frame.bottom), XYVect(distance, frame.top))
     else
-      Segment(equation(frame.left), equation(frame.right)).clip(frame)
+      Segment(equation(frame.left), equation(frame.right))
+
+    seg.clip(frame)
   }
 
   override val area: Double = 0.0
 
   override def moveOf(where: Vect): Line = Line(normal, distance + (normal ∙ where))
-
-  override def moveTo(where: Vect): Line = ???
 
   override def scale(k: Double): Shape = this
 
@@ -85,8 +77,6 @@ object Line {
 
   def apply(m: Double, q: Double): Line = {
     val k = Math.sqrt(m * m + 1)
-    val n = XYVect(m / k, -1 / k)
-    val d = -q / k
-    Line(n, d)
+    Line(XYVect(m / k, -1 / k), -q / k)
   }
 }
