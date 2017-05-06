@@ -36,18 +36,13 @@ object OpenGL {
     Display.create()
     Display.setTitle(title)
 
+    // Set viewport
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glViewport(0, 0, width, height)
 
-    // Setting up the projection matrix
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    glOrtho(0, width, 0, height, 1, -1)
-
-    // Set matrix for running mode
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
+    // Setting up the camera
+    setCamera(Box(width, height))
   }
 
   /** Terminates OpenGL */
@@ -66,7 +61,7 @@ object OpenGL {
   }
 
   /** Set the projection matrix */
-  def projection(viewport: Box, arena: Box): Unit = {
+  def setCamera(viewport: Box): Unit = {
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glOrtho(

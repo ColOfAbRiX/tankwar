@@ -36,39 +36,39 @@ class MathTest extends FlatSpec with Matchers {
     val h = Double.PositiveInfinity
 
 
-    (a ~== a) should equal(true)
-    (c ~== c) should equal(true)
-    (d ~== d) should equal(true)
+    (a ==~ a) should equal(true)
+    (c ==~ c) should equal(true)
+    (d ==~ d) should equal(true)
 
-    (a ~== b) should equal(true)
-    (b ~== a) should equal(true)
+    (a ==~ b) should equal(true)
+    (b ==~ a) should equal(true)
 
-    (b ~== c) should equal(true)
-    (c ~== b) should equal(true)
+    (b ==~ c) should equal(true)
+    (c ==~ b) should equal(true)
 
-    (a ~== c) should equal(true)
-    (c ~== a) should equal(true)
-
-
-    (d ~== e) should equal(true)
-    (e ~== d) should equal(true)
+    (a ==~ c) should equal(true)
+    (c ==~ a) should equal(true)
 
 
-    (a ~== d) should equal(false)
-    (d ~== a) should equal(false)
+    (d ==~ e) should equal(true)
+    (e ==~ d) should equal(true)
 
-    (f ~== f) should equal(false)
-    (g ~== g) should equal(true)
-    (f ~== g) should equal(false)
-    (g ~== f) should equal(false)
-    (g ~== h) should equal(false)
-    (h ~== g) should equal(false)
 
-    (f ~== d) should equal(false)
-    (d ~== f) should equal(false)
+    (a ==~ d) should equal(false)
+    (d ==~ a) should equal(false)
 
-    (g ~== d) should equal(false)
-    (d ~== g) should equal(false)
+    (f ==~ f) should equal(false)
+    (g ==~ g) should equal(true)
+    (f ==~ g) should equal(false)
+    (g ==~ f) should equal(false)
+    (g ==~ h) should equal(false)
+    (h ==~ g) should equal(false)
+
+    (f ==~ d) should equal(false)
+    (d ==~ f) should equal(false)
+
+    (g ==~ d) should equal(false)
+    (d ==~ g) should equal(false)
   }
 
   "~> method" must "return true if and only if Double1 > Double2" in {
@@ -77,14 +77,14 @@ class MathTest extends FlatSpec with Matchers {
     val c = Double.MinPositiveValue
     val d = Math.PI
 
-    (a ~> b) should equal(false)
-    (b ~> a) should equal(false)
+    (a >~ b) should equal(false)
+    (b >~ a) should equal(false)
 
-    (a ~> c) should equal(false)
-    (c ~> a) should equal(false)
+    (a >~ c) should equal(false)
+    (c >~ a) should equal(false)
 
-    (d ~> a) should equal(true)
-    (a ~> d) should equal(false)
+    (d >~ a) should equal(true)
+    (a >~ d) should equal(false)
   }
 
   "~>= method" must "return true if and only if Double1 >= Double2" in {
@@ -93,14 +93,14 @@ class MathTest extends FlatSpec with Matchers {
     val c = -Double.MinPositiveValue
     val d = Math.PI
 
-    (a ~>= b) should equal(true)
-    (b ~>= a) should equal(true)
+    (a >=~ b) should equal(true)
+    (b >=~ a) should equal(true)
 
-    (a ~>= c) should equal(true)
-    (c ~>= a) should equal(true)
+    (a >=~ c) should equal(true)
+    (c >=~ a) should equal(true)
 
-    (d ~>= a) should equal(true)
-    (a ~>= d) should equal(false)
+    (d >=~ a) should equal(true)
+    (a >=~ d) should equal(false)
   }
 
   "~<= method" must "return true if and only if Double1 <= Double2" in {
@@ -109,14 +109,14 @@ class MathTest extends FlatSpec with Matchers {
     val c = -Double.MinPositiveValue
     val d = Math.PI
 
-    (a ~<= b) should equal(true)
-    (b ~<= a) should equal(true)
+    (a <=~ b) should equal(true)
+    (b <=~ a) should equal(true)
 
-    (a ~<= c) should equal(true)
-    (c ~<= a) should equal(true)
+    (a <=~ c) should equal(true)
+    (c <=~ a) should equal(true)
 
-    (d ~<= a) should equal(false)
-    (a ~<= d) should equal(true)
+    (d <=~ a) should equal(false)
+    (a <=~ d) should equal(true)
   }
 
   "~< method" must "return true if and only if Double1 , Double2" in {
@@ -125,14 +125,14 @@ class MathTest extends FlatSpec with Matchers {
     val c = -Double.MinPositiveValue
     val d = Math.PI
 
-    (a ~< b) should equal(false)
-    (b ~< a) should equal(false)
+    (a <~ b) should equal(false)
+    (b <~ a) should equal(false)
 
-    (a ~< c) should equal(false)
-    (c ~< a) should equal(false)
+    (a <~ c) should equal(false)
+    (c <~ a) should equal(false)
 
-    (d ~< a) should equal(false)
-    (a ~< d) should equal(true)
+    (d <~ a) should equal(false)
+    (a <~ d) should equal(true)
   }
 
 }

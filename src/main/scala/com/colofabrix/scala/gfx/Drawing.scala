@@ -19,7 +19,7 @@ package com.colofabrix.scala.gfx
 import java.awt.Font
 import java.lang.Math._
 import scala.collection.immutable.HashMap
-import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.scala.math.Vect
 import org.lwjgl.opengl.GL11._
 import org.newdawn.slick.{ Color, TrueTypeFont }
 

@@ -18,7 +18,7 @@ package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.{ Box, Line }
-import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.math.{ RTVect, XYVect }
 import com.typesafe.config.ConfigFactory
 
 /**
@@ -56,8 +56,10 @@ object Configuration {
         // Right side
         Line(XYVect(-1.0, 0.0), width),
         // Test
-        Line(XYVect(1.0, 2.0).v, 200.0),
-        Line(XYVect(-2.0, -1.0).v, 800.0)
+        Line(XYVect(1.0, 1.0), -200.0),
+        Line(XYVect(-1.0, 1.0), 600.0),
+        Line(XYVect(-1.0, -1.0), 900.0),
+        Line(XYVect(1.0, -1.0), 200.0)
       )
 
     }
@@ -67,9 +69,6 @@ object Configuration {
   object Simulation {
     /** Number of steps the World will run for */
     val maxIterations: Int = conf.getInt("simulation.max_iterations")
-
-    /** Number of steps the World will run for */
-    val maxTotalTime: Int = conf.getInt("simulation.max_total_time")
 
     /** Number of steps the World will run for */
     val maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")

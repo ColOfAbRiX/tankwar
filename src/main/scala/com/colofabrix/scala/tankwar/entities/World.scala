@@ -35,7 +35,7 @@ class World private(
   protected val arena = WorldConfig.Arena()
 
   /** The force field present on the arena, point by point */
-  def forceField(position: Vect): Vect = XYVect(0.0, -98.0665)
+  def forceField(position: Vect): Vect = XYVect(0.0, -100)
 
   /* State */
 
@@ -46,7 +46,7 @@ class World private(
       case None ⇒ for( i ← 0 until WorldConfig.tankCount ) yield {
         new Tank(
           XYVect(WorldConfig.Arena.width * Random.nextDouble(), WorldConfig.Arena.height * Random.nextDouble()),
-          XYVect(0.0, 50.0),
+          XYVect(0.0, 100.0),
           initialExternalForce = forceField(Vect.zero)
         )
       }

@@ -30,7 +30,7 @@ object GraphicManager extends SimManager[SimulationState] with LazyLogging {
     case state: GraphicSimulation =>
       // Viewport
       OpenGL.clear()
-      OpenGL.projection(state.viewport, WorldConfig.Arena.asBox)
+      OpenGL.setCamera(state.viewport)
 
       // Draw the world force field
       if( state.display.forceField )

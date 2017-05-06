@@ -23,11 +23,11 @@ import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect }
   * Circle shape
   */
 case class Circle(
-    center: Vect,
-    radius: Double
+  center: Vect,
+  radius: Double
 ) extends Shape {
 
-  require(radius ~> 0.0, "The circle must have a non-zero radius.")
+  require(radius >~ 0.0, "The circle must have a non-zero radius.")
 
   lazy override val area: Double = Math.PI * Math.pow(radius, 2.0)
 
@@ -38,4 +38,11 @@ case class Circle(
   override def scale(k: Double): Shape = Circle(this.center, this.radius * k)
 
   override def toString = s"Circle(c=$center, r=$radius)"
+
+  override def equals(other: Any): Boolean = other match {
+    case c: Circle => c.center == center && c.radius ==~ radius
+    case _ => false
+  }
+
+  override def hashCode(): Int = 31 * 31 * center.hashCode() + 31 * radius.hashCode() + 31
 }

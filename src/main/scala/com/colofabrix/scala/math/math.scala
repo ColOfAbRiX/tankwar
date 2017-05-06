@@ -32,7 +32,7 @@ package object math {
     * Ref: http://stackoverflow.com/questions/4915462/how-should-i-do-floating-point-comparison
     */
   implicit class DoubleWithAlmostEquals(val d1: Double) extends AnyVal {
-    def ~==(d2: Double): Boolean = {
+    def ==~(d2: Double): Boolean = {
       // See: http://www.programgo.com/article/4441958781/
       val dd1 = d1 + 0.0
       val dd2 = d2 + 0.0
@@ -53,15 +53,15 @@ package object math {
       }
     }
 
-    def ~!=(d2: Double): Boolean = !(d1 ~== d2)
+    def !=~(d2: Double): Boolean = !(d1 ==~ d2)
 
-    def ~<(d2: Double): Boolean = (d1 - d2) < FP_EPSILON && !(d1 ~== d2)
+    def <~(d2: Double): Boolean = (d1 - d2) < FP_EPSILON && !(d1 ==~ d2)
 
-    def ~<=(d2: Double): Boolean = (d1 - d2) < FP_EPSILON || (d1 ~== d2)
+    def <=~(d2: Double): Boolean = (d1 - d2) < FP_EPSILON || (d1 ==~ d2)
 
-    def ~>=(d2: Double): Boolean = (d1 - d2) > FP_EPSILON || (d1 ~== d2)
+    def >=~(d2: Double): Boolean = (d1 - d2) > FP_EPSILON || (d1 ==~ d2)
 
-    def ~>(d2: Double): Boolean = (d1 - d2) > FP_EPSILON && !(d1 ~== d2)
+    def >~(d2: Double): Boolean = (d1 - d2) > FP_EPSILON && !(d1 ==~ d2)
   }
 
   /**
@@ -78,6 +78,13 @@ package object math {
 
     /** Rounds a number to N significant figures */
     def sig(significantFigures: Int = SIG_FIGURES): Double = {
+      // Handle exceptional cases
+      if( _number == Double.PositiveInfinity ||
+          _number == Double.NegativeInfinity ||
+          _number == Double.NaN ) {
+        return _number
+      }
+
       BigDecimal(_number)
         .round(new MathContext(3))
         .doubleValue()
@@ -85,8 +92,14 @@ package object math {
 
     /** Normalize a number to be between 1 and 1000 and applies a metric prefix to the unit */
     def eng(unit: String = "", startingExp: Int = 0): (Double, String) = {
-
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
+
+      // Handle exceptional cases
+      if( _number == Double.PositiveInfinity ||
+        _number == Double.NegativeInfinity ||
+        _number == Double.NaN ) {
+        return (_number, unit)
+      }
 
       // A number can already be expressed in a different prefix, like a given milliseconds
       val normNumber = calcExp(_number, startingExp)
@@ -101,8 +114,14 @@ package object math {
 
     /** Convert a number to a specific metric prefix */
     def fixEng(unit: String = "", targetPrefix: Int = 0, startingExp: Int = 0): (Double, String) = {
-
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
+
+      // Handle exceptional cases
+      if( _number == Double.PositiveInfinity ||
+        _number == Double.NegativeInfinity ||
+        _number == Double.NaN ) {
+        return (_number, unit)
+      }
 
       // A number can already be expressed in a different prefix, like a given milliseconds
       val normNumber = calcExp(_number, startingExp)

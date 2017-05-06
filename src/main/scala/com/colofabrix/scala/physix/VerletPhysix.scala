@@ -57,7 +57,7 @@ abstract class VerletPhysix(
       w.collision(checkShape) match {
         case -\/(Collision(n, d)) =>
           val v = this.velocity ∙ n
-          if ((d ~< 0.0) && (v ~< 0.0)) {
+          if ((d <~ 0.0) && (v <~ 0.0)) {
             this._velocity -= 2.0 * v * n
 
             logger.info(s"Tank[${this.id}] - Collision with $w at position ${this.position} and distance ${d * n}.")
@@ -73,7 +73,7 @@ abstract class VerletPhysix(
       s.collision(checkShape) match {
         case -\/(Collision(n, d)) =>
           val v = this.velocity ∙ n
-          if (d ~< 0.0) {
+          if (d <~ 0.0) {
             this._velocity -= 2.0 * v * n
 
             logger.info(s"Tank[${this.id}] - Collision with $s at position ${this.position} and distance ${d * n}.")

@@ -216,22 +216,22 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   /** The Cartesian Plane quadrant where the vector lies */
   def quadrant: Int = this match {
     case _: XYVect ⇒
-      if (x ~> 0.0 && y ~> 0.0) 1
-      else if (x ~< 0.0 && y ~> 0.0) 2
-      else if (x ~< 0.0 && y ~< 0.0) 3
-      else if (x ~> 0.0 && y ~< 0.0) 4
+      if (x >~ 0.0 && y >~ 0.0) 1
+      else if (x <~ 0.0 && y >~ 0.0) 2
+      else if (x <~ 0.0 && y <~ 0.0) 3
+      else if (x >~ 0.0 && y <~ 0.0) 4
       else 0
 
     case _: RTVect ⇒
-      if (this.ϑ % (Math.PI / 2.0) ~== 0.0) 0
+      if (this.ϑ % (Math.PI / 2.0) ==~ 0.0) 0
       else Math.floor(this.ϑ / (Math.PI / 2.0)).toInt + 1
   }
 
   override def toString: String
 
   override def equals(that: Any): Boolean = that match {
-    case xy: XYVect ⇒ (this.x ~== xy.x) && (this.y ~== xy.y)
-    case rt: RTVect ⇒ (this.ϑ ~== rt.ϑ) && (this.ρ ~== rt.ρ)
+    case xy: XYVect ⇒ (this.x ==~ xy.x) && (this.y ==~ xy.y)
+    case rt: RTVect ⇒ (this.ϑ ==~ rt.ϑ) && (this.ρ ==~ rt.ρ)
     case _ ⇒ return false
   }
 
@@ -246,8 +246,8 @@ sealed abstract class Vect extends AnyRef with scalaz.Equal[Vect] {
   /** Trim an angle making sure that 0 <= α < 2π */
   @inline
   protected def restrictAngle(angle: Double): Double = {
-    if (angle ~>= 2.0 * Math.PI) angle % (-2.0 * Math.PI)
-    else if (angle ~< 0.0) angle % (-2.0 * Math.PI) + 2.0 * Math.PI
+    if (angle >=~ 2.0 * Math.PI) angle % (-2.0 * Math.PI)
+    else if (angle <~ 0.0) angle % (-2.0 * Math.PI) + 2.0 * Math.PI
     else angle
   }
 

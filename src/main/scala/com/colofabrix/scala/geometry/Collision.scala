@@ -55,14 +55,11 @@ object Collision {
         Collision(b2c.n, d)
 
       case p2: Line ⇒
-        // See: http://stackoverflow.com/questions/22093749/c-plane-sphere-collision-detection
-        val c2p = p2.normal ∙ (c1.center - p2.p)
-        val d = c2p - c1.radius
-
+        val d = p2.distance(c1.center) - c1.radius
         Collision(p2.normal, d)
     }
 
-    if (collision.distance ~<= 0.0) -\/(collision) else \/-(collision)
+    if (collision.distance <=~ 0.0) -\/(collision) else \/-(collision)
   }
 
   /** Detects if a Box is colliding with another shape */

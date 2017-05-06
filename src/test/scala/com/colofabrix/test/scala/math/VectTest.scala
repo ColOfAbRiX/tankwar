@@ -27,7 +27,7 @@ abstract class VectTest extends FlatSpec with Matchers {
   /* Implicit used to define Double equality */
   implicit val doubleEquality = new org.scalactic.Equality[Double] {
     def areEqual( a: Double, b: Any ): Boolean = b match {
-      case d: Double => a ~== d
+      case d: Double => a ==~ d
       case _ => false
     }
   }

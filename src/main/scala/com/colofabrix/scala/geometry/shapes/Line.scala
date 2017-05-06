@@ -20,47 +20,73 @@ import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect, XYVect }
 
 /**
-  * An infinite line
+  * An infinite line.
   */
-case class Line(
-  normal: Vect,
-  distance: Double
+class Line private(
+  val normal: Vect,
+  val distance: Double
 ) extends Shape {
 
-  /** Drawing normal. This normal has always positive components. */
-  val dNormal: Vect = XYVect(normal.x.abs, normal.y.abs)
-
-  /** Known point on the line. */
-  val p = dNormal * distance
+  require(normal != Vect.zero, "A line must be defined with a non-zero normal.")
 
   /** Parameter "m" of the line equation y = mx + q */
-  val m = {
-    val phi = dNormal.ϑ - Math.PI / 2.0
-
-    // Use precise values for known points
-    if( phi ~== Math.PI / 2.0 )
-      Double.PositiveInfinity
-    else if( phi ~== -Math.PI / 2.0 )
-      Double.NegativeInfinity
-    else if( (phi ~== 0.0) || (phi ~== Math.PI) )
-      0.0
-    else
-      Math.tan(phi)
-  }
+  val m = -(normal.x / normal.y)
 
   /** Parameter "q" of the line equation y = mx + q */
-  val q = p.y - m * p.x
+  val q = -distance / normal.y
 
-  /** Drawing equation. */
-  def dEquation(x: Double): Vect = XYVect(x, m * x + q)
+  /** Distance of a point from the line. */
+  def distance(v: Vect): Double = ((normal ∙ v) + distance).abs
+
+  /** Line equation. */
+  def equation(x: Double): Vect = XYVect(x, m * x + q)
+
+  /** Inverse line equation. */
+  def noitauqe(y: Double): Vect = XYVect((y - q) / m, y)
+
+  /** Known point on the line. */
+  val p = equation(0.0)
+
+  /** Clip the line into a segment fully contained in a Box. */
+  def clip(frame: Box): Option[Segment] = {
+    // Horizontal line
+    if( m ==~ 0.0 )
+      Some(Segment(XYVect(0.0, p.y), XYVect(frame.width, p.y)))
+
+    // Vertical line
+    else if( m.abs ==~ Double.PositiveInfinity )
+      Some(Segment(XYVect(p.x, 0.0), XYVect(p.x, frame.height)))
+
+    // Other cases
+    else
+      Segment(equation(frame.left), equation(frame.right)).clip(frame)
+  }
 
   override val area: Double = 0.0
 
-  override def moveOf(where: Vect): Line = ???
+  override def moveOf(where: Vect): Line = Line(normal, distance + (normal ∙ where))
 
   override def moveTo(where: Vect): Line = ???
 
   override def scale(k: Double): Shape = this
 
   override def toString = s"Line((${normal.x }, ${normal.y }) / $distance)"
+
+  override def equals(other: Any): Boolean = other match {
+    case l: Line => l.normal == normal && l.distance ==~ distance
+    case _ => false
+  }
+
+  override def hashCode(): Int = 31 * 31 * normal.hashCode() + 31 * distance.hashCode() + 31
+}
+
+object Line {
+  def apply(normal: Vect, distance: Double): Line = new Line(normal.v, distance)
+
+  def apply(m: Double, q: Double): Line = {
+    val k = Math.sqrt(m * m + 1)
+    val n = XYVect(m / k, -1 / k)
+    val d = -q / k
+    Line(n, d)
+  }
 }
