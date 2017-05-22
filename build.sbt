@@ -18,13 +18,12 @@
  * Ref: http://www.scala-sbt.org/0.13.0/docs/Examples/Quick-Configuration-Examples.html
  */
 
+import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform._
 import de.johoop.cpd4sbt.CopyPasteDetector._
 import sbt.File
 import sbt.Keys._
 import wartremover.WartRemover.autoImport._
-
-import scalariform.formatter.preferences._
 
 // Project Definition
 

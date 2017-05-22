@@ -29,18 +29,21 @@ case class Circle(
 
   require(radius >~ 0.0, "The circle must have a non-zero radius.")
 
-  lazy override val area: Double = Math.PI * Math.pow(radius, 2.0)
+  override
+  val area: Double = Math.PI * Math.pow(radius, 2.0)
 
-  override def moveOf(where: Vect): Circle = Circle(center + where, radius)
+  override
+  def move(where: Vect): Circle = copy(center = center + where)
 
-  override def scale(k: Double): Shape = Circle(this.center, this.radius * k)
+  override
+  def scale(k: Double): Shape = copy(radius = radius * k)
 
-  override def toString = s"Circle(c=$center, r=$radius)"
+  override
+  def toString = s"Circle(c=$center, r=$radius)"
 
-  override def equals(other: Any): Boolean = other match {
-    case c: Circle => c.center == center && c.radius ==~ radius
-    case _ => false
-  }
+  override
+  def idFields: Seq[Any] = Seq(center, radius)
 
-  override def hashCode(): Int = 31 * 31 * center.hashCode() + 31 * radius.hashCode() + 31
+  override
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Circle]
 }

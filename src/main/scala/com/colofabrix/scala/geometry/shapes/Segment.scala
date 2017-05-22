@@ -23,12 +23,11 @@ import com.colofabrix.scala.math.{ Vect, XYVect }
 /**
   * A line segment.
   */
-case class Segment(p0: Vect, p1: Vect) extends Shape {
+final case class Segment(p0: Vect, p1: Vect) extends Shape {
 
-  /**
-    * Sutherland-Cohen Algorithm for segment clipping.
-    */
-  protected class CohenSutherland(viewport: Box) {
+  /** Cohen-Sutherland Algorithm for segment clipping. */
+  protected
+  class CohenSutherland(viewport: Box) {
     // Outcodes definitions
     protected val NEUTRAL = 0x0
     protected val LEFT = 0x1
@@ -37,7 +36,8 @@ case class Segment(p0: Vect, p1: Vect) extends Shape {
     protected val BOTTOM = 0x8
 
     /** Assigns an outcode to a point. */
-    protected def outcode(p: Vect): Int = {
+    protected
+    def outcode(p: Vect): Int = {
       (if( p.x < viewport.left ) LEFT else NEUTRAL) |
         (if( p.x > viewport.right ) RIGHT else NEUTRAL) |
         (if( p.y < viewport.bottom ) BOTTOM else NEUTRAL) |
@@ -45,22 +45,36 @@ case class Segment(p0: Vect, p1: Vect) extends Shape {
     }
 
     /** Calculates the intersection of the segment with the border that it overlaps. */
-    protected def intersection(outcode: Int, s: Segment): Vect = {
+    protected
+    def intersection(outcode: Int, s: Segment): Vect = {
       if( (outcode & LEFT) == LEFT )
-        XYVect(viewport.left, s.p0.y + (viewport.left - s.p0.x) * s.slope)
+        XYVect(
+          viewport.left,
+          s.p0.y + (viewport.left - s.p0.x) * s.slope
+        )
       else if( (outcode & RIGHT) == RIGHT )
-        XYVect(viewport.right, s.p0.y + (viewport.right - s.p0.x) * s.slope)
+        XYVect(
+          viewport.right,
+          s.p0.y + (viewport.right - s.p0.x) * s.slope
+        )
       else if( (outcode & TOP) == TOP )
-        XYVect(s.p0.x + (viewport.top - s.p0.y) / s.slope, viewport.top)
+        XYVect(
+          s.p0.x + (viewport.top - s.p0.y) / s.slope,
+          viewport.top
+        )
       else if( (outcode & BOTTOM) == BOTTOM )
-        XYVect(s.p0.x + (viewport.bottom - s.p0.y) / s.slope, viewport.bottom)
+        XYVect(
+          s.p0.x + (viewport.bottom - s.p0.y) / s.slope,
+          viewport.bottom
+        )
       else
         throw new IllegalArgumentException("The outcode doesn't represent a segment to cut.")
     }
 
     /** Clip the given segment into a segment fully contained in a Box. */
     @tailrec
-    final def clip(s: Segment): Option[Segment] = {
+    final
+    def clip(s: Segment): Option[Segment] = {
       val outcode0 = outcode(s.p0)
       val outcode1 = outcode(s.p1)
 
@@ -88,11 +102,21 @@ case class Segment(p0: Vect, p1: Vect) extends Shape {
   /** Slope of the segment. */
   val slope = (p1.y - p0.y) / (p1.x - p0.x)
 
-  override def area: Double = 0.0
+  override
+  def area: Double = 0.0
 
-  override def moveOf(v: Vect): Shape = Segment(p0 + v, p1 + v)
+  override
+  def move(v: Vect): Shape = Segment(p0 + v, p1 + v)
 
-  override def scale(k: Double): Shape = ???
+  override
+  def scale(k: Double): Shape = ???
 
-  override def toString = s"Segment($p0 -> $p1)"
+  override
+  def toString = s"Segment($p0 -> $p1)"
+
+  override
+  def idFields: Seq[Any] = Seq(p0, p1)
+
+  override
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Segment]
 }

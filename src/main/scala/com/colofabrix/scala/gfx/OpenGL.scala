@@ -28,7 +28,8 @@ import org.lwjgl.opengl.{ Display, DisplayMode }
   */
 object OpenGL {
 
-  private val DEG2RAD = 180 / Math.PI
+  private
+  val DEG2RAD = 180 / Math.PI
 
   /** Initialize OpenGL */
   def init(width: Int, height: Int, title: String = "OpenGL Window") = {

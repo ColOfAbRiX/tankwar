@@ -18,59 +18,53 @@ package com.colofabrix.scala.tankwar.managers
 
 import com.colofabrix.scala.drawing.GenericRender
 import com.colofabrix.scala.gfx._
-import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Manages the display of graphics
   */
-object GraphicManager extends SimManager[SimulationState] with LazyLogging {
+object GraphicManager extends SimManager with LazyLogging {
 
-  def manage(): SimAction = scalaz.State {
-    case state: GraphicSimulation =>
-      // Viewport
-      OpenGL.clear()
-      OpenGL.setCamera(state.viewport)
+  def manage(): SimAction = scalaz.State { state =>
+    // Viewport
+    OpenGL.clear()
+    OpenGL.setCamera(state.display.viewport)
 
-      // Draw the world force field
-      if( state.display.forceField )
-        OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
-          GenericRender.draw(state.world.forceField _)
-        }
-
-      // Draw of the world elements
-      for( t <- state.world.tanks ) {
-        // Tank shape
-        GenericRender.draw(t.shape)
-
-        // Velocity vector
-        if( state.display.vectors ) {
-          GenericRender.draw(t.velocity, t.position)
-        }
+    // Draw the world force field
+    if( state.display.forceField )
+      OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
+        GenericRender.draw(state.worldState.world.forceField)
       }
 
-      // Draw the boundaries of the arena
-      for( b <- WorldConfig.Arena() )
-        OpenGL.apply(Some(Colour.RED)) {
-          GenericRender.draw(b)
-        }
+    // Draw of the world elements
+    for( t <- state.worldState.bodies ) {
+      // Tank shape
+      GenericRender.draw(t.shape)
 
-      // Update display
-      OpenGL.update()
+      // Velocity vector
+      if( state.display.vectors ) {
+        GenericRender.draw(t.velocity, t.position)
+      }
+    }
 
-      // Time synchronization
-      val (ns, td) = Timing.sync(
-        SimConfig.fps,
-        state.tsMultiplier / SimConfig.timeMultiplier
-      ).run(state.timing)
+    // Draw the boundaries of the arena
+    for( b <- state.worldState.world.walls )
+      OpenGL.apply(Some(Colour.RED)) {
+        GenericRender.draw(b)
+      }
 
-      // Update
-      returnState(state.copy(timing = ns, cycleDelta = td))
+    // Update display
+    OpenGL.update()
 
-    // Unexpected cases
-    case state =>
-      logger.info(s"Unexpected state $state. Doing nothing with it.")
-      returnState(state)
+    // Time synchronization
+    val newTiming = Timing.sync(
+      GfxConfig.fps,
+      state.timeDelta
+    ).run(state.timing)._2
+
+    // Update
+    ret(state.copy(timing = newTiming))
   }
 
 }

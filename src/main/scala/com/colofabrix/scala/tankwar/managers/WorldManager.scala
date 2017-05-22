@@ -16,29 +16,47 @@
 
 package com.colofabrix.scala.tankwar.managers
 
+import com.colofabrix.scala.math.{ XYVect, _ }
+import com.colofabrix.scala.physix.PhysixEngine
+import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
+import com.colofabrix.scala.tankwar.WorldState
+import com.colofabrix.scala.tankwar.entities.Tank
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Manages world and the progressing of the simulation
   */
-object WorldManager extends SimManager[SimulationState] with LazyLogging {
+object WorldManager extends SimManager with LazyLogging {
 
-  def manage(): SimAction = scalaz.State {
-    // Running simulation
-    case state: GraphicSimulation =>
-      val stepTimeDelta = state.tsMultiplier * state.cycleDelta
+  def manage(): SimAction = scalaz.State { state =>
+    val worldState = state.worldState
 
-      val nextWorld = if( !state.pause )
-        state.world.step(stepTimeDelta)
-      else
-        state.world
+    val newWorldState = worldState.copy(
+      bodies = worldState.physix.step(worldState.bodies, WorldConfig.Arena()),
+      physix = worldState.physix,
+      counter = worldState.counter + 1
+    )
 
-      returnState(state.copy(world = nextWorld))
-
-    // Unexpected cases
-    case state =>
-      logger.info(s"Unexpected state $state. Doing nothing with it.")
-      returnState(state)
+    ret(state.copy(worldState = newWorldState))
   }
+
+  /** Creates the World. */
+  def apply(physixEngine: PhysixEngine) = WorldState(
+    Seq.tabulate(WorldConfig.tankCount) { i =>
+      Tank(physics = physixEngine)
+    },
+    physixEngine
+  )
+
+  /** The force field present on the arena, point by point */
+  def worldForceField: VectorField = { p =>
+    XYVect(
+      -75.0 * (p.y / WorldConfig.Arena.height - 0.5),
+      -75.0 * (p.x / WorldConfig.Arena.width - 0.5)
+    )
+  }
+
+  /** The friction present on the arena, point by point */
+  def worldFriction: ScalarField = { _ => 0.0 }
 
 }

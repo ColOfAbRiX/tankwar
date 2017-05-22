@@ -17,12 +17,13 @@
 package com.colofabrix.scala.geometry
 
 import scalaz.\/
+import com.colofabrix.scala.EasyEquatable
 import com.colofabrix.scala.math.Vect
 
 /**
   * Represents a geometric closed shape on a geometric space
   */
-trait Shape {
+trait Shape extends EasyEquatable[Shape] {
 
   /** The surface area of the Shape */
   def area: Double
@@ -37,8 +38,9 @@ trait Shape {
   def collision(s: Shape): \/[Collision, Collision] = Collision.collide(this, s)
 
   /** Moves a shape of the given vector. */
-  def moveOf(v: Vect): Shape
+  def move(v: Vect): Shape
 
   /** Scales the size of the shape. */
   def scale(k: Double): Shape
+
 }

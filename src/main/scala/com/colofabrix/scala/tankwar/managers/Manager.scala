@@ -16,11 +16,23 @@
 
 package com.colofabrix.scala.tankwar.managers
 
+import com.colofabrix.scala.tankwar.SimulationState
+
 /**
-  * Manages mouse actions for the game
+  * Generic manager.
   */
-object MouseManager extends SimManager {
+trait Manager[S] {
+  type ManagerAction = scalaz.State[S, S]
 
-  def manage(): SimAction = scalaz.State(ret)
+  protected
+  def ret(state: S): (S, S) = (state, state)
+}
 
+/**
+  * Representation of a manager for the simulation.
+  */
+trait SimManager extends Manager[SimulationState] {
+  type SimAction = ManagerAction
+
+  def manage(): SimAction
 }

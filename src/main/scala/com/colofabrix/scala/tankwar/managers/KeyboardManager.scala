@@ -21,80 +21,66 @@ import com.colofabrix.scala.gfx.Keyboard
 import com.colofabrix.scala.gfx.Keyboard._
 import com.colofabrix.scala.math.XYVect
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.SimulationState
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.input.Keyboard._
 
 /**
   * Manages keyboard actions for the game
   */
-object KeyboardManager extends SimManager[GraphicSimulation] with LazyLogging {
-
-  type TWKeyAction = KeyStateAction[GraphicSimulation]
+object KeyboardManager extends SimManager with LazyLogging {
 
   def manage(): SimAction = scalaz.State { state =>
     //
     // Manage keys that perform actions when pressed continuosly
     //
-    val actions1 = Seq(
-      new TWKeyAction(KEY_ADD)(
-        s => {
-          logger.info(s"KEY_ADD pressed: increase simulation speed.")
-          s.copy(tsMultiplier = Math.min(50.0, s.tsMultiplier * (1.0 + 1.0 / SimConfig.fps)))
-        }
-      ),
-      new TWKeyAction(KEY_SUBTRACT)(
-        s => {
-          logger.info(s"KEY_SUBTRACT pressed: decrease simulation speed.")
-          s.copy(tsMultiplier = Math.max(0.05, s.tsMultiplier * (1.0 - 1.0 / SimConfig.fps)))
-        }
-      ),
+    val continuousActions = for {
+      // Simulation speed
+      _ <- OnKeyDown(KEY_ADD) { s: SimulationState =>
+        logger.info(s"KEY_ADD pressed: increase simulation speed.")
+        s.copy(tsMultiplier = Math.min(50.0, s.tsMultiplier * (1.0 + 1.0 / SimConfig.fps)))
+      }
+      _ <- OnKeyDown(KEY_SUBTRACT) { s: SimulationState =>
+        logger.info(s"KEY_SUBTRACT pressed: decrease simulation speed.")
+        s.copy(tsMultiplier = Math.max(0.05, s.tsMultiplier * (1.0 - 1.0 / SimConfig.fps)))
+      }
 
-      new TWKeyAction(KEY_W)(
-        s => {
-          logger.info(s"KEY_W pressed: Move viewport up.")
-          s.copy(viewport = s.viewport.moveOf(XYVect(0.0, 0.5 * s.viewport.height) / SimConfig.fps))
-        }
-      ),
-      new TWKeyAction(KEY_A)(
-        s => {
-          logger.info(s"KEY_A pressed: Move viewport left.")
-          s.copy(viewport = s.viewport.moveOf(XYVect(-0.5 * s.viewport.width, 0.0) / SimConfig.fps))
-        }
-      ),
-      new TWKeyAction(KEY_S)(
-        s => {
-          logger.info(s"KEY_S pressed: Move viewport down.")
-          s.copy(viewport = s.viewport.moveOf(XYVect(0.0, -0.5 * s.viewport.height) / SimConfig.fps))
-        }
-      ),
-      new TWKeyAction(KEY_D)(
-        s => {
-          logger.info(s"KEY_D pressed: Move viewport right.")
-          s.copy(viewport = s.viewport.moveOf(XYVect(0.5 * s.viewport.width, 0.0) / SimConfig.fps))
-        }
-      ),
+      // Scroll viewport
+      _ <- OnKeyDown(KEY_W) { s: SimulationState =>
+        logger.info(s"KEY_W pressed: Move viewport up.")
+        s.copy(viewport = s.viewport.move(XYVect(0.0, 0.5 * s.viewport.height) / SimConfig.fps))
+      }
+      _ <- OnKeyDown(KEY_A) { s: SimulationState =>
+        logger.info(s"KEY_A pressed: Move viewport left.")
+        s.copy(viewport = s.viewport.move(XYVect(-0.5 * s.viewport.width, 0.0) / SimConfig.fps))
+      }
+      _ <- OnKeyDown(KEY_S) { s: SimulationState =>
+        logger.info(s"KEY_S pressed: Move viewport down.")
+        s.copy(viewport = s.viewport.move(XYVect(0.0, -0.5 * s.viewport.height) / SimConfig.fps))
+      }
+      _ <- OnKeyDown(KEY_D) { s: SimulationState =>
+        logger.info(s"KEY_D pressed: Move viewport right.")
+        s.copy(viewport = s.viewport.move(XYVect(0.5 * s.viewport.width, 0.0) / SimConfig.fps))
+      }
 
-      new TWKeyAction(KEY_Q)(
-        s => {
-          logger.info(s"KEY_Q pressed: Zoom viewport in.")
-          s.copy(viewport = s.viewport.scale(1.0 + 1.0 / SimConfig.fps))
-        }
-      ),
-      new TWKeyAction(KEY_E)(
-        s => {
-          logger.info(s"KEY_E pressed: Zoom viewport out.")
-          s.copy(viewport = s.viewport.scale(1.0 - 1.0 / SimConfig.fps))
-        }
-      )
-    )
+      // Zoom viewport
+      _ <- OnKeyDown(KEY_Q) { s: SimulationState =>
+        logger.info(s"KEY_Q pressed: Zoom viewport in.")
+        s.copy(viewport = s.viewport.scale(1.0 + 1.0 / SimConfig.fps))
+      }
+      s <- OnKeyDown(KEY_E) { s: SimulationState =>
+        logger.info(s"KEY_E pressed: Zoom viewport out.")
+        s.copy(viewport = s.viewport.scale(1.0 - 1.0 / SimConfig.fps))
+      }
+    } yield s
 
-    val state1 = actions1.foldLeft(state) { (s, action) => action.runWhenDown(s) }
+    val state1 = continuousActions.run(state)
 
     //
     // Managing keys that perform actions only when changing state
     //
-    val state2 = Keyboard.events().foldLeft(state1) {
-      case (s, Keyboard.KeyDown(k, true)) =>
+    val state2 = Keyboard.events().foldLeft(state1._1) {
+      case (s, Keyboard.KeyPressed(k)) =>
         if( k == KEY_H ) {
           logger.info("KEY_H pressed: Reset viewport.")
           s.copy(viewport = Box(WorldConfig.Arena.width, WorldConfig.Arena.height))
@@ -120,7 +106,7 @@ object KeyboardManager extends SimManager[GraphicSimulation] with LazyLogging {
       case (s, _) => s
     }
 
-    returnState(state2)
+    ret(state2)
   }
 
 }

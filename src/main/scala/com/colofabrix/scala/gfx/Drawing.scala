@@ -25,10 +25,12 @@ import org.newdawn.slick.{ Color, TrueTypeFont }
 
 object Drawing {
 
-  private var fontMap = HashMap[Int, TrueTypeFont]()
+  private
+  var fontMap = HashMap[Int, TrueTypeFont]()
 
   /** Get a TrueTypeFont from a cache */
-  private def getTTFont(awtFont: Font): TrueTypeFont = {
+  private
+  def getTTFont(awtFont: Font): TrueTypeFont = {
     if( !fontMap.contains(awtFont.hashCode) ) {
       val ttfont = new TrueTypeFont(awtFont, false)
       fontMap = fontMap + (awtFont.hashCode → ttfont)

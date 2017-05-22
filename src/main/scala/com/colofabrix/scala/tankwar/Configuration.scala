@@ -16,9 +16,7 @@
 
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.geometry.shapes.{ Box, Line }
-import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.geometry.shapes.Box
 import com.typesafe.config.ConfigFactory
 
 /**
@@ -32,9 +30,6 @@ object Configuration {
     /** Number of tanks in the World */
     val tankCount: Int = conf.getInt("world.tank_count")
 
-    /**
-      * Builder of the arena
-      */
     object Arena {
 
       /** Width of the arena */
@@ -45,42 +40,41 @@ object Configuration {
 
       /** The Arena as a simplified Box. */
       val asBox: Box = Box(width, height)
-
-      def apply(): Seq[Shape] = Seq(
-        // Top side
-        Line(XYVect(0.0, -1.0), height),
-        // Left side
-        Line(XYVect(1.0, 0.0), 0.0),
-        // Bottom side
-        Line(XYVect(0.0, 1.0), 0.0),
-        // Right side
-        Line(XYVect(-1.0, 0.0), width)
-      )
-
     }
 
   }
 
   object Simulation {
-    /** Number of steps the World will run for */
-    val maxIterations: Int = conf.getInt("simulation.max_iterations")
-
-    /** Number of steps the World will run for */
+    /** Number of steps the World will run for. */
     val maxSimulationTime: Int = conf.getInt("simulation.max_simulation_time")
 
-    /** dt (time step) for every World step */
-    val timeMultiplier: Double = conf.getDouble("simulation.time_multiplier")
+    /** Initial dt (time step) for every World step. */
+    val timeDelta: Double = conf.getDouble("simulation.time_delta")
+  }
 
-    /** Target Framerate */
-    val fps: Int = conf.getInt("simulation.fps")
+  object Graphics {
+    /** Target Framerate. */
+    val fps: Int = conf.getInt("graphics.fps")
 
-    /** If to display graphics or not */
-    val gxfEnabled: Boolean = conf.getBoolean("simulation.gfx_enabled")
+    /** If to display graphics or not. */
+    val enabled: Boolean = conf.getBoolean("graphics.enabled")
+
+    /** If to display vectors. */
+    val showVectors: Boolean = conf.getBoolean("graphics.show_vectors")
+
+    /** If to display the world force field. */
+    val showForceField: Boolean = conf.getBoolean("graphics.show_force_field")
   }
 
   object Tanks {
-    /** Default mass of a tank */
-    val defaultMass: Double = conf.getDouble("tanks.default_mass")
+    /** Default mass of a tank. */
+    val mass: Double = conf.getDouble("tanks.default_mass")
+
+    /** Default friction of a tank. */
+    val friction: Double = conf.getDouble("tanks.default_friction")
+
+    /** Default elasticity of a tank. */
+    val elasticity: Double = conf.getDouble("tanks.default_elasticity")
   }
 
 }

@@ -16,19 +16,25 @@
 
 package com.colofabrix.scala.drawing
 
+import scala.annotation.tailrec
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.{ Box, Circle, Line, Segment }
 import com.colofabrix.scala.gfx.{ Colour, Drawing, OpenGL }
-import com.colofabrix.scala.math.{ Vect, XYVect }
+import com.colofabrix.scala.math.{ Vect, VectorField, XYVect }
 import com.colofabrix.scala.tankwar.Configuration.World.{ Arena => ArenaConfig }
 
 /**
   * Gateway to draw a variety of things, from simple to complex.
   */
 object GenericRender {
-  private val arena = ArenaConfig.asBox
+  private
+  val arena = ArenaConfig.asBox
+
+  /** Draw a vector. */
+  def draw(v: Vect, tail: Vect): Unit = Drawing.drawVector(v, tail)
 
   /** Draw the shapes of com.colofabrix.scala.geometry.shapes */
+  @tailrec
   def draw(s: Shape): Unit = s match {
     case c: Circle => Drawing.drawCircle(c.center, c.radius)
 
@@ -43,13 +49,8 @@ object GenericRender {
       }
   }
 
-  /** Draw a vector. */
-  def draw(v: Vect, tail: Vect): Unit = {
-    Drawing.drawVector(v, tail)
-  }
-
   /** Draw a force field using vectors. */
-  def draw(ff: (Vect) => Vect): Unit = {
+  def draw(ff: VectorField): Unit = {
     val density = 4 // Number of vectors every 100 pixels
 
     for {

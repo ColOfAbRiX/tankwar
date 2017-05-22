@@ -26,21 +26,35 @@ object Keyboard {
 
   trait KeyState
 
-  final case class KeyDown(key: Int, pressed: Boolean) extends KeyState
+  final case
+  class KeyPressed(key: Int) extends KeyState
 
-  final case class KeyUp(key: Int, released: Boolean) extends KeyState
+  final case
+  class KeyReleased(key: Int) extends KeyState
 
-
-  final class KeyStateAction[S](k: Int)(f: S => S) {
-    def runWhenDown(state: S): S = {
-      if( isKeyDown(k) ) f(state) else state
-    }
-
-    def runWhenUp(state: S): S = {
-      if( !isKeyDown(k) ) f(state) else state
+  object OnKeyDown {
+    def apply[S](k: Int)(f: (S) => S) = scalaz.State[S, S] { state =>
+      if( isKeyDown(k) ) {
+        val nextState = f(state)
+        (nextState, nextState)
+      }
+      else {
+        (state, state)
+      }
     }
   }
 
+  object OnKeyUp {
+    def apply[S](k: Int)(f: (S) => S) = scalaz.State[S, S] { state =>
+      if( !isKeyDown(k) ) {
+        val nextState = f(state)
+        (nextState, nextState)
+      }
+      else {
+        (state, state)
+      }
+    }
+  }
 
   /** Gets all the events occured since the last execution. */
   def events(): Seq[KeyState] = {
@@ -48,9 +62,9 @@ object Keyboard {
     def loop(result: Seq[KeyState]): Seq[KeyState] = {
       if( GLK.next() )
         if( GLK.getEventKeyState )
-          loop(KeyDown(GLK.getEventKey, pressed = true) +: result)
+          loop(KeyPressed(GLK.getEventKey) +: result)
         else
-          loop(KeyUp(GLK.getEventKey, released = true) +: result)
+          loop(KeyReleased(GLK.getEventKey) +: result)
       else result
     }
 

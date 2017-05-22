@@ -41,7 +41,6 @@ object Collision {
       case c2: Circle ⇒
         val c2c = c1.center - c2.center
         val d = c2c.ρ - (c1.radius + c2.radius)
-
         Collision(c2c.v, d)
 
       case b2: Box ⇒
@@ -51,7 +50,6 @@ object Collision {
           Math.max(c2c.y, b2.height / 2.0)
         )
         val d = b2c.ρ - c1.radius
-
         Collision(b2c.n, d)
 
       case p2: Line ⇒
@@ -63,15 +61,7 @@ object Collision {
   }
 
   /** Detects if a Box is colliding with another shape */
-  def collide(b1: Box, s2: Shape): \/[Collision, Collision] = ??? /*s2 match {
-    case c2: Circle => collide(c2, b1)
-
-    case b2: Box =>
-      val dx = (b1.center.x - b2.center.x).abs - (b1.width + b2.width) / 2.0
-      val dy = (b1.center.y - b2.center.y).abs - (b1.height + b2.height) / 2.0
-
-      return (dx ~<= 0.0) && (dy ~<= 0.0)
-  }*/
+  def collide(b1: Box, s2: Shape): \/[Collision, Collision] = ???
 
   /** Detects if a Plane is colliding with another shape */
   def collide(p1: Line, s2: Shape): \/[Collision, Collision] = s2 match {

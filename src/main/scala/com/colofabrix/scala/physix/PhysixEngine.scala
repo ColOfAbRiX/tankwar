@@ -14,16 +14,22 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar
+package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.tankwar.managers.GlobalManager
+import com.colofabrix.scala.math._
 
 /**
-  * Main Application
+  * Generic Physix Engine.
   */
-object Application {
+trait PhysixEngine {
+  type PhysixAction[+A] = scalaz.State[World, A]
 
-  def main(args: Array[String]): Unit = {
-    GlobalManager.start()
-  }
+  /** Calculate the initial values of last position and velocity. */
+  def init(mass: Double, position: Vect, velocity: Vect): PhysixAction[(Vect, Vect)]
+
+  /** Move one body one time step into the future. */
+  def moveBody(body: RigidBody): PhysixAction[RigidBody]
+
+  /** Advances the bodies of one step. */
+  def step(): PhysixAction[Seq[RigidBody]]
 }

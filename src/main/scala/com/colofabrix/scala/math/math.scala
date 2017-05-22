@@ -23,6 +23,12 @@ import java.math.MathContext
   */
 package object math {
 
+  /** A vector field. */
+  type VectorField = Vect => Vect
+
+  /** A scalar field. */
+  type ScalarField = Vect => Double
+
   /** The absolute value where a smaller, floating point number is considered zero */
   val FP_EPSILON = 1E-12
   val SIG_FIGURES = 4
@@ -31,7 +37,8 @@ package object math {
     * Implicit approximate comparison between two Doubles
     * Ref: http://stackoverflow.com/questions/4915462/how-should-i-do-floating-point-comparison
     */
-  implicit class DoubleWithAlmostEquals(val d1: Double) extends AnyVal {
+  implicit
+  class DoubleWithAlmostEquals(val d1: Double) extends AnyVal {
     def ==~(d2: Double): Boolean = {
       // See: http://www.programgo.com/article/4441958781/
       val dd1 = d1 + 0.0
@@ -67,10 +74,13 @@ package object math {
   /**
     * Visualization styles for numbers
     */
-  implicit final class NumberDisplay[T: Numeric](number: T) {
-    private val _number = implicitly[Numeric[T]].toDouble(number)
+  implicit final
+  class NumberDisplay[T: Numeric](number: T) {
+    private
+    val _number = implicitly[Numeric[T]].toDouble(number)
 
-    private val prefixes = Map(
+    private
+    val prefixes = Map(
       -12 -> "p", -9 -> "n", -6 -> "µ", -3 -> "m",
       0 -> "",
       3 -> "K", 6 -> "M", 9 -> "G", 12 -> "T"

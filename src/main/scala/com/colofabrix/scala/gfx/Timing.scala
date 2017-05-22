@@ -26,12 +26,14 @@ import org.lwjgl.opengl.Display
   */
 object Timing {
 
-  final case class TimeState(
+  final case
+  class TimeState(
       last: Double,
       simTime: Double,
       totalTime: Double
   ) {
-    override def toString: String = s"last=${last.sig()}, simTime=${simTime.sig()}, totalTime=${totalTime.sig()}"
+    override
+    def toString: String = s"last=${last.sig()}, simTime=${simTime.sig()}, totalTime=${totalTime.sig()}"
   }
 
   /** Get the time in seconds */
@@ -41,12 +43,13 @@ object Timing {
   def init() = TimeState(time(), 0.0, 0.0)
 
   /** Synchronizes the FPS to the specified rate and returns the delta time */
-  def sync(fps: Int, stepMultiplier: Double): State[TimeState, Double] = State { s ⇒
+  def sync(fps: Int, timeMultiplier: Double): State[TimeState, TimeState] = State { s ⇒
     Display.sync(fps)
 
     val now = time()
     val delta = now - s.last
 
-    (TimeState(now, s.simTime + delta * stepMultiplier, s.totalTime + delta), delta)
+    val result = TimeState(now, s.simTime + delta * timeMultiplier, s.totalTime + delta)
+    (result, result)
   }
 }

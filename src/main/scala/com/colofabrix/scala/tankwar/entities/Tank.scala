@@ -16,52 +16,52 @@
 
 package com.colofabrix.scala.tankwar.entities
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
-import com.colofabrix.scala.physix.{ RigidBody, VerletPhysix }
+import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
 import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * A Tank that plays in the game
   */
-final class Tank(
-
-  initialPosition: Vect = Vect.zero,
-  initialVelocity: Vect = Vect.zero,
-  initialAngle: Double = 0.0,
-  initialAngularSpeed: Double = 0.0,
-  initialExternalForce: Vect
-
-) extends VerletPhysix(
-
-  TanksConfig.defaultMass,
-  initialPosition,
-  initialVelocity,
-  initialAngle,
-  initialAngularSpeed,
-  initialExternalForce
-
-) with LazyLogging {
-
+final case
+class Tank private(
+  mass: Double,
+  position: Vect,
+  lastPosition: Vect,
+  velocity: Vect,
+  lastVelocity: Vect,
+  friction: Double,
+  elasticity: Double
+) extends RigidBody with LazyLogging {
   logger.info(s"Initialzed($id): $summary")
 
-  override def step(walls: Seq[Shape], bodies: Seq[RigidBody], timeStep: Double, extForces: Vect): Tank = {
-    val newTank = super.step(walls, bodies, timeStep, extForces) match { case t: Tank => t }
+  override
+  def internalForce = Vect.zero
 
-    logger.trace(s"Step($id): ${newTank.summary}")
+  override
+  def shape = Circle(this.position, 10.0)
 
-    return newTank
+  override
+  def move(position: Vect = this.position, velocity: Vect = this.position): Tank = {
+    new Tank(mass, position, this.position, velocity, this.velocity, friction, elasticity)
   }
 
-  override def internalForce = Vect.zero
+  override
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Tank]
+}
 
-  override def torque = 0.0
-
-  override def shape = Circle(this.position, 10.0)
-
-  override val friction = 0.0
-
-  override val elasticity = 1.0
+object Tank {
+  def apply(
+    world: World,
+    timeDelta: Double,
+    physix: PhysixEngine,
+    position: Vect = Vect.zero,
+    velocity: Vect = Vect.zero,
+    mass: Double = TanksConfig.mass
+  ) = {
+    val (lastPosition, lastVelocity) = physix.init(world, timeDelta, mass, position, velocity)
+    new Tank(mass, position, lastPosition, velocity, lastVelocity, TanksConfig.friction, TanksConfig.elasticity)
+  }
 }

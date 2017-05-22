@@ -14,13 +14,27 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.tankwar.managers
+package com.colofabrix.scala.physix
+
+import com.colofabrix.scala.geometry.Shape
+import com.colofabrix.scala.math._
 
 /**
-  * Manages mouse actions for the game
+  * Generic definition of a World
   */
-object MouseManager extends SimManager {
+trait World {
+  /** The force field present on the arena, point by point */
+  def forceField: VectorField
 
-  def manage(): SimAction = scalaz.State(ret)
+  /** The friction present on the arena, point by point */
+  def friction(body: RigidBody): ScalarField
 
+  /** The walls of the world. */
+  def walls: Seq[Shape]
+
+  /** List of the bodies in the World. */
+  def bodies: Seq[RigidBody]
+
+  /** The time delta from the previous step. */
+  def timeDelta: Double
 }

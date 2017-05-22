@@ -47,29 +47,41 @@ class Line private(
   /** Clip the line into a segment fully contained in a Box. */
   def clip(frame: Box): Option[Segment] = {
     val seg = if( m ==~ 0.0 )
-      Segment(XYVect(frame.left, p.y), XYVect(frame.right, p.y))
+      Segment(
+        XYVect(frame.left, p.y),
+        XYVect(frame.right, p.y)
+      )
     else if( m.abs ==~ Double.PositiveInfinity )
-      Segment(XYVect(distance, frame.bottom), XYVect(distance, frame.top))
+      Segment(
+        XYVect(distance, frame.bottom),
+        XYVect(distance, frame.top)
+      )
     else
-      Segment(equation(frame.left), equation(frame.right))
+      Segment(
+        equation(frame.left),
+        equation(frame.right)
+      )
 
     seg.clip(frame)
   }
 
-  override val area: Double = 0.0
+  override
+  val area: Double = 0.0
 
-  override def moveOf(where: Vect): Line = Line(normal, distance + (normal ∙ where))
+  override
+  def move(where: Vect): Line = Line(normal, distance + (normal ∙ where))
 
-  override def scale(k: Double): Shape = this
+  override
+  def scale(k: Double): Shape = this
 
-  override def toString = s"Line((${normal.x }, ${normal.y }) / $distance)"
+  override
+  def toString = s"Line((${normal.x }, ${normal.y }) / $distance)"
 
-  override def equals(other: Any): Boolean = other match {
-    case l: Line => l.normal == normal && l.distance ==~ distance
-    case _ => false
-  }
+  override
+  def idFields: Seq[Any] = Seq(normal, distance)
 
-  override def hashCode(): Int = 31 * 31 * normal.hashCode() + 31 * distance.hashCode() + 31
+  override
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Line]
 }
 
 object Line {
