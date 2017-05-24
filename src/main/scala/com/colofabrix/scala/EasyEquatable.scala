@@ -16,10 +16,12 @@
 
 package com.colofabrix.scala
 
+import scalaz.Equal
+
 /**
   * Trait to allow an esier setup for equatable types
   */
-trait EasyEquatable[-A <: EasyEquatable[A]] extends scalaz.Equal[A] {
+trait EasyEquatable[A <: EasyEquatable[A]] extends Equal[A] {
   this: Object =>
 
   /** Sequence of values that uniquely identify the instance. */

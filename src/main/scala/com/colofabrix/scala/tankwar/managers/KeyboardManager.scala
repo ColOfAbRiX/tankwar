@@ -16,11 +16,13 @@
 
 package com.colofabrix.scala.tankwar.managers
 
+import scalaz.State
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Keyboard
 import com.colofabrix.scala.gfx.Keyboard._
 import com.colofabrix.scala.math.XYVect
-import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World =>
+WorldConfig }
 import com.colofabrix.scala.tankwar.SimulationState
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.input.Keyboard._
@@ -30,78 +32,86 @@ import org.lwjgl.input.Keyboard._
   */
 object KeyboardManager extends SimManager with LazyLogging {
 
-  def manage(): SimAction = scalaz.State { state =>
+  def apply(): SimAction = State { outerState =>
     //
     // Manage keys that perform actions when pressed continuosly
     //
     val continuousActions = for {
-      // Simulation speed
-      _ <- OnKeyDown(KEY_ADD) { s: SimulationState =>
+    // Simulation speed
+      _ <- OnKeyDown(KEY_ADD) { state: SimulationState =>
         logger.info(s"KEY_ADD pressed: increase simulation speed.")
-        s.copy(tsMultiplier = Math.min(50.0, s.tsMultiplier * (1.0 + 1.0 / SimConfig.fps)))
+        val td = state.world.timeDelta * (1.0 + 1.0 / GfxConfig.fps)
+        state.copy(world = state.world.copy(timeDelta = td))
       }
-      _ <- OnKeyDown(KEY_SUBTRACT) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_SUBTRACT) { state: SimulationState =>
         logger.info(s"KEY_SUBTRACT pressed: decrease simulation speed.")
-        s.copy(tsMultiplier = Math.max(0.05, s.tsMultiplier * (1.0 - 1.0 / SimConfig.fps)))
+        val td = state.world.timeDelta * (1.0 - 1.0 / GfxConfig.fps)
+        state.copy(world = state.world.copy(timeDelta = td))
       }
 
       // Scroll viewport
-      _ <- OnKeyDown(KEY_W) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_W) { state: SimulationState =>
         logger.info(s"KEY_W pressed: Move viewport up.")
-        s.copy(viewport = s.viewport.move(XYVect(0.0, 0.5 * s.viewport.height) / SimConfig.fps))
+        val vp = state.display.viewport.move(XYVect(0.0, 0.5 * state.display.viewport.height) / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
-      _ <- OnKeyDown(KEY_A) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_A) { state: SimulationState =>
         logger.info(s"KEY_A pressed: Move viewport left.")
-        s.copy(viewport = s.viewport.move(XYVect(-0.5 * s.viewport.width, 0.0) / SimConfig.fps))
+        val vp = state.display.viewport.move(XYVect(-0.5 * state.display.viewport.width, 0.0) / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
-      _ <- OnKeyDown(KEY_S) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_S) { state: SimulationState =>
         logger.info(s"KEY_S pressed: Move viewport down.")
-        s.copy(viewport = s.viewport.move(XYVect(0.0, -0.5 * s.viewport.height) / SimConfig.fps))
+        val vp = state.display.viewport.move(XYVect(0.0, -0.5 * state.display.viewport.height) / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
-      _ <- OnKeyDown(KEY_D) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_D) { state: SimulationState =>
         logger.info(s"KEY_D pressed: Move viewport right.")
-        s.copy(viewport = s.viewport.move(XYVect(0.5 * s.viewport.width, 0.0) / SimConfig.fps))
+        val vp = state.display.viewport.move(XYVect(0.5 * state.display.viewport.width, 0.0) / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
 
       // Zoom viewport
-      _ <- OnKeyDown(KEY_Q) { s: SimulationState =>
+      _ <- OnKeyDown(KEY_Q) { state: SimulationState =>
         logger.info(s"KEY_Q pressed: Zoom viewport in.")
-        s.copy(viewport = s.viewport.scale(1.0 + 1.0 / SimConfig.fps))
+        val vp = state.display.viewport.scale(1.0 + 1.0 / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
-      s <- OnKeyDown(KEY_E) { s: SimulationState =>
+      s <- OnKeyDown(KEY_E) { state: SimulationState =>
         logger.info(s"KEY_E pressed: Zoom viewport out.")
-        s.copy(viewport = s.viewport.scale(1.0 - 1.0 / SimConfig.fps))
+        val vp = state.display.viewport.scale(1.0 - 1.0 / GfxConfig.fps)
+        state.copy(display = state.display.copy(viewport = vp))
       }
     } yield s
 
-    val state1 = continuousActions.run(state)
+    val state1 = continuousActions.run(outerState)
 
     //
     // Managing keys that perform actions only when changing state
     //
     val state2 = Keyboard.events().foldLeft(state1._1) {
-      case (s, Keyboard.KeyPressed(k)) =>
+      case (state, Keyboard.KeyPressed(k)) =>
         if( k == KEY_H ) {
           logger.info("KEY_H pressed: Reset viewport.")
-          s.copy(viewport = Box(WorldConfig.Arena.width, WorldConfig.Arena.height))
+          state.copy(display = state.display.copy(viewport = Box(WorldConfig.Arena.width, WorldConfig.Arena.height)))
         }
 
         else if( k == KEY_P ) {
           logger.info(s"KEY_P pressed: Toggle pause.")
-          s.copy(pause = !state.pause)
+          state.copy(pause = !outerState.pause)
         }
 
         else if( k == KEY_F && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT)) ) {
           logger.info(s"KEY_F + KEY_xSHIFT pressed: Toggle view of force fields.")
-          s.copy(display = s.display.copy(forceField = !state.display.forceField))
+          state.copy(display = state.display.copy(forceField = !outerState.display.forceField))
         }
 
         else if( k == KEY_V && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT)) ) {
           logger.info(s"KEY_V + KEY_xSHIFT pressed: Toggle view of vectors.")
-          s.copy(display = s.display.copy(vectors = !state.display.vectors))
+          state.copy(display = state.display.copy(vectors = !outerState.display.vectors))
         }
 
-        else s
+        else state
 
       case (s, _) => s
     }

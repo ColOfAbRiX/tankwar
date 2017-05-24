@@ -18,7 +18,7 @@ package com.colofabrix.scala.tankwar.entities
 
 import com.colofabrix.scala.geometry.shapes.Circle
 import com.colofabrix.scala.math.Vect
-import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
+import com.colofabrix.scala.physix.RigidBody
 import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }
 import com.typesafe.scalalogging.LazyLogging
 
@@ -27,13 +27,13 @@ import com.typesafe.scalalogging.LazyLogging
   */
 final case
 class Tank private(
-  mass: Double,
-  position: Vect,
-  lastPosition: Vect,
-  velocity: Vect,
-  lastVelocity: Vect,
-  friction: Double,
-  elasticity: Double
+  mass: Double = TanksConfig.mass,
+  position: Vect = Vect.zero,
+  lastPosition: Option[Vect] = None,
+  velocity: Vect = Vect.zero,
+  lastVelocity: Option[Vect] = None,
+  friction: Double = TanksConfig.friction,
+  elasticity: Double = TanksConfig.elasticity
 ) extends RigidBody with LazyLogging {
   logger.info(s"Initialzed($id): $summary")
 
@@ -45,23 +45,9 @@ class Tank private(
 
   override
   def move(position: Vect = this.position, velocity: Vect = this.position): Tank = {
-    new Tank(mass, position, this.position, velocity, this.velocity, friction, elasticity)
+    Tank(mass, position, Some(this.position), velocity, Some(this.velocity), friction, elasticity)
   }
 
   override
   def canEqual(a: Any): Boolean = a.isInstanceOf[Tank]
-}
-
-object Tank {
-  def apply(
-    world: World,
-    timeDelta: Double,
-    physix: PhysixEngine,
-    position: Vect = Vect.zero,
-    velocity: Vect = Vect.zero,
-    mass: Double = TanksConfig.mass
-  ) = {
-    val (lastPosition, lastVelocity) = physix.init(world, timeDelta, mass, position, velocity)
-    new Tank(mass, position, lastPosition, velocity, lastVelocity, TanksConfig.friction, TanksConfig.elasticity)
-  }
 }

@@ -18,10 +18,13 @@ package com.colofabrix.scala.tankwar
 
 import scala.annotation.tailrec
 import com.colofabrix.scala.gfx.OpenGL
-import com.colofabrix.scala.physix.VerletPhysics
-import com.colofabrix.scala.physix.concrete.{ VerletPhysics, WorldXZGravity }
+import com.colofabrix.scala.math.VectUtils.RichVect
+import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.physix._
+import com.colofabrix.scala.physix.concrete._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
-import com.colofabrix.scala.tankwar.managers.{ GraphicManager, KeyboardManager, MouseManager, WorldManager }
+import com.colofabrix.scala.tankwar.entities.Tank
+import com.colofabrix.scala.tankwar.managers._
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.opengl.Display
 
@@ -29,15 +32,18 @@ import org.lwjgl.opengl.Display
   * Simulation manager
   */
 object TankWar extends LazyLogging {
+
   /** MAIN */
   def main(args: Array[String]): Unit = {
-    val physics = VerletPhysics()
-    val initialState = SimulationState(WorldXZGravity(), physics)
-    TankWar.run(initialState)
-  }
+    implicit val verlet: PhysixEngine = VerletPhysics()
+    val tanks: Seq[RigidBody] = Seq.fill(WorldConfig.tankCount) {
+      Tank(
+        position = WorldConfig.Arena.asBox.center.xyRand(),
+        velocity = XYVect(25.0, 25.0).xyRand() - XYVect(50.0, 50.0)
+      )
+    }
+    val world: World = WorldXZGravity(tanks, SimConfig.timeDelta)
 
-  /** Start the simulation. */
-  def start(initialState: SimulationState): SimulationState = {
     logger.info("Running simulation with graphic interface.")
 
     OpenGL.init(
@@ -45,11 +51,10 @@ object TankWar extends LazyLogging {
       WorldConfig.Arena.height.toInt
     )
 
-    val finalState = run(initialState)
+    val finalState = TankWar.run(SimulationState(verlet, world))
 
     OpenGL.destroy()
     logger.info(s"Simulation terminated with status: $finalState.")
-    return finalState
   }
 
   @tailrec
@@ -58,7 +63,7 @@ object TankWar extends LazyLogging {
     logger.info(s"Manager state: $state")
 
     // Stop when the simulation time is finished
-    if( state.timing.simTime > SimConfig.maxSimulationTime ) {
+    if( state.timing.simulationTime > SimConfig.maxSimulationTime ) {
       logger.info(s"Simulation time exceeded maximum time. Terminating.")
       return state
     }
@@ -71,10 +76,10 @@ object TankWar extends LazyLogging {
 
     // Main actions of the simulation
     val actions = for {
-      _ <- MouseManager.manage()
-      _ <- KeyboardManager.manage()
-      _ <- GraphicManager.manage()
-      s <- WorldManager.manage()
+      _ <- MouseManager()
+      _ <- KeyboardManager()
+      _ <- GraphicManager()
+      s <- WorldManager()
     } yield s
 
     // Run and call recursive for next iteration

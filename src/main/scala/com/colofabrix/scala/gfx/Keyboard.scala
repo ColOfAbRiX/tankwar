@@ -18,6 +18,7 @@ package com.colofabrix.scala.gfx
 
 import scala.annotation.tailrec
 import org.lwjgl.input.{ Keyboard => GLK }
+import scalaz.State
 
 /**
   * Representation of the Keyboard
@@ -33,7 +34,7 @@ object Keyboard {
   class KeyReleased(key: Int) extends KeyState
 
   object OnKeyDown {
-    def apply[S](k: Int)(f: (S) => S) = scalaz.State[S, S] { state =>
+    def apply[S](k: Int)(f: (S) => S) = State[S, S] { state =>
       if( isKeyDown(k) ) {
         val nextState = f(state)
         (nextState, nextState)
@@ -45,7 +46,7 @@ object Keyboard {
   }
 
   object OnKeyUp {
-    def apply[S](k: Int)(f: (S) => S) = scalaz.State[S, S] { state =>
+    def apply[S](k: Int)(f: (S) => S) = State[S, S] { state =>
       if( !isKeyDown(k) ) {
         val nextState = f(state)
         (nextState, nextState)

@@ -16,6 +16,8 @@
 
 package com.colofabrix.scala.math
 
+import java.util.Random
+
 /**
   * Utilities for Vect
   */
@@ -38,6 +40,9 @@ object VectUtils {
     */
   implicit
   class RichVect[T <: Vect](vector: T) {
+    /** Multiplies each component of a vector with the corresponding component of the other vector */
+    def **(v: Vect): Vect = XYVect(vector.x * v.x, vector.y * v.y)
+
     /** Cartesian coordinates as a list */
     def xy = Seq(vector.x, vector.y)
 
@@ -45,13 +50,22 @@ object VectUtils {
     def rt = Seq(vector.ρ, vector.ϑ)
 
     /** Mapping of one cartesian component at the time */
-    def comp(f: Double ⇒ Double): Vect = XYVect(f(vector.x), f(vector.y))
+    def xyComp(f: Double => Double): Vect = XYVect(f(vector.x), f(vector.y))
 
     /** Mapping of one cartesian component at the time */
-    def comp(f: (Double, Int) ⇒ Double): Vect = XYVect(f(vector.x, 0), f(vector.y, 1))
+    def xyComp(f: (Double, Int) => Double): Vect = XYVect(f(vector.x, 0), f(vector.y, 1))
 
-    /** Multiplies each component of a vector with the corresponding component of the other vector */
-    def **(v: Vect): Vect = XYVect(vector.x * v.x, vector.y * v.y)
+    /** Mapping of one cartesian component at the time */
+    def rtComp(f: Double => Double): Vect = RTVect(f(vector.ρ), f(vector.ϑ))
+
+    /** Mapping of one cartesian component at the time */
+    def rtComp(f: (Double, Int) => Double): Vect = RTVect(f(vector.ρ, 0), f(vector.ϑ, 1))
+
+    /** Randomized the XY components up to their value. */
+    def xyRand(scale: Double = 1.0): Vect = vector xyComp { _ * new Random().nextDouble() * scale }
+
+    /** Randomized the RT components up to their value. */
+    def rtRand(scale: Double = 1.0): Vect = vector rtComp { _ * new Random().nextDouble() * scale }
   }
 
 }

@@ -16,9 +16,9 @@
 
 package com.colofabrix.scala.physix.concrete
 
-import com.colofabrix.scala.math.Vect
+import scalaz._
 import com.colofabrix.scala.math.VectUtils._
-import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody }
+import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -28,19 +28,21 @@ final case
 class VerletPhysics() extends PhysixEngine with LazyLogging {
 
   /** Calculate the initial values of last position and velocity. */
-  override
-  def init(mass: Double, position: Vect, velocity: Vect) = scalaz.State { ctx =>
-    val acc = ctx.forceField(position) / mass
-    val result = Tuple2(
-      velocity - acc * ctx.timeDelta,
-      position - velocity * ctx.timeDelta - 0.5 * acc * ctx.timeDelta * ctx.timeDelta
-    )
+  private def init(body: RigidBody) = State { ctx: World =>
+    val acc = ctx.forceField(body.position) / body.mass
+    val result = body.velocity - acc * ctx.timeDelta
     (ctx, result)
   }
 
   /** Move one body one time step into the future. */
   override
-  def moveBody(body: RigidBody) = scalaz.State { ctx =>
+  def moveBody(body: RigidBody) = State { ctx =>
+    // The velocity Verlet requires the velocity at the last step
+    val lastVelocity = body.lastVelocity match {
+      case Some(lv) => lv
+      case _ => init(body).run(ctx)._2
+    }
+
     val totalForce = body.internalForce + ctx.forceField(body.position)
     val actualForce = totalForce * (1.0 - ctx.friction(body)(body.position))
 
@@ -48,7 +50,7 @@ class VerletPhysics() extends PhysixEngine with LazyLogging {
     val acceleration = actualForce / body.mass
     val velocity = body.velocity + acceleration * ctx.timeDelta
     // Using velocity Verlet integration
-    val position = body.position + 0.5 * (body.lastVelocity + velocity) * ctx.timeDelta
+    val position = body.position + 0.5 * (lastVelocity + velocity) * ctx.timeDelta
 
     // Return an updated body
     val result = body.move(position, velocity)
@@ -57,14 +59,11 @@ class VerletPhysics() extends PhysixEngine with LazyLogging {
 
   /** Move the whole physics one time step into the future. */
   override
-  def step() = scalaz.State { ctx =>
-    for {
-      b <- ctx.bodies
-    } yield _
-
-    val result = for {b <- ctx.bodies} yield {
+  def step() = State { ctx =>
+    val nextBodies = for {b <- ctx.bodies} yield {
       moveBody(b).run(ctx)._2
     }
-    (ctx, result)
+
+    (ctx.copy(bodies = nextBodies), nextBodies)
   }
 }

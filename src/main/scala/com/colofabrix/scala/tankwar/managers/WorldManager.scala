@@ -16,11 +16,9 @@
 
 package com.colofabrix.scala.tankwar.managers
 
+import scalaz.State
 import com.colofabrix.scala.math.{ XYVect, _ }
-import com.colofabrix.scala.physix.PhysixEngine
 import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
-import com.colofabrix.scala.tankwar.WorldState
-import com.colofabrix.scala.tankwar.entities.Tank
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -28,25 +26,15 @@ import com.typesafe.scalalogging.LazyLogging
   */
 object WorldManager extends SimManager with LazyLogging {
 
-  def manage(): SimAction = scalaz.State { state =>
-    val worldState = state.worldState
+  def apply(): SimAction = State { state =>
+    val actions = for {
+      nextBodies <- state.physixEngine.step()
+    } yield nextBodies
 
-    val newWorldState = worldState.copy(
-      bodies = worldState.physix.step(worldState.bodies, WorldConfig.Arena()),
-      physix = worldState.physix,
-      counter = worldState.counter + 1
-    )
+    val result = actions.run(state.world)
 
-    ret(state.copy(worldState = newWorldState))
+    ret(state.copy(world = result._1))
   }
-
-  /** Creates the World. */
-  def apply(physixEngine: PhysixEngine) = WorldState(
-    Seq.tabulate(WorldConfig.tankCount) { i =>
-      Tank(physics = physixEngine)
-    },
-    physixEngine
-  )
 
   /** The force field present on the arena, point by point */
   def worldForceField: VectorField = { p =>

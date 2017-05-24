@@ -36,7 +36,7 @@ class WorldXZGravity(
   def forceField: VectorField = _ => XYVect(0.0, -9.80665)
 
   override
-  def friction(body: RigidBody): ScalarField = _ => body.mass * 1.0E-3
+  def friction(body: RigidBody): ScalarField = _ => body.mass * 1.0E-2 + Math.pow(body.velocity.ρ, 2.0) * 1.0E-3
 
   override
   def walls: Seq[Shape] = Seq(
@@ -49,4 +49,10 @@ class WorldXZGravity(
     // Right side
     Line(XYVect(-1.0, 0.0), WorldConfig.Arena.width)
   )
+
+  override
+  def copy(
+    bodies: Seq[RigidBody] = bodies,
+    timeDelta: Double = timeDelta
+  ): WorldXZGravity = WorldXZGravity(bodies, timeDelta)
 }

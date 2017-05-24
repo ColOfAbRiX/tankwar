@@ -37,4 +37,6 @@ trait World {
 
   /** The time delta from the previous step. */
   def timeDelta: Double
+
+  def copy(bodies: Seq[RigidBody] = bodies, timeDelta: Double = timeDelta): World
 }

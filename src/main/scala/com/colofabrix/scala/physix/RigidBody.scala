@@ -37,11 +37,11 @@ trait RigidBody extends EasyEquatable[RigidBody] {
 
   /** Position of the center of mass of the object, relative to the origin of axes. */
   def position: Vect
-  def lastPosition: Vect
+  def lastPosition: Option[Vect]
 
   /** Speed of the object's center of mass, relative to the origin of the axes. */
   def velocity: Vect
-  def lastVelocity: Vect
+  def lastVelocity: Option[Vect]
 
   /** The force that the object is generating internally. */
   def internalForce: Vect

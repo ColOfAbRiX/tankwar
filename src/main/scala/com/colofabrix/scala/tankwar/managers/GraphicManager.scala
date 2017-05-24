@@ -16,9 +16,10 @@
 
 package com.colofabrix.scala.tankwar.managers
 
+import scalaz.State
 import com.colofabrix.scala.drawing.GenericRender
 import com.colofabrix.scala.gfx._
-import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig }
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -26,7 +27,7 @@ import com.typesafe.scalalogging.LazyLogging
   */
 object GraphicManager extends SimManager with LazyLogging {
 
-  def manage(): SimAction = scalaz.State { state =>
+  def apply(): SimAction = State { state =>
     // Viewport
     OpenGL.clear()
     OpenGL.setCamera(state.display.viewport)
@@ -34,11 +35,11 @@ object GraphicManager extends SimManager with LazyLogging {
     // Draw the world force field
     if( state.display.forceField )
       OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
-        GenericRender.draw(state.worldState.world.forceField)
+        GenericRender.draw(state.world.forceField)
       }
 
     // Draw of the world elements
-    for( t <- state.worldState.bodies ) {
+    for( t <- state.world.bodies ) {
       // Tank shape
       GenericRender.draw(t.shape)
 
@@ -49,7 +50,7 @@ object GraphicManager extends SimManager with LazyLogging {
     }
 
     // Draw the boundaries of the arena
-    for( b <- state.worldState.world.walls )
+    for( b <- state.world.walls )
       OpenGL.apply(Some(Colour.RED)) {
         GenericRender.draw(b)
       }
@@ -58,13 +59,12 @@ object GraphicManager extends SimManager with LazyLogging {
     OpenGL.update()
 
     // Time synchronization
-    val newTiming = Timing.sync(
-      GfxConfig.fps,
-      state.timeDelta
-    ).run(state.timing)._2
+    val time = for {
+      t <- Timing.sync(GfxConfig.fps, state.world.timeDelta)
+    } yield t
 
-    // Update
-    ret(state.copy(timing = newTiming))
+    // Update and return
+    ret(state.copy(timing = time.run(state.timing)._2))
   }
 
 }

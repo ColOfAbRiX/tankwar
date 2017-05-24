@@ -19,31 +19,19 @@ package com.colofabrix.scala.tankwar
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Timing
 import com.colofabrix.scala.gfx.Timing.TimeState
-import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
-import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World =>
-WorldConfig }
+import com.colofabrix.scala.physix.{ PhysixEngine, World }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, World => WorldConfig }
 
 /**
   * Status of the simulation.
   */
 final case
 class SimulationState(
-  worldState: WorldState,
-  timing: TimeState = Timing.init(),
-  display: DisplayOptions = DisplayOptions(),
-  timeDelta: Double = SimConfig.timeDelta,
-  pause: Boolean = false
-)
-
-/**
-  * The state of the World.
-  */
-final case
-class WorldState(
-  bodies: Seq[RigidBody],
+  physixEngine: PhysixEngine,
   world: World,
-  physix: PhysixEngine,
-  counter: Int = 0
+  timing: TimeState = Timing(),
+  display: DisplayOptions = DisplayOptions(),
+  pause: Boolean = false
 )
 
 /**

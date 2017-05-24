@@ -34,5 +34,5 @@ trait Manager[S] {
 trait SimManager extends Manager[SimulationState] {
   type SimAction = ManagerAction
 
-  def manage(): SimAction
+  def apply(): SimAction
 }

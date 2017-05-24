@@ -16,16 +16,11 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.math._
-
 /**
   * Generic Physix Engine.
   */
 trait PhysixEngine {
-  type PhysixAction[+A] = scalaz.State[World, A]
-
-  /** Calculate the initial values of last position and velocity. */
-  def init(mass: Double, position: Vect, velocity: Vect): PhysixAction[(Vect, Vect)]
+  type PhysixAction[A] = scalaz.State[World, A]
 
   /** Move one body one time step into the future. */
   def moveBody(body: RigidBody): PhysixAction[RigidBody]
