@@ -31,6 +31,9 @@ class WorldXZGravity(
   bodies: Seq[RigidBody],
   timeDelta: Double
 ) extends World with LazyLogging {
+  logger.trace(s"Initializing WorldXZGravity World.")
+  logger.trace(s"List of bodies: $bodies")
+  logger.trace(s"Time delta: $bodies")
 
   override
   def forceField: VectorField = _ => XYVect(0.0, -9.80665)

@@ -19,7 +19,7 @@ package com.colofabrix.scala.tankwar
 import scala.annotation.tailrec
 import com.colofabrix.scala.gfx.OpenGL
 import com.colofabrix.scala.math.VectUtils.RichVect
-import com.colofabrix.scala.math.XYVect
+import com.colofabrix.scala.math._
 import com.colofabrix.scala.physix._
 import com.colofabrix.scala.physix.concrete._
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
@@ -35,16 +35,16 @@ object TankWar extends LazyLogging {
 
   /** MAIN */
   def main(args: Array[String]): Unit = {
-    implicit val verlet: PhysixEngine = VerletPhysics()
+    logger.info("TankWar started.")
+
+    val verlet: PhysixEngine = VerletPhysics()
     val tanks: Seq[RigidBody] = Seq.fill(WorldConfig.tankCount) {
       Tank(
         position = WorldConfig.Arena.asBox.center.xyRand(),
-        velocity = XYVect(25.0, 25.0).xyRand() - XYVect(50.0, 50.0)
+        velocity = XYVect(25.0, 25.0).xyRand()
       )
     }
     val world: World = WorldXZGravity(tanks, SimConfig.timeDelta)
-
-    logger.info("Running simulation with graphic interface.")
 
     OpenGL.init(
       WorldConfig.Arena.width.toInt,
@@ -60,11 +60,12 @@ object TankWar extends LazyLogging {
   @tailrec
   private
   def run(state: SimulationState): SimulationState = {
+    logger.info(s"Simulation step.")
     logger.info(s"Manager state: $state")
 
     // Stop when the simulation time is finished
     if( state.timing.simulationTime > SimConfig.maxSimulationTime ) {
-      logger.info(s"Simulation time exceeded maximum time. Terminating.")
+      logger.info(s"Simulation time (${state.timing.simulationTime.eng("s")}) exceeded maximum time. Terminating.")
       return state
     }
 

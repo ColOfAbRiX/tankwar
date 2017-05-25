@@ -18,11 +18,14 @@ package com.colofabrix.scala.tankwar
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.typesafe.config.ConfigFactory
+import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Global Tankwar Configuration
   */
-object Configuration {
+object Configuration extends LazyLogging {
+
+  logger.info("Initializing Configuration")
 
   private val conf = ConfigFactory.load
 
@@ -31,7 +34,6 @@ object Configuration {
     val tankCount: Int = conf.getInt("world.tank_count")
 
     object Arena {
-
       /** Width of the arena */
       val width: Double = conf.getDouble("world.arena_width")
 

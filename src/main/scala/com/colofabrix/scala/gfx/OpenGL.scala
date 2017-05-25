@@ -18,6 +18,8 @@ package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.tankwar.TankWar._
+import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.{ Display, DisplayMode }
@@ -26,13 +28,15 @@ import org.lwjgl.opengl.{ Display, DisplayMode }
   * This class is meant to be a simple wrapper for OpenGL, to provide a Scala-way to use graphics but keeping things
   * as simple and small as possible (it doesn't want to be a full Scala OpenGL library)
   */
-object OpenGL {
+object OpenGL extends LazyLogging {
 
   private
   val DEG2RAD = 180 / Math.PI
 
   /** Initialize OpenGL */
   def init(width: Int, height: Int, title: String = "OpenGL Window") = {
+    logger.info("Initializing OpenGL.")
+
     Display.setDisplayMode(new DisplayMode(width, height))
     Display.create()
     Display.setTitle(title)
@@ -47,7 +51,10 @@ object OpenGL {
   }
 
   /** Terminates OpenGL */
-  def destroy(): Unit = Display.destroy()
+  def destroy(): Unit = {
+    logger.info("Terminating OpenGL.")
+    Display.destroy()
+  }
 
   /** Updates a display */
   def update(): Unit = {

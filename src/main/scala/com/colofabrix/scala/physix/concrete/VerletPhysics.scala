@@ -26,6 +26,7 @@ import com.typesafe.scalalogging.LazyLogging
   */
 final case
 class VerletPhysics() extends PhysixEngine with LazyLogging {
+  logger.trace("Initializing Velocity-Verlet PhysixEngine.")
 
   /** Calculate the initial values of last position and velocity. */
   private def init(body: RigidBody) = State { ctx: World =>

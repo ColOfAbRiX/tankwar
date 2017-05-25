@@ -28,7 +28,7 @@ object Timing {
   /** Timing information. */
   final case
   class TimeState(
-    state: Double,
+    lastTime: Double,
     lastDelta: Double,
     effectiveTime: Double,
     simulationTime: Double
@@ -45,7 +45,7 @@ object Timing {
     Display.sync(fps)
 
     val now = time()
-    val delta = now - state.lastDelta
+    val delta = now - state.lastTime
     val nextState = state.copy(
       now,
       delta,

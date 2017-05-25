@@ -35,7 +35,7 @@ class Tank private(
   friction: Double = TanksConfig.friction,
   elasticity: Double = TanksConfig.elasticity
 ) extends RigidBody with LazyLogging {
-  logger.info(s"Initialzed($id): $summary")
+  logger.trace(s"Initializing Tank: $summary")
 
   override
   def internalForce = Vect.zero
