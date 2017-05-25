@@ -30,7 +30,7 @@ import wartremover.WartRemover.autoImport._
 name := "TankWar"
 version := "2.0.0"
 scalaVersion := "2.11.8"
-mainClass in Compile := Some("com.colofabrix.scala.tankwar.Main")
+mainClass in Compile := Some("com.colofabrix.scala.tankwar.TankWar")
 fork := true
 
 // Dependencies
@@ -171,10 +171,10 @@ wartremoverErrors in (Compile, compile) ++= Seq(
   Wart.Any2StringAdd,
   Wart.AsInstanceOf,
   Wart.EitherProjectionPartial,
-  Wart.IsInstanceOf,
+  //Wart.IsInstanceOf,
   Wart.ListOps,
-  //Wart.Nothing,
-  //Wart.Null,
+  Wart.Nothing,
+  Wart.Null,
   Wart.OptionPartial,
   Wart.Product,
   Wart.Serializable
@@ -189,8 +189,8 @@ wartremoverWarnings in (Compile, compile) ++= Seq(
   Wart.Option2Iterable,
   Wart.Serializable,
   Wart.ToString,
-  Wart.TryPartial
-  //Wart.Var
+  Wart.TryPartial,
+  Wart.Var
 )
 
 coverageMinimum := 75

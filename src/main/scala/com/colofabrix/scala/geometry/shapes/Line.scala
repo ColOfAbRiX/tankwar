@@ -22,9 +22,9 @@ import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect, XYVect }
 /**
   * An infinite line.
   */
-class Line private(
-  val normal: Vect,
-  val distance: Double
+class Line private (
+    val normal: Vect,
+    val distance: Double
 ) extends Shape {
 
   require(normal != Vect.zero, "A line must be defined with a non-zero normal.")
@@ -46,12 +46,12 @@ class Line private(
 
   /** Clip the line into a segment fully contained in a Box. */
   def clip(frame: Box): Option[Segment] = {
-    val seg = if( m ==~ 0.0 )
+    val seg = if (m ==~ 0.0)
       Segment(
         XYVect(frame.left, p.y),
         XYVect(frame.right, p.y)
       )
-    else if( m.abs ==~ Double.PositiveInfinity )
+    else if (m.abs ==~ Double.PositiveInfinity)
       Segment(
         XYVect(distance, frame.bottom),
         XYVect(distance, frame.top)
@@ -65,23 +65,17 @@ class Line private(
     seg.clip(frame)
   }
 
-  override
-  val area: Double = 0.0
+  override val area: Double = 0.0
 
-  override
-  def move(where: Vect): Line = Line(normal, distance + (normal ∙ where))
+  override def move(where: Vect): Line = Line(normal, distance + (normal ∙ where))
 
-  override
-  def scale(k: Double): Shape = this
+  override def scale(k: Double): Shape = this
 
-  override
-  def toString = s"Line((${normal.x }, ${normal.y }) / $distance)"
+  override def toString = s"Line((${normal.x}, ${normal.y}) / $distance)"
 
-  override
-  def idFields: Seq[Any] = Seq(normal, distance)
+  override def idFields: Seq[Any] = Seq(normal, distance)
 
-  override
-  def canEqual(a: Any): Boolean = a.isInstanceOf[Line]
+  override def canEqual(a: Any): Boolean = a.isInstanceOf[Line]
 }
 
 object Line {

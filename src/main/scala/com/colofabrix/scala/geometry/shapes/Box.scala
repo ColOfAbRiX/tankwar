@@ -52,19 +52,16 @@ class Box protected (
   require(width > 0.0, "Box width must be positive.")
   require(width > 0.0, "Box height must be positive.")
 
-  override
-  val area = width * height
+  override val area = width * height
 
   /** Center of the Box */
   val center = bottomLeft + XYVect(width / 2.0, height / 2.0)
 
   /** The vertex that is closest to the origin of the axes. */
-  lazy
-  val origin = vertices.minBy(_.ρ)
+  lazy val origin = vertices.minBy(_.ρ)
 
   /** The vertex that is farthest to the origin of the axes. */
-  lazy
-  val opposite = vertices.maxBy(_.ρ)
+  lazy val opposite = vertices.maxBy(_.ρ)
 
   /** Rectangle top-left-most point, in any quadrant of the plane */
   val topLeft = XYVect(bottomLeft.x, topRight.y)
@@ -84,20 +81,15 @@ class Box protected (
   /** Rectangle right-most X */
   val right = topRight.x
 
-  override
-  def move(where: Vect): Box = Box(bottomLeft + where, topRight + where)
+  override def move(where: Vect): Box = Box(bottomLeft + where, topRight + where)
 
-  override
-  def scale(k: Double): Box = Box(this.center, this.width * k, this.height * k)
+  override def scale(k: Double): Box = Box(this.center, this.width * k, this.height * k)
 
-  override
-  def toString = s"Box($bottomLeft -> $topRight)"
+  override def toString = s"Box($bottomLeft -> $topRight)"
 
-  override
-  def idFields: Seq[Any] = vertices
+  override def idFields: Seq[Any] = vertices
 
-  override
-  def canEqual(a: Any): Boolean = a.isInstanceOf[Box]
+  override def canEqual(a: Any): Boolean = a.isInstanceOf[Box]
 }
 
 object Box {

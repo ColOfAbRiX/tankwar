@@ -25,8 +25,7 @@ import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, World
 /**
   * Status of the simulation.
   */
-final case
-class SimulationState(
+final case class SimulationState(
   physixEngine: PhysixEngine,
   world: World,
   timing: TimeState = Timing(),
@@ -37,8 +36,7 @@ class SimulationState(
 /**
   * Display options.
   */
-final case
-class DisplayOptions(
+final case class DisplayOptions(
   viewport: Box = WorldConfig.Arena.asBox,
   forceField: Boolean = GfxConfig.showForceField,
   vectors: Boolean = GfxConfig.showVectors,

@@ -33,24 +33,24 @@ object GraphicManager extends SimManager with LazyLogging {
     OpenGL.setCamera(state.display.viewport)
 
     // Draw the world force field
-    if( state.display.forceField )
+    if (state.display.forceField)
       OpenGL.apply(colour = Some(Colour.DARK_GREY)) {
         GenericRender.draw(state.world.forceField)
       }
 
     // Draw of the world elements
-    for( t <- state.world.bodies ) {
+    for (t <- state.world.bodies) {
       // Tank shape
       GenericRender.draw(t.shape)
 
       // Velocity vector
-      if( state.display.vectors ) {
+      if (state.display.vectors) {
         GenericRender.draw(t.velocity, t.position)
       }
     }
 
     // Draw the boundaries of the arena
-    for( b <- state.world.walls )
+    for (b <- state.world.walls)
       OpenGL.apply(Some(Colour.RED)) {
         GenericRender.draw(b)
       }

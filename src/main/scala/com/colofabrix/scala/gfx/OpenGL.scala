@@ -18,7 +18,6 @@ package com.colofabrix.scala.gfx
 
 import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.math.Vect
-import com.colofabrix.scala.tankwar.TankWar._
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11._
@@ -30,8 +29,7 @@ import org.lwjgl.opengl.{ Display, DisplayMode }
   */
 object OpenGL extends LazyLogging {
 
-  private
-  val DEG2RAD = 180 / Math.PI
+  private val DEG2RAD = 180 / Math.PI
 
   /** Initialize OpenGL */
   def init(width: Int, height: Int, title: String = "OpenGL Window") = {
@@ -92,26 +90,26 @@ object OpenGL extends LazyLogging {
     val colourBuffer = BufferUtils.createFloatBuffer(16)
 
     // Save the current settings (only if needed)
-    if( colour.isDefined )
+    if (colour.isDefined)
       glGetFloat(GL_CURRENT_COLOR, colourBuffer)
-    if( position.isDefined || rotation.isDefined )
+    if (position.isDefined || rotation.isDefined)
       glPushMatrix()
 
     // Set position, rotation and colour
-    for( p <- position )
+    for (p <- position)
       glTranslated(p.x, p.y, 0.0)
-    for( r <- rotation )
+    for (r <- rotation)
       glRotated(r.ϑ * DEG2RAD, 0, 0, 1)
-    for( c <- colour )
+    for (c <- colour)
       glColor3d(c.r, c.g, c.b)
     glLineWidth(lineWidth.toFloat)
 
     actions
 
     // Restore the previous settings
-    if( position.isDefined || rotation.isDefined )
+    if (position.isDefined || rotation.isDefined)
       glPopMatrix()
-    if( colour.isDefined )
+    if (colour.isDefined)
       glColor3d(
         colourBuffer.get(0).toDouble,
         colourBuffer.get(1).toDouble,

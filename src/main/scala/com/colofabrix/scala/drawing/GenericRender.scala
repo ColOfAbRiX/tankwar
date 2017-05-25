@@ -27,8 +27,7 @@ import com.colofabrix.scala.tankwar.Configuration.World.{ Arena => ArenaConfig }
   * Gateway to draw a variety of things, from simple to complex.
   */
 object GenericRender {
-  private
-  val arena = ArenaConfig.asBox
+  private val arena = ArenaConfig.asBox
 
   /** Draw a vector. */
   def draw(v: Vect, tail: Vect): Unit = Drawing.drawVector(v, tail)

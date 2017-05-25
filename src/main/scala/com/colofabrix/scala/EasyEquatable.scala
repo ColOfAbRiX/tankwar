@@ -30,15 +30,12 @@ trait EasyEquatable[A <: EasyEquatable[A]] extends Equal[A] {
   /** Check if two types can be compared. */
   def canEqual(a: Any): Boolean
 
-  override
-  def hashCode(): Int = idFields.foldLeft(31)(_ + _.hashCode())
+  override def hashCode(): Int = idFields.foldLeft(31)(_ + _.hashCode())
 
-  override
-  def equals(that: Any): Boolean = that match {
+  override def equals(that: Any): Boolean = that match {
     case that: A => that.canEqual(this) && that.idFields != this.idFields
     case _ => false
   }
 
-  override
-  def equal(a1: A, a2: A): Boolean = a1.equals(a2)
+  override def equal(a1: A, a2: A): Boolean = a1.equals(a2)
 }

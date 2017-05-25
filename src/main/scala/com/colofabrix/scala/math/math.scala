@@ -37,8 +37,7 @@ package object math {
     * Implicit approximate comparison between two Doubles
     * Ref: http://stackoverflow.com/questions/4915462/how-should-i-do-floating-point-comparison
     */
-  implicit
-  class DoubleWithAlmostEquals(val d1: Double) extends AnyVal {
+  implicit class DoubleWithAlmostEquals(val d1: Double) extends AnyVal {
     def ==~(d2: Double): Boolean = {
       // See: http://www.programgo.com/article/4441958781/
       val dd1 = d1 + 0.0
@@ -74,13 +73,10 @@ package object math {
   /**
     * Visualization styles for numbers
     */
-  implicit final
-  class NumberDisplay[T: Numeric](number: T) {
-    private
-    val _number = implicitly[Numeric[T]].toDouble(number)
+  implicit final class NumberDisplay[T: Numeric](number: T) {
+    private val _number = implicitly[Numeric[T]].toDouble(number)
 
-    private
-    val prefixes = Map(
+    private val prefixes = Map(
       -12 -> "p", -9 -> "n", -6 -> "µ", -3 -> "m",
       0 -> "",
       3 -> "K", 6 -> "M", 9 -> "G", 12 -> "T"
@@ -89,9 +85,9 @@ package object math {
     /** Rounds a number to N significant figures */
     def sig(significantFigures: Int = SIG_FIGURES): Double = {
       // Handle exceptional cases
-      if( _number == Double.PositiveInfinity ||
-          _number == Double.NegativeInfinity ||
-          _number == Double.NaN ) {
+      if (_number == Double.PositiveInfinity ||
+        _number == Double.NegativeInfinity ||
+        _number == Double.NaN) {
         return _number
       }
 
@@ -105,9 +101,9 @@ package object math {
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
 
       // Handle exceptional cases
-      if( _number == Double.PositiveInfinity ||
+      if (_number == Double.PositiveInfinity ||
         _number == Double.NegativeInfinity ||
-        _number == Double.NaN ) {
+        _number == Double.NaN) {
         return (_number, unit)
       }
 
@@ -127,9 +123,9 @@ package object math {
       def calcExp(n: Double, e: Int) = n * Math.pow(10, e.toDouble)
 
       // Handle exceptional cases
-      if( _number == Double.PositiveInfinity ||
+      if (_number == Double.PositiveInfinity ||
         _number == Double.NegativeInfinity ||
-        _number == Double.NaN ) {
+        _number == Double.NaN) {
         return (_number, unit)
       }
 

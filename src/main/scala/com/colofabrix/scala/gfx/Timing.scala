@@ -26,8 +26,7 @@ import org.lwjgl.opengl.Display
 object Timing {
 
   /** Timing information. */
-  final case
-  class TimeState(
+  final case class TimeState(
     lastTime: Double,
     lastDelta: Double,
     effectiveTime: Double,

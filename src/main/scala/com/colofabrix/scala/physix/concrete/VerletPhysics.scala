@@ -24,8 +24,7 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * Game physics, implemented using the Velocity Verlet integrator
   */
-final case
-class VerletPhysics() extends PhysixEngine with LazyLogging {
+final case class VerletPhysics() extends PhysixEngine with LazyLogging {
   logger.trace("Initializing Velocity-Verlet PhysixEngine.")
 
   /** Calculate the initial values of last position and velocity. */
@@ -36,8 +35,7 @@ class VerletPhysics() extends PhysixEngine with LazyLogging {
   }
 
   /** Move one body one time step into the future. */
-  override
-  def moveBody(body: RigidBody) = State { ctx =>
+  override def moveBody(body: RigidBody) = State { ctx =>
     // The velocity Verlet requires the velocity at the last step
     val lastVelocity = body.lastVelocity match {
       case Some(lv) => lv
@@ -59,9 +57,8 @@ class VerletPhysics() extends PhysixEngine with LazyLogging {
   }
 
   /** Move the whole physics one time step into the future. */
-  override
-  def step() = State { ctx =>
-    val nextBodies = for {b <- ctx.bodies} yield {
+  override def step() = State { ctx =>
+    val nextBodies = for { b <- ctx.bodies } yield {
       moveBody(b).run(ctx)._2
     }
 

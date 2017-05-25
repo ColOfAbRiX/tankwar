@@ -91,9 +91,7 @@ trait RigidBody extends EasyEquatable[RigidBody] {
     s"$className@$uuid"
   }
 
-  override
-  def toString: String = this.id
+  override def toString: String = this.id
 
-  override
-  def idFields: Seq[Any] = Seq(id)
+  override def idFields: Seq[Any] = Seq(id)
 }

@@ -25,29 +25,24 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * A Tank that plays in the game
   */
-final case
-class Tank private(
-  mass: Double = TanksConfig.mass,
-  position: Vect = Vect.zero,
-  lastPosition: Option[Vect] = None,
-  velocity: Vect = Vect.zero,
-  lastVelocity: Option[Vect] = None,
-  friction: Double = TanksConfig.friction,
-  elasticity: Double = TanksConfig.elasticity
+final case class Tank private (
+    mass: Double = TanksConfig.mass,
+    position: Vect = Vect.zero,
+    lastPosition: Option[Vect] = None,
+    velocity: Vect = Vect.zero,
+    lastVelocity: Option[Vect] = None,
+    friction: Double = TanksConfig.friction,
+    elasticity: Double = TanksConfig.elasticity
 ) extends RigidBody with LazyLogging {
   logger.trace(s"Initializing Tank: $summary")
 
-  override
-  def internalForce = Vect.zero
+  override def internalForce = Vect.zero
 
-  override
-  def shape = Circle(this.position, 10.0)
+  override def shape = Circle(this.position, 10.0)
 
-  override
-  def move(position: Vect = this.position, velocity: Vect = this.position): Tank = {
+  override def move(position: Vect = this.position, velocity: Vect = this.position): Tank = {
     Tank(mass, position, Some(this.position), velocity, Some(this.velocity), friction, elasticity)
   }
 
-  override
-  def canEqual(a: Any): Boolean = a.isInstanceOf[Tank]
+  override def canEqual(a: Any): Boolean = a.isInstanceOf[Tank]
 }

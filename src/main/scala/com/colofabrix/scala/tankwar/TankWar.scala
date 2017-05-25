@@ -58,19 +58,18 @@ object TankWar extends LazyLogging {
   }
 
   @tailrec
-  private
-  def run(state: SimulationState): SimulationState = {
+  private def run(state: SimulationState): SimulationState = {
     logger.info(s"Simulation step.")
     logger.info(s"Manager state: $state")
 
     // Stop when the simulation time is finished
-    if( state.timing.simulationTime > SimConfig.maxSimulationTime ) {
+    if (state.timing.simulationTime > SimConfig.maxSimulationTime) {
       logger.info(s"Simulation time (${state.timing.simulationTime.eng("s")}) exceeded maximum time. Terminating.")
       return state
     }
 
     // Stop when requested
-    if( Display.isCloseRequested ) {
+    if (Display.isCloseRequested) {
       logger.info(s"Received close request. Terminating.")
       return state
     }

@@ -21,8 +21,7 @@ import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Keyboard
 import com.colofabrix.scala.gfx.Keyboard._
 import com.colofabrix.scala.math.XYVect
-import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World =>
-WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World => WorldConfig }
 import com.colofabrix.scala.tankwar.SimulationState
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.input.Keyboard._
@@ -37,7 +36,7 @@ object KeyboardManager extends SimManager with LazyLogging {
     // Manage keys that perform actions when pressed continuosly
     //
     val continuousActions = for {
-    // Simulation speed
+      // Simulation speed
       _ <- OnKeyDown(KEY_ADD) { state: SimulationState =>
         logger.info(s"KEY_ADD pressed: increase simulation speed.")
         val td = state.world.timeDelta * (1.0 + 1.0 / GfxConfig.fps)
@@ -91,22 +90,22 @@ object KeyboardManager extends SimManager with LazyLogging {
     //
     val state2 = Keyboard.events().foldLeft(state1._1) {
       case (state, Keyboard.KeyPressed(k)) =>
-        if( k == KEY_H ) {
+        if (k == KEY_H) {
           logger.info("KEY_H pressed: Reset viewport.")
           state.copy(display = state.display.copy(viewport = Box(WorldConfig.Arena.width, WorldConfig.Arena.height)))
         }
 
-        else if( k == KEY_P ) {
+        else if (k == KEY_P) {
           logger.info(s"KEY_P pressed: Toggle pause.")
           state.copy(pause = !outerState.pause)
         }
 
-        else if( k == KEY_F && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT)) ) {
+        else if (k == KEY_F && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT))) {
           logger.info(s"KEY_F + KEY_xSHIFT pressed: Toggle view of force fields.")
           state.copy(display = state.display.copy(forceField = !outerState.display.forceField))
         }
 
-        else if( k == KEY_V && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT)) ) {
+        else if (k == KEY_V && (Keyboard.isKeyDown(KEY_LSHIFT) || Keyboard.isKeyDown(KEY_RSHIFT))) {
           logger.info(s"KEY_V + KEY_xSHIFT pressed: Toggle view of vectors.")
           state.copy(display = state.display.copy(vectors = !outerState.display.vectors))
         }

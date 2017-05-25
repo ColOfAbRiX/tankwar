@@ -21,7 +21,7 @@ import com.colofabrix.scala.geometry.shapes._
 import com.colofabrix.scala.math._
 
 /** Information about a collision between objects  */
-case class Collision(normal: Vect, distance: Double)
+final case class Collision(normal: Vect, distance: Double)
 
 object Collision {
 

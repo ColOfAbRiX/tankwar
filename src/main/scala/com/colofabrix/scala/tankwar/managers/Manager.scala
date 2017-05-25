@@ -24,8 +24,7 @@ import com.colofabrix.scala.tankwar.SimulationState
 trait Manager[S] {
   type ManagerAction = scalaz.State[S, S]
 
-  protected
-  def ret(state: S): (S, S) = (state, state)
+  protected def ret(state: S): (S, S) = (state, state)
 }
 
 /**
