@@ -17,6 +17,8 @@
 package com.colofabrix.scala.physix.concrete
 
 import scalaz._
+import com.colofabrix.scala.math._
+import com.colofabrix.scala.geometry.Collision
 import com.colofabrix.scala.math.VectUtils._
 import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
 import com.typesafe.scalalogging.LazyLogging
@@ -58,10 +60,29 @@ final case class VerletPhysics() extends PhysixEngine with LazyLogging {
 
   /** Move the whole physics one time step into the future. */
   override def step() = State { ctx =>
-    val nextBodies = for { b <- ctx.bodies } yield {
+    val newBodies = for { b <- ctx.bodies } yield {
       moveBody(b).run(ctx)._2
     }
 
-    (ctx.copy(bodies = nextBodies), nextBodies)
+    for {
+      b <- newBodies
+      w <- ctx.walls
+    } yield {
+      w.collision(b.shape) match {
+        case -\/(Collision(n, d)) =>
+          val v = b.velocity ∙ n
+          val velocity = if ((d <~ 0.0) && (v <~ 0.0)) {
+            b.velocity - 2.0 * v * n
+          }
+          else {
+            b.velocity
+          }
+          b.move(velocity = velocity)
+
+        case _ => b
+      }
+    }
+
+    (ctx.copy(bodies = newBodies), newBodies)
   }
 }
