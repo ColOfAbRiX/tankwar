@@ -30,20 +30,20 @@ object Collision {
     * http://www.wildbunny.co.uk/blog/2011/04/20/collision-detection-for-dummies/#
     */
   def collide(s1: Shape, s2: Shape): \/[Collision, Collision] = s1 match {
-    case c1: Circle ⇒ collide(c1, s2)
-    case b1: Box ⇒ collide(b1, s2)
-    case w1: Line ⇒ collide(w1, s2)
+    case c1: Circle => collide(c1, s2)
+    case b1: Box => collide(b1, s2)
+    case w1: Line => collide(w1, s2)
   }
 
   /** Detects if a Circle is colliding with another shape */
   def collide(c1: Circle, s2: Shape): \/[Collision, Collision] = {
     val collision = s2 match {
-      case c2: Circle ⇒
+      case c2: Circle =>
         val c2c = c1.center - c2.center
         val d = c2c.ρ - (c1.radius + c2.radius)
         Collision(c2c.v, d)
 
-      case b2: Box ⇒
+      case b2: Box =>
         val c2c = b2.center - c1.center
         val b2c = XYVect(
           Math.max(c2c.x, b2.width / 2.0),
@@ -52,7 +52,7 @@ object Collision {
         val d = b2c.ρ - c1.radius
         Collision(b2c.n, d)
 
-      case p2: Line ⇒
+      case p2: Line =>
         val d = p2.distance(c1.center) - c1.radius
         Collision(p2.normal, d)
     }
@@ -65,8 +65,8 @@ object Collision {
 
   /** Detects if a Plane is colliding with another shape */
   def collide(p1: Line, s2: Shape): \/[Collision, Collision] = s2 match {
-    case c2: Circle ⇒ collide(c2, p1)
-    case b2: Box ⇒ ???
-    case p2: Line ⇒ ???
+    case c2: Circle => collide(c2, p1)
+    case b2: Box => ???
+    case p2: Line => ???
   }
 }

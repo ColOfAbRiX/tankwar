@@ -44,7 +44,7 @@ object TankWar extends LazyLogging {
       Tank(
         mass = new Random().nextDouble() * 5.0,
         position = WorldConfig.Arena.asBox.opposite.xyRand(),
-        velocity = XYVect(0.0, 5.0).xyRand()
+        velocity = XYVect(0.0, 0.0).xyRand()
       )
     }
     val world: World = WorldXZGravity(tanks, SimConfig.timeDelta)

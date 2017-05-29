@@ -17,9 +17,9 @@
 package com.colofabrix.scala.physix.concrete
 
 import scalaz._
-import com.colofabrix.scala.math._
 import com.colofabrix.scala.geometry.{ Collision, Shape }
 import com.colofabrix.scala.math.VectUtils._
+import com.colofabrix.scala.math._
 import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
 import com.typesafe.scalalogging.LazyLogging
 
@@ -34,66 +34,65 @@ final case class VerletPhysics() extends PhysixEngine with LazyLogging {
     world: World
   )
 
-  /** Move the whole physics one time step into the future. */
-  override def step() = State { ctx: World =>
+  override def step() = State { world: World =>
     val actions = for {
       _ <- moveBodies()
       _ <- wallsCollision()
       r <- bodiesCollision()
     } yield r
 
-    val result = actions.run(InternalState(ctx, ctx))
+    val result = actions.run(InternalState(world, world))
     (result._1.world, result._2)
   }
 
-  /** Calculate the initial values of last position and velocity. */
-  private def initBody(body: RigidBody, world: World) = {
-    val acc = world.forceField(body.position) / body.mass
-    body.velocity - acc * world.timeDelta
-  }
-
-  /** Move one body one time step into the future. */
   private def moveBodies() = State { ctx: InternalState =>
-    val newBodies = for { b <- ctx.world.bodies } yield {
+    val newBodies = for {
+      b <- ctx.world.bodies
+    } yield {
       moveBody(b, ctx.world)
     }
+
     (ctx.copy(world = ctx.world.copy(bodies = newBodies)), newBodies)
   }
 
-  /** Move one body one time step into the future. */
-  private def moveBody(body: RigidBody, ctx: World): RigidBody = {
-    // The velocity Verlet requires the velocity at the last step
+  private def moveBody(body: RigidBody, world: World): RigidBody = {
+    // The velocity Verlet requires the velocity at the last step which we don't
+    // have at the first iteration
     val lastVelocity = body.lastVelocity match {
       case Some(lv) => lv
-      case _ => initBody(body, ctx)
+      case _ =>
+        val acc = world.forceField(body.position) / body.mass
+        body.velocity - acc * world.timeDelta
     }
 
-    val totalForce = body.internalForce + ctx.forceField(body.position)
-    val actualForce = totalForce * (1.0 - ctx.friction(body)(body.position))
+    val totalForce = body.internalForce + world.forceField(body.position)
+    val actualForce = totalForce * (1.0 - world.friction(body)(body.position))
 
     // Using Newton's laws to calculate next step state
     val acceleration = actualForce / body.mass
-    val velocity = body.velocity + acceleration * ctx.timeDelta
+    val velocity = body.velocity + acceleration * world.timeDelta
     // Using velocity Verlet integration
-    val position = body.position + 0.5 * (lastVelocity + velocity) * ctx.timeDelta
+    val position = body.position + 0.5 * (lastVelocity + velocity) * world.timeDelta
 
     // Return an updated body
     body.move(position, velocity)
   }
 
   private def wallsCollision() = State { ctx: InternalState =>
-    val newBodies = for { b <- ctx.world.bodies } yield {
+    val newBodies = for {
+      b <- ctx.world.bodies
+    } yield {
       ctx.world.walls.foldLeft(b)(wallCollision)
     }
+
     (ctx.copy(world = ctx.world.copy(bodies = newBodies)), newBodies)
   }
 
   private def wallCollision(b: RigidBody, w: Shape): RigidBody = {
-    w.collision(b.shape) match {
+    w collision b.shape match {
       case -\/(Collision(n, d)) =>
         val v = b.velocity ∙ n
-        val r = if (d <~ 0.0 && v <~ 0.0) { -2.0 * v * n }
-        else { Vect.zero }
+        val r = if( d <~ 0.0 && v <~ 0.0 ) -2.0 * v * n else Vect.zero
         b.move(velocity = b.velocity + r)
 
       case _ => b
