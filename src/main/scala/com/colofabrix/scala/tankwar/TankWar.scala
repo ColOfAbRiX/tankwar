@@ -16,6 +16,8 @@
 
 package com.colofabrix.scala.tankwar
 
+import java.util.Random
+
 import scala.annotation.tailrec
 import com.colofabrix.scala.gfx.OpenGL
 import com.colofabrix.scala.math.VectUtils.RichVect
@@ -40,8 +42,9 @@ object TankWar extends LazyLogging {
     val verlet: PhysixEngine = VerletPhysics()
     val tanks: Seq[RigidBody] = Seq.fill(WorldConfig.tankCount) {
       Tank(
-        position = WorldConfig.Arena.asBox.center.xyRand(),
-        velocity = XYVect(25.0, 25.0).xyRand()
+        mass = new Random().nextDouble() * 5.0,
+        position = WorldConfig.Arena.asBox.opposite.xyRand(),
+        velocity = XYVect(0.0, 5.0).xyRand()
       )
     }
     val world: World = WorldXZGravity(tanks, SimConfig.timeDelta)

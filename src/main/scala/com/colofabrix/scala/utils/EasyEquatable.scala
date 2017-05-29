@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio Colonna
+ * Copyright (C) 2017 fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala
+package com.colofabrix.scala.utils
 
 import scalaz.Equal
 

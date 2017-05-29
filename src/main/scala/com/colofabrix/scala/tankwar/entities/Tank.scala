@@ -25,7 +25,7 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * A Tank that plays in the game
   */
-final case class Tank private (
+final case class Tank(
     mass: Double = TanksConfig.mass,
     position: Vect = Vect.zero,
     lastPosition: Option[Vect] = None,
@@ -40,7 +40,7 @@ final case class Tank private (
 
   override def shape = Circle(this.position, 10.0)
 
-  override def move(position: Vect = this.position, velocity: Vect = this.position): Tank = {
+  override def move(position: Vect = this.position, velocity: Vect = this.velocity): Tank = {
     Tank(mass, position, Some(this.position), velocity, Some(this.velocity), friction, elasticity)
   }
 

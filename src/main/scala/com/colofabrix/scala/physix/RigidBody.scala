@@ -16,9 +16,9 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.EasyEquatable
 import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.utils.EasyEquatable
 
 /**
   * Represents a physical objects in the physical space with some physical details.
@@ -70,7 +70,7 @@ trait RigidBody extends EasyEquatable[RigidBody] {
   /* Actions of the body */
 
   /** Physically moves the body. */
-  def move(position: Vect, velocity: Vect): RigidBody
+  def move(position: Vect = this.position, velocity: Vect = this.velocity): RigidBody
 
   /* Utilities */
 

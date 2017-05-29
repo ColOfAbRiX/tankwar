@@ -26,23 +26,19 @@ import com.typesafe.scalalogging.LazyLogging
 /**
   * World as a slice in the vertical plane of the real world, with gravity and static friction.
   */
-final case
-class WorldXZGravity(
-  bodies: Seq[RigidBody],
-  timeDelta: Double
+final case class WorldXZGravity(
+    bodies: Seq[RigidBody],
+    timeDelta: Double
 ) extends World with LazyLogging {
   logger.trace(s"Initializing WorldXZGravity World.")
   logger.trace(s"List of bodies: $bodies")
   logger.trace(s"Time delta: $bodies")
 
-  override
-  def forceField: VectorField = _ => XYVect(0.0, -9.80665)
+  override def forceField: VectorField = _ => XYVect(0.0, -9.80665)
 
-  override
-  def friction(body: RigidBody): ScalarField = _ => body.mass * 1.0E-2 + Math.pow(body.velocity.ρ, 2.0) * 1.0E-5
+  override def friction(body: RigidBody): ScalarField = _ => Math.pow(body.velocity.ρ, 2.0) * 5.0E-4
 
-  override
-  def walls: Seq[Shape] = Seq(
+  override def walls: Seq[Shape] = Seq(
     // Ceiling
     Line(XYVect(0.0, -1.0), WorldConfig.Arena.height),
     // Left side
@@ -53,8 +49,7 @@ class WorldXZGravity(
     Line(XYVect(-1.0, 0.0), WorldConfig.Arena.width)
   )
 
-  override
-  def copy(
+  override def copy(
     bodies: Seq[RigidBody] = bodies,
     timeDelta: Double = timeDelta
   ): WorldXZGravity = WorldXZGravity(bodies, timeDelta)

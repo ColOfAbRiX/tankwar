@@ -22,9 +22,6 @@ package com.colofabrix.scala.physix
 trait PhysixEngine {
   type PhysixAction[A] = scalaz.State[World, A]
 
-  /** Move one body one time step into the future. */
-  def moveBody(body: RigidBody): PhysixAction[RigidBody]
-
-  /** Advances the bodies of one step. */
+  /** Advances the World of one step. */
   def step(): PhysixAction[Seq[RigidBody]]
 }

@@ -17,8 +17,8 @@
 package com.colofabrix.scala.geometry
 
 import scalaz.\/
-import com.colofabrix.scala.EasyEquatable
 import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.utils.EasyEquatable
 
 /**
   * Represents a geometric closed shape on a geometric space
