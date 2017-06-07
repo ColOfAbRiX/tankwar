@@ -82,7 +82,7 @@ final case class VerletPhysics() extends PhysixEngine with LazyLogging {
     val newBodies = for {
       b <- ctx.world.bodies
     } yield {
-      ctx.world.walls.foldLeft(b)(wallCollision)
+      ctx.world.walls.foldLeft(b)(wallCollision(_, _))
     }
 
     (ctx.copy(world = ctx.world.copy(bodies = newBodies)), newBodies)
@@ -92,7 +92,7 @@ final case class VerletPhysics() extends PhysixEngine with LazyLogging {
     w collision b.shape match {
       case -\/(Collision(n, d)) =>
         val v = b.velocity ∙ n
-        val r = if( d <~ 0.0 && v <~ 0.0 ) -2.0 * v * n else Vect.zero
+        val r = if (d <~ 0.0 && v <~ 0.0) -2.0 * v * n else Vect.zero
         b.move(velocity = b.velocity + r)
 
       case _ => b

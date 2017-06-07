@@ -37,6 +37,13 @@ After few years of relative laziness, I took the opportunity with one of my stud
 project. With the oncoming of my interest for the Scala Programming Language I decided to start myself a side project to
 that first one and properly implement my own ideas on the subject and learn the language itself.
 
+The first implementation of the project has been a success, I could see different behaviours evolving after only few 
+tens of generations but at the same time all my inexperience on the domain and on the programming style made the code
+fairly complex and messy, also because I decided to implement by myself the physics and nerual network algorithms.
+For these reasons and for the fact that I wanted more generalization and to be able to play around in different 
+situations, I decided to fully rewrite the projct using more funcional programming and libraries, except for the
+graphics that I think it's small enough that it's worth the effor of building it.
+
 [PLOSS-1]: http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1000292
 
 ### Goals
@@ -50,7 +57,7 @@ and [Genetic Algorithms][WIKI-2]. And to be honest, to see my little tanks evolv
 lives in the arena.
 
 The second goal is to improve my skills in programming and to learn a new language (Scala), data structures and related
-algorithms, programming methodologies, market standards and tools.
+algorithms, programming methodologies, market standards and tools as well as functional programming.
 
 The third and last goad is to enter properly the world of Open Source learning its standards and sharing my creations with
 the community.
@@ -110,9 +117,13 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
 ### Programming
 
 * Scala programming language
-  * Functional programming
   * Design patterns in scala
   * SBT
+* Functional programming
+  * Immutability
+  * Pure code
+  * Scalaz library
+  * Monads and Monads Transformers
 * Implementation of algorithms and data structures
   * Quadtree for spatial partitioning
   * Matrix multiplication
@@ -139,6 +150,7 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
   * Polygons and algorithms to determine some of their properties
   * Algorithms Complexity
 * OpenGL APIs
+  * 2D graphics
 * Vectors and Matrices implementation and optimizations 
 
 ### Topics of Open Source Software

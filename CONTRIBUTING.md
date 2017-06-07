@@ -5,7 +5,7 @@ It's nice to have people that helps you. It enriches the project with new ideas 
 Please, follow these guidelines to make sure a certain quality of the code is met and to allow people to work smoothly
 together.
 
-###Reccomended settings
+### Recommended settings
 
 To run the project is needed at least:
 
@@ -31,7 +31,7 @@ coding habits.
 * Open the command line and browse to the repository directory
 * Run `sbt run`
 
-###Using Vangrant and/or Ansible
+### Using Vangrant and/or Ansible
 
 With the probject are included some files to provision a development virtual machine with Vagrant and configured with an
 Ansible script. The steps to follow are
@@ -68,7 +68,7 @@ Add the project to your preferred IDE and start coding! As simple as that.
 * Make sure you have added the necessary tests for your changes.
 * Run _all_ the tests to assure nothing else was accidentally broken.
 
-###Workload organisation
+### Workload organisation
 
 A private installation of JIRA is used to organise the workload and the tasks are not visible to the public.
 At the moment there is no plan to make this public and only accepted and recognized members of the project will be given
@@ -76,7 +76,7 @@ access to the JIRA project.
 
 Public contributor can use the Github Issue service to submit and discuss new issues, tasks and improvements.
 
-###Code Style
+### Code Style
 
 The ultimate goal of a good and consistent code styling is readability and understandability of the code. Code is itself
 the main documentation but a bad style can really create [obscure code][IOCCC]. In addition, if more people contribute
@@ -92,7 +92,7 @@ In general, when something is not clear, follow the [Scala Style Guide][scala-st
 [IOCCC]: http://www.ioccc.org/
 [scala-style]: http://docs.scala-lang.org/style/scaladoc.html
 
-##Submitting the code
+## Submitting the code
 
 Push to your fork and submit a pull request from Github.
 
@@ -114,7 +114,7 @@ Some things that will increase the chance that your pull request is accepted:
 [commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 [comments]: http://www.hongkiat.com/blog/source-code-comment-styling-tips/
 
-#Thanks
+# Thanks
 
 Thanks to [Puppetlab][puppet] and to [Thoughtbot][thoughtbot] for ideas on the CONTRIBUTING file.
 

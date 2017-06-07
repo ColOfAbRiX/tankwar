@@ -28,7 +28,6 @@
         <parameter value="UTF-8" />
         <parameter value="-Xfuture" />
         <parameter value="-Xlint" />
-        <parameter value="-Ywarn-numeric-widen" />
         <parameter value="-Ywarn-value-discard" />
         <parameter value="-Ywarn-unused-import" />
         <parameter value="-Ywarn-adapted-args" />

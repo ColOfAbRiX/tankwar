@@ -112,7 +112,7 @@ javaOptions ++= Seq(
   "-XX:+UseCompressedClassPointers",
   // Other settings
   s"-Djava.library.path=${unmanagedBase.value}",
-   "-Dfile.encoding=UTF-8"
+  "-Dfile.encoding=UTF-8"
 )
 
 // Scaladoc configuration
@@ -152,6 +152,8 @@ lazy val compileScalastyle = taskKey[Unit]("compileScalastyle")
 compileScalastyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle.in(Compile).toTask("").value
 (compile in Compile) <<= (compile in Compile) dependsOn compileScalastyle
 */
+
+scalafmtConfig := (resourceDirectory in Compile).value / "scalafmt.conf"
 
 scalastyleConfig := file( s"${sourceDirectory.value}/main/resources/scalastyle-config.xml" )
 

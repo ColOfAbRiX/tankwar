@@ -21,7 +21,7 @@ import com.colofabrix.scala.geometry.shapes.Box
 import com.colofabrix.scala.gfx.Keyboard
 import com.colofabrix.scala.gfx.Keyboard._
 import com.colofabrix.scala.math.XYVect
-import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, Simulation => SimConfig, World => WorldConfig }
+import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, World => WorldConfig }
 import com.colofabrix.scala.tankwar.SimulationState
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.input.Keyboard._
