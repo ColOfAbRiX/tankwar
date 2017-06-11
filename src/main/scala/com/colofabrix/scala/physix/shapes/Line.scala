@@ -14,9 +14,8 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.physix.shapes
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect, XYVect }
 
 /**
@@ -30,10 +29,10 @@ class Line private (
   require(normal != Vect.zero, "A line must be defined with a non-zero normal.")
 
   /** Parameter "m" of the line equation y = mx + q */
-  val m = -(normal.x / normal.y)
+  val m: Double = -(normal.x / normal.y)
 
   /** Parameter "q" of the line equation y = mx + q */
-  val q = -distance / normal.y
+  val q: Double = -distance / normal.y
 
   /** Distance of a point from the line. */
   def distance(v: Vect): Double = ((normal ∙ v) + distance).abs
@@ -42,7 +41,7 @@ class Line private (
   def equation(x: Double): Vect = XYVect(x, m * x + q)
 
   /** Known point on the line. */
-  val p = equation(0.0)
+  val p: Vect = equation(0.0)
 
   /** Clip the line into a segment fully contained in a Box. */
   def clip(frame: Box): Option[Segment] = {

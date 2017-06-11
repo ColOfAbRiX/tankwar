@@ -16,16 +16,17 @@
 
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.physix.shapes.Box
 import com.colofabrix.scala.gfx.Timing
 import com.colofabrix.scala.gfx.Timing.TimeState
-import com.colofabrix.scala.physix.{ PhysixEngine, World }
+import com.colofabrix.scala.physix.PhysixEngine
+import com.colofabrix.scala.physix.worlds.World
 import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig, World => WorldConfig }
 
 /**
   * Status of the simulation.
   */
-final case class SimulationState(
+final case class SimState(
   physixEngine: PhysixEngine,
   world: World,
   timing: TimeState = Timing(),

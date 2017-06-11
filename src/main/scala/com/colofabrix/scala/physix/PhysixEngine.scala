@@ -16,6 +16,8 @@
 
 package com.colofabrix.scala.physix
 
+import com.colofabrix.scala.physix.worlds.World
+
 /**
   * Generic Physix Engine.
   */

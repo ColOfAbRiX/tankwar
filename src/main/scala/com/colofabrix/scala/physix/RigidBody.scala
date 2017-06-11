@@ -16,8 +16,8 @@
 
 package com.colofabrix.scala.physix
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.physix.shapes.Shape
 import com.colofabrix.scala.utils.EasyEquatable
 
 /**

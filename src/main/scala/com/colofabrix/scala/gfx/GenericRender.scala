@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio Colonna
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,11 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.drawing
+package com.colofabrix.scala.gfx
 
 import scala.annotation.tailrec
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.geometry.shapes.{ Box, Circle, Line, Segment }
-import com.colofabrix.scala.gfx.{ Colour, Drawing, OpenGL }
 import com.colofabrix.scala.math.{ Vect, VectorField, XYVect }
+import com.colofabrix.scala.physix.shapes._
 import com.colofabrix.scala.tankwar.Configuration.World.{ Arena => ArenaConfig }
 
 /**
@@ -32,7 +30,7 @@ object GenericRender {
   /** Draw a vector. */
   def draw(v: Vect, tail: Vect): Unit = Drawing.drawVector(v, tail)
 
-  /** Draw the shapes of com.colofabrix.scala.geometry.shapes */
+  /** Draw the shapes of com.colofabrix.scala.physix.shapes */
   @tailrec
   def draw(s: Shape): Unit = s match {
     case c: Circle => Drawing.drawCircle(c.center, c.radius)

@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.tankwar.entities
 
-import com.colofabrix.scala.geometry.shapes.Circle
+import com.colofabrix.scala.physix.shapes.Circle
 import com.colofabrix.scala.math.Vect
 import com.colofabrix.scala.physix.RigidBody
 import com.colofabrix.scala.tankwar.Configuration.{ Tanks => TanksConfig }

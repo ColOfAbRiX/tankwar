@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio Colonna
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.physix.concrete
+package com.colofabrix.scala.physix
 
 import scalaz._
-import com.colofabrix.scala.geometry.{ Collision, Shape }
 import com.colofabrix.scala.math.VectUtils._
 import com.colofabrix.scala.math._
-import com.colofabrix.scala.physix.{ PhysixEngine, RigidBody, World }
+import com.colofabrix.scala.physix.shapes.Shape
+import com.colofabrix.scala.physix.worlds.World
 import com.typesafe.scalalogging.LazyLogging
 
 /**
@@ -89,8 +89,8 @@ final case class VerletPhysics() extends PhysixEngine with LazyLogging {
   }
 
   private def wallCollision(b: RigidBody, w: Shape): RigidBody = {
-    w collision b.shape match {
-      case -\/(Collision(n, d)) =>
+    w.collision(b.shape) match {
+      case Overlap(n, d) =>
         val v = b.velocity ∙ n
         val r = if (d <~ 0.0 && v <~ 0.0) -2.0 * v * n else Vect.zero
         b.move(velocity = b.velocity + r)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio Colonna
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry
+package com.colofabrix.scala.physix.shapes
 
 import scalaz.\/
 import com.colofabrix.scala.math.Vect
+import com.colofabrix.scala.physix.Collision
 import com.colofabrix.scala.utils.EasyEquatable
 
 /**
@@ -35,7 +36,7 @@ trait Shape extends EasyEquatable[Shape] {
     * there is a collision, the right disjunction if there is no
     * collision.
     */
-  def collision(s: Shape): \/[Collision, Collision] = Collision.collide(this, s)
+  def collision(s: Shape): Collision = Collision.check(this, s)
 
   /** Moves a shape of the given vector. */
   def move(v: Vect): Shape

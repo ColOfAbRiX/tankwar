@@ -17,16 +17,17 @@
 package com.colofabrix.scala.tankwar.managers
 
 import scalaz.State
-import com.colofabrix.scala.math.{ XYVect, _ }
+import com.colofabrix.scala.math._
 import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
+import com.colofabrix.scala.tankwar.SimState
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Manages world and the progressing of the simulation
   */
-object WorldManager extends SimManager with LazyLogging {
+object WorldManager extends Manager[SimState] with LazyLogging {
 
-  def apply(): SimAction = State { state =>
+  def apply(): ManagerAction = State { state =>
     val actions = for {
       nextBodies <- state.physixEngine.step()
     } yield nextBodies

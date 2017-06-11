@@ -17,13 +17,12 @@
 package com.colofabrix.scala.tankwar
 
 import java.util.Random
-
 import scala.annotation.tailrec
 import com.colofabrix.scala.gfx.OpenGL
 import com.colofabrix.scala.math.VectUtils.RichVect
 import com.colofabrix.scala.math._
 import com.colofabrix.scala.physix._
-import com.colofabrix.scala.physix.concrete._
+import com.colofabrix.scala.physix.worlds.{ World, WorldXZGravity }
 import com.colofabrix.scala.tankwar.Configuration.{ Simulation => SimConfig, World => WorldConfig }
 import com.colofabrix.scala.tankwar.entities.Tank
 import com.colofabrix.scala.tankwar.managers._
@@ -54,14 +53,14 @@ object TankWar extends LazyLogging {
       WorldConfig.Arena.height.toInt
     )
 
-    val finalState = TankWar.run(SimulationState(verlet, world))
+    val finalState = TankWar.run(SimState(verlet, world))
 
     OpenGL.destroy()
     logger.info(s"Simulation terminated with status: $finalState.")
   }
 
   @tailrec
-  private def run(state: SimulationState): SimulationState = {
+  private def run(state: SimState): SimState = {
     logger.info(s"Simulation step.")
     logger.info(s"Manager state: $state")
 
@@ -86,7 +85,7 @@ object TankWar extends LazyLogging {
     } yield s
 
     // Run and call recursive for next iteration
-    return run(actions.run(state)._2)
+    return run(actions.run(state)._1)
   }
 
 }

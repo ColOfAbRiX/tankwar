@@ -17,17 +17,17 @@
 package com.colofabrix.scala.tankwar.managers
 
 import scalaz.State
-import com.colofabrix.scala.drawing.GenericRender
-import com.colofabrix.scala.gfx._
+import com.colofabrix.scala.gfx.{ GenericRender, _ }
 import com.colofabrix.scala.tankwar.Configuration.{ Graphics => GfxConfig }
+import com.colofabrix.scala.tankwar.SimState
 import com.typesafe.scalalogging.LazyLogging
 
 /**
   * Manages the display of graphics
   */
-object GraphicManager extends SimManager with LazyLogging {
+object GraphicManager extends Manager[SimState] with LazyLogging {
 
-  def apply(): SimAction = State { state =>
+  def apply(): ManagerAction = State { state =>
     // Viewport
     OpenGL.clear()
     OpenGL.setCamera(state.display.viewport)

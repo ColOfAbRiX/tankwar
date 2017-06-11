@@ -14,9 +14,8 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.physix.shapes
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ DoubleWithAlmostEquals, Vect }
 
 /**

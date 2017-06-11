@@ -14,10 +14,9 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.physix.shapes
 
 import scala.annotation.tailrec
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
@@ -96,7 +95,7 @@ final case class Segment(p0: Vect, p1: Vect) extends Shape {
   def clip(frame: Box): Option[Segment] = new CohenSutherland(frame).clip(this)
 
   /** Slope of the segment. */
-  val slope = (p1.y - p0.y) / (p1.x - p0.x)
+  val slope: Double = (p1.y - p0.y) / (p1.x - p0.x)
 
   override def area: Double = 0.0
 

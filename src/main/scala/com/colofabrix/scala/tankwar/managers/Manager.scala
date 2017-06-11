@@ -16,22 +16,13 @@
 
 package com.colofabrix.scala.tankwar.managers
 
-import com.colofabrix.scala.tankwar.SimulationState
-
 /**
   * Generic manager.
   */
 trait Manager[S] {
-  type ManagerAction = scalaz.State[S, S]
+  type ManagerAction = scalaz.State[S, Unit]
 
-  protected def ret(state: S): (S, S) = (state, state)
-}
+  def apply(): ManagerAction
 
-/**
-  * Representation of a manager for the simulation.
-  */
-trait SimManager extends Manager[SimulationState] {
-  type SimAction = ManagerAction
-
-  def apply(): SimAction
+  protected def ret(state: S): (S, Unit) = (state, ())
 }

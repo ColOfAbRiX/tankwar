@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.gfx
 
-import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.physix.shapes.Box
 import com.colofabrix.scala.math.Vect
 import com.typesafe.scalalogging.LazyLogging
 import org.lwjgl.BufferUtils

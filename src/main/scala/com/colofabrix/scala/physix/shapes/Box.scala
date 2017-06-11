@@ -14,9 +14,8 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.geometry.shapes
+package com.colofabrix.scala.physix.shapes
 
-import com.colofabrix.scala.geometry.Shape
 import com.colofabrix.scala.math.{ Vect, XYVect }
 
 /**
@@ -44,10 +43,10 @@ class Box protected (
   )
 
   /** Height of the rectangle */
-  val height = topRight.y - bottomLeft.y
+  val height: Double = topRight.y - bottomLeft.y
 
   /** Width of the rectangle */
-  val width = topRight.x - bottomLeft.x
+  val width: Double = topRight.x - bottomLeft.x
 
   require(width > 0.0, "Box width must be positive.")
   require(width > 0.0, "Box height must be positive.")
@@ -55,31 +54,31 @@ class Box protected (
   override val area = width * height
 
   /** Center of the Box */
-  val center = bottomLeft + XYVect(width / 2.0, height / 2.0)
+  val center: Vect = bottomLeft + XYVect(width / 2.0, height / 2.0)
 
   /** The vertex that is closest to the origin of the axes. */
-  lazy val origin = vertices.minBy(_.ρ)
+  lazy val origin: Vect = vertices.minBy(_.ρ)
 
   /** The vertex that is farthest to the origin of the axes. */
-  lazy val opposite = vertices.maxBy(_.ρ)
+  lazy val opposite: Vect = vertices.maxBy(_.ρ)
 
   /** Rectangle top-left-most point, in any quadrant of the plane */
-  val topLeft = XYVect(bottomLeft.x, topRight.y)
+  val topLeft: Vect = XYVect(bottomLeft.x, topRight.y)
 
   /** Rectangle bottom-right-most point, in any quadrant of the plane */
-  val bottomRight = XYVect(topRight.x, bottomLeft.y)
+  val bottomRight: Vect = XYVect(topRight.x, bottomLeft.y)
 
   /** Rectangle top-most Y */
-  val top = topRight.y
+  val top: Double = topRight.y
 
   /** Rectangle bottom-most Y */
-  val bottom = bottomLeft.y
+  val bottom: Double = bottomLeft.y
 
   /** Rectangle left-most X */
-  val left = bottomLeft.x
+  val left: Double = bottomLeft.x
 
   /** Rectangle right-most X */
-  val right = topRight.x
+  val right: Double = topRight.x
 
   override def move(where: Vect): Box = Box(bottomLeft + where, topRight + where)
 

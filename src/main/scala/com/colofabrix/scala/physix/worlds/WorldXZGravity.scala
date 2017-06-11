@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Fabrizio Colonna
+ * Copyright (C) 2017 Fabrizio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
  * governing permissions and limitations under the License.
  */
 
-package com.colofabrix.scala.physix.concrete
+package com.colofabrix.scala.physix.worlds
 
-import com.colofabrix.scala.geometry.Shape
-import com.colofabrix.scala.geometry.shapes.Line
 import com.colofabrix.scala.math._
-import com.colofabrix.scala.physix.{ RigidBody, World }
+import com.colofabrix.scala.physix.RigidBody
+import com.colofabrix.scala.physix.shapes.{ Line, Shape }
 import com.colofabrix.scala.tankwar.Configuration.{ World => WorldConfig }
 import com.typesafe.scalalogging.LazyLogging
 

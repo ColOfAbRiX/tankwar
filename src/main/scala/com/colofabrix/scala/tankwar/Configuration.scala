@@ -16,7 +16,7 @@
 
 package com.colofabrix.scala.tankwar
 
-import com.colofabrix.scala.geometry.shapes.Box
+import com.colofabrix.scala.physix.shapes.Box
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.LazyLogging
 
