@@ -32,7 +32,7 @@ final case class Tank(
     velocity: Vect = Vect.zero,
     lastVelocity: Option[Vect] = None,
     friction: Double = TanksConfig.friction,
-    elasticity: Double = TanksConfig.elasticity
+    restitution: Double = TanksConfig.elasticity
 ) extends RigidBody with LazyLogging {
   logger.trace(s"Initializing Tank: $summary")
 
@@ -41,7 +41,7 @@ final case class Tank(
   override def shape = Circle(this.position, 10.0)
 
   override def move(position: Vect = this.position, velocity: Vect = this.velocity): Tank = {
-    Tank(mass, position, Some(this.position), velocity, Some(this.velocity), friction, elasticity)
+    Tank(mass, position, Some(this.position), velocity, Some(this.velocity), friction, restitution)
   }
 
   override def canEqual(a: Any): Boolean = a.isInstanceOf[Tank]

@@ -29,6 +29,7 @@ trait RigidBody extends EasyEquatable[RigidBody] {
 
   /** The mass of the rigid body */
   def mass: Double
+  final lazy val invMass: Double = 1.0 / mass
 
   /** A geometric shape that defines the Body */
   def shape: Shape
@@ -65,7 +66,7 @@ trait RigidBody extends EasyEquatable[RigidBody] {
   def friction: Double
 
   /** A number (0.0, 1.0) that represent the elasticity at the surface of the object. */
-  def elasticity: Double
+  def restitution: Double
 
   /* Actions of the body */
 

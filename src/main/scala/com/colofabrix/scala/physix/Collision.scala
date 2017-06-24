@@ -21,15 +21,15 @@ import com.colofabrix.scala.physix.shapes._
 
 /** Information about a collision between objects  */
 trait Collision {
-  sealed def flip(): Collision
+  def flip(): Collision
 }
 
 final case class Overlap(normal: Vect, distance: Double) extends Collision {
-  sealed override def flip(): Collision = this.copy(normal = normal * -1.0)
+  override def flip(): Collision = this.copy(normal = normal * -1.0)
 }
 
 final case class Separate(normal: Vect, distance: Double) extends Collision {
-  sealed override def flip(): Collision = this.copy(normal = normal * -1.0)
+  override def flip(): Collision = this.copy(normal = normal * -1.0)
 }
 
 /**
@@ -64,7 +64,7 @@ object Collision {
     )
     val d = b2c.ρ - circle.radius
 
-    if( d <~ 0.0 )
+    if (d <~ 0.0)
       Overlap(b2c.n, d)
     else
       Separate(b2c.n, d)
@@ -74,7 +74,7 @@ object Collision {
     val c2c = circle1.center - circle2.center
     val d = c2c.ρ - (circle1.radius + circle2.radius)
 
-    if( d <~ 0.0 )
+    if (d <~ 0.0)
       Overlap(c2c.v, d)
     else
       Separate(c2c.v, d)
@@ -83,7 +83,7 @@ object Collision {
   private def checkCircleLine(circle: Circle, line: Line): Collision = {
     val d = line.distance(circle.center) - circle.radius
 
-    if( d <~ 0.0 )
+    if (d <~ 0.0)
       Overlap(line.normal, d)
     else
       Separate(line.normal, d)
