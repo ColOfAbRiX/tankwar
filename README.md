@@ -1,13 +1,17 @@
-#TankWar
+# TankWar
 
-##A study on Neuroevolution
+**NOTE:** This is version 1 of the project. The [Goals](#goals) stated below have been achieved and this repository will not be updated. Refer to [TankWar-2][tankwar-2] for updates.
+
+[tankwar-2]: https://github.com/ColOfAbRiX/tankwar-2
+
+## A study on Neuroevolution
 
 > "Neuroevolution, or neuro-evolution, is a form of machine learning that uses evolutionary algorithms to train artificial
 neural networks. It is most commonly applied in artificial life, computer games, and evolutionary robotics." - Wikipedia
 
-##The TankWar Project
+## The TankWar Project
 
-###A brief description
+### A brief description
 
 The project is a simulation of a battlefield where small _"alive"_ beings (to be intended in [this broad sense][turing-test]),
 named Tanks, fight between each others for their survival and to transmit their genes to the next generation.
@@ -25,11 +29,11 @@ This is an optimization process aimed at maximising a "life function".
 
 [turing-test]: https://en.wikipedia.org/wiki/Turing_test
 
-###History
+### History
 
 The project was first inspired reading, years ago, the article [Evolution of Adaptive Behaviour in Robots by Means of
 Darwinian Selection][PLOSS-1]. In the article some algorithms were first trained on a computer, using a combination of
-neural networks to control their behaviour, and evolutionary algorithm to train the network themselves. The resulting 
+neural networks to control their behaviour, and evolutionary algorithm to train the network themselves. The resulting
 data was then implemented into real robot that started to fight between each others exposing recognizable behaviours and
 patterns.
 
@@ -39,11 +43,11 @@ that first one and properly implement my own ideas on the subject and learn the 
 
 [PLOSS-1]: http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1000292
 
-###Goals
+### Goals
 
 TankWar has several different goals. And all the goals are related to learning and personal growth.
 
-Tankwar is mainly an educational project.
+Tankwar is mainly an educational project. I built in house as much as I could precisely to learn.
 
 The first is to learn the basics of Artificial Intelligence and related topic, like [Artificial Neural Networks][WIKI-1]
 and [Genetic Algorithms][WIKI-2]. And to be honest, to see my little tanks evolve and how they live their artificial
@@ -58,7 +62,7 @@ the community.
 [WIKI-1]: https://en.wikipedia.org/wiki/Neural_network
 [WIKI-2]: https://en.wikipedia.org/wiki/Genetic_algorithm
 
-####Disclaimer
+#### Disclaimer
 
 For these reasons many of the tasks and components found in the project could have been done in a different way, probably
 in more simple and clever ways or even with the help of external libraries (for instance, there are many libraries for
@@ -77,13 +81,13 @@ state-of-the-art practices. I will be pleased to receive corrections and suggest
 [WIKI-3]: https://en.wikipedia.org/wiki/Not_invented_here
 [JOEL]: http://joelonsoftware.com/articles/fog0000000007.html
 
-##Quick Start
+## Quick Start
 
 For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CONTRIBUTING.md** file
 
-##Topics touched by the project
+## Topics touched by the project
 
-###Neural Networks
+### Neural Networks
 
 * Implementation of a Neural Network
 * Studies on Graphs
@@ -95,7 +99,7 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
   * Topology-evolving networks
 * Performance
 
-###Genetic Algorithms
+### Genetic Algorithms
 
 * Evolution strategies
 * Selection strategies
@@ -107,7 +111,7 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
 
 [WATCH]: http://watchmaker.uncommons.org/
 
-###Programming
+### Programming
 
 * Scala programming language
   * Functional programming
@@ -120,7 +124,7 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
 * Performance testings
   * Computational complexity
 
-###Programming Tools and Methodologies
+### Programming Tools and Methodologies
 
 * Managing the workflow with Kanban
 * Organise the issues with JIRA
@@ -131,7 +135,7 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
   * External Github tools
 * GIT
 
-###Topics of Computer Graphics
+### Topics of Computer Graphics
 
 * Computational Geometry
   * Collision detection
@@ -139,9 +143,9 @@ For quick start read the [Getting Started](CONTRIBUTING.md) section in the **CON
   * Polygons and algorithms to determine some of their properties
   * Algorithms Complexity
 * OpenGL APIs
-* Vectors and Matrices implementation and optimizations 
+* Vectors and Matrices implementation and optimizations
 
-###Topics of Open Source Software
+### Topics of Open Source Software
 
 * Open Source Licenses
 * De Facto standards for repositories
